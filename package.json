@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "node src/start.js",
     "build": "next build",
-    "start": "next start",
+    "start": "NODE_ENV=production node src/start.js",
     "lint": "eslint --ext js,ts,tsx src",
     "format:code": "eslint --ext js,ts,tsx src --fix",
     "test": "jest --watchAll"
@@ -14,7 +14,10 @@
     "extends": "react-app"
   },
   "dependencies": {
+    "esm": "^3.2.25",
+    "express": "^4.17.1",
     "next": "9.4.4",
+    "next-i18next": "^4.4.2",
     "react": "16.13.1",
     "react-dom": "16.13.1"
   },

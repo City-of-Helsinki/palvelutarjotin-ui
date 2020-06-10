@@ -5,7 +5,7 @@ exports[`Index page Should match Snapshot 1`] = `
   <div>
     <main>
       <h1>
-        Welcome to Palvelutarjotin
+        Palvelutarjotin
       </h1>
     </main>
   </div>
