@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Index page Should match Snapshot 1`] = `
+<div>
+  <div>
+    <main>
+      <h1>
+        Welcome to Palvelutarjotin
+      </h1>
+    </main>
+  </div>
+</div>
+`;
