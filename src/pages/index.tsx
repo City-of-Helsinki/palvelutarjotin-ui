@@ -1,7 +1,7 @@
-import Head from 'next/head'
-import React from "react";
+import Head from 'next/head';
+import React from 'react';
 
-export default function Home() {
+const Home = (): React.ReactElement => {
   return (
     <div>
       <Head>
@@ -10,10 +10,10 @@ export default function Home() {
       </Head>
 
       <main>
-        <h1>
-          Welcome to Palvelutarjotin
-        </h1>
+        <h1>Welcome to Palvelutarjotin</h1>
       </main>
     </div>
-  )
-}
+  );
+};
+
+export default Home;

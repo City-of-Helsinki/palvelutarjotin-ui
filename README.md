@@ -1,4 +1,5 @@
 # palvelutarjotin-ui
+
 User interface for Palvelutarjotin
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
@@ -25,6 +26,18 @@ Builds the app for production to the `build` folder.
 
 Runs the built app in the production mode.<br />
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+
+### `yarn lint`
+
+Run linter to all the files in app
+
+### `yarn format:code`
+
+Fix all the linter errors
+
+### `yarn test`
+
+Launches the test runner in the interactive watch mode.
 
 ## Learn More
 
