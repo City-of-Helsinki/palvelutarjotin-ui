@@ -39,6 +39,37 @@ Fix all the linter errors
 
 Launches the test runner in the interactive watch mode.
 
+## Debugging
+
+### Debugging project in VS Code
+
+To debug in VS Code:
+
+1. Install the "Debugger for Chrome" extension to VS Code
+2. Run `yarn dev`
+3. Set a breakpoint
+4. Run "Chrome" debug configuration in VS Code
+5. Reload the project in your browser
+
+### Debugging Tests in VS Code
+
+No plugin is needed.
+
+1. Set a breakpoint
+2. Run the "Run tests" debugger configuration
+
+### Debugging Tests in Chrome
+
+We recommend using VS Code's debugger.
+
+1. Place a `debugger;` statement in any test
+2. Run yarn `test:debug`
+3. Open `about:inspect` in Chrome
+4. Select `inspect` on you process, press Play and you're good to go.
+
+See more detailed instructions here:
+https://create-react-app.dev/docs/debugging-tests#debugging-tests-in-chrome
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
