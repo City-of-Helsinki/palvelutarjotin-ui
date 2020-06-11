@@ -15,7 +15,7 @@ const Container: FunctionComponent<Props> = ({
 }) => {
   return (
     <div className={classnames(styles.container, styles[size], className)}>
-      {children}
+      <div>{children}</div>
     </div>
   );
 };

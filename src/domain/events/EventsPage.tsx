@@ -2,7 +2,7 @@ import Head from 'next/head';
 import React, { ReactElement } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import LanguageDropdown from '../../domain/app/header/languageDropdown/LanguageDropdown';
+import Container from '../app/layout/Container';
 
 const EventsPage = (): ReactElement => {
   const { t } = useTranslation();
@@ -15,8 +15,9 @@ const EventsPage = (): ReactElement => {
       </Head>
 
       <main>
-        <h1>{t('common:appName')}</h1>
-        <LanguageDropdown />
+        <Container>
+          <h1>{t('common:appName')}</h1>
+        </Container>
       </main>
     </div>
   );

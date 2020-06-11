@@ -4,9 +4,15 @@ exports[`Index page Should match Snapshot 1`] = `
 <div>
   <div>
     <main>
-      <h1>
-        Palvelutarjotin
-      </h1>
+      <div
+        class="container"
+      >
+        <div>
+          <h1>
+            Palvelutarjotin
+          </h1>
+        </div>
+      </div>
     </main>
   </div>
 </div>

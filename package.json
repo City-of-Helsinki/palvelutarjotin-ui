@@ -8,7 +8,7 @@
     "start": "NODE_ENV=production node src/start.js",
     "lint": "eslint --ext js,ts,tsx src",
     "format:code": "eslint --ext js,ts,tsx src --fix",
-    "test": "jest --watchAll"
+    "test": "SASS_PATH=./src/assets/styles jest --watchAll"
   },
   "eslintConfig": {
     "extends": "react-app"

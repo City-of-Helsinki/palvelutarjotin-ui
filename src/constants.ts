@@ -6,4 +6,4 @@ export enum SUPPORTED_LANGUAGES {
 
 export const DEFAULT_LANGUAGE = SUPPORTED_LANGUAGES.FI;
 
-export const COMMON_I18N_NAMESPACES = ['common', 'footer'];
+export const COMMON_I18N_NAMESPACES = ['common', 'footer', 'header'];

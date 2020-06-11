@@ -1,0 +1,9 @@
+{
+  "ariaLabelLogo": "Framsidan",
+  "changeLanguage": "SV språkval",
+  "languages": {
+    "en": "In English",
+    "fi": "Suomeksi",
+    "sv": "På svenska"
+  }
+}
