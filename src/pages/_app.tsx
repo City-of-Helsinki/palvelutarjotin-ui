@@ -10,7 +10,7 @@ class MyApp extends App {
     const { Component, pageProps } = this.props;
 
     return (
-      <PageLayout>
+      <PageLayout {...pageProps} namespacesRequired={['common', 'footer']}>
         <Component {...pageProps} />
       </PageLayout>
     );

@@ -1,6 +1,6 @@
 import React from 'react';
 
-// import Footer from '../footer/Footer';
+import Footer from '../footer/Footer';
 // import Header from '../header/Header';
 import styles from './pageLayout.module.scss';
 
@@ -11,7 +11,7 @@ const PageLayout: React.FC = ({ children }) => {
 
       <div className={styles.pageBody}>{children}</div>
 
-      <div>FOOTER</div>
+      <Footer />
     </div>
   );
 };

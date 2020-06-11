@@ -2,7 +2,9 @@ import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 
 import common from '../locales/fi/common.json';
-const translations = { common };
+import footer from '../locales/fi/footer.json';
+
+const translations = { common, footer };
 
 i18n.use(initReactI18next).init({
   lng: 'fi',
