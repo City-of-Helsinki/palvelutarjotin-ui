@@ -1,0 +1,18 @@
+@import 'fonts';
+@import 'variables';
+
+* {
+  font-family: $font-family-base;
+}
+
+button {
+  &:focus {
+    outline: 2px solid $focusOutline;
+  }
+}
+
+p,
+span,
+li {
+  line-height: $baseLineHeight;
+}
