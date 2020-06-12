@@ -1,6 +1,6 @@
-import withSass from '@zeit/next-sass';
+const withSass = require('@zeit/next-sass');
 
-export default withSass({
+module.exports = withSass({
   cssModules: true,
   cssLoaderOptions: {
     importLoaders: 1,
