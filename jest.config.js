@@ -1,4 +1,6 @@
 module.exports = {
+  testEnvironment: 'jsdom',
+  preset: 'ts-jest',
   transform: {
     '.+\\.(css|styl|less|sass|scss)$':
       '<rootDir>/node_modules/jest-css-modules-transform',
