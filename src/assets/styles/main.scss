@@ -1,0 +1,23 @@
+@import 'fonts';
+@import 'variables';
+
+* {
+  font-family: $font-family-base;
+}
+
+body > div {
+  min-height: 100vh;
+  display: grid;
+}
+
+button {
+  &:focus {
+    outline: 2px solid $focusOutline;
+  }
+}
+
+p,
+span,
+li {
+  line-height: $baseLineHeight;
+}

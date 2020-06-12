@@ -1,0 +1,55 @@
+@import 'mixins';
+
+$logoColor: #000;
+
+.navbar {
+  --color-app-name: var(--color-black);
+
+  --fontsize-app-name: var(--fontsize-h-4);
+
+  --fontweight-app-name: 600;
+
+  --height-logo: 2.5rem;
+
+  --grid-gap-logo: var(--spacing-l);
+
+  --padding-logo: var(--spacing-s) 0;
+
+  --width-logo: 5.5rem;
+}
+
+.navbar {
+  height: 100%;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-gap: var(--grid-gap-logo);
+}
+
+.logoWrapper {
+  padding: var(--padding-logo);
+  display: grid;
+  grid-template-columns: auto 1fr;
+
+  a {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-gap: var(--grid-gap-logo);
+    align-items: center;
+    text-decoration: none;
+  }
+}
+
+.appName {
+  color: var(--color-app-name);
+  font-size: var(--fontsize-app-name);
+  font-weight: var(--fontweight-app-name);
+  align-self: center;
+}
+
+.logo {
+  @include helsinki-logo($logoColor);
+
+  background-position: center;
+  height: var(--height-logo);
+  width: var(--width-logo);
+}

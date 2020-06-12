@@ -1,26 +1,12 @@
-import Head from 'next/head';
 import React from 'react';
-import { useTranslation } from 'react-i18next';
 
-const Home = (): React.ReactElement => {
-  const { t } = useTranslation();
+import { COMMON_I18N_NAMESPACES } from '../constants';
+import EventsPage from '../domain/events/EventsPage';
 
-  return (
-    <div>
-      <Head>
-        <title>{t('common:appName')}</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+const Events = (): React.ReactElement => <EventsPage />;
 
-      <main>
-        <h1>{t('common:appName')}</h1>
-      </main>
-    </div>
-  );
-};
-
-Home.getInitialProps = async () => ({
-  namespacesRequired: ['common'],
+Events.getInitialProps = async () => ({
+  namespacesRequired: [...COMMON_I18N_NAMESPACES],
 });
 
-export default Home;
+export default Events;

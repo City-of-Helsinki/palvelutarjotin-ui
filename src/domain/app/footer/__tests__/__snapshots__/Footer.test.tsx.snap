@@ -1,0 +1,58 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Footer matches snapshot 1`] = `
+<footer
+  class="footer"
+>
+  <div
+    class="Koros-module_koros__1r3rg koros"
+  >
+    <svg
+      height="85"
+      width="100%"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <defs>
+        <pattern
+          height="85"
+          id="koros_basic-1"
+          patternUnits="userSpaceOnUse"
+          width="106"
+          x="0"
+          y="0"
+        >
+          <path
+            d="M0,800h20V0c-4.9,0-5,2.6-9.9,2.6S5,0,0,0V800z"
+            transform="scale(5.3)"
+          />
+        </pattern>
+      </defs>
+      <rect
+        fill="url(#koros_basic-1)"
+        height="85"
+        width="100%"
+      />
+    </svg>
+  </div>
+  <div
+    class="container"
+  >
+    <div>
+      <div
+        class="contentWrapper"
+      >
+        <div
+          class="helsinkiLogo"
+        />
+        <div
+          class="copyright"
+        >
+          <p>
+            © Copyright 2020 • Kaikki oikeudet pidätetään
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+`;

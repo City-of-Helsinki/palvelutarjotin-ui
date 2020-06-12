@@ -1,0 +1,9 @@
+{
+  "ariaLabelLogo": "Etusivu",
+  "changeLanguage": "FI kielivalikko",
+  "languages": {
+    "en": "In English",
+    "fi": "Suomeksi",
+    "sv": "På svenska"
+  }
+}
