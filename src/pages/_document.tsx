@@ -13,7 +13,15 @@ export default class MyDocument extends Document<DocumentProps> {
   render(): React.ReactElement {
     return (
       <Html lang={documentLang(this.props)}>
-        <Head />
+        <Head>
+          {Array.from(document.head.getElementsByTagName('style')).map(
+            (style, index) => (
+              <style key={index} type={style.type}>
+                {style.innerHTML}
+              </style>
+            )
+          )}
+        </Head>
         <body>
           <Main />
           <NextScript />
