@@ -11,7 +11,7 @@ const createApolloClient = (
   initialState: NormalizedCacheObject = {}
 ): ApolloClient<NormalizedCacheObject> => {
   const httpLink = new HttpLink({
-    uri: process.env.API_BASE_URL,
+    uri: process.env.NEXT_PUBLIC_API_BASE_URL,
   });
 
   const cache = new InMemoryCache().restore(initialState || {});

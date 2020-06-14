@@ -27,6 +27,10 @@ Builds the app for production to the `build` folder.
 Runs the built app in the production mode.<br />
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
+### `yarn codegen`
+
+Generate static types for GraphQL queries by using the schema from the backend server. Url to can be defined to NEXT_PUBLIC_API_BASE_URL variable in .env file
+
 ### `yarn lint`
 
 Run linter to all the files in app
