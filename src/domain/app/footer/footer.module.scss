@@ -1,6 +1,6 @@
+@import 'layout';
 @import 'mixins';
-
-$colorLogo: #000;
+@import 'variables';
 
 .footer {
   --background-color-footer: var(--color-black-5);
@@ -32,6 +32,16 @@ $colorLogo: #000;
   > div {
     padding: 0;
   }
+
+  @include respond-below(sm) {
+    opacity: 1;
+    transition: visibility 0.2s, opacity 0.2s;
+
+    &.mobileMenuOpen {
+      opacity: 0;
+      visibility: hidden;
+    }
+  }
 }
 
 .contentWrapper {
@@ -40,7 +50,7 @@ $colorLogo: #000;
 }
 
 .helsinkiLogo {
-  @include helsinki-logo($colorLogo);
+  @include helsinki-logo($logoColor);
 
   background-position: center;
   height: var(--height-logo);

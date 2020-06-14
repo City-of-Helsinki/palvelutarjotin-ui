@@ -1,6 +1,5 @@
 @import 'mixins';
-
-$logoColor: #000;
+@import 'variables';
 
 .navbar {
   --color-app-name: var(--color-black);

@@ -5,9 +5,9 @@ import React from 'react';
 import MenuDropdown, { MenuDropdownProps, MenuItem } from '../MenuDropdown';
 
 const renderMenuDropdown = (props: MenuDropdownProps) => {
-  const ui = <MenuDropdown {...props} />;
+  const component = <MenuDropdown {...props} />;
 
-  const { container } = render(ui);
+  const { container } = render(component);
 
   const menu = screen.getByRole('menu');
 

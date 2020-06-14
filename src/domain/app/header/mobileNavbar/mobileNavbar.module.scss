@@ -1,0 +1,67 @@
+@import 'mixins';
+@import 'variables';
+
+.mobileNavbar {
+  --color-app-name: var(--color-black);
+
+  --fontsize-app-name: var(--fontsize-h-4);
+
+  --fontweight-app-name: 600;
+
+  --grid-gap: var(--spacing-l);
+
+  --height-logo: 2.5rem;
+
+  --spacing-button-icon: var(--spacing-2-xs);
+  --spacing-navbar: var(--spacing-2-xs) 0;
+
+  --zindex: 3;
+  --width-logo: 5.5rem;
+}
+
+.mobileNavbar {
+  height: 100%;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-gap: var(--grid-gap);
+  padding: var(--spacing-navbar);
+
+  .appNameLink {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    text-decoration: none;
+    align-items: center;
+    grid-gap: var(--grid-gap);
+    z-index: var(--zindex);
+  }
+
+  .logo {
+    @include helsinki-logo($logoColor);
+
+    background-position: center;
+    height: var(--height-logo);
+    width: var(--width-logo);
+  }
+
+  .appName {
+    margin: 0;
+    font-size: var(--fontsize-app-name);
+    font-weight: var(--fontweight-app-name);
+    color: var(--color-app-name);
+    white-space: nowrap;
+  }
+
+  .buttonWrapper {
+    display: flex;
+    flex: 1 1 0%;
+    justify-content: flex-end;
+    z-index: var(--zindex);
+
+    .iconButton {
+      background: none;
+      border: none;
+      padding: var(--spacing-button-icon);
+      margin-right: calc(0px - var(--spacing-button-icon));
+    }
+  }
+}

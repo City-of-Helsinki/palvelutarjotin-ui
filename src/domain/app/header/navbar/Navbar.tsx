@@ -6,28 +6,30 @@ import Container from '../../layout/Container';
 import LanguageDropdown from '../languageDropdown/LanguageDropdown';
 import styles from './navbar.module.scss';
 
-const Navbar: React.FC = () => {
+interface Props {
+  className?: string;
+}
+
+const Navbar: React.FC<Props> = ({ className }) => {
   const { t } = useTranslation();
 
   return (
-    <Container>
-      <div className={styles.navbar}>
-        <div className={styles.logoWrapper}>
-          <Link
-            aria-label={t('header:ariaLabelLogo')}
-            href={'/'}
-            passHref={true}
-          >
-            <a href="/">
-              <div className={styles.logo} />
-              <div className={styles.appName}>{t('common:appName')}</div>
-            </a>
-          </Link>
-        </div>
+    <div className={className}>
+      <Container>
+        <div className={styles.navbar}>
+          <div className={styles.logoWrapper}>
+            <Link href={'/'} passHref={true}>
+              <a href="/" aria-label={t('header:ariaLabelLogo')}>
+                <div className={styles.logo} />
+                <div className={styles.appName}>{t('common:appName')}</div>
+              </a>
+            </Link>
+          </div>
 
-        <LanguageDropdown />
-      </div>
-    </Container>
+          <LanguageDropdown />
+        </div>
+      </Container>
+    </div>
   );
 };
 

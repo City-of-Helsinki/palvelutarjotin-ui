@@ -3,15 +3,14 @@ import React from 'react';
 import { Provider } from 'react-redux';
 
 import { store } from '../../store';
-import PageLayout from '../PageLayout';
+import Header from '../Header';
 
-it('PageLayout matches snapshot', () => {
+it('Header matches snapshot', () => {
   const { container } = render(
     <Provider store={store}>
-      <PageLayout>
-        <div>Page layout children</div>
-      </PageLayout>
+      <Header />
     </Provider>
   );
+
   expect(container.firstChild).toMatchSnapshot();
 });
