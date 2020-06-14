@@ -2,6 +2,7 @@
 
 exports[`Footer matches snapshot 1`] = `
 <footer
+  aria-hidden="false"
   class="footer"
 >
   <div

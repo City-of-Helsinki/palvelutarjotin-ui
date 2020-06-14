@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MobileMenu matches snapshot 1`] = `
+<div
+  aria-hidden="false"
+  class="mobileMenu menuOpen"
+  data-testid="mobile-menu"
+>
+  <div
+    class="linksWrapper"
+  />
+  <div
+    class="languageSelect"
+  >
+    <ul>
+      <li
+        class="languageLink"
+      >
+        <button
+          lang="en"
+        >
+          In English
+        </button>
+      </li>
+      <li
+        class="languageLink isSelected"
+      >
+        <button
+          lang="fi"
+        >
+          Suomeksi
+        </button>
+      </li>
+      <li
+        class="languageLink"
+      >
+        <button
+          lang="sv"
+        >
+          På svenska
+        </button>
+      </li>
+    </ul>
+  </div>
+</div>
+`;
