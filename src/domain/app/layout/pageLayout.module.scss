@@ -1,3 +1,5 @@
+@import 'layout';
+
 .pageLayout {
   --background-color-body: #f7f6f6;
 }
@@ -14,4 +16,14 @@
 .pageBody {
   display: grid;
   background-color: var(--background-color-body);
+
+  @include respond-below(sm) {
+    opacity: 1;
+    transition: visibility 0.2s, opacity 0.2s;
+
+    &.mobileMenuOpen {
+      opacity: 0;
+      visibility: hidden;
+    }
+  }
 }

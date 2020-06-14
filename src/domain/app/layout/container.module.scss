@@ -6,7 +6,7 @@
   grid-row: span;
   place-content: flex-start;
 
-  grid-template-columns: 0.75rem 1fr 0.75rem;
+  grid-template-columns: var(--spacing-2-xs) 1fr var(--spacing-2-xs);
 
   @include respond-between(sm, xlg) {
     grid-template-columns: 1fr 10fr 1fr;

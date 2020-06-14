@@ -1,0 +1,13 @@
+@import 'layout';
+
+.mobileNavbar {
+  @include respond_above(sm) {
+    display: none !important;
+  }
+}
+
+.navbar {
+  @include respond_below(sm) {
+    display: none !important;
+  }
+}

@@ -1,4 +1,6 @@
 {
+  "ariaLabelCloseMenu": "Sulje valikko",
+  "ariaLabelOpenMenu": "Avaa valikko",
   "ariaLabelLogo": "Etusivu",
   "changeLanguage": "FI kielivalikko",
   "languages": {
