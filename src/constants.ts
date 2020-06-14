@@ -1,3 +1,5 @@
+export const IS_CLIENT = typeof window !== undefined;
+
 export enum SUPPORTED_LANGUAGES {
   EN = 'en',
   FI = 'fi',

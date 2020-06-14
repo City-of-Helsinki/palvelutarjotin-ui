@@ -32,6 +32,9 @@ CMD ["yarn", "dev"]
 # ===================================
 FROM appbase as staticbuilder
 # ===================================
+# Set environmental variables (when building image on GitLab CI) 
+# specified in gitlab-ci.yml file  
+ARG API_BASE_URL
 
 # Use non-root user
 USER appuser
