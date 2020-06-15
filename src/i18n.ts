@@ -18,6 +18,7 @@ export const {
   appWithTranslation,
   i18n,
   Link,
+  Router,
   useTranslation,
   withTranslation,
 } = NextI18NextInstance;

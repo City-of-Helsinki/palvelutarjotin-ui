@@ -1,0 +1,25 @@
+{
+  "eventList": {
+    "buttonLoadMore": "Show more",
+    "count": "{{count}} pcs",
+    "labelSort": "Order:",
+    "title": "Events"
+  },
+  "sortOptions": {
+    "duration": "Duration, ascending",
+    "durationDesc": "Duration, descending",
+    "endTime": "End time, ascending",
+    "endTimeDesc": "End time, descending",
+    "lastModifiedTime": "Last modified, ascending",
+    "lastModifiedTimeDesc": "Last modified, descending",
+    "startTime": "Start time, ascending",
+    "startTimeDesc": "Start time, descending"
+  },
+  "search": {
+    "buttonClear": "Clear search criteria",
+    "buttonSearch": "Search",
+    "labelText": "Search events",
+    "placeholderText": "Search events...",
+    "title": "Search events"
+  }
+}

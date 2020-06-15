@@ -8,7 +8,8 @@ import { isMobileMenuOpenSelector } from '../header/mobileMenu/selectors';
 import styles from './pageLayout.module.scss';
 
 const PageLayout: React.FC = ({ children }) => {
-  const { isMobileMenuOpen } = useSelector(isMobileMenuOpenSelector);
+  const isMobileMenuOpen = useSelector(isMobileMenuOpenSelector);
+
   return (
     <div className={styles.pageLayout}>
       <Header />

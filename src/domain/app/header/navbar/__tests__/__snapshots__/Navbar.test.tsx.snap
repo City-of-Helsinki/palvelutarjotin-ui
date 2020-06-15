@@ -87,14 +87,6 @@ exports[`Navbar matches snapshot 1`] = `
             role="menu"
           >
             <li
-              class="menuItem"
-              lang="en"
-              role="menuitem"
-              tabindex="0"
-            >
-              In English
-            </li>
-            <li
               class="menuItem isSelected"
               lang="fi"
               role="menuitem"
@@ -109,6 +101,14 @@ exports[`Navbar matches snapshot 1`] = `
               tabindex="0"
             >
               På svenska
+            </li>
+            <li
+              class="menuItem"
+              lang="en"
+              role="menuitem"
+              tabindex="0"
+            >
+              In English
             </li>
           </ul>
         </div>

@@ -1,0 +1,12 @@
+overwrite: true
+schema: ${NEXT_PUBLIC_API_BASE_URL}
+documents: ['./src/**/mutation.ts', './src/**/query.ts']
+generates:
+  src/generated/graphql.tsx:
+    plugins:
+      - 'typescript'
+      - 'typescript-operations'
+      - 'typescript-react-apollo'
+    config:
+      withHooks: true
+      withComponent: false
