@@ -1,5 +1,6 @@
 {
   "eventList": {
+    "buttonLoadMore": "Visa mer",
     "count": "{{count}} st",
     "labelSort": "Beställa:",
     "title": "Evenemang"

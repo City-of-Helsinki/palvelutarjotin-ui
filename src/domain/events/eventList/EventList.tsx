@@ -1,7 +1,8 @@
-import { Dropdown } from 'hds-react';
+import { Button, Dropdown } from 'hds-react';
 import React, { ReactElement } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import LoadingSpinner from '../../../common/components/loadingSpinner/LoadingSpinner';
 import { EventsQuery } from '../../../generated/graphql';
 import { translateValue } from '../../../utils/translateUtils';
 import EventCard from '../../event/eventCard/EventCard';
@@ -10,11 +11,21 @@ import styles from './eventList.module.scss';
 
 interface Props {
   eventsData: EventsQuery;
+  fetchMore: () => void;
+  isLoading: boolean;
+  shouldShowLoadMore: boolean;
   sort: EVENT_SORT_OPTIONS;
   setSort: (val: EVENT_SORT_OPTIONS) => void;
 }
 
-const EventList = ({ eventsData, sort, setSort }: Props): ReactElement => {
+const EventList = ({
+  eventsData,
+  fetchMore,
+  isLoading,
+  shouldShowLoadMore,
+  sort,
+  setSort,
+}: Props): ReactElement => {
   const { t } = useTranslation();
   const sortOptions = React.useMemo(() => {
     return Object.keys(EVENT_SORT_OPTIONS).map((key) => {
@@ -66,6 +77,15 @@ const EventList = ({ eventsData, sort, setSort }: Props): ReactElement => {
           );
         })}
       </div>
+      {shouldShowLoadMore && (
+        <LoadingSpinner isLoading={isLoading}>
+          <div className={styles.loadMoreButtonWrapper}>
+            <Button onClick={fetchMore} variant="supplementary">
+              {t('events:eventList.buttonLoadMore')}
+            </Button>
+          </div>
+        </LoadingSpinner>
+      )}
     </div>
   );
 };

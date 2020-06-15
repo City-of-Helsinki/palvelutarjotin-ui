@@ -4,8 +4,9 @@ import React, { ReactElement } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import LoadingSpinner from '../../common/components/loadingSpinner/LoadingSpinner';
-import { useEventsQuery } from '../../generated/graphql';
+import { useEventsQuery, EventsQuery } from '../../generated/graphql';
 import { Router } from '../../i18n';
+import getPageNumberFromUrl from '../../utils/getPageNumberFromUrl';
 import Container from '../app/layout/Container';
 import { ROUTES } from '../app/routes/constants';
 import { EVENT_LIST_PAGE_SIZE, EVENT_SORT_OPTIONS } from './constants';
@@ -22,6 +23,8 @@ import {
 const EventsPage = (): ReactElement => {
   const { t } = useTranslation();
   const { query } = useRouter();
+  const [isLoadingMore, setIsLoadingMore] = React.useState(false);
+
   const variables = React.useMemo(
     () => getEventFilterVariables(query, { pageSize: EVENT_LIST_PAGE_SIZE }),
     [query]
@@ -33,7 +36,7 @@ const EventsPage = (): ReactElement => {
 
   const initialValues = React.useMemo(() => getInitialValues(query), [query]);
 
-  const { data: eventsData, loading } = useEventsQuery({
+  const { data: eventsData, fetchMore, loading } = useEventsQuery({
     ssr: false,
     variables: { ...variables, sort },
   });
@@ -50,6 +53,40 @@ const EventsPage = (): ReactElement => {
       pathname: ROUTES.HOME,
       query: {},
     });
+  };
+
+  const nextPage = React.useMemo(() => {
+    const nextUrl = eventsData?.events?.meta.next;
+    return nextUrl ? getPageNumberFromUrl(nextUrl) : null;
+  }, [eventsData?.events?.meta?.next]);
+
+  const shouldShowLoadMore = Boolean(nextPage);
+
+  const fetchMoreEvents = async () => {
+    if (nextPage) {
+      try {
+        setIsLoadingMore(true);
+        await fetchMore({
+          updateQuery: (prev: EventsQuery, { fetchMoreResult }) => {
+            if (!fetchMoreResult?.events) {
+              return prev;
+            }
+
+            const prevEvents = prev.events?.data || [];
+            const newEvents = fetchMoreResult.events?.data || [];
+            fetchMoreResult.events.data = [...prevEvents, ...newEvents];
+
+            return fetchMoreResult;
+          },
+          variables: {
+            page: nextPage,
+          },
+        });
+        setIsLoadingMore(false);
+      } catch (e) {
+        setIsLoadingMore(false);
+      }
+    }
   };
 
   return (
@@ -73,6 +110,9 @@ const EventsPage = (): ReactElement => {
             {eventsData && (
               <EventList
                 eventsData={eventsData}
+                fetchMore={fetchMoreEvents}
+                isLoading={isLoadingMore}
+                shouldShowLoadMore={shouldShowLoadMore}
                 sort={sort}
                 setSort={setSort}
               />

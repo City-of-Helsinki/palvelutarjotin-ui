@@ -1,5 +1,6 @@
 {
   "eventList": {
+    "buttonLoadMore": "Näytä lisää",
     "count": "{{count}} kpl",
     "labelSort": "Järjestys:",
     "title": "Tapahtumat"
