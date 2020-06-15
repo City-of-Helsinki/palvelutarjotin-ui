@@ -14,8 +14,8 @@ const Container: FunctionComponent<Props> = ({
   size = 'default',
 }) => {
   return (
-    <div className={classnames(styles.container, styles[size], className)}>
-      <div>{children}</div>
+    <div className={classnames(styles.container, styles[size])}>
+      <div className={className}>{children}</div>
     </div>
   );
 };

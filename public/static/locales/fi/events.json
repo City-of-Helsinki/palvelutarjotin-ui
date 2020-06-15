@@ -1,0 +1,9 @@
+{
+  "search": {
+    "buttonClear": "Tyhjennä hakuehdot",
+    "buttonSearch": "Hae",
+    "labelText": "Hae tapahtumia",
+    "placeholderText": "Hae tapahtumia...",
+    "title": "Hae tapahtumia"
+  }
+}

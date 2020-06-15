@@ -1,0 +1,9 @@
+{
+  "search": {
+    "buttonClear": "Clear search criteria",
+    "buttonSearch": "Search",
+    "labelText": "Search events",
+    "placeholderText": "Search events...",
+    "title": "Search events"
+  }
+}

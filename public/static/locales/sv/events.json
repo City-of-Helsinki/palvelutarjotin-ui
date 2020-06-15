@@ -1,0 +1,9 @@
+{
+  "search": {
+    "buttonClear": "Rensa sökkriterier",
+    "buttonSearch": "Sök",
+    "labelText": "Sök evenemang",
+    "placeholderText": "Sök evenemang...",
+    "title": "Sök evenemang"
+  }
+}

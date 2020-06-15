@@ -1,3 +1,4 @@
+import { getDataFromTree } from '@apollo/react-ssr';
 import { InMemoryCache, NormalizedCacheObject } from 'apollo-cache-inmemory';
 import { ApolloClient } from 'apollo-client';
 import { ApolloLink } from 'apollo-link';
@@ -45,8 +46,9 @@ const initApolloClient = (
   return apolloClient;
 };
 
-export default withApollo(({ initialState }) => {
-  return initApolloClient(initialState);
-});
+export default withApollo(
+  ({ initialState }) => initApolloClient(initialState),
+  { getDataFromTree }
+);
 
 export { apolloClient };
