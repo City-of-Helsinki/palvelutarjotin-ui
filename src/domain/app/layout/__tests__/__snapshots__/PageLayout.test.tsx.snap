@@ -73,15 +73,6 @@ exports[`PageLayout matches snapshot 1`] = `
               >
                 <ul>
                   <li
-                    class="languageLink"
-                  >
-                    <button
-                      lang="en"
-                    >
-                      In English
-                    </button>
-                  </li>
-                  <li
                     class="languageLink isSelected"
                   >
                     <button
@@ -97,6 +88,15 @@ exports[`PageLayout matches snapshot 1`] = `
                       lang="sv"
                     >
                       På svenska
+                    </button>
+                  </li>
+                  <li
+                    class="languageLink"
+                  >
+                    <button
+                      lang="en"
+                    >
+                      In English
                     </button>
                   </li>
                 </ul>
@@ -194,14 +194,6 @@ exports[`PageLayout matches snapshot 1`] = `
                 role="menu"
               >
                 <li
-                  class="menuItem"
-                  lang="en"
-                  role="menuitem"
-                  tabindex="0"
-                >
-                  In English
-                </li>
-                <li
                   class="menuItem isSelected"
                   lang="fi"
                   role="menuitem"
@@ -216,6 +208,14 @@ exports[`PageLayout matches snapshot 1`] = `
                   tabindex="0"
                 >
                   På svenska
+                </li>
+                <li
+                  class="menuItem"
+                  lang="en"
+                  role="menuitem"
+                  tabindex="0"
+                >
+                  In English
                 </li>
               </ul>
             </div>

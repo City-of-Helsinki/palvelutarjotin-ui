@@ -14,15 +14,6 @@ exports[`MobileMenu matches snapshot 1`] = `
   >
     <ul>
       <li
-        class="languageLink"
-      >
-        <button
-          lang="en"
-        >
-          In English
-        </button>
-      </li>
-      <li
         class="languageLink isSelected"
       >
         <button
@@ -38,6 +29,15 @@ exports[`MobileMenu matches snapshot 1`] = `
           lang="sv"
         >
           På svenska
+        </button>
+      </li>
+      <li
+        class="languageLink"
+      >
+        <button
+          lang="en"
+        >
+          In English
         </button>
       </li>
     </ul>

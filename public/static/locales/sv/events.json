@@ -1,4 +1,19 @@
 {
+  "eventList": {
+    "count": "{{count}} st",
+    "labelSort": "Beställa:",
+    "title": "Evenemang"
+  },
+  "sortOptions": {
+    "duration": "Varaktighet, stigande",
+    "durationDesc": "Varaktighet, fallande",
+    "endTime": "Sluttid, stigande",
+    "endTimeDesc": "Sluttid, fallande",
+    "lastModifiedTime": "Senast modifierad, stigande",
+    "lastModifiedTimeDesc": "Senast modifierad, fallande",
+    "startTime": "Starttid, stigande",
+    "startTimeDesc": "Starttid, fallande"
+  },
   "search": {
     "buttonClear": "Rensa sökkriterier",
     "buttonSearch": "Sök",

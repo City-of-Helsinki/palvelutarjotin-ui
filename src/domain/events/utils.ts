@@ -1,7 +1,7 @@
 import { EventsQueryVariables } from '../../generated/graphql';
 import { EventSearchFormValues } from './eventSearchForm/EventSearchForm';
 
-const getTextFromDict = (
+export const getTextFromDict = (
   query: NodeJS.Dict<string | string[]>,
   key: string,
   defaultValue = ''
@@ -10,10 +10,18 @@ const getTextFromDict = (
   return (query[key] as string) || defaultValue;
 };
 
+type EventFilterOptions = {
+  page?: number;
+  pageSize?: number;
+};
+
 export const getEventFilterVariables = (
-  query: NodeJS.Dict<string | string[]>
+  query: NodeJS.Dict<string | string[]>,
+  options?: EventFilterOptions
 ): EventsQueryVariables => ({
+  include: ['location'],
   text: getTextFromDict(query, 'text', undefined),
+  ...options,
 });
 
 export const getInitialValues = (

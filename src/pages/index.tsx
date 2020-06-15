@@ -6,7 +6,7 @@ import EventsPage from '../domain/events/EventsPage';
 const Events = (): React.ReactElement => <EventsPage />;
 
 Events.getInitialProps = async () => ({
-  namespacesRequired: [...COMMON_I18N_NAMESPACES, 'events'],
+  namespacesRequired: [...COMMON_I18N_NAMESPACES, 'events', 'event'],
 });
 
 export default Events;

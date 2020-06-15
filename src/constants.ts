@@ -1,9 +1,9 @@
 export const IS_CLIENT = typeof window !== 'undefined';
 
 export enum SUPPORTED_LANGUAGES {
-  EN = 'en',
   FI = 'fi',
   SV = 'sv',
+  EN = 'en',
 }
 
 export const DEFAULT_LANGUAGE = SUPPORTED_LANGUAGES.FI;

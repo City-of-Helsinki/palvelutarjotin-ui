@@ -1,4 +1,19 @@
 {
+  "eventList": {
+    "count": "{{count}} kpl",
+    "labelSort": "Järjestys:",
+    "title": "Tapahtumat"
+  },
+  "sortOptions": {
+    "duration": "Kesto, nouseva",
+    "durationDesc": "Kesto, laskeva",
+    "endTime": "Loppuaika, nouseva",
+    "endTimeDesc": "Loppuaika, laskeva",
+    "lastModifiedTime": "Viimeki muokattu, nouseva",
+    "lastModifiedTimeDesc": "Viimeksi muokattu, laskeva",
+    "startTime": "Aika, nouseva",
+    "startTimeDesc": "Aika, laskeva"
+  },
   "search": {
     "buttonClear": "Tyhjennä hakuehdot",
     "buttonSearch": "Hae",

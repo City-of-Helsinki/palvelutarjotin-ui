@@ -1,0 +1,9 @@
+{
+  "eventCard": {
+    "startTime": {
+      "other": "{{date}} klo {{time}}",
+      "today": "Tänään klo {{time}}",
+      "tomorrow": "Huomenna klo {{time}}"
+    }
+  }
+}
