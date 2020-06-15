@@ -10,7 +10,7 @@ it('LoadingSpinner matches snapshot', () => {
 
 it('render spinner if isLoading is true', () => {
   const { container } = render(<LoadingSpinner isLoading={true} />);
-  expect(container.firstChild.firstChild).toHaveClass('spinner');
+  expect(container.firstChild?.firstChild).toHaveClass('spinner');
 });
 
 it('render child component if isLoading is false', () => {

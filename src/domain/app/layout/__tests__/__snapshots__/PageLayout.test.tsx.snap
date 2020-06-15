@@ -225,6 +225,7 @@ exports[`PageLayout matches snapshot 1`] = `
     </div>
   </header>
   <div
+    aria-hidden="false"
     class="pageBody"
   >
     <div>
