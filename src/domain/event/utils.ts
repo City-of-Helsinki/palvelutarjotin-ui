@@ -47,3 +47,11 @@ export const getEventStartTimeStr = (
     time: formatDate(startTime, timeFormat, locale),
   });
 };
+
+/**
+ * Check is event free
+ * @param eventData
+ * @return {boolean}
+ */
+export const isEventFree = (event: EventFieldsFragment): boolean =>
+  Boolean(event.offers.find((item) => item.isFree)?.isFree);

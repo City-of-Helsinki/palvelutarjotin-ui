@@ -21,6 +21,18 @@ export const QUERY_EVENT = gql`
     fi
     sv
   }
+  fragment offerFields on Offer {
+    isFree
+    description {
+      ...localisedFields
+    }
+    price {
+      ...localisedFields
+    }
+    infoUrl {
+      ...localisedFields
+    }
+  }
 
   fragment eventFields on Event {
     id
@@ -39,6 +51,9 @@ export const QUERY_EVENT = gql`
     }
     infoUrl {
       ...localisedFields
+    }
+    offers {
+      ...offerFields
     }
     pEvent {
       ...pEventFields

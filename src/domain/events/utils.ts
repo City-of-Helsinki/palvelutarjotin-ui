@@ -19,7 +19,7 @@ export const getEventFilterVariables = (
   query: NodeJS.Dict<string | string[]>,
   options?: EventFilterOptions
 ): EventsQueryVariables => ({
-  include: ['location'],
+  include: ['keywords,location'],
   text: getTextFromDict(query, 'text', undefined),
   ...options,
 });
@@ -28,6 +28,6 @@ export const getInitialValues = (
   query: NodeJS.Dict<string | string[]>
 ): EventSearchFormValues => {
   return {
-    text: getTextFromDict(query, 'text'),
+    text: getTextFromDict(query, 'text') || '',
   };
 };

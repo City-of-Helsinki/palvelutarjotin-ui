@@ -170,6 +170,7 @@ export type QueryEventsArgs = {
   superEventType?: Maybe<Array<Maybe<Scalars['String']>>>;
   text?: Maybe<Scalars['String']>;
   translation?: Maybe<Scalars['String']>;
+  organisationId?: Maybe<Scalars['String']>;
 };
 
 
@@ -1241,6 +1242,8 @@ export type AddEventMutationInput = {
   description: LocalisedObjectInput;
   /** Palvelutarjotin event data */
   pEvent: PalvelutarjotinEventInput;
+  /** Organisation global id which the created event belongs to */
+  organisationId?: Maybe<Scalars['String']>;
 };
 
 export type IdObjectInput = {
@@ -1300,6 +1303,8 @@ export type UpdateEventMutationInput = {
   description: LocalisedObjectInput;
   /** Palvelutarjotin event data */
   pEvent: PalvelutarjotinEventInput;
+  /** Organisation global id which the created event belongs to */
+  organisationId?: Maybe<Scalars['String']>;
   id: Scalars['String'];
 };
 
@@ -1371,6 +1376,21 @@ export type LocalisedFieldsFragment = (
   & Pick<LocalisedObject, 'en' | 'fi' | 'sv'>
 );
 
+export type OfferFieldsFragment = (
+  { __typename?: 'Offer' }
+  & Pick<Offer, 'isFree'>
+  & { description?: Maybe<(
+    { __typename?: 'LocalisedObject' }
+    & LocalisedFieldsFragment
+  )>, price?: Maybe<(
+    { __typename?: 'LocalisedObject' }
+    & LocalisedFieldsFragment
+  )>, infoUrl?: Maybe<(
+    { __typename?: 'LocalisedObject' }
+    & LocalisedFieldsFragment
+  )> }
+);
+
 export type EventFieldsFragment = (
   { __typename?: 'Event' }
   & Pick<Event, 'id' | 'internalId' | 'startTime'>
@@ -1389,6 +1409,9 @@ export type EventFieldsFragment = (
   )>, infoUrl?: Maybe<(
     { __typename?: 'LocalisedObject' }
     & LocalisedFieldsFragment
+  )>, offers: Array<(
+    { __typename?: 'Offer' }
+    & OfferFieldsFragment
   )>, pEvent?: Maybe<(
     { __typename?: 'PalvelutarjotinEventNode' }
     & PEventFieldsFragment
@@ -1658,6 +1681,20 @@ export const ImageFieldsFragmentDoc = gql`
   altText
 }
     `;
+export const OfferFieldsFragmentDoc = gql`
+    fragment offerFields on Offer {
+  isFree
+  description {
+    ...localisedFields
+  }
+  price {
+    ...localisedFields
+  }
+  infoUrl {
+    ...localisedFields
+  }
+}
+    ${LocalisedFieldsFragmentDoc}`;
 export const OccurrenceFieldsFragmentDoc = gql`
     fragment occurrenceFields on OccurrenceNode {
   id
@@ -1753,6 +1790,9 @@ export const EventFieldsFragmentDoc = gql`
   infoUrl {
     ...localisedFields
   }
+  offers {
+    ...offerFields
+  }
   pEvent {
     ...pEventFields
   }
@@ -1779,6 +1819,7 @@ export const EventFieldsFragmentDoc = gql`
 }
     ${LocalisedFieldsFragmentDoc}
 ${ImageFieldsFragmentDoc}
+${OfferFieldsFragmentDoc}
 ${PEventFieldsFragmentDoc}
 ${KeywordFieldsFragmentDoc}
 ${PlaceFieldsFragmentDoc}

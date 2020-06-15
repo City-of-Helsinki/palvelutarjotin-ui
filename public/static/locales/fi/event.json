@@ -1,5 +1,6 @@
 {
   "eventCard": {
+    "free": "Maksuton",
     "startTime": {
       "other": "{{date}} klo {{time}}",
       "today": "Tänään klo {{time}}",

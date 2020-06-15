@@ -7,6 +7,7 @@ import useLocale from '../../../hooks/useLocale';
 import IconClock from '../../../icons/IconClock';
 import getLocalisedString from '../../../utils/getLocalisedString';
 import PlaceText from '../../place/placeText/PlaceText';
+import EventKeywords from '../eventKeywords/EventKeywords';
 import { getEventPlaceholderImage, getEventStartTimeStr } from '../utils';
 import styles from './eventCard.module.scss';
 
@@ -66,9 +67,10 @@ const EventCard: React.FC<Props> = ({ event, onClick }) => {
           </div>
           <div className={styles.textWithIcon}>
             <IconLocation />
-            <PlaceText placeId={event.location.id} />
+            <PlaceText placeId={event.location?.id || ''} />
           </div>
         </div>
+        <EventKeywords event={event} />
       </div>
     </div>
   );
