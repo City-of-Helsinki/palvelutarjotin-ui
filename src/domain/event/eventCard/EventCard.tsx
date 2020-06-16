@@ -22,13 +22,13 @@ const EventCard: React.FC<Props> = ({ event, onClick }) => {
 
   const id = event.id;
   const name = getLocalisedString(event.name, locale);
-  const description = getLocalisedString(event.description, locale);
+  const description = getLocalisedString(event.description || {}, locale);
   const image = event.images[0]?.url;
   const time = getEventStartTimeStr(event, locale, t);
 
   const handleClick = () => {
     if (onClick) {
-      onClick(event.id);
+      onClick(event.id || '');
     }
   };
 
@@ -52,7 +52,9 @@ const EventCard: React.FC<Props> = ({ event, onClick }) => {
       <div
         className={styles.imageWrapper}
         style={{
-          backgroundImage: `url(${image || getEventPlaceholderImage(id)})`,
+          backgroundImage: `url(${
+            image || getEventPlaceholderImage(id || '')
+          })`,
         }}
       ></div>
       <div className={styles.contentWrapper}>

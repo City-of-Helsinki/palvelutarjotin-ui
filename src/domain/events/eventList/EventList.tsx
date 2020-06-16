@@ -31,15 +31,15 @@ const EventList = ({
     return Object.keys(EVENT_SORT_OPTIONS).map((key) => {
       return {
         label: translateValue('events:sortOptions.', key, t),
-        value: EVENT_SORT_OPTIONS[key],
+        value: (EVENT_SORT_OPTIONS as Record<string, EVENT_SORT_OPTIONS>)[key],
       };
     });
   }, [t]);
 
-  const events = eventsData.events.data || [];
-  const count = eventsData.events.meta.count;
+  const events = eventsData.events?.data || [];
+  const count = eventsData.events?.meta.count || 0;
 
-  const handleSort = (option: typeof sortOptions[0]) => {
+  const handleSort = (option: { [key: string]: any }) => {
     setSort(option.value);
   };
 
