@@ -1,8 +1,6 @@
 export const EVENT_LIST_PAGE_SIZE = 10;
 
 export enum EVENT_SORT_OPTIONS {
-  DURATION = 'duration',
-  DURATION_DESC = '-duration',
   END_TIME = 'end_time',
   END_TIME_DESC = '-end_time',
   LAST_MODIFIED_TIME = 'last_modified_time',
