@@ -55,11 +55,14 @@ USER appuser
 # Copy build folder from stage 1
 COPY --from=staticbuilder --chown=appuser:appuser /app/.next /app/.next
 
-# Copy public folder and package.json and yarn.lock files
+# Copy public package.json and yarn.lock files
 COPY --chown=appuser:appuser public package.json yarn.lock /app/
 
 # Install production dependencies
 RUN yarn install --production
+
+# Copy public folder
+COPY --chown=appuser:appuser public /app/public
 
 # Copy i18.ts, start.js and server.js files
 COPY --chown=appuser:appuser src/i18n.ts src/start.js src/server.js /app/src/
