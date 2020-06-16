@@ -15,7 +15,16 @@ const createApolloClient = (
     uri: process.env.NEXT_PUBLIC_API_BASE_URL,
   });
 
-  const cache = new InMemoryCache().restore(initialState || {});
+  const cache = new InMemoryCache({
+    cacheRedirects: {
+      Query: {
+        keyword: (_, args, { getCacheKey }) =>
+          getCacheKey({ __typename: 'Keyword', id: args.id }),
+        place: (_, args, { getCacheKey }) =>
+          getCacheKey({ __typename: 'Place', id: args.id }),
+      },
+    },
+  }).restore(initialState || {});
 
   return new ApolloClient({
     ssrMode: !IS_CLIENT, // Disables forceFetch on the server (so queries are only run once)
