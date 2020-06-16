@@ -2,7 +2,7 @@ import NextI18Next from 'next-i18next';
 
 const NextI18NextInstance = new NextI18Next({
   defaultLanguage: 'fi',
-  ignoreRoutes: ['/healthz', '/readiness', '/static', '/favicon.ico'],
+  ignoreRoutes: ['/healthz', '/readiness', '/_next', '/static', '/favicon.ico'],
   localeSubpaths: {
     en: 'en',
     fi: 'fi',
