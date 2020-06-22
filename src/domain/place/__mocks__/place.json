@@ -1,0 +1,33 @@
+{
+  "data": {
+    "place": {
+      "id": "tprek:8007",
+      "internalId": "https://api.hel.fi/linkedevents-test/v1/place/tprek:8007/",
+      "name": {
+        "en": "Children's Traffic Town",
+        "fi": "Lasten liikennekaupunki",
+        "sv": "Barnens Trafikpark",
+        "__typename": "LocalisedObject"
+      },
+      "streetAddress": {
+        "en": "Auroranportti 2",
+        "fi": "Auroranportti 2",
+        "sv": "Auroraporten 2",
+        "__typename": "LocalisedObject"
+      },
+      "addressLocality": {
+        "en": "Helsinki",
+        "fi": "Helsinki",
+        "sv": "Helsingfors",
+        "__typename": "LocalisedObject"
+      },
+      "telephone": {
+        "en": null,
+        "fi": "+358 9 310 89047",
+        "sv": null,
+        "__typename": "LocalisedObject"
+      },
+      "__typename": "Place"
+    }
+  }
+}
