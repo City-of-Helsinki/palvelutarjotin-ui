@@ -9,7 +9,10 @@
     "lint": "eslint --ext js,ts,tsx src",
     "codegen": "graphql-codegen -r dotenv/config --config codegen.yml dotenv_config_path=.env",
     "format:code": "eslint --ext js,ts,tsx src --fix",
-    "test": "SASS_PATH=./src/assets/styles jest --watchAll"
+    "test": "SASS_PATH=./src/assets/styles jest --watchAll",
+    "storybook": "start-storybook -p 9009 -s ./public",
+    "deploy-storybook": "storybook-to-ghpages",
+    "build-storybook": "build-storybook -s public"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -38,6 +41,7 @@
     "next-with-apollo": "^5.0.1",
     "node-sass": "^4.14.1",
     "react": "16.13.1",
+    "react-apollo": "^3.1.5",
     "react-dom": "16.13.1",
     "react-i18next": "^11.5.0",
     "react-redux": "^7.2.0"
@@ -47,6 +51,13 @@
     "@graphql-codegen/typescript": "^1.15.3",
     "@graphql-codegen/typescript-operations": "^1.15.3",
     "@graphql-codegen/typescript-react-apollo": "^1.15.3",
+    "@storybook/addon-a11y": "^5.3.19",
+    "@storybook/addon-actions": "^5.3.19",
+    "@storybook/addon-knobs": "^5.3.19",
+    "@storybook/addon-links": "^5.3.19",
+    "@storybook/addon-storysource": "^5.3.19",
+    "@storybook/react": "^5.3.19",
+    "@storybook/storybook-deployer": "^2.8.6",
     "@testing-library/jest-dom": "^5.10.0",
     "@testing-library/react": "^10.2.1",
     "@testing-library/react-hooks": "^3.3.0",
@@ -59,6 +70,8 @@
     "@types/react-redux": "^7.1.9",
     "@typescript-eslint/eslint-plugin": "^3.2.0",
     "@typescript-eslint/parser": "^3.2.0",
+    "apollo-mocked": "^0.4.7",
+    "core-js": "^2.6.5",
     "dotenv": "^8.2.0",
     "eslint": "^7.2.0",
     "eslint-config-prettier": "^6.11.0",
@@ -72,6 +85,7 @@
     "jest": "^26.0.1",
     "jest-css-modules-transform": "^4.0.0",
     "prettier": "^2.0.5",
+    "react-scripts": "^3.4.1",
     "react-test-renderer": "^16.13.1",
     "ts-jest": "^26.1.0",
     "typescript": "^3.9.5"

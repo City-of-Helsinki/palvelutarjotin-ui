@@ -45,7 +45,7 @@ const EventCard: React.FC<Props> = ({ event, onClick }) => {
       tabIndex={0}
       onClick={handleClick}
       onKeyDown={handleKeyDown}
-      aria-label={t('events.eventCard.ariaLabelOpenOccurrences', {
+      aria-label={t('event:eventCard.ariaLabelOpenEvent', {
         eventName: name,
       })}
     >

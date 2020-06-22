@@ -1,5 +1,6 @@
 {
   "eventCard": {
+    "ariaLabelOpenEvent": "Go to event: {{eventName}}",
     "free": "Free",
     "startTime": {
       "other": "{{date}} at {{time}}",
