@@ -1,0 +1,11 @@
+{
+  "eventCard": {
+    "ariaLabelOpenEvent": "Gå till evenemang: {{eventName}}",
+    "free": "Fri",
+    "startTime": {
+      "other": "{{date}} kl {{time}}",
+      "today": "Idag kl {{time}}",
+      "tomorrow": "Imorgon kl {{time}}"
+    }
+  }
+}

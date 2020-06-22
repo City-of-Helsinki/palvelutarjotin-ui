@@ -1,0 +1,11 @@
+{
+  "ariaLabelCloseMenu": "Close menu",
+  "ariaLabelOpenMenu": "Open menu",
+  "ariaLabelLogo": "Home",
+  "changeLanguage": "EN language selection",
+  "languages": {
+    "en": "In English",
+    "fi": "Suomeksi",
+    "sv": "På svenska"
+  }
+}
