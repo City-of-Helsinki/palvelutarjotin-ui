@@ -43,6 +43,21 @@ Fix all the linter errors
 
 Launches the test runner in the interactive watch mode.
 
+### `yarn storybook`
+
+Runs storybook in development mode
+Open [http://localhost:9009](http://localhost:9009) to view it in browser
+
+### `yarn build-storybook`
+
+Exports storybook as a static app
+
+### `yarn deploy-storybook`
+
+Deploys a new version of Storybook. Storybook is used for development and there's no CI/CD pipeline set up.
+
+To verify deployment, open [https://city-of-helsinki.github.io/palvelutarjotin-ui/](https://city-of-helsinki.github.io/palvelutarjotin-ui/) and check that everything is looking ok.
+
 ## Debugging
 
 ### Debugging project in VS Code
