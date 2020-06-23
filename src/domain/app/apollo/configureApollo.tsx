@@ -16,14 +16,14 @@ const createApolloClient = (
   });
 
   const cache = new InMemoryCache({
-    // cacheRedirects: {
-    //   Query: {
-    //     keyword: (_, args, { getCacheKey }) =>
-    //       getCacheKey({ __typename: 'Keyword', id: args.id }),
-    //     place: (_, args, { getCacheKey }) =>
-    //       getCacheKey({ __typename: 'Place', id: args.id }),
-    //   },
-    // },
+    cacheRedirects: {
+      Query: {
+        keyword: (_, args, { getCacheKey }) =>
+          getCacheKey({ __typename: 'Keyword', id: args.id }),
+        place: (_, args, { getCacheKey }) =>
+          getCacheKey({ __typename: 'Place', id: args.id }),
+      },
+    },
   }).restore(initialState || {});
 
   return new ApolloClient({
