@@ -1,5 +1,6 @@
 {
   "eventCard": {
+    "ariaLabelOpenEvent": "Siirry tapahtumaan: {{eventName}}",
     "free": "Maksuton",
     "startTime": {
       "other": "{{date}} klo {{time}}",

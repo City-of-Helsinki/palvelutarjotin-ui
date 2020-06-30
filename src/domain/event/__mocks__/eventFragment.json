@@ -1,0 +1,169 @@
+{
+  "id": "palvelutarjotin:afzdb736d4",
+  "internalId": "https://api.hel.fi/linkedevents-test/v1/event/palvelutarjotin:afzdb736d4/",
+  "name": {
+    "en": null,
+    "fi": "Lasten liikennetapahtuma - testitapahtuma",
+    "sv": "Lasten liikennetapahtuma - testitapahtuma (sv)",
+    "__typename": "LocalisedObject"
+  },
+  "shortDescription": {
+    "en": null,
+    "fi": "Liikenne tapahtuma lapsiryhmille",
+    "sv": "Lasten liikennetapahtuma - testitapahtuma (sv)",
+    "__typename": "LocalisedObject"
+  },
+  "description": {
+    "en": null,
+    "fi": "Tämä tapahtuma on tarkoitettu lapsiryhmille\n\nVielä ei voi ilmoittautua\n\nIlmoittautuminen tulee myöhemmin",
+    "sv": "Lasten liikennetapahtuma johon ei voi ilmoittautua (sv)",
+    "__typename": "LocalisedObject"
+  },
+  "images": [
+    {
+      "id": "48460",
+      "internalId": "https://api.hel.fi/linkedevents-test/v1/image/48460/",
+      "license": "cc_by",
+      "name": "163-1633746_sweating-towel-guy-meme-template-clipart-png-download.png",
+      "url": "https://api.hel.fi/linkedevents-test/media/images/163-1633746_sweating-towel-guy-meme-template-clipart-png-download_dh1LKME.png",
+      "cropping": "0,59,860,919",
+      "photographerName": "Iha ite",
+      "altText": "Mies pyyhkii hikeä",
+      "__typename": "Image"
+    }
+  ],
+  "infoUrl": {
+    "en": null,
+    "fi": "",
+    "sv": "",
+    "__typename": "LocalisedObject"
+  },
+  "offers": [
+    {
+      "isFree": true,
+      "description": null,
+      "price": null,
+      "infoUrl": null,
+      "__typename": "Offer"
+    }
+  ],
+  "pEvent": {
+    "id": "UGFsdmVsdXRhcmpvdGluRXZlbnROb2RlOjQ=",
+    "duration": 30,
+    "enrolmentEndDays": null,
+    "enrolmentStart": null,
+    "neededOccurrences": 1,
+    "occurrences": {
+      "edges": [
+        {
+          "node": {
+            "id": "T2NjdXJyZW5jZU5vZGU6MQ==",
+            "pEvent": {
+              "id": "UGFsdmVsdXRhcmpvdGluRXZlbnROb2RlOjQ=",
+              "__typename": "PalvelutarjotinEventNode"
+            },
+            "amountOfSeats": 0,
+            "minGroupSize": 10,
+            "maxGroupSize": 20,
+            "autoAcceptance": false,
+            "languages": [],
+            "startTime": "2020-05-05T00:00:00+00:00",
+            "endTime": "2020-05-05T00:00:00+00:00",
+            "organisation": {
+              "id": "T3JnYW5pc2F0aW9uTm9kZTox",
+              "__typename": "OrganisationNode"
+            },
+            "placeId": "place_id",
+            "__typename": "OccurrenceNode"
+          },
+          "__typename": "OccurrenceNodeEdge"
+        }
+      ],
+      "__typename": "OccurrenceNodeConnection"
+    },
+    "__typename": "PalvelutarjotinEventNode"
+  },
+  "inLanguage": [
+    {
+      "id": null,
+      "internalId": "https://api.hel.fi/linkedevents-test/v1/language/fi/",
+      "name": null,
+      "__typename": "InLanguage"
+    },
+    {
+      "id": null,
+      "internalId": "https://api.hel.fi/linkedevents-test/v1/language/ar/",
+      "name": null,
+      "__typename": "InLanguage"
+    }
+  ],
+  "audience": [],
+  "keywords": [
+    {
+      "id": "yso:p4354",
+      "name": {
+        "en": "children (age groups)",
+        "fi": "lapset (ikäryhmät)",
+        "sv": "barn (åldersgrupper)",
+        "__typename": "LocalisedObject"
+      },
+      "internalId": "https://api.hel.fi/linkedevents-test/v1/keyword/yso:p4354/",
+      "__typename": "Keyword"
+    },
+    {
+      "id": "yso:p3466",
+      "name": {
+        "en": "traffic",
+        "fi": "liikenne",
+        "sv": "trafik",
+        "__typename": "LocalisedObject"
+      },
+      "internalId": "https://api.hel.fi/linkedevents-test/v1/keyword/yso:p3466/",
+      "__typename": "Keyword"
+    }
+  ],
+  "location": {
+    "id": "tprek:8007",
+    "internalId": "https://api.hel.fi/linkedevents-test/v1/place/tprek:8007/",
+    "name": {
+      "en": "Children's Traffic Town",
+      "fi": "Lasten liikennekaupunki",
+      "sv": "Barnens Trafikpark",
+      "__typename": "LocalisedObject"
+    },
+    "streetAddress": {
+      "en": "Auroranportti 2",
+      "fi": "Auroranportti 2",
+      "sv": "Auroraporten 2",
+      "__typename": "LocalisedObject"
+    },
+    "addressLocality": {
+      "en": "Helsinki",
+      "fi": "Helsinki",
+      "sv": "Helsingfors",
+      "__typename": "LocalisedObject"
+    },
+    "telephone": {
+      "en": null,
+      "fi": "+358 9 310 89047",
+      "sv": null,
+      "__typename": "LocalisedObject"
+    },
+    "__typename": "Place"
+  },
+  "venue": {
+    "id": "tprek:8007",
+    "hasClothingStorage": true,
+    "hasSnackEatingPlace": true,
+    "translations": [
+      {
+        "languageCode": "FI",
+        "description": "Säänmukainen varustus - koska toiminta tapahtuu ulkotiloissa",
+        "__typename": "VenueTranslationType"
+      }
+    ],
+    "__typename": "VenueNode"
+  },
+  "startTime": "2020-05-20T07:46:12.486000Z",
+  "__typename": "Event"
+}
