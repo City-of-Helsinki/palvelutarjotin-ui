@@ -171,6 +171,8 @@ export type QueryEventsArgs = {
   text?: Maybe<Scalars['String']>;
   translation?: Maybe<Scalars['String']>;
   organisationId?: Maybe<Scalars['String']>;
+  showAll?: Maybe<Scalars['Boolean']>;
+  publicationStatus?: Maybe<Scalars['String']>;
 };
 
 
@@ -268,7 +270,6 @@ export type OccurrenceNode = Node & {
   maxGroupSize: Scalars['Int'];
   startTime: Scalars['DateTime'];
   endTime: Scalars['DateTime'];
-  organisation: OrganisationNode;
   contactPersons: PersonNodeConnection;
   studyGroups: StudyGroupNodeConnection;
   placeId: Scalars['String'];
@@ -322,6 +323,10 @@ export type PalvelutarjotinEventNode = Node & {
   enrolmentEndDays?: Maybe<Scalars['Int']>;
   duration: Scalars['Int'];
   neededOccurrences: Scalars['Int'];
+  organisation?: Maybe<OrganisationNode>;
+  contactPerson?: Maybe<PersonNode>;
+  contactPhoneNumber: Scalars['String'];
+  contactEmail: Scalars['String'];
   occurrences: OccurrenceNodeConnection;
 };
 
@@ -336,8 +341,6 @@ export type PalvelutarjotinEventNodeOccurrencesArgs = {
   time?: Maybe<Scalars['Time']>;
 };
 
-
-
 export type OrganisationNode = Node & {
   __typename?: 'OrganisationNode';
   /** The ID of the object. */
@@ -347,7 +350,7 @@ export type OrganisationNode = Node & {
   type: OrganisationType;
   persons: PersonNodeConnection;
   publisherId: Scalars['String'];
-  occurrenceSet: OccurrenceNodeConnection;
+  pEvent: PalvelutarjotinEventNodeConnection;
 };
 
 
@@ -359,14 +362,11 @@ export type OrganisationNodePersonsArgs = {
 };
 
 
-export type OrganisationNodeOccurrenceSetArgs = {
+export type OrganisationNodePEventArgs = {
   before?: Maybe<Scalars['String']>;
   after?: Maybe<Scalars['String']>;
   first?: Maybe<Scalars['Int']>;
   last?: Maybe<Scalars['Int']>;
-  upcoming?: Maybe<Scalars['Boolean']>;
-  date?: Maybe<Scalars['Date']>;
-  time?: Maybe<Scalars['Time']>;
 };
 
 /** An enumeration. */
@@ -403,13 +403,23 @@ export type PersonNode = Node & {
   name: Scalars['String'];
   phoneNumber: Scalars['String'];
   emailAddress: Scalars['String'];
+  language: Language;
   organisations: OrganisationNodeConnection;
+  pEvent: PalvelutarjotinEventNodeConnection;
   occurrences: OccurrenceNodeConnection;
   studygroupSet: StudyGroupNodeConnection;
 };
 
 
 export type PersonNodeOrganisationsArgs = {
+  before?: Maybe<Scalars['String']>;
+  after?: Maybe<Scalars['String']>;
+  first?: Maybe<Scalars['Int']>;
+  last?: Maybe<Scalars['Int']>;
+};
+
+
+export type PersonNodePEventArgs = {
   before?: Maybe<Scalars['String']>;
   after?: Maybe<Scalars['String']>;
   first?: Maybe<Scalars['Int']>;
@@ -435,6 +445,13 @@ export type PersonNodeStudygroupSetArgs = {
   last?: Maybe<Scalars['Int']>;
 };
 
+/** An enumeration. */
+export enum Language {
+  Fi = 'FI',
+  En = 'EN',
+  Sv = 'SV'
+}
+
 export type OrganisationNodeConnection = {
   __typename?: 'OrganisationNodeConnection';
   /** Pagination data for this connection. */
@@ -451,6 +468,25 @@ export type OrganisationNodeEdge = {
   /** A cursor for use in pagination */
   cursor: Scalars['String'];
 };
+
+export type PalvelutarjotinEventNodeConnection = {
+  __typename?: 'PalvelutarjotinEventNodeConnection';
+  /** Pagination data for this connection. */
+  pageInfo: PageInfo;
+  /** Contains the nodes in this connection. */
+  edges: Array<Maybe<PalvelutarjotinEventNodeEdge>>;
+};
+
+/** A Relay edge containing a `PalvelutarjotinEventNode` and its cursor. */
+export type PalvelutarjotinEventNodeEdge = {
+  __typename?: 'PalvelutarjotinEventNodeEdge';
+  /** The item at the end of the edge */
+  node?: Maybe<PalvelutarjotinEventNode>;
+  /** A cursor for use in pagination */
+  cursor: Scalars['String'];
+};
+
+
 
 export type StudyGroupNodeConnection = {
   __typename?: 'StudyGroupNodeConnection';
@@ -578,13 +614,6 @@ export type VenueTranslationType = {
   languageCode: Language;
   description: Scalars['String'];
 };
-
-/** An enumeration. */
-export enum Language {
-  Fi = 'FI',
-  En = 'EN',
-  Sv = 'SV'
-}
 
 export type EventListResponse = {
   __typename?: 'EventListResponse';
@@ -822,7 +851,7 @@ export type Mutation = {
   /** Mutation for admin only */
   deleteStudyGroup?: Maybe<DeleteStudyGroupMutationPayload>;
   enrolOccurrence?: Maybe<EnrolOccurrenceMutationPayload>;
-  /** Required logged in user for authorization */
+  /** Only staff can unenrol study group */
   unenrolOccurrence?: Maybe<UnenrolOccurrenceMutationPayload>;
   createMyProfile?: Maybe<CreateMyProfileMutationPayload>;
   updateMyProfile?: Maybe<UpdateMyProfileMutationPayload>;
@@ -959,7 +988,6 @@ export type AddOccurrenceMutationInput = {
   maxGroupSize: Scalars['Int'];
   startTime: Scalars['DateTime'];
   endTime: Scalars['DateTime'];
-  organisationId: Scalars['ID'];
   contactPersons?: Maybe<Array<Maybe<PersonNodeInput>>>;
   pEventId: Scalars['ID'];
   autoAcceptance: Scalars['Boolean'];
@@ -973,6 +1001,8 @@ export type PersonNodeInput = {
   name: Scalars['String'];
   phoneNumber?: Maybe<Scalars['String']>;
   emailAddress: Scalars['String'];
+  /** Default `fi` */
+  language?: Maybe<Language>;
 };
 
 export type OccurrenceLanguageInput = {
@@ -992,7 +1022,6 @@ export type UpdateOccurrenceMutationInput = {
   maxGroupSize?: Maybe<Scalars['Int']>;
   startTime?: Maybe<Scalars['DateTime']>;
   endTime?: Maybe<Scalars['DateTime']>;
-  organisationId?: Maybe<Scalars['ID']>;
   /** Should include all contact persons of the occurrence, missing contact persons will be removed during mutation */
   contactPersons?: Maybe<Array<Maybe<PersonNodeInput>>>;
   pEventId?: Maybe<Scalars['ID']>;
@@ -1137,6 +1166,8 @@ export type CreateMyProfileMutationInput = {
   phoneNumber?: Maybe<Scalars['String']>;
   emailAddress: Scalars['String'];
   organisations?: Maybe<Array<Maybe<Scalars['ID']>>>;
+  /** Default `fi` */
+  language?: Maybe<Language>;
   clientMutationId?: Maybe<Scalars['String']>;
 };
 
@@ -1152,6 +1183,8 @@ export type UpdateMyProfileMutationInput = {
   emailAddress?: Maybe<Scalars['String']>;
   /** If present, should include all organisation ids of user */
   organisations?: Maybe<Array<Maybe<Scalars['ID']>>>;
+  /** Default `fi` */
+  language?: Maybe<Language>;
   clientMutationId?: Maybe<Scalars['String']>;
 };
 
@@ -1200,6 +1233,7 @@ export type UpdatePersonMutationInput = {
   name?: Maybe<Scalars['String']>;
   phoneNumber?: Maybe<Scalars['String']>;
   emailAddress?: Maybe<Scalars['String']>;
+  language?: Maybe<Language>;
   clientMutationId?: Maybe<Scalars['String']>;
 };
 
@@ -1243,7 +1277,7 @@ export type AddEventMutationInput = {
   /** Palvelutarjotin event data */
   pEvent: PalvelutarjotinEventInput;
   /** Organisation global id which the created event belongs to */
-  organisationId?: Maybe<Scalars['String']>;
+  organisationId: Scalars['String'];
 };
 
 export type IdObjectInput = {
@@ -1268,6 +1302,9 @@ export type PalvelutarjotinEventInput = {
   enrolmentEndDays?: Maybe<Scalars['Int']>;
   duration: Scalars['Int'];
   neededOccurrences: Scalars['Int'];
+  contactPersonId?: Maybe<Scalars['ID']>;
+  contactPhoneNumber?: Maybe<Scalars['String']>;
+  contactEmail?: Maybe<Scalars['String']>;
 };
 
 export type UpdateEventMutation = {
@@ -1304,7 +1341,7 @@ export type UpdateEventMutationInput = {
   /** Palvelutarjotin event data */
   pEvent: PalvelutarjotinEventInput;
   /** Organisation global id which the created event belongs to */
-  organisationId?: Maybe<Scalars['String']>;
+  organisationId: Scalars['String'];
   id: Scalars['String'];
 };
 
@@ -1565,10 +1602,7 @@ export type OccurrenceFieldsFragment = (
   )>, languages: Array<(
     { __typename?: 'LanguageType' }
     & Pick<LanguageType, 'id' | 'name'>
-  )>, organisation: (
-    { __typename?: 'OrganisationNode' }
-    & Pick<OrganisationNode, 'id'>
-  ) }
+  )> }
 );
 
 export type OccurrenceQueryVariables = Exact<{
@@ -1711,9 +1745,6 @@ export const OccurrenceFieldsFragmentDoc = gql`
   }
   startTime
   endTime
-  organisation {
-    id
-  }
   placeId
 }
     `;
