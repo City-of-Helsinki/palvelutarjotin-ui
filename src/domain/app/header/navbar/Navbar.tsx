@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 
 import { Link } from '../../../../i18n';
 import Container from '../../layout/Container';
+import { ROUTES } from '../../routes/constants';
 import LanguageDropdown from '../languageDropdown/LanguageDropdown';
 import styles from './navbar.module.scss';
 
@@ -18,8 +19,8 @@ const Navbar: React.FC<Props> = ({ className }) => {
       <Container>
         <div className={styles.navbar}>
           <div className={styles.logoWrapper}>
-            <Link href={'/'} passHref={true}>
-              <a href="/" aria-label={t('header:ariaLabelLogo')}>
+            <Link href={ROUTES.HOME} passHref={true}>
+              <a href={ROUTES.HOME} aria-label={t('header:ariaLabelLogo')}>
                 <div className={styles.logo} />
                 <div className={styles.appName}>{t('common:appName')}</div>
               </a>

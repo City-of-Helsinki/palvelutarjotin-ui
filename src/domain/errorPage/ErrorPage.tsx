@@ -2,20 +2,19 @@ import { Button, IconInfoCircle } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import useLocale from '../../hooks/useLocale';
 import { Router } from '../../i18n';
 import Container from '../app/layout/Container';
+import { ROUTES } from '../app/routes/constants';
 import styles from './errorPage.module.scss';
 
 const ErrorPage: React.FC<{ title?: string; description?: string }> = ({
   title,
   description,
 }) => {
-  const locale = useLocale();
   const { t } = useTranslation();
 
   const goToFrontPage = () => {
-    Router.push(`/${locale}`);
+    Router.push(ROUTES.HOME);
   };
 
   return (
