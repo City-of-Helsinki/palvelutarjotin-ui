@@ -7,7 +7,6 @@ import React from 'react';
 import { Provider } from 'react-redux';
 
 import '../assets/styles/main.scss';
-import { IS_CLIENT } from '../constants';
 import withApollo from '../domain/app/apollo/configureApollo';
 import PageLayout from '../domain/app/layout/PageLayout';
 import { store } from '../domain/app/store';
@@ -20,15 +19,13 @@ interface Props {
 class MyApp extends App<Props> {
   componentDidMount() {
     // Change <html>'s language on languageChanged event
-    if (IS_CLIENT) {
-      i18n.on('languageChanged', (lang) => {
-        const html = document.querySelector('html');
+    i18n.on('languageChanged', (lang) => {
+      const html = document.querySelector('html');
 
-        if (html) {
-          html.setAttribute('lang', lang);
-        }
-      });
-    }
+      if (html) {
+        html.setAttribute('lang', lang);
+      }
+    });
   }
 
   render() {
