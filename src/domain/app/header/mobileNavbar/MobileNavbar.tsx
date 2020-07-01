@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { Link } from '../../../../i18n';
 import Container from '../../layout/Container';
+import { ROUTES } from '../../routes/constants';
 import { closeMobileMenu, openMobileMenu } from '../mobileMenu/actions';
 import MobileMenu from '../mobileMenu/MobileMenu';
 import { isMobileMenuOpenSelector } from '../mobileMenu/selectors';
@@ -38,11 +39,11 @@ const MobileNavbar: React.FC<Props> = ({ className }) => {
       <div className={className}>
         <Container>
           <nav className={styles.mobileNavbar}>
-            <Link href={'/'} passHref={true}>
+            <Link href={ROUTES.HOME} passHref={true}>
               <a
                 aria-label={t('header:ariaLabelLogo')}
                 className={styles.appNameLink}
-                href="/"
+                href={ROUTES.HOME}
                 onClick={handleCloseMenu}
               >
                 <div className={styles.logo} />

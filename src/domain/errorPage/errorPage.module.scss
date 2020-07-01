@@ -1,0 +1,44 @@
+@import 'variables';
+@import 'layout';
+
+.container {
+  --content-spacing: var(--spacing-l);
+
+  --header-fontsize: var(--fontsize-h-2);
+
+  --error-icon-size: 3rem;
+
+  --width-button: 300px;
+  --width-description: 550px;
+}
+
+.container {
+  text-align: center;
+  padding: var(--spacing-4-xl) 0;
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  h1 {
+    font-size: var(--header-fontsize);
+    margin: var(--spacing-l) 0;
+  }
+
+  .description {
+    max-width: var(--width-description);
+    line-height: var(--lineheight-l);
+    margin: 0;
+  }
+
+  button {
+    width: var(--width-button);
+    margin-top: var(--content-spacing);
+
+    @include respond_above(sm) {
+      margin-top: 4rem;
+    }
+  }
+}
