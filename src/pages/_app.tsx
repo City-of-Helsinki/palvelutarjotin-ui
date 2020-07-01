@@ -7,16 +7,30 @@ import React from 'react';
 import { Provider } from 'react-redux';
 
 import '../assets/styles/main.scss';
+import { IS_CLIENT } from '../constants';
 import withApollo from '../domain/app/apollo/configureApollo';
 import PageLayout from '../domain/app/layout/PageLayout';
 import { store } from '../domain/app/store';
-import { appWithTranslation } from '../i18n';
+import { appWithTranslation, i18n } from '../i18n';
 
 interface Props {
   apollo: ApolloClient<NormalizedCacheObject>;
 }
 
 class MyApp extends App<Props> {
+  componentDidMount() {
+    // Change <html>'s language on languageChanged event
+    if (IS_CLIENT) {
+      i18n.on('languageChanged', (lang) => {
+        const html = document.querySelector('html');
+
+        if (html) {
+          html.setAttribute('lang', lang);
+        }
+      });
+    }
+  }
+
   render() {
     const { apollo, Component, pageProps } = this.props;
 
