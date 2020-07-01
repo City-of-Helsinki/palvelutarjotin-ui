@@ -7,5 +7,6 @@
       "today": "Tänään klo {{time}}",
       "tomorrow": "Huomenna klo {{time}}"
     }
-  }
+  },
+  "pageTitle": "Tapahtuma"
 }

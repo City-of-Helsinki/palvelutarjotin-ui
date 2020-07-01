@@ -1,4 +1,3 @@
-import Head from 'next/head';
 import { useRouter } from 'next/router';
 import React, { ReactElement } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -8,6 +7,7 @@ import { useEventsQuery, EventsQuery } from '../../generated/graphql';
 import { Router } from '../../i18n';
 import getPageNumberFromUrl from '../../utils/getPageNumberFromUrl';
 import Container from '../app/layout/Container';
+import PageWrapper from '../app/layout/PageWrapper';
 import { ROUTES } from '../app/routes/constants';
 import { EVENT_LIST_PAGE_SIZE, EVENT_SORT_OPTIONS } from './constants';
 import EventList from './eventList/EventList';
@@ -90,37 +90,30 @@ const EventsPage = (): ReactElement => {
   };
 
   return (
-    <div>
-      <Head>
-        <title>{t('common:appName')}</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      <main>
-        <Container>
-          <h1>{t('common:appName')}</h1>
-        </Container>
-        <EventSearchForm
-          initialValues={initialValues}
-          onClear={clearForm}
-          onSubmit={search}
-        />
-        <Container>
-          <LoadingSpinner isLoading={loading}>
-            {eventsData && (
-              <EventList
-                eventsData={eventsData}
-                fetchMore={fetchMoreEvents}
-                isLoading={isLoadingMore}
-                shouldShowLoadMore={shouldShowLoadMore}
-                sort={sort}
-                setSort={setSort}
-              />
-            )}
-          </LoadingSpinner>
-        </Container>
-      </main>
-    </div>
+    <PageWrapper>
+      <Container>
+        <h1>{t('common:appName')}</h1>
+      </Container>
+      <EventSearchForm
+        initialValues={initialValues}
+        onClear={clearForm}
+        onSubmit={search}
+      />
+      <Container>
+        <LoadingSpinner isLoading={loading}>
+          {eventsData && (
+            <EventList
+              eventsData={eventsData}
+              fetchMore={fetchMoreEvents}
+              isLoading={isLoadingMore}
+              shouldShowLoadMore={shouldShowLoadMore}
+              sort={sort}
+              setSort={setSort}
+            />
+          )}
+        </LoadingSpinner>
+      </Container>
+    </PageWrapper>
   );
 };
 

@@ -7,5 +7,6 @@
       "today": "Today at {{time}}",
       "tomorrow": "Tomorrow at {{time}}"
     }
-  }
+  },
+  "pageTitle": "Event"
 }
