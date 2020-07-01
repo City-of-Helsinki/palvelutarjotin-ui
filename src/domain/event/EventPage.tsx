@@ -2,6 +2,7 @@ import { useRouter } from 'next/router';
 import React, { ReactElement } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import LoadingSpinner from '../../common/components/loadingSpinner/LoadingSpinner';
 import { useEventQuery } from '../../generated/graphql';
 import useLocale from '../../hooks/useLocale';
 import getLocalisedString from '../../utils/getLocalisedString';
@@ -19,7 +20,7 @@ const EventPage = (): ReactElement => {
   const { query } = useRouter();
   const { id } = query;
 
-  const { data: eventData } = useEventQuery({
+  const { data: eventData, loading } = useEventQuery({
     variables: { id: id as string },
   });
 
@@ -27,13 +28,15 @@ const EventPage = (): ReactElement => {
 
   return (
     <PageWrapper title={name || t('event:pageTitle')}>
-      {eventData?.event ? (
-        <Container>
-          <h1>{name}</h1>
-        </Container>
-      ) : (
-        <NotFoundPage />
-      )}
+      <LoadingSpinner isLoading={loading}>
+        {eventData?.event ? (
+          <Container>
+            <h1>{name}</h1>
+          </Container>
+        ) : (
+          <NotFoundPage />
+        )}
+      </LoadingSpinner>
     </PageWrapper>
   );
 };
