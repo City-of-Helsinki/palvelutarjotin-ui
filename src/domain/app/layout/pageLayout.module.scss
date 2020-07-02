@@ -3,7 +3,7 @@
 .pageLayout {
   --background-color-body: #f7f6f6;
 
-  --padding-bottom-body: 10rem;
+  --padding-body: var(--spacing-layout-m) 0 10rem;
 }
 
 .pageLayout {
@@ -18,7 +18,7 @@
 .pageBody {
   display: grid;
   background-color: var(--background-color-body);
-  padding-bottom: var(--padding-bottom-body);
+  padding: var(--padding-body);
 
   @include respond-below(sm) {
     opacity: 1;
@@ -28,5 +28,9 @@
       opacity: 0;
       visibility: hidden;
     }
+  }
+
+  h1 {
+    font-size: var(--fontsize-h-2);
   }
 }
