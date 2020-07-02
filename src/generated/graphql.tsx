@@ -1405,7 +1405,10 @@ export type PEventFieldsFragment = (
         & OccurrenceFieldsFragment
       )> }
     )>> }
-  ) }
+  ), organisation?: Maybe<(
+    { __typename?: 'OrganisationNode' }
+    & OrganisationFieldsFragment
+  )> }
 );
 
 export type LocalisedFieldsFragment = (
@@ -1618,6 +1621,11 @@ export type OccurrenceQuery = (
   )> }
 );
 
+export type OrganisationFieldsFragment = (
+  { __typename?: 'OrganisationNode' }
+  & Pick<OrganisationNode, 'id' | 'name'>
+);
+
 export type PlaceFieldsFragment = (
   { __typename?: 'Place' }
   & Pick<Place, 'id' | 'internalId'>
@@ -1748,6 +1756,12 @@ export const OccurrenceFieldsFragmentDoc = gql`
   placeId
 }
     `;
+export const OrganisationFieldsFragmentDoc = gql`
+    fragment organisationFields on OrganisationNode {
+  id
+  name
+}
+    `;
 export const PEventFieldsFragmentDoc = gql`
     fragment pEventFields on PalvelutarjotinEventNode {
   id
@@ -1762,8 +1776,12 @@ export const PEventFieldsFragmentDoc = gql`
       }
     }
   }
+  organisation {
+    ...organisationFields
+  }
 }
-    ${OccurrenceFieldsFragmentDoc}`;
+    ${OccurrenceFieldsFragmentDoc}
+${OrganisationFieldsFragmentDoc}`;
 export const KeywordFieldsFragmentDoc = gql`
     fragment keywordFields on Keyword {
   id

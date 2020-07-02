@@ -11,6 +11,7 @@ import PageWrapper from '../app/layout/PageWrapper';
 import { ROUTES } from '../app/routes/constants';
 import NotFoundPage from '../notFoundPage/NotFoundPage';
 import styles from './enrolmentPage.module.scss';
+import EventInfo from './eventInfo/EventInfo';
 
 const CreateEnrolmentPage = (): ReactElement => {
   const { t } = useTranslation();
@@ -26,10 +27,12 @@ const CreateEnrolmentPage = (): ReactElement => {
     Router.push(ROUTES.EVENT_DETAILS.replace(':id', eventId as string));
   };
 
+  const event = eventData?.event;
+
   return (
     <PageWrapper title={t('enrolment:pageTitle')}>
       <LoadingSpinner isLoading={loading}>
-        {eventData?.event ? (
+        {event ? (
           <div className={styles.enrolmentPage}>
             <Container>
               <div className={styles.buttonWrapper}>
@@ -43,6 +46,8 @@ const CreateEnrolmentPage = (): ReactElement => {
               </div>
 
               <h1>{t('enrolment:title')}</h1>
+              <div className={styles.divider} />
+              <EventInfo event={event} />
             </Container>
           </div>
         ) : (
