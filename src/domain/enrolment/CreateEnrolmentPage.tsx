@@ -10,9 +10,8 @@ import Container from '../app/layout/Container';
 import PageWrapper from '../app/layout/PageWrapper';
 import NotFoundPage from '../notFoundPage/NotFoundPage';
 
-const EventPage = (): ReactElement => {
+const CreateEnrolmentPage = (): ReactElement => {
   const { t } = useTranslation();
-  const locale = useLocale();
   const {
     query: { eventId },
   } = useRouter();
@@ -21,14 +20,12 @@ const EventPage = (): ReactElement => {
     variables: { id: eventId as string },
   });
 
-  const name = getLocalisedString(eventData?.event?.name || {}, locale);
-
   return (
-    <PageWrapper title={name || t('event:pageTitle')}>
+    <PageWrapper title={t('enrolment:pageTitle')}>
       <LoadingSpinner isLoading={loading}>
         {eventData?.event ? (
           <Container>
-            <h1>{name}</h1>
+            <h1>{t('enrolment:title')}</h1>
           </Container>
         ) : (
           <NotFoundPage />
@@ -38,4 +35,4 @@ const EventPage = (): ReactElement => {
   );
 };
 
-export default EventPage;
+export default CreateEnrolmentPage;
