@@ -17,8 +17,9 @@ interface Params {
 const EventPage = (): ReactElement => {
   const { t } = useTranslation();
   const locale = useLocale();
-  const { query } = useRouter();
-  const { id } = query;
+  const {
+    query: { id },
+  } = useRouter();
 
   const { data: eventData, loading } = useEventQuery({
     variables: { id: id as string },
