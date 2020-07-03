@@ -23,11 +23,13 @@ const EventImage: React.FC<EventImageProps> = ({
         src={imageUrl}
         alt={imageAltText ?? undefined}
       />
-      <div className={styles.photographerText}>
-        {t('event:photographerText', {
-          photographer: photographerName,
-        })}
-      </div>
+      {photographerName && (
+        <div className={styles.photographerText}>
+          {t('event:photographerText', {
+            photographer: photographerName,
+          })}
+        </div>
+      )}
     </div>
   );
 };
