@@ -1,5 +1,15 @@
 {
   "buttonBack": "Tillbaka",
+  "labelInvalidOccurrenceAmount": "Ogiltig mängd evenemangtider väljs",
+  "occurrenceTable": {
+    "columnDate": "Datum",
+    "columnPlace": "Evenemangplats",
+    "columnSeatsInfo": "Platser",
+    "columnTime": "Tid",
+    "noSelectedOccurrences": "Inga valda evenemangtider"
+  },
   "pageTitle": "Anmäl dig till evenemanget",
+  "textInvalidOccurrenceAmount": "{{count}} evenemangtid måste väljas",
+  "textInvalidOccurrenceAmount_plural": "{{count}} evenemangtided måste väljas",
   "title": "Anmäl dig till evenemanget"
 }

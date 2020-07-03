@@ -1,7 +1,10 @@
 import { isToday, isTomorrow } from 'date-fns';
 import { TFunction } from 'next-i18next';
 
-import { EventFieldsFragment } from '../../generated/graphql';
+import {
+  EventFieldsFragment,
+  OccurrenceFieldsFragment,
+} from '../../generated/graphql';
 import { Language } from '../../types';
 import formatDate from '../../utils/formatDate';
 import getLocalisedString from '../../utils/getLocalisedString';
@@ -65,17 +68,23 @@ export const getEventFields = (
   event
     ? {
         isEventFree: isEventFree(event),
-        eventName: getLocalisedString(event?.name, locale),
-        shortDescription: getLocalisedString(event?.shortDescription, locale),
-        description: getLocalisedString(event?.description, locale),
-        infoUrl: getLocalisedString(event?.infoUrl, locale),
+        eventName: getLocalisedString(event.name, locale),
+        shortDescription: getLocalisedString(event.shortDescription, locale),
+        description: getLocalisedString(event.description, locale),
+        infoUrl: getLocalisedString(event.infoUrl, locale),
         imageUrl:
-          event?.images?.[0]?.url || getEventPlaceholderImage(event.id || ''),
-        imageAltText: event?.images?.[0]?.altText,
-        photographerName: event?.images?.[0]?.photographerName,
+          event.images?.[0]?.url || getEventPlaceholderImage(event.id || ''),
+        imageAltText: event.images?.[0]?.altText,
+        locationId: event.location?.id,
+        photographerName: event.images?.[0]?.photographerName,
         organization: event.pEvent?.organisation?.name,
         contactPhoneNumber: event.pEvent?.contactPhoneNumber,
         contactEmail: event.pEvent?.contactEmail,
         contactPerson: event.pEvent?.contactPerson?.name,
+        neededOccurrences: event.pEvent?.neededOccurrences,
+        occurrences:
+          event.pEvent?.occurrences.edges.map(
+            (edge) => edge?.node as OccurrenceFieldsFragment
+          ) || [],
       }
     : {};

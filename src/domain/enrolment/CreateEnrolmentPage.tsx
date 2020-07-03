@@ -1,22 +1,29 @@
-import { Button, IconArrowLeft } from 'hds-react';
+import { Button, IconArrowLeft, Notification } from 'hds-react';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import LoadingSpinner from '../../common/components/loadingSpinner/LoadingSpinner';
-import { useEventQuery } from '../../generated/graphql';
+import {
+  useEventQuery,
+  OccurrenceFieldsFragment,
+} from '../../generated/graphql';
+import useLocale from '../../hooks/useLocale';
 import { Router } from '../../i18n';
 import Container from '../app/layout/Container';
 import PageWrapper from '../app/layout/PageWrapper';
 import { ROUTES } from '../app/routes/constants';
+import { getEventFields } from '../event/utils';
 import NotFoundPage from '../notFoundPage/NotFoundPage';
 import styles from './enrolmentPage.module.scss';
 import EventInfo from './eventInfo/EventInfo';
+import OccurrenceTable from './occurrenceTable/OccurrenceTable';
 
 const CreateEnrolmentPage: React.FC = () => {
   const { t } = useTranslation();
+  const locale = useLocale();
   const {
-    query: { eventId },
+    query: { eventId, occurrences },
   } = useRouter();
 
   const { data: eventData, loading } = useEventQuery({
@@ -28,6 +35,22 @@ const CreateEnrolmentPage: React.FC = () => {
   };
 
   const event = eventData?.event;
+  const {
+    locationId: eventLocationId,
+    neededOccurrences,
+    occurrences: allOccurrences,
+  } = getEventFields(event, locale);
+
+  const selectedOccurrences = Array.isArray(occurrences)
+    ? occurrences
+    : [occurrences];
+
+  const filteredOccurrences = (allOccurrences || []).filter((o) =>
+    selectedOccurrences.includes(o.id)
+  );
+
+  const areSelectedOccurrencesValid =
+    neededOccurrences === filteredOccurrences.length;
 
   return (
     <PageWrapper title={t('enrolment:pageTitle')}>
@@ -47,7 +70,23 @@ const CreateEnrolmentPage: React.FC = () => {
 
               <h1>{t('enrolment:title')}</h1>
               <div className={styles.divider} />
+
               <EventInfo event={event} />
+              {areSelectedOccurrencesValid ? (
+                <OccurrenceTable
+                  eventLocationId={eventLocationId || ''}
+                  occurrences={filteredOccurrences}
+                />
+              ) : (
+                <Notification
+                  labelText={t('enrolment:labelInvalidOccurrenceAmount')}
+                  type="error"
+                >
+                  {t('enrolment:textInvalidOccurrenceAmount', {
+                    count: neededOccurrences,
+                  })}
+                </Notification>
+              )}
             </Container>
           </div>
         ) : (

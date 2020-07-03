@@ -5,7 +5,6 @@ import { useTranslation } from 'react-i18next';
 import LoadingSpinner from '../../common/components/loadingSpinner/LoadingSpinner';
 import { useEventQuery } from '../../generated/graphql';
 import useLocale from '../../hooks/useLocale';
-import getLocalisedString from '../../utils/getLocalisedString';
 import Container from '../app/layout/Container';
 import PageWrapper from '../app/layout/PageWrapper';
 import NotFoundPage from '../notFoundPage/NotFoundPage';
