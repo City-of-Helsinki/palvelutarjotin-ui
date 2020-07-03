@@ -4,7 +4,8 @@
     "columnDate": "Date",
     "columnPlace": "Event location",
     "columnSeatsInfo": "Seats",
-    "columnTime": "Time"
+    "columnTime": "Time",
+    "noSelectedOccurrences": "No selected event times"
   },
   "pageTitle": "Enrol for the event",
   "title": "Enrol for the event"

@@ -1,3 +1,4 @@
+import { Notification } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -45,7 +46,14 @@ const OccurrenceTable: React.FC<Props> = ({ eventLocationId, occurrences }) => {
       id: 'seatsInfo',
     },
   ];
-  return <Table columns={columns} data={occurrences}></Table>;
+  return occurrences.length ? (
+    <Table columns={columns} data={occurrences}></Table>
+  ) : (
+    <Notification
+      labelText={t('enrolment:occurrenceTable.noSelectedOccurrences')}
+      type="error"
+    />
+  );
 };
 
 export default OccurrenceTable;

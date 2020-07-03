@@ -4,7 +4,8 @@
     "columnDate": "Datum",
     "columnPlace": "Evenemangplats",
     "columnSeatsInfo": "Platser",
-    "columnTime": "Tid"
+    "columnTime": "Tid",
+    "noSelectedOccurrences": "Inga valda evenemangtider"
   },
   "pageTitle": "Anmäl dig till evenemanget",
   "title": "Anmäl dig till evenemanget"

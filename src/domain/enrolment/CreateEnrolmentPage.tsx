@@ -20,7 +20,7 @@ import OccurrenceTable from './occurrenceTable/OccurrenceTable';
 const CreateEnrolmentPage: React.FC = () => {
   const { t } = useTranslation();
   const {
-    query: { eventId },
+    query: { eventId, occurrences },
   } = useRouter();
 
   const { data: eventData, loading } = useEventQuery({
@@ -33,10 +33,17 @@ const CreateEnrolmentPage: React.FC = () => {
 
   const event = eventData?.event;
   const eventLocationId = event?.location?.id || '';
-  const occurrences: OccurrenceFieldsFragment[] =
+  const selectedOccurrrences = Array.isArray(occurrences)
+    ? occurrences
+    : [occurrences];
+
+  const allOccurrences: OccurrenceFieldsFragment[] =
     event?.pEvent?.occurrences.edges.map(
       (edge) => edge?.node as OccurrenceFieldsFragment
     ) || [];
+  const filteredOccurrences: OccurrenceFieldsFragment[] = allOccurrences.filter(
+    (o) => selectedOccurrrences.includes(o.id)
+  );
 
   return (
     <PageWrapper title={t('enrolment:pageTitle')}>
@@ -59,7 +66,7 @@ const CreateEnrolmentPage: React.FC = () => {
               <EventInfo event={event} />
               <OccurrenceTable
                 eventLocationId={eventLocationId}
-                occurrences={occurrences}
+                occurrences={filteredOccurrences}
               />
             </Container>
           </div>

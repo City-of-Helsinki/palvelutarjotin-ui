@@ -4,7 +4,8 @@
     "columnDate": "Pvm",
     "columnPlace": "Tapahtumapaikka",
     "columnSeatsInfo": "Paikkoja",
-    "columnTime": "Kellonaika"
+    "columnTime": "Kellonaika",
+    "noSelectedOccurrences": "Ei valittuja tapahtuma-aikoja"
   },
   "pageTitle": "Ilmoittaudu tapahtumaan",
   "title": "Ilmoittaudu tapahtumaan"
