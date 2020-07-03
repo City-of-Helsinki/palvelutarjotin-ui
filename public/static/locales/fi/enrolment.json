@@ -1,5 +1,11 @@
 {
   "buttonBack": "Takaisin",
+  "occurrenceTable": {
+    "columnDate": "Pvm",
+    "columnPlace": "Tapahtumapaikka",
+    "columnSeatsInfo": "Paikkoja",
+    "columnTime": "Kellonaika"
+  },
   "pageTitle": "Ilmoittaudu tapahtumaan",
   "title": "Ilmoittaudu tapahtumaan"
 }

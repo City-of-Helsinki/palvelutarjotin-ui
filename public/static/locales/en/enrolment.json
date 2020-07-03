@@ -1,5 +1,11 @@
 {
   "buttonBack": "Back",
+  "occurrenceTable": {
+    "columnDate": "Date",
+    "columnPlace": "Event location",
+    "columnSeatsInfo": "Seats",
+    "columnTime": "Time"
+  },
   "pageTitle": "Enrol for the event",
   "title": "Enrol for the event"
 }
