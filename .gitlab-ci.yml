@@ -11,6 +11,8 @@ build-review:
   extends: .build
   variables:
     DOCKER_IMAGE_NAME: '$CI_PROJECT_NAME-review'
+    DOCKER_BUILD_ARG_NEXT_PUBLIC_SENTRY_DSN: '$GL_SENTRY_DSN'
+    DOCKER_BUILD_ARG_NEXT_PUBLIC_ENVIRONMENT: 'review'
     DOCKER_BUILD_ARG_NEXT_PUBLIC_API_BASE_URL: 'https://palvelutarjotin-api.test.kuva.hel.ninja/graphql'
   only:
     refs:
@@ -20,6 +22,8 @@ build-staging:
   extends: .build
   variables:
     DOCKER_IMAGE_NAME: '$CI_PROJECT_NAME-staging'
+    DOCKER_BUILD_ARG_NEXT_PUBLIC_SENTRY_DSN: '$GL_SENTRY_DSN'
+    DOCKER_BUILD_ARG_NEXT_PUBLIC_ENVIRONMENT: 'staging'
     DOCKER_BUILD_ARG_NEXT_PUBLIC_API_BASE_URL: 'https://palvelutarjotin-api.test.kuva.hel.ninja/graphql'
   only:
     refs:
@@ -29,6 +33,8 @@ build-production:
   extends: .build
   variables:
     DOCKER_IMAGE_NAME: '$CI_PROJECT_NAME-production'
+    DOCKER_BUILD_ARG_NEXT_PUBLIC_SENTRY_DSN: '$GL_SENTRY_DSN'
+    DOCKER_BUILD_ARG_NEXT_PUBLIC_ENVIRONMENT: 'production'
     DOCKER_BUILD_ARG_NEXT_PUBLIC_API_BASE_URL: 'https://palvelutarjotin-api.prod.kuva.hel.ninja/graphql'
   only:
     refs:
