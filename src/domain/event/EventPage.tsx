@@ -10,19 +10,15 @@ import Container from '../app/layout/Container';
 import PageWrapper from '../app/layout/PageWrapper';
 import NotFoundPage from '../notFoundPage/NotFoundPage';
 
-interface Params {
-  id: string;
-}
-
 const EventPage = (): ReactElement => {
   const { t } = useTranslation();
   const locale = useLocale();
   const {
-    query: { id },
+    query: { eventId },
   } = useRouter();
 
   const { data: eventData, loading } = useEventQuery({
-    variables: { id: id as string },
+    variables: { id: eventId as string },
   });
 
   const name = getLocalisedString(eventData?.event?.name || {}, locale);
