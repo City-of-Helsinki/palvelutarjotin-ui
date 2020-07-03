@@ -8,5 +8,7 @@
       "tomorrow": "Tomorrow at {{time}}"
     }
   },
-  "pageTitle": "Event"
+  "pageTitle": "Event",
+  "photographerText": "Photo: {{photographer}}",
+  "contactPerson": "Contact person"
 }

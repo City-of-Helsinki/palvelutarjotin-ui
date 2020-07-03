@@ -9,6 +9,10 @@ import getLocalisedString from '../../utils/getLocalisedString';
 import Container from '../app/layout/Container';
 import PageWrapper from '../app/layout/PageWrapper';
 import NotFoundPage from '../notFoundPage/NotFoundPage';
+import EventBasicInfo from './eventBasicInfo/EventBasicInfo';
+import EventImage from './eventImage/EventImage';
+import styles from './eventPage.module.scss';
+import { getEventFields } from './utils';
 
 const EventPage = (): ReactElement => {
   const { t } = useTranslation();
@@ -21,14 +25,24 @@ const EventPage = (): ReactElement => {
     variables: { id: eventId as string },
   });
 
-  const name = getLocalisedString(eventData?.event?.name || {}, locale);
+  const {
+    eventName,
+    imageUrl,
+    imageAltText,
+    photographerName,
+  } = getEventFields(eventData?.event, locale);
 
   return (
-    <PageWrapper title={name || t('event:pageTitle')}>
+    <PageWrapper title={eventName || t('event:pageTitle')}>
       <LoadingSpinner isLoading={loading}>
         {eventData?.event ? (
-          <Container>
-            <h1>{name}</h1>
+          <Container className={styles.eventPage}>
+            <EventImage
+              imageUrl={imageUrl}
+              imageAltText={imageAltText}
+              photographerName={photographerName}
+            />
+            <EventBasicInfo event={eventData.event} />
           </Container>
         ) : (
           <NotFoundPage />
