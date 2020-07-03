@@ -2,7 +2,14 @@ import { SUPPORTED_LANGUAGES } from '../constants';
 import { LocalisedObject } from '../generated/graphql';
 import { Language } from '../types';
 
-export default (obj: LocalisedObject, language: Language): string => {
+export default (
+  obj: LocalisedObject | undefined | null = {},
+  language: Language
+): string => {
+  if (obj === null) {
+    return '';
+  }
+
   const languages = [
     language,
     ...Object.values(SUPPORTED_LANGUAGES).filter((item) => item !== language),

@@ -7,6 +7,16 @@ export const QUERY_EVENT = gql`
     enrolmentEndDays
     enrolmentStart
     neededOccurrences
+    contactPhoneNumber
+    contactEmail
+    organisation {
+      id
+      name
+    }
+    contactPerson {
+      id
+      name
+    }
     occurrences {
       edges {
         node {
@@ -24,6 +34,7 @@ export const QUERY_EVENT = gql`
     fi
     sv
   }
+
   fragment offerFields on Offer {
     isFree
     description {

@@ -4,6 +4,7 @@ import { TFunction } from 'next-i18next';
 import { EventFieldsFragment } from '../../generated/graphql';
 import { Language } from '../../types';
 import formatDate from '../../utils/formatDate';
+import getLocalisedString from '../../utils/getLocalisedString';
 import getTimeFormat from '../../utils/getTimeFormat';
 import { EVENT_PLACEHOLDER_IMAGES } from './constants';
 
@@ -55,3 +56,26 @@ export const getEventStartTimeStr = (
  */
 export const isEventFree = (event: EventFieldsFragment): boolean =>
   Boolean(event.offers.find((item) => item.isFree)?.isFree);
+
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export const getEventFields = (
+  event: EventFieldsFragment | undefined | null,
+  locale: Language
+) =>
+  event
+    ? {
+        isEventFree: isEventFree(event),
+        eventName: getLocalisedString(event?.name, locale),
+        shortDescription: getLocalisedString(event?.shortDescription, locale),
+        description: getLocalisedString(event?.description, locale),
+        infoUrl: getLocalisedString(event?.infoUrl, locale),
+        imageUrl:
+          event?.images?.[0]?.url || getEventPlaceholderImage(event.id || ''),
+        imageAltText: event?.images?.[0]?.altText,
+        photographerName: event?.images?.[0]?.photographerName,
+        organization: event.pEvent?.organisation?.name,
+        contactPhoneNumber: event.pEvent?.contactPhoneNumber,
+        contactEmail: event.pEvent?.contactEmail,
+        contactPerson: event.pEvent?.contactPerson?.name,
+      }
+    : {};

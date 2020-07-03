@@ -1395,8 +1395,14 @@ export type DeleteImageMutation = {
 
 export type PEventFieldsFragment = (
   { __typename?: 'PalvelutarjotinEventNode' }
-  & Pick<PalvelutarjotinEventNode, 'id' | 'duration' | 'enrolmentEndDays' | 'enrolmentStart' | 'neededOccurrences'>
-  & { occurrences: (
+  & Pick<PalvelutarjotinEventNode, 'id' | 'duration' | 'enrolmentEndDays' | 'enrolmentStart' | 'neededOccurrences' | 'contactPhoneNumber' | 'contactEmail'>
+  & { organisation?: Maybe<(
+    { __typename?: 'OrganisationNode' }
+    & Pick<OrganisationNode, 'id' | 'name'>
+  )>, contactPerson?: Maybe<(
+    { __typename?: 'PersonNode' }
+    & Pick<PersonNode, 'id' | 'name'>
+  )>, occurrences: (
     { __typename?: 'OccurrenceNodeConnection' }
     & { edges: Array<Maybe<(
       { __typename?: 'OccurrenceNodeEdge' }
@@ -1769,6 +1775,16 @@ export const PEventFieldsFragmentDoc = gql`
   enrolmentEndDays
   enrolmentStart
   neededOccurrences
+  contactPhoneNumber
+  contactEmail
+  organisation {
+    id
+    name
+  }
+  contactPerson {
+    id
+    name
+  }
   occurrences {
     edges {
       node {
