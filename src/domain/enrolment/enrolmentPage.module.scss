@@ -1,0 +1,11 @@
+.enrolmentPage {
+  .buttonWrapper {
+    margin-bottom: var(--spacing-layout-s);
+  }
+
+  .divider {
+    margin: var(--spacing-layout-s) 0 var(--spacing-layout-xs);
+    width: 100%;
+    border-top: 2px solid var(--color-black-10);
+  }
+}

@@ -24,6 +24,9 @@ export const QUERY_EVENT = gql`
         }
       }
     }
+    organisation {
+      ...organisationFields
+    }
   }
 
   fragment localisedFields on LocalisedObject {

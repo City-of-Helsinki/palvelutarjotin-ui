@@ -35,6 +35,8 @@ FROM appbase as staticbuilder
 # Set environmental variables (when building image on GitLab CI) 
 # specified in gitlab-ci.yml file  
 ARG NEXT_PUBLIC_API_BASE_URL
+ARG NEXT_PUBLIC_SENTRY_DSN
+ARG NEXT_PUBLIC_ENVIRONMENT
 
 # Use non-root user
 USER appuser

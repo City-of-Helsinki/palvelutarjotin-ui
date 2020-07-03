@@ -14,19 +14,15 @@ import EventImage from './eventImage/EventImage';
 import styles from './eventPage.module.scss';
 import { getEventFields } from './utils';
 
-interface Params {
-  id: string;
-}
-
 const EventPage = (): ReactElement => {
   const { t } = useTranslation();
   const locale = useLocale();
   const {
-    query: { id },
+    query: { eventId },
   } = useRouter();
 
   const { data: eventData, loading } = useEventQuery({
-    variables: { id: id as string, include: ['location, keywords'] },
+    variables: { id: eventId as string },
   });
 
   const {
