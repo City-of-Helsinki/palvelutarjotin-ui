@@ -1,0 +1,55 @@
+@import 'variables';
+
+.eventBasicInfo {
+  --inforow-spacing: var(--spacing-m);
+}
+
+.eventBasicInfo {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+
+  .descriptionPart {
+    h1 {
+      font-size: var(--fontsize-h-2);
+    }
+
+    h1,
+    p {
+      margin: var(--inforow-spacing) 0;
+    }
+
+    .shortDescription {
+      font-size: var(--fontsize-h-4);
+    }
+  }
+
+  .infoRight {
+    padding-top: 1rem;
+
+    & > div {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      margin: var(--inforow-spacing) 0;
+
+      & > p {
+        margin: 0;
+      }
+
+      & > :first-child {
+        margin-right: var(--spacing-2-xs);
+      }
+    }
+  }
+
+  .organization {
+    font-weight: bold;
+    margin: 0;
+    margin-bottom: var(--spacing-s);
+  }
+
+  .contactInfo {
+    p {
+      margin: 0;
+    }
+  }
+}
