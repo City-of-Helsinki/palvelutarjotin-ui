@@ -26,6 +26,7 @@ const EventBasicInfo: React.FC<EventBasicInfoProps> = ({ event }) => {
     contactEmail,
     contactPerson,
     contactPhoneNumber,
+    infoUrl,
   } = getEventFields(event, locale);
 
   return (
@@ -37,16 +38,21 @@ const EventBasicInfo: React.FC<EventBasicInfoProps> = ({ event }) => {
         <EventKeywords event={event} />
       </div>
       <div className={styles.infoRight}>
+        {/* TODO: Add price information when it is implemented to palveluntarjotin-admin prject */}
         {isEventFree && (
           <div>
             <IconTicket />
             <p>{t('event:eventCard.free')}</p>
           </div>
         )}
-        <div>
-          <IconInfoCircle />
-          <p>Is there a field for this link? :)</p>
-        </div>
+        {infoUrl && (
+          <div>
+            <IconInfoCircle />
+            <a href={infoUrl} target="_blank" rel="noreferrer">
+              {infoUrl}
+            </a>
+          </div>
+        )}
         <div>
           <IconFaceSmile />
           <div>

@@ -68,7 +68,9 @@ export const getEventFields = (
         eventName: getLocalisedString(event?.name, locale),
         shortDescription: getLocalisedString(event?.shortDescription, locale),
         description: getLocalisedString(event?.description, locale),
-        imageUrl: event?.images?.[0]?.url,
+        infoUrl: getLocalisedString(event?.infoUrl, locale),
+        imageUrl:
+          event?.images?.[0]?.url || getEventPlaceholderImage(event.id || ''),
         imageAltText: event?.images?.[0]?.altText,
         photographerName: event?.images?.[0]?.photographerName,
         organization: event.pEvent?.organisation?.name,
