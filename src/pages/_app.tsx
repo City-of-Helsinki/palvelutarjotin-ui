@@ -1,9 +1,10 @@
 import { ApolloProvider } from '@apollo/react-hooks';
+import * as Sentry from '@sentry/browser';
 import { NormalizedCacheObject } from 'apollo-cache-inmemory';
 import { ApolloClient } from 'apollo-client';
 import flow from 'lodash/flow';
 import App from 'next/app';
-import React from 'react';
+import React, { ErrorInfo } from 'react';
 import { Provider } from 'react-redux';
 
 import '../assets/styles/main.scss';
@@ -16,6 +17,13 @@ interface Props {
   apollo: ApolloClient<NormalizedCacheObject>;
 }
 
+if (process.env.NODE_ENV === 'production') {
+  Sentry.init({
+    dsn: process.env.NEXT_PUBLIC_SENTRY_DSN,
+    environment: process.env.NEXT_PUBLIC_ENVIRONMENT,
+  });
+}
+
 class MyApp extends App<Props> {
   componentDidMount() {
     // Change <html>'s language on languageChanged event
@@ -26,6 +34,16 @@ class MyApp extends App<Props> {
         html.setAttribute('lang', lang);
       }
     });
+  }
+
+  componentDidCatch(error: Error, errorInfo: ErrorInfo) {
+    Sentry.withScope((scope) => {
+      scope.setExtra('componentStack', errorInfo.componentStack);
+
+      Sentry.captureException(error);
+    });
+
+    super.componentDidCatch(error, errorInfo);
   }
 
   render() {

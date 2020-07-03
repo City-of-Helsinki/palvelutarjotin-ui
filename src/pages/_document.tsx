@@ -1,3 +1,4 @@
+import * as Sentry from '@sentry/browser';
 import Document, {
   DocumentProps,
   Html,
@@ -8,6 +9,14 @@ import Document, {
 import React from 'react';
 
 import documentLang from '../utils/documentLang';
+
+process.on('unhandledRejection', (err) => {
+  Sentry.captureException(err);
+});
+
+process.on('uncaughtException', (err) => {
+  Sentry.captureException(err);
+});
 
 export default class MyDocument extends Document<DocumentProps> {
   render(): React.ReactElement {
