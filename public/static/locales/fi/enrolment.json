@@ -1,5 +1,6 @@
 {
   "buttonBack": "Takaisin",
+  "labelInvalidOccurrenceAmount": "Virheellinen määrä tapahtuma-aikoja valittuna",
   "occurrenceTable": {
     "columnDate": "Pvm",
     "columnPlace": "Tapahtumapaikka",
@@ -8,5 +9,7 @@
     "noSelectedOccurrences": "Ei valittuja tapahtuma-aikoja"
   },
   "pageTitle": "Ilmoittaudu tapahtumaan",
+  "textInvalidOccurrenceAmount": "{{count}} tapahtuma-aika tulee olla valittuna",
+  "textInvalidOccurrenceAmount_plural": "{{count}} tapahtuma-aikaa tulee olla valittuna",
   "title": "Ilmoittaudu tapahtumaan"
 }

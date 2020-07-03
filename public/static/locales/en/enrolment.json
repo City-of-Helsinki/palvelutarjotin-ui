@@ -1,5 +1,6 @@
 {
   "buttonBack": "Back",
+  "labelInvalidOccurrenceAmount": "Invalid amount of event times is selected",
   "occurrenceTable": {
     "columnDate": "Date",
     "columnPlace": "Event location",
@@ -8,5 +9,7 @@
     "noSelectedOccurrences": "No selected event times"
   },
   "pageTitle": "Enrol for the event",
+  "textInvalidOccurrenceAmount": "{{count}} event time has to be selected",
+  "textInvalidOccurrenceAmount_plural": "{{count}} event times have to be selected",
   "title": "Enrol for the event"
 }

@@ -1,4 +1,4 @@
-import { Button, IconArrowLeft } from 'hds-react';
+import { Button, IconArrowLeft, Notification } from 'hds-react';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -45,6 +45,9 @@ const CreateEnrolmentPage: React.FC = () => {
     (o) => selectedOccurrrences.includes(o.id)
   );
 
+  const areSelectedOccurrencesValid =
+    event?.pEvent?.neededOccurrences === filteredOccurrences.length;
+
   return (
     <PageWrapper title={t('enrolment:pageTitle')}>
       <LoadingSpinner isLoading={loading}>
@@ -64,10 +67,21 @@ const CreateEnrolmentPage: React.FC = () => {
               <h1>{t('enrolment:title')}</h1>
               <div className={styles.divider} />
               <EventInfo event={event} />
-              <OccurrenceTable
-                eventLocationId={eventLocationId}
-                occurrences={filteredOccurrences}
-              />
+              {areSelectedOccurrencesValid ? (
+                <OccurrenceTable
+                  eventLocationId={eventLocationId}
+                  occurrences={filteredOccurrences}
+                />
+              ) : (
+                <Notification
+                  labelText={t('enrolment:labelInvalidOccurrenceAmount')}
+                  type="error"
+                >
+                  {t('enrolment:textInvalidOccurrenceAmount', {
+                    count: event?.pEvent?.neededOccurrences,
+                  })}
+                </Notification>
+              )}
             </Container>
           </div>
         ) : (
