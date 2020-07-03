@@ -8,10 +8,12 @@ import {
   useEventQuery,
   OccurrenceFieldsFragment,
 } from '../../generated/graphql';
+import useLocale from '../../hooks/useLocale';
 import { Router } from '../../i18n';
 import Container from '../app/layout/Container';
 import PageWrapper from '../app/layout/PageWrapper';
 import { ROUTES } from '../app/routes/constants';
+import { getEventFields } from '../event/utils';
 import NotFoundPage from '../notFoundPage/NotFoundPage';
 import styles from './enrolmentPage.module.scss';
 import EventInfo from './eventInfo/EventInfo';
@@ -19,6 +21,7 @@ import OccurrenceTable from './occurrenceTable/OccurrenceTable';
 
 const CreateEnrolmentPage: React.FC = () => {
   const { t } = useTranslation();
+  const locale = useLocale();
   const {
     query: { eventId, occurrences },
   } = useRouter();
@@ -32,21 +35,22 @@ const CreateEnrolmentPage: React.FC = () => {
   };
 
   const event = eventData?.event;
-  const eventLocationId = event?.location?.id || '';
-  const selectedOccurrrences = Array.isArray(occurrences)
+  const {
+    locationId: eventLocationId,
+    neededOccurrences,
+    occurrences: allOccurrences,
+  } = getEventFields(event, locale);
+
+  const selectedOccurrences = Array.isArray(occurrences)
     ? occurrences
     : [occurrences];
 
-  const allOccurrences: OccurrenceFieldsFragment[] =
-    event?.pEvent?.occurrences.edges.map(
-      (edge) => edge?.node as OccurrenceFieldsFragment
-    ) || [];
-  const filteredOccurrences: OccurrenceFieldsFragment[] = allOccurrences.filter(
-    (o) => selectedOccurrrences.includes(o.id)
+  const filteredOccurrences = (allOccurrences || []).filter((o) =>
+    selectedOccurrences.includes(o.id)
   );
 
   const areSelectedOccurrencesValid =
-    event?.pEvent?.neededOccurrences === filteredOccurrences.length;
+    neededOccurrences === filteredOccurrences.length;
 
   return (
     <PageWrapper title={t('enrolment:pageTitle')}>
@@ -66,10 +70,11 @@ const CreateEnrolmentPage: React.FC = () => {
 
               <h1>{t('enrolment:title')}</h1>
               <div className={styles.divider} />
+
               <EventInfo event={event} />
               {areSelectedOccurrencesValid ? (
                 <OccurrenceTable
-                  eventLocationId={eventLocationId}
+                  eventLocationId={eventLocationId || ''}
                   occurrences={filteredOccurrences}
                 />
               ) : (
@@ -78,7 +83,7 @@ const CreateEnrolmentPage: React.FC = () => {
                   type="error"
                 >
                   {t('enrolment:textInvalidOccurrenceAmount', {
-                    count: event?.pEvent?.neededOccurrences,
+                    count: neededOccurrences,
                   })}
                 </Notification>
               )}
