@@ -45,18 +45,20 @@ const EventBasicInfo: React.FC<EventBasicInfoProps> = ({ event }) => {
         )}
         <div>
           <IconInfoCircle />
-          <p>Is there a field for this? :)</p>
+          <p>Is there a field for this link? :)</p>
         </div>
         <div>
           <IconFaceSmile />
           <div>
             <p className={styles.organization}>{organization}</p>
-            <div className={styles.contactInfo}>
-              <p>{t('event:contactPerson')}</p>
-              <p>{contactPerson}</p>
-              <p>{contactEmail}</p>
-              <p>{contactPhoneNumber}</p>
-            </div>
+            {contactPerson && (
+              <div className={styles.contactInfo}>
+                <p>{t('event:contactPerson')}</p>
+                <p>{contactPerson}</p>
+                {contactEmail && <p>{contactEmail}</p>}
+                {contactPhoneNumber && <p>{contactPhoneNumber}</p>}
+              </div>
+            )}
           </div>
         </div>
       </div>
