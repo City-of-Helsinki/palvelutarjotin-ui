@@ -1,6 +1,6 @@
 import { Button, IconArrowLeft } from 'hds-react';
 import { useRouter } from 'next/router';
-import React, { ReactElement } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import LoadingSpinner from '../../common/components/loadingSpinner/LoadingSpinner';
@@ -13,7 +13,7 @@ import NotFoundPage from '../notFoundPage/NotFoundPage';
 import styles from './enrolmentPage.module.scss';
 import EventInfo from './eventInfo/EventInfo';
 
-const CreateEnrolmentPage = (): ReactElement => {
+const CreateEnrolmentPage: React.FC = () => {
   const { t } = useTranslation();
   const {
     query: { eventId },

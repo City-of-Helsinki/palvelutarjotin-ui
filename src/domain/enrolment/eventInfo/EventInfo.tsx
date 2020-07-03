@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import React from 'react';
 
 import { EventFieldsFragment } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
@@ -9,7 +9,7 @@ interface Props {
   event: EventFieldsFragment;
 }
 
-const EventInfo = ({ event }: Props): ReactElement => {
+const EventInfo: React.FC<Props> = ({ event }) => {
   const locale = useLocale();
   const eventName = getLocalisedString(event.name, locale);
   const organisationName = event.pEvent?.organisation?.name;
