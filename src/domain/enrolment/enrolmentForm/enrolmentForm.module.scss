@@ -1,0 +1,25 @@
+@import 'layout';
+
+.enrolmentForm {
+  background-color: var(--color-black-10);
+  padding: var(--spacing-layout-s) var(--spacing-layout-xs);
+  margin-top: var(--spacing-layout-m);
+
+  .rowWith2Columns {
+    display: grid;
+    grid-gap: var(--spacing-layout-s);
+
+    @include respond_above(sm) {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .rowWith3Columns {
+    display: grid;
+    grid-gap: var(--spacing-layout-s);
+
+    @include respond_above(sm) {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+  }
+}

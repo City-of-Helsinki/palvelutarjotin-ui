@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FormikErrors, FormikTouched } from 'formik';
 import { TFunction } from 'i18next';
+import get from 'lodash/get';
 
 /** Get error text
  * @param {Object} errors
@@ -15,9 +16,9 @@ export const getErrorText = (
   name: string,
   t: TFunction
 ): string => {
-  const error: any = errors[name];
+  const error: any = get(errors, name);
 
-  return !!error && touched[name]
+  return !!error && get(touched, name)
     ? typeof error === 'string'
       ? t(error)
       : t(error.key, error)

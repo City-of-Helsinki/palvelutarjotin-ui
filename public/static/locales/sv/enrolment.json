@@ -1,5 +1,21 @@
 {
   "buttonBack": "Tillbaka",
+  "enrolmentForm": {
+    "studyGroup": {
+      "person": {
+        "labelEmailAddress": "E-postadress",
+        "labelName": "Name",
+        "labelPhoneNumber": "Telefonnummer"
+      },
+      "helperGroupName": "Unikt namn på gruppen, till exempel: 4a",
+      "labelAmountOfAdult": "Vuxna",
+      "labelGroupName": "Gruppens namn",
+      "labelGroupSize": "Barn",
+      "labelName": "Förskola / skola / högskola",
+      "titleGroup": "Gruppinformation",
+      "titleNotifier": "Anmälaren informations"
+    }
+  },
   "labelInvalidOccurrenceAmount": "Ogiltig mängd evenemangtider väljs",
   "occurrenceTable": {
     "columnDate": "Datum",

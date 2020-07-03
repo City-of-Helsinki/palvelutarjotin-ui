@@ -1,5 +1,21 @@
 {
   "buttonBack": "Back",
+  "enrolmentForm": {
+    "studyGroup": {
+      "person": {
+        "labelEmailAddress": "Email address",
+        "labelName": "Name",
+        "labelPhoneNumber": "Phone number"
+      },
+      "helperGroupName": "Unique name of the group, for example: 4a",
+      "labelAmountOfAdult": "Adults",
+      "labelGroupName": "Group name",
+      "labelGroupSize": "Children",
+      "labelName": "Kindergarten / school / college",
+      "titleGroup": "Group information",
+      "titleNotifier": "Notifier information"
+    }
+  },
   "labelInvalidOccurrenceAmount": "Invalid amount of event times is selected",
   "occurrenceTable": {
     "columnDate": "Date",

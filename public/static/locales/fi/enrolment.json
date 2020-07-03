@@ -1,5 +1,21 @@
 {
   "buttonBack": "Takaisin",
+  "enrolmentForm": {
+    "studyGroup": {
+      "person": {
+        "labelEmailAddress": "Sähköpostiosoite",
+        "labelName": "Nimi",
+        "labelPhoneNumber": "Puhelinnumero"
+      },
+      "helperGroupName": "Ryhmän yksilöivä nimi, esimerkiksi: 4a",
+      "labelAmountOfAdult": "Aikuisia",
+      "labelGroupName": "Ryhmä",
+      "labelGroupSize": "Lapsia",
+      "labelName": "Päiväkoti / koulu / oppilaitos",
+      "titleGroup": "Ryhmän tiedot",
+      "titleNotifier": "Ilmoittajan tiedot"
+    }
+  },
   "labelInvalidOccurrenceAmount": "Virheellinen määrä tapahtuma-aikoja valittuna",
   "occurrenceTable": {
     "columnDate": "Pvm",
