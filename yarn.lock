@@ -9317,6 +9317,11 @@ i18next-http-middleware@>=1.0.2:
   resolved "https://registry.yarnpkg.com/i18next-http-middleware/-/i18next-http-middleware-2.1.1.tgz#a5d10eab8d1ad897e0ea4603b972ccbbac4c3c3b"
   integrity sha512-yjgf7Oxe/BzUiDkVzl4pHy3vZTMezgj0lNrLxkGiKUcngepCKWFv+ErtkHRRrOLqjRLJzE4KtLIur3jfwCVpDg==
 
+i18next-intervalplural-postprocessor@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/i18next-intervalplural-postprocessor/-/i18next-intervalplural-postprocessor-2.0.1.tgz#4937c188360072315b89c4a2d3b2a3b1aa32232c"
+  integrity sha512-eR9raQrnGOOohT1fIgmmrVHaaLMAtH8fCuVDly127ZDa7vJvWWC62b9p8wA0fpbc/e4yz9zFb7TbCQmPjdgQ1Q==
+
 i18next@^19.0.3:
   version "19.4.5"
   resolved "https://registry.yarnpkg.com/i18next/-/i18next-19.4.5.tgz#f9ea8bbb48d1ec66bc3436f0bb74a16b11821e11"

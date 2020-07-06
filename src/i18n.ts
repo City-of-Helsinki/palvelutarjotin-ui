@@ -1,3 +1,4 @@
+import intervalPlural from 'i18next-intervalplural-postprocessor';
 import NextI18Next from 'next-i18next';
 
 const NextI18NextInstance = new NextI18Next({
@@ -10,6 +11,8 @@ const NextI18NextInstance = new NextI18Next({
   },
   otherLanguages: ['en', 'sv'],
 });
+
+NextI18NextInstance.i18n.use(intervalPlural);
 
 export default NextI18NextInstance;
 

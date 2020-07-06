@@ -53,16 +53,8 @@
   },
   "pageTitle": "Enrol for the event",
   "studyLevel": {
-    "grade1": "1st grade",
-    "grade2": "2nd grade",
-    "grade3": "3rd grade",
-    "grade4": "4th grade",
-    "grade5": "5th grade",
-    "grade6": "6th grade",
-    "grade7": "7th grade",
-    "grade8": "8th grade",
-    "grade9": "9th grade",
-    "grade10": "10th grade",
+    "grade_interval": "(1){1st grade};(2){2nd grade};",
+    "grade_plural": "{{count}}th grade",
     "preschool": "Preschool",
     "secondary": "Upper secondary school"
   },

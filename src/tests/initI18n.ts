@@ -1,4 +1,5 @@
 import i18n from 'i18next';
+import intervalPlural from 'i18next-intervalplural-postprocessor';
 import { initReactI18next } from 'react-i18next';
 
 import common from '../../public/static/locales/fi/common.json';
@@ -9,6 +10,7 @@ import header from '../../public/static/locales/fi/header.json';
 
 const translations = { common, event, events, footer, header };
 
+i18n.use(intervalPlural);
 i18n.use(initReactI18next).init({
   lng: 'fi',
   fallbackLng: 'fi',

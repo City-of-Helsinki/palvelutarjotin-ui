@@ -71,7 +71,12 @@ const EnrolmentForm: React.FC<Props> = ({
   const { t } = useTranslation();
 
   const studyLevelOptions = Object.values(StudyLevel).map((level) => ({
-    label: translateValue('enrolment:studyLevel.', level, t),
+    label: level.startsWith('GRADE')
+      ? t('enrolment:studyLevel.grade_interval', {
+          postProcess: 'interval',
+          count: Number(level.split('_')[1]),
+        })
+      : translateValue('enrolment:studyLevel.', level, t),
     value: level,
   }));
 

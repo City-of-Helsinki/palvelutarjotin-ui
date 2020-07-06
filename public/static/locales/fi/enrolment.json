@@ -53,16 +53,8 @@
   },
   "pageTitle": "Ilmoittaudu tapahtumaan",
   "studyLevel": {
-    "grade1": "1. luokka",
-    "grade2": "2. luokka",
-    "grade3": "3. luokka",
-    "grade4": "4. luokka",
-    "grade5": "5. luokka",
-    "grade6": "6. luokka",
-    "grade7": "7. luokka",
-    "grade8": "8. luokka",
-    "grade9": "9. luokka",
-    "grade10": "10. luokka",
+    "grade": "{{count}}. luokka",
+    "grade_plural": "{{count}}. luokka",
     "preschool": "Esikoulu",
     "secondary": "Lukio"
   },
