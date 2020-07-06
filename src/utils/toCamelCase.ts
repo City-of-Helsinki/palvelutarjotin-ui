@@ -10,6 +10,6 @@ export default (snakecase: string): string => {
         snakecase
           .substr(1)
           .toLowerCase()
-          .replace(/(_[a-z])/g, ($1) => $1.toUpperCase().replace('_', ''))
+          .replace(/(_[a-z, 0-9])/g, ($1) => $1.toUpperCase().replace('_', ''))
     : '';
 };

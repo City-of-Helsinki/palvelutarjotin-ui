@@ -1,6 +1,7 @@
 {
   "buttonBack": "Takaisin",
   "enrolmentForm": {
+    "labelLanguage": "Kieli",
     "studyGroup": {
       "person": {
         "labelEmailAddress": "Sähköpostiosoite",
@@ -12,11 +13,18 @@
       "labelGroupName": "Ryhmä",
       "labelGroupSize": "Lapsia",
       "labelName": "Päiväkoti / koulu / oppilaitos",
+      "labelStudyLevel": "Luokka-aste",
       "titleGroup": "Ryhmän tiedot",
       "titleNotifier": "Ilmoittajan tiedot"
-    }
+    },
+    "titleNotifications": "Tapahtumaa koskevat ilmoitukset"
   },
   "labelInvalidOccurrenceAmount": "Virheellinen määrä tapahtuma-aikoja valittuna",
+  "language": {
+    "en": "Englanti",
+    "fi": "Suomi",
+    "sv": "Ruotsi"
+  },
   "occurrenceTable": {
     "columnDate": "Pvm",
     "columnPlace": "Tapahtumapaikka",
@@ -25,6 +33,20 @@
     "noSelectedOccurrences": "Ei valittuja tapahtuma-aikoja"
   },
   "pageTitle": "Ilmoittaudu tapahtumaan",
+  "studyLevel": {
+    "grade1": "1. luokka",
+    "grade2": "2. luokka",
+    "grade3": "3. luokka",
+    "grade4": "4. luokka",
+    "grade5": "5. luokka",
+    "grade6": "6. luokka",
+    "grade7": "7. luokka",
+    "grade8": "8. luokka",
+    "grade9": "9. luokka",
+    "grade10": "10. luokka",
+    "preschool": "Esikoulu",
+    "secondary": "Lukio"
+  },
   "textInvalidOccurrenceAmount": "{{count}} tapahtuma-aika tulee olla valittuna",
   "textInvalidOccurrenceAmount_plural": "{{count}} tapahtuma-aikaa tulee olla valittuna",
   "title": "Ilmoittaudu tapahtumaan"

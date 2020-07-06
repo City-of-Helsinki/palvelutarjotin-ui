@@ -1,6 +1,7 @@
 {
   "buttonBack": "Back",
   "enrolmentForm": {
+    "labelLanguage": "Language",
     "studyGroup": {
       "person": {
         "labelEmailAddress": "Email address",
@@ -12,11 +13,18 @@
       "labelGroupName": "Group name",
       "labelGroupSize": "Children",
       "labelName": "Kindergarten / school / college",
+      "labelStudyLevel": "Grade level",
       "titleGroup": "Group information",
       "titleNotifier": "Notifier information"
-    }
+    },
+    "titleNotifications": "Event notifications"
   },
   "labelInvalidOccurrenceAmount": "Invalid amount of event times is selected",
+  "language": {
+    "en": "English",
+    "fi": "Finnish",
+    "sv": "Swedish"
+  },
   "occurrenceTable": {
     "columnDate": "Date",
     "columnPlace": "Event location",
@@ -25,6 +33,20 @@
     "noSelectedOccurrences": "No selected event times"
   },
   "pageTitle": "Enrol for the event",
+  "studyLevel": {
+    "grade1": "1st grade",
+    "grade2": "2nd grade",
+    "grade3": "3rd grade",
+    "grade4": "4th grade",
+    "grade5": "5th grade",
+    "grade6": "6th grade",
+    "grade7": "7th grade",
+    "grade8": "8th grade",
+    "grade9": "9th grade",
+    "grade10": "10th grade",
+    "preschool": "Preschool",
+    "secondary": "Upper secondary school"
+  },
   "textInvalidOccurrenceAmount": "{{count}} event time has to be selected",
   "textInvalidOccurrenceAmount_plural": "{{count}} event times have to be selected",
   "title": "Enrol for the event"

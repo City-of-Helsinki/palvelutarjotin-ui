@@ -3,6 +3,7 @@ import * as Yup from 'yup';
 import { VALIDATION_MESSAGE_KEYS } from '../../app/forms/constants';
 
 export default Yup.object().shape({
+  language: Yup.string().required(VALIDATION_MESSAGE_KEYS.STRING_REQUIRED),
   studyGroup: Yup.object().shape({
     person: Yup.object().shape({
       name: Yup.string().required(VALIDATION_MESSAGE_KEYS.STRING_REQUIRED),
@@ -27,5 +28,6 @@ export default Yup.object().shape({
         min: param.min,
         key: VALIDATION_MESSAGE_KEYS.NUMBER_MIN,
       })),
+    studyLevel: Yup.string().required(VALIDATION_MESSAGE_KEYS.STRING_REQUIRED),
   }),
 });

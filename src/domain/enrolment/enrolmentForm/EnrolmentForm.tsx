@@ -2,13 +2,17 @@ import { Formik, Field } from 'formik';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
+import DropdownField from '../../../common/components/form/fields/DropdownField';
 import TextInputField from '../../../common/components/form/fields/TextInputField';
 import FormGroup from '../../../common/components/form/FormGroup';
+import { Language, StudyLevel } from '../../../generated/graphql';
+import { translateValue } from '../../../utils/translateUtils';
 import Container from '../../app/layout/Container';
 import styles from './enrolmentForm.module.scss';
 import ValidationSchema from './ValidationSchema';
 
 export type EnrolmentFormFields = {
+  language: string;
   studyGroup: {
     person: {
       name: string;
@@ -19,11 +23,13 @@ export type EnrolmentFormFields = {
     groupName: string;
     groupSize: string;
     amountOfAdult: string;
+    studyLevel: string;
     extraNeeds: string;
   };
 };
 
 export const defaultInitialValues: EnrolmentFormFields = {
+  language: '',
   studyGroup: {
     person: {
       name: '',
@@ -34,6 +40,7 @@ export const defaultInitialValues: EnrolmentFormFields = {
     groupName: '',
     groupSize: '',
     amountOfAdult: '',
+    studyLevel: '',
     extraNeeds: '',
   },
 };
@@ -48,6 +55,17 @@ const EnrolmentForm: React.FC<Props> = ({
   onSubmit,
 }) => {
   const { t } = useTranslation();
+
+  const studyLevelOptions = Object.values(StudyLevel).map((level) => ({
+    label: translateValue('enrolment:studyLevel.', level, t),
+    value: level,
+  }));
+
+  const languageOptions = Object.values(Language).map((level) => ({
+    label: translateValue('enrolment:language.', level, t),
+    value: level,
+  }));
+
   return (
     <Formik
       initialValues={initialValues}
@@ -106,6 +124,16 @@ const EnrolmentForm: React.FC<Props> = ({
                     name="studyGroup.groupName"
                   />
                 </FormGroup>
+                <FormGroup>
+                  <Field
+                    label={t(
+                      'enrolment:enrolmentForm.studyGroup.labelStudyLevel'
+                    )}
+                    component={DropdownField}
+                    name="studyGroup.studyLevel"
+                    options={studyLevelOptions}
+                  />
+                </FormGroup>
               </div>
               <h2>{t('enrolment:enrolmentForm.studyGroup.titleGroup')}</h2>
               <div className={styles.rowWith2Columns}>
@@ -129,6 +157,20 @@ const EnrolmentForm: React.FC<Props> = ({
                     min={0}
                     name="studyGroup.amountOfAdult"
                     type="number"
+                  />
+                </FormGroup>
+              </div>
+
+              <h2>{t('enrolment:enrolmentForm.titleNotifications')}</h2>
+              <div className={styles.rowWith3Columns}>
+                <FormGroup></FormGroup>
+                <FormGroup></FormGroup>
+                <FormGroup>
+                  <Field
+                    label={t('enrolment:enrolmentForm.labelLanguage')}
+                    component={DropdownField}
+                    name="language"
+                    options={languageOptions}
                   />
                 </FormGroup>
               </div>

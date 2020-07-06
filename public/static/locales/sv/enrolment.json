@@ -1,6 +1,7 @@
 {
   "buttonBack": "Tillbaka",
   "enrolmentForm": {
+    "labelLanguage": "Språk",
     "studyGroup": {
       "person": {
         "labelEmailAddress": "E-postadress",
@@ -12,11 +13,18 @@
       "labelGroupName": "Gruppens namn",
       "labelGroupSize": "Barn",
       "labelName": "Förskola / skola / högskola",
+      "labelStudyLevel": "Betygsnivå",
       "titleGroup": "Gruppinformation",
       "titleNotifier": "Anmälaren informations"
-    }
+    },
+    "titleNotifications": "Meddelanden om händelse"
   },
   "labelInvalidOccurrenceAmount": "Ogiltig mängd evenemangtider väljs",
+  "language": {
+    "en": "Engelska",
+    "fi": "Finska",
+    "sv": "Svenska"
+  },
   "occurrenceTable": {
     "columnDate": "Datum",
     "columnPlace": "Evenemangplats",
@@ -25,6 +33,20 @@
     "noSelectedOccurrences": "Inga valda evenemangtider"
   },
   "pageTitle": "Anmäl dig till evenemanget",
+  "studyLevel": {
+    "grade1": "1: a klass",
+    "grade2": "2: a klass",
+    "grade3": "3: a klass",
+    "grade4": "4: a klass",
+    "grade5": "5: a klass",
+    "grade6": "6: a klass",
+    "grade7": "7: a klass",
+    "grade8": "8: a klass",
+    "grade9": "9: a klass",
+    "grade10": "10: a klass",
+    "preschool": "Förskola",
+    "secondary": "Gymnasieskola"
+  },
   "textInvalidOccurrenceAmount": "{{count}} evenemangtid måste väljas",
   "textInvalidOccurrenceAmount_plural": "{{count}} evenemangtided måste väljas",
   "title": "Anmäl dig till evenemanget"
