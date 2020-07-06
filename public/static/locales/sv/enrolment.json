@@ -1,6 +1,8 @@
 {
   "buttonBack": "Tillbaka",
   "enrolmentForm": {
+    "infoText1": "Vi använder inte den information du tillhandahåller för marknadsföringsändamål.",
+    "infoText2": "Vi skickar ett separat bekräftelsemeddelande när organisatören har behandlat och bekräftat din registrering.",
     "labelHasEmailNotification": "Via e-post",
     "labelHasSmsNotification": "Via SMS",
     "labelIsSameResponsiblePerson": "Samma som anmälare",
@@ -11,14 +13,17 @@
       "labelName": "Name",
       "labelPhoneNumber": "Telefonnummer"
     },
+    "privacyPolicy": "Integritetspolicy",
     "studyGroup": {
       "person": {
         "labelEmailAddress": "E-postadress",
         "labelName": "Name",
         "labelPhoneNumber": "Telefonnummer"
       },
+      "helperExtraNeeds": "Lägg till här om du vill berätta arrangören om något annat som är relevant för din grupp",
       "helperGroupName": "Unikt namn på gruppen, till exempel: 4a",
       "labelAmountOfAdult": "Vuxna",
+      "labelExtraNeeds": "Ytterligare information (valfritt)",
       "labelGroupName": "Gruppens namn",
       "labelGroupSize": "Barn",
       "labelName": "Förskola / skola / högskola",

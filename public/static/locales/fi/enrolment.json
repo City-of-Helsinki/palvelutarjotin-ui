@@ -1,6 +1,8 @@
 {
   "buttonBack": "Takaisin",
   "enrolmentForm": {
+    "infoText1": "Emme käytä antamiasi tietoja markkinointiin.",
+    "infoText2": "Lähetämme sinulle erillisen vahvistusviestin, kun järjestäjä on käsitellyt ja vahvistanut ilmoittautumisesi.",
     "labelHasEmailNotification": "Sähköpostilla",
     "labelHasSmsNotification": "Tekstiviestillä",
     "labelIsSameResponsiblePerson": "Sama kuin ilmoittaja",
@@ -11,14 +13,17 @@
       "labelName": "Nimi",
       "labelPhoneNumber": "Puhelinnumero"
     },
+    "privacyPolicy": "Rekisteriseloste",
     "studyGroup": {
       "person": {
         "labelEmailAddress": "Sähköpostiosoite",
         "labelName": "Nimi",
         "labelPhoneNumber": "Puhelinnumero"
       },
+      "helperExtraNeeds": "Lisää tähän, jos haluat kertoa järjestäjälle jotain muuta olennaista ryhmästänne",
       "helperGroupName": "Ryhmän yksilöivä nimi, esimerkiksi: 4a",
       "labelAmountOfAdult": "Aikuisia",
+      "labelExtraNeeds": "Lisätiedot (valinnainen)",
       "labelGroupName": "Ryhmä",
       "labelGroupSize": "Lapsia",
       "labelName": "Päiväkoti / koulu / oppilaitos",

@@ -1,6 +1,8 @@
 {
   "buttonBack": "Back",
   "enrolmentForm": {
+    "infoText1": "We do not use the information you provide for marketing purposes.",
+    "infoText2": "We will send you a separate confirmation message once the organizer has processed and confirmed your registration.",
     "labelHasEmailNotification": "By e-mail",
     "labelHasSmsNotification": "By SMS",
     "labelIsSameResponsiblePerson": "Same as notifier",
@@ -11,14 +13,17 @@
       "labelName": "Name",
       "labelPhoneNumber": "Phone number"
     },
+    "privacyPolicy": "Privacy policy",
     "studyGroup": {
       "person": {
         "labelEmailAddress": "Email address",
         "labelName": "Name",
         "labelPhoneNumber": "Phone number"
       },
+      "helperExtraNeeds": "Add here if you want to tell the organizer something else relevant to your group",
       "helperGroupName": "Unique name of the group, for example: 4a",
       "labelAmountOfAdult": "Adults",
+      "labelExtraNeeds": "Additional information (optional)",
       "labelGroupName": "Group name",
       "labelGroupSize": "Children",
       "labelName": "Kindergarten / school / college",

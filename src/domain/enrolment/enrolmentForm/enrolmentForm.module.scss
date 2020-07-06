@@ -35,4 +35,13 @@
     width: 100%;
     border-top: 2px solid var(--color-black-20);
   }
+
+  p {
+    font-size: var(--fontsize-body-medium);
+  }
+
+  .privacyPolicyLink {
+    text-decoration: none;
+    color: var(--color-bus);
+  }
 }

@@ -5,11 +5,14 @@ import { useTranslation } from 'react-i18next';
 import ErrorMessage from '../../../common/components/form/ErrorMessage';
 import CheckboxField from '../../../common/components/form/fields/CheckboxField';
 import DropdownField from '../../../common/components/form/fields/DropdownField';
+import TextAreaField from '../../../common/components/form/fields/TextAreaField';
 import TextInputField from '../../../common/components/form/fields/TextInputField';
 import FormGroup from '../../../common/components/form/FormGroup';
 import { Language, StudyLevel } from '../../../generated/graphql';
+import { Link } from '../../../i18n';
 import { translateValue } from '../../../utils/translateUtils';
 import Container from '../../app/layout/Container';
+import { ROUTES } from '../../app/routes/constants';
 import styles from './enrolmentForm.module.scss';
 import ValidationSchema from './ValidationSchema';
 
@@ -254,6 +257,31 @@ const EnrolmentForm: React.FC<Props> = ({
               </div>
 
               <FormGroup>
+                <Field
+                  helperText={t(
+                    'enrolment:enrolmentForm.studyGroup.helperExtraNeeds'
+                  )}
+                  labelText={t(
+                    'enrolment:enrolmentForm.studyGroup.labelExtraNeeds'
+                  )}
+                  component={TextAreaField}
+                  name="studyGroup.extraNeeds"
+                />
+              </FormGroup>
+              <FormGroup>
+                <p>
+                  {t('enrolment:enrolmentForm.infoText1')}{' '}
+                  <Link href={ROUTES.PRIVACY_POLICY} passHref={true}>
+                    <a
+                      href={ROUTES.PRIVACY_POLICY}
+                      className={styles.privacyPolicyLink}
+                    >
+                      {t('enrolment:enrolmentForm.privacyPolicy')}
+                    </a>
+                  </Link>
+                </p>
+              </FormGroup>
+              <FormGroup>
                 <div className={styles.checkboxWrapper}>
                   <Field
                     label={t(
@@ -264,10 +292,14 @@ const EnrolmentForm: React.FC<Props> = ({
                   />
                 </div>
               </FormGroup>
+
               {errors.isSharingDataAccepted &&
                 touched.isSharingDataAccepted && (
                   <ErrorMessage>{t(errors.isSharingDataAccepted)}</ErrorMessage>
                 )}
+              <FormGroup>
+                <p>{t('enrolment:enrolmentForm.infoText2')}</p>
+              </FormGroup>
             </Container>
           </form>
         );
