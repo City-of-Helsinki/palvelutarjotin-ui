@@ -1,7 +1,16 @@
 {
   "buttonBack": "Back",
   "enrolmentForm": {
+    "labelHasEmailNotification": "By e-mail",
+    "labelHasSmsNotification": "By SMS",
+    "labelIsSameResponsiblePerson": "Same as notifier",
+    "labelIsSharingDataAccepted": "I agree to share my information with the event organizer",
     "labelLanguage": "Language",
+    "person": {
+      "labelEmailAddress": "Email address",
+      "labelName": "Name",
+      "labelPhoneNumber": "Phone number"
+    },
     "studyGroup": {
       "person": {
         "labelEmailAddress": "Email address",
@@ -17,7 +26,11 @@
       "titleGroup": "Group information",
       "titleNotifier": "Notifier information"
     },
-    "titleNotifications": "Event notifications"
+    "titleNotifications": "Event notifications",
+    "titleResponsiblePerson": "An adult in charge of the group during the event",
+    "validation": {
+      "isSharingDataAccepted": "Sharing information with the event organizer must be accepted"
+    }
   },
   "labelInvalidOccurrenceAmount": "Invalid amount of event times is selected",
   "language": {

@@ -1,7 +1,16 @@
 {
   "buttonBack": "Takaisin",
   "enrolmentForm": {
+    "labelHasEmailNotification": "Sähköpostilla",
+    "labelHasSmsNotification": "Tekstiviestillä",
+    "labelIsSameResponsiblePerson": "Sama kuin ilmoittaja",
+    "labelIsSharingDataAccepted": "Hyväksyn tietojeni jakamisen tapahtuman järjestäjän kanssa",
     "labelLanguage": "Kieli",
+    "person": {
+      "labelEmailAddress": "Sähköpostiosoite",
+      "labelName": "Nimi",
+      "labelPhoneNumber": "Puhelinnumero"
+    },
     "studyGroup": {
       "person": {
         "labelEmailAddress": "Sähköpostiosoite",
@@ -17,7 +26,11 @@
       "titleGroup": "Ryhmän tiedot",
       "titleNotifier": "Ilmoittajan tiedot"
     },
-    "titleNotifications": "Tapahtumaa koskevat ilmoitukset"
+    "titleNotifications": "Tapahtumaa koskevat ilmoitukset",
+    "titleResponsiblePerson": "Tapahtuman aikana ryhmästä vastuussa oleva aikuinen",
+    "validation": {
+      "isSharingDataAccepted": "Tietojen jakaminen tapahtuman järjestäjän kanssa tulee olla hyväksytty"
+    }
   },
   "labelInvalidOccurrenceAmount": "Virheellinen määrä tapahtuma-aikoja valittuna",
   "language": {

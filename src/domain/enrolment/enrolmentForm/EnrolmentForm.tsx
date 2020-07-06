@@ -2,6 +2,8 @@ import { Formik, Field } from 'formik';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
+import ErrorMessage from '../../../common/components/form/ErrorMessage';
+import CheckboxField from '../../../common/components/form/fields/CheckboxField';
 import DropdownField from '../../../common/components/form/fields/DropdownField';
 import TextInputField from '../../../common/components/form/fields/TextInputField';
 import FormGroup from '../../../common/components/form/FormGroup';
@@ -12,6 +14,10 @@ import styles from './enrolmentForm.module.scss';
 import ValidationSchema from './ValidationSchema';
 
 export type EnrolmentFormFields = {
+  hasEmailNotification: boolean;
+  hasSmsNotification: boolean;
+  isSameResponsiblePerson: boolean;
+  isSharingDataAccepted: boolean;
   language: string;
   studyGroup: {
     person: {
@@ -29,6 +35,10 @@ export type EnrolmentFormFields = {
 };
 
 export const defaultInitialValues: EnrolmentFormFields = {
+  hasEmailNotification: false,
+  hasSmsNotification: false,
+  isSameResponsiblePerson: true,
+  isSharingDataAccepted: false,
   language: '',
   studyGroup: {
     person: {
@@ -72,7 +82,12 @@ const EnrolmentForm: React.FC<Props> = ({
       onSubmit={onSubmit}
       validationSchema={ValidationSchema}
     >
-      {({ handleSubmit }) => {
+      {({
+        errors,
+        handleSubmit,
+        touched,
+        values: { isSameResponsiblePerson },
+      }) => {
         return (
           <form className={styles.enrolmentForm} onSubmit={handleSubmit}>
             <Container size="small">
@@ -160,11 +175,74 @@ const EnrolmentForm: React.FC<Props> = ({
                   />
                 </FormGroup>
               </div>
+              <h2>{t('enrolment:enrolmentForm.titleResponsiblePerson')}</h2>
+              <FormGroup>
+                <div className={styles.checkboxWrapper}>
+                  <Field
+                    label={t(
+                      'enrolment:enrolmentForm.labelIsSameResponsiblePerson'
+                    )}
+                    component={CheckboxField}
+                    name="isSameResponsiblePerson"
+                  />
+                </div>
+              </FormGroup>
+              {!isSameResponsiblePerson && (
+                <>
+                  <FormGroup>
+                    <Field
+                      labelText={t('enrolment:enrolmentForm.person.labelName')}
+                      component={TextInputField}
+                      name="person.name"
+                    />
+                  </FormGroup>
+                  <FormGroup>
+                    <Field
+                      labelText={t(
+                        'enrolment:enrolmentForm.person.labelEmailAddress'
+                      )}
+                      component={TextInputField}
+                      name="person.emailAddress"
+                    />
+                  </FormGroup>
+                  <FormGroup>
+                    <Field
+                      labelText={t(
+                        'enrolment:enrolmentForm.person.labelPhoneNumber'
+                      )}
+                      component={TextInputField}
+                      name="person.phoneNumber"
+                    />
+                  </FormGroup>
+                </>
+              )}
+
+              <div className={styles.divider} />
 
               <h2>{t('enrolment:enrolmentForm.titleNotifications')}</h2>
               <div className={styles.rowWith3Columns}>
-                <FormGroup></FormGroup>
-                <FormGroup></FormGroup>
+                <FormGroup>
+                  <div className={styles.checkboxWrapper}>
+                    <Field
+                      label={t(
+                        'enrolment:enrolmentForm.labelHasEmailNotification'
+                      )}
+                      component={CheckboxField}
+                      name="hasEmailNotification"
+                    />
+                  </div>
+                </FormGroup>
+                <FormGroup>
+                  <div className={styles.checkboxWrapper}>
+                    <Field
+                      label={t(
+                        'enrolment:enrolmentForm.labelHasSmsNotification'
+                      )}
+                      component={CheckboxField}
+                      name="hasSmsNotification"
+                    />
+                  </div>
+                </FormGroup>
                 <FormGroup>
                   <Field
                     label={t('enrolment:enrolmentForm.labelLanguage')}
@@ -174,6 +252,22 @@ const EnrolmentForm: React.FC<Props> = ({
                   />
                 </FormGroup>
               </div>
+
+              <FormGroup>
+                <div className={styles.checkboxWrapper}>
+                  <Field
+                    label={t(
+                      'enrolment:enrolmentForm.labelIsSharingDataAccepted'
+                    )}
+                    component={CheckboxField}
+                    name="isSharingDataAccepted"
+                  />
+                </div>
+              </FormGroup>
+              {errors.isSharingDataAccepted &&
+                touched.isSharingDataAccepted && (
+                  <ErrorMessage>{t(errors.isSharingDataAccepted)}</ErrorMessage>
+                )}
             </Container>
           </form>
         );
