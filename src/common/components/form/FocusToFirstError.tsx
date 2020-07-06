@@ -13,17 +13,12 @@ const FocusToFirstError: React.FC = () => {
       )[0] as HTMLElement;
       if (element) {
         const input = element.getElementsByTagName('input')[0] as HTMLElement;
-        if (input) {
-          input.focus();
-        } else {
-          // Dropdown component doesn't have input field so focus to button
-          const button = element.getElementsByTagName(
-            'button'
-          )[0] as HTMLElement;
+        // Dropdown component doesn't have input field so focus to button in that case
+        const button = element.getElementsByTagName('button')[0] as HTMLElement;
+        const componentToFocus = input || button;
 
-          if (button) {
-            button.focus();
-          }
+        if (componentToFocus) {
+          componentToFocus.focus();
         }
       }
     }
