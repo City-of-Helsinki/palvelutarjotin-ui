@@ -8,6 +8,7 @@ import CheckboxField from '../../../common/components/form/fields/CheckboxField'
 import DropdownField from '../../../common/components/form/fields/DropdownField';
 import TextAreaField from '../../../common/components/form/fields/TextAreaField';
 import TextInputField from '../../../common/components/form/fields/TextInputField';
+import FocusToFirstError from '../../../common/components/form/FocusToFirstError';
 import FormGroup from '../../../common/components/form/FormGroup';
 import { Language, StudyLevel } from '../../../generated/graphql';
 import { Link } from '../../../i18n';
@@ -99,6 +100,7 @@ const EnrolmentForm: React.FC<Props> = ({
       }) => {
         return (
           <form className={styles.enrolmentForm} onSubmit={handleSubmit}>
+            <FocusToFirstError />
             <Container size="small">
               <h2>{t('enrolment:enrolmentForm.studyGroup.titleNotifier')}</h2>
               <FormGroup>
