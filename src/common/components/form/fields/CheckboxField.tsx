@@ -24,7 +24,7 @@ const CheckboxField: React.FC<Props> = (props) => {
       {...rest}
       id={name}
       checked={field.value}
-      className={!!errorText ? invalidFieldClass : undefined}
+      className={errorText ? invalidFieldClass : undefined}
     />
   );
 };

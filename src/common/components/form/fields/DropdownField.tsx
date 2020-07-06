@@ -82,7 +82,7 @@ const DropdownField: React.FC<Props> = ({
               .filter((i: Option | undefined) => i)
           : options.find((option) => option.value === value)
       }
-      className={!!errorText ? invalidFieldClass : undefined}
+      className={errorText ? invalidFieldClass : undefined}
     />
   );
 };
