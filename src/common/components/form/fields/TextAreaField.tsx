@@ -3,6 +3,7 @@ import { TextArea, TextAreaProps } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { invalidFieldClass } from '../constants';
 import { getErrorText } from '../utils';
 
 type Props = FieldProps & Omit<TextAreaProps, 'form'>;
@@ -26,6 +27,7 @@ const TextAreaField: React.FC<Props> = (props) => {
       rows={rows}
       helperText={errorText || helperText}
       invalid={!!errorText}
+      className={!!errorText ? invalidFieldClass : undefined}
     />
   );
 };

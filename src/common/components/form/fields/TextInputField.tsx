@@ -3,6 +3,7 @@ import { TextInput, TextInputProps } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { invalidFieldClass } from '../constants';
 import { getErrorText } from '../utils';
 
 type Props = FieldProps & Omit<TextInputProps, 'form'>;
@@ -24,6 +25,7 @@ const InputField: React.FC<Props> = (props) => {
       id={name}
       helperText={errorText || helperText}
       invalid={!!errorText}
+      className={!!errorText ? invalidFieldClass : undefined}
     />
   );
 };

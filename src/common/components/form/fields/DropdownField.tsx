@@ -3,6 +3,7 @@ import { Dropdown, DropdownProps } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { invalidFieldClass } from '../constants';
 import { getErrorText } from '../utils';
 
 export type Option = {
@@ -81,6 +82,7 @@ const DropdownField: React.FC<Props> = ({
               .filter((i: Option | undefined) => i)
           : options.find((option) => option.value === value)
       }
+      className={!!errorText ? invalidFieldClass : undefined}
     />
   );
 };
