@@ -1,6 +1,7 @@
 {
   "buttonBack": "Tillbaka",
   "enrolmentForm": {
+    "buttonSubmit": "Skicka in registrering",
     "infoText1": "Vi använder inte den information du tillhandahåller för marknadsföringsändamål.",
     "infoText2": "Vi skickar ett separat bekräftelsemeddelande när organisatören har behandlat och bekräftat din registrering.",
     "labelHasEmailNotification": "Via e-post",

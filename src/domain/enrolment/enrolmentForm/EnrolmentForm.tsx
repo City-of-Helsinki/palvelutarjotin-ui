@@ -1,4 +1,5 @@
 import { Formik, Field } from 'formik';
+import { Button } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -300,6 +301,12 @@ const EnrolmentForm: React.FC<Props> = ({
               <FormGroup>
                 <p>{t('enrolment:enrolmentForm.infoText2')}</p>
               </FormGroup>
+
+              <div className={styles.submitButtonWrapper}>
+                <Button type="submit">
+                  {t('enrolment:enrolmentForm.buttonSubmit')}
+                </Button>
+              </div>
             </Container>
           </form>
         );

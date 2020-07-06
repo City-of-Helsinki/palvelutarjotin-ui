@@ -1,6 +1,7 @@
 {
   "buttonBack": "Back",
   "enrolmentForm": {
+    "buttonSubmit": "Submit registration",
     "infoText1": "We do not use the information you provide for marketing purposes.",
     "infoText2": "We will send you a separate confirmation message once the organizer has processed and confirmed your registration.",
     "labelHasEmailNotification": "By e-mail",

@@ -1,6 +1,7 @@
 {
   "buttonBack": "Takaisin",
   "enrolmentForm": {
+    "buttonSubmit": "Lähetä ilmoittautuminen",
     "infoText1": "Emme käytä antamiasi tietoja markkinointiin.",
     "infoText2": "Lähetämme sinulle erillisen vahvistusviestin, kun järjestäjä on käsitellyt ja vahvistanut ilmoittautumisesi.",
     "labelHasEmailNotification": "Sähköpostilla",
