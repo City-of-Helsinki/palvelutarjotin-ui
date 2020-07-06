@@ -1,6 +1,49 @@
 {
   "buttonBack": "Takaisin",
+  "enrolmentForm": {
+    "buttonSubmit": "Lähetä ilmoittautuminen",
+    "infoText1": "Emme käytä antamiasi tietoja markkinointiin.",
+    "infoText2": "Lähetämme sinulle erillisen vahvistusviestin, kun järjestäjä on käsitellyt ja vahvistanut ilmoittautumisesi.",
+    "labelHasEmailNotification": "Sähköpostilla",
+    "labelHasSmsNotification": "Tekstiviestillä",
+    "labelIsSameResponsiblePerson": "Sama kuin ilmoittaja",
+    "labelIsSharingDataAccepted": "Hyväksyn tietojeni jakamisen tapahtuman järjestäjän kanssa",
+    "labelLanguage": "Kieli",
+    "person": {
+      "labelEmailAddress": "Sähköpostiosoite",
+      "labelName": "Nimi",
+      "labelPhoneNumber": "Puhelinnumero"
+    },
+    "privacyPolicy": "Rekisteriseloste",
+    "studyGroup": {
+      "person": {
+        "labelEmailAddress": "Sähköpostiosoite",
+        "labelName": "Nimi",
+        "labelPhoneNumber": "Puhelinnumero"
+      },
+      "helperExtraNeeds": "Lisää tähän, jos haluat kertoa järjestäjälle jotain muuta olennaista ryhmästänne",
+      "helperGroupName": "Ryhmän yksilöivä nimi, esimerkiksi: 4a",
+      "labelAmountOfAdult": "Aikuisia",
+      "labelExtraNeeds": "Lisätiedot (valinnainen)",
+      "labelGroupName": "Ryhmä",
+      "labelGroupSize": "Lapsia",
+      "labelName": "Päiväkoti / koulu / oppilaitos",
+      "labelStudyLevel": "Luokka-aste",
+      "titleGroup": "Ryhmän tiedot",
+      "titleNotifier": "Ilmoittajan tiedot"
+    },
+    "titleNotifications": "Tapahtumaa koskevat ilmoitukset",
+    "titleResponsiblePerson": "Tapahtuman aikana ryhmästä vastuussa oleva aikuinen",
+    "validation": {
+      "isSharingDataAccepted": "Tietojen jakaminen tapahtuman järjestäjän kanssa tulee olla hyväksytty"
+    }
+  },
   "labelInvalidOccurrenceAmount": "Virheellinen määrä tapahtuma-aikoja valittuna",
+  "language": {
+    "en": "Englanti",
+    "fi": "Suomi",
+    "sv": "Ruotsi"
+  },
   "occurrenceTable": {
     "columnDate": "Pvm",
     "columnPlace": "Tapahtumapaikka",
@@ -9,6 +52,12 @@
     "noSelectedOccurrences": "Ei valittuja tapahtuma-aikoja"
   },
   "pageTitle": "Ilmoittaudu tapahtumaan",
+  "studyLevel": {
+    "grade": "{{count}}. luokka",
+    "grade_plural": "{{count}}. luokka",
+    "preschool": "Esikoulu",
+    "secondary": "Lukio"
+  },
   "textInvalidOccurrenceAmount": "{{count}} tapahtuma-aika tulee olla valittuna",
   "textInvalidOccurrenceAmount_plural": "{{count}} tapahtuma-aikaa tulee olla valittuna",
   "title": "Ilmoittaudu tapahtumaan"

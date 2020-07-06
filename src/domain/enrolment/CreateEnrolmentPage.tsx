@@ -4,10 +4,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import LoadingSpinner from '../../common/components/loadingSpinner/LoadingSpinner';
-import {
-  useEventQuery,
-  OccurrenceFieldsFragment,
-} from '../../generated/graphql';
+import { useEventQuery } from '../../generated/graphql';
 import useLocale from '../../hooks/useLocale';
 import { Router } from '../../i18n';
 import Container from '../app/layout/Container';
@@ -15,6 +12,9 @@ import PageWrapper from '../app/layout/PageWrapper';
 import { ROUTES } from '../app/routes/constants';
 import { getEventFields } from '../event/utils';
 import NotFoundPage from '../notFoundPage/NotFoundPage';
+import EnrolmentForm, {
+  EnrolmentFormFields,
+} from './enrolmentForm/EnrolmentForm';
 import styles from './enrolmentPage.module.scss';
 import EventInfo from './eventInfo/EventInfo';
 import OccurrenceTable from './occurrenceTable/OccurrenceTable';
@@ -52,6 +52,9 @@ const CreateEnrolmentPage: React.FC = () => {
   const areSelectedOccurrencesValid =
     neededOccurrences === filteredOccurrences.length;
 
+  const submit = (values: EnrolmentFormFields) => {
+    console.log(values);
+  };
   return (
     <PageWrapper title={t('enrolment:pageTitle')}>
       <LoadingSpinner isLoading={loading}>
@@ -73,10 +76,13 @@ const CreateEnrolmentPage: React.FC = () => {
 
               <EventInfo event={event} />
               {areSelectedOccurrencesValid ? (
-                <OccurrenceTable
-                  eventLocationId={eventLocationId || ''}
-                  occurrences={filteredOccurrences}
-                />
+                <>
+                  <OccurrenceTable
+                    eventLocationId={eventLocationId || ''}
+                    occurrences={filteredOccurrences}
+                  />
+                  <EnrolmentForm onSubmit={submit} />
+                </>
               ) : (
                 <Notification
                   labelText={t('enrolment:labelInvalidOccurrenceAmount')}

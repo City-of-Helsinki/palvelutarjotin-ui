@@ -1,5 +1,8 @@
 {
   "appName": "Palvelutarjotin",
+  "dropdown": {
+    "placeholder": "Valitse..."
+  },
   "errorPage": {
     "title": "Palvelussa ilmeni virhe",
     "description": "Pahoittelemme, mutta palvelussa ilmeni virhe. Voit yrittää uudestaan, mutta jos tilanne toistuu, kerro siitä meille alalaidan palautelinkin kautta.",

@@ -5,7 +5,7 @@ import styles from './container.module.scss';
 
 interface Props {
   className?: string;
-  size?: 'default' | 'narrow';
+  size?: 'default' | 'xsmall' | 'small';
 }
 
 const Container: FunctionComponent<Props> = ({

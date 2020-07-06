@@ -1,6 +1,49 @@
 {
   "buttonBack": "Tillbaka",
+  "enrolmentForm": {
+    "buttonSubmit": "Skicka in registrering",
+    "infoText1": "Vi använder inte den information du tillhandahåller för marknadsföringsändamål.",
+    "infoText2": "Vi skickar ett separat bekräftelsemeddelande när organisatören har behandlat och bekräftat din registrering.",
+    "labelHasEmailNotification": "Via e-post",
+    "labelHasSmsNotification": "Via SMS",
+    "labelIsSameResponsiblePerson": "Samma som anmälare",
+    "labelIsSharingDataAccepted": "Jag accepterar att dela min information med arrangören",
+    "labelLanguage": "Språk",
+    "person": {
+      "labelEmailAddress": "E-postadress",
+      "labelName": "Name",
+      "labelPhoneNumber": "Telefonnummer"
+    },
+    "privacyPolicy": "Integritetspolicy",
+    "studyGroup": {
+      "person": {
+        "labelEmailAddress": "E-postadress",
+        "labelName": "Name",
+        "labelPhoneNumber": "Telefonnummer"
+      },
+      "helperExtraNeeds": "Lägg till här om du vill berätta arrangören om något annat som är relevant för din grupp",
+      "helperGroupName": "Unikt namn på gruppen, till exempel: 4a",
+      "labelAmountOfAdult": "Vuxna",
+      "labelExtraNeeds": "Ytterligare information (valfritt)",
+      "labelGroupName": "Gruppens namn",
+      "labelGroupSize": "Barn",
+      "labelName": "Förskola / skola / högskola",
+      "labelStudyLevel": "Betygsnivå",
+      "titleGroup": "Gruppinformation",
+      "titleNotifier": "Anmälaren informations"
+    },
+    "titleNotifications": "Meddelanden om händelse",
+    "titleResponsiblePerson": "An adult in charge of the group during the event",
+    "validation": {
+      "isSharingDataAccepted": "Dela information med arrangören måste godkännas"
+    }
+  },
   "labelInvalidOccurrenceAmount": "Ogiltig mängd evenemangtider väljs",
+  "language": {
+    "en": "Engelska",
+    "fi": "Finska",
+    "sv": "Svenska"
+  },
   "occurrenceTable": {
     "columnDate": "Datum",
     "columnPlace": "Evenemangplats",
@@ -9,6 +52,12 @@
     "noSelectedOccurrences": "Inga valda evenemangtider"
   },
   "pageTitle": "Anmäl dig till evenemanget",
+  "studyLevel": {
+    "grade": "{{count}}: a klass",
+    "grade_plural": "{{count}}: a klass",
+    "preschool": "Förskola",
+    "secondary": "Gymnasieskola"
+  },
   "textInvalidOccurrenceAmount": "{{count}} evenemangtid måste väljas",
   "textInvalidOccurrenceAmount_plural": "{{count}} evenemangtided måste väljas",
   "title": "Anmäl dig till evenemanget"
