@@ -47,7 +47,7 @@ const OccurrenceTable: React.FC<Props> = ({ eventLocationId, occurrences }) => {
     },
   ];
   return occurrences.length ? (
-    <Table columns={columns} data={occurrences}></Table>
+    <Table columns={columns} data={occurrences} />
   ) : (
     <Notification
       labelText={t('enrolment:occurrenceTable.noSelectedOccurrences')}

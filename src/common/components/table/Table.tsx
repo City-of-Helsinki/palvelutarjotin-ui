@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import React, { ReactElement } from 'react';
-import { Column, Row, useTable } from 'react-table';
+import { Column, Row, useTable, useExpanded } from 'react-table';
 
 import styles from './table.module.scss';
 
@@ -21,10 +21,13 @@ export default function Table<D extends Record<string, unknown>>({
     headerGroups,
     prepareRow,
     rows,
-  } = useTable({
-    columns,
-    data,
-  });
+  } = useTable(
+    {
+      columns,
+      data,
+    },
+    useExpanded
+  );
 
   // Render the UI for your table
   return (
@@ -34,7 +37,16 @@ export default function Table<D extends Record<string, unknown>>({
           {headerGroups.map((headerGroup) => (
             <tr {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map((column) => (
-                <th {...column.getHeaderProps()}>{column.render('Header')}</th>
+                <th
+                  {...column.getHeaderProps([
+                    {
+                      className: (column as any).className,
+                      style: (column as any).style,
+                    },
+                  ])}
+                >
+                  {column.render('Header')}
+                </th>
               ))}
             </tr>
           ))}
@@ -75,7 +87,18 @@ export default function Table<D extends Record<string, unknown>>({
                 tabIndex={onRowClick ? 0 : -1}
               >
                 {row.cells.map((cell) => {
-                  return <td {...cell.getCellProps()}>{cell.value}</td>;
+                  return (
+                    <td
+                      {...cell.getCellProps([
+                        {
+                          className: (cell.column as any).className,
+                          style: (cell.column as any).style,
+                        },
+                      ])}
+                    >
+                      {cell.render('Cell')}
+                    </td>
+                  );
                 })}
               </tr>
             );
