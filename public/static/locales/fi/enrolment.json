@@ -38,6 +38,9 @@
       "isSharingDataAccepted": "Tietojen jakaminen tapahtuman järjestäjän kanssa tulee olla hyväksytty"
     }
   },
+  "errors": {
+    "createFailed": "Ilmoittautumisen luominen epäonnistui"
+  },
   "labelInvalidOccurrenceAmount": "Virheellinen määrä tapahtuma-aikoja valittuna",
   "language": {
     "en": "Englanti",

@@ -38,6 +38,9 @@
       "isSharingDataAccepted": "Dela information med arrangören måste godkännas"
     }
   },
+  "errors": {
+    "createFailed": "Misslyckades med att skapa registrering"
+  },
   "labelInvalidOccurrenceAmount": "Ogiltig mängd evenemangtider väljs",
   "language": {
     "en": "Engelska",

@@ -38,6 +38,9 @@
       "isSharingDataAccepted": "Sharing information with the event organizer must be accepted"
     }
   },
+  "errors": {
+    "createFailed": "Failed to create enrolment"
+  },
   "labelInvalidOccurrenceAmount": "Invalid amount of event times is selected",
   "language": {
     "en": "English",
