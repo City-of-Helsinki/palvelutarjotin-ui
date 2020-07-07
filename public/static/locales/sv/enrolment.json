@@ -49,7 +49,8 @@
     "columnPlace": "Evenemangplats",
     "columnSeatsInfo": "Platser",
     "columnTime": "Tid",
-    "noSelectedOccurrences": "Inga valda evenemangtider"
+    "noSelectedOccurrences": "Inga valda evenemangtider",
+    "title": "Valda evenemangtider"
   },
   "pageTitle": "Anmäl dig till evenemanget",
   "studyLevel": {

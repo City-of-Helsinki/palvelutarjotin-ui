@@ -49,7 +49,8 @@
     "columnPlace": "Event location",
     "columnSeatsInfo": "Seats",
     "columnTime": "Time",
-    "noSelectedOccurrences": "No selected event times"
+    "noSelectedOccurrences": "No selected event times",
+    "title": "Selected event times"
   },
   "pageTitle": "Enrol for the event",
   "studyLevel": {
