@@ -55,8 +55,6 @@ const EventsPage = (): ReactElement => {
     });
   };
 
-  console.log(eventsData);
-
   const nextPage = React.useMemo(() => {
     const nextUrl = eventsData?.events?.meta.next;
     return nextUrl ? getPageNumberFromUrl(nextUrl) : null;
