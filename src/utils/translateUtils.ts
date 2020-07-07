@@ -9,13 +9,16 @@ import toPascalCase from './toPascalCase';
 export const translateValue = (
   prefix: string,
   value: string,
-  t: TFunction
+  t: TFunction,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  options?: Record<string, any>
 ): string => {
   return t(
     prefix
       ? `${prefix}${
           prefix.endsWith('.') ? toCamelCase(value) : toPascalCase(value)
         }`
-      : toCamelCase(value)
+      : toCamelCase(value),
+    options
   );
 };

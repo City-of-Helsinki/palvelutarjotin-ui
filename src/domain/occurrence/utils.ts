@@ -1,4 +1,4 @@
-import { isFuture, isPast, subDays } from 'date-fns';
+import { isPast, subDays } from 'date-fns';
 
 import {
   EventFieldsFragment,
@@ -14,21 +14,35 @@ export const hasOccurrenceSpace = (
   );
 };
 
-export const isEnrolmentOpen = (
-  occurrence: OccurrenceFieldsFragment,
-  event: EventFieldsFragment
+export const isEnrolmentStarted = (
+  event?: EventFieldsFragment | null
 ): boolean => {
   return (
-    event.pEvent?.enrolmentStart &&
-    isPast(new Date(event.pEvent?.enrolmentStart)) &&
-    event.pEvent.enrolmentEndDays !== null &&
-    isFuture(
+    event?.pEvent?.enrolmentStart &&
+    isPast(new Date(event?.pEvent?.enrolmentStart))
+  );
+};
+
+export const isEnrolmentClosed = (
+  occurrence: OccurrenceFieldsFragment,
+  event?: EventFieldsFragment | null
+): boolean => {
+  return (
+    event?.pEvent?.enrolmentEndDays === null ||
+    isPast(
       subDays(
         new Date(occurrence.startTime),
-        event.pEvent.enrolmentEndDays || 0
+        event?.pEvent?.enrolmentEndDays || 0
       )
     )
   );
+};
+
+export const isEnrolmentOpen = (
+  occurrence: OccurrenceFieldsFragment,
+  event?: EventFieldsFragment | null
+): boolean => {
+  return isEnrolmentStarted(event) && !isEnrolmentClosed(occurrence, event);
 };
 
 export const isEnrolmentAvailable = (

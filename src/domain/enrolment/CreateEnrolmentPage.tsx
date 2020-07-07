@@ -12,13 +12,18 @@ import {
 } from '../../generated/graphql';
 import useLocale from '../../hooks/useLocale';
 import { Router } from '../../i18n';
+import { translateValue } from '../../utils/translateUtils';
 import Container from '../app/layout/Container';
 import PageWrapper from '../app/layout/PageWrapper';
 import { ROUTES } from '../app/routes/constants';
 import { getEventFields } from '../event/utils';
 import NotFoundPage from '../notFoundPage/NotFoundPage';
-import { isEnrolmentAvailable } from '../occurrence/utils';
-import { ENROLMENT_URL_PARAMS } from './constants';
+import {
+  hasOccurrenceSpace,
+  isEnrolmentClosed,
+  isEnrolmentStarted,
+} from '../occurrence/utils';
+import { ENROLMENT_URL_PARAMS, ENROLMENT_ERRORS } from './constants';
 import EnrolmentForm, {
   defaultInitialValues,
   EnrolmentFormFields,
@@ -56,12 +61,9 @@ const CreateEnrolmentPage: React.FC = () => {
     ? occurrences
     : [occurrences];
 
-  const filteredOccurrences = (allOccurrences || []).filter(
-    (o) => selectedOccurrences.includes(o.id) && isEnrolmentAvailable(o, event)
+  const filteredOccurrences = (allOccurrences || []).filter((o) =>
+    selectedOccurrences.includes(o.id)
   );
-
-  const areSelectedOccurrencesValid =
-    neededOccurrences === filteredOccurrences.length;
 
   const initialValues = React.useMemo(
     () => ({
@@ -110,6 +112,18 @@ const CreateEnrolmentPage: React.FC = () => {
     }
   };
 
+  const error = React.useMemo(() => {
+    if (!isEnrolmentStarted(event))
+      return ENROLMENT_ERRORS.ENROLMENT_NOT_STARTED_ERROR;
+    if (filteredOccurrences.filter((o) => isEnrolmentClosed(o, event)).length)
+      return ENROLMENT_ERRORS.ENROLMENT_CLOSED_ERROR;
+    if (!filteredOccurrences.filter((o) => !hasOccurrenceSpace(o)).length)
+      return ENROLMENT_ERRORS.NOT_ENOUGH_CAPACITY_ERROR;
+    if (neededOccurrences !== filteredOccurrences.length)
+      return ENROLMENT_ERRORS.INVALID_OCCURRENCE_AMOUNT_ERROR;
+    return undefined;
+  }, [event, filteredOccurrences, neededOccurrences]);
+
   return (
     <PageWrapper title={t('enrolment:pageTitle')}>
       <LoadingSpinner isLoading={loading}>
@@ -130,7 +144,20 @@ const CreateEnrolmentPage: React.FC = () => {
               <div className={styles.divider} />
 
               <EventInfo event={event} />
-              {areSelectedOccurrencesValid ? (
+              {error ? (
+                <Notification
+                  labelText={translateValue(
+                    'enrolment:errors.label.',
+                    error,
+                    t
+                  )}
+                  type="error"
+                >
+                  {translateValue('enrolment:errors.text.', error, t, {
+                    count: neededOccurrences,
+                  })}
+                </Notification>
+              ) : (
                 <>
                   <OccurrenceTable
                     eventLocationId={eventLocationId || ''}
@@ -141,15 +168,6 @@ const CreateEnrolmentPage: React.FC = () => {
                     onSubmit={submit}
                   />
                 </>
-              ) : (
-                <Notification
-                  labelText={t('enrolment:labelInvalidOccurrenceAmount')}
-                  type="error"
-                >
-                  {t('enrolment:textInvalidOccurrenceAmount', {
-                    count: neededOccurrences,
-                  })}
-                </Notification>
               )}
             </Container>
           </div>

@@ -39,9 +39,21 @@
     }
   },
   "errors": {
-    "createFailed": "Misslyckades med att skapa registrering"
+    "createFailed": "Misslyckades med att skapa registrering",
+    "label": {
+      "enrolmentClosedError": "Registreringen avslutades",
+      "enrolmentNotStartedError": "Registreringen har inte öppnats",
+      "invalidOccurrenceAmountError": "Ogiltig mängd evenemangtider väljs",
+      "notEnoughCapacityError": "Evenemang är full"
+    },
+    "text": {
+      "enrolmentClosedError": "Registrering av evenemang har avslutats",
+      "enrolmentNotStartedError": "Anmälan till evenemanget har ännu inte öppnats",
+      "invalidOccurrenceAmountError": "{{count}} evenemangtid måste väljas",
+      "invalidOccurrenceAmountError_plural": "{{count}} evenemangtided måste väljas",
+      "notEnoughCapacityError": "Det finns inga fler platser tillgängliga för evenemanget"
+    }
   },
-  "labelInvalidOccurrenceAmount": "Ogiltig mängd evenemangtider väljs",
   "language": {
     "en": "Engelska",
     "fi": "Finska",
@@ -62,7 +74,5 @@
     "preschool": "Förskola",
     "secondary": "Gymnasieskola"
   },
-  "textInvalidOccurrenceAmount": "{{count}} evenemangtid måste väljas",
-  "textInvalidOccurrenceAmount_plural": "{{count}} evenemangtided måste väljas",
   "title": "Anmäl dig till evenemanget"
 }
