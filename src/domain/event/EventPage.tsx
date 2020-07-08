@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import LoadingSpinner from '../../common/components/loadingSpinner/LoadingSpinner';
 import { useEventQuery } from '../../generated/graphql';
 import useLocale from '../../hooks/useLocale';
+import { Router } from '../../i18n';
 import Container from '../app/layout/Container';
 import PageWrapper from '../app/layout/PageWrapper';
 import { ROUTES } from '../app/routes/constants';
@@ -20,7 +21,6 @@ import { getEventFields } from './utils';
 const EventPage = (): ReactElement => {
   const { t } = useTranslation();
   const locale = useLocale();
-  const router = useRouter();
   const {
     query: { eventId },
   } = useRouter();
@@ -33,11 +33,8 @@ const EventPage = (): ReactElement => {
   });
 
   const enrolOccurrence = (occurrenceId: string) => {
-    router.push({
-      pathname: `/${locale}${ROUTES.CREATE_ENROLMENT.replace(
-        ':id',
-        eventId as string
-      )}`,
+    Router.push({
+      pathname: ROUTES.CREATE_ENROLMENT.replace(':id', eventId as string),
       query: {
         occurrences: occurrenceId,
       },
