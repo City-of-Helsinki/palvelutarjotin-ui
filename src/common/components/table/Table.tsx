@@ -37,18 +37,14 @@ export default function Table<D extends Record<string, unknown>>({
         <thead>
           {headerGroups.map((headerGroup) => (
             <tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map((column: ExtendedHeaderGroup<D>) => (
-                <th
-                  {...column.getHeaderProps([
-                    {
-                      className: column.className,
-                      style: column.style,
-                    },
-                  ])}
-                >
-                  {column.render('Header')}
-                </th>
-              ))}
+              {headerGroup.headers.map((column: ExtendedHeaderGroup<D>) => {
+                const { style, className } = column;
+                return (
+                  <th {...column.getHeaderProps()} {...{ style, className }}>
+                    {column.render('Header')}
+                  </th>
+                );
+              })}
             </tr>
           ))}
         </thead>
@@ -90,14 +86,7 @@ export default function Table<D extends Record<string, unknown>>({
                 {row.cells.map((cell: ExtendedCell<D>) => {
                   const { className, style } = cell.column;
                   return (
-                    <td
-                      {...cell.getCellProps([
-                        {
-                          className,
-                          style,
-                        },
-                      ])}
-                    >
+                    <td {...cell.getCellProps()} {...{ className, style }}>
                       {cell.render('Cell')}
                     </td>
                   );
