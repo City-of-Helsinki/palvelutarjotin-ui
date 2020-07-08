@@ -19,6 +19,8 @@ interface Props {
   showMoreButtonVisible: boolean;
 }
 
+const enrolButtonColumnWidth = '250px';
+
 const OccurrenceTable: React.FC<Props> = ({
   eventLocationId,
   occurrences,
@@ -74,14 +76,12 @@ const OccurrenceTable: React.FC<Props> = ({
       },
       id: 'enrol',
       style: {
-        width: '250px',
+        width: enrolButtonColumnWidth,
       },
     },
     {
       Header: t('enrolment:occurrenceTable.columnAdditionalInfo'),
-      accessor: (row: OccurrenceFieldsFragment) => {
-        return row;
-      },
+      accessor: (row: OccurrenceFieldsFragment) => row,
       Cell: ({ value }: { value: OccurrenceFieldsFragment }) => {
         return (
           <button aria-label="Expand">

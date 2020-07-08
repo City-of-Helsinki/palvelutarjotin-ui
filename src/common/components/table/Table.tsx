@@ -3,6 +3,7 @@ import React, { ReactElement } from 'react';
 import { Column, Row, useTable, useExpanded } from 'react-table';
 
 import styles from './table.module.scss';
+import { ExtendedHeaderGroup, ExtendedCell } from './types';
 
 type Props<D extends Record<string, unknown>> = {
   columns: Array<Column<D>>;
@@ -36,12 +37,12 @@ export default function Table<D extends Record<string, unknown>>({
         <thead>
           {headerGroups.map((headerGroup) => (
             <tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map((column) => (
+              {headerGroup.headers.map((column: ExtendedHeaderGroup<D>) => (
                 <th
                   {...column.getHeaderProps([
                     {
-                      className: (column as any).className,
-                      style: (column as any).style,
+                      className: column.className,
+                      style: column.style,
                     },
                   ])}
                 >
@@ -86,13 +87,14 @@ export default function Table<D extends Record<string, unknown>>({
                 onKeyDown={handleKeyDown}
                 tabIndex={onRowClick ? 0 : -1}
               >
-                {row.cells.map((cell) => {
+                {row.cells.map((cell: ExtendedCell<D>) => {
+                  const { className, style } = cell.column;
                   return (
                     <td
                       {...cell.getCellProps([
                         {
-                          className: (cell.column as any).className,
-                          style: (cell.column as any).style,
+                          className,
+                          style,
                         },
                       ])}
                     >
