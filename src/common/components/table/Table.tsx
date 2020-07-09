@@ -100,7 +100,9 @@ export default function Table<D extends Record<string, unknown>, T>({
                 </tr>
                 {row.isExpanded && (
                   <tr className={styles.expandedArea}>
-                    <td colSpan={7}>{renderExpandedArea(row.original)}</td>
+                    <td colSpan={row.cells.length}>
+                      {renderExpandedArea(row.original)}
+                    </td>
                   </tr>
                 )}
               </React.Fragment>
