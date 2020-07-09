@@ -6,7 +6,7 @@ import { useVenueQuery } from '../../../generated/graphql';
 import IconFood from '../../../icons/IconFood';
 import IconGarderobe from '../../../icons/IconGarderobe';
 import { Language } from '../../../types';
-import { getVenueDescription } from '../utils';
+import { getVenueDescription, getVenueFields } from '../utils';
 import styles from './venueInfo.module.scss';
 
 interface Props {
@@ -18,8 +18,9 @@ const VenueInfo: React.FC<Props> = ({ language, placeId }) => {
   const { t } = useTranslation();
   const { data: venueData } = useVenueQuery({ variables: { id: placeId } });
   const venueDescription = getVenueDescription(venueData, language);
-  const hasClothingStorage = venueData?.venue?.hasClothingStorage;
-  const hasSnackEatingPlace = venueData?.venue?.hasSnackEatingPlace;
+  const { hasClothingStorage, hasSnackEatingPlace } = getVenueFields(
+    venueData?.venue
+  );
 
   return (
     <div className={styles.venueInfo}>
