@@ -27,7 +27,7 @@ const CreateEnrolmentPage: React.FC = () => {
   } = useRouter();
 
   const { data: eventData, loading } = useEventQuery({
-    variables: { id: eventId as string },
+    variables: { id: eventId as string, include: ['location'] },
   });
 
   const goToEventPage = () => {

@@ -1,8 +1,9 @@
 import classNames from 'classnames';
 import React, { ReactElement } from 'react';
-import { Column, Row, useTable } from 'react-table';
+import { Column, Row, useTable, useExpanded } from 'react-table';
 
 import styles from './table.module.scss';
+import { ExtendedHeaderGroup, ExtendedCell } from './types';
 
 type Props<D extends Record<string, unknown>> = {
   columns: Array<Column<D>>;
@@ -21,10 +22,13 @@ export default function Table<D extends Record<string, unknown>>({
     headerGroups,
     prepareRow,
     rows,
-  } = useTable({
-    columns,
-    data,
-  });
+  } = useTable(
+    {
+      columns,
+      data,
+    },
+    useExpanded
+  );
 
   // Render the UI for your table
   return (
@@ -33,9 +37,14 @@ export default function Table<D extends Record<string, unknown>>({
         <thead>
           {headerGroups.map((headerGroup) => (
             <tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map((column) => (
-                <th {...column.getHeaderProps()}>{column.render('Header')}</th>
-              ))}
+              {headerGroup.headers.map((column: ExtendedHeaderGroup<D>) => {
+                const { style, className } = column;
+                return (
+                  <th {...column.getHeaderProps()} {...{ style, className }}>
+                    {column.render('Header')}
+                  </th>
+                );
+              })}
             </tr>
           ))}
         </thead>
@@ -74,8 +83,13 @@ export default function Table<D extends Record<string, unknown>>({
                 onKeyDown={handleKeyDown}
                 tabIndex={onRowClick ? 0 : -1}
               >
-                {row.cells.map((cell) => {
-                  return <td {...cell.getCellProps()}>{cell.value}</td>;
+                {row.cells.map((cell: ExtendedCell<D>) => {
+                  const { className, style } = cell.column;
+                  return (
+                    <td {...cell.getCellProps()} {...{ className, style }}>
+                      {cell.render('Cell')}
+                    </td>
+                  );
                 })}
               </tr>
             );

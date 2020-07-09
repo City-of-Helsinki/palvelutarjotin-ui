@@ -49,7 +49,9 @@
     "columnPlace": "Tapahtumapaikka",
     "columnSeatsInfo": "Paikkoja",
     "columnTime": "Kellonaika",
-    "noSelectedOccurrences": "Ei valittuja tapahtuma-aikoja"
+    "noSelectedOccurrences": "Ei valittuja tapahtuma-aikoja",
+    "noOccurrences": "Tapahtumalla ei ole tapahtuma-aikoja",
+    "columnAdditionalInfo": "Lisätiedot"
   },
   "pageTitle": "Ilmoittaudu tapahtumaan",
   "studyLevel": {

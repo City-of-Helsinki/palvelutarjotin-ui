@@ -8,7 +8,13 @@
       "tomorrow": "Tomorrow at {{time}}"
     }
   },
+  "occurrenceList": {
+    "loadMoreOccurrences": "Show more occurrences",
+    "enrolOccurrenceButton": "Enrol",
+    "chooseOccurrenceButton": "Choose"
+  },
   "pageTitle": "Event",
   "photographerText": "Photo: {{photographer}}",
-  "contactPerson": "Contact person"
+  "contactPerson": "Contact person",
+  "occurrencesTitle": "Occurrences ({{count}} pcs)"
 }
