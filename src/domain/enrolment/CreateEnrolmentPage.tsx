@@ -115,13 +115,13 @@ const CreateEnrolmentPage: React.FC = () => {
   const error = React.useMemo(() => {
     if (!isEnrolmentStarted(event))
       return ENROLMENT_ERRORS.ENROLMENT_NOT_STARTED_ERROR;
-    if (filteredOccurrences.filter((o) => isEnrolmentClosed(o, event)).length)
+    if (filteredOccurrences.some((o) => isEnrolmentClosed(o, event)))
       return ENROLMENT_ERRORS.ENROLMENT_CLOSED_ERROR;
-    if (!filteredOccurrences.filter((o) => !hasOccurrenceSpace(o)).length)
+    if (filteredOccurrences.some((o) => !hasOccurrenceSpace(o)))
       return ENROLMENT_ERRORS.NOT_ENOUGH_CAPACITY_ERROR;
     if (neededOccurrences !== filteredOccurrences.length)
       return ENROLMENT_ERRORS.INVALID_OCCURRENCE_AMOUNT_ERROR;
-    return undefined;
+    return null;
   }, [event, filteredOccurrences, neededOccurrences]);
 
   return (
