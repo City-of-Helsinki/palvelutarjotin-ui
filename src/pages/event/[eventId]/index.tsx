@@ -7,7 +7,13 @@ import { RouteComponent } from '../../../types';
 const Event: RouteComponent = () => <EventPage />;
 
 Event.getInitialProps = async () => ({
-  namespacesRequired: [...COMMON_I18N_NAMESPACES, 'event', 'enrolment'],
+  namespacesRequired: [
+    ...COMMON_I18N_NAMESPACES,
+    'event',
+    'enrolment',
+    'form',
+    'occurrence',
+  ],
 });
 
 export default Event;

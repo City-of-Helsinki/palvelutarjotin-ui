@@ -25,5 +25,10 @@
       "min": "Arvon tulee olla vähintään {{min}}",
       "max": "Arvon tulee olla enintään {{max}}"
     }
+  },
+  "placeInfo": {
+    "buttonEdit": "Vaihda",
+    "labelReittiopas": "Reittiopas:",
+    "labelServicemap": "Palvelukartta:"
   }
 }

@@ -1,0 +1,12 @@
+{
+  "dateAndTimeTitle": "Date and time",
+  "textDateAndTime": "{{date}} at {{time}}",
+  "textAmountOfSeats": "{{count}} seat",
+  "textAmountOfSeats_plural": "{{count}} seats",
+  "textGroupInfo": "group size {{minGroupSize}}–{{maxGroupSize}}",
+  "languages": {
+    "en": "in English",
+    "fi": "in Finnish",
+    "sv": "in Swedish"
+  }
+}

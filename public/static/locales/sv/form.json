@@ -25,5 +25,10 @@
       "min": "Den här tiden måste vara efter {{min}}",
       "max": "Den här tiden måste vara innan {{max}}"
     }
+  },
+  "placeInfo": {
+    "buttonEdit": "Förändra",
+    "labelReittiopas": "Reittiopas:",
+    "labelServicemap": "Servicekartan:"
   }
 }

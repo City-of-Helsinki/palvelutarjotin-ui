@@ -11,7 +11,16 @@
   "occurrenceList": {
     "loadMoreOccurrences": "Näytä lisää aikoja",
     "enrolOccurrenceButton": "Ilmoittaudu",
-    "chooseOccurrenceButton": "Valitse"
+    "chooseOccurrenceButton": "Valitse",
+    "downloadToCalendar": "Lataa kalenteriin...",
+    "showAllLocationEvents": "Näytä paikan kaikki tapahtumat"
+  },
+  "location": {
+    "labelLocation": "Oletustapahtumapaikka",
+    "labelLocationDescription": "Tapahtumapaikan kuvaus",
+    "snackEatingPlace": "Eväidensyöntipaikka",
+    "clothingStorage": "Vaatesäilytys",
+    "title": "Tapahtumapaikka"
   },
   "pageTitle": "Tapahtuma",
   "photographerText": "Kuva: {{photographer}}",

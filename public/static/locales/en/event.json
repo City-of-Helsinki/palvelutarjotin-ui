@@ -11,7 +11,16 @@
   "occurrenceList": {
     "loadMoreOccurrences": "Show more occurrences",
     "enrolOccurrenceButton": "Enrol",
-    "chooseOccurrenceButton": "Choose"
+    "chooseOccurrenceButton": "Choose",
+    "downloadToCalendar": "Import to calendar...",
+    "showAllLocationEvents": "Show all events of this location"
+  },
+  "location": {
+    "labelLocation": "Default venue",
+    "labelLocationDescription": "Description of the venue",
+    "snackEatingPlace": "Snack eating place",
+    "clothingStorage": "Clothing storage",
+    "title": "Location"
   },
   "pageTitle": "Event",
   "photographerText": "Photo: {{photographer}}",

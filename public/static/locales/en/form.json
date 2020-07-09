@@ -25,5 +25,10 @@
       "min": "This time must be after {{min}}",
       "max": "This time must be before {{max}}"
     }
+  },
+  "placeInfo": {
+    "buttonEdit": "Change",
+    "labelReittiopas": "Reittiopas:",
+    "labelServicemap": "Servicemap:"
   }
 }

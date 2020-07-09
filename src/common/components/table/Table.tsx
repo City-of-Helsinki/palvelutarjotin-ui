@@ -9,12 +9,14 @@ type Props<D extends Record<string, unknown>> = {
   columns: Array<Column<D>>;
   data: Array<D>;
   onRowClick?: (row: Row<D>) => void;
+  renderExpandedArea: (row: D) => JSX.Element;
 };
 
-export default function Table<D extends Record<string, unknown>>({
+export default function Table<D extends Record<string, unknown>, T>({
   columns,
   data,
   onRowClick,
+  renderExpandedArea,
 }: Props<D>): ReactElement {
   const {
     getTableBodyProps,
@@ -76,22 +78,32 @@ export default function Table<D extends Record<string, unknown>>({
             };
 
             return (
-              <tr
-                {...row.getRowProps()}
-                className={classNames({ [styles.clickableRow]: onRowClick })}
-                onClick={handleClick}
-                onKeyDown={handleKeyDown}
-                tabIndex={onRowClick ? 0 : -1}
-              >
-                {row.cells.map((cell: ExtendedCell<D>) => {
-                  const { className, style } = cell.column;
-                  return (
-                    <td {...cell.getCellProps()} {...{ className, style }}>
-                      {cell.render('Cell')}
-                    </td>
-                  );
-                })}
-              </tr>
+              <React.Fragment key={row.getRowProps().key}>
+                <tr
+                  {...row.getRowProps()}
+                  className={classNames({
+                    [styles.clickableRow]: onRowClick,
+                    [styles.expandedRow]: (row as any).isExpanded,
+                  })}
+                  onClick={handleClick}
+                  onKeyDown={handleKeyDown}
+                  tabIndex={onRowClick ? 0 : -1}
+                >
+                  {row.cells.map((cell: ExtendedCell<D>) => {
+                    const { className, style } = cell.column;
+                    return (
+                      <td {...cell.getCellProps()} {...{ className, style }}>
+                        {cell.render('Cell')}
+                      </td>
+                    );
+                  })}
+                </tr>
+                {(row as any).isExpanded && (
+                  <tr className={styles.expandedArea}>
+                    <td colSpan={7}>{renderExpandedArea(row.original)}</td>
+                  </tr>
+                )}
+              </React.Fragment>
             );
           })}
         </tbody>

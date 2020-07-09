@@ -22,6 +22,8 @@ const createApolloClient = (
           getCacheKey({ __typename: 'Keyword', id: args.id }),
         place: (_, args, { getCacheKey }) =>
           getCacheKey({ __typename: 'Place', id: args.id }),
+        venue: (_, args, { getCacheKey }) =>
+          getCacheKey({ __typename: 'VenueNode', id: args.id }),
       },
     },
   }).restore(initialState || {});
