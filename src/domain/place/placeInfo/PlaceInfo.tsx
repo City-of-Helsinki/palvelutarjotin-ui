@@ -2,10 +2,14 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { usePlaceQuery } from '../../../generated/graphql';
+import useLocale from '../../../hooks/useLocale';
 import { Language } from '../../../types';
-import getLocalizedString from '../../../utils/getLocalisedString';
 import VenueInfo from '../../venue/venueInfo/VenueInfo';
-import { generateHslLink, generateServiceMapLink } from '../utils';
+import {
+  generateHslLink,
+  generateServiceMapLink,
+  getPlaceFields,
+} from '../utils';
 import styles from './placeInfo.module.scss';
 
 interface Props {
@@ -24,20 +28,16 @@ const PlaceInfo: React.FC<Props> = ({
   showVenueInfo,
 }) => {
   const { t } = useTranslation();
+  const locale = useLocale();
   const { data } = usePlaceQuery({ variables: { id } });
 
   if (!data) return null;
 
-  const name = getLocalizedString(data.place?.name || {}, language);
-  const streetAddress = getLocalizedString(
-    data.place?.streetAddress || {},
-    language
+  const { name, streetAddress, telephone, addressLocality } = getPlaceFields(
+    data?.place,
+    locale
   );
-  const telephone = getLocalizedString(data.place?.telephone || {}, language);
-  const addressLocality = getLocalizedString(
-    data.place?.addressLocality || {},
-    language
-  );
+
   const serviceMapLink = generateServiceMapLink(id, language);
   const hslLink = generateHslLink(streetAddress, addressLocality, language);
 
