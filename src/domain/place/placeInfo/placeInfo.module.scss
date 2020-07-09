@@ -2,8 +2,8 @@
 @import 'fonts';
 
 .placeInfo {
-  color: $hel-black-90;
-  font-size: $body-medium-font-size;
+  color: var(--color-black-90);
+  font-size: var(--fontsize-body-medium);
   line-height: 2rem;
 
   p {
@@ -11,7 +11,7 @@
   }
 
   a {
-    color: $hel-bus;
+    color: var(--color-bus);
   }
 
   .linkRows {
