@@ -8,5 +8,6 @@
     "en": "englanninkielinen",
     "fi": "suomenkielinen",
     "sv": "ruotsinkielinen"
-  }
+  },
+  "showOccurrenceDetails": "Näytä tapahtuma-ajan lisätiedot"
 }

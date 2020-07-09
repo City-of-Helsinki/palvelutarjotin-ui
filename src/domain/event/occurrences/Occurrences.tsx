@@ -101,7 +101,10 @@ const OccurrenceTable: React.FC<Props> = ({
         };
       }) => {
         return (
-          <button aria-label="Expand" {...row.getToggleRowExpandedProps()}>
+          <button
+            aria-label={t('occurrence:showOccurrenceDetails')}
+            {...row.getToggleRowExpandedProps()}
+          >
             <IconAngleDown
               className={classNames(styles.iconAngle, {
                 [styles.iconAngleUp]: row.isExpanded,
