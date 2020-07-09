@@ -1,0 +1,22 @@
+@import 'variables';
+
+.occurrenceTable {
+  margin-top: var(--spacing-2-xl);
+
+  .occurrencesTitle {
+    font-weight: bold;
+    font-size: var(--fontsize-h-4);
+  }
+
+  .loadMoreButtonWrapper {
+    text-align: center;
+    margin-top: var(--spacing-m);
+  }
+
+  .enrolButton {
+    background-color: rgb(0, 215, 167);
+    width: 100%;
+    padding: 1rem;
+    font-size: 1rem;
+  }
+}

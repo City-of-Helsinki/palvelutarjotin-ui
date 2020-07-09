@@ -60,10 +60,12 @@
     "sv": "Svenska"
   },
   "occurrenceTable": {
+    "columnAdditionalInfo": "Ytterligare info",
     "columnDate": "Datum",
     "columnPlace": "Evenemangplats",
     "columnSeatsInfo": "Platser",
     "columnTime": "Tid",
+    "noOccurrences": "Händelse har inga händelser",
     "noSelectedOccurrences": "Inga valda evenemangtider",
     "title": "Valda evenemangtider"
   },

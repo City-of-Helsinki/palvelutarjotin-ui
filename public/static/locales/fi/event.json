@@ -16,7 +16,13 @@
       "tomorrow": "Huomenna klo {{time}}"
     }
   },
+  "occurrenceList": {
+    "loadMoreOccurrences": "Näytä lisää aikoja",
+    "enrolOccurrenceButton": "Ilmoittaudu",
+    "chooseOccurrenceButton": "Valitse"
+  },
   "pageTitle": "Tapahtuma",
   "photographerText": "Kuva: {{photographer}}",
-  "contactPerson": "Yhteyshenkilö"
+  "contactPerson": "Yhteyshenkilö",
+  "occurrencesTitle": "Tapahtumat ({{count}} kpl)"
 }

@@ -49,7 +49,7 @@ const OccurrenceTable: React.FC<Props> = ({ eventLocationId, occurrences }) => {
   return occurrences.length ? (
     <>
       <h2>{t('enrolment:occurrenceTable.title')}</h2>
-      <Table columns={columns} data={occurrences}></Table>
+      <Table columns={columns} data={occurrences} />
     </>
   ) : (
     <Notification

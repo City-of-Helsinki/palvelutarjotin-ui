@@ -60,10 +60,12 @@
     "sv": "Swedish"
   },
   "occurrenceTable": {
+    "columnAdditionalInfo": "Additional info",
     "columnDate": "Date",
     "columnPlace": "Event location",
     "columnSeatsInfo": "Seats",
     "columnTime": "Time",
+    "noOccurrences": "Event doesn't have occurrences",
     "noSelectedOccurrences": "No selected event times",
     "title": "Selected event times"
   },

@@ -16,7 +16,13 @@
       "tomorrow": "Imorgon kl {{time}}"
     }
   },
+  "occurrenceList": {
+    "loadMoreOccurrences": "Visa fler händelser",
+    "enrolOccurrenceButton": "Skriva in",
+    "chooseOccurrenceButton": "Välja"
+  },
   "pageTitle": "Evenemang",
   "photographerText": "Foto: {{photographer}}",
-  "contactPerson": "Kontakt person"
+  "contactPerson": "Kontakt person",
+  "occurrencesTitle": "Händelsetider ({{count}} st)"
 }
