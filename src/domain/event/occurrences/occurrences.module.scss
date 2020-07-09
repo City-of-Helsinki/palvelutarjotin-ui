@@ -19,4 +19,47 @@
     padding: 1rem;
     font-size: 1rem;
   }
+
+  .iconAngleUp {
+    transform: rotate(180deg);
+  }
+
+  .occurrenceDetails {
+    display: grid;
+    grid-template-columns: 5fr 2fr;
+  }
+
+  .occurrenceActions {
+    button {
+      display: flex;
+      font-size: 1rem;
+
+      span {
+        text-align: left;
+      }
+    }
+  }
+
+  .infoSection {
+    display: grid;
+    grid-template-columns: auto 1fr;
+
+    p {
+      margin: 0;
+    }
+
+    &:not(:last-child) {
+      margin-bottom: var(--spacing-l);
+    }
+
+    .infoTitle {
+      font-weight: bold;
+      font-size: var(--fontsize-h-4);
+      margin-bottom: var(--spacing-s);
+    }
+
+    & > :first-child {
+      padding-right: var(--spacing-xs);
+    }
+  }
 }

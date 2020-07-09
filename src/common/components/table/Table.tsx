@@ -3,18 +3,20 @@ import React, { ReactElement } from 'react';
 import { Column, Row, useTable, useExpanded } from 'react-table';
 
 import styles from './table.module.scss';
-import { ExtendedHeaderGroup, ExtendedCell } from './types';
+import { ExtendedHeaderGroup, ExtendedCell, ExtendedRow } from './types';
 
 type Props<D extends Record<string, unknown>> = {
   columns: Array<Column<D>>;
   data: Array<D>;
   onRowClick?: (row: Row<D>) => void;
+  renderExpandedArea: (row: D) => JSX.Element;
 };
 
-export default function Table<D extends Record<string, unknown>>({
+export default function Table<D extends Record<string, unknown>, T>({
   columns,
   data,
   onRowClick,
+  renderExpandedArea,
 }: Props<D>): ReactElement {
   const {
     getTableBodyProps,
@@ -49,7 +51,7 @@ export default function Table<D extends Record<string, unknown>>({
           ))}
         </thead>
         <tbody {...getTableBodyProps()}>
-          {rows.map((row, i) => {
+          {rows.map((row: ExtendedRow<D>, i) => {
             prepareRow(row);
 
             const handleClick = (event: React.MouseEvent) => {
@@ -76,22 +78,34 @@ export default function Table<D extends Record<string, unknown>>({
             };
 
             return (
-              <tr
-                {...row.getRowProps()}
-                className={classNames({ [styles.clickableRow]: onRowClick })}
-                onClick={handleClick}
-                onKeyDown={handleKeyDown}
-                tabIndex={onRowClick ? 0 : -1}
-              >
-                {row.cells.map((cell: ExtendedCell<D>) => {
-                  const { className, style } = cell.column;
-                  return (
-                    <td {...cell.getCellProps()} {...{ className, style }}>
-                      {cell.render('Cell')}
+              <React.Fragment key={row.getRowProps().key}>
+                <tr
+                  {...row.getRowProps()}
+                  className={classNames({
+                    [styles.clickableRow]: onRowClick,
+                    [styles.expandedRow]: row.isExpanded,
+                  })}
+                  onClick={handleClick}
+                  onKeyDown={handleKeyDown}
+                  tabIndex={onRowClick ? 0 : -1}
+                >
+                  {row.cells.map((cell: ExtendedCell<D>) => {
+                    const { className, style } = cell.column;
+                    return (
+                      <td {...cell.getCellProps()} {...{ className, style }}>
+                        {cell.render('Cell')}
+                      </td>
+                    );
+                  })}
+                </tr>
+                {row.isExpanded && (
+                  <tr className={styles.expandedArea}>
+                    <td colSpan={row.cells.length}>
+                      {renderExpandedArea(row.original)}
                     </td>
-                  );
-                })}
-              </tr>
+                  </tr>
+                )}
+              </React.Fragment>
             );
           })}
         </tbody>

@@ -1,0 +1,13 @@
+{
+  "dateAndTimeTitle": "Datum och tid",
+  "textDateAndTime": "{{date}} kl. {{time}}",
+  "textAmountOfSeats": "{{count}} plats",
+  "textAmountOfSeats_plural": "{{count}} platser",
+  "textGroupInfo": "gruppstorlek {{minGroupSize}}–{{maxGroupSize}}",
+  "languages": {
+    "en": "engelsk",
+    "fi": "finska",
+    "sv": "svenska"
+  },
+  "showOccurrenceDetails": "Visa händelsedetaljer"
+}

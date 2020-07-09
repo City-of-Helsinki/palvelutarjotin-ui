@@ -1,0 +1,13 @@
+{
+  "dateAndTimeTitle": "Päivä ja aika",
+  "textDateAndTime": "{{date}} klo {{time}}",
+  "textAmountOfSeats": "{{count}} paikka",
+  "textAmountOfSeats_plural": "{{count}} paikkaa",
+  "textGroupInfo": "ryhmän koko {{minGroupSize}}–{{maxGroupSize}}",
+  "languages": {
+    "en": "englanninkielinen",
+    "fi": "suomenkielinen",
+    "sv": "ruotsinkielinen"
+  },
+  "showOccurrenceDetails": "Näytä tapahtuma-ajan lisätiedot"
+}

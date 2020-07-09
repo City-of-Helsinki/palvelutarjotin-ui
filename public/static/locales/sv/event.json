@@ -19,7 +19,16 @@
   "occurrenceList": {
     "loadMoreOccurrences": "Visa fler händelser",
     "enrolOccurrenceButton": "Skriva in",
-    "chooseOccurrenceButton": "Välja"
+    "chooseOccurrenceButton": "Välja",
+    "downloadToCalendar": "Importera till kalender...",
+    "showAllLocationEvents": "Visa alla händelser på den här platsen"
+  },
+  "location": {
+    "labelLocation": "Standard venue",
+    "labelLocationDescription": "Beskrivning av arenan",
+    "snackEatingPlace": "Snack äta plats",
+    "clothingStorage": "Klädförvaring",
+    "title": "Plats"
   },
   "pageTitle": "Evenemang",
   "photographerText": "Foto: {{photographer}}",
