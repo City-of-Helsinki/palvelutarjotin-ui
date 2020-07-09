@@ -1,4 +1,12 @@
 {
+  "enrolmentConfirmation": {
+    "sentBy": {
+      "email": "Lähetämme sinulle vahvistuksen sähköpostitse.",
+      "emailSms": "Lähetämme sinulle vahvistuksen sähköpostitse ja tekstiviestillä.",
+      "sms": "Lähetämme sinulle vahvistuksen tekstiviestillä."
+    },
+    "title": "Ilmoittautuminen lähetetty"
+  },
   "eventCard": {
     "ariaLabelOpenEvent": "Siirry tapahtumaan: {{eventName}}",
     "free": "Maksuton",

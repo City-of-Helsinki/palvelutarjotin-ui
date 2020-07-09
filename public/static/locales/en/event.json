@@ -1,4 +1,12 @@
 {
+  "enrolmentConfirmation": {
+    "sentBy": {
+      "email": "We will send you a confirmation email.",
+      "emailSms": "We will send you a confirmation email and text message.",
+      "sms": "We will send you a confirmation via SMS."
+    },
+    "title": "Registration sent"
+  },
   "eventCard": {
     "ariaLabelOpenEvent": "Go to event: {{eventName}}",
     "free": "Free",

@@ -1,3 +1,4 @@
+import { Notification } from 'hds-react';
 import take from 'lodash/take';
 import { useRouter } from 'next/router';
 import React, { ReactElement } from 'react';
@@ -7,9 +8,11 @@ import LoadingSpinner from '../../common/components/loadingSpinner/LoadingSpinne
 import { useEventQuery } from '../../generated/graphql';
 import useLocale from '../../hooks/useLocale';
 import { Router } from '../../i18n';
+import { translateValue } from '../../utils/translateUtils';
 import Container from '../app/layout/Container';
 import PageWrapper from '../app/layout/PageWrapper';
 import { ROUTES } from '../app/routes/constants';
+import { ENROLMENT_URL_PARAMS } from '../enrolment/constants';
 import NotFoundPage from '../notFoundPage/NotFoundPage';
 import { OCCURRENCE_LIST_PAGE_SIZE } from './constants';
 import EventBasicInfo from './eventBasicInfo/EventBasicInfo';
@@ -22,8 +25,10 @@ const EventPage = (): ReactElement => {
   const { t } = useTranslation();
   const locale = useLocale();
   const {
-    query: { eventId },
+    query: { eventId, ...query },
   } = useRouter();
+  const enrolmentCreated = query[ENROLMENT_URL_PARAMS.ENROLMENT_CREATED];
+  const notificationType = query[ENROLMENT_URL_PARAMS.NOTIFICATION_TYPE];
   const [occurrencesVisible, setOccurrencesVisible] = React.useState(
     OCCURRENCE_LIST_PAGE_SIZE
   );
@@ -62,6 +67,19 @@ const EventPage = (): ReactElement => {
       <LoadingSpinner isLoading={loading}>
         {eventData?.event ? (
           <Container className={styles.eventPage}>
+            {enrolmentCreated && (
+              <Notification
+                labelText={t('event:enrolmentConfirmation.title')}
+                type="success"
+              >
+                {notificationType &&
+                  translateValue(
+                    'event:enrolmentConfirmation.sentBy.',
+                    notificationType as string,
+                    t
+                  )}
+              </Notification>
+            )}
             <EventImage
               imageUrl={imageUrl}
               imageAltText={imageAltText}

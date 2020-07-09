@@ -7,6 +7,7 @@ export const QUERY_OCCURRENCE = gql`
       id
     }
     amountOfSeats
+    seatsTaken
     minGroupSize
     maxGroupSize
     autoAcceptance

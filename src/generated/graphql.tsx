@@ -1500,6 +1500,34 @@ export type DeleteImageMutation = {
   response?: Maybe<ImageMutationResponse>;
 };
 
+export type EnrolOccurrenceMutationVariables = Exact<{
+  input: EnrolOccurrenceMutationInput;
+}>;
+
+
+export type EnrolOccurrenceMutation = (
+  { __typename?: 'Mutation' }
+  & { enrolOccurrence?: Maybe<(
+    { __typename?: 'EnrolOccurrenceMutationPayload' }
+    & { enrolments?: Maybe<Array<Maybe<(
+      { __typename?: 'EnrolmentNode' }
+      & EnrolmentFieldsFragment
+    )>>> }
+  )> }
+);
+
+export type EnrolmentFieldsFragment = (
+  { __typename?: 'EnrolmentNode' }
+  & Pick<EnrolmentNode, 'id' | 'notificationType' | 'enrolmentTime' | 'status'>
+  & { person?: Maybe<(
+    { __typename?: 'PersonNode' }
+    & PersonFieldsFragment
+  )>, studyGroup: (
+    { __typename?: 'StudyGroupNode' }
+    & StudyGroupFieldsFragment
+  ) }
+);
+
 export type PEventFieldsFragment = (
   { __typename?: 'PalvelutarjotinEventNode' }
   & Pick<PalvelutarjotinEventNode, 'id' | 'duration' | 'enrolmentEndDays' | 'enrolmentStart' | 'neededOccurrences' | 'contactPhoneNumber' | 'contactEmail'>
@@ -1709,7 +1737,7 @@ export type KeywordsQuery = (
 
 export type OccurrenceFieldsFragment = (
   { __typename?: 'OccurrenceNode' }
-  & Pick<OccurrenceNode, 'id' | 'amountOfSeats' | 'minGroupSize' | 'maxGroupSize' | 'autoAcceptance' | 'startTime' | 'endTime' | 'placeId'>
+  & Pick<OccurrenceNode, 'id' | 'amountOfSeats' | 'seatsTaken' | 'minGroupSize' | 'maxGroupSize' | 'autoAcceptance' | 'startTime' | 'endTime' | 'placeId'>
   & { pEvent?: Maybe<(
     { __typename?: 'PalvelutarjotinEventNode' }
     & Pick<PalvelutarjotinEventNode, 'id'>
@@ -1735,6 +1763,11 @@ export type OccurrenceQuery = (
 export type OrganisationFieldsFragment = (
   { __typename?: 'OrganisationNode' }
   & Pick<OrganisationNode, 'id' | 'name'>
+);
+
+export type PersonFieldsFragment = (
+  { __typename?: 'PersonNode' }
+  & Pick<PersonNode, 'id' | 'emailAddress' | 'name' | 'phoneNumber' | 'language'>
 );
 
 export type PlaceFieldsFragment = (
@@ -1793,6 +1826,15 @@ export type PlacesQuery = (
   )> }
 );
 
+export type StudyGroupFieldsFragment = (
+  { __typename?: 'StudyGroupNode' }
+  & Pick<StudyGroupNode, 'id' | 'name' | 'groupSize' | 'amountOfAdult' | 'groupName' | 'studyLevel' | 'extraNeeds'>
+  & { person: (
+    { __typename?: 'PersonNode' }
+    & PersonFieldsFragment
+  ) }
+);
+
 export type VenueFieldsFragment = (
   { __typename?: 'VenueNode' }
   & Pick<VenueNode, 'id' | 'hasClothingStorage' | 'hasSnackEatingPlace'>
@@ -1815,6 +1857,44 @@ export type VenueQuery = (
   )> }
 );
 
+export const PersonFieldsFragmentDoc = gql`
+    fragment personFields on PersonNode {
+  id
+  emailAddress
+  name
+  phoneNumber
+  language
+}
+    `;
+export const StudyGroupFieldsFragmentDoc = gql`
+    fragment studyGroupFields on StudyGroupNode {
+  id
+  name
+  groupSize
+  amountOfAdult
+  groupName
+  studyLevel
+  extraNeeds
+  person {
+    ...personFields
+  }
+}
+    ${PersonFieldsFragmentDoc}`;
+export const EnrolmentFieldsFragmentDoc = gql`
+    fragment enrolmentFields on EnrolmentNode {
+  id
+  notificationType
+  enrolmentTime
+  status
+  person {
+    ...personFields
+  }
+  studyGroup {
+    ...studyGroupFields
+  }
+}
+    ${PersonFieldsFragmentDoc}
+${StudyGroupFieldsFragmentDoc}`;
 export const LocalisedFieldsFragmentDoc = gql`
     fragment localisedFields on LocalisedObject {
   en
@@ -1861,6 +1941,7 @@ export const OccurrenceFieldsFragmentDoc = gql`
     id
   }
   amountOfSeats
+  seatsTaken
   minGroupSize
   maxGroupSize
   autoAcceptance
@@ -2002,6 +2083,53 @@ export const MetaFieldsFragmentDoc = gql`
   previous
 }
     `;
+export const EnrolOccurrenceDocument = gql`
+    mutation EnrolOccurrence($input: EnrolOccurrenceMutationInput!) {
+  enrolOccurrence(input: $input) {
+    enrolments {
+      ...enrolmentFields
+    }
+  }
+}
+    ${EnrolmentFieldsFragmentDoc}`;
+export type EnrolOccurrenceMutationFn = ApolloReactCommon.MutationFunction<EnrolOccurrenceMutation, EnrolOccurrenceMutationVariables>;
+export type EnrolOccurrenceProps<TChildProps = {}, TDataName extends string = 'mutate'> = {
+      [key in TDataName]: ApolloReactCommon.MutationFunction<EnrolOccurrenceMutation, EnrolOccurrenceMutationVariables>
+    } & TChildProps;
+export function withEnrolOccurrence<TProps, TChildProps = {}, TDataName extends string = 'mutate'>(operationOptions?: ApolloReactHoc.OperationOption<
+  TProps,
+  EnrolOccurrenceMutation,
+  EnrolOccurrenceMutationVariables,
+  EnrolOccurrenceProps<TChildProps, TDataName>>) {
+    return ApolloReactHoc.withMutation<TProps, EnrolOccurrenceMutation, EnrolOccurrenceMutationVariables, EnrolOccurrenceProps<TChildProps, TDataName>>(EnrolOccurrenceDocument, {
+      alias: 'enrolOccurrence',
+      ...operationOptions
+    });
+};
+
+/**
+ * __useEnrolOccurrenceMutation__
+ *
+ * To run a mutation, you first call `useEnrolOccurrenceMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useEnrolOccurrenceMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [enrolOccurrenceMutation, { data, loading, error }] = useEnrolOccurrenceMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useEnrolOccurrenceMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<EnrolOccurrenceMutation, EnrolOccurrenceMutationVariables>) {
+        return ApolloReactHooks.useMutation<EnrolOccurrenceMutation, EnrolOccurrenceMutationVariables>(EnrolOccurrenceDocument, baseOptions);
+      }
+export type EnrolOccurrenceMutationHookResult = ReturnType<typeof useEnrolOccurrenceMutation>;
+export type EnrolOccurrenceMutationResult = ApolloReactCommon.MutationResult<EnrolOccurrenceMutation>;
+export type EnrolOccurrenceMutationOptions = ApolloReactCommon.BaseMutationOptions<EnrolOccurrenceMutation, EnrolOccurrenceMutationVariables>;
 export const EventDocument = gql`
     query Event($id: ID!, $include: [String]) {
   event(id: $id, include: $include) {

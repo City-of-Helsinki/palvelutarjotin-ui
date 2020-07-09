@@ -1,4 +1,12 @@
 {
+  "enrolmentConfirmation": {
+    "sentBy": {
+      "email": "Vi skickar ett bekräftelsemeddelande.",
+      "emailSms": "Vi skickar ett bekräftelsemail och textmeddelande.",
+      "sms": "Vi skickar en bekräftelse via SMS."
+    },
+    "title": "Registrering skickad"
+  },
   "eventCard": {
     "ariaLabelOpenEvent": "Gå till evenemang: {{eventName}}",
     "free": "Fri",

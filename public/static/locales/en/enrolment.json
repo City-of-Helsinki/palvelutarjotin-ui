@@ -38,20 +38,36 @@
       "isSharingDataAccepted": "Sharing information with the event organizer must be accepted"
     }
   },
-  "labelInvalidOccurrenceAmount": "Invalid amount of event times is selected",
+  "errors": {
+    "createFailed": "Failed to create enrolment",
+    "label": {
+      "enrolmentClosedError": "Registration ended",
+      "enrolmentNotStartedError": "Registration has not opened",
+      "invalidOccurrenceAmountError": "Invalid amount of event times is selected",
+      "notEnoughCapacityError": "The event is full"
+    },
+    "text": {
+      "enrolmentClosedError": "Event registration has ended",
+      "enrolmentNotStartedError": "Registration for the event has not yet opened",
+      "invalidOccurrenceAmountError": "{{count}} event time has to be selected",
+      "invalidOccurrenceAmountError_plural": "{{count}} event times have to be selected",
+      "notEnoughCapacityError": "There are no more seats available for the event"
+    }
+  },
   "language": {
     "en": "English",
     "fi": "Finnish",
     "sv": "Swedish"
   },
   "occurrenceTable": {
+    "columnAdditionalInfo": "Additional info",
     "columnDate": "Date",
     "columnPlace": "Event location",
     "columnSeatsInfo": "Seats",
     "columnTime": "Time",
-    "noSelectedOccurrences": "No selected event times",
     "noOccurrences": "Event doesn't have occurrences",
-    "columnAdditionalInfo": "Additional info"
+    "noSelectedOccurrences": "No selected event times",
+    "title": "Selected event times"
   },
   "pageTitle": "Enrol for the event",
   "studyLevel": {
@@ -60,7 +76,5 @@
     "preschool": "Preschool",
     "secondary": "Upper secondary school"
   },
-  "textInvalidOccurrenceAmount": "{{count}} event time has to be selected",
-  "textInvalidOccurrenceAmount_plural": "{{count}} event times have to be selected",
   "title": "Enrol for the event"
 }

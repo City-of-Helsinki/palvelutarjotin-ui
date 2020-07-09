@@ -6,6 +6,7 @@ import flow from 'lodash/flow';
 import App from 'next/app';
 import React, { ErrorInfo } from 'react';
 import { Provider } from 'react-redux';
+import { ToastContainer } from 'react-toastify';
 
 import '../assets/styles/main.scss';
 import withApollo from '../domain/app/apollo/configureApollo';
@@ -55,6 +56,7 @@ class MyApp extends App<Props> {
           <PageLayout {...pageProps} namespacesRequired={['common', 'footer']}>
             <Component {...pageProps} />
           </PageLayout>
+          <ToastContainer position="bottom-right" />
         </Provider>
       </ApolloProvider>
     );

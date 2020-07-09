@@ -38,20 +38,36 @@
       "isSharingDataAccepted": "Tietojen jakaminen tapahtuman järjestäjän kanssa tulee olla hyväksytty"
     }
   },
-  "labelInvalidOccurrenceAmount": "Virheellinen määrä tapahtuma-aikoja valittuna",
+  "errors": {
+    "createFailed": "Ilmoittautumisen luominen epäonnistui",
+    "label": {
+      "enrolmentClosedError": "Ilmoittautuminen päättynyt",
+      "enrolmentNotStartedError": "Ilmoitautuminen ei ole avautunut",
+      "invalidOccurrenceAmountError": "Virheellinen määrä tapahtuma-aikoja valittuna",
+      "notEnoughCapacityError": "Tapahtuma on täynnä"
+    },
+    "text": {
+      "enrolmentClosedError": "Tapahtuman ilmoittautuminen on päättynyt",
+      "enrolmentNotStartedError": "Tapahtuman ilmoittautuminen ei ole vielä avautunut",
+      "invalidOccurrenceAmountError": "{{count}} tapahtuma-aika tulee olla valittuna",
+      "invalidOccurrenceAmountError_plural": "{{count}} tapahtuma-aikaa tulee olla valittuna",
+      "notEnoughCapacityError": "Tapahtumaan ei ole enää vapaita paikkoja"
+    }
+  },
   "language": {
     "en": "Englanti",
     "fi": "Suomi",
     "sv": "Ruotsi"
   },
   "occurrenceTable": {
+    "columnAdditionalInfo": "Lisätiedot",
     "columnDate": "Pvm",
     "columnPlace": "Tapahtumapaikka",
     "columnSeatsInfo": "Paikkoja",
     "columnTime": "Kellonaika",
-    "noSelectedOccurrences": "Ei valittuja tapahtuma-aikoja",
     "noOccurrences": "Tapahtumalla ei ole tapahtuma-aikoja",
-    "columnAdditionalInfo": "Lisätiedot"
+    "noSelectedOccurrences": "Ei valittuja tapahtuma-aikoja",
+    "title": "Valitut tapahtuma-ajat"
   },
   "pageTitle": "Ilmoittaudu tapahtumaan",
   "studyLevel": {
@@ -60,7 +76,5 @@
     "preschool": "Esikoulu",
     "secondary": "Lukio"
   },
-  "textInvalidOccurrenceAmount": "{{count}} tapahtuma-aika tulee olla valittuna",
-  "textInvalidOccurrenceAmount_plural": "{{count}} tapahtuma-aikaa tulee olla valittuna",
   "title": "Ilmoittaudu tapahtumaan"
 }

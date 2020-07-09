@@ -24,6 +24,13 @@ export type EnrolmentFormFields = {
   isSameResponsiblePerson: boolean;
   isSharingDataAccepted: boolean;
   language: string;
+  maxGroupSize: number;
+  minGroupSize: number;
+  person: {
+    name: string;
+    phoneNumber: string;
+    emailAddress: string;
+  };
   studyGroup: {
     person: {
       name: string;
@@ -45,6 +52,13 @@ export const defaultInitialValues: EnrolmentFormFields = {
   isSameResponsiblePerson: true,
   isSharingDataAccepted: false,
   language: '',
+  maxGroupSize: 0,
+  minGroupSize: 0,
+  person: {
+    name: '',
+    phoneNumber: '',
+    emailAddress: '',
+  },
   studyGroup: {
     person: {
       name: '',
