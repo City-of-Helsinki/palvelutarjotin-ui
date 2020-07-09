@@ -1,4 +1,4 @@
-import { HeaderGroup, ColumnInstance, Cell } from 'react-table';
+import { HeaderGroup, ColumnInstance, Cell, Row } from 'react-table';
 
 type StyleProps = {
   className?: string;
@@ -17,3 +17,7 @@ export type ExtendedCell<D extends Record<string, unknown>> = Cell<D, any> & {
 export type ExtendedHeaderGroup<
   D extends Record<string, unknown>
 > = HeaderGroup<D> & StyleProps;
+
+export type ExtendedRow<D extends Record<string, unknown>> = Row<D> & {
+  isExpanded?: boolean;
+};

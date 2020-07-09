@@ -3,7 +3,7 @@ import React, { ReactElement } from 'react';
 import { Column, Row, useTable, useExpanded } from 'react-table';
 
 import styles from './table.module.scss';
-import { ExtendedHeaderGroup, ExtendedCell } from './types';
+import { ExtendedHeaderGroup, ExtendedCell, ExtendedRow } from './types';
 
 type Props<D extends Record<string, unknown>> = {
   columns: Array<Column<D>>;
@@ -51,7 +51,7 @@ export default function Table<D extends Record<string, unknown>, T>({
           ))}
         </thead>
         <tbody {...getTableBodyProps()}>
-          {rows.map((row, i) => {
+          {rows.map((row: ExtendedRow<D>, i) => {
             prepareRow(row);
 
             const handleClick = (event: React.MouseEvent) => {
@@ -83,7 +83,7 @@ export default function Table<D extends Record<string, unknown>, T>({
                   {...row.getRowProps()}
                   className={classNames({
                     [styles.clickableRow]: onRowClick,
-                    [styles.expandedRow]: (row as any).isExpanded,
+                    [styles.expandedRow]: row.isExpanded,
                   })}
                   onClick={handleClick}
                   onKeyDown={handleKeyDown}
@@ -98,7 +98,7 @@ export default function Table<D extends Record<string, unknown>, T>({
                     );
                   })}
                 </tr>
-                {(row as any).isExpanded && (
+                {row.isExpanded && (
                   <tr className={styles.expandedArea}>
                     <td colSpan={7}>{renderExpandedArea(row.original)}</td>
                   </tr>
