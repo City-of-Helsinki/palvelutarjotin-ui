@@ -40,8 +40,6 @@ const CreateEnrolmentPage: React.FC = () => {
     query: { eventId, occurrences },
   } = useRouter();
 
-  console.log(occurrences);
-
   const { data: eventData, loading } = useEventQuery({
     variables: { id: eventId as string, include: ['location'] },
   });
@@ -62,8 +60,6 @@ const CreateEnrolmentPage: React.FC = () => {
   const selectedOccurrences = Array.isArray(occurrences)
     ? occurrences
     : [occurrences];
-
-  console.log(event);
 
   const filteredOccurrences = (allOccurrences || []).filter((o) =>
     selectedOccurrences.includes(o.id)
