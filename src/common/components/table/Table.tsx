@@ -9,7 +9,7 @@ type Props<D extends Record<string, unknown>> = {
   columns: Array<Column<D>>;
   data: Array<D>;
   onRowClick?: (row: Row<D>) => void;
-  renderExpandedArea: (row: D) => JSX.Element;
+  renderExpandedArea?: (row: D) => JSX.Element;
 };
 
 export default function Table<D extends Record<string, unknown>, T>({
@@ -101,7 +101,7 @@ export default function Table<D extends Record<string, unknown>, T>({
                 {row.isExpanded && (
                   <tr className={styles.expandedArea}>
                     <td colSpan={row.cells.length}>
-                      {renderExpandedArea(row.original)}
+                      {renderExpandedArea && renderExpandedArea(row.original)}
                     </td>
                   </tr>
                 )}
