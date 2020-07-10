@@ -9,5 +9,11 @@
     "fi": "in Finnish",
     "sv": "in Swedish"
   },
-  "showOccurrenceDetails": "Show occurrence details"
+  "showOccurrenceDetails": "Show occurrence details",
+  "occurrenceSelection": {
+    "buttonSelectOccurrence": "Select",
+    "buttonSelectedOccurrences": "Selected {{selectedOccurrences}} / {{neededOccurrences}}",
+    "buttonSelectOccurrences": "Select {{neededOccurrences}} occurrences",
+    "buttonEnrolOccurrence": "Enrol"
+  }
 }

@@ -26,6 +26,10 @@ interface Props {
   showMoreOccurrences: () => void;
   enrolOccurrence: ((id: string) => void) | null;
   showMoreButtonVisible: boolean;
+  selectOccurrence: (id: string) => void;
+  deselectOccurrence: (id: string) => void;
+  neededOccurrences?: number;
+  selectedOccurrences?: string[];
 }
 
 const enrolButtonColumnWidth = '250px';
@@ -36,9 +40,68 @@ const OccurrenceTable: React.FC<Props> = ({
   showMoreOccurrences,
   enrolOccurrence,
   showMoreButtonVisible,
+  deselectOccurrence,
+  selectOccurrence,
+  neededOccurrences = 0,
+  selectedOccurrences,
 }) => {
   const { t } = useTranslation();
   const locale = useLocale();
+
+  const renderEnrolmentButton = ({
+    value,
+  }: {
+    value: OccurrenceFieldsFragment;
+  }) => {
+    // if required amount of occurrences already selected, show disabled button for others
+    const selectionDisabled =
+      selectedOccurrences?.length === neededOccurrences &&
+      !selectedOccurrences.includes(value.id);
+    const isSelectedOccurrence = selectedOccurrences?.includes(value.id);
+
+    if (neededOccurrences === 1) {
+      return (
+        <button
+          className={styles.enrolButton}
+          onClick={() => {
+            if (enrolOccurrence) {
+              enrolOccurrence(value.id);
+            }
+          }}
+        >
+          {t('event:occurrenceList.enrolOccurrenceButton')}
+        </button>
+      );
+    }
+
+    let buttonText: string;
+    if (selectionDisabled || isSelectedOccurrence) {
+      buttonText = t(
+        'occurrence:occurrenceSelection.buttonSelectedOccurrences',
+        { selectedOccurrences: selectedOccurrences?.length, neededOccurrences }
+      );
+    } else {
+      buttonText = t('occurrence:occurrenceSelection.buttonEnrolOccurrence');
+    }
+
+    return (
+      <Button
+        variant={
+          selectionDisabled || isSelectedOccurrence ? 'primary' : 'secondary'
+        }
+        onClick={
+          isSelectedOccurrence
+            ? () => deselectOccurrence(value.id)
+            : () => selectOccurrence(value.id)
+        }
+        style={{ width: enrolButtonColumnWidth }}
+        disabled={selectionDisabled}
+      >
+        {buttonText}
+      </Button>
+    );
+  };
+
   const columns = [
     {
       Header: t('enrolment:occurrenceTable.columnDate'),
@@ -69,20 +132,7 @@ const OccurrenceTable: React.FC<Props> = ({
     },
     {
       accessor: (row: OccurrenceFieldsFragment) => row,
-      Cell: ({ value }: { value: OccurrenceFieldsFragment }) => {
-        return (
-          <button
-            className={styles.enrolButton}
-            onClick={() => {
-              if (enrolOccurrence) {
-                enrolOccurrence(value.id);
-              }
-            }}
-          >
-            {t('event:occurrenceList.enrolOccurrenceButton')}
-          </button>
-        );
-      },
+      Cell: renderEnrolmentButton,
       id: 'enrol',
       style: {
         width: enrolButtonColumnWidth,
@@ -132,7 +182,7 @@ const OccurrenceTable: React.FC<Props> = ({
         <div>
           <div className={styles.infoSection}>
             <div>
-              <IconClock size="s" />
+              <IconClock />
             </div>
             <div>
               <div className={styles.infoTitle}>
@@ -144,7 +194,7 @@ const OccurrenceTable: React.FC<Props> = ({
           </div>
           <div className={styles.infoSection}>
             <div>
-              <IconLocation size="s" />
+              <IconLocation />
             </div>
             <div>
               <div className={styles.infoTitle}>
@@ -160,10 +210,10 @@ const OccurrenceTable: React.FC<Props> = ({
         </div>
         <div className={styles.occurrenceActions}>
           {/* TODO: functionality for these buttons */}
-          <Button iconLeft={<IconCalendar size="s" />} variant="supplementary">
+          <Button iconLeft={<IconCalendar />} variant="supplementary">
             {t('event:occurrenceList.downloadToCalendar')}
           </Button>
-          <Button iconLeft={<IconLocation size="s" />} variant="supplementary">
+          <Button iconLeft={<IconLocation />} variant="supplementary">
             {t('event:occurrenceList.showAllLocationEvents')}
           </Button>
         </div>

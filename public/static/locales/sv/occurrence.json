@@ -9,5 +9,11 @@
     "fi": "finska",
     "sv": "svenska"
   },
-  "showOccurrenceDetails": "Visa händelsedetaljer"
+  "showOccurrenceDetails": "Visa händelsedetaljer",
+  "occurrenceSelection": {
+    "buttonSelectOccurrence": "Välj",
+    "buttonSelectedOccurrences": "Vald {{selectedOccurrences}} / {{neededOccurrences}}",
+    "buttonSelectOccurrences": "Välj {{neededOccurrences}} förekomster",
+    "buttonEnrolOccurrences": "Skriva in"
+  }
 }
