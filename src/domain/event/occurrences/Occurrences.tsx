@@ -10,17 +10,29 @@ import {
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
+import ErrorMessage from '../../../common/components/form/ErrorMessage';
 import Table from '../../../common/components/table/Table';
-import { OccurrenceFieldsFragment } from '../../../generated/graphql';
+import {
+  EventFieldsFragment,
+  OccurrenceFieldsFragment,
+} from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
 import formatDate from '../../../utils/formatDate';
 import formatTimeRange from '../../../utils/formatTimeRange';
+import { translateValue } from '../../../utils/translateUtils';
+import { ENROLMENT_ERRORS } from '../../enrolment/constants';
 import OccurrenceGroupInfo from '../../occurrence/occurrenceGroupInfo/OccurrenceGroupInfo';
+import {
+  hasOccurrenceSpace,
+  isEnrolmentClosed,
+  isEnrolmentStarted,
+} from '../../occurrence/utils';
 import PlaceInfo from '../../place/placeInfo/PlaceInfo';
 import PlaceText from '../../place/placeText/PlaceText';
 import styles from './occurrences.module.scss';
 
 interface Props {
+  event: EventFieldsFragment;
   eventLocationId: string;
   occurrences: OccurrenceFieldsFragment[];
   showMoreOccurrences: () => void;
@@ -35,6 +47,7 @@ interface Props {
 const enrolButtonColumnWidth = '250px';
 
 const OccurrenceTable: React.FC<Props> = ({
+  event,
   eventLocationId,
   occurrences,
   showMoreOccurrences,
@@ -48,11 +61,33 @@ const OccurrenceTable: React.FC<Props> = ({
   const { t } = useTranslation();
   const locale = useLocale();
 
+  const getEnrolmentError = (
+    occurrence: OccurrenceFieldsFragment,
+    event: EventFieldsFragment
+  ) => {
+    if (!isEnrolmentStarted(event))
+      return ENROLMENT_ERRORS.ENROLMENT_NOT_STARTED_ERROR;
+    if (isEnrolmentClosed(occurrence, event))
+      return ENROLMENT_ERRORS.ENROLMENT_CLOSED_ERROR;
+    if (!hasOccurrenceSpace(occurrence))
+      return ENROLMENT_ERRORS.NOT_ENOUGH_CAPACITY_ERROR;
+    return null;
+  };
+
   const renderEnrolmentButton = ({
     value,
   }: {
     value: OccurrenceFieldsFragment;
   }) => {
+    const error = getEnrolmentError(value, event);
+    // Show error message if enrolment is not available
+    if (error) {
+      return (
+        <ErrorMessage>
+          {translateValue('enrolment:errors.label.', error, t)}
+        </ErrorMessage>
+      );
+    }
     // if required amount of occurrences already selected, show disabled button for others
     const selectionDisabled =
       selectedOccurrences?.length === neededOccurrences &&

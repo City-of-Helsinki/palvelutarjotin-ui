@@ -1,4 +1,4 @@
-import { isPast, subDays, addDays } from 'date-fns';
+import { isPast, subDays } from 'date-fns';
 
 import {
   EventFieldsFragment,
@@ -27,13 +27,10 @@ export const isEnrolmentClosed = (
   occurrence: OccurrenceFieldsFragment,
   event?: EventFieldsFragment | null
 ): boolean => {
-  return (
-    event?.pEvent?.enrolmentEndDays === null ||
-    isPast(
-      addDays(
-        new Date(occurrence.startTime),
-        event?.pEvent?.enrolmentEndDays || 0
-      )
+  return isPast(
+    subDays(
+      new Date(occurrence.startTime),
+      event?.pEvent?.enrolmentEndDays || 0
     )
   );
 };
