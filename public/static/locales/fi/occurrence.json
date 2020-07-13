@@ -9,5 +9,11 @@
     "fi": "suomenkielinen",
     "sv": "ruotsinkielinen"
   },
-  "showOccurrenceDetails": "Näytä tapahtuma-ajan lisätiedot"
+  "showOccurrenceDetails": "Näytä tapahtuma-ajan lisätiedot",
+  "occurrenceSelection": {
+    "buttonSelectOccurrence": "Valitse",
+    "buttonSelectedOccurrences": "Valittu {{selectedOccurrences}} / {{neededOccurrences}}",
+    "buttonSelectOccurrences": "Valitse {{neededOccurrences}} tahaptuma-aikaa",
+    "buttonEnrolOccurrences": "Ilmoittaudu"
+  }
 }

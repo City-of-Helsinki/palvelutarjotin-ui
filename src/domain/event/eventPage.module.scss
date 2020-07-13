@@ -2,4 +2,14 @@
 
 .eventPage {
   display: block;
+
+  --enrol-button-width: 250px;
+}
+
+.enrolmentButtonWrapper {
+  text-align: right;
+
+  button {
+    min-width: var(--enrol-button-width);
+  }
 }

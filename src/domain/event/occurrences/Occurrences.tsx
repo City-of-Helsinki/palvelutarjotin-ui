@@ -10,35 +10,133 @@ import {
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
+import ErrorMessage from '../../../common/components/form/ErrorMessage';
 import Table from '../../../common/components/table/Table';
-import { OccurrenceFieldsFragment } from '../../../generated/graphql';
+import {
+  EventFieldsFragment,
+  OccurrenceFieldsFragment,
+} from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
 import formatDate from '../../../utils/formatDate';
 import formatTimeRange from '../../../utils/formatTimeRange';
+import { translateValue } from '../../../utils/translateUtils';
+import { ENROLMENT_ERRORS } from '../../enrolment/constants';
 import OccurrenceGroupInfo from '../../occurrence/occurrenceGroupInfo/OccurrenceGroupInfo';
+import {
+  hasOccurrenceSpace,
+  isEnrolmentClosed,
+  isEnrolmentStarted,
+} from '../../occurrence/utils';
 import PlaceInfo from '../../place/placeInfo/PlaceInfo';
 import PlaceText from '../../place/placeText/PlaceText';
 import styles from './occurrences.module.scss';
 
 interface Props {
+  event: EventFieldsFragment;
   eventLocationId: string;
   occurrences: OccurrenceFieldsFragment[];
   showMoreOccurrences: () => void;
   enrolOccurrence: ((id: string) => void) | null;
   showMoreButtonVisible: boolean;
+  selectOccurrence: (id: string) => void;
+  deselectOccurrence: (id: string) => void;
+  neededOccurrences?: number;
+  selectedOccurrences?: string[];
 }
 
 const enrolButtonColumnWidth = '250px';
 
 const OccurrenceTable: React.FC<Props> = ({
+  event,
   eventLocationId,
   occurrences,
   showMoreOccurrences,
   enrolOccurrence,
   showMoreButtonVisible,
+  deselectOccurrence,
+  selectOccurrence,
+  neededOccurrences = 0,
+  selectedOccurrences,
 }) => {
   const { t } = useTranslation();
   const locale = useLocale();
+
+  const getEnrolmentError = (
+    occurrence: OccurrenceFieldsFragment,
+    event: EventFieldsFragment
+  ) => {
+    if (!isEnrolmentStarted(event))
+      return ENROLMENT_ERRORS.ENROLMENT_NOT_STARTED_ERROR;
+    if (isEnrolmentClosed(occurrence, event))
+      return ENROLMENT_ERRORS.ENROLMENT_CLOSED_ERROR;
+    if (!hasOccurrenceSpace(occurrence))
+      return ENROLMENT_ERRORS.NOT_ENOUGH_CAPACITY_ERROR;
+    return null;
+  };
+
+  const renderEnrolmentButton = ({
+    value,
+  }: {
+    value: OccurrenceFieldsFragment;
+  }) => {
+    const error = getEnrolmentError(value, event);
+    // Show error message if enrolment is not available
+    if (error) {
+      return (
+        <ErrorMessage>
+          {translateValue('enrolment:errors.label.', error, t)}
+        </ErrorMessage>
+      );
+    }
+    // if required amount of occurrences already selected, show disabled button for others
+    const selectionDisabled =
+      selectedOccurrences?.length === neededOccurrences &&
+      !selectedOccurrences.includes(value.id);
+    const isSelectedOccurrence = selectedOccurrences?.includes(value.id);
+
+    if (neededOccurrences === 1) {
+      return (
+        <button
+          className={styles.enrolButton}
+          onClick={() => {
+            if (enrolOccurrence) {
+              enrolOccurrence(value.id);
+            }
+          }}
+        >
+          {t('event:occurrenceList.enrolOccurrenceButton')}
+        </button>
+      );
+    }
+
+    let buttonText: string;
+    if (selectionDisabled || isSelectedOccurrence) {
+      buttonText = t(
+        'occurrence:occurrenceSelection.buttonSelectedOccurrences',
+        { selectedOccurrences: selectedOccurrences?.length, neededOccurrences }
+      );
+    } else {
+      buttonText = t('occurrence:occurrenceSelection.buttonEnrolOccurrence');
+    }
+
+    return (
+      <Button
+        variant={
+          selectionDisabled || isSelectedOccurrence ? 'primary' : 'secondary'
+        }
+        onClick={
+          isSelectedOccurrence
+            ? () => deselectOccurrence(value.id)
+            : () => selectOccurrence(value.id)
+        }
+        style={{ width: enrolButtonColumnWidth }}
+        disabled={selectionDisabled}
+      >
+        {buttonText}
+      </Button>
+    );
+  };
+
   const columns = [
     {
       Header: t('enrolment:occurrenceTable.columnDate'),
@@ -69,20 +167,7 @@ const OccurrenceTable: React.FC<Props> = ({
     },
     {
       accessor: (row: OccurrenceFieldsFragment) => row,
-      Cell: ({ value }: { value: OccurrenceFieldsFragment }) => {
-        return (
-          <button
-            className={styles.enrolButton}
-            onClick={() => {
-              if (enrolOccurrence) {
-                enrolOccurrence(value.id);
-              }
-            }}
-          >
-            {t('event:occurrenceList.enrolOccurrenceButton')}
-          </button>
-        );
-      },
+      Cell: renderEnrolmentButton,
       id: 'enrol',
       style: {
         width: enrolButtonColumnWidth,
@@ -132,7 +217,7 @@ const OccurrenceTable: React.FC<Props> = ({
         <div>
           <div className={styles.infoSection}>
             <div>
-              <IconClock size="s" />
+              <IconClock />
             </div>
             <div>
               <div className={styles.infoTitle}>
@@ -144,7 +229,7 @@ const OccurrenceTable: React.FC<Props> = ({
           </div>
           <div className={styles.infoSection}>
             <div>
-              <IconLocation size="s" />
+              <IconLocation />
             </div>
             <div>
               <div className={styles.infoTitle}>
@@ -160,10 +245,10 @@ const OccurrenceTable: React.FC<Props> = ({
         </div>
         <div className={styles.occurrenceActions}>
           {/* TODO: functionality for these buttons */}
-          <Button iconLeft={<IconCalendar size="s" />} variant="supplementary">
+          <Button iconLeft={<IconCalendar />} variant="supplementary">
             {t('event:occurrenceList.downloadToCalendar')}
           </Button>
-          <Button iconLeft={<IconLocation size="s" />} variant="supplementary">
+          <Button iconLeft={<IconLocation />} variant="supplementary">
             {t('event:occurrenceList.showAllLocationEvents')}
           </Button>
         </div>

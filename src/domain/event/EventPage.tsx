@@ -1,4 +1,4 @@
-import { Notification } from 'hds-react';
+import { Notification, Button } from 'hds-react';
 import take from 'lodash/take';
 import { useRouter } from 'next/router';
 import React, { ReactElement } from 'react';
@@ -32,6 +32,9 @@ const EventPage = (): ReactElement => {
   const [occurrencesVisible, setOccurrencesVisible] = React.useState(
     OCCURRENCE_LIST_PAGE_SIZE
   );
+  const [selectedOccurrences, setSelectedOccurrences] = React.useState<
+    string[]
+  >([]);
 
   const { data: eventData, loading } = useEventQuery({
     variables: { id: eventId as string, include: ['keywords,location'] },
@@ -46,8 +49,30 @@ const EventPage = (): ReactElement => {
     });
   };
 
+  const enrolOccurrences = () => {
+    Router.push({
+      pathname: ROUTES.CREATE_ENROLMENT.replace(':id', eventId as string),
+      query: {
+        occurrences: selectedOccurrences,
+      },
+    });
+  };
+
   const showMoreOccurrences = () => {
     setOccurrencesVisible(occurrencesVisible + OCCURRENCE_LIST_PAGE_SIZE);
+  };
+
+  const selectOccurrence = (occurrenceId: string) => {
+    setSelectedOccurrences((selectOccurrences) => [
+      ...selectOccurrences,
+      occurrenceId,
+    ]);
+  };
+
+  const deselectOccurrence = (occurrenceId: string) => {
+    setSelectedOccurrences((selectedOccurrences) =>
+      selectedOccurrences.filter((id) => id !== occurrenceId)
+    );
   };
 
   const {
@@ -61,6 +86,9 @@ const EventPage = (): ReactElement => {
   } = getEventFields(eventData?.event, locale);
 
   const visibleOccurrences = take(occurrences, occurrencesVisible);
+  const requiredEnrolmentsSelected =
+    selectedOccurrences.length === (neededOccurrences || 0);
+  const showEnrolmentButton = neededOccurrences && neededOccurrences > 1;
 
   return (
     <PageWrapper title={eventName || t('event:pageTitle')}>
@@ -86,16 +114,40 @@ const EventPage = (): ReactElement => {
               photographerName={photographerName}
             />
             <EventBasicInfo event={eventData.event} />
+            {showEnrolmentButton && (
+              <div className={styles.enrolmentButtonWrapper}>
+                <Button
+                  variant="primary"
+                  disabled={!requiredEnrolmentsSelected}
+                  style={{
+                    color: !requiredEnrolmentsSelected ? 'black' : undefined,
+                  }}
+                  onClick={
+                    requiredEnrolmentsSelected ? enrolOccurrences : undefined
+                  }
+                >
+                  {requiredEnrolmentsSelected
+                    ? t('event:occurrenceList.enrolOccurrenceButton')
+                    : t(
+                        'occurrence:occurrenceSelection.buttonSelectOccurrences',
+                        { neededOccurrences }
+                      )}
+                </Button>
+              </div>
+            )}
+
             {occurrences && (
               <Occurrences
+                selectOccurrence={selectOccurrence}
+                deselectOccurrence={deselectOccurrence}
+                selectedOccurrences={selectedOccurrences}
+                enrolOccurrence={enrolOccurrence}
+                event={eventData.event}
                 eventLocationId={locationId || ''}
                 occurrences={visibleOccurrences}
                 showMoreOccurrences={showMoreOccurrences}
                 showMoreButtonVisible={occurrences.length > occurrencesVisible}
-                enrolOccurrence={
-                  neededOccurrences === 1 ? enrolOccurrence : null
-                }
-                // TODO: chooseOccurrence
+                neededOccurrences={neededOccurrences}
               />
             )}
           </Container>
