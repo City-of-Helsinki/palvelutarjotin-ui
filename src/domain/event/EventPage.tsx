@@ -142,6 +142,7 @@ const EventPage = (): ReactElement => {
                 deselectOccurrence={deselectOccurrence}
                 selectedOccurrences={selectedOccurrences}
                 enrolOccurrence={enrolOccurrence}
+                event={eventData.event}
                 eventLocationId={locationId || ''}
                 occurrences={visibleOccurrences}
                 showMoreOccurrences={showMoreOccurrences}
