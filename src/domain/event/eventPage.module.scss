@@ -13,3 +13,8 @@
     min-width: var(--enrol-button-width);
   }
 }
+
+.sharePart {
+  display: grid;
+  grid-template-columns: 1fr auto;
+}

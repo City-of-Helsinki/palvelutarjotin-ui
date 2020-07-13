@@ -5,6 +5,7 @@ import React, { ReactElement } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import LoadingSpinner from '../../common/components/loadingSpinner/LoadingSpinner';
+import ShareLinks from '../../common/components/shareLinks/ShareLinks';
 import { useEventQuery } from '../../generated/graphql';
 import useLocale from '../../hooks/useLocale';
 import { Router } from '../../i18n';
@@ -18,6 +19,7 @@ import { OCCURRENCE_LIST_PAGE_SIZE } from './constants';
 import EventBasicInfo from './eventBasicInfo/EventBasicInfo';
 import EventImage from './eventImage/EventImage';
 import styles from './eventPage.module.scss';
+import EventPageMeta from './eventPageMeta/EventPageMeta';
 import Occurrences from './occurrences/Occurrences';
 import { getEventFields } from './utils';
 
@@ -95,6 +97,7 @@ const EventPage = (): ReactElement => {
       <LoadingSpinner isLoading={loading}>
         {eventData?.event ? (
           <Container className={styles.eventPage}>
+            <EventPageMeta event={eventData?.event} />
             {enrolmentCreated && (
               <Notification
                 labelText={t('event:enrolmentConfirmation.title')}
@@ -150,6 +153,12 @@ const EventPage = (): ReactElement => {
                 neededOccurrences={neededOccurrences}
               />
             )}
+            <div className={styles.sharePart}>
+              <div></div>
+              <div>
+                <ShareLinks title={t('event:shareLinks.title')} />
+              </div>
+            </div>
           </Container>
         ) : (
           <NotFoundPage />

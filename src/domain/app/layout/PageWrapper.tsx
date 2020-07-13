@@ -12,8 +12,7 @@ interface Props {
 const PageWrapper: React.FC<Props> = ({ children, title = 'appName' }) => {
   const { t } = useTranslation();
   const locale = useLocale();
-  const { pathname } = useRouter();
-
+  const { asPath: pathname } = useRouter();
   const translatedTitle =
     title !== 'appName'
       ? `${t(title)} - ${t('common:appName')}`

@@ -9,7 +9,7 @@ import { Language } from '../../types';
 import formatDate from '../../utils/formatDate';
 import getLocalisedString from '../../utils/getLocalisedString';
 import getTimeFormat from '../../utils/getTimeFormat';
-import { EVENT_PLACEHOLDER_IMAGES } from './constants';
+import { EVENT_PLACEHOLDER_IMAGES, EVENT_SOME_IMAGE } from './constants';
 
 /**
  * Get event placeholder image url
@@ -88,3 +88,8 @@ export const getEventFields = (
           ) || [],
       }
     : {};
+
+export const getEventSomeImageUrl = (event: EventFieldsFragment): string => {
+  const image = event.images.length ? event.images[0] : null;
+  return image ? image.url : EVENT_SOME_IMAGE;
+};

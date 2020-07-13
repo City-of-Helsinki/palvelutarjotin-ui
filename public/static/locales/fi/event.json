@@ -33,5 +33,8 @@
   "pageTitle": "Tapahtuma",
   "photographerText": "Kuva: {{photographer}}",
   "contactPerson": "Yhteyshenkilö",
-  "occurrencesTitle": "Tapahtumat ({{count}} kpl)"
+  "occurrencesTitle": "Tapahtumat ({{count}} kpl)",
+  "shareLinks": {
+    "title": "Share Event"
+  }
 }
