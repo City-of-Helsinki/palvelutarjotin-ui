@@ -10,5 +10,14 @@
   },
   "notFound": {
     "textNotFound": "Etsimääsi sivua ei löytynyt"
+  },
+  "shareLink": {
+    "shareOnFacebook": "Jaa Facebookissa",
+    "shareOnTwitter": "Jaa Twitterissä",
+    "shareOnLinkedIn": "Jaa LinkedInissä"
+  },
+  "shareLinks": {
+    "buttonCopyLink": "Kopioi linkin osoite",
+    "messageLinkCopySuccess": "Linkki kopioitu leikepöydälle"
   }
 }

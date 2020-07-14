@@ -1,0 +1,60 @@
+@import 'fonts';
+@import 'variables';
+
+.shareSubSection {
+  padding-top: var(--spacing-m);
+}
+
+.shareSubSectionTitle {
+  font-size: var(--fontsize-h-5);
+  font-weight: bold;
+  margin: 1rem 0;
+}
+
+.shareLinkList {
+  list-style: none;
+  margin: unset;
+  padding: unset;
+  display: flex;
+}
+
+.shareLinkItem {
+  margin-right: var(--spacing-m);
+
+  &:last-child {
+    margin-right: unset;
+  }
+
+  button {
+    line-height: 1;
+
+    &:focus {
+      outline: 2px solid var(--color-black);
+    }
+  }
+}
+
+.relativePosition {
+  position: relative;
+}
+
+.copyButton {
+  fill: var(--color-black);
+}
+
+.linkCopyButtonSuccess {
+  fill: var(--color-success);
+}
+
+.successTooltip {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  left: 0;
+  padding: 0.25rem 0.6rem;
+
+  font-size: var(--fontsize-body-small);
+  color: var(--color-white);
+  white-space: nowrap;
+
+  background-color: var(--color-success);
+}

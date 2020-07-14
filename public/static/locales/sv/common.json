@@ -10,5 +10,14 @@
   },
   "notFound": {
     "textNotFound": "Sidan du sökte hittades inte"
+  },
+  "shareLink": {
+    "shareOnFacebook": "Dela på Facebook",
+    "shareOnTwitter": "Dela på Twitter",
+    "shareOnLinkedIn": "Dela på LinkedIn"
+  },
+  "shareLinks": {
+    "buttonCopyLink": "Kopiera länk adress",
+    "messageLinkCopySuccess": "Länk kopierad till urklipp"
   }
 }

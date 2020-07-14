@@ -6,3 +6,5 @@ export const EVENT_PLACEHOLDER_IMAGES = [
   '/static/images/event_placeholder_C.jpg',
   '/static/images/event_placeholder_D.jpg',
 ];
+
+export const EVENT_SOME_IMAGE = '/static/images/activities_SoMe-share.jpg';
