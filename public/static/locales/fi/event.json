@@ -36,5 +36,8 @@
   "occurrencesTitle": "Tapahtumat ({{count}} kpl)",
   "shareLinks": {
     "title": "Share Event"
+  },
+  "info": {
+    "textCalendarLinkDescription": "{{description}} Lue lisää: {{link}}"
   }
 }

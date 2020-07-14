@@ -36,5 +36,8 @@
   "occurrencesTitle": "Occurrences ({{count}} pcs)",
   "shareLinks": {
     "title": "Jaa tapahtuma"
+  },
+  "info": {
+    "textCalendarLinkDescription": "{{description}} Read more: {{link}}"
   }
 }
