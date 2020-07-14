@@ -16,6 +16,6 @@ test('should have discoverable link address copy button as well as Facebook, Twi
   ];
 
   shareLinkLabelsFI.forEach((label) => {
-    expect(queryByLabelText(label)).not.toEqual(null);
+    expect(queryByLabelText(label)).toBeInTheDocument();
   });
 });
