@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`matches snapshot 1`] = `
+<button
+  class="Button-module_button__3wgee button_hds-button__2A0je Button-module_supplementary__3Epn- button_hds-button--supplementary__GcHcV"
+  type="button"
+>
+  <div
+    aria-hidden="true"
+    class="Button-module_icon__3Wlc6 button_hds-icon__17j8Z"
+  >
+    <svg
+      class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <g
+        fill="none"
+        fill-rule="evenodd"
+      >
+        <path
+          d="M0 0h24v24H0z"
+        />
+        <path
+          d="M17 2a1 1 0 011 1v1h4v17H2V4h4V3a1 1 0 112 0v1h8V3a1 1 0 011-1zm3 9H4v8h16v-8zm0-5H4v3h16V6z"
+          fill="currentColor"
+        />
+      </g>
+    </svg>
+  </div>
+  <span
+    class="Button-module_label__2zMLC button_hds-button__label__2EQa-"
+  >
+    Lataa kalenteriin...
+  </span>
+</button>
+`;

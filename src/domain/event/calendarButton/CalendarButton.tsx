@@ -30,7 +30,7 @@ const CalendarButton: React.FC<CalendarButtonProps> = ({
   const locale = useLocale();
   const placeId = occurrence.placeId || event.location?.id || '';
 
-  const { data } = usePlaceQuery({
+  const { data, loading } = usePlaceQuery({
     variables: { id: placeId },
   });
 
@@ -40,7 +40,7 @@ const CalendarButton: React.FC<CalendarButtonProps> = ({
   );
 
   const downloadIcsFile = () => {
-    if (occurrence.startTime && event.id) {
+    if (data?.place && occurrence.startTime && event.id) {
       const domain = getDomain();
       const icsEvent: EventAttributes = {
         description: t('event:info.textCalendarLinkDescription', {
@@ -69,7 +69,7 @@ const CalendarButton: React.FC<CalendarButtonProps> = ({
     }
   };
 
-  return (
+  return !loading ? (
     <Button
       onClick={downloadIcsFile}
       iconLeft={<IconCalendar />}
@@ -77,7 +77,7 @@ const CalendarButton: React.FC<CalendarButtonProps> = ({
     >
       {t('event:occurrenceList.downloadToCalendar')}
     </Button>
-  );
+  ) : null;
 };
 
 export default CalendarButton;
