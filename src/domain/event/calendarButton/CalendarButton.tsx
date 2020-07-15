@@ -40,7 +40,7 @@ const CalendarButton: React.FC<CalendarButtonProps> = ({
   );
 
   const downloadIcsFile = () => {
-    if (data?.place && occurrence.startTime && event.id) {
+    if (event.id && occurrence.startTime) {
       const domain = getDomain();
       const icsEvent: EventAttributes = {
         description: t('event:info.textCalendarLinkDescription', {
@@ -50,7 +50,7 @@ const CalendarButton: React.FC<CalendarButtonProps> = ({
         end: occurrence.endTime
           ? getDateArray(occurrence.endTime)
           : getDateArray(occurrence.startTime),
-        location: [streetAddress, locationName, addressLocality]
+        location: [locationName, streetAddress, addressLocality]
           .filter((e) => e)
           .join(', '),
         productId: domain,
