@@ -36,5 +36,8 @@
   "occurrencesTitle": "Händelsetider ({{count}} st)",
   "shareLinks": {
     "title": "Dela händelsen"
+  },
+  "info": {
+    "textCalendarLinkDescription": "{{description}} Läs mer: {{link}}"
   }
 }

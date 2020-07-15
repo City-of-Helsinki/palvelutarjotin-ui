@@ -4,7 +4,14 @@ User interface for Palvelutarjotin
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Deployments
+
+Production environment:
+[TODO: Add url when deployed]
+Project is automatically deployed to production when adding new relase tag, e.g. release-v0.1.0, to repo
+
+Testing environment: [https://palvelutarjotin.test.kuva.hel.ninja](https://palvelutarjotin-admin.test.kuva.hel.ninja)
+Project is automatically deployed to testing environment when pushing to develop brach
 
 ## Available Scripts
 

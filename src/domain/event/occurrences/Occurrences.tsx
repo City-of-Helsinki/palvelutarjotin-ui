@@ -3,7 +3,6 @@ import {
   Notification,
   IconAngleDown,
   Button,
-  IconCalendar,
   IconLocation,
   IconClock,
 } from 'hds-react';
@@ -29,6 +28,7 @@ import {
 } from '../../occurrence/utils';
 import PlaceInfo from '../../place/placeInfo/PlaceInfo';
 import PlaceText from '../../place/placeText/PlaceText';
+import CalendarButton from '../calendarButton/CalendarButton';
 import styles from './occurrences.module.scss';
 
 interface Props {
@@ -46,7 +46,7 @@ interface Props {
 
 const enrolButtonColumnWidth = '250px';
 
-const OccurrenceTable: React.FC<Props> = ({
+const Occurrences: React.FC<Props> = ({
   event,
   eventLocationId,
   occurrences,
@@ -245,9 +245,7 @@ const OccurrenceTable: React.FC<Props> = ({
         </div>
         <div className={styles.occurrenceActions}>
           {/* TODO: functionality for these buttons */}
-          <Button iconLeft={<IconCalendar />} variant="supplementary">
-            {t('event:occurrenceList.downloadToCalendar')}
-          </Button>
+          <CalendarButton event={event} occurrence={occurrence} />
           <Button iconLeft={<IconLocation />} variant="supplementary">
             {t('event:occurrenceList.showAllLocationEvents')}
           </Button>
@@ -282,4 +280,4 @@ const OccurrenceTable: React.FC<Props> = ({
   );
 };
 
-export default OccurrenceTable;
+export default Occurrences;
