@@ -1,11 +1,47 @@
 @import 'variables';
 
 .occurrenceTable {
+  --date-filter-width: 160px;
+  --inactive-date-filter-color: lightgrey;
+}
+
+.occurrenceTable {
   margin-top: var(--spacing-xl);
 
   .occurrencesTitle {
     font-weight: bold;
     font-size: var(--fontsize-h-4);
+  }
+
+  .titleAndFilters {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+  }
+
+  .dateFilters {
+    display: flex;
+    justify-self: flex-end;
+    padding: var(--spacing-s);
+    align-items: center;
+  }
+
+  .dateFilter {
+    width: var(--date-filter-width);
+  }
+
+  .inactiveDateFilter {
+    input {
+      color: var(--inactive-date-filter-color);
+    }
+  }
+
+  .dateSeparator {
+    margin: 0 var(--spacing-xs);
+  }
+
+  .resetDateFiltersButton {
+    margin-right: var(--spacing-s);
   }
 
   .loadMoreButtonWrapper {

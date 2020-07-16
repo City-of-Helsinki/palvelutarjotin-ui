@@ -38,7 +38,7 @@ export type DatepickerProps = {
   id: string;
   invalidText?: string;
   labelText?: string;
-  onBlur: () => void;
+  onBlur?: () => void;
   onChange: (value?: Date | null) => void;
   value: Date | null;
   timeSelector?: boolean;
@@ -175,7 +175,7 @@ const Datepicker: React.FC<DatepickerProps> = ({
   const ensureCalendarIsClosed = React.useCallback(() => {
     if (isCalendarOpen) {
       setIsCalendarOpen(false);
-      onBlur();
+      onBlur && onBlur();
     }
   }, [isCalendarOpen, onBlur]);
 
@@ -226,7 +226,7 @@ const Datepicker: React.FC<DatepickerProps> = ({
     handleChange(dateValue);
 
     if (!isCalendarOpen) {
-      setTimeout(() => onBlur());
+      setTimeout(() => onBlur && onBlur());
     }
   };
 
@@ -343,7 +343,7 @@ const Datepicker: React.FC<DatepickerProps> = ({
                     <MonthNavButton
                       onClick={goToPreviousMonths}
                       aria-label={t(
-                        'common.datepicker.accessibility.buttonPreviousMonth'
+                        'common:datepicker.accessibility.buttonPreviousMonth'
                       )}
                     >
                       <IconAngleLeft />
@@ -360,7 +360,7 @@ const Datepicker: React.FC<DatepickerProps> = ({
                     <MonthNavButton
                       onClick={goToNextMonths}
                       aria-label={t(
-                        'common.datepicker.accessibility.buttonNextMonth'
+                        'common:datepicker.accessibility.buttonNextMonth'
                       )}
                     >
                       <IconAngleRight />
@@ -381,7 +381,7 @@ const Datepicker: React.FC<DatepickerProps> = ({
                     type="button"
                     tabIndex={-1}
                   >
-                    {t('common.datepicker.buttonClose')}
+                    {t('common:datepicker.buttonClose')}
                   </button>
                 </div>
                 {timeSelector && (
