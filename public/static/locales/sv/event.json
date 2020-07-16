@@ -39,5 +39,8 @@
   },
   "info": {
     "textCalendarLinkDescription": "{{description}} Läs mer: {{link}}"
+  },
+  "filters": {
+    "deleteDateFilter": "Ta bort filter"
   }
 }

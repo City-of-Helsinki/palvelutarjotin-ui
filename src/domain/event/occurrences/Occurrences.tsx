@@ -283,7 +283,7 @@ const Occurrences: React.FC<Props> = ({
               variant="supplementary"
               onClick={setInitialDateFilters}
             >
-              Poista rajaus
+              {t('event:filters.deleteDateFilter')}
             </Button>
           )}
 
