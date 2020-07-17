@@ -1,11 +1,9 @@
-import isBefore from 'date-fns/isBefore';
 import isSameDay from 'date-fns/isSameDay';
-import parseISO from 'date-fns/parseISO';
-import startOfDay from 'date-fns/startOfDay';
 import React from 'react';
 
 import { OccurrenceFieldsFragment } from '../../../generated/graphql';
 import { isSameDayOrAfter, isSameDayOrBefore } from '../../../utils/dateUtils';
+import { getFirstOrLastDateOfOccurrences } from '../utils';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const useDateFiltering = ({
@@ -59,38 +57,4 @@ export const useDateFiltering = ({
     isInitialEndDate,
     dateFiltersChanged,
   };
-};
-
-const getFirstOrLastDateOfOccurrences = (
-  occurrences: OccurrenceFieldsFragment[],
-  option: 'first' | 'last'
-): Date => {
-  const orderedOccurrences = occurrences.sort(orderOccurrencesByDate);
-
-  let date: Date;
-
-  if (option === 'first') {
-    date = new Date(orderedOccurrences[0].startTime);
-  } else {
-    date = new Date(
-      orderedOccurrences[orderedOccurrences.length - 1].startTime
-    );
-  }
-
-  return startOfDay(date);
-};
-
-const orderOccurrencesByDate = (
-  a: OccurrenceFieldsFragment,
-  b: OccurrenceFieldsFragment
-) => {
-  const aParsedStartTime = parseISO(a.startTime);
-  const bParsedStartTime = parseISO(b.startTime);
-  if (isBefore(aParsedStartTime, bParsedStartTime)) {
-    return -1;
-  }
-  if (isBefore(bParsedStartTime, aParsedStartTime)) {
-    return 1;
-  }
-  return 0;
 };
