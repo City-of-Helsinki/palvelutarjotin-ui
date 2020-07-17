@@ -1,4 +1,7 @@
 import { isToday, isTomorrow } from 'date-fns';
+import isBefore from 'date-fns/isBefore';
+import parseISO from 'date-fns/parseISO';
+import startOfDay from 'date-fns/startOfDay';
 import { TFunction } from 'next-i18next';
 
 import {
@@ -92,4 +95,39 @@ export const getEventFields = (
 export const getEventSomeImageUrl = (event: EventFieldsFragment): string => {
   const image = event.images.length ? event.images[0] : null;
   return image ? image.url : EVENT_SOME_IMAGE;
+};
+
+export const getFirstOrLastDateOfOccurrences = (
+  occurrences: OccurrenceFieldsFragment[],
+  option: 'first' | 'last'
+): Date => {
+  const orderedOccurrences = occurrences.sort(orderOccurrencesByDate);
+
+  let date: Date;
+
+  if (option === 'first') {
+    date = new Date(orderedOccurrences[0].startTime);
+  } else {
+    date = new Date(
+      orderedOccurrences[orderedOccurrences.length - 1].startTime
+    );
+  }
+
+  return startOfDay(date);
+};
+
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export const orderOccurrencesByDate = (
+  a: OccurrenceFieldsFragment,
+  b: OccurrenceFieldsFragment
+) => {
+  const aParsedStartTime = parseISO(a.startTime);
+  const bParsedStartTime = parseISO(b.startTime);
+  if (isBefore(aParsedStartTime, bParsedStartTime)) {
+    return -1;
+  }
+  if (isBefore(bParsedStartTime, aParsedStartTime)) {
+    return 1;
+  }
+  return 0;
 };

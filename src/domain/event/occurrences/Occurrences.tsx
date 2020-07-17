@@ -9,6 +9,7 @@ import {
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
+import Datepicker from '../../../common/components/datepicker/Datepicker';
 import ErrorMessage from '../../../common/components/form/ErrorMessage';
 import Table from '../../../common/components/table/Table';
 import {
@@ -29,7 +30,9 @@ import {
 import PlaceInfo from '../../place/placeInfo/PlaceInfo';
 import PlaceText from '../../place/placeText/PlaceText';
 import CalendarButton from '../calendarButton/CalendarButton';
+import DateFilter from '../dateFilter/DateFilter';
 import styles from './occurrences.module.scss';
+import { useDateFiltering } from './useDateFiltering';
 
 interface Props {
   event: EventFieldsFragment;
@@ -60,6 +63,19 @@ const Occurrences: React.FC<Props> = ({
 }) => {
   const { t } = useTranslation();
   const locale = useLocale();
+  // This hook filters occurrences only by date, rest of the filtering (if added more)
+  // could be in this hook but hook name should be changed
+  const {
+    startDate,
+    endDate,
+    setEndFilterDate,
+    setStartFilterDate,
+    setInitialDateFilters,
+    filteredOccurrences,
+    isInitialEndDate,
+    isInitialStartDate,
+    dateFiltersChanged,
+  } = useDateFiltering({ occurrences });
 
   const getEnrolmentError = (
     occurrence: OccurrenceFieldsFragment,
@@ -256,12 +272,26 @@ const Occurrences: React.FC<Props> = ({
 
   return occurrences.length ? (
     <section className={styles.occurrenceTable}>
-      <p className={styles.occurrencesTitle}>
-        {t('event:occurrencesTitle', { count: occurrences.length })}{' '}
-      </p>
+      <div className={styles.titleAndFilters}>
+        <p className={styles.occurrencesTitle}>
+          {t('event:occurrencesTitle', { count: occurrences.length })}{' '}
+        </p>
+        <div className={styles.dateFilters}>
+          <DateFilter
+            startDate={startDate}
+            endDate={endDate}
+            dateFiltersChanged={dateFiltersChanged}
+            isInitialStartDate={isInitialStartDate}
+            isInitialEndDate={isInitialEndDate}
+            setInitialDateFilters={setInitialDateFilters}
+            setStartFilterDate={setStartFilterDate}
+            setEndFilterDate={setEndFilterDate}
+          />
+        </div>
+      </div>
       <Table
         columns={columns}
-        data={occurrences}
+        data={filteredOccurrences}
         renderExpandedArea={renderOccurrenceInfo}
       />
       {showMoreButtonVisible && (

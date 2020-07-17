@@ -39,5 +39,8 @@
   },
   "info": {
     "textCalendarLinkDescription": "{{description}} Lue lisää: {{link}}"
+  },
+  "filters": {
+    "deleteDateFilter": "Poista rajaus"
   }
 }

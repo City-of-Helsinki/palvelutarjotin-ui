@@ -1,4 +1,4 @@
-import { Notification, Button } from 'hds-react';
+import { Notification } from 'hds-react';
 import take from 'lodash/take';
 import { useRouter } from 'next/router';
 import React, { ReactElement } from 'react';
@@ -16,6 +16,7 @@ import { ROUTES } from '../app/routes/constants';
 import { ENROLMENT_URL_PARAMS } from '../enrolment/constants';
 import NotFoundPage from '../notFoundPage/NotFoundPage';
 import { OCCURRENCE_LIST_PAGE_SIZE } from './constants';
+import EnrolmentButton from './enrolmentButton/EnrolmentButton';
 import EventBasicInfo from './eventBasicInfo/EventBasicInfo';
 import EventImage from './eventImage/EventImage';
 import styles from './eventPage.module.scss';
@@ -118,27 +119,12 @@ const EventPage = (): ReactElement => {
             />
             <EventBasicInfo event={eventData.event} />
             {showEnrolmentButton && (
-              <div className={styles.enrolmentButtonWrapper}>
-                <Button
-                  variant="primary"
-                  disabled={!requiredEnrolmentsSelected}
-                  style={{
-                    color: !requiredEnrolmentsSelected ? 'black' : undefined,
-                  }}
-                  onClick={
-                    requiredEnrolmentsSelected ? enrolOccurrences : undefined
-                  }
-                >
-                  {requiredEnrolmentsSelected
-                    ? t('event:occurrenceList.enrolOccurrenceButton')
-                    : t(
-                        'occurrence:occurrenceSelection.buttonSelectOccurrences',
-                        { neededOccurrences }
-                      )}
-                </Button>
-              </div>
+              <EnrolmentButton
+                enrolOccurrences={enrolOccurrences}
+                neededOccurrences={neededOccurrences}
+                requiredEnrolmentsSelected={requiredEnrolmentsSelected}
+              />
             )}
-
             {occurrences && (
               <Occurrences
                 selectOccurrence={selectOccurrence}

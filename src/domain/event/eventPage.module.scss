@@ -6,14 +6,6 @@
   --enrol-button-width: 250px;
 }
 
-.enrolmentButtonWrapper {
-  text-align: right;
-
-  button {
-    min-width: var(--enrol-button-width);
-  }
-}
-
 .sharePart {
   display: grid;
   grid-template-columns: 1fr auto;
