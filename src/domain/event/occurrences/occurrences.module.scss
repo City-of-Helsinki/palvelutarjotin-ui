@@ -26,24 +26,6 @@
     align-items: center;
   }
 
-  .dateFilter {
-    width: var(--date-filter-width);
-  }
-
-  .inactiveDateFilter {
-    input {
-      color: var(--inactive-date-filter-color);
-    }
-  }
-
-  .dateSeparator {
-    margin: 0 var(--spacing-xs);
-  }
-
-  .resetDateFiltersButton {
-    margin-right: var(--spacing-s);
-  }
-
   .loadMoreButtonWrapper {
     text-align: center;
     margin-top: var(--spacing-m);

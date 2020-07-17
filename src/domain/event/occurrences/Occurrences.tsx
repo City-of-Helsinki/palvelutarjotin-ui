@@ -30,6 +30,7 @@ import {
 import PlaceInfo from '../../place/placeInfo/PlaceInfo';
 import PlaceText from '../../place/placeText/PlaceText';
 import CalendarButton from '../calendarButton/CalendarButton';
+import DateFilter from '../dateFilter/DateFilter';
 import styles from './occurrences.module.scss';
 import { useDateFiltering } from './useDateFiltering';
 
@@ -60,7 +61,6 @@ const Occurrences: React.FC<Props> = ({
   neededOccurrences = 0,
   selectedOccurrences,
 }) => {
-  console.log(occurrences);
   const { t } = useTranslation();
   const locale = useLocale();
   // This hook filters occurrences only by date, rest of the filtering (if added more)
@@ -277,39 +277,16 @@ const Occurrences: React.FC<Props> = ({
           {t('event:occurrencesTitle', { count: occurrences.length })}{' '}
         </p>
         <div className={styles.dateFilters}>
-          {dateFiltersChanged && (
-            <Button
-              className={styles.resetDateFiltersButton}
-              variant="supplementary"
-              onClick={setInitialDateFilters}
-            >
-              {t('event:filters.deleteDateFilter')}
-            </Button>
-          )}
-
-          <div
-            className={classNames(styles.dateFilter, {
-              [styles.inactiveDateFilter]: isInitialStartDate,
-            })}
-          >
-            <Datepicker
-              id="date-start-filter"
-              value={startDate}
-              onChange={setStartFilterDate}
-            />
-          </div>
-          <span className={styles.dateSeparator}>-</span>
-          <div
-            className={classNames(styles.dateFilter, {
-              [styles.inactiveDateFilter]: isInitialEndDate,
-            })}
-          >
-            <Datepicker
-              id="date-end-filter"
-              value={endDate}
-              onChange={setEndFilterDate}
-            />
-          </div>
+          <DateFilter
+            startDate={startDate}
+            endDate={endDate}
+            dateFiltersChanged={dateFiltersChanged}
+            isInitialStartDate={isInitialStartDate}
+            isInitialEndDate={isInitialEndDate}
+            setInitialDateFilters={setInitialDateFilters}
+            setStartFilterDate={setStartFilterDate}
+            setEndFilterDate={setEndFilterDate}
+          />
         </div>
       </div>
       <Table

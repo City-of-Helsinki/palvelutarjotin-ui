@@ -65,7 +65,7 @@ const getFirstOrLastDateOfOccurrences = (
   occurrences: OccurrenceFieldsFragment[],
   option: 'first' | 'last'
 ): Date => {
-  const orderedOccurrences = occurrences.sort(orderOccurrences);
+  const orderedOccurrences = occurrences.sort(orderOccurrencesByDate);
 
   let date: Date;
 
@@ -80,7 +80,7 @@ const getFirstOrLastDateOfOccurrences = (
   return startOfDay(date);
 };
 
-const orderOccurrences = (
+const orderOccurrencesByDate = (
   a: OccurrenceFieldsFragment,
   b: OccurrenceFieldsFragment
 ) => {

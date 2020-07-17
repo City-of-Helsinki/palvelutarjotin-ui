@@ -1,0 +1,22 @@
+.dateFilter {
+  --date-filter-width: 160px;
+  --inactive-date-filter-color: lightgrey;
+}
+
+.dateFilter {
+  width: var(--date-filter-width);
+}
+
+.inactiveDateFilter {
+  input {
+    color: var(--inactive-date-filter-color) !important;
+  }
+}
+
+.dateSeparator {
+  margin: 0 var(--spacing-xs);
+}
+
+.resetDateFiltersButton {
+  margin-right: var(--spacing-s);
+}
