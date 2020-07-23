@@ -80,7 +80,7 @@ describe('<Datepicker />', () => {
       ).toHaveFocus()
     );
 
-    // 3 arrrow down presses should change to next month
+    // 3 arrow down presses should change to next month
     pressKey({ key: 'ArrowDown' }, 3);
 
     expect(screen.queryByText(/elokuu 2020/i)).toBeInTheDocument();
