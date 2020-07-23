@@ -59,7 +59,7 @@ const TimesList = React.memo(
         <>
           <div className={styles.timesDivider} />
           <div
-            aria-label={t('common.datepicker.accessibility.timeInstructions')}
+            aria-label={t('common:datepicker.accessibility.timeInstructions')}
             className={styles.timesListContainer}
             tabIndex={0}
             ref={forwardedRef}
@@ -68,7 +68,7 @@ const TimesList = React.memo(
               {times.map((time, index) => (
                 <TimeItem
                   key={`${time.hours}:${time.minutes}`}
-                  label={t('common.datepicker.accessibility.selectTime', {
+                  label={t('common:datepicker.accessibility.selectTime', {
                     value: formatTime(time),
                   })}
                   time={time}
