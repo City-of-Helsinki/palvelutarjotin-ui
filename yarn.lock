@@ -1273,12 +1273,12 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
-"@datepicker-react/hooks@^2.7.0":
-  version "2.7.0"
-  resolved "https://registry.yarnpkg.com/@datepicker-react/hooks/-/hooks-2.7.0.tgz#2f5b00dfc6b5439fdb8c902d39893669a2f04009"
-  integrity sha512-LdtrwTcwB7xzRwb++C66b9VOexeP0xa4K4WMvuSplD0hW4Uah5fOLZW+IJJaZEH1jDX++PFzEPQ6QxWNiFPrZA==
+"@datepicker-react/hooks@2.3.1":
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/@datepicker-react/hooks/-/hooks-2.3.1.tgz#b33f28aa9dc8628b5c273846544c38693452bd8a"
+  integrity sha512-9GIGWV0jwt2sDicK/e7Wdymv52n6Hj7srTjC+TMGO6eHRyIa29nrpbrepUVTITF9nwPLCjHll6cNfCKVD0Fghw==
   dependencies:
-    date-fns "^2.14.0"
+    date-fns "^2.8.1"
 
 "@emotion/cache@^10.0.27", "@emotion/cache@^10.0.9":
   version "10.0.29"
@@ -5715,6 +5715,11 @@ date-fns@^2.14.0:
   version "2.14.0"
   resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-2.14.0.tgz#359a87a265bb34ef2e38f93ecf63ac453f9bc7ba"
   integrity sha512-1zD+68jhFgDIM0rF05rcwYO8cExdNqxjq4xP1QKM60Q45mnO6zaMWB4tOzrIr4M4GSLntsKeE4c9Bdl2jhL/yw==
+
+date-fns@^2.8.1:
+  version "2.15.0"
+  resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-2.15.0.tgz#424de6b3778e4e69d3ff27046ec136af58ae5d5f"
+  integrity sha512-ZCPzAMJZn3rNUvvQIMlXhDr4A+Ar07eLeGsGREoWU19a3Pqf5oYa+ccd+B3F6XVtQY6HANMFdOQ8A+ipFnvJdQ==
 
 de-indent@^1.0.2:
   version "1.0.2"
