@@ -63,6 +63,7 @@ const Occurrences: React.FC<Props> = ({
 }) => {
   const { t } = useTranslation();
   const locale = useLocale();
+
   // This hook filters occurrences only by date, rest of the filtering (if added more)
   // could be in this hook but hook name should be changed
   const {

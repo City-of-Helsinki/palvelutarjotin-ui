@@ -126,18 +126,22 @@ const EventPage = (): ReactElement => {
               />
             )}
             {occurrences && (
-              <Occurrences
-                selectOccurrence={selectOccurrence}
-                deselectOccurrence={deselectOccurrence}
-                selectedOccurrences={selectedOccurrences}
-                enrolOccurrence={enrolOccurrence}
-                event={eventData.event}
-                eventLocationId={locationId || ''}
-                occurrences={visibleOccurrences}
-                showMoreOccurrences={showMoreOccurrences}
-                showMoreButtonVisible={occurrences.length > occurrencesVisible}
-                neededOccurrences={neededOccurrences}
-              />
+              <div data-testid="occurrences-section">
+                <Occurrences
+                  selectOccurrence={selectOccurrence}
+                  deselectOccurrence={deselectOccurrence}
+                  selectedOccurrences={selectedOccurrences}
+                  enrolOccurrence={enrolOccurrence}
+                  event={eventData.event}
+                  eventLocationId={locationId || ''}
+                  occurrences={visibleOccurrences}
+                  showMoreOccurrences={showMoreOccurrences}
+                  showMoreButtonVisible={
+                    occurrences.length > occurrencesVisible
+                  }
+                  neededOccurrences={neededOccurrences}
+                />
+              </div>
             )}
             <div className={styles.sharePart}>
               <div></div>

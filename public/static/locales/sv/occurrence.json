@@ -14,6 +14,6 @@
     "buttonSelectOccurrence": "Välj",
     "buttonSelectedOccurrences": "Vald {{selectedOccurrences}} / {{neededOccurrences}}",
     "buttonSelectOccurrences": "Välj {{neededOccurrences}} förekomster",
-    "buttonEnrolOccurrences": "Skriva in"
+    "buttonEnrolOccurrence": "Skriva in"
   }
 }
