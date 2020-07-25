@@ -56,18 +56,6 @@ const apolloMocks = [
 const eventData = eventsMockData.data.event;
 const originalUseRouter = Router.useRouter;
 
-const originalIsEnrolmentAvailable = occurrenceUtils.isEnrolmentAvailable;
-const originalIsEnrolmentClosed = occurrenceUtils.isEnrolmentClosed;
-const originalIsEnrolmentOpen = occurrenceUtils.isEnrolmentOpen;
-const originalIsEnrolmentStarted = occurrenceUtils.isEnrolmentStarted;
-
-afterEach(() => {
-  (occurrenceUtils.isEnrolmentAvailable as any) = originalIsEnrolmentAvailable;
-  (occurrenceUtils.isEnrolmentClosed as any) = originalIsEnrolmentClosed;
-  (occurrenceUtils.isEnrolmentOpen as any) = originalIsEnrolmentOpen;
-  (occurrenceUtils.isEnrolmentStarted as any) = originalIsEnrolmentStarted;
-});
-
 const rowText =
   '27.07.2020 12:00 – 12:30 Soukan kirjasto 30 (10-20) Ilmoittaudu';
 
@@ -181,7 +169,9 @@ it('renders occurrences table and related stuff correctly', async () => {
     );
   });
 
-  const occurrencesTitle = screen.queryByText('Tapahtumat (10 kpl)');
+  const occurrencesTitle = screen.queryByText(
+    eventMessages.occurrencesTitle.replace('{{count}}', '10')
+  );
   const showMoreOccurrencesButton = screen.queryByRole('button', {
     name: eventMessages.occurrenceList.loadMoreOccurrences,
     hidden: true,
@@ -249,11 +239,25 @@ it('selecting enrolments works and buttons have correct texts', async () => {
 
   userEvent.click(occurrenceEnrolmentButtons[0]);
 
+  const getSelectedOccurrencesButtonText = (
+    selectedOccurrences: number,
+    neededOccurrences: number
+  ) =>
+    occurrenceMessages.occurrenceSelection.buttonSelectedOccurrences
+      .replace('{{selectedOccurrences}}', selectedOccurrences.toString())
+      .replace('{{neededOccurrences}}', neededOccurrences.toString());
+
   expect(
-    screen.queryByRole('button', { name: 'Valittu 1 / 3', hidden: true })
+    screen.queryByRole('button', {
+      name: getSelectedOccurrencesButtonText(1, 3),
+      hidden: true,
+    })
   ).toBeInTheDocument();
   expect(
-    screen.queryByRole('button', { name: 'Valittu 2 / 3', hidden: true })
+    screen.queryByRole('button', {
+      name: getSelectedOccurrencesButtonText(2, 3),
+      hidden: true,
+    })
   ).not.toBeInTheDocument();
 
   // buttons from previous query are stale because of rerender
@@ -266,7 +270,10 @@ it('selecting enrolments works and buttons have correct texts', async () => {
   userEvent.click(occurrenceEnrolmentButtons[0]);
 
   expect(
-    screen.queryAllByRole('button', { name: 'Valittu 2 / 3', hidden: true })
+    screen.queryAllByRole('button', {
+      name: getSelectedOccurrencesButtonText(2, 3),
+      hidden: true,
+    })
   ).toHaveLength(2);
 
   occurrenceEnrolmentButtons = screen.getAllByRole('button', {
@@ -287,7 +294,7 @@ it('selecting enrolments works and buttons have correct texts', async () => {
   expect(
     screen
       .queryAllByRole('button', {
-        name: 'Valittu 3 / 3',
+        name: getSelectedOccurrencesButtonText(3, 3),
         hidden: true,
       })
       .filter((button) => !button.hasAttribute('disabled'))
@@ -296,7 +303,10 @@ it('selecting enrolments works and buttons have correct texts', async () => {
   // should be 2 disabled buttons with 'valittu' text
   expect(
     screen
-      .queryAllByRole('button', { name: 'Valittu 3 / 3', hidden: true })
+      .queryAllByRole('button', {
+        name: getSelectedOccurrencesButtonText(3, 3),
+        hidden: true,
+      })
       .filter((button) => button.hasAttribute('disabled'))
   ).toHaveLength(2);
 
