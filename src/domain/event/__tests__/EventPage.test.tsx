@@ -12,6 +12,8 @@ import {
   PlaceDocument,
   VenueDocument,
 } from '../../../generated/graphql';
+import { Router as i18nRouter } from '../../../i18n';
+import { ROUTES } from '../../app/routes/constants';
 import * as occurrenceUtils from '../../occurrence/utils';
 import eventsMockData from '../__mocks__/eventWithOccurrences.json';
 import placeMock from '../__mocks__/placeMock.json';
@@ -298,7 +300,23 @@ it('selecting enrolments works and buttons have correct texts', async () => {
       .filter((button) => button.hasAttribute('disabled'))
   ).toHaveLength(2);
 
-  await new Promise((res) => setTimeout(res, 100));
+  const originalRouter = i18nRouter.push;
+  i18nRouter.push = jest.fn();
+
+  userEvent.click(screen.getByRole('button', { name: 'Ilmoittaudu' }));
+
+  expect(i18nRouter.push).toHaveBeenCalledWith({
+    pathname: ROUTES.CREATE_ENROLMENT.replace(':id', eventData.id as string),
+    query: {
+      occurrences: [
+        'T2NjdXJyZW5jZU5vZGU6ODM=',
+        'T2NjdXJyZW5jZU5vZGU6ODQ=',
+        'T2NjdXJyZW5jZU5vZGU6ODU=',
+      ],
+    },
+  });
+
+  i18nRouter.push = originalRouter;
 });
 
 it('opens expanded area when clicked', async () => {
@@ -347,4 +365,48 @@ it('opens expanded area when clicked', async () => {
   expect(
     screen.queryByText(occurrenceMessages.dateAndTimeTitle)
   ).toBeInTheDocument();
+});
+
+it('filters occurrence list correctly when sate filters are selected', async () => {
+  render(
+    <MockedProvider mocks={apolloMocks}>
+      <EventPage />
+    </MockedProvider>
+  );
+
+  // wait for graphql request to complete
+  await screen.findByRole('heading', {
+    name: eventData.name.fi,
+    hidden: true,
+  });
+
+  await waitFor(() => {
+    expect(screen.queryAllByText(placeMock.data.place.name.fi)).toHaveLength(
+      10
+    );
+  });
+
+  userEvent.click(
+    screen.getByLabelText(eventMessages.occurrenceList.labelStartDateFilter)
+  );
+  userEvent.click(
+    screen.getByRole('button', { name: 'Valitse 28.07.2020', hidden: true })
+  );
+  userEvent.click(
+    screen.getByLabelText(eventMessages.occurrenceList.labelEndDateFilter)
+  );
+  userEvent.click(
+    screen.getByRole('button', { name: 'Valitse 29.07.2020', hidden: true })
+  );
+
+  const tableRows = screen.getAllByRole('row');
+
+  // 2 occurrences should be visible + header row for table
+  expect(tableRows).toHaveLength(3);
+
+  const occurrenceEnrolButtons = screen.getAllByRole('button', {
+    name: eventMessages.occurrenceList.enrolOccurrenceButton,
+    hidden: true,
+  });
+  expect(occurrenceEnrolButtons).toHaveLength(2);
 });

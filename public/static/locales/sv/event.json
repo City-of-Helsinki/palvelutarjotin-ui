@@ -21,7 +21,9 @@
     "enrolOccurrenceButton": "Skriva in",
     "chooseOccurrenceButton": "Välja",
     "downloadToCalendar": "Importera till kalender...",
-    "showAllLocationEvents": "Visa alla händelser på den här platsen"
+    "showAllLocationEvents": "Visa alla händelser på den här platsen",
+    "labelStartDateFilter": "Startdatum för händelsefilter",
+    "labelEndDateFilter": "Slutdatum för händelsefilter"
   },
   "location": {
     "labelLocation": "Standard venue",

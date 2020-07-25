@@ -21,7 +21,9 @@
     "enrolOccurrenceButton": "Enrol",
     "chooseOccurrenceButton": "Choose",
     "downloadToCalendar": "Import to calendar...",
-    "showAllLocationEvents": "Show all events of this location"
+    "showAllLocationEvents": "Show all events of this location",
+    "labelStartDateFilter": "Start date of occurrences filter",
+    "labelEndDateFilter": "End date of occurrences filter"
   },
   "location": {
     "labelLocation": "Default venue",

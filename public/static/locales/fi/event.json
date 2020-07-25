@@ -21,7 +21,9 @@
     "enrolOccurrenceButton": "Ilmoittaudu",
     "chooseOccurrenceButton": "Valitse",
     "downloadToCalendar": "Lataa kalenteriin...",
-    "showAllLocationEvents": "Näytä paikan kaikki tapahtumat"
+    "showAllLocationEvents": "Näytä paikan kaikki tapahtumat",
+    "labelStartDateFilter": "Tapahtuma-aikojen rajauksen alkupäivä",
+    "labelEndDateFilter": "Tapahtuma-aikojen rajauksen loppupäivä"
   },
   "location": {
     "labelLocation": "Oletustapahtumapaikka",

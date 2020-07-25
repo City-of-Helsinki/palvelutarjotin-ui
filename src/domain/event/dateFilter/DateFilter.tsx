@@ -50,7 +50,7 @@ const DateFilter: React.FC<DateFilterProps> = ({
         })}
       >
         <label className={styles.srOnly} htmlFor={startDateFilterId}>
-          Start date filter
+          {t('event:occurrenceList.labelStartDateFilter')}
         </label>
         <Datepicker
           id={startDateFilterId}
@@ -65,7 +65,7 @@ const DateFilter: React.FC<DateFilterProps> = ({
         })}
       >
         <label className={styles.srOnly} htmlFor={endDateFilterId}>
-          End date filter
+          {t('event:occurrenceList.labelEndDateFilter')}
         </label>
         <Datepicker
           id={endDateFilterId}
