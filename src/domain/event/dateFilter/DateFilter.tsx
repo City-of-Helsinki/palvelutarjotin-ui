@@ -29,6 +29,9 @@ const DateFilter: React.FC<DateFilterProps> = ({
 }) => {
   const { t } = useTranslation();
 
+  const startDateFilterId = 'date-start-filter';
+  const endDateFilterId = 'date-end-filter';
+
   return (
     <>
       {dateFiltersChanged && (
@@ -46,8 +49,11 @@ const DateFilter: React.FC<DateFilterProps> = ({
           [styles.inactiveDateFilter]: isInitialStartDate,
         })}
       >
+        <label className={styles.srOnly} htmlFor={startDateFilterId}>
+          {t('event:occurrenceList.labelStartDateFilter')}
+        </label>
         <Datepicker
-          id="date-start-filter"
+          id={startDateFilterId}
           value={startDate}
           onChange={setStartFilterDate}
         />
@@ -58,8 +64,11 @@ const DateFilter: React.FC<DateFilterProps> = ({
           [styles.inactiveDateFilter]: isInitialEndDate,
         })}
       >
+        <label className={styles.srOnly} htmlFor={endDateFilterId}>
+          {t('event:occurrenceList.labelEndDateFilter')}
+        </label>
         <Datepicker
-          id="date-end-filter"
+          id={endDateFilterId}
           value={endDate}
           onChange={setEndFilterDate}
         />

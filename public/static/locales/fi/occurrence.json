@@ -13,7 +13,7 @@
   "occurrenceSelection": {
     "buttonSelectOccurrence": "Valitse",
     "buttonSelectedOccurrences": "Valittu {{selectedOccurrences}} / {{neededOccurrences}}",
-    "buttonSelectOccurrences": "Valitse {{neededOccurrences}} tahaptuma-aikaa",
-    "buttonEnrolOccurrences": "Ilmoittaudu"
+    "buttonSelectOccurrences": "Valitse {{neededOccurrences}} tapahtuma-aikaa",
+    "buttonEnrolOccurrence": "Ilmoittaudu"
   }
 }
