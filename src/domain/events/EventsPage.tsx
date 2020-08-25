@@ -109,6 +109,7 @@ const EventsPage = (): ReactElement => {
           {eventsWithUpcomingOccurrences && (
             <EventList
               events={eventsWithUpcomingOccurrences}
+              eventsCount={eventsData?.events?.meta.count}
               fetchMore={fetchMoreEvents}
               isLoading={isLoadingMore}
               shouldShowLoadMore={shouldShowLoadMore}

@@ -16,6 +16,7 @@ interface Props {
   fetchMore: () => void;
   isLoading: boolean;
   shouldShowLoadMore: boolean;
+  eventsCount?: number | null;
   sort: EVENT_SORT_OPTIONS;
   setSort: (val: EVENT_SORT_OPTIONS) => void;
 }
@@ -26,6 +27,7 @@ const EventList = ({
   isLoading,
   shouldShowLoadMore,
   sort,
+  eventsCount = 0,
   setSort,
 }: Props): ReactElement => {
   const { t } = useTranslation();
@@ -37,8 +39,6 @@ const EventList = ({
       };
     });
   }, [t]);
-
-  const count = events.length || 0;
 
   const handleSort = (option: { [key: string]: any }) => {
     setSort(option.value);
@@ -54,7 +54,7 @@ const EventList = ({
         <h2>
           {t('events:eventList.title')}{' '}
           <span className={styles.count}>
-            {t('events:eventList.count', { count })}
+            {t('events:eventList.count', { count: eventsCount })}
           </span>
         </h2>
         <div className={styles.sortSelectorWrapper}>
