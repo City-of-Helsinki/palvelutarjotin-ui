@@ -3,7 +3,7 @@ import React, { ReactElement } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import LoadingSpinner from '../../../common/components/loadingSpinner/LoadingSpinner';
-import { EventsQuery } from '../../../generated/graphql';
+import { EventFieldsFragment } from '../../../generated/graphql';
 import { Router } from '../../../i18n';
 import { translateValue } from '../../../utils/translateUtils';
 import { ROUTES } from '../../app/routes/constants';
@@ -12,7 +12,7 @@ import { EVENT_SORT_OPTIONS } from '../constants';
 import styles from './eventList.module.scss';
 
 interface Props {
-  eventsData: EventsQuery;
+  events: EventFieldsFragment[];
   fetchMore: () => void;
   isLoading: boolean;
   shouldShowLoadMore: boolean;
@@ -21,7 +21,7 @@ interface Props {
 }
 
 const EventList = ({
-  eventsData,
+  events,
   fetchMore,
   isLoading,
   shouldShowLoadMore,
@@ -38,8 +38,7 @@ const EventList = ({
     });
   }, [t]);
 
-  const events = eventsData.events?.data || [];
-  const count = eventsData.events?.meta.count || 0;
+  const count = events.length || 0;
 
   const handleSort = (option: { [key: string]: any }) => {
     setSort(option.value);

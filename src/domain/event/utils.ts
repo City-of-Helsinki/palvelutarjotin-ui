@@ -34,7 +34,8 @@ export const getEventStartTimeStr = (
   locale: Language,
   t: TFunction
 ): string | null => {
-  const startTime = event.startTime ? new Date(event.startTime) : null;
+  const nextOccurrenceTime = event.pEvent.nextOccurrenceDatetime;
+  const startTime = nextOccurrenceTime ? new Date(nextOccurrenceTime) : null;
   const timeFormat = getTimeFormat(locale);
 
   if (!startTime) return null;

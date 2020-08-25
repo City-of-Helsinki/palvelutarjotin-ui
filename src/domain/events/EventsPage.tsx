@@ -18,6 +18,7 @@ import {
   getEventFilterVariables,
   getInitialValues,
   getTextFromDict,
+  getEventsThatHaveUpcomingOccurrence,
 } from './utils';
 
 const EventsPage = (): ReactElement => {
@@ -40,6 +41,10 @@ const EventsPage = (): ReactElement => {
     ssr: false,
     variables: { ...variables, sort },
   });
+
+  const eventsWithUpcomingOccurrences = getEventsThatHaveUpcomingOccurrence(
+    eventsData
+  );
 
   const search = (values: EventSearchFormValues) => {
     Router.push({
@@ -101,9 +106,9 @@ const EventsPage = (): ReactElement => {
       />
       <Container>
         <LoadingSpinner isLoading={loading}>
-          {eventsData && (
+          {eventsWithUpcomingOccurrences && (
             <EventList
-              eventsData={eventsData}
+              events={eventsWithUpcomingOccurrences}
               fetchMore={fetchMoreEvents}
               isLoading={isLoadingMore}
               shouldShowLoadMore={shouldShowLoadMore}

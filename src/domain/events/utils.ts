@@ -1,4 +1,8 @@
-import { EventsQueryVariables } from '../../generated/graphql';
+import {
+  EventsQueryVariables,
+  EventFieldsFragment,
+  EventsQuery,
+} from '../../generated/graphql';
 import { EventSearchFormValues } from './eventSearchForm/EventSearchForm';
 
 export const getTextFromDict = (
@@ -30,4 +34,10 @@ export const getInitialValues = (
   return {
     text: getTextFromDict(query, 'text') || '',
   };
+};
+
+export const getEventsThatHaveUpcomingOccurrence = (
+  eventData?: EventsQuery
+): EventFieldsFragment[] | undefined => {
+  return eventData?.events?.data.filter((e) => e.pEvent.nextOccurrenceDatetime);
 };
