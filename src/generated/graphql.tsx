@@ -67,6 +67,7 @@ export type Query = {
   keyword?: Maybe<Keyword>;
   eventsSearch?: Maybe<EventSearchListResponse>;
   placesSearch?: Maybe<PlaceSearchListResponse>;
+  notificationTemplates?: Maybe<NotificationTemplateNodeConnection>;
 };
 
 
@@ -229,6 +230,14 @@ export type QueryPlacesSearchArgs = {
   include?: Maybe<Array<Maybe<Scalars['String']>>>;
 };
 
+
+export type QueryNotificationTemplatesArgs = {
+  before?: Maybe<Scalars['String']>;
+  after?: Maybe<Scalars['String']>;
+  first?: Maybe<Scalars['Int']>;
+  last?: Maybe<Scalars['Int']>;
+};
+
 export type OccurrenceNodeConnection = {
   __typename?: 'OccurrenceNodeConnection';
   /** Pagination data for this connection. */
@@ -328,6 +337,8 @@ export type PalvelutarjotinEventNode = Node & {
   contactPhoneNumber: Scalars['String'];
   contactEmail: Scalars['String'];
   occurrences: OccurrenceNodeConnection;
+  nextOccurrenceDatetime?: Maybe<Scalars['DateTime']>;
+  lastOccurrenceDatetime?: Maybe<Scalars['DateTime']>;
 };
 
 
@@ -681,7 +692,7 @@ export type Meta = {
 
 export type Event = {
   __typename?: 'Event';
-  id?: Maybe<Scalars['String']>;
+  id: Scalars['String'];
   internalId: Scalars['ID'];
   internalContext?: Maybe<Scalars['String']>;
   internalType?: Maybe<Scalars['String']>;
@@ -689,7 +700,7 @@ export type Event = {
   lastModifiedTime?: Maybe<Scalars['String']>;
   dataSource?: Maybe<Scalars['String']>;
   publisher?: Maybe<Scalars['String']>;
-  location?: Maybe<Place>;
+  location: Place;
   keywords: Array<Keyword>;
   superEvent?: Maybe<IdObject>;
   eventStatus?: Maybe<Scalars['String']>;
@@ -709,13 +720,14 @@ export type Event = {
   extensionCourse?: Maybe<ExtensionCourse>;
   name: LocalisedObject;
   localizationExtraInfo?: Maybe<LocalisedObject>;
-  shortDescription?: Maybe<LocalisedObject>;
+  shortDescription: LocalisedObject;
   provider?: Maybe<LocalisedObject>;
   infoUrl?: Maybe<LocalisedObject>;
   providerContactInfo?: Maybe<Scalars['String']>;
-  description?: Maybe<LocalisedObject>;
-  pEvent?: Maybe<PalvelutarjotinEventNode>;
+  description: LocalisedObject;
+  pEvent: PalvelutarjotinEventNode;
   venue?: Maybe<VenueNode>;
+  publicationStatus?: Maybe<Scalars['String']>;
 };
 
 export type Place = {
@@ -888,6 +900,48 @@ export type PlaceSearchListResponse = {
   data: Array<Place>;
 };
 
+export type NotificationTemplateNodeConnection = {
+  __typename?: 'NotificationTemplateNodeConnection';
+  /** Pagination data for this connection. */
+  pageInfo: PageInfo;
+  /** Contains the nodes in this connection. */
+  edges: Array<Maybe<NotificationTemplateNodeEdge>>;
+};
+
+/** A Relay edge containing a `NotificationTemplateNode` and its cursor. */
+export type NotificationTemplateNodeEdge = {
+  __typename?: 'NotificationTemplateNodeEdge';
+  /** The item at the end of the edge */
+  node?: Maybe<NotificationTemplateNode>;
+  /** A cursor for use in pagination */
+  cursor: Scalars['String'];
+};
+
+export type NotificationTemplateNode = Node & {
+  __typename?: 'NotificationTemplateNode';
+  /** The ID of the object. */
+  id: Scalars['ID'];
+  type: Scalars['String'];
+  translations: Array<Maybe<NotificationTranslationType>>;
+  preview?: Maybe<Scalars['String']>;
+};
+
+export type NotificationTranslationType = {
+  __typename?: 'NotificationTranslationType';
+  languageCode: NotificationTemplateLanguage;
+  subject?: Maybe<Scalars['String']>;
+  bodyHtml?: Maybe<Scalars['String']>;
+  bodyText?: Maybe<Scalars['String']>;
+  preview?: Maybe<Scalars['String']>;
+};
+
+/** An enumeration. */
+export enum NotificationTemplateLanguage {
+  Fi = 'FI',
+  En = 'EN',
+  Sv = 'SV'
+}
+
 export type Mutation = {
   __typename?: 'Mutation';
   addOccurrence?: Maybe<AddOccurrenceMutationPayload>;
@@ -904,6 +958,7 @@ export type Mutation = {
   enrolOccurrence?: Maybe<EnrolOccurrenceMutationPayload>;
   /** Only staff can unenrol study group */
   unenrolOccurrence?: Maybe<UnenrolOccurrenceMutationPayload>;
+  updateEnrolment?: Maybe<UpdateEnrolmentMutationPayload>;
   approveEnrolment?: Maybe<ApproveEnrolmentMutationPayload>;
   declineEnrolment?: Maybe<DeclineEnrolmentMutationPayload>;
   createMyProfile?: Maybe<CreateMyProfileMutationPayload>;
@@ -913,6 +968,8 @@ export type Mutation = {
   updatePerson?: Maybe<UpdatePersonMutationPayload>;
   addEventMutation?: Maybe<AddEventMutation>;
   updateEventMutation?: Maybe<UpdateEventMutation>;
+  /** Using this mutation will update event publication status and also set the `start_time`, `end_time` of linkedEvent */
+  publishEventMutation?: Maybe<PublishEventMutation>;
   deleteEventMutation?: Maybe<DeleteEventMutation>;
   uploadImageMutation?: Maybe<UploadImageMutation>;
   updateImageMutation?: Maybe<UpdateImageMutation>;
@@ -975,6 +1032,11 @@ export type MutationUnenrolOccurrenceArgs = {
 };
 
 
+export type MutationUpdateEnrolmentArgs = {
+  input: UpdateEnrolmentMutationInput;
+};
+
+
 export type MutationApproveEnrolmentArgs = {
   input: ApproveEnrolmentMutationInput;
 };
@@ -1017,6 +1079,11 @@ export type MutationAddEventMutationArgs = {
 
 export type MutationUpdateEventMutationArgs = {
   event?: Maybe<UpdateEventMutationInput>;
+};
+
+
+export type MutationPublishEventMutationArgs = {
+  event?: Maybe<PublishEventMutationInput>;
 };
 
 
@@ -1240,6 +1307,22 @@ export type UnenrolOccurrenceMutationInput = {
   clientMutationId?: Maybe<Scalars['String']>;
 };
 
+export type UpdateEnrolmentMutationPayload = {
+  __typename?: 'UpdateEnrolmentMutationPayload';
+  enrolment?: Maybe<EnrolmentNode>;
+  clientMutationId?: Maybe<Scalars['String']>;
+};
+
+export type UpdateEnrolmentMutationInput = {
+  enrolmentId: Scalars['ID'];
+  notificationType?: Maybe<NotificationType>;
+  /** Study group input */
+  studyGroup?: Maybe<StudyGroupInput>;
+  /** Leave blank if the contact person is the same with group contact person */
+  person?: Maybe<PersonNodeInput>;
+  clientMutationId?: Maybe<Scalars['String']>;
+};
+
 export type ApproveEnrolmentMutationPayload = {
   __typename?: 'ApproveEnrolmentMutationPayload';
   enrolment?: Maybe<EnrolmentNode>;
@@ -1248,6 +1331,7 @@ export type ApproveEnrolmentMutationPayload = {
 
 export type ApproveEnrolmentMutationInput = {
   enrolmentId: Scalars['ID'];
+  customMessage?: Maybe<Scalars['String']>;
   clientMutationId?: Maybe<Scalars['String']>;
 };
 
@@ -1259,6 +1343,7 @@ export type DeclineEnrolmentMutationPayload = {
 
 export type DeclineEnrolmentMutationInput = {
   enrolmentId: Scalars['ID'];
+  customMessage?: Maybe<Scalars['String']>;
   clientMutationId?: Maybe<Scalars['String']>;
 };
 
@@ -1353,6 +1438,7 @@ export type EventMutationResponse = {
   __typename?: 'EventMutationResponse';
   statusCode: Scalars['Int'];
   body?: Maybe<Event>;
+  resultText?: Maybe<Scalars['String']>;
 };
 
 export type AddEventMutationInput = {
@@ -1381,10 +1467,12 @@ export type AddEventMutationInput = {
   infoUrl?: Maybe<LocalisedObjectInput>;
   providerContactInfo?: Maybe<Scalars['String']>;
   description: LocalisedObjectInput;
-  /** Palvelutarjotin event data */
-  pEvent: PalvelutarjotinEventInput;
   /** Organisation global id which the created event belongs to */
   organisationId: Scalars['String'];
+  /** Set to `true` to save event as draft version, when draft is true, event data validation will be skipped */
+  draft?: Maybe<Scalars['Boolean']>;
+  /** Palvelutarjotin event data */
+  pEvent: PalvelutarjotinEventInput;
 };
 
 export type IdObjectInput = {
@@ -1445,11 +1533,51 @@ export type UpdateEventMutationInput = {
   infoUrl?: Maybe<LocalisedObjectInput>;
   providerContactInfo?: Maybe<Scalars['String']>;
   description: LocalisedObjectInput;
-  /** Palvelutarjotin event data */
-  pEvent: PalvelutarjotinEventInput;
   /** Organisation global id which the created event belongs to */
   organisationId: Scalars['String'];
   id: Scalars['String'];
+  /** Palvelutarjotin event data */
+  pEvent?: Maybe<PalvelutarjotinEventInput>;
+  /** Set to `true` to save event as draft version, when draft is true, event data validation will be skipped */
+  draft?: Maybe<Scalars['Boolean']>;
+};
+
+export type PublishEventMutation = {
+  __typename?: 'PublishEventMutation';
+  response?: Maybe<EventMutationResponse>;
+};
+
+export type PublishEventMutationInput = {
+  location: IdObjectInput;
+  keywords: Array<IdObjectInput>;
+  superEvent?: Maybe<Scalars['String']>;
+  eventStatus?: Maybe<Scalars['String']>;
+  externalLinks?: Maybe<Array<Scalars['String']>>;
+  offers: Array<OfferInput>;
+  subEvents?: Maybe<Array<Scalars['String']>>;
+  images?: Maybe<Array<IdObjectInput>>;
+  inLanguage?: Maybe<Array<IdObjectInput>>;
+  audience?: Maybe<Array<IdObjectInput>>;
+  datePublished?: Maybe<Scalars['String']>;
+  startTime?: Maybe<Scalars['String']>;
+  endTime?: Maybe<Scalars['String']>;
+  customData?: Maybe<Scalars['String']>;
+  audienceMinAge?: Maybe<Scalars['String']>;
+  audienceMaxAge?: Maybe<Scalars['String']>;
+  superEventType?: Maybe<Scalars['String']>;
+  extensionCourse?: Maybe<IdObjectInput>;
+  name: LocalisedObjectInput;
+  localizationExtraInfo?: Maybe<LocalisedObjectInput>;
+  shortDescription: LocalisedObjectInput;
+  provider?: Maybe<LocalisedObjectInput>;
+  infoUrl?: Maybe<LocalisedObjectInput>;
+  providerContactInfo?: Maybe<Scalars['String']>;
+  description: LocalisedObjectInput;
+  /** Organisation global id which the created event belongs to */
+  organisationId: Scalars['String'];
+  id: Scalars['String'];
+  /** Palvelutarjotin event data */
+  pEvent?: Maybe<PalvelutarjotinEventInput>;
 };
 
 export type DeleteEventMutation = {
@@ -1466,6 +1594,7 @@ export type ImageMutationResponse = {
   __typename?: 'ImageMutationResponse';
   statusCode: Scalars['Int'];
   body?: Maybe<Image>;
+  resultText?: Maybe<Scalars['String']>;
 };
 
 export type UploadImageMutationInput = {
@@ -1530,7 +1659,7 @@ export type EnrolmentFieldsFragment = (
 
 export type PEventFieldsFragment = (
   { __typename?: 'PalvelutarjotinEventNode' }
-  & Pick<PalvelutarjotinEventNode, 'id' | 'duration' | 'enrolmentEndDays' | 'enrolmentStart' | 'neededOccurrences' | 'contactPhoneNumber' | 'contactEmail'>
+  & Pick<PalvelutarjotinEventNode, 'id' | 'duration' | 'enrolmentEndDays' | 'enrolmentStart' | 'neededOccurrences' | 'contactPhoneNumber' | 'contactEmail' | 'nextOccurrenceDatetime' | 'lastOccurrenceDatetime'>
   & { organisation?: Maybe<(
     { __typename?: 'OrganisationNode' }
     & Pick<OrganisationNode, 'id' | 'name'>
@@ -1576,13 +1705,13 @@ export type EventFieldsFragment = (
   & { name: (
     { __typename?: 'LocalisedObject' }
     & LocalisedFieldsFragment
-  ), shortDescription?: Maybe<(
+  ), shortDescription: (
     { __typename?: 'LocalisedObject' }
     & LocalisedFieldsFragment
-  )>, description?: Maybe<(
+  ), description: (
     { __typename?: 'LocalisedObject' }
     & LocalisedFieldsFragment
-  )>, images: Array<(
+  ), images: Array<(
     { __typename?: 'Image' }
     & ImageFieldsFragment
   )>, infoUrl?: Maybe<(
@@ -1591,10 +1720,10 @@ export type EventFieldsFragment = (
   )>, offers: Array<(
     { __typename?: 'Offer' }
     & OfferFieldsFragment
-  )>, pEvent?: Maybe<(
+  )>, pEvent: (
     { __typename?: 'PalvelutarjotinEventNode' }
     & PEventFieldsFragment
-  )>, inLanguage: Array<(
+  ), inLanguage: Array<(
     { __typename?: 'InLanguage' }
     & Pick<InLanguage, 'id' | 'internalId'>
     & { name?: Maybe<(
@@ -1607,10 +1736,10 @@ export type EventFieldsFragment = (
   )>, keywords: Array<(
     { __typename?: 'Keyword' }
     & KeywordFieldsFragment
-  )>, location?: Maybe<(
+  )>, location: (
     { __typename?: 'Place' }
     & PlaceFieldsFragment
-  )>, venue?: Maybe<(
+  ), venue?: Maybe<(
     { __typename?: 'VenueNode' }
     & VenueFieldsFragment
   )> }
@@ -1982,6 +2111,8 @@ export const PEventFieldsFragmentDoc = gql`
   organisation {
     ...organisationFields
   }
+  nextOccurrenceDatetime
+  lastOccurrenceDatetime
 }
     ${OrganisationFieldsFragmentDoc}
 ${OccurrenceFieldsFragmentDoc}`;
