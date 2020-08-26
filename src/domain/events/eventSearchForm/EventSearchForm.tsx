@@ -3,16 +3,20 @@ import { Button, IconSearch } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
+import DropdownField from '../../../common/components/form/fields/DropdownField';
 import TextInputField from '../../../common/components/form/fields/TextInputField';
+import { EVENT_LANGUAGES } from '../../../constants';
 import Container from '../../app/layout/Container';
 import styles from './eventSearchForm.module.scss';
 
 export type EventSearchFormValues = {
   text: string;
+  inLanguage: EVENT_LANGUAGES[];
 };
 
 const defaultInitialValues: EventSearchFormValues = {
   text: '',
+  inLanguage: [],
 };
 
 interface Props {
@@ -27,6 +31,14 @@ const EventSearchForm = ({
   onSubmit,
 }: Props): React.ReactElement => {
   const { t } = useTranslation();
+  const languageOptions = React.useMemo(
+    () =>
+      Object.values(EVENT_LANGUAGES).map((language) => ({
+        label: t(`common:languages.${language}`),
+        value: language,
+      })),
+    [t]
+  );
   return (
     <Formik
       initialValues={initialValues}
@@ -40,11 +52,22 @@ const EventSearchForm = ({
               <h2>{t('events:search.title')}</h2>
               <div className={styles.textRow}>
                 <Field
+                  hideLabel
                   name="text"
                   component={TextInputField}
-                  hideLabel={true}
                   label={t('events:search.labelText')}
                   placeholder={t('events:search.placeholderText')}
+                />
+              </div>
+              <div className={styles.filtersRow}>
+                <Field
+                  hideLabel
+                  multiselect
+                  name="inLanguage"
+                  component={DropdownField}
+                  label={t('events:search.labelLanguage')}
+                  placeholder={t('events:search.labelLanguage')}
+                  options={languageOptions}
                 />
               </div>
               <div className={styles.buttonRow}>
