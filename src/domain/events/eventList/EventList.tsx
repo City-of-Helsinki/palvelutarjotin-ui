@@ -16,7 +16,7 @@ interface Props {
   fetchMore: () => void;
   isLoading: boolean;
   shouldShowLoadMore: boolean;
-  eventsCount?: number;
+  eventsCount?: number | null;
   sort: EVENT_SORT_OPTIONS;
   setSort: (val: EVENT_SORT_OPTIONS) => void;
 }
