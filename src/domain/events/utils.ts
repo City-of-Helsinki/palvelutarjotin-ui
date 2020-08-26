@@ -37,8 +37,8 @@ export const getInitialValues = (
   return {
     text: getTextFromDict(query, 'text') || '',
     inLanguage: arrayQueryParameterToFormValue(
-      query.inLanguage
-    ) as EVENT_LANGUAGES[],
+      query.inLanguage as EVENT_LANGUAGES
+    ),
   };
 };
 
