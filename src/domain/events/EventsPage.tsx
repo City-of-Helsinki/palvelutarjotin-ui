@@ -49,7 +49,10 @@ const EventsPage = (): ReactElement => {
   const search = (values: EventSearchFormValues) => {
     Router.push({
       pathname: ROUTES.HOME,
-      query: values,
+      query: {
+        ...values,
+        date: values.date?.toISOString(),
+      },
     });
   };
 

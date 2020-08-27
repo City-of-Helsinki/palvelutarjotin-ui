@@ -21,6 +21,7 @@
     "labelText": "Search events",
     "placeholderText": "Search events...",
     "title": "Search events",
-    "labelLanguage": "Language"
+    "labelLanguage": "Language",
+    "labelDate": "Date"
   }
 }

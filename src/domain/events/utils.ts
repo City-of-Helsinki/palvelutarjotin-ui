@@ -1,3 +1,5 @@
+import isValidDate from 'date-fns/isValid';
+
 import { EVENT_LANGUAGES } from '../../constants';
 import {
   EventsQueryVariables,
@@ -28,6 +30,10 @@ export const getEventFilterVariables = (
   include: ['keywords,location'],
   text: getTextFromDict(query, 'text', undefined),
   inLanguage: getTextFromDict(query, 'inLanguage', undefined),
+  start:
+    typeof query.date === 'string' && isValidDate(new Date(query.date))
+      ? new Date(query.date).toISOString()
+      : null,
   ...options,
 });
 
@@ -36,10 +42,19 @@ export const getInitialValues = (
 ): EventSearchFormValues => {
   return {
     text: getTextFromDict(query, 'text') || '',
+    date: getInitialDate(query.date),
     inLanguage: arrayQueryParameterToFormValue(
       query.inLanguage as EVENT_LANGUAGES
     ),
   };
+};
+
+export const getInitialDate = (date?: string | string[]): Date | null => {
+  if (typeof date === 'string' && isValidDate(new Date(date))) {
+    return new Date(date);
+  }
+
+  return null;
 };
 
 export const arrayQueryParameterToFormValue = <T>(value?: T | T[]): T[] => {
