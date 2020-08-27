@@ -54,7 +54,7 @@ const EventList = ({
         <h2>
           {t('events:eventList.title')}{' '}
           <span className={styles.count}>
-            {t('events:eventList.count', { count: eventsCount })}
+            {t('events:eventList.count', { count: eventsCount || 0 })}
           </span>
         </h2>
         <div className={styles.sortSelectorWrapper}>
