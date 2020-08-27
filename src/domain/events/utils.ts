@@ -31,12 +31,15 @@ export const getEventFilterVariables = (
   include: ['keywords,location'],
   text: getTextFromDict(query, 'text', undefined),
   inLanguage: getTextFromDict(query, 'inLanguage', undefined),
-  start:
-    typeof query.date === 'string' && isValidDate(new Date(query.date))
-      ? new Date(query.date).toISOString()
-      : null,
+  start: getDateString(query.date),
   ...options,
 });
+
+export const getDateString = (date?: string | string[]): string | null => {
+  return typeof date === 'string' && isValidDate(new Date(date))
+    ? new Date(date).toISOString()
+    : null;
+};
 
 export const getInitialValues = (
   query: NodeJS.Dict<string | string[]>
