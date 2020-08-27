@@ -6,6 +6,7 @@ import {
   EventFieldsFragment,
   EventsQuery,
 } from '../../generated/graphql';
+import { queryParameterToArray } from '../../utils/queryParameterToArray';
 import { EventSearchFormValues } from './eventSearchForm/EventSearchForm';
 
 export const getTextFromDict = (
@@ -43,9 +44,7 @@ export const getInitialValues = (
   return {
     text: getTextFromDict(query, 'text') || '',
     date: getInitialDate(query.date),
-    inLanguage: arrayQueryParameterToFormValue(
-      query.inLanguage as EVENT_LANGUAGES
-    ),
+    inLanguage: queryParameterToArray(query.inLanguage as EVENT_LANGUAGES),
   };
 };
 
@@ -55,18 +54,6 @@ export const getInitialDate = (date?: string | string[]): Date | null => {
   }
 
   return null;
-};
-
-export const arrayQueryParameterToFormValue = <T>(value?: T | T[]): T[] => {
-  if (Array.isArray(value)) {
-    return value;
-  }
-
-  if (value) {
-    return [value];
-  }
-
-  return [];
 };
 
 export const getEventsThatHaveUpcomingOccurrence = (
