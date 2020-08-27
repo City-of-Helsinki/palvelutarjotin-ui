@@ -20,6 +20,7 @@
     "buttonSearch": "Search",
     "labelText": "Search events",
     "placeholderText": "Search events...",
-    "title": "Search events"
+    "title": "Search events",
+    "labelLanguage": "Language"
   }
 }

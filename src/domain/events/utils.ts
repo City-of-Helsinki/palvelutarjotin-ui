@@ -1,8 +1,10 @@
+import { EVENT_LANGUAGES } from '../../constants';
 import {
   EventsQueryVariables,
   EventFieldsFragment,
   EventsQuery,
 } from '../../generated/graphql';
+import { queryParameterToArray } from '../../utils/queryParameterToArray';
 import { EventSearchFormValues } from './eventSearchForm/EventSearchForm';
 
 export const getTextFromDict = (
@@ -10,8 +12,9 @@ export const getTextFromDict = (
   key: string,
   defaultValue = ''
 ): string | undefined => {
-  if (Array.isArray(query[key])) return defaultValue;
-  return (query[key] as string) || defaultValue;
+  const value = query[key];
+  if (Array.isArray(value)) return value.join(',');
+  return (value as string) || defaultValue;
 };
 
 type EventFilterOptions = {
@@ -25,6 +28,7 @@ export const getEventFilterVariables = (
 ): EventsQueryVariables => ({
   include: ['keywords,location'],
   text: getTextFromDict(query, 'text', undefined),
+  inLanguage: getTextFromDict(query, 'inLanguage', undefined),
   ...options,
 });
 
@@ -33,6 +37,7 @@ export const getInitialValues = (
 ): EventSearchFormValues => {
   return {
     text: getTextFromDict(query, 'text') || '',
+    inLanguage: queryParameterToArray(query.inLanguage as EVENT_LANGUAGES),
   };
 };
 

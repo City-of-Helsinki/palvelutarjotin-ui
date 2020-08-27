@@ -10,6 +10,7 @@ Event.getInitialProps = async () => ({
   namespacesRequired: [
     ...COMMON_I18N_NAMESPACES,
     'event',
+    'events',
     'enrolment',
     'form',
     'occurrence',

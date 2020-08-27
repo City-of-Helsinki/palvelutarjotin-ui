@@ -20,6 +20,7 @@
     "buttonSearch": "Hae",
     "labelText": "Hae tapahtumia",
     "placeholderText": "Hae tapahtumia...",
-    "title": "Hae tapahtumia"
+    "title": "Hae tapahtumia",
+    "labelLanguage": "Englanti"
   }
 }

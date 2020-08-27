@@ -20,6 +20,7 @@
     "buttonSearch": "Sök",
     "labelText": "Sök evenemang",
     "placeholderText": "Sök evenemang...",
-    "title": "Sök evenemang"
+    "title": "Sök evenemang",
+    "labelLanguage": "Språk"
   }
 }
