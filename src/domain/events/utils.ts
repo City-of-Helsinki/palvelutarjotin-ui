@@ -9,6 +9,15 @@ import {
 import { queryParameterToArray } from '../../utils/queryParameterToArray';
 import { EventSearchFormValues } from './eventSearchForm/EventSearchForm';
 
+export const getSearchQueryObject = (
+  values: EventSearchFormValues
+): Omit<EventSearchFormValues, 'date'> & { date: string | undefined } => {
+  return {
+    ...values,
+    date: values.date?.toISOString(),
+  };
+};
+
 export const getTextFromDict = (
   query: NodeJS.Dict<string | string[]>,
   key: string,

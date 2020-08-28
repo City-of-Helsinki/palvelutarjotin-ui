@@ -19,6 +19,7 @@ import {
   getInitialValues,
   getTextFromDict,
   getEventsThatHaveUpcomingOccurrence,
+  getSearchQueryObject,
 } from './utils';
 
 const EventsPage = (): ReactElement => {
@@ -49,10 +50,7 @@ const EventsPage = (): ReactElement => {
   const search = (values: EventSearchFormValues) => {
     Router.push({
       pathname: ROUTES.HOME,
-      query: {
-        ...values,
-        date: values.date?.toISOString(),
-      },
+      query: getSearchQueryObject(values),
     });
   };
 
