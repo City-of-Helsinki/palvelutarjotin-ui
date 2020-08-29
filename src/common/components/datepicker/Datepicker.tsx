@@ -13,6 +13,7 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import useLocale from '../../../hooks/useLocale';
+import SrOnly from '../SrOnly/SrOnly';
 import InputWrapper from '../textInput/InputWrapper';
 import inputStyles from '../textInput/inputWrapper.module.scss';
 import { getTimeObjects, TimeObject } from '../timepicker/utils';
@@ -38,11 +39,13 @@ export type DatepickerProps = {
   id: string;
   invalidText?: string;
   labelText?: string;
-  onBlur?: () => void;
+  onBlur: () => void;
   onChange: (value?: Date | null) => void;
   value: Date | null;
   timeSelector?: boolean;
   minuteInterval?: number;
+  placeholder?: string;
+  hideLabel?: boolean;
 };
 
 const Datepicker: React.FC<DatepickerProps> = ({
@@ -56,6 +59,8 @@ const Datepicker: React.FC<DatepickerProps> = ({
   onBlur,
   timeSelector,
   minuteInterval,
+  placeholder,
+  hideLabel,
 }) => {
   const [times] = useState(() =>
     getTimeObjects(minuteInterval || MINUTE_INTERVAL)
@@ -311,6 +316,7 @@ const Datepicker: React.FC<DatepickerProps> = ({
           invalid={!!invalidText}
           labelText={labelText}
           hasIcon
+          hideLabel={hideLabel}
         >
           <input
             name={id}
@@ -324,6 +330,7 @@ const Datepicker: React.FC<DatepickerProps> = ({
             onBlur={handleInputBlur}
             value={dateValue}
             onKeyDown={handleInputKeyDown}
+            placeholder={placeholder}
           />
           <IconCalendar className={styles.iconCalendar} />
           {isCalendarOpen && (
@@ -334,9 +341,9 @@ const Datepicker: React.FC<DatepickerProps> = ({
               aria-modal="true"
               labelled-by={dialogLabelId}
             >
-              <p className="sr-only" aria-live="polite">
-                {labelText}
-              </p>
+              <SrOnly>
+                <span aria-live="polite">{labelText}</span>
+              </SrOnly>
               <div className={styles.selectorsWrapper}>
                 <div>
                   <div className={styles.monthNavigation}>

@@ -21,6 +21,7 @@
     "labelText": "Hae tapahtumia",
     "placeholderText": "Hae tapahtumia...",
     "title": "Hae tapahtumia",
-    "labelLanguage": "Englanti"
+    "labelLanguage": "Englanti",
+    "labelDate": "Ajankohta"
   }
 }

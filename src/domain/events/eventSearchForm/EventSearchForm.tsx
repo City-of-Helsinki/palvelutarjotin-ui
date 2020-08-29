@@ -3,6 +3,7 @@ import { Button, IconSearch } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
+import DateInputField from '../../../common/components/form/fields/DateInputField';
 import DropdownField from '../../../common/components/form/fields/DropdownField';
 import TextInputField from '../../../common/components/form/fields/TextInputField';
 import { EVENT_LANGUAGES } from '../../../constants';
@@ -12,11 +13,13 @@ import styles from './eventSearchForm.module.scss';
 export type EventSearchFormValues = {
   text: string;
   inLanguage: EVENT_LANGUAGES[];
+  date: Date | null;
 };
 
 const defaultInitialValues: EventSearchFormValues = {
   text: '',
   inLanguage: [],
+  date: null,
 };
 
 interface Props {
@@ -68,6 +71,13 @@ const EventSearchForm = ({
                   label={t('events:search.labelLanguage')}
                   placeholder={t('events:search.labelLanguage')}
                   options={languageOptions}
+                />
+                <Field
+                  hideLabel
+                  name="date"
+                  component={DateInputField}
+                  labelText={t('events:search.labelDate')}
+                  placeholder="Ajankohta"
                 />
               </div>
               <div className={styles.buttonRow}>
