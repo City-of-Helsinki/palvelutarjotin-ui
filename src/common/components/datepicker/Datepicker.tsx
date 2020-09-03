@@ -39,7 +39,7 @@ export type DatepickerProps = {
   id: string;
   invalidText?: string;
   labelText?: string;
-  onBlur: () => void;
+  onBlur?: () => void;
   onChange: (value?: Date | null) => void;
   value: Date | null;
   timeSelector?: boolean;
