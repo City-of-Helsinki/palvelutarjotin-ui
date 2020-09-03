@@ -41,6 +41,7 @@ export const getEventFilterVariables = (
   text: getTextFromDict(query, 'text', undefined),
   inLanguage: getTextFromDict(query, 'inLanguage', undefined),
   start: getDateString(query.date),
+  locations: getTextFromDict(query, 'places', undefined),
   ...options,
 });
 
@@ -57,6 +58,7 @@ export const getInitialValues = (
     text: getTextFromDict(query, 'text') || '',
     date: getInitialDate(query.date),
     inLanguage: queryParameterToArray(query.inLanguage as EVENT_LANGUAGES),
+    places: queryParameterToArray(query.places),
   };
 };
 

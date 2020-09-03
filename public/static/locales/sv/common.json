@@ -1,7 +1,8 @@
 {
   "appName": "Palvelutarjotin",
   "dropdown": {
-    "placeholder": "Välj..."
+    "placeholder": "Välj...",
+    "buttonClear": "Tomma val"
   },
   "languages": {
     "ar": "Arabiska",

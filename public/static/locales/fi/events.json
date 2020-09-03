@@ -22,6 +22,8 @@
     "placeholderText": "Hae tapahtumia...",
     "title": "Hae tapahtumia",
     "labelLanguage": "Englanti",
-    "labelDate": "Ajankohta"
+    "labelDate": "Ajankohta",
+    "labelPlaces": "Paikat",
+    "placeInputPlaceholder": "Kirjoita hakusana"
   }
 }

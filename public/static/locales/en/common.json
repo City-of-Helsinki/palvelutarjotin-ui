@@ -1,7 +1,8 @@
 {
   "appName": "Palvelutarjotin",
   "dropdown": {
-    "placeholder": "Select..."
+    "placeholder": "Select...",
+    "buttonClear": "Clear selections"
   },
   "languages": {
     "ar": "Arabic",
