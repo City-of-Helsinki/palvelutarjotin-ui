@@ -1,4 +1,4 @@
-import { FieldProps } from 'formik';
+import { FieldProps, FormikHelpers } from 'formik';
 import { Dropdown, DropdownProps } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -13,12 +13,7 @@ export type Option = {
 
 interface Props extends DropdownProps, FieldProps {
   options: Option[];
-  setFieldValue?: (
-    field: string,
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    value: any,
-    shouldValidate?: boolean | undefined
-  ) => void;
+  setFieldValue?: FormikHelpers<any>['setFieldValue'];
 }
 
 const DropdownField: React.FC<Props> = ({
