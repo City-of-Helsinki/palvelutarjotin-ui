@@ -42,6 +42,7 @@ export const getEventFilterVariables = (
   inLanguage: getTextFromDict(query, 'inLanguage', undefined),
   start: getDateString(query.date),
   locations: getTextFromDict(query, 'places', undefined),
+  end: new Date().toISOString(),
   ...options,
 });
 
