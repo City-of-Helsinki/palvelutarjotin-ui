@@ -1,6 +1,7 @@
 import { MockedProvider } from '@apollo/react-testing';
 import { render, screen, within, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { advanceTo } from 'jest-date-mock';
 import * as Router from 'next/router';
 import React from 'react';
 
@@ -19,8 +20,6 @@ import eventsMockData from '../__mocks__/eventWithOccurrences.json';
 import placeMock from '../__mocks__/placeMock.json';
 import venueMock from '../__mocks__/venueMock.json';
 import EventPage from '../EventPage';
-
-const testDate = '2020-07-23T00:00:00Z';
 
 const apolloMocks = [
   {
@@ -59,10 +58,9 @@ const originalUseRouter = Router.useRouter;
 const rowText =
   '27.07.2020 12:00 – 12:30 Soukan kirjasto 30 (10-20) Ilmoittaudu';
 
-const RealDate = Date.now;
+advanceTo(new Date(2020, 6, 23));
 
 beforeAll(() => {
-  global.Date.now = jest.fn(() => new Date(testDate).getTime());
   jest.setTimeout(30000);
   (Router.useRouter as any) = () => {
     return {
@@ -77,7 +75,6 @@ beforeAll(() => {
 afterAll(() => {
   jest.setTimeout(5000);
   (Router.useRouter as any) = originalUseRouter;
-  global.Date.now = RealDate;
 });
 
 it('renders page and event information correctly', async () => {

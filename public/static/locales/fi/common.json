@@ -1,7 +1,8 @@
 {
   "appName": "Palvelutarjotin",
   "dropdown": {
-    "placeholder": "Valitse..."
+    "placeholder": "Valitse...",
+    "buttonClear": "Tyhjennä valinnat"
   },
   "languages": {
     "ar": "Arabia",

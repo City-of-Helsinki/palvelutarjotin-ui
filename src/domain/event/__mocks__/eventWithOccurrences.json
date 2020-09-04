@@ -52,6 +52,8 @@
       "pEvent": {
         "id": "UGFsdmVsdXRhcmpvdGluRXZlbnROb2RlOjcw",
         "duration": 11,
+        "nextOccurrenceDatetime": "",
+        "lastOccurrenceDatetime": "",
         "enrolmentEndDays": 3,
         "enrolmentStart": "2020-07-13T06:00:00+00:00",
         "neededOccurrences": 3,

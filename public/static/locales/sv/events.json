@@ -22,6 +22,8 @@
     "placeholderText": "Sök evenemang...",
     "title": "Sök evenemang",
     "labelLanguage": "Språk",
-    "labelDate": "Datum"
+    "labelDate": "Datum",
+    "labelPlaces": "Platser",
+    "placeInputPlaceholder": "Skriv sökord"
   }
 }

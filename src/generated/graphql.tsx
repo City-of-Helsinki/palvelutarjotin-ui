@@ -30,6 +30,13 @@ export type Scalars = {
    */
   Time: any;
   /**
+   * Allows use of a JSON String for input / output from the GraphQL schema.
+   * 
+   * Use of this type is *not recommended* as you lose the benefits of having a defined, static
+   * schema (one of the key benefits of GraphQL).
+   */
+  JSONString: any;
+  /**
    * Create scalar that ignores normal serialization/deserialization, since
    * that will be handled by the multipart request spec
    */
@@ -67,7 +74,7 @@ export type Query = {
   keyword?: Maybe<Keyword>;
   eventsSearch?: Maybe<EventSearchListResponse>;
   placesSearch?: Maybe<PlaceSearchListResponse>;
-  notificationTemplates?: Maybe<NotificationTemplateNodeConnection>;
+  notificationTemplate?: Maybe<NotificationTemplateWithContext>;
 };
 
 
@@ -231,11 +238,10 @@ export type QueryPlacesSearchArgs = {
 };
 
 
-export type QueryNotificationTemplatesArgs = {
-  before?: Maybe<Scalars['String']>;
-  after?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
+export type QueryNotificationTemplateArgs = {
+  templateType?: Maybe<NotificationTemplateType>;
+  context: Scalars['JSONString'];
+  language: Language;
 };
 
 export type OccurrenceNodeConnection = {
@@ -285,9 +291,11 @@ export type OccurrenceNode = Node & {
   autoAcceptance: Scalars['Boolean'];
   amountOfSeats: Scalars['Int'];
   languages: Array<LanguageType>;
+  cancelled: Scalars['Boolean'];
   enrolments: EnrolmentNodeConnection;
   remainingSeats?: Maybe<Scalars['Int']>;
   seatsTaken?: Maybe<Scalars['Int']>;
+  linkedEvent?: Maybe<Event>;
 };
 
 
@@ -643,53 +651,6 @@ export type LanguageTypeOccurrencesArgs = {
   time?: Maybe<Scalars['Time']>;
 };
 
-export type VenueNodeConnection = {
-  __typename?: 'VenueNodeConnection';
-  /** Pagination data for this connection. */
-  pageInfo: PageInfo;
-  /** Contains the nodes in this connection. */
-  edges: Array<Maybe<VenueNodeEdge>>;
-};
-
-/** A Relay edge containing a `VenueNode` and its cursor. */
-export type VenueNodeEdge = {
-  __typename?: 'VenueNodeEdge';
-  /** The item at the end of the edge */
-  node?: Maybe<VenueNode>;
-  /** A cursor for use in pagination */
-  cursor: Scalars['String'];
-};
-
-export type VenueNode = Node & {
-  __typename?: 'VenueNode';
-  hasClothingStorage: Scalars['Boolean'];
-  hasSnackEatingPlace: Scalars['Boolean'];
-  translations: Array<VenueTranslationType>;
-  /** place_id from linkedEvent */
-  id: Scalars['ID'];
-  /** Translated field in the language defined in request ACCEPT-LANGUAGE header  */
-  description?: Maybe<Scalars['String']>;
-};
-
-export type VenueTranslationType = {
-  __typename?: 'VenueTranslationType';
-  languageCode: Language;
-  description: Scalars['String'];
-};
-
-export type EventListResponse = {
-  __typename?: 'EventListResponse';
-  meta: Meta;
-  data: Array<Event>;
-};
-
-export type Meta = {
-  __typename?: 'Meta';
-  count?: Maybe<Scalars['Int']>;
-  next?: Maybe<Scalars['String']>;
-  previous?: Maybe<Scalars['String']>;
-};
-
 export type Event = {
   __typename?: 'Event';
   id: Scalars['String'];
@@ -870,6 +831,53 @@ export type ExtensionCourse = {
   remainingAttendeeCapacity?: Maybe<Scalars['Int']>;
 };
 
+export type VenueNode = Node & {
+  __typename?: 'VenueNode';
+  hasClothingStorage: Scalars['Boolean'];
+  hasSnackEatingPlace: Scalars['Boolean'];
+  translations: Array<VenueTranslationType>;
+  /** place_id from linkedEvent */
+  id: Scalars['ID'];
+  /** Translated field in the language defined in request ACCEPT-LANGUAGE header  */
+  description?: Maybe<Scalars['String']>;
+};
+
+export type VenueTranslationType = {
+  __typename?: 'VenueTranslationType';
+  languageCode: Language;
+  description: Scalars['String'];
+};
+
+export type VenueNodeConnection = {
+  __typename?: 'VenueNodeConnection';
+  /** Pagination data for this connection. */
+  pageInfo: PageInfo;
+  /** Contains the nodes in this connection. */
+  edges: Array<Maybe<VenueNodeEdge>>;
+};
+
+/** A Relay edge containing a `VenueNode` and its cursor. */
+export type VenueNodeEdge = {
+  __typename?: 'VenueNodeEdge';
+  /** The item at the end of the edge */
+  node?: Maybe<VenueNode>;
+  /** A cursor for use in pagination */
+  cursor: Scalars['String'];
+};
+
+export type EventListResponse = {
+  __typename?: 'EventListResponse';
+  meta: Meta;
+  data: Array<Event>;
+};
+
+export type Meta = {
+  __typename?: 'Meta';
+  count?: Maybe<Scalars['Int']>;
+  next?: Maybe<Scalars['String']>;
+  previous?: Maybe<Scalars['String']>;
+};
+
 export type PlaceListResponse = {
   __typename?: 'PlaceListResponse';
   meta: Meta;
@@ -900,21 +908,11 @@ export type PlaceSearchListResponse = {
   data: Array<Place>;
 };
 
-export type NotificationTemplateNodeConnection = {
-  __typename?: 'NotificationTemplateNodeConnection';
-  /** Pagination data for this connection. */
-  pageInfo: PageInfo;
-  /** Contains the nodes in this connection. */
-  edges: Array<Maybe<NotificationTemplateNodeEdge>>;
-};
-
-/** A Relay edge containing a `NotificationTemplateNode` and its cursor. */
-export type NotificationTemplateNodeEdge = {
-  __typename?: 'NotificationTemplateNodeEdge';
-  /** The item at the end of the edge */
-  node?: Maybe<NotificationTemplateNode>;
-  /** A cursor for use in pagination */
-  cursor: Scalars['String'];
+export type NotificationTemplateWithContext = {
+  __typename?: 'NotificationTemplateWithContext';
+  template?: Maybe<NotificationTemplateNode>;
+  customContextPreviewHtml?: Maybe<Scalars['String']>;
+  customContextPreviewText?: Maybe<Scalars['String']>;
 };
 
 export type NotificationTemplateNode = Node & {
@@ -942,11 +940,27 @@ export enum NotificationTemplateLanguage {
   Sv = 'SV'
 }
 
+/** An enumeration. */
+export enum NotificationTemplateType {
+  OccurrenceEnrolment = 'OCCURRENCE_ENROLMENT',
+  OccurrenceUnenrolment = 'OCCURRENCE_UNENROLMENT',
+  EnrolmentApproved = 'ENROLMENT_APPROVED',
+  EnrolmentDeclined = 'ENROLMENT_DECLINED',
+  OccurrenceEnrolmentSms = 'OCCURRENCE_ENROLMENT_SMS',
+  OccurrenceUnenrolmentSms = 'OCCURRENCE_UNENROLMENT_SMS',
+  EnrolmentApprovedSms = 'ENROLMENT_APPROVED_SMS',
+  EnrolmentDeclinedSms = 'ENROLMENT_DECLINED_SMS',
+  OccurrenceCancelled = 'OCCURRENCE_CANCELLED',
+  OccurrenceCancelledSms = 'OCCURRENCE_CANCELLED_SMS'
+}
+
+
 export type Mutation = {
   __typename?: 'Mutation';
   addOccurrence?: Maybe<AddOccurrenceMutationPayload>;
   updateOccurrence?: Maybe<UpdateOccurrenceMutationPayload>;
   deleteOccurrence?: Maybe<DeleteOccurrenceMutationPayload>;
+  cancelOccurrence?: Maybe<CancelOccurrenceMutationPayload>;
   addVenue?: Maybe<AddVenueMutationPayload>;
   updateVenue?: Maybe<UpdateVenueMutationPayload>;
   deleteVenue?: Maybe<DeleteVenueMutationPayload>;
@@ -989,6 +1003,11 @@ export type MutationUpdateOccurrenceArgs = {
 
 export type MutationDeleteOccurrenceArgs = {
   input: DeleteOccurrenceMutationInput;
+};
+
+
+export type MutationCancelOccurrenceArgs = {
+  input: CancelOccurrenceMutationInput;
 };
 
 
@@ -1169,6 +1188,18 @@ export type DeleteOccurrenceMutationPayload = {
 
 export type DeleteOccurrenceMutationInput = {
   id: Scalars['ID'];
+  clientMutationId?: Maybe<Scalars['String']>;
+};
+
+export type CancelOccurrenceMutationPayload = {
+  __typename?: 'CancelOccurrenceMutationPayload';
+  occurrence?: Maybe<OccurrenceNode>;
+  clientMutationId?: Maybe<Scalars['String']>;
+};
+
+export type CancelOccurrenceMutationInput = {
+  id: Scalars['ID'];
+  reason?: Maybe<Scalars['String']>;
   clientMutationId?: Maybe<Scalars['String']>;
 };
 

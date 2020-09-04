@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 
 import DateInputField from '../../../common/components/form/fields/DateInputField';
 import DropdownField from '../../../common/components/form/fields/DropdownField';
+import PlaceSelectorField from '../../../common/components/form/fields/PlaceSelectorField';
 import TextInputField from '../../../common/components/form/fields/TextInputField';
 import { EVENT_LANGUAGES } from '../../../constants';
 import Container from '../../app/layout/Container';
@@ -14,12 +15,14 @@ export type EventSearchFormValues = {
   text: string;
   inLanguage: EVENT_LANGUAGES[];
   date: Date | null;
+  places: string[];
 };
 
 const defaultInitialValues: EventSearchFormValues = {
   text: '',
   inLanguage: [],
   date: null,
+  places: [],
 };
 
 interface Props {
@@ -73,11 +76,18 @@ const EventSearchForm = ({
                   options={languageOptions}
                 />
                 <Field
+                  title={t('events:search.labelPlaces')}
+                  component={PlaceSelectorField}
+                  showSearch={true}
+                  name="places"
+                  inputPlaceholder={t('events:search.placeInputPlaceholder')}
+                />
+                <Field
                   hideLabel
                   name="date"
                   component={DateInputField}
                   labelText={t('events:search.labelDate')}
-                  placeholder="Ajankohta"
+                  placeholder={t('events:search.labelDate')}
                 />
               </div>
               <div className={styles.buttonRow}>
