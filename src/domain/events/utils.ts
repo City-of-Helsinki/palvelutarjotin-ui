@@ -40,9 +40,8 @@ export const getEventFilterVariables = (
   include: ['keywords,location'],
   text: getTextFromDict(query, 'text', undefined),
   inLanguage: getTextFromDict(query, 'inLanguage', undefined),
-  start: getDateString(query.date),
+  start: getDateString(query.date) || 'now',
   locations: getTextFromDict(query, 'places', undefined),
-  end: new Date().toISOString(),
   ...options,
 });
 
