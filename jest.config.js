@@ -17,4 +17,13 @@ module.exports = {
     },
   },
   testPathIgnorePatterns: ['<rootDir>/.next/', '<rootDir>/node_modules/'],
+  coveragePathIgnorePatterns: [
+    '<rootDir>/src/generated/graphql.tsx',
+    '<rootDir>/src/pages/',
+    '<rootDir>/src/server.js',
+    '<rootDir>/src/start.js',
+    '<rootDir>/src/domain/app/apollo/configureApollo.tsx',
+    '<rootDir>/src/utils/testUtils.ts',
+  ],
+  collectCoverageFrom: ['src/**/*.{js,jsx,tsx}', '!src/**/*.stories.tsx'],
 };
