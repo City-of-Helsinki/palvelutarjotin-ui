@@ -15,7 +15,6 @@ import {
 } from '../../../generated/graphql';
 import { Router as i18nRouter } from '../../../i18n';
 import { ROUTES } from '../../app/routes/constants';
-import * as occurrenceUtils from '../../occurrence/utils';
 import eventsMockData from '../__mocks__/eventWithOccurrences.json';
 import placeMock from '../__mocks__/placeMock.json';
 import venueMock from '../__mocks__/venueMock.json';
