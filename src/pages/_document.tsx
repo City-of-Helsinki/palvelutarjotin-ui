@@ -30,6 +30,9 @@ export default class MyDocument extends Document<DocumentProps> {
               </style>
             )
           )}
+          <script
+            src={`https://www.google.com/recaptcha/api.js?render=${process.env.NEXT_PUBLIC_CAPTCHA_KEY}`}
+          />
         </Head>
         <body>
           <Main />
