@@ -50,6 +50,10 @@ Fix all the linter errors
 
 Launches the test runner in the interactive watch mode.
 
+### `yarn test:coverage`
+
+Run tests and generate coverage report
+
 ### `yarn storybook`
 
 Runs storybook in development mode
