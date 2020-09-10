@@ -25,7 +25,9 @@ const ErrorPage: React.FC<{ title?: string; description?: string }> = ({
         <p className={styles.description}>
           {description || t('common:errorPage.description')}
         </p>
-        <Button onClick={goToFrontPage}>{t('errorPage.returnToHome')}</Button>
+        <Button onClick={goToFrontPage}>
+          {t('common:errorPage.returnToHome')}
+        </Button>
       </div>
     </Container>
   );

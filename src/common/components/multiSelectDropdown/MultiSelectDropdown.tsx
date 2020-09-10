@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { IconAngleDown, IconAngleUp, IconSearch, Checkbox } from 'hds-react';
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import useKeyboardNavigation from '../../../hooks/useDropdownKeyboardNavigation';
@@ -21,6 +21,7 @@ export interface MultiselectDropdownProps {
   inputPlaceholder?: string;
   inputValue?: string;
   name: string;
+  icon: ReactNode;
   onChange: (values: string[]) => void;
   options: Option[];
   renderOptionText?: (optionValue: string) => React.ReactChild;
