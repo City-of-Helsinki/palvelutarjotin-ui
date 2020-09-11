@@ -22,7 +22,8 @@
     "placeholderText": "Search events...",
     "title": "Search events",
     "labelLanguage": "Language",
-    "labelDate": "Date",
+    "labelDate": "From",
+    "labelEndDate": "To",
     "labelPlaces": "Places",
     "placeInputPlaceholder": "Write search word"
   }

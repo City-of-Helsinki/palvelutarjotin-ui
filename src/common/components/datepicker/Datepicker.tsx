@@ -46,6 +46,8 @@ export type DatepickerProps = {
   minuteInterval?: number;
   placeholder?: string;
   hideLabel?: boolean;
+  minDate?: Date;
+  maxDate?: Date;
 };
 
 const Datepicker: React.FC<DatepickerProps> = ({
@@ -61,6 +63,8 @@ const Datepicker: React.FC<DatepickerProps> = ({
   minuteInterval,
   placeholder,
   hideLabel,
+  minDate,
+  maxDate,
 }) => {
   const [times] = useState(() =>
     getTimeObjects(minuteInterval || MINUTE_INTERVAL)
@@ -279,7 +283,8 @@ const Datepicker: React.FC<DatepickerProps> = ({
     focusedInput: START_DATE,
     onDatesChange: handleDateChange,
     numberOfMonths: 1,
-    minBookingDate: new Date(),
+    minBookingDate: minDate || new Date(),
+    maxBookingDate: maxDate || null,
   });
 
   const { month, year } = activeMonth;

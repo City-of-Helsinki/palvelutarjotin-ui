@@ -11,10 +11,14 @@ import { EventSearchFormValues } from './eventSearchForm/EventSearchForm';
 
 export const getSearchQueryObject = (
   values: EventSearchFormValues
-): Omit<EventSearchFormValues, 'date'> & { date: string | undefined } => {
+): Omit<EventSearchFormValues, 'date' | 'endDate'> & {
+  date: string | undefined;
+  endDate: string | undefined;
+} => {
   return {
     ...values,
     date: values.date?.toISOString(),
+    endDate: values.endDate?.toISOString(),
   };
 };
 
@@ -41,6 +45,7 @@ export const getEventFilterVariables = (
   text: getTextFromDict(query, 'text', undefined),
   inLanguage: getTextFromDict(query, 'inLanguage', undefined),
   start: getDateString(query.date) || 'now',
+  end: getDateString(query.endDate),
   locations: getTextFromDict(query, 'places', undefined),
   ...options,
 });
@@ -57,6 +62,7 @@ export const getInitialValues = (
   return {
     text: getTextFromDict(query, 'text') || '',
     date: getInitialDate(query.date),
+    endDate: getInitialDate(query.endDate),
     inLanguage: queryParameterToArray(query.inLanguage as EVENT_LANGUAGES),
     places: queryParameterToArray(query.places),
   };

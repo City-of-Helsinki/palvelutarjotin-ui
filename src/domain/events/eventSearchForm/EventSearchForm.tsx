@@ -15,6 +15,7 @@ export type EventSearchFormValues = {
   text: string;
   inLanguage: EVENT_LANGUAGES[];
   date: Date | null;
+  endDate: Date | null;
   places: string[];
 };
 
@@ -22,6 +23,7 @@ const defaultInitialValues: EventSearchFormValues = {
   text: '',
   inLanguage: [],
   date: null,
+  endDate: null,
   places: [],
 };
 
@@ -51,7 +53,7 @@ const EventSearchForm = ({
       onSubmit={onSubmit}
       enableReinitialize={true}
     >
-      {({ handleSubmit }) => {
+      {({ handleSubmit, values, resetForm }) => {
         return (
           <form className={styles.eventSearchForm} onSubmit={handleSubmit}>
             <Container className={styles.contentWrapper}>
@@ -88,12 +90,24 @@ const EventSearchForm = ({
                   component={DateInputField}
                   labelText={t('events:search.labelDate')}
                   placeholder={t('events:search.labelDate')}
+                  maxDate={values.endDate}
+                />
+                <Field
+                  hideLabel
+                  name="endDate"
+                  component={DateInputField}
+                  labelText={t('events:search.labelEndDate')}
+                  placeholder={t('events:search.labelEndDate')}
+                  minDate={values.date}
                 />
               </div>
               <div className={styles.buttonRow}>
                 <div className={styles.clearButtonWrapper}>
                   <Button
-                    onClick={onClear}
+                    onClick={() => {
+                      resetForm();
+                      onClear();
+                    }}
                     type="button"
                     variant="supplementary"
                   >

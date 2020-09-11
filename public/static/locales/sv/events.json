@@ -22,7 +22,8 @@
     "placeholderText": "Sök evenemang...",
     "title": "Sök evenemang",
     "labelLanguage": "Språk",
-    "labelDate": "Datum",
+    "labelDate": "från",
+    "labelEndDate": "I slutet",
     "labelPlaces": "Platser",
     "placeInputPlaceholder": "Skriv sökord"
   }
