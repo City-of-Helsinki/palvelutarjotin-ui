@@ -22,7 +22,8 @@
     "placeholderText": "Hae tapahtumia...",
     "title": "Hae tapahtumia",
     "labelLanguage": "Kielet",
-    "labelDate": "Ajankohta",
+    "labelDate": "Alkaen",
+    "labelEndDate": "Päättyen",
     "labelPlaces": "Paikat",
     "placeInputPlaceholder": "Kirjoita hakusana"
   }
