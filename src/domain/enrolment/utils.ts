@@ -52,11 +52,16 @@ interface ReCAPTCHA {
 
 export const getCAPTCHAToken = (): Promise<string> => {
   return new Promise((resolve, reject) => {
-    grecaptcha.ready(() => {
-      grecaptcha
-        .execute(process.env.NEXT_PUBLIC_CAPTCHA_KEY!, { action: 'submit' })
-        .then(resolve)
-        .catch(reject);
-    });
+    if (process.env.NEXT_PUBLIC_CAPTCHA_KEY) {
+      const captchaKey = process.env.NEXT_PUBLIC_CAPTCHA_KEY;
+      grecaptcha.ready(() => {
+        grecaptcha
+          .execute(captchaKey, { action: 'submit' })
+          .then(resolve)
+          .catch(reject);
+      });
+    } else {
+      reject('CAPTCHA_KEY missing!');
+    }
   });
 };

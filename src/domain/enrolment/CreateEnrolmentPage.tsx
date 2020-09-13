@@ -88,10 +88,13 @@ const CreateEnrolmentPage: React.FC = () => {
       const token = await getCAPTCHAToken();
       const data = await enrolOccurrence({
         variables: {
-          input: getEnrolmentPayload({
-            occurrenceIds: filteredOccurrences.map((item) => item.id),
-            values,
-          }),
+          input: {
+            ...getEnrolmentPayload({
+              occurrenceIds: filteredOccurrences.map((item) => item.id),
+              values,
+            }),
+            captchaKey: token,
+          },
         },
       });
       Router.push({

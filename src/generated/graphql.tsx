@@ -295,6 +295,7 @@ export type OccurrenceNode = Node & {
   enrolments: EnrolmentNodeConnection;
   remainingSeats?: Maybe<Scalars['Int']>;
   seatsTaken?: Maybe<Scalars['Int']>;
+  seatsApproved?: Maybe<Scalars['Int']>;
   linkedEvent?: Maybe<Event>;
 };
 
@@ -1309,6 +1310,8 @@ export type EnrolOccurrenceMutationInput = {
   notificationType?: Maybe<NotificationType>;
   /** Leave blank if the contact person is the same with group contact person */
   person?: Maybe<PersonNodeInput>;
+  /** The user response token provided by the reCAPTCHA client-side integration */
+  captchaKey?: Maybe<Scalars['String']>;
   clientMutationId?: Maybe<Scalars['String']>;
 };
 
