@@ -25,6 +25,7 @@ build-staging:
     DOCKER_BUILD_ARG_NEXT_PUBLIC_SENTRY_DSN: '$GL_SENTRY_DSN'
     DOCKER_BUILD_ARG_NEXT_PUBLIC_ENVIRONMENT: 'staging'
     DOCKER_BUILD_ARG_NEXT_PUBLIC_API_BASE_URL: 'https://palvelutarjotin-api.test.kuva.hel.ninja/graphql'
+    DOCKER_BUILD_ARG_NEXT_PUBLIC_CAPTCHA_KEY: '$GL_CAPTCHA_KEY_DEV'
   only:
     refs:
       - develop
