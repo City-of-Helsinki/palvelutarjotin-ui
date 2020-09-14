@@ -284,7 +284,7 @@ const Datepicker: React.FC<DatepickerProps> = ({
     onDatesChange: handleDateChange,
     numberOfMonths: 1,
     minBookingDate: minDate || new Date(),
-    maxBookingDate: maxDate || null,
+    maxBookingDate: maxDate,
   });
 
   const { month, year } = activeMonth;

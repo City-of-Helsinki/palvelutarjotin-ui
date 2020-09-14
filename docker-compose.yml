@@ -5,6 +5,6 @@ services:
     container_name: palvelutarjotin-ui
     build:
       context: .
-      target: ${DOCKER_TARGET:-development}
+      target: ${DOCKER_TARGET:-production}
     ports:
       - '${PORT}:${PORT}'
