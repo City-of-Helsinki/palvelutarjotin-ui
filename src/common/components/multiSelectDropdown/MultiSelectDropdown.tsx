@@ -21,7 +21,7 @@ export interface MultiselectDropdownProps {
   inputPlaceholder?: string;
   inputValue?: string;
   name: string;
-  icon: ReactNode;
+  icon?: ReactNode;
   onChange: (values: string[]) => void;
   options: Option[];
   renderOptionText?: (optionValue: string) => React.ReactChild;

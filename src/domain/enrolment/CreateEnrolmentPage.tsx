@@ -31,7 +31,7 @@ import EnrolmentForm, {
 import styles from './enrolmentPage.module.scss';
 import EventInfo from './eventInfo/EventInfo';
 import OccurrenceTable from './occurrenceTable/OccurrenceTable';
-import { getEnrolmentPayload } from './utils';
+import { getEnrolmentPayload, getCAPTCHAToken } from './utils';
 
 const CreateEnrolmentPage: React.FC = () => {
   const { t } = useTranslation();
@@ -85,12 +85,16 @@ const CreateEnrolmentPage: React.FC = () => {
 
   const submit = async (values: EnrolmentFormFields) => {
     try {
+      const token = await getCAPTCHAToken();
       const data = await enrolOccurrence({
         variables: {
-          input: getEnrolmentPayload({
-            occurrenceIds: filteredOccurrences.map((item) => item.id),
-            values,
-          }),
+          input: {
+            ...getEnrolmentPayload({
+              occurrenceIds: filteredOccurrences.map((item) => item.id),
+              values,
+            }),
+            captchaKey: token,
+          },
         },
       });
       Router.push({

@@ -42,3 +42,26 @@ export const getEnrolmentPayload = ({
     },
   };
 };
+
+declare let grecaptcha: ReCAPTCHA;
+
+interface ReCAPTCHA {
+  ready: (f: () => void) => void;
+  execute: (key: string, action: { action: string }) => Promise<string>;
+}
+
+export const getCAPTCHAToken = (): Promise<string> => {
+  return new Promise((resolve, reject) => {
+    if (process.env.NEXT_PUBLIC_CAPTCHA_KEY) {
+      const captchaKey = process.env.NEXT_PUBLIC_CAPTCHA_KEY;
+      grecaptcha.ready(() => {
+        grecaptcha
+          .execute(captchaKey, { action: 'submit' })
+          .then(resolve)
+          .catch(reject);
+      });
+    } else {
+      reject('CAPTCHA_KEY missing!');
+    }
+  });
+};
