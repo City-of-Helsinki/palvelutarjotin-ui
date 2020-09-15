@@ -164,6 +164,7 @@ const EnrolmentForm: React.FC<Props> = ({
                     name="studyGroup.groupName"
                   />
                 </FormGroup>
+
                 <FormGroup>
                   <Field
                     label={t(
@@ -175,6 +176,7 @@ const EnrolmentForm: React.FC<Props> = ({
                   />
                 </FormGroup>
               </div>
+
               <h2>{t('enrolment:enrolmentForm.studyGroup.titleGroup')}</h2>
               <div className={styles.rowWith2Columns}>
                 <FormGroup>
@@ -200,6 +202,19 @@ const EnrolmentForm: React.FC<Props> = ({
                   />
                 </FormGroup>
               </div>
+              <FormGroup>
+                <Field
+                  helperText={t(
+                    'enrolment:enrolmentForm.studyGroup.helperExtraNeeds'
+                  )}
+                  labelText={t(
+                    'enrolment:enrolmentForm.studyGroup.labelExtraNeeds'
+                  )}
+                  component={TextAreaField}
+                  name="studyGroup.extraNeeds"
+                />
+              </FormGroup>
+
               <h2>{t('enrolment:enrolmentForm.titleResponsiblePerson')}</h2>
               <FormGroup>
                 <div className={styles.checkboxWrapper}>
@@ -277,19 +292,6 @@ const EnrolmentForm: React.FC<Props> = ({
                   />
                 </FormGroup>
               </div>
-
-              <FormGroup>
-                <Field
-                  helperText={t(
-                    'enrolment:enrolmentForm.studyGroup.helperExtraNeeds'
-                  )}
-                  labelText={t(
-                    'enrolment:enrolmentForm.studyGroup.labelExtraNeeds'
-                  )}
-                  component={TextAreaField}
-                  name="studyGroup.extraNeeds"
-                />
-              </FormGroup>
               <FormGroup>
                 <p>
                   {t('enrolment:enrolmentForm.infoText1')}{' '}
