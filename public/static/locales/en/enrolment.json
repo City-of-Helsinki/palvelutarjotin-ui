@@ -63,7 +63,7 @@
     "columnAdditionalInfo": "Additional info",
     "columnDate": "Date",
     "columnPlace": "Event location",
-    "columnSeatsInfo": "Seats",
+    "columnSeatsInfo": "Seats left",
     "columnTime": "Time",
     "noOccurrences": "Event doesn't have occurrences",
     "noSelectedOccurrences": "No selected event times",
