@@ -9,11 +9,6 @@
   @import '~react-toastify/scss/main.scss';
 }
 
-body > div {
-  min-height: 100vh;
-  display: grid;
-}
-
 button {
   &:focus {
     outline: 2px solid $focusOutline;
