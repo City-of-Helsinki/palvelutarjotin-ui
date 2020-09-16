@@ -42,7 +42,7 @@ const OccurrenceTable: React.FC<Props> = ({ eventLocationId, occurrences }) => {
     {
       Header: t('enrolment:occurrenceTable.columnSeatsInfo'),
       accessor: (row: OccurrenceFieldsFragment) =>
-        `${row.amountOfSeats} (${row.minGroupSize}-${row.maxGroupSize})`,
+        `${row.seatsTaken} / ${row.amountOfSeats}`,
       id: 'seatsInfo',
     },
   ];
