@@ -37,6 +37,7 @@ export const getEventStartTimeStr = (
   const nextOccurrenceTime = event.pEvent.nextOccurrenceDatetime;
   const startTime = nextOccurrenceTime ? new Date(nextOccurrenceTime) : null;
   const timeFormat = getTimeFormat(locale);
+  const dateFormat = 'iiii dd.MM';
 
   if (!startTime) return null;
 
@@ -51,7 +52,7 @@ export const getEventStartTimeStr = (
     });
 
   return t('event:eventCard.startTime.other', {
-    date: formatDate(startTime),
+    date: formatDate(startTime, dateFormat, locale),
     time: formatDate(startTime, timeFormat, locale),
   });
 };
