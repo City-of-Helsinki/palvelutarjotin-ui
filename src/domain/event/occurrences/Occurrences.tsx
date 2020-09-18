@@ -9,7 +9,6 @@ import {
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import Datepicker from '../../../common/components/datepicker/Datepicker';
 import ErrorMessage from '../../../common/components/form/ErrorMessage';
 import Table from '../../../common/components/table/Table';
 import {
@@ -82,8 +81,6 @@ const Occurrences: React.FC<Props> = ({
     occurrence: OccurrenceFieldsFragment,
     event: EventFieldsFragment
   ) => {
-    if (!isEnrolmentStarted(event))
-      return ENROLMENT_ERRORS.ENROLMENT_NOT_STARTED_ERROR;
     if (isEnrolmentClosed(occurrence, event))
       return ENROLMENT_ERRORS.ENROLMENT_CLOSED_ERROR;
     if (!hasOccurrenceSpace(occurrence))
@@ -96,8 +93,15 @@ const Occurrences: React.FC<Props> = ({
   }: {
     value: OccurrenceFieldsFragment;
   }) => {
-    const error = getEnrolmentError(value, event);
+    if (!isEnrolmentStarted(event)) {
+      return t('enrolment:errors.label.enrolmentStartsAt', {
+        date: formatDate(new Date(event.pEvent.enrolmentStart), 'dd.MM.yyyy'),
+        time: formatDate(new Date(event.pEvent.enrolmentStart), 'HH:mm'),
+      });
+    }
+
     // Show error message if enrolment is not available
+    const error = getEnrolmentError(value, event);
     if (error) {
       return (
         <ErrorMessage>

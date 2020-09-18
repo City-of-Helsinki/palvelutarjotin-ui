@@ -44,7 +44,8 @@
       "enrolmentClosedError": "Registration ended",
       "enrolmentNotStartedError": "Registration has not opened",
       "invalidOccurrenceAmountError": "Invalid amount of event times is selected",
-      "notEnoughCapacityError": "The event is full"
+      "notEnoughCapacityError": "The event is full",
+      "enrolmentStartsAt": "Enrolments start {{date}} at {{time}}"
     },
     "text": {
       "enrolmentClosedError": "Event registration has ended",
