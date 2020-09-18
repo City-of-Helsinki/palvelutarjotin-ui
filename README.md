@@ -13,6 +13,12 @@ Project is automatically deployed to production when adding new relase tag, e.g.
 Testing environment: [https://palvelutarjotin.test.kuva.hel.ninja](https://palvelutarjotin-admin.test.kuva.hel.ninja)
 Project is automatically deployed to testing environment when pushing to develop brach
 
+## Credentials
+
+### Google reCAPTCHA
+
+Google reCAPTCHA admin account login information can be found [here](https://gitlab.com/City-of-Helsinki/secrets/-/blob/palvelutarjotin/palvelutarjotin-google-recaptcha-credentials.txt)
+
 ## Available Scripts
 
 In the project directory, you can run:
