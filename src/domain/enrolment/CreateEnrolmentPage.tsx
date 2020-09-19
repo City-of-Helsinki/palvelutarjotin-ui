@@ -79,8 +79,9 @@ const CreateEnrolmentPage: React.FC = () => {
           )
         )
       ),
+      language: locale.toUpperCase(),
     }),
-    [filteredOccurrences]
+    [filteredOccurrences, locale]
   );
 
   const submit = async (values: EnrolmentFormFields) => {
