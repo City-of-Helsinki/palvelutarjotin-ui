@@ -110,9 +110,8 @@ const EnrolmentForm: React.FC<Props> = ({
         errors,
         handleSubmit,
         touched,
-        values: { isSameResponsiblePerson, language },
+        values: { isSameResponsiblePerson },
       }) => {
-        console.log(language);
         return (
           <form className={styles.enrolmentForm} onSubmit={handleSubmit}>
             <FocusToFirstError />
