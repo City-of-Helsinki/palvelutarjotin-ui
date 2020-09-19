@@ -60,7 +60,7 @@ const mocks: MockedResponse[] = [
         include: ['keywords,location'],
         text: '',
         inLanguage: '',
-        locations: '',
+        location: '',
         start: 'now',
         pageSize: 10,
         sort: 'start_time',
