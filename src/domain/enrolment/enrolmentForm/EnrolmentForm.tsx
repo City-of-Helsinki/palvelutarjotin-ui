@@ -10,7 +10,9 @@ import TextAreaField from '../../../common/components/form/fields/TextAreaField'
 import TextInputField from '../../../common/components/form/fields/TextInputField';
 import FocusToFirstError from '../../../common/components/form/FocusToFirstError';
 import FormGroup from '../../../common/components/form/FormGroup';
+import { PRIVACY_POLICY_LINKS } from '../../../constants';
 import { Language, StudyLevel } from '../../../generated/graphql';
+import useLocale from '../../../hooks/useLocale';
 import { Link } from '../../../i18n';
 import { translateValue } from '../../../utils/translateUtils';
 import Container from '../../app/layout/Container';
@@ -84,6 +86,7 @@ const EnrolmentForm: React.FC<Props> = ({
   onSubmit,
 }) => {
   const { t } = useTranslation();
+  const locale = useLocale();
 
   const studyLevelOptions = Object.values(StudyLevel).map((level) => ({
     label: level.startsWith('GRADE')
@@ -295,14 +298,14 @@ const EnrolmentForm: React.FC<Props> = ({
               <FormGroup>
                 <p>
                   {t('enrolment:enrolmentForm.infoText1')}{' '}
-                  <Link href={ROUTES.PRIVACY_POLICY} passHref={true}>
-                    <a
-                      href={ROUTES.PRIVACY_POLICY}
-                      className={styles.privacyPolicyLink}
-                    >
-                      {t('enrolment:enrolmentForm.privacyPolicy')}
-                    </a>
-                  </Link>
+                  <a
+                    href={PRIVACY_POLICY_LINKS[locale]}
+                    target="_blank"
+                    rel="noreferrer"
+                    className={styles.privacyPolicyLink}
+                  >
+                    {t('enrolment:enrolmentForm.privacyPolicy')}
+                  </a>
                 </p>
               </FormGroup>
               <FormGroup>
