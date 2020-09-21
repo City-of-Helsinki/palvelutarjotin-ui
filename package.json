@@ -32,7 +32,7 @@
     "apollo-link": "^1.2.14",
     "apollo-link-http": "^1.5.17",
     "copy-to-clipboard": "^3.3.1",
-    "date-fns": "^2.14.0",
+    "date-fns": "^2.16.1",
     "esm": "^3.2.25",
     "express": "^4.17.1",
     "file-saver": "^2.0.2",

@@ -44,7 +44,8 @@
       "enrolmentClosedError": "Registreringen avslutades",
       "enrolmentNotStartedError": "Registreringen har inte öppnats",
       "invalidOccurrenceAmountError": "Ogiltig mängd evenemangtider väljs",
-      "notEnoughCapacityError": "Evenemang är full"
+      "notEnoughCapacityError": "Evenemang är full",
+      "enrolmentStartsAt": "Registreringen börjar {{date}} kl. {{time}}"
     },
     "text": {
       "enrolmentClosedError": "Registrering av evenemang har avslutats",
