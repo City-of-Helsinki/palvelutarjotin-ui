@@ -3,6 +3,8 @@ import { Koros } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { PRIVACY_POLICY_LINKS } from '../../../constants';
+import useLocale from '../../../hooks/useLocale';
 import Container from '../layout/Container';
 import styles from './footer.module.scss';
 
@@ -12,6 +14,7 @@ interface Props {
 
 const Footer = ({ isMobileMenuOpen = false }: Props): React.ReactElement => {
   const { t } = useTranslation();
+  const locale = useLocale();
 
   return (
     <footer
@@ -23,9 +26,18 @@ const Footer = ({ isMobileMenuOpen = false }: Props): React.ReactElement => {
       <Koros className={styles.koros} />
       <Container>
         <div className={styles.contentWrapper}>
-          <div className={styles.helsinkiLogo}></div>
+          <div className={styles.helsinkiLogo} />
           <div className={styles.copyright}>
-            <p>{t('footer:copyrightText')}</p>
+            <div>{t('footer:copyrightText')}</div>
+            <div>
+              <a
+                href={PRIVACY_POLICY_LINKS[locale]}
+                target="_blank"
+                rel="noreferrer"
+              >
+                {t('common:privacyPolicy')}
+              </a>
+            </div>
           </div>
         </div>
       </Container>

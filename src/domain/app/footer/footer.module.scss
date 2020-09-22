@@ -61,6 +61,8 @@
 .copyright {
   border-top: var(--border-top-copyright);
   padding-top: var(--padding-top-copyright);
+  display: flex;
+  justify-content: space-between;
 
   p {
     margin: 0;

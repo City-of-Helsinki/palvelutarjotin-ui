@@ -304,7 +304,7 @@ const EnrolmentForm: React.FC<Props> = ({
                     rel="noreferrer"
                     className={styles.privacyPolicyLink}
                   >
-                    {t('enrolment:enrolmentForm.privacyPolicy')}
+                    {t('common:privacyPolicy')}
                   </a>
                 </p>
               </FormGroup>

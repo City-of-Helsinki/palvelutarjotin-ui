@@ -14,7 +14,6 @@
       "labelName": "Name",
       "labelPhoneNumber": "Phone number"
     },
-    "privacyPolicy": "Privacy policy",
     "studyGroup": {
       "person": {
         "labelEmailAddress": "Email address",
