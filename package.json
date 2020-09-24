@@ -9,7 +9,8 @@
     "lint": "eslint --ext js,ts,tsx src",
     "codegen": "graphql-codegen -r dotenv/config --config codegen.yml dotenv_config_path=.env",
     "format:code": "eslint --ext js,ts,tsx src --fix",
-    "test": "SASS_PATH=./src/assets/styles jest --watchAll",
+    "test": "SASS_PATH=./src/assets/styles jest",
+    "test:changed": "SASS_PATH=./src/assets/styles jest -o",
     "test:coverage": "SASS_PATH=./src/assets/styles jest --watchAll=false --coverage",
     "storybook": "start-storybook -p 9009 -s ./public",
     "deploy-storybook": "storybook-to-ghpages",
@@ -111,7 +112,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-push": "npm test"
+      "pre-commit": "npm run test:changed"
     }
   }
 }
