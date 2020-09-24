@@ -98,6 +98,7 @@
     "eslint-plugin-react": "^7.20.0",
     "eslint-plugin-react-hooks": "^4.0.4",
     "faker": "^5.1.0",
+    "husky": "^4.3.0",
     "jest": "^26.1.0",
     "jest-css-modules-transform": "^4.0.0",
     "jest-date-mock": "^1.0.8",
@@ -107,5 +108,10 @@
     "ts-jest": "^26.1.0",
     "typescript": "^3.9.5",
     "waait": "^1.0.5"
+  },
+  "husky": {
+    "hooks": {
+      "pre-push": "npm test"
+    }
   }
 }
