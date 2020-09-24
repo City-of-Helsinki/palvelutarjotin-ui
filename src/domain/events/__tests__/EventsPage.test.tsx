@@ -64,6 +64,7 @@ const mocks: MockedResponse[] = [
         start: 'now',
         pageSize: 10,
         sort: 'start_time',
+        end: null,
       },
     },
     result: {
@@ -80,7 +81,6 @@ afterEach(() => {
 
 test('renders search form and events list with correct information', async () => {
   advanceTo(testDate);
-
   render(<EventsPage />, { mocks });
 
   await act(wait);
@@ -96,7 +96,8 @@ test('renders search form and events list with correct information', async () =>
     screen.queryByLabelText('Kielet', { selector: 'button' })
   ).toBeInTheDocument();
   expect(screen.queryByLabelText('Paikat')).toBeInTheDocument();
-  expect(screen.queryByLabelText('Ajankohta')).toBeInTheDocument();
+  expect(screen.queryByLabelText('Alkaen')).toBeInTheDocument();
+  expect(screen.queryByLabelText('Päättyen')).toBeInTheDocument();
   expect(screen.queryByRole('button', { name: 'Hae' })).toBeInTheDocument();
   expect(
     screen.queryByRole('button', { name: 'Tyhjennä hakuehdot' })

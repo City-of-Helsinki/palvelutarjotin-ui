@@ -23,9 +23,9 @@ import {
   act,
   waitFor,
   userEvent,
-  prettyDOM,
 } from '../../../utils/testUtils';
 import CreateEnrolmentPage from '../CreateEnrolmentPage';
+import * as utils from '../utils';
 
 const eventId = '123321';
 const occurrenceId1 = '123321';
@@ -173,12 +173,14 @@ test('renders enrolment has not started yet text', async () => {
   ).not.toBeInTheDocument();
 });
 
-test.only('renders form and user can fill it and submit', async () => {
+test('renders form and user can fill it and submit', async () => {
+  // eslint-disable-next-line import/namespace
+  (utils.getCAPTCHAToken as any) = jest.fn().mockResolvedValue('captcha-token');
   const enrolOccurrenceMock = jest.fn();
   jest
     .spyOn(graphqlFns, 'useEnrolOccurrenceMutation')
     .mockReturnValue([enrolOccurrenceMock] as any);
-  const { container } = render(<CreateEnrolmentPage />, {
+  render(<CreateEnrolmentPage />, {
     mocks: mock3,
     query: { eventId: eventId, occurrences: occurrenceIds },
   });
@@ -202,14 +204,14 @@ test.only('renders form and user can fill it and submit', async () => {
   });
 
   expect(
-    screen.getByRole('row', {
-      name: '25.09.2020 12:30 – 12:30 Kirjasto 30 (10-20)',
+    screen.queryByRole('row', {
+      name: '25.09.2020 12:30 – 12:30 Kirjasto 0 / 30',
     })
   ).toBeInTheDocument();
 
   expect(
     screen.queryByRole('row', {
-      name: '26.09.2020 13:20 – 12:30 Kirjasto 30 (10-20)',
+      name: '26.09.2020 13:20 – 12:30 Kirjasto 0 / 30',
     })
   ).toBeInTheDocument();
 
@@ -251,7 +253,7 @@ test.only('renders form and user can fill it and submit', async () => {
   userEvent.click(screen.getByRole('checkbox', { name: /sähköpostilla/i }));
   userEvent.click(screen.getByText(/tekstiviestillä/i));
 
-  userEvent.click(screen.getByRole('button', { name: /kieli valitse\.\.\./i }));
+  userEvent.click(screen.getByRole('button', { name: /Suomi/ }));
   userEvent.click(screen.getByRole('option', { name: /suomi/i }));
 
   userEvent.type(
@@ -272,6 +274,7 @@ test.only('renders form and user can fill it and submit', async () => {
     expect(enrolOccurrenceMock).toHaveBeenCalledWith({
       variables: {
         input: {
+          captchaKey: 'captcha-token',
           notificationType: 'EMAIL_SMS',
           occurrenceIds: ['123321', '321123'],
           person: undefined,

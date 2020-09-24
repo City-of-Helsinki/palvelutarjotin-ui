@@ -54,8 +54,7 @@ const apolloMocks = [
 const eventData = eventsMockData.data.event;
 const originalUseRouter = Router.useRouter;
 
-const rowText =
-  '27.07.2020 12:00 – 12:30 Soukan kirjasto 30 (10-20) Ilmoittaudu';
+const rowText = '27.07.2020 12:00 – 12:30 Soukan kirjasto 0 / 30 Ilmoittaudu';
 
 advanceTo(new Date(2020, 6, 23));
 
@@ -202,7 +201,7 @@ it('renders occurrences table and related stuff correctly', async () => {
 
   // might be too slow test
   expect(
-    occurrences.queryByRole('row', {
+    occurrences.getByRole('row', {
       name: rowText,
       hidden: true,
     })
