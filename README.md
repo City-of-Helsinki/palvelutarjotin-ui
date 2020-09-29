@@ -49,6 +49,8 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 ### `yarn codegen`
 
+Codegen settings in <b>codegen.yml</b>
+
 Generate static types for GraphQL queries by using the schema from the backend server. Url to can be defined to NEXT_PUBLIC_API_BASE_URL variable in .env file
 
 ### `yarn lint`
@@ -62,6 +64,18 @@ Fix all the linter errors
 ### `yarn test`
 
 Launches the test runner in the interactive watch mode.
+
+### `yarn test:changed`
+
+Run relevant test based on changes sinces last commit, used in husky git commit hook
+
+### `yarn test:coverage`
+
+Run tests and generate coverage report
+
+### `yarn test:debug`
+
+Debug tests
 
 ### `yarn browser-test`
 
