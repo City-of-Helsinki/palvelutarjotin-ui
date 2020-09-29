@@ -101,7 +101,7 @@ const EventPage = (): ReactElement => {
             <EventPageMeta event={eventData?.event} />
             {enrolmentCreated && (
               <Notification
-                labelText={t('event:enrolmentConfirmation.title')}
+                label={t('event:enrolmentConfirmation.title')}
                 type="success"
               >
                 {notificationType &&
