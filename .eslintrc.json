@@ -1,14 +1,20 @@
 {
   "extends": [
-    "react-app", 
-    "plugin:@typescript-eslint/recommended", 
+    "react-app",
+    "plugin:@typescript-eslint/recommended",
     "plugin:prettier/recommended",
     "plugin:import/errors",
     "plugin:import/warnings",
-    "plugin:import/typescript"
+    "plugin:import/typescript",
+    "plugin:testcafe/recommended"
   ],
+  "plugins": ["testcafe"],
   "rules": {
-    "@typescript-eslint/brace-style": ["error", "1tbs", { "allowSingleLine": true }],
+    "@typescript-eslint/brace-style": [
+      "error",
+      "1tbs",
+      { "allowSingleLine": true }
+    ],
     "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/func-call-spacing": ["error"],
     "@typescript-eslint/member-ordering": ["warn"],
@@ -27,7 +33,7 @@
 
         "alphabetize": {
           "order": "asc",
-          "caseInsensitive": true 
+          "caseInsensitive": true
         }
       }
     ],

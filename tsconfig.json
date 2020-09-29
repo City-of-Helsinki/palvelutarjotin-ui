@@ -16,11 +16,5 @@
     "jsx": "preserve"
   },
   "exclude": ["node_modules", "src/**/*.stories.*"],
-  "include": [
-    "next-env.d.ts",
-    "**/*.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    "src/domain/event/calendarButton/__tests__/CalendarButton.test.tx"
-  ]
+  "include": ["next-env.d.ts", "src"]
 }

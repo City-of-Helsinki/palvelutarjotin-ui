@@ -13,6 +13,13 @@ Project is automatically deployed to production when adding new relase tag, e.g.
 Testing environment: [https://palvelutarjotin.test.kuva.hel.ninja](https://palvelutarjotin-admin.test.kuva.hel.ninja)
 Project is automatically deployed to testing environment when pushing to develop brach
 
+## Requirements
+
+- Node 12.x
+- Yarn
+- Git
+- Docker
+
 ## Credentials
 
 ### Google reCAPTCHA
@@ -56,6 +63,18 @@ Fix all the linter errors
 
 Launches the test runner in the interactive watch mode.
 
+### `yarn browser-test`
+
+Running browser tests against test environment
+
+Browser tests are written in TypeScript with [TestCafe](https://devexpress.github.io/testcafe/) framework.
+
+### `yarn browser-test:local`
+
+Running browser tests against local environment
+
+Browser tests are written in TypeScript with [TestCafe](https://devexpress.github.io/testcafe/) framework.
+
 ### `yarn test:coverage`
 
 Run tests and generate coverage report
@@ -74,6 +93,10 @@ Exports storybook as a static app
 Deploys a new version of Storybook. Storybook is used for development and there's no CI/CD pipeline set up.
 
 To verify deployment, open [https://city-of-helsinki.github.io/palvelutarjotin-ui/](https://city-of-helsinki.github.io/palvelutarjotin-ui/) and check that everything is looking ok.
+
+## Browser tests
+
+Browser tests are written in TypeScript with [TestCafe](https://devexpress.github.io/testcafe/) framework.
 
 ## Debugging
 
