@@ -170,7 +170,7 @@ const MenuDropdown: React.FC<MenuDropdownProps> = ({
     }
   };
 
-  React.useEffect(() => {
+  React.useLayoutEffect(() => {
     setupKeyboardNav();
     document.addEventListener('click', onDocumentClick);
     document.addEventListener('focusin', onDocumentFocusin);
