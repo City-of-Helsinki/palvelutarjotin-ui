@@ -126,6 +126,7 @@ describe('when menu has been closed, it should reopen with', () => {
     expect(menu).toHaveClass('isOpen');
     keyDown('Escape');
     expect(menu).not.toHaveClass('isOpen');
+
     return helpers;
   };
 
@@ -133,12 +134,11 @@ describe('when menu has been closed, it should reopen with', () => {
     const { arrowDown, menu } = getClosedInput();
 
     arrowDown();
-
     expect(menu).toHaveClass('isOpen');
   });
 
-  test('ArrowUp', () => {
-    const { arrowUp, menu } = getClosedInput();
+  test('ArrowUp', async () => {
+    const { arrowUp, menu } = await getClosedInput();
 
     arrowUp();
 

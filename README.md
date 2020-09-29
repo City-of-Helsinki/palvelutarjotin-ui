@@ -4,7 +4,7 @@ User interface for Palvelutarjotin
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Deployments
+## Environments
 
 Production environment:
 [TODO: Add url when deployed]
@@ -12,6 +12,13 @@ Project is automatically deployed to production when adding new relase tag, e.g.
 
 Testing environment: [https://palvelutarjotin.test.kuva.hel.ninja](https://palvelutarjotin-admin.test.kuva.hel.ninja)
 Project is automatically deployed to testing environment when pushing to develop brach
+
+## Requirements
+
+- Node 12.x
+- Yarn
+- Git
+- Docker
 
 ## Credentials
 
@@ -42,6 +49,8 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 ### `yarn codegen`
 
+Codegen settings in <b>codegen.yml</b>
+
 Generate static types for GraphQL queries by using the schema from the backend server. Url to can be defined to NEXT_PUBLIC_API_BASE_URL variable in .env file
 
 ### `yarn lint`
@@ -55,6 +64,30 @@ Fix all the linter errors
 ### `yarn test`
 
 Launches the test runner in the interactive watch mode.
+
+### `yarn test:changed`
+
+Run relevant test based on changes sinces last commit, used in husky git commit hook
+
+### `yarn test:coverage`
+
+Run tests and generate coverage report
+
+### `yarn test:debug`
+
+Debug tests
+
+### `yarn browser-test`
+
+Running browser tests against test environment
+
+Browser tests are written in TypeScript with [TestCafe](https://devexpress.github.io/testcafe/) framework.
+
+### `yarn browser-test:local`
+
+Running browser tests against local environment
+
+Browser tests are written in TypeScript with [TestCafe](https://devexpress.github.io/testcafe/) framework.
 
 ### `yarn test:coverage`
 
@@ -74,6 +107,10 @@ Exports storybook as a static app
 Deploys a new version of Storybook. Storybook is used for development and there's no CI/CD pipeline set up.
 
 To verify deployment, open [https://city-of-helsinki.github.io/palvelutarjotin-ui/](https://city-of-helsinki.github.io/palvelutarjotin-ui/) and check that everything is looking ok.
+
+## Browser tests
+
+Browser tests are written in TypeScript with [TestCafe](https://devexpress.github.io/testcafe/) framework.
 
 ## Debugging
 
