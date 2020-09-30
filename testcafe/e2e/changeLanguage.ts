@@ -8,7 +8,7 @@ fixture('Events page').page(getEnvUrl('fi'));
 
 test('Changing language on events page', async (t) => {
   await t
-    .expect(screen.queryByRole('heading', { name: /Palvelutarjotin/i }).exists)
+    .expect(screen.queryByRole('heading', { name: /Kultus beta/i }).exists)
     .ok()
     .expect(screen.getByRole('heading', { name: /Hae tapahtumia/i }).exists)
     .ok();
@@ -20,7 +20,7 @@ test('Changing language on events page', async (t) => {
     .eql('/sv');
 
   await t
-    .expect(screen.queryByRole('heading', { name: /Palvelutarjotin/i }).exists)
+    .expect(screen.queryByRole('heading', { name: /Kultus beta/i }).exists)
     .ok()
     .expect(screen.queryByRole('heading', { name: /Sök evenemang/i }).exists)
     .ok();

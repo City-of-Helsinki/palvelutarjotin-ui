@@ -86,7 +86,7 @@ test('renders search form and events list with correct information', async () =>
   await act(wait);
 
   expect(
-    screen.queryByRole('heading', { name: 'Palvelutarjotin' })
+    screen.queryByRole('heading', { name: 'Kultus beta' })
   ).toBeInTheDocument();
   expect(
     screen.queryByRole('heading', { name: 'Hae tapahtumia' })
