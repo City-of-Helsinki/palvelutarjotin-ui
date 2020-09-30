@@ -23,7 +23,7 @@ exports[`Header matches snapshot 1`] = `
             <div
               class="appName"
             >
-              Palvelutarjotin
+              Kultus beta
             </div>
           </a>
           <div
@@ -126,7 +126,7 @@ exports[`Header matches snapshot 1`] = `
               <div
                 class="appName"
               >
-                Palvelutarjotin
+                Kultus beta
               </div>
             </a>
           </div>
