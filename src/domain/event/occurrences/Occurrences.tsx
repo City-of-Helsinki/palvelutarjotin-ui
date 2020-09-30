@@ -309,7 +309,7 @@ const Occurrences: React.FC<Props> = ({
     </section>
   ) : (
     <Notification
-      labelText={t('enrolment:occurrenceTable.noOccurrences')}
+      label={t('enrolment:occurrenceTable.noOccurrences')}
       type="error"
     />
   );
