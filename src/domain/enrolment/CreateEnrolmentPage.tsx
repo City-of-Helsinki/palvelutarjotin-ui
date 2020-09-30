@@ -151,11 +151,7 @@ const CreateEnrolmentPage: React.FC = () => {
               <EventInfo event={event} />
               {error ? (
                 <Notification
-                  labelText={translateValue(
-                    'enrolment:errors.label.',
-                    error,
-                    t
-                  )}
+                  label={translateValue('enrolment:errors.label.', error, t)}
                   type="error"
                 >
                   {translateValue('enrolment:errors.text.', error, t, {

@@ -12,6 +12,7 @@
     "test": "SASS_PATH=./src/assets/styles jest --watch",
     "test:changed": "SASS_PATH=./src/assets/styles jest -o",
     "test:coverage": "SASS_PATH=./src/assets/styles jest --watchAll=false --coverage",
+    "test:staged": "SASS_PATH=./src/assets/styles jest --findRelatedTests",
     "browser-test": "testcafe \"chrome --window-size='1920,1080'\" testcafe/e2e/",
     "browser-test:local": "BROWSER_TEST_ENV=local yarn browser-test",
     "browser-test:ci": "testcafe \"chrome:headless --disable-gpu --window-size='1920,1080'\" testcafe/e2e/",
@@ -110,6 +111,7 @@
     "jest": "^26.1.0",
     "jest-css-modules-transform": "^4.0.0",
     "jest-date-mock": "^1.0.8",
+    "lint-staged": "^10.4.0",
     "next-server": "^9.0.5",
     "prettier": "^2.0.5",
     "react-test-renderer": "^16.13.1",
@@ -119,7 +121,14 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run test:changed"
+      "pre-commit": "lint-staged"
     }
+  },
+  "lint-staged": {
+    "src/**/*.{tsx,ts}": [
+      "npm run test:staged",
+      "prettier --write",
+      "eslint --fix"
+    ]
   }
 }
