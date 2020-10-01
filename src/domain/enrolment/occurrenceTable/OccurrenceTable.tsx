@@ -53,7 +53,7 @@ const OccurrenceTable: React.FC<Props> = ({ eventLocationId, occurrences }) => {
     </>
   ) : (
     <Notification
-      labelText={t('enrolment:occurrenceTable.noSelectedOccurrences')}
+      label={t('enrolment:occurrenceTable.noSelectedOccurrences')}
       type="error"
     />
   );
