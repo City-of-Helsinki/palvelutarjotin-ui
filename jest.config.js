@@ -5,9 +5,7 @@ module.exports = {
     '.+\\.(css|styl|less|sass|scss)$':
       '<rootDir>/node_modules/jest-css-modules-transform',
     '^.+\\.tsx?$': 'ts-jest',
-    'hds-react': 'ts-jest',
   },
-  transformIgnorePatterns: ['<rootDir>/node_modules/(?!hds-react)/'],
   setupFilesAfterEnv: ['<rootDir>/src/setupTests.ts'],
   // https://github.com/zeit/next.js/issues/8663#issue-490553899
   globals: {

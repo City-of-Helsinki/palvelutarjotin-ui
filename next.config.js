@@ -1,12 +1,10 @@
 const withSass = require('@zeit/next-sass');
-const withTM = require('next-transpile-modules')(['hds-react']);
+// const withTM = require('next-transpile-modules')(['hds-react']);
 
-module.exports = withSass(
-  withTM({
-    cssModules: true,
-    cssLoaderOptions: {
-      importLoaders: 1,
-      localIdentName: '[local]___[hash:base64:5]',
-    },
-  })
-);
+module.exports = withSass({
+  cssModules: true,
+  cssLoaderOptions: {
+    importLoaders: 1,
+    localIdentName: '[local]___[hash:base64:5]',
+  },
+});
