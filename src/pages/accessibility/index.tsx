@@ -4,10 +4,12 @@ import { COMMON_I18N_NAMESPACES } from '../../constants';
 import AccessibilityStatementPage from '../../domain/accessibilityStatement/AccessibilityStatement';
 import { RouteComponent } from '../../types';
 
-const Event: RouteComponent = () => <AccessibilityStatementPage />;
+const AccessibilityStatement: RouteComponent = () => (
+  <AccessibilityStatementPage />
+);
 
-Event.getInitialProps = async () => ({
+AccessibilityStatement.getInitialProps = async () => ({
   namespacesRequired: [...COMMON_I18N_NAMESPACES],
 });
 
-export default Event;
+export default AccessibilityStatement;
