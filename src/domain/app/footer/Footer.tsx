@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 
 import { PRIVACY_POLICY_LINKS } from '../../../constants';
 import useLocale from '../../../hooks/useLocale';
+import { Link } from '../../../i18n';
 import Container from '../layout/Container';
 import styles from './footer.module.scss';
 
@@ -29,14 +30,18 @@ const Footer = ({ isMobileMenuOpen = false }: Props): React.ReactElement => {
           <div className={styles.helsinkiLogo} />
           <div className={styles.copyright}>
             <div>{t('footer:copyrightText')}</div>
-            <div>
+            <div className={styles.links}>
               <a
                 href={PRIVACY_POLICY_LINKS[locale]}
                 target="_blank"
                 rel="noreferrer"
               >
                 {t('common:privacyPolicy')}
-              </a>
+              </a>{' '}
+              •{' '}
+              <Link href="/accessibility">
+                {t('common:accessibilityStatement.title')}
+              </Link>{' '}
             </div>
           </div>
         </div>

@@ -51,7 +51,9 @@ exports[`Footer matches snapshot 1`] = `
           <div>
             © Copyright 2020 • Kaikki oikeudet pidätetään
           </div>
-          <div>
+          <div
+            class="links"
+          >
             <a
               href="https://www.hel.fi/static/liitteet/kanslia/rekisteriselosteet/Kuva/Kuva-EU-Palvelutarjotin.pdf"
               rel="noreferrer"
@@ -59,6 +61,15 @@ exports[`Footer matches snapshot 1`] = `
             >
               Rekisteriseloste
             </a>
+             
+            •
+             
+            <a
+              href="/fi/accessibility"
+            >
+              Saavutettavuusseloste
+            </a>
+             
           </div>
         </div>
       </div>
