@@ -1,5 +1,11 @@
 import { MockedProvider } from '@apollo/react-testing';
-import { render, screen, within, waitFor } from '@testing-library/react';
+import {
+  render,
+  screen,
+  within,
+  waitFor,
+  configure,
+} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { advanceTo } from 'jest-date-mock';
 import * as Router from 'next/router';
@@ -19,6 +25,8 @@ import eventsMockData from '../__mocks__/eventWithOccurrences.json';
 import placeMock from '../__mocks__/placeMock.json';
 import venueMock from '../__mocks__/venueMock.json';
 import EventPage from '../EventPage';
+
+configure({ defaultHidden: true });
 
 const apolloMocks = [
   {
@@ -85,7 +93,6 @@ it('renders page and event information correctly', async () => {
   // wait for graphql request to complete
   await screen.findByRole('heading', {
     name: eventData.name.fi,
-    hidden: true,
   });
 
   await waitFor(() => {
@@ -126,14 +133,13 @@ it('renders page and event information correctly', async () => {
 
   queryByRole.forEach((item) => {
     expect(
-      screen.queryByRole(item.role, { name: item.name, hidden: true })
+      screen.queryByRole(item.role, { name: item.name })
     ).toBeInTheDocument();
   });
 
   // Event image should have correct src url
   const eventImage = screen.queryByRole('img', {
     name: eventData.images[0].altText,
-    hidden: true,
   });
   expect(eventImage).toHaveAttribute('src', eventData.images[0].url);
 
@@ -155,7 +161,6 @@ it('renders occurrences table and related stuff correctly', async () => {
   // wait for graphql request to complete
   await screen.findByRole('heading', {
     name: eventData.name.fi,
-    hidden: true,
   });
 
   await waitFor(() => {
@@ -169,14 +174,12 @@ it('renders occurrences table and related stuff correctly', async () => {
   );
   const showMoreOccurrencesButton = screen.queryByRole('button', {
     name: eventMessages.occurrenceList.loadMoreOccurrences,
-    hidden: true,
   });
   const enrolmentButton = screen.queryByRole('button', {
     name: occurrenceMessages.occurrenceSelection.buttonSelectOccurrences.replace(
       '{{neededOccurrences}}',
       eventData.pEvent.neededOccurrences.toString()
     ),
-    hidden: true,
   });
 
   expect(occurrencesTitle).toBeInTheDocument();
@@ -203,7 +206,6 @@ it('renders occurrences table and related stuff correctly', async () => {
   expect(
     occurrences.getByRole('row', {
       name: rowText,
-      hidden: true,
     })
   ).toBeInTheDocument();
 });
@@ -218,7 +220,6 @@ it('selecting enrolments works and buttons have correct texts', async () => {
   // wait for graphql request to complete
   await screen.findByRole('heading', {
     name: eventData.name.fi,
-    hidden: true,
   });
 
   await waitFor(() => {
@@ -229,7 +230,6 @@ it('selecting enrolments works and buttons have correct texts', async () => {
 
   let occurrenceEnrolmentButtons = screen.getAllByRole('button', {
     name: 'Ilmoittaudu',
-    hidden: true,
   });
 
   userEvent.click(occurrenceEnrolmentButtons[0]);
@@ -245,13 +245,11 @@ it('selecting enrolments works and buttons have correct texts', async () => {
   expect(
     screen.queryByRole('button', {
       name: getSelectedOccurrencesButtonText(1, 3),
-      hidden: true,
     })
   ).toBeInTheDocument();
   expect(
     screen.queryByRole('button', {
       name: getSelectedOccurrencesButtonText(2, 3),
-      hidden: true,
     })
   ).not.toBeInTheDocument();
 
@@ -259,7 +257,6 @@ it('selecting enrolments works and buttons have correct texts', async () => {
   // -> new query is needed
   occurrenceEnrolmentButtons = screen.getAllByRole('button', {
     name: occurrenceMessages.occurrenceSelection.buttonEnrolOccurrence,
-    hidden: true,
   });
 
   userEvent.click(occurrenceEnrolmentButtons[0]);
@@ -267,13 +264,11 @@ it('selecting enrolments works and buttons have correct texts', async () => {
   expect(
     screen.queryAllByRole('button', {
       name: getSelectedOccurrencesButtonText(2, 3),
-      hidden: true,
     })
   ).toHaveLength(2);
 
   occurrenceEnrolmentButtons = screen.getAllByRole('button', {
     name: occurrenceMessages.occurrenceSelection.buttonEnrolOccurrence,
-    hidden: true,
   });
 
   userEvent.click(occurrenceEnrolmentButtons[0]);
@@ -281,7 +276,6 @@ it('selecting enrolments works and buttons have correct texts', async () => {
   userEvent.click(
     screen.getByRole('button', {
       name: eventMessages.occurrenceList.loadMoreOccurrences,
-      hidden: true,
     })
   );
 
@@ -290,7 +284,6 @@ it('selecting enrolments works and buttons have correct texts', async () => {
     screen
       .queryAllByRole('button', {
         name: getSelectedOccurrencesButtonText(3, 3),
-        hidden: true,
       })
       .filter((button) => !button.hasAttribute('disabled'))
   ).toHaveLength(3);
@@ -300,7 +293,6 @@ it('selecting enrolments works and buttons have correct texts', async () => {
     screen
       .queryAllByRole('button', {
         name: getSelectedOccurrencesButtonText(3, 3),
-        hidden: true,
       })
       .filter((button) => button.hasAttribute('disabled'))
   ).toHaveLength(2);
@@ -334,7 +326,6 @@ it('opens expanded area when clicked', async () => {
   // wait for graphql request to complete
   await screen.findByRole('heading', {
     name: eventData.name.fi,
-    hidden: true,
   });
 
   await waitFor(() => {
@@ -346,13 +337,11 @@ it('opens expanded area when clicked', async () => {
   const occurrenceRow = within(
     screen.getByRole('row', {
       name: rowText,
-      hidden: true,
     })
   );
 
   const expandButton = occurrenceRow.getByRole('button', {
     name: occurrenceMessages.showOccurrenceDetails,
-    hidden: true,
   });
 
   expect(
@@ -382,7 +371,6 @@ it('filters occurrence list correctly when sate filters are selected', async () 
   // wait for graphql request to complete
   await screen.findByRole('heading', {
     name: eventData.name.fi,
-    hidden: true,
   });
 
   await waitFor(() => {
@@ -394,15 +382,11 @@ it('filters occurrence list correctly when sate filters are selected', async () 
   userEvent.click(
     screen.getByLabelText(eventMessages.occurrenceList.labelStartDateFilter)
   );
-  userEvent.click(
-    screen.getByRole('button', { name: 'Valitse 28.07.2020', hidden: true })
-  );
+  userEvent.click(screen.getByRole('button', { name: 'Valitse 28.07.2020' }));
   userEvent.click(
     screen.getByLabelText(eventMessages.occurrenceList.labelEndDateFilter)
   );
-  userEvent.click(
-    screen.getByRole('button', { name: 'Valitse 29.07.2020', hidden: true })
-  );
+  userEvent.click(screen.getByRole('button', { name: 'Valitse 29.07.2020' }));
 
   const tableRows = screen.getAllByRole('row');
 
@@ -411,7 +395,6 @@ it('filters occurrence list correctly when sate filters are selected', async () 
 
   const occurrenceEnrolButtons = screen.getAllByRole('button', {
     name: eventMessages.occurrenceList.enrolOccurrenceButton,
-    hidden: true,
   });
   expect(occurrenceEnrolButtons).toHaveLength(2);
 });

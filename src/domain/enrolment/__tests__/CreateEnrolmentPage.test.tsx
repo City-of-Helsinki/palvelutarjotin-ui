@@ -23,6 +23,7 @@ import {
   act,
   waitFor,
   userEvent,
+  configure,
 } from '../../../utils/testUtils';
 import CreateEnrolmentPage from '../CreateEnrolmentPage';
 import * as utils from '../utils';
@@ -33,6 +34,10 @@ const occurrenceId2 = '321123';
 const occurrenceIds = [occurrenceId1, occurrenceId2];
 const eventName = 'Testitapahtuma';
 const locationId = 'locationId';
+
+configure({ defaultHidden: true });
+
+(utils.getCAPTCHAToken as any) = jest.fn().mockResolvedValue('captcha-token');
 
 const mockBase = (event: Event): MockedResponse => ({
   request: {
@@ -175,7 +180,6 @@ test('renders enrolment has not started yet text', async () => {
 
 test('renders form and user can fill it and submit', async () => {
   // eslint-disable-next-line import/namespace
-  (utils.getCAPTCHAToken as any) = jest.fn().mockResolvedValue('captcha-token');
   const enrolOccurrenceMock = jest.fn();
   jest
     .spyOn(graphqlFns, 'useEnrolOccurrenceMutation')
