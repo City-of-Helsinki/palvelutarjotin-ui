@@ -1,5 +1,4 @@
 const withSass = require('@zeit/next-sass');
-// const withTM = require('next-transpile-modules')(['hds-react']);
 
 module.exports = withSass({
   cssModules: true,
