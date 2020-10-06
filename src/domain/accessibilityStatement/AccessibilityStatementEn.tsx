@@ -5,14 +5,14 @@ const AccessibilityStatementEn: FunctionComponent = () => {
     <>
       <h1>Accessibility Statement</h1>
       <p>
-        This accessibility statement applies to the website ‘Kultus‘ of the City
-        of Helsinki. The site address is https://beta.kultus.fi
+        This accessibility statement applies to the website ‘Kultus beta‘ of the
+        City of Helsinki. The site address is https://beta.kultus.fi
       </p>
 
       <h2>Statutory provisions applicable to the website</h2>
       <p>
         This website was published after{' '}
-        <time dateTime="2018-09-23">23 September 2018</time>. The website must
+        <time dateTime="2020-10-05">10 October 2020</time>. The website must
         fulfil statutory accessibility requirements.
       </p>
 
