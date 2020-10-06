@@ -14,10 +14,10 @@
   --height-koro: 1.25rem;
   --height-logo: 3rem;
 
-  --margin-bottom-logo: var(--spacing-l);
+  --margin-bottom-logo: 1rem;
 
-  --padding-top-copyright: var(--spacing-l);
-  --padding-footer: var(--spacing-l) 0;
+  --padding-top-copyright: 1rem;
+  --padding-footer: 1rem 0;
 
   --width-logo: 5rem;
 }
@@ -33,6 +33,10 @@
     padding: 0;
   }
 
+  a {
+    color: var(--color-black-60);
+  }
+
   @include respond-below(sm) {
     opacity: 1;
     transition: visibility 0.2s, opacity 0.2s;
@@ -42,6 +46,11 @@
       visibility: hidden;
     }
   }
+}
+
+.links {
+  margin: 1rem 0;
+  color: var(--color-black-60);
 }
 
 .contentWrapper {
@@ -61,8 +70,6 @@
 .copyright {
   border-top: var(--border-top-copyright);
   padding-top: var(--padding-top-copyright);
-  display: flex;
-  justify-content: space-between;
 
   p {
     margin: 0;

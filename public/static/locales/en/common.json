@@ -12,6 +12,9 @@
     "sv": "Swedish",
     "zh_hans": "Chinese"
   },
+  "accessibilityStatement": {
+    "title": "Accessibility Statement"
+  },
   "errorPage": {
     "title": "The service encountered an error",
     "description": "We're sorry, but there was an error with the service. You can try again, but if the situation persists, please let us know via the feedback link at the bottom.",
