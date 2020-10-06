@@ -1,0 +1,19 @@
+@import 'layout';
+@import 'variables';
+
+.accessibilityStatement {
+  margin-bottom: var(--spacing-layout-m);
+  @include respond-below(md) {
+    margin: 0 var(--spacing-s) var(--spacing-layout-m) var(--spacing-s);
+  }
+
+  h1 {
+    overflow-wrap: break-word;
+    word-break: break-word;
+    hyphens: manual;
+  }
+
+  p {
+    max-width: 700px;
+  }
+}

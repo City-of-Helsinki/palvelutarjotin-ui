@@ -12,6 +12,9 @@
     "sv": "Svenska",
     "zh_hans": "Kinesisk"
   },
+  "accessibilityStatement": {
+    "title": "Tillgänglighets­utlåtande"
+  },
   "errorPage": {
     "title": "Tjänsten stötte på ett fel",
     "description": "Vi är ledsna, men det var ett fel med tjänsten. Du kan försöka igen, men om situationen kvarstår, vänligen meddela oss via feedbacklänken längst ner.",
