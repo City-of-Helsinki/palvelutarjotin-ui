@@ -22,9 +22,8 @@ const AccessibilityStatementFi: FunctionComponent = () => {
       </p>
       <h2>Vaatimustenmukaisuustilanne</h2>
       <p>
-        Tämä verkkosivusto täyttää lain asettamat kriittiset
-        saavutettavuusvaatimukset WCAG v2.1 -tason AA mukaisesti. Auditoinnissa
-        havaitut puutteet on korjattu kuten ehdotettu.
+        Tämän verkkosivuston saavutettavuuden vaatimustenmukaisuutta ei ole
+        vielä arvioitu.
       </p>
       <h3>Puutteiden korjaus</h3>
       <p>

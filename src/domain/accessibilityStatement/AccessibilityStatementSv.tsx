@@ -22,9 +22,8 @@ const AccessibilityStatementSv: FunctionComponent = () => {
       </p>
       <h2>Fullgörandestatus</h2>
       <p>
-        Denna webbplats uppfyller de kritiska tillgänglighetskraven som lagen
-        ställer i enlighet med WCAG v2.1 nivå AA. De brister som framkom i
-        revisionen har korrigerats enligt förslagen.
+        Denna webbplats förenlighet med tillgänglighetskraven är inte ännu
+        bedömd.
       </p>
       <h3>Åtgärdande av brister</h3>
       <p>

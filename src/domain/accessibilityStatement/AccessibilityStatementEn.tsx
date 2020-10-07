@@ -25,9 +25,7 @@ const AccessibilityStatementEn: FunctionComponent = () => {
 
       <h2>Compliance status</h2>
       <p>
-        This website fulfils the critical legal accessibility requirements in
-        accordance with level AA of WCAG v2.1. The shortcomings observed in the
-        audit have been corrected as suggested.
+        The accessibility compliance of this website has not yet been evaluated.
       </p>
 
       <h2>Correction shortcomings</h2>
