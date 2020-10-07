@@ -345,8 +345,13 @@ const Datepicker: React.FC<DatepickerProps> = ({
             onKeyDown={handleInputKeyDown}
             placeholder={placeholder}
           />
-          <button type="button" onClick={toggleCalendar}>
-            <IconCalendar className={styles.iconCalendar} />
+          <button
+            type="button"
+            onClick={toggleCalendar}
+            aria-label={t('common:datepicker.accessibility.buttonCalendar')}
+            className={styles.iconCalendar}
+          >
+            <IconCalendar />
           </button>
           {isCalendarOpen && (
             <div
