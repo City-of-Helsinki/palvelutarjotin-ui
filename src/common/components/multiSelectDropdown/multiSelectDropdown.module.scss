@@ -1,4 +1,3 @@
-@import 'colours';
 @import 'mixins';
 @import 'variables';
 
@@ -64,7 +63,7 @@
     line-height: 1.5rem;
     white-space: nowrap;
     overflow: hidden;
-    font-size: var(--fontsize-body-medium);
+    font-size: var(--fontsize-body-m);
     text-overflow: ellipsis;
 
     input {
