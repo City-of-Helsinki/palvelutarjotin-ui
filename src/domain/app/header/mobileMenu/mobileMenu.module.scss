@@ -3,7 +3,7 @@
 
   --color-language-link: var(--color-black-90);
 
-  --fonsize-link: var(--fontsize-body-medium);
+  --fonsize-link: var(--fontsize-body-m);
 
   --margin-bottom-language-link: var(--spacing-s);
   --margin-bottom-language-select: 3.5rem;
@@ -55,7 +55,7 @@
 
       a {
         color: var(--color-language-link);
-        font-size: var(--fontsize-body-medium);
+        font-size: var(--fontsize-body-m);
         font-weight: normal;
         text-decoration: underline;
       }

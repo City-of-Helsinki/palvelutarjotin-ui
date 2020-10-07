@@ -1,9 +1,8 @@
-@import 'colours';
 @import 'fonts';
 
 .placeInfo {
   color: var(--color-black-90);
-  font-size: var(--fontsize-body-medium);
+  font-size: var(--fontsize-body-m);
   line-height: 2rem;
 
   p {
@@ -29,7 +28,7 @@
 
   .buttonChange {
     color: var(--color-bus);
-    font-size: var(--fontsize-body-default);
+    font-size: var(--fontsize-body-m);
     font-weight: 500;
     margin-left: var(--spacing-s);
   }
