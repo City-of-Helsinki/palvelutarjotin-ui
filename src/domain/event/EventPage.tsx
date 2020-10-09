@@ -114,7 +114,7 @@ const EventPage = (): ReactElement => {
             )}
             <EventImage
               imageUrl={imageUrl}
-              imageAltText={imageAltText}
+              imageAltText={imageAltText || t('event:eventImageAltText')}
               photographerName={photographerName}
             />
             <EventBasicInfo event={eventData.event} />

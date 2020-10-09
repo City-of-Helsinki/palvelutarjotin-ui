@@ -34,6 +34,7 @@
   },
   "pageTitle": "Evenemang",
   "photographerText": "Foto: {{photographer}}",
+  "eventImageAltText": "Händelsebild",
   "contactPerson": "Kontakt person",
   "occurrencesTitle": "Händelsetider ({{count}} st)",
   "shareLinks": {

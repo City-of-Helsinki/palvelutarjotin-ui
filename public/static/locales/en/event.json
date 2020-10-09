@@ -34,6 +34,7 @@
   },
   "pageTitle": "Event",
   "photographerText": "Photo: {{photographer}}",
+  "eventImageAltText": "Event image",
   "contactPerson": "Contact person",
   "occurrencesTitle": "Occurrences ({{count}} pcs)",
   "shareLinks": {

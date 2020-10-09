@@ -44,10 +44,6 @@ const EventList = ({
     setSort(option.value);
   };
 
-  const goToEventDetailsPage = (id: string) => {
-    Router.push(ROUTES.EVENT_DETAILS.replace(':id', id));
-  };
-
   return (
     <div className={styles.eventList}>
       <div className={styles.headingRow}>
@@ -75,7 +71,7 @@ const EventList = ({
             <EventCard
               key={index}
               event={event}
-              onClick={goToEventDetailsPage}
+              link={ROUTES.EVENT_DETAILS.replace(':id', event.id)}
             />
           );
         })}
