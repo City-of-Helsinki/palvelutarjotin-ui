@@ -1,15 +1,20 @@
+import path from 'path';
+
 import intervalPlural from 'i18next-intervalplural-postprocessor';
 import NextI18Next from 'next-i18next';
+
+const localeSubpaths = {
+  fi: 'fi',
+  en: 'en',
+  sv: 'sv',
+};
 
 const NextI18NextInstance = new NextI18Next({
   defaultLanguage: 'fi',
   ignoreRoutes: ['/healthz', '/readiness', '/_next', '/static', '/favicon.ico'],
-  localeSubpaths: {
-    en: 'en',
-    fi: 'fi',
-    sv: 'sv',
-  },
+  localeSubpaths,
   otherLanguages: ['en', 'sv'],
+  localePath: path.resolve('./public/static/locales'),
 });
 
 NextI18NextInstance.i18n.use(intervalPlural);

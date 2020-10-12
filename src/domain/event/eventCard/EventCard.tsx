@@ -16,10 +16,9 @@ import styles from './eventCard.module.scss';
 interface Props {
   event: EventFieldsFragment;
   link: string;
-  onClick?: (id: string) => void;
 }
 
-const EventCard: React.FC<Props> = ({ event, link, onClick }) => {
+const EventCard: React.FC<Props> = ({ event, link }) => {
   const { t } = useTranslation();
   const locale = useLocale();
 
