@@ -25,15 +25,6 @@ const AccessibilityStatementFi: FunctionComponent = () => {
         Tämän verkkosivuston saavutettavuuden vaatimustenmukaisuutta ei ole
         vielä arvioitu.
       </p>
-      <h3>Puutteiden korjaus</h3>
-      <p>
-        Auditoinnissa havaitut puutteet on korjattu korjausehdotusten
-        mukaisesti. Sivustoa ei korjausten jälkeen ole uudelleen auditoitu.
-        Mikäli saavuttamatonta sisältöä palvelusta vielä löytyy, pyydämme
-        olemaan yhteydessä alla mainittuihin tahoihin. Palvelun
-        jatkokehityksessä otamme edellä mainitut seikat huomioon jokaisessa
-        tulevassa julkaisussa.
-      </p>
       <h3>Tiedon saanti saavutettavassa muodossa</h3>
       <p>
         Mainituista puutteista johtuen saavuttamatta jäävää sisältöä voi pyytää

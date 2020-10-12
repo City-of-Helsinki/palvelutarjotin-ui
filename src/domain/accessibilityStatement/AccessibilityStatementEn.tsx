@@ -28,16 +28,6 @@ const AccessibilityStatementEn: FunctionComponent = () => {
         The accessibility compliance of this website has not yet been evaluated.
       </p>
 
-      <h2>Correction shortcomings</h2>
-      <p>
-        The shortcomings observed in the audit have been corrected according to
-        the suggestions. The website has not been re-audited since the
-        corrections were made. If the service still contains inaccessible
-        content, please contact the parties mentioned above. We will be taking
-        into account the factors mentioned above in the further development of
-        the service in connection with each new publication.
-      </p>
-
       <h2>Availability of information in an accessible format</h2>
       <p>
         Access to any content that cannot be accessed due to the shortcomings

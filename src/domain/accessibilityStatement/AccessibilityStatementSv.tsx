@@ -25,14 +25,6 @@ const AccessibilityStatementSv: FunctionComponent = () => {
         Denna webbplats förenlighet med tillgänglighetskraven är inte ännu
         bedömd.
       </p>
-      <h3>Åtgärdande av brister</h3>
-      <p>
-        De brister som framkom i revisionen har rättats enligt
-        korrigeringsförslagen. Webbplatsen har inte reviderats på nytt efter
-        korrigeringarna. Om det ännu finns otillgängligt innehåll i tjänsten ber
-        vi dig att kontakta aktörerna nedan. I vidareutvecklingen av tjänsten
-        beaktar vi sakerna ovan i varje kommande publicering.
-      </p>
       <h3>Erhållande av uppgifter i tillgänglig form</h3>
       <p>
         På grund av de nämnda bristerna kan innehåll som inte är tillgängligt
