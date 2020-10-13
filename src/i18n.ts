@@ -2,17 +2,14 @@ import path from 'path';
 
 import intervalPlural from 'i18next-intervalplural-postprocessor';
 import NextI18Next from 'next-i18next';
+import config from 'next/config';
 
-const localeSubpaths = {
-  fi: 'fi',
-  en: 'en',
-  sv: 'sv',
-};
+const { publicRuntimeConfig } = config();
 
 const NextI18NextInstance = new NextI18Next({
   defaultLanguage: 'fi',
   ignoreRoutes: ['/healthz', '/readiness', '/_next', '/static', '/favicon.ico'],
-  localeSubpaths,
+  localeSubpaths: publicRuntimeConfig.localeSubpaths,
   otherLanguages: ['en', 'sv'],
   localePath: path.resolve('./public/static/locales'),
 });
