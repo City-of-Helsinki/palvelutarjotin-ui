@@ -1,8 +1,8 @@
 import { FieldProps } from 'formik';
 import { TextInput, TextInputProps } from 'hds-react';
 import React from 'react';
-import { useTranslation } from 'react-i18next';
 
+import { useTranslation } from '../../../../i18n';
 import { invalidFieldClass } from '../constants';
 import { getErrorText } from '../utils';
 

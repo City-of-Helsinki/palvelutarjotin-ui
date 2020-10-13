@@ -2,7 +2,6 @@ import { Button, IconArrowLeft, Notification } from 'hds-react';
 import omit from 'lodash/omit';
 import { useRouter } from 'next/router';
 import React from 'react';
-import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 
 import LoadingSpinner from '../../common/components/loadingSpinner/LoadingSpinner';
@@ -11,7 +10,7 @@ import {
   useEnrolOccurrenceMutation,
 } from '../../generated/graphql';
 import useLocale from '../../hooks/useLocale';
-import { Router } from '../../i18n';
+import { Router, useTranslation } from '../../i18n';
 import { translateValue } from '../../utils/translateUtils';
 import Container from '../app/layout/Container';
 import PageWrapper from '../app/layout/PageWrapper';

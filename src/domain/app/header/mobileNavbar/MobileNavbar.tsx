@@ -1,9 +1,8 @@
 import { IconCross, IconMenuHamburger } from 'hds-react';
 import React from 'react';
-import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { Link } from '../../../../i18n';
+import { Link, useTranslation } from '../../../../i18n';
 import Container from '../../layout/Container';
 import { ROUTES } from '../../routes/constants';
 import { closeMobileMenu, openMobileMenu } from '../mobileMenu/actions';

@@ -3,7 +3,6 @@ import { saveAs } from 'file-saver';
 import { Button, IconCalendar } from 'hds-react';
 import { createEvent, EventAttributes } from 'ics';
 import React from 'react';
-import { useTranslation } from 'react-i18next';
 
 import {
   OccurrenceFieldsFragment,
@@ -11,6 +10,7 @@ import {
   usePlaceQuery,
 } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
+import { useTranslation } from '../../../i18n';
 import getDateArray from '../../../utils/getDateArray';
 import getDomain from '../../../utils/getDomain';
 import getLocalisedString from '../../../utils/getLocalisedString';

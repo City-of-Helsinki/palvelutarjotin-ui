@@ -1,8 +1,7 @@
 import { Button, IconInfoCircle } from 'hds-react';
 import React from 'react';
-import { useTranslation } from 'react-i18next';
 
-import { Router } from '../../i18n';
+import { Router, useTranslation } from '../../i18n';
 import Container from '../app/layout/Container';
 import { ROUTES } from '../app/routes/constants';
 import styles from './errorPage.module.scss';

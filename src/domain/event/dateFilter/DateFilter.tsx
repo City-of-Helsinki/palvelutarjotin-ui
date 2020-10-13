@@ -1,9 +1,9 @@
 import classNames from 'classnames';
 import { Button } from 'hds-react';
 import React from 'react';
-import { useTranslation } from 'react-i18next';
 
 import Datepicker from '../../../common/components/datepicker/Datepicker';
+import { useTranslation } from '../../../i18n';
 import styles from './dateFilter.module.scss';
 
 interface DateFilterProps {

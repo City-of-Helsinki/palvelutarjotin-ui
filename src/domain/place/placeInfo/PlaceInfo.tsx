@@ -1,8 +1,8 @@
 import React from 'react';
-import { useTranslation } from 'react-i18next';
 
 import { usePlaceQuery } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
+import { useTranslation } from '../../../i18n';
 import { Language } from '../../../types';
 import VenueInfo from '../../venue/venueInfo/VenueInfo';
 import {

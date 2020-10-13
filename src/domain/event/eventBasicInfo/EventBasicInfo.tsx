@@ -1,9 +1,9 @@
 import { IconInfoCircle, IconFaceSmile } from 'hds-react';
 import React from 'react';
-import { useTranslation } from 'react-i18next';
 
 import { EventFieldsFragment } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
+import { useTranslation } from '../../../i18n';
 import IconTicket from '../../../icons/IconTicket';
 import EventKeywords from '../eventKeywords/EventKeywords';
 import { getEventFields } from '../utils';

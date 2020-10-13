@@ -1,8 +1,8 @@
 import classNames from 'classnames';
 import React from 'react';
-import { useTranslation } from 'react-i18next';
 
 import useDropdownKeyboardNavigation from '../../../hooks/useDropdownKeyboardNavigation';
+import { useTranslation } from '../../../i18n';
 import ScrollIntoViewWithFocus from '../scrollIntoViewWithFocus/ScrollIntoViewWithFocus';
 import { formatTime, TimeObject } from '../timepicker/utils';
 import styles from './datepicker.module.scss';

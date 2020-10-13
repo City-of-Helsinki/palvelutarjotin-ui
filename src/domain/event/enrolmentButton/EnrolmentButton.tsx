@@ -1,7 +1,7 @@
 import { Button } from 'hds-react';
 import React from 'react';
-import { useTranslation } from 'react-i18next';
 
+import { useTranslation } from '../../../i18n';
 import styles from './enrolmentButton.module.scss';
 
 interface EnrolmentButtonProps {

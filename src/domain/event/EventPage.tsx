@@ -2,13 +2,12 @@ import { Notification } from 'hds-react';
 import take from 'lodash/take';
 import { useRouter } from 'next/router';
 import React, { ReactElement } from 'react';
-import { useTranslation } from 'react-i18next';
 
 import LoadingSpinner from '../../common/components/loadingSpinner/LoadingSpinner';
 import ShareLinks from '../../common/components/shareLinks/ShareLinks';
 import { useEventQuery } from '../../generated/graphql';
 import useLocale from '../../hooks/useLocale';
-import { Router } from '../../i18n';
+import { Router, useTranslation } from '../../i18n';
 import { translateValue } from '../../utils/translateUtils';
 import Container from '../app/layout/Container';
 import PageWrapper from '../app/layout/PageWrapper';

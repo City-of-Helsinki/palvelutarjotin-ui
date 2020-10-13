@@ -1,7 +1,6 @@
 import { Formik, Field } from 'formik';
 import { Button } from 'hds-react';
 import React from 'react';
-import { useTranslation } from 'react-i18next';
 
 import ErrorMessage from '../../../common/components/form/ErrorMessage';
 import CheckboxField from '../../../common/components/form/fields/CheckboxField';
@@ -13,10 +12,9 @@ import FormGroup from '../../../common/components/form/FormGroup';
 import { PRIVACY_POLICY_LINKS } from '../../../constants';
 import { Language, StudyLevel } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
-import { Link } from '../../../i18n';
+import { useTranslation } from '../../../i18n';
 import { translateValue } from '../../../utils/translateUtils';
 import Container from '../../app/layout/Container';
-import { ROUTES } from '../../app/routes/constants';
 import styles from './enrolmentForm.module.scss';
 import ValidationSchema from './ValidationSchema';
 

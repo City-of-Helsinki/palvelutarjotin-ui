@@ -1,10 +1,9 @@
 import { useRouter } from 'next/router';
 import React, { ReactElement } from 'react';
-import { useTranslation } from 'react-i18next';
 
 import LoadingSpinner from '../../common/components/loadingSpinner/LoadingSpinner';
 import { useEventsQuery, EventsQuery } from '../../generated/graphql';
-import { Router } from '../../i18n';
+import { Router, useTranslation } from '../../i18n';
 import getPageNumberFromUrl from '../../utils/getPageNumberFromUrl';
 import Container from '../app/layout/Container';
 import PageWrapper from '../app/layout/PageWrapper';

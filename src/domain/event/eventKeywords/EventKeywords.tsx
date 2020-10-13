@@ -1,8 +1,8 @@
 import React, { ReactElement } from 'react';
-import { useTranslation } from 'react-i18next';
 
 import { EventFieldsFragment } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
+import { useTranslation } from '../../../i18n';
 import getLocalisedString from '../../../utils/getLocalisedString';
 import { isEventFree } from '../utils';
 import styles from './eventKeywords.module.scss';

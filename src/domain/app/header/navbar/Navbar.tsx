@@ -1,7 +1,6 @@
 import * as React from 'react';
-import { useTranslation } from 'react-i18next';
 
-import { Link } from '../../../../i18n';
+import { Link, useTranslation } from '../../../../i18n';
 import Container from '../../layout/Container';
 import { ROUTES } from '../../routes/constants';
 import LanguageDropdown from '../languageDropdown/LanguageDropdown';

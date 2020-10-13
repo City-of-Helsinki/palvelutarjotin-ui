@@ -1,8 +1,8 @@
 import React from 'react';
-import { useTranslation } from 'react-i18next';
 
 import TextTitle from '../../../common/components/textTitle/TextTitle';
 import { useVenueQuery } from '../../../generated/graphql';
+import { useTranslation } from '../../../i18n';
 import IconFood from '../../../icons/IconFood';
 import IconGarderobe from '../../../icons/IconGarderobe';
 import { Language } from '../../../types';

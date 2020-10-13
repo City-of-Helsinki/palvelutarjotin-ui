@@ -1,10 +1,9 @@
 import { Button, Dropdown } from 'hds-react';
 import React, { ReactElement } from 'react';
-import { useTranslation } from 'react-i18next';
 
 import LoadingSpinner from '../../../common/components/loadingSpinner/LoadingSpinner';
 import { EventFieldsFragment } from '../../../generated/graphql';
-import { Router } from '../../../i18n';
+import { useTranslation } from '../../../i18n';
 import { translateValue } from '../../../utils/translateUtils';
 import { ROUTES } from '../../app/routes/constants';
 import EventCard from '../../event/eventCard/EventCard';

@@ -10,9 +10,9 @@ import parseDate from 'date-fns/parse';
 import { IconAngleLeft, IconAngleRight, IconCalendar } from 'hds-react';
 import uniqueId from 'lodash/uniqueId';
 import React, { useState } from 'react';
-import { useTranslation } from 'react-i18next';
 
 import useLocale from '../../../hooks/useLocale';
+import { useTranslation } from '../../../i18n';
 import SrOnly from '../SrOnly/SrOnly';
 import InputWrapper from '../textInput/InputWrapper';
 import inputStyles from '../textInput/inputWrapper.module.scss';

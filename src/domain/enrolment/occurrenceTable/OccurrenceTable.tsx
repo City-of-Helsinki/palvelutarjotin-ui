@@ -1,10 +1,10 @@
 import { Notification } from 'hds-react';
 import React from 'react';
-import { useTranslation } from 'react-i18next';
 
 import Table from '../../../common/components/table/Table';
 import { OccurrenceFieldsFragment } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
+import { useTranslation } from '../../../i18n';
 import formatDate from '../../../utils/formatDate';
 import formatTimeRange from '../../../utils/formatTimeRange';
 import PlaceText from '../../place/placeText/PlaceText';
