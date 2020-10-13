@@ -4,7 +4,7 @@
  * event_type => eventType
  * event_end_date => eventEndDate
  */
-export default (snakecase: string): string => {
+const toCamelCase = (snakecase: string): string => {
   return !!snakecase && snakecase.length
     ? snakecase[0].toLowerCase() +
         snakecase
@@ -13,3 +13,5 @@ export default (snakecase: string): string => {
           .replace(/(_[a-z, 0-9])/g, ($1) => $1.toUpperCase().replace('_', ''))
     : '';
 };
+
+export default toCamelCase;

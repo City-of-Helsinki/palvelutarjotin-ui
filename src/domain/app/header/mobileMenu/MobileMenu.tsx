@@ -1,10 +1,9 @@
 import classNames from 'classnames';
 import React from 'react';
-import { useTranslation } from 'react-i18next';
 
 import { SUPPORTED_LANGUAGES } from '../../../../constants';
 import useLocale from '../../../../hooks/useLocale';
-import { i18n } from '../../../../i18n';
+import { i18n, useTranslation } from '../../../../i18n';
 import { Language } from '../../../../types';
 import styles from './mobileMenu.module.scss';
 

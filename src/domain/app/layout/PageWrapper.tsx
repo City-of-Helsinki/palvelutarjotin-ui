@@ -1,9 +1,9 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import React from 'react';
-import { useTranslation } from 'react-i18next';
 
 import useLocale from '../../../hooks/useLocale';
+import { useTranslation } from '../../../i18n';
 
 interface Props {
   title?: string;

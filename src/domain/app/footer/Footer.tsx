@@ -1,11 +1,10 @@
 import classNames from 'classnames';
 import { Koros } from 'hds-react';
 import React from 'react';
-import { useTranslation } from 'react-i18next';
 
 import { PRIVACY_POLICY_LINKS } from '../../../constants';
 import useLocale from '../../../hooks/useLocale';
-import { Link } from '../../../i18n';
+import { useTranslation, Link } from '../../../i18n';
 import Container from '../layout/Container';
 import styles from './footer.module.scss';
 

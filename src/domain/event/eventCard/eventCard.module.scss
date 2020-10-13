@@ -32,6 +32,8 @@
   display: grid;
   cursor: pointer;
   background-color: var(--background-color-event-card);
+  text-decoration: none;
+  color: black;
 
   @include respond_above(sm) {
     grid-template-columns: var(--width-image) 1fr;

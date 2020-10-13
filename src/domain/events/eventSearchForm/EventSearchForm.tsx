@@ -1,13 +1,13 @@
 import { Field, Formik } from 'formik';
 import { Button, IconSearch } from 'hds-react';
 import React from 'react';
-import { useTranslation } from 'react-i18next';
 
 import DateInputField from '../../../common/components/form/fields/DateInputField';
 import DropdownField from '../../../common/components/form/fields/DropdownField';
 import PlaceSelectorField from '../../../common/components/form/fields/PlaceSelectorField';
 import TextInputField from '../../../common/components/form/fields/TextInputField';
 import { EVENT_LANGUAGES } from '../../../constants';
+import { useTranslation } from '../../../i18n';
 import Container from '../../app/layout/Container';
 import styles from './eventSearchForm.module.scss';
 

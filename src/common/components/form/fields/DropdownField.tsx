@@ -1,8 +1,8 @@
 import { FieldProps, FormikHelpers } from 'formik';
 import { Dropdown, DropdownProps } from 'hds-react';
 import React from 'react';
-import { useTranslation } from 'react-i18next';
 
+import { useTranslation } from '../../../../i18n';
 import { invalidFieldClass } from '../constants';
 import { getErrorText } from '../utils';
 

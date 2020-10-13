@@ -6,6 +6,9 @@ import useKeyboardNavigation from '../../../hooks/useDropdownKeyboardNavigation'
 import { Language } from '../../../types';
 import styles from './menuDropdown.module.scss';
 
+const useIsomorphicLayoutEffect =
+  typeof window !== 'undefined' ? React.useLayoutEffect : React.useEffect;
+
 export type MenuItem = {
   icon?: React.ReactElement;
   language?: Language;
@@ -170,7 +173,7 @@ const MenuDropdown: React.FC<MenuDropdownProps> = ({
     }
   };
 
-  React.useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     setupKeyboardNav();
     document.addEventListener('click', onDocumentClick);
     document.addEventListener('focusin', onDocumentFocusin);

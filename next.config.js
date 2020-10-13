@@ -1,9 +1,14 @@
-const withSass = require('@zeit/next-sass');
+const { nextI18NextRewrites } = require('next-i18next/rewrites');
 
-module.exports = withSass({
-  cssModules: true,
-  cssLoaderOptions: {
-    importLoaders: 1,
-    localIdentName: '[local]___[hash:base64:5]',
+const localeSubpaths = {
+  fi: 'fi',
+  en: 'en',
+  sv: 'sv',
+};
+
+module.exports = {
+  rewrites: async () => nextI18NextRewrites(localeSubpaths),
+  publicRuntimeConfig: {
+    localeSubpaths,
   },
-});
+};

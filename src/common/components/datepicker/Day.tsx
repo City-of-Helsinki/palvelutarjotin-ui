@@ -4,9 +4,9 @@ import formatDate from 'date-fns/format';
 import isSameDay from 'date-fns/isSameDay';
 import isToday from 'date-fns/isToday';
 import React, { useContext, useRef } from 'react';
-import { useTranslation } from 'react-i18next';
 
 import useLocale from '../../../hooks/useLocale';
+import { useTranslation } from '../../../i18n';
 import { dateLocales } from './constants';
 import styles from './datepicker.module.scss';
 import DatepickerContext from './datepickerContext';

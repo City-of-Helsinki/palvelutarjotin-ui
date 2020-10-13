@@ -1,13 +1,12 @@
 import { IconGlobe } from 'hds-react';
 import React from 'react';
-import { useTranslation } from 'react-i18next';
 
 import MenuDropdown, {
   MenuItem,
 } from '../../../../common/components/menuDropdown/MenuDropdown';
 import { SUPPORTED_LANGUAGES } from '../../../../constants';
 import useLocale from '../../../../hooks/useLocale';
-import { i18n } from '../../../../i18n';
+import { i18n, useTranslation } from '../../../../i18n';
 import { Language } from '../../../../types';
 
 const LanguageDropdown: React.FC = () => {
