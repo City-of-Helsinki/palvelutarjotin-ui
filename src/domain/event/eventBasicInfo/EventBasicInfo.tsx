@@ -5,6 +5,7 @@ import { EventFieldsFragment } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
 import { useTranslation } from '../../../i18n';
 import IconTicket from '../../../icons/IconTicket';
+import addUrlSlashes from '../../../utils/addUrlSlashes';
 import EventKeywords from '../eventKeywords/EventKeywords';
 import { getEventFields } from '../utils';
 import styles from './eventBasicInfo.module.scss';
@@ -48,7 +49,7 @@ const EventBasicInfo: React.FC<EventBasicInfoProps> = ({ event }) => {
         {infoUrl && (
           <div>
             <IconInfoCircle />
-            <a href={infoUrl} target="_blank" rel="noreferrer">
+            <a href={addUrlSlashes(infoUrl)} target="_blank" rel="noreferrer">
               {infoUrl}
             </a>
           </div>
