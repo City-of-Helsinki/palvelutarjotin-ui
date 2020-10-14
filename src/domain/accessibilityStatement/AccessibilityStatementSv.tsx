@@ -25,12 +25,6 @@ const AccessibilityStatementSv: FunctionComponent = () => {
         Denna webbplats förenlighet med tillgänglighetskraven är inte ännu
         bedömd.
       </p>
-      <h3>Erhållande av uppgifter i tillgänglig form</h3>
-      <p>
-        På grund av de nämnda bristerna kan innehåll som inte är tillgängligt
-        fås från den ansvarige för den här webbplatsen.
-      </p>
-      <p>Kultur- och fritidssektorn</p>
       <h2>Utarbetande av tillgänglighetsutlåtande</h2>
       <p>
         Detta utlåtande upprättades den{' '}

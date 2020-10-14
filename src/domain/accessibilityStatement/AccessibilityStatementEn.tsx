@@ -28,14 +28,6 @@ const AccessibilityStatementEn: FunctionComponent = () => {
         The accessibility compliance of this website has not yet been evaluated.
       </p>
 
-      <h2>Availability of information in an accessible format</h2>
-      <p>
-        Access to any content that cannot be accessed due to the shortcomings
-        mentioned earlier can be requested from the administrator of the
-        website.
-      </p>
-      <p>Culture and Leisure Division</p>
-
       <h2>Preparation of this accessibility statement</h2>
       <p>
         This statement was prepared on{' '}

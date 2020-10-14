@@ -25,13 +25,6 @@ const AccessibilityStatementFi: FunctionComponent = () => {
         Tämän verkkosivuston saavutettavuuden vaatimustenmukaisuutta ei ole
         vielä arvioitu.
       </p>
-      <h3>Tiedon saanti saavutettavassa muodossa</h3>
-      <p>
-        Mainituista puutteista johtuen saavuttamatta jäävää sisältöä voi pyytää
-        tämän sivuston ylläpitäjältä.
-        <br />
-        Kulttuurin ja vapaa-ajan toimiala
-      </p>
 
       <h2>Saavutettavuusselosteen laatiminen</h2>
       <p>
