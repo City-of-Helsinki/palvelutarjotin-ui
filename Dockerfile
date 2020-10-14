@@ -58,6 +58,9 @@ USER appuser
 # Copy build folder from stage 1
 COPY --from=staticbuilder --chown=appuser:appuser /app/.next /app/.next
 
+# Copy next.js config
+COPY --chown=appuser:appuser next.config.js /app/
+
 # Copy public package.json and yarn.lock files
 COPY --chown=appuser:appuser public package.json yarn.lock /app/
 
