@@ -2,11 +2,7 @@
 const addUrlSlashes = (url: string): string => {
   const protocolRegex = /^((https?:\/\/)|(\/\/))/i;
   const urlIsMissingProtocol = !protocolRegex.test(url);
-
-  if (urlIsMissingProtocol) {
-    return `//${url}`;
-  }
-  return url;
+  return urlIsMissingProtocol ? `//${url}` : url;
 };
 
 export default addUrlSlashes;
