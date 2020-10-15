@@ -37,18 +37,6 @@ const AccessibilityStatementSv: FunctionComponent = () => {
         arbetsanvisning och metoder som strävar efter att säkerställa
         webbplatsens tillgänglighet i alla arbetsfaser.
       </p>
-      <p>
-        Tillgängligheten är kontrollerad genom revision av en extern expert samt
-        genom egen utvärdering.
-      </p>
-      <p>
-        Tillgängligheten är kontrollerad med hjälp av automatisk
-        tillgänglighetskontroll samt manuell kontroll av webbplatsen och
-        innehållet. Automatisk granskning av tillgängligheten har utförts med
-        det automatiska testningsverktyget och webbläsartillägget Siteimprove.
-        Den externa expertrevisionen har utförts av Helsingfors stads
-        servicecentral.
-      </p>
       <h3>Uppdatering av tillgänglighetsutlåtande</h3>
       <p>
         Webbplatsens tillgänglighet kontrolleras genom kontinuerlig tillsyn när
