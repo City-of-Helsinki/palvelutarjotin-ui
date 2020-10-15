@@ -41,21 +41,6 @@ const AccessibilityStatementEn: FunctionComponent = () => {
         followed when evaluating the accessibility of the site, with the aim of
         ensuring that websites are accessible in all stages of the work process.
       </p>
-      <p>
-        Accessibility was evaluated by means of an audit by a third-party expert
-        as well as self-evaluation.
-      </p>
-      <p>
-        Accessibility was evaluated using a programmatic accessibility auditing
-        tool as well as by manually reviewing the site and content. The
-        programmatic assessment was carried out by using an automatic
-        accessibility testing tool and a browser extension provided by
-        Siteimprove.
-      </p>
-      <p>
-        The third party expert audit was carried out by the City of Helsinki
-        Service Centre enterprise.
-      </p>
 
       <h3>Updating the accessibility statement</h3>
       <p>

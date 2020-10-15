@@ -37,20 +37,6 @@ const AccessibilityStatementFi: FunctionComponent = () => {
         työohjetta ja menetelmiä, jotka pyrkivät varmistamaan sivuston
         saavutettavuuden kaikissa työvaiheissa.
       </p>
-      <p>
-        Saavutettavuus on tarkistettu ulkopuolisen asiantuntijan suorittamana
-        auditointina sekä itsearviona.
-      </p>
-      <p>
-        Saavutettavuus on tarkistettu käyttäen ohjelmallista
-        saavutettavuustarkistusta sekä sivuston ja sisällön manuaalista
-        tarkistusta. Ohjelmallinen tarkistus on suoritettu käyttäen Siteimproven
-        saavutettavuuden automaattista testaustyökalua ja selainlaajennusta.
-      </p>
-      <p>
-        Ulkopuolisen asiantuntija-auditoinnin on suorittanut Helsingin kaupungin
-        palvelukeskus-liikelaitos.
-      </p>
       <h3>Saavutettavuusselosteen päivittäminen</h3>
       <p>
         Sivuston saavutettavuudesta huolehditaan jatkuvalla valvonnalla
