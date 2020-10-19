@@ -52,6 +52,8 @@ RUN yarn build
 FROM helsinkitest/node:12-slim AS production
 # ==========================================
 
+ARG NEXT_PUBLIC_CAPTCHA_KEY
+
 # Use non-root user
 USER appuser
 

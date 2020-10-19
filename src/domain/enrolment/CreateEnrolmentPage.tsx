@@ -32,10 +32,6 @@ import EventInfo from './eventInfo/EventInfo';
 import OccurrenceTable from './occurrenceTable/OccurrenceTable';
 import { getEnrolmentPayload, getCAPTCHAToken } from './utils';
 
-type Err = {
-  moi: string;
-};
-
 const CreateEnrolmentPage: React.FC = () => {
   const { t } = useTranslation();
   const locale = useLocale();
