@@ -68,12 +68,12 @@ const CreateEnrolmentPage: React.FC = () => {
     () => ({
       ...defaultInitialValues,
       minGroupSize: Math.max(
-        ...filteredOccurrences.map((item) => item.minGroupSize)
+        ...filteredOccurrences.map((item) => item?.minGroupSize || 0)
       ),
       maxGroupSize: Math.min(
         ...filteredOccurrences.map((item) =>
           Math.min(
-            item.maxGroupSize,
+            item?.maxGroupSize || item.amountOfSeats,
             item.amountOfSeats - (item.seatsTaken || 0)
           )
         )

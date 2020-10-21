@@ -8,10 +8,8 @@ import {
 export const hasOccurrenceSpace = (
   occurrence: OccurrenceFieldsFragment
 ): boolean => {
-  return (
-    occurrence.minGroupSize <
-    occurrence.amountOfSeats - (occurrence.seatsTaken || 0)
-  );
+  const minGroupSize = occurrence?.minGroupSize || 0;
+  return minGroupSize < occurrence.amountOfSeats - (occurrence.seatsTaken || 0);
 };
 
 export const isEnrolmentStarted = (
