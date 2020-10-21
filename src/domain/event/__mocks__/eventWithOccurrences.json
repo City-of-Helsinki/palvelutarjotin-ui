@@ -51,7 +51,6 @@
       ],
       "pEvent": {
         "id": "UGFsdmVsdXRhcmpvdGluRXZlbnROb2RlOjcw",
-        "duration": 11,
         "nextOccurrenceDatetime": "",
         "lastOccurrenceDatetime": "",
         "enrolmentEndDays": 3,
@@ -82,7 +81,6 @@
                 "seatsTaken": 0,
                 "minGroupSize": 10,
                 "maxGroupSize": 20,
-                "autoAcceptance": true,
                 "languages": [
                   {
                     "id": "fi",
@@ -113,7 +111,6 @@
                 "seatsTaken": 0,
                 "minGroupSize": 10,
                 "maxGroupSize": 30,
-                "autoAcceptance": true,
                 "languages": [
                   {
                     "id": "en",
@@ -144,7 +141,6 @@
                 "seatsTaken": 0,
                 "minGroupSize": 10,
                 "maxGroupSize": 20,
-                "autoAcceptance": true,
                 "languages": [
                   {
                     "id": "fi",
@@ -175,7 +171,7 @@
                 "seatsTaken": 0,
                 "minGroupSize": 10,
                 "maxGroupSize": 20,
-                "autoAcceptance": true,
+
                 "languages": [
                   {
                     "id": "en",
@@ -206,7 +202,7 @@
                 "seatsTaken": 10,
                 "minGroupSize": 10,
                 "maxGroupSize": 20,
-                "autoAcceptance": true,
+
                 "languages": [
                   {
                     "id": "en",
@@ -237,7 +233,7 @@
                 "seatsTaken": 0,
                 "minGroupSize": 10,
                 "maxGroupSize": 20,
-                "autoAcceptance": true,
+
                 "languages": [
                   {
                     "id": "en",
@@ -268,7 +264,7 @@
                 "seatsTaken": 0,
                 "minGroupSize": 10,
                 "maxGroupSize": 20,
-                "autoAcceptance": true,
+
                 "languages": [
                   {
                     "id": "en",
@@ -299,7 +295,7 @@
                 "seatsTaken": 0,
                 "minGroupSize": 10,
                 "maxGroupSize": 20,
-                "autoAcceptance": true,
+
                 "languages": [
                   {
                     "id": "en",
@@ -330,7 +326,7 @@
                 "seatsTaken": 10,
                 "minGroupSize": 10,
                 "maxGroupSize": 20,
-                "autoAcceptance": true,
+
                 "languages": [
                   {
                     "id": "fi",
@@ -361,7 +357,7 @@
                 "seatsTaken": 0,
                 "minGroupSize": 10,
                 "maxGroupSize": 15,
-                "autoAcceptance": true,
+
                 "languages": [
                   {
                     "id": "fi",
@@ -392,7 +388,7 @@
                 "seatsTaken": 0,
                 "minGroupSize": 10,
                 "maxGroupSize": 20,
-                "autoAcceptance": true,
+
                 "languages": [
                   {
                     "id": "en",
@@ -423,7 +419,7 @@
                 "seatsTaken": 0,
                 "minGroupSize": 10,
                 "maxGroupSize": 20,
-                "autoAcceptance": true,
+
                 "languages": [
                   {
                     "id": "fi",

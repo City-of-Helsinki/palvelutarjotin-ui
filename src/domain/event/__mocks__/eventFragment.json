@@ -49,7 +49,6 @@
   ],
   "pEvent": {
     "id": "UGFsdmVsdXRhcmpvdGluRXZlbnROb2RlOjQ=",
-    "duration": 30,
     "enrolmentEndDays": null,
     "enrolmentStart": null,
     "neededOccurrences": 1,
@@ -65,7 +64,6 @@
             "amountOfSeats": 0,
             "minGroupSize": 10,
             "maxGroupSize": 20,
-            "autoAcceptance": false,
             "languages": [],
             "startTime": "2020-05-05T00:00:00+00:00",
             "endTime": "2020-05-05T00:00:00+00:00",

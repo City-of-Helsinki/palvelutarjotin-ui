@@ -120,6 +120,7 @@ export const fakeVenue = (overrides?: Partial<VenueNode>): VenueNode => ({
   id: faker.random.uuid(),
   hasClothingStorage: faker.random.boolean(),
   hasSnackEatingPlace: faker.random.boolean(),
+  outdoorActivity: faker.random.boolean(),
   translations: [
     {
       languageCode: 'FI' as Language,
@@ -148,12 +149,12 @@ export const fakePEvent = (
   overrides?: Partial<PalvelutarjotinEventNode>
 ): PalvelutarjotinEventNode => ({
   id: 'UGFsdmVsdXRhcmpvdGluRXZlbnROb2RlOjcw',
+  autoAcceptance: true,
   nextOccurrenceDatetime: '',
   lastOccurrenceDatetime: '',
   contactPerson: fakePerson(),
   contactEmail: 'test@email.com',
   contactPhoneNumber: '1233211234',
-  duration: 11,
   enrolmentEndDays: 3,
   enrolmentStart: '2020-07-13T06:00:00+00:00',
   neededOccurrences: 3,
@@ -197,7 +198,6 @@ export const fakeOccurrence = (
   amountOfSeats: 30,
   minGroupSize: 10,
   maxGroupSize: 20,
-  autoAcceptance: true,
   languages: [
     { id: 'en', name: 'English', __typename: 'LanguageType' },
     { id: 'fi', name: 'Finnish', __typename: 'LanguageType' },

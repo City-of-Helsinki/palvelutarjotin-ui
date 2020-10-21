@@ -11,7 +11,6 @@ export default [
     seatsTaken: 0,
     minGroupSize: 10,
     maxGroupSize: 20,
-    autoAcceptance: true,
     languages: [
       { id: 'fi', name: 'Finnish', __typename: 'LanguageType' },
       { id: 'en', name: 'English', __typename: 'LanguageType' },
@@ -31,7 +30,6 @@ export default [
     seatsTaken: 0,
     minGroupSize: 10,
     maxGroupSize: 30,
-    autoAcceptance: true,
     languages: [
       { id: 'en', name: 'English', __typename: 'LanguageType' },
       { id: 'fi', name: 'Finnish', __typename: 'LanguageType' },
@@ -51,7 +49,6 @@ export default [
     seatsTaken: 0,
     minGroupSize: 10,
     maxGroupSize: 20,
-    autoAcceptance: true,
     languages: [
       { id: 'fi', name: 'Finnish', __typename: 'LanguageType' },
       { id: 'en', name: 'English', __typename: 'LanguageType' },
@@ -71,7 +68,6 @@ export default [
     seatsTaken: 0,
     minGroupSize: 10,
     maxGroupSize: 20,
-    autoAcceptance: true,
     languages: [
       { id: 'en', name: 'English', __typename: 'LanguageType' },
       { id: 'fi', name: 'Finnish', __typename: 'LanguageType' },
@@ -91,7 +87,6 @@ export default [
     seatsTaken: 10,
     minGroupSize: 10,
     maxGroupSize: 20,
-    autoAcceptance: true,
     languages: [
       { id: 'en', name: 'English', __typename: 'LanguageType' },
       { id: 'fi', name: 'Finnish', __typename: 'LanguageType' },
@@ -111,7 +106,6 @@ export default [
     seatsTaken: 0,
     minGroupSize: 10,
     maxGroupSize: 20,
-    autoAcceptance: true,
     languages: [
       { id: 'en', name: 'English', __typename: 'LanguageType' },
       { id: 'fi', name: 'Finnish', __typename: 'LanguageType' },
@@ -131,7 +125,6 @@ export default [
     seatsTaken: 0,
     minGroupSize: 10,
     maxGroupSize: 20,
-    autoAcceptance: true,
     languages: [
       { id: 'en', name: 'English', __typename: 'LanguageType' },
       { id: 'fi', name: 'Finnish', __typename: 'LanguageType' },
@@ -151,7 +144,6 @@ export default [
     seatsTaken: 0,
     minGroupSize: 10,
     maxGroupSize: 20,
-    autoAcceptance: true,
     languages: [
       { id: 'en', name: 'English', __typename: 'LanguageType' },
       { id: 'fi', name: 'Finnish', __typename: 'LanguageType' },
@@ -171,7 +163,7 @@ export default [
     seatsTaken: 10,
     minGroupSize: 10,
     maxGroupSize: 20,
-    autoAcceptance: true,
+
     languages: [
       { id: 'fi', name: 'Finnish', __typename: 'LanguageType' },
       { id: 'en', name: 'English', __typename: 'LanguageType' },
@@ -191,7 +183,7 @@ export default [
     seatsTaken: 0,
     minGroupSize: 10,
     maxGroupSize: 15,
-    autoAcceptance: true,
+
     languages: [
       { id: 'fi', name: 'Finnish', __typename: 'LanguageType' },
       { id: 'en', name: 'English', __typename: 'LanguageType' },
@@ -211,7 +203,6 @@ export default [
     seatsTaken: 0,
     minGroupSize: 10,
     maxGroupSize: 20,
-    autoAcceptance: true,
     languages: [
       { id: 'en', name: 'English', __typename: 'LanguageType' },
       { id: 'fi', name: 'Finnish', __typename: 'LanguageType' },
@@ -231,7 +222,6 @@ export default [
     seatsTaken: 0,
     minGroupSize: 10,
     maxGroupSize: 20,
-    autoAcceptance: true,
     languages: [
       { id: 'fi', name: 'Finnish', __typename: 'LanguageType' },
       { id: 'en', name: 'English', __typename: 'LanguageType' },
