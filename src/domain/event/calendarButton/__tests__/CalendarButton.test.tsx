@@ -4,20 +4,33 @@ import { render, screen, waitFor } from '@testing-library/react';
 import * as ICS from 'ics';
 import React from 'react';
 
-import placeMock from '../../../../domain/place/__mocks__/place.json';
 import { PlaceDocument } from '../../../../generated/graphql';
+import {
+  fakeLocalizedObject,
+  fakePlace,
+} from '../../../../utils/mockDataUtils';
 import eventMock from '../../__mocks__/eventFragment.json';
 import CalendarButton from '../CalendarButton';
+
+const placeId = 'placeid-234324';
+const placeResult = {
+  data: {
+    place: fakePlace({
+      id: placeId,
+      name: fakeLocalizedObject('Lasten liikennekaupunki'),
+    }),
+  },
+};
 
 const mocks = [
   {
     request: {
       query: PlaceDocument,
       variables: {
-        id: placeMock.data.place.id,
+        id: placeId,
       },
     },
-    result: placeMock,
+    result: placeResult,
   },
 ];
 
