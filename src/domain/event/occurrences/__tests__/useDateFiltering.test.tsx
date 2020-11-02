@@ -1,9 +1,47 @@
-import { fireEvent } from '@testing-library/react';
-import format from 'date-fns/format';
 import { act, renderHook } from '@testing-library/react-hooks';
+import format from 'date-fns/format';
 
-import occurrences from '../__mocks__/occurrences';
+import { fakeOccurrence } from '../../../../utils/mockDataUtils';
 import { useDateFiltering } from '../useDateFiltering';
+
+const occurrences = [
+  fakeOccurrence({
+    startTime: '2020-07-14T09:00:00+00:00',
+  }),
+  fakeOccurrence({
+    startTime: '2020-07-15T09:00:00+00:00',
+  }),
+  fakeOccurrence({
+    startTime: '2020-07-16T09:00:00+00:00',
+  }),
+  fakeOccurrence({
+    startTime: '2020-07-20T09:00:00+00:00',
+  }),
+  fakeOccurrence({
+    startTime: '2020-07-21T09:00:00+00:00',
+  }),
+  fakeOccurrence({
+    startTime: '2020-07-22T09:00:00+00:00',
+  }),
+  fakeOccurrence({
+    startTime: '2020-07-23T09:00:00+00:00',
+  }),
+  fakeOccurrence({
+    startTime: '2020-07-27T09:00:00+00:00',
+  }),
+  fakeOccurrence({
+    startTime: '2020-07-28T09:00:00+00:00',
+  }),
+  fakeOccurrence({
+    startTime: '2020-07-29T09:00:00+00:00',
+  }),
+  fakeOccurrence({
+    startTime: '2020-07-30T09:30:00+00:00',
+  }),
+  fakeOccurrence({
+    startTime: '2020-07-31T09:00:00+00:00',
+  }),
+];
 
 const formatDate = (date: Date) => format(date, 'yyyy-MM-dd');
 
