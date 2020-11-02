@@ -1,6 +1,6 @@
 import { MockedProvider } from '@apollo/react-testing';
 import userEvent from '@testing-library//user-event';
-import { render, screen, waitFor, wait } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import * as ICS from 'ics';
 import React from 'react';
 
