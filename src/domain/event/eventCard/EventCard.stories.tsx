@@ -1,7 +1,9 @@
 import React, { ReactElement } from 'react';
 
-import event from '../__mocks__/eventFragment.json';
+import { fakeEvent } from '../../../utils/mockDataUtils';
 import EventCard from './EventCard';
+
+const event = fakeEvent();
 
 export default {
   title: 'EventCard',
@@ -13,7 +15,7 @@ export const Event = (): ReactElement => (
     <EventCard
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       //@ts-ignore
-      event={event}
+      event={{ event }}
     />
   </div>
 );

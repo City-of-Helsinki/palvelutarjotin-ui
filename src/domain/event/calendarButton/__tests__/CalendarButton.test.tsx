@@ -6,10 +6,10 @@ import React from 'react';
 
 import { PlaceDocument } from '../../../../generated/graphql';
 import {
+  fakeEvent,
   fakeLocalizedObject,
   fakePlace,
 } from '../../../../utils/mockDataUtils';
-import eventMock from '../../__mocks__/eventFragment.json';
 import CalendarButton from '../CalendarButton';
 
 const placeId = 'placeid-234324';
@@ -21,6 +21,8 @@ const placeResult = {
     }),
   },
 };
+
+const eventMock = fakeEvent();
 
 const mocks = [
   {
