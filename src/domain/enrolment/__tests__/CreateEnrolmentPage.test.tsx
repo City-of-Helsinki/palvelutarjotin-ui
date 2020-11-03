@@ -15,7 +15,7 @@ import {
   fakeLocalizedObject,
   fakeEvent,
   fakeOccurrences,
-  fakeLocation,
+  fakePlace,
 } from '../../../utils/mockDataUtils';
 import {
   render,
@@ -109,14 +109,14 @@ const mock3: MockedResponse[] = [
     },
     result: {
       data: {
-        place: fakeLocation({ name: fakeLocalizedObject('Kirjasto') }),
+        place: fakePlace({ name: fakeLocalizedObject('Kirjasto') }),
       },
     },
   },
   mockBase(
     fakeEvent({
       name: fakeLocalizedObject(eventName),
-      location: fakeLocation({ id: locationId }),
+      location: fakePlace({ id: locationId }),
       pEvent: fakePEvent({
         enrolmentStart: new Date(2020, 8, 7).toISOString(),
         enrolmentEndDays: 3,

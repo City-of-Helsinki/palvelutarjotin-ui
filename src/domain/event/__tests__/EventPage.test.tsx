@@ -20,11 +20,118 @@ import {
   VenueDocument,
 } from '../../../generated/graphql';
 import { Router as i18nRouter } from '../../../i18n';
+import {
+  fakeEvent,
+  fakeImage,
+  fakeKeyword,
+  fakeLocalizedObject,
+  fakeOccurrences,
+  fakeOrganisation,
+  fakePerson,
+  fakePEvent,
+  fakePlace,
+  fakeVenue,
+} from '../../../utils/mockDataUtils';
 import { ROUTES } from '../../app/routes/constants';
-import eventsMockData from '../__mocks__/eventWithOccurrences.json';
-import placeMock from '../__mocks__/placeMock.json';
-import venueMock from '../__mocks__/venueMock.json';
 import EventPage from '../EventPage';
+
+const data = {
+  id: 'palvelutarjotin:afzunowba4',
+  placeId: '123321123',
+  name: 'Testitapahtuma',
+  description: 'Tapahtuman pitkä kuvaus',
+  organisationName: 'Testiorganisaatio',
+  contactPersonName: 'contact person',
+  contactPersonEmail: 'testi@testaaja.fi',
+  contactPersonPhoneNumber: '123321123',
+  shortDescription: 'Tapahtuman lyhyt kuvaus',
+  imagePhotographerName: 'Valo valokuvaaja',
+  fakeAltText: 'Vaihtoehtoinen teksti',
+  neededOccurrences: 3,
+  placeName: 'Soukan kirjasto',
+  keywords: ['perheet', 'lapset'],
+  venueDescription: 'Venue description',
+  placeId1: 'sdgfdgsequrwtw',
+  placeId2: 'adsgfhwdgfnsagdbs',
+  placeId3: 'aghrewghher534643',
+};
+
+const eventResult = {
+  data: {
+    event: fakeEvent({
+      id: data.id,
+      name: fakeLocalizedObject(data.name),
+      description: fakeLocalizedObject(data.description),
+      shortDescription: fakeLocalizedObject(data.shortDescription),
+      location: fakePlace({ id: data.placeId }),
+      pEvent: fakePEvent({
+        enrolmentEndDays: 1,
+        enrolmentStart: '2020-07-13T06:00:00+00:00',
+        organisation: fakeOrganisation({ name: data.organisationName }),
+        contactPhoneNumber: data.contactPersonPhoneNumber,
+        contactEmail: data.contactPersonEmail,
+        contactPerson: fakePerson({
+          name: data.contactPersonName,
+        }),
+        occurrences: fakeOccurrences(11, [
+          {
+            startTime: '2020-07-15T09:00:00+00:00',
+            placeId: data.placeId,
+            id: data.placeId1,
+          },
+          {
+            startTime: '2020-07-16T09:00:00+00:00',
+            placeId: data.placeId,
+            id: data.placeId2,
+          },
+          {
+            startTime: '2020-07-19T09:00:00+00:00',
+            placeId: data.placeId,
+            id: data.placeId3,
+          },
+          { startTime: '2020-07-20T09:00:00+00:00', placeId: data.placeId },
+          { startTime: '2020-07-21T09:00:00+00:00', placeId: data.placeId },
+          { startTime: '2020-07-22T09:00:00+00:00', placeId: data.placeId },
+          { startTime: '2020-07-23T09:00:00+00:00', placeId: data.placeId },
+          { startTime: '2020-07-27T09:00:00+00:00', placeId: data.placeId },
+          { startTime: '2020-07-28T09:00:00+00:00', placeId: data.placeId },
+          { startTime: '2020-07-29T09:00:00+00:00', placeId: data.placeId },
+          { startTime: '2020-07-30T09:30:00+00:00', placeId: data.placeId },
+        ]),
+        neededOccurrences: data.neededOccurrences,
+      }),
+      images: [
+        fakeImage({
+          photographerName: data.imagePhotographerName,
+          altText: data.fakeAltText,
+        }),
+      ],
+      keywords: data.keywords.map((k) =>
+        fakeKeyword({ name: fakeLocalizedObject(k) })
+      ),
+    }),
+  },
+};
+
+const placeResult = {
+  data: {
+    place: fakePlace({ name: fakeLocalizedObject(data.placeName) }),
+  },
+};
+
+const venueResult = {
+  data: {
+    venue: fakeVenue({
+      translations: [
+        {
+          description: data.venueDescription,
+          languageCode: 'FI' as any,
+          __typename: 'VenueTranslationType',
+        },
+      ],
+    }),
+  },
+};
 
 configure({ defaultHidden: true });
 
@@ -33,45 +140,45 @@ const apolloMocks = [
     request: {
       query: EventDocument,
       variables: {
-        id: 'palvelutarjotin:afzunowba4',
+        id: data.id,
         include: ['keywords,location'],
       },
     },
-    result: eventsMockData,
+    result: eventResult,
   },
   {
     request: {
       query: PlaceDocument,
       variables: {
-        id: eventsMockData.data.event.location.id,
+        id: data.placeId,
       },
     },
-    result: placeMock,
+    result: placeResult,
   },
   {
     request: {
       query: VenueDocument,
       variables: {
-        id: eventsMockData.data.event.location.id,
+        id: data.placeId,
       },
     },
-    result: venueMock,
+    result: venueResult,
   },
 ];
 
-const eventData = eventsMockData.data.event;
+const eventData = eventResult.data.event;
 const originalUseRouter = Router.useRouter;
 
-const rowText = '27.07.2020 12:00 – 12:30 Soukan kirjasto 0 / 30 Ilmoittaudu';
+const rowText = `27.07.2020 12:00 – 12:30 ${data.placeName} 0 / 30 Ilmoittaudu`;
 
-advanceTo(new Date(2020, 6, 23));
+advanceTo(new Date(2020, 6, 14));
 
 beforeAll(() => {
   jest.setTimeout(30000);
   (Router.useRouter as any) = () => {
     return {
       query: {
-        eventId: eventsMockData.data.event.id,
+        eventId: eventResult.data.event.id,
       },
       asPath: '/fi/event/palvelutarjotin:afzunowba4',
     };
@@ -92,38 +199,33 @@ it('renders page and event information correctly', async () => {
 
   // wait for graphql request to complete
   await screen.findByRole('heading', {
-    name: eventData.name.fi,
+    name: data.name,
   });
 
   await waitFor(() => {
-    expect(screen.queryAllByText(placeMock.data.place.name.fi)).toHaveLength(
-      10
-    );
+    expect(screen.queryAllByText(data.placeName)).toHaveLength(10);
   });
 
   // items that should be found by text in the document
   const queryByText = [
-    eventData.description.fi,
-    eventData.pEvent.organisation.name,
-    `Kuva: ${eventData.images[0].photographerName}`,
+    data.description,
+    data.organisationName,
+    data.shortDescription,
+    `Kuva: ${data.imagePhotographerName}`,
+    data.contactPersonPhoneNumber,
+    data.contactPersonName,
+    data.contactPersonEmail,
     eventMessages.contactPerson,
-    eventData.pEvent.contactPhoneNumber,
-    eventData.pEvent.contactPerson.name,
-    eventData.pEvent.contactEmail,
   ];
 
   const queryByRole = [
     {
       role: 'heading',
-      name: eventData.name.fi,
-    },
-    {
-      role: 'heading',
-      name: eventData.shortDescription.fi,
+      name: data.name,
     },
     {
       role: 'img',
-      name: eventData.images[0].altText,
+      name: data.fakeAltText,
     },
   ];
 
@@ -133,21 +235,19 @@ it('renders page and event information correctly', async () => {
 
   queryByRole.forEach((item) => {
     expect(
-      screen.queryByRole(item.role, { name: item.name })
+      screen.getByRole(item.role, { name: item.name })
     ).toBeInTheDocument();
   });
 
   // Event image should have correct src url
   const eventImage = screen.queryByRole('img', {
-    name: eventData.images[0].altText,
+    name: data.fakeAltText,
   });
   expect(eventImage).toHaveAttribute('src', eventData.images[0].url);
 
   // All keywords should be found in the document
-  eventData.keywords.forEach((keyword) => {
-    expect(
-      screen.queryByText(keyword.name.fi, { exact: true })
-    ).toBeInTheDocument();
+  data.keywords.forEach((keyword) => {
+    expect(screen.queryByText(keyword, { exact: true })).toBeInTheDocument();
   });
 });
 
@@ -160,13 +260,11 @@ it('renders occurrences table and related stuff correctly', async () => {
 
   // wait for graphql request to complete
   await screen.findByRole('heading', {
-    name: eventData.name.fi,
+    name: data.name,
   });
 
   await waitFor(() => {
-    expect(screen.queryAllByText(placeMock.data.place.name.fi)).toHaveLength(
-      10
-    );
+    expect(screen.queryAllByText(data.placeName)).toHaveLength(10);
   });
 
   const occurrencesTitle = screen.queryByText(
@@ -219,17 +317,15 @@ it('selecting enrolments works and buttons have correct texts', async () => {
 
   // wait for graphql request to complete
   await screen.findByRole('heading', {
-    name: eventData.name.fi,
+    name: data.name,
   });
 
   await waitFor(() => {
-    expect(screen.queryAllByText(placeMock.data.place.name.fi)).toHaveLength(
-      10
-    );
+    expect(screen.queryAllByText(data.placeName)).toHaveLength(10);
   });
 
   let occurrenceEnrolmentButtons = screen.getAllByRole('button', {
-    name: 'Ilmoittaudu',
+    name: occurrenceMessages.occurrenceSelection.buttonEnrolOccurrence,
   });
 
   userEvent.click(occurrenceEnrolmentButtons[0]);
@@ -279,23 +375,23 @@ it('selecting enrolments works and buttons have correct texts', async () => {
     })
   );
 
-  // should be 3 buttons with valittu text and not diabled
+  // should be 3 buttons with valittu text and not disabled
   expect(
     screen
       .queryAllByRole('button', {
-        name: getSelectedOccurrencesButtonText(3, 3),
+        name: getSelectedOccurrencesButtonText(3, data.neededOccurrences),
       })
       .filter((button) => !button.hasAttribute('disabled'))
   ).toHaveLength(3);
 
-  // should be 2 disabled buttons with 'valittu' text
+  // should be 7 disabled buttons with 'valittu' text
   expect(
     screen
       .queryAllByRole('button', {
-        name: getSelectedOccurrencesButtonText(3, 3),
+        name: getSelectedOccurrencesButtonText(3, data.neededOccurrences),
       })
       .filter((button) => button.hasAttribute('disabled'))
-  ).toHaveLength(2);
+  ).toHaveLength(8);
 
   const originalRouter = i18nRouter.push;
   i18nRouter.push = jest.fn();
@@ -305,11 +401,7 @@ it('selecting enrolments works and buttons have correct texts', async () => {
   expect(i18nRouter.push).toHaveBeenCalledWith({
     pathname: ROUTES.CREATE_ENROLMENT.replace(':id', eventData.id as string),
     query: {
-      occurrences: [
-        'T2NjdXJyZW5jZU5vZGU6ODM=',
-        'T2NjdXJyZW5jZU5vZGU6ODQ=',
-        'T2NjdXJyZW5jZU5vZGU6ODU=',
-      ],
+      occurrences: [data.placeId1, data.placeId2, data.placeId3],
     },
   });
 
@@ -325,13 +417,11 @@ it('opens expanded area when clicked', async () => {
 
   // wait for graphql request to complete
   await screen.findByRole('heading', {
-    name: eventData.name.fi,
+    name: data.name,
   });
 
   await waitFor(() => {
-    expect(screen.queryAllByText(placeMock.data.place.name.fi)).toHaveLength(
-      10
-    );
+    expect(screen.queryAllByText(data.placeName)).toHaveLength(10);
   });
 
   const occurrenceRow = within(
@@ -351,9 +441,7 @@ it('opens expanded area when clicked', async () => {
   userEvent.click(expandButton);
 
   await waitFor(() => {
-    expect(
-      screen.queryByText(venueMock.data.venue.translations[0].description)
-    ).toBeInTheDocument();
+    expect(screen.queryByText(data.venueDescription)).toBeInTheDocument();
   });
 
   expect(
@@ -370,13 +458,11 @@ it('filters occurrence list correctly when sate filters are selected', async () 
 
   // wait for graphql request to complete
   await screen.findByRole('heading', {
-    name: eventData.name.fi,
+    name: data.name,
   });
 
   await waitFor(() => {
-    expect(screen.queryAllByText(placeMock.data.place.name.fi)).toHaveLength(
-      10
-    );
+    expect(screen.queryAllByText(data.placeName)).toHaveLength(10);
   });
 
   userEvent.click(
