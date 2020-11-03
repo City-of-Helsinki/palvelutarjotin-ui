@@ -1,3 +1,4 @@
+import { IconSignout } from 'hds-react';
 import React from 'react';
 
 import TextTitle from '../../../common/components/textTitle/TextTitle';
@@ -18,9 +19,11 @@ const VenueInfo: React.FC<Props> = ({ language, placeId }) => {
   const { t } = useTranslation();
   const { data: venueData } = useVenueQuery({ variables: { id: placeId } });
   const venueDescription = getVenueDescription(venueData, language);
-  const { hasClothingStorage, hasSnackEatingPlace } = getVenueFields(
-    venueData?.venue
-  );
+  const {
+    hasClothingStorage,
+    hasSnackEatingPlace,
+    outdoorActivity,
+  } = getVenueFields(venueData?.venue);
 
   return (
     <div className={styles.venueInfo}>
@@ -41,6 +44,12 @@ const VenueInfo: React.FC<Props> = ({ language, placeId }) => {
           <div>
             <IconGarderobe />
             {t('event:location.clothingStorage')}
+          </div>
+        )}
+        {outdoorActivity && (
+          <div>
+            <IconSignout />
+            {t('event:location.outdoorActivity')}
           </div>
         )}
       </div>

@@ -280,9 +280,9 @@ export type OccurrenceNode = Node & {
   languages: Array<LanguageType>;
   cancelled: Scalars['Boolean'];
   enrolments: EnrolmentNodeConnection;
-  remainingSeats?: Maybe<Scalars['Int']>;
-  seatsTaken?: Maybe<Scalars['Int']>;
-  seatsApproved?: Maybe<Scalars['Int']>;
+  remainingSeats: Scalars['Int'];
+  seatsTaken: Scalars['Int'];
+  seatsApproved: Scalars['Int'];
   linkedEvent?: Maybe<Event>;
 };
 
@@ -1903,7 +1903,7 @@ export type StudyGroupFieldsFragment = { __typename?: 'StudyGroupNode' } & Pick<
 
 export type VenueFieldsFragment = { __typename?: 'VenueNode' } & Pick<
   VenueNode,
-  'id' | 'hasClothingStorage' | 'hasSnackEatingPlace'
+  'id' | 'hasClothingStorage' | 'hasSnackEatingPlace' | 'outdoorActivity'
 > & {
     translations: Array<
       { __typename?: 'VenueTranslationType' } & Pick<
@@ -2087,6 +2087,7 @@ export const VenueFieldsFragmentDoc = gql`
     id
     hasClothingStorage
     hasSnackEatingPlace
+    outdoorActivity
     translations {
       languageCode
       description
