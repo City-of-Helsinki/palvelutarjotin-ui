@@ -1,19 +1,23 @@
 import { Field, Formik } from 'formik';
-import { Button, IconSearch } from 'hds-react';
+import { Button, IconSearch, IconPen } from 'hds-react';
 import React from 'react';
 
 import DateInputField from '../../../common/components/form/fields/DateInputField';
-import DropdownField from '../../../common/components/form/fields/DropdownField';
+import MultiDropdownField from '../../../common/components/form/fields/MultiDropdownField';
 import PlaceSelectorField from '../../../common/components/form/fields/PlaceSelectorField';
 import TextInputField from '../../../common/components/form/fields/TextInputField';
 import { EVENT_LANGUAGES } from '../../../constants';
 import { useTranslation } from '../../../i18n';
 import Container from '../../app/layout/Container';
 import styles from './eventSearchForm.module.scss';
+import { useKeywordOptions } from './useKeywordOptions';
 
 export type EventSearchFormValues = {
   text: string;
   inLanguage: EVENT_LANGUAGES[];
+  targetGroups: string[];
+  categories: string[];
+  additionalCriteria: string[];
   date: Date | null;
   endDate: Date | null;
   places: string[];
@@ -22,6 +26,9 @@ export type EventSearchFormValues = {
 const defaultInitialValues: EventSearchFormValues = {
   text: '',
   inLanguage: [],
+  targetGroups: [],
+  categories: [],
+  additionalCriteria: [],
   date: null,
   endDate: null,
   places: [],
@@ -47,6 +54,13 @@ const EventSearchForm = ({
       })),
     [t]
   );
+
+  const {
+    additionalCriteriaKeywords,
+    categoryKeywords,
+    targetGroups,
+  } = useKeywordOptions();
+
   return (
     <Formik
       initialValues={initialValues}
@@ -70,9 +84,52 @@ const EventSearchForm = ({
               <div className={styles.filtersRow}>
                 <Field
                   hideLabel
-                  multiselect
+                  name="targetGroups"
+                  component={MultiDropdownField}
+                  label={t('events:search.labelTargetGroups')}
+                  placeholder={t('events:search.labelTargetGroups')}
+                  clearButtonAriaLabel={t(
+                    'events:search.accessibility.audienceDropdown.clearButtonAriaLabel'
+                  )}
+                  selectedItemRemoveButtonAriaLabel={t(
+                    'events:search.accessibility.audienceDropdown.selectedItemRemoveButtonAriaLabel'
+                  )}
+                  options={targetGroups}
+                />
+                <Field
+                  hideLabel
+                  name="categories"
+                  component={MultiDropdownField}
+                  label={t('events:search.labelCategories')}
+                  placeholder={t('events:search.labelCategories')}
+                  clearButtonAriaLabel={t(
+                    'events:search.accessibility.categoryDropdown.clearButtonAriaLabel'
+                  )}
+                  selectedItemRemoveButtonAriaLabel={t(
+                    'events:search.accessibility.categoryDropdown.selectedItemRemoveButtonAriaLabel'
+                  )}
+                  options={categoryKeywords}
+                />
+                <Field
+                  hideLabel
+                  name="additionalCriteria"
+                  component={MultiDropdownField}
+                  label={t('events:search.labelOtherClassification')}
+                  placeholder={t('events:search.labelOtherClassification')}
+                  clearButtonAriaLabel={t(
+                    'events:search.accessibility.otherClassificationDropdown.clearButtonAriaLabel'
+                  )}
+                  selectedItemRemoveButtonAriaLabel={t(
+                    'events:search.accessibility.otherClassificationDropdown.selectedItemRemoveButtonAriaLabel'
+                  )}
+                  options={additionalCriteriaKeywords}
+                />
+              </div>
+              <div className={styles.filtersRow}>
+                <Field
+                  hideLabel
                   name="inLanguage"
-                  component={DropdownField}
+                  component={MultiDropdownField}
                   label={t('events:search.labelLanguage')}
                   placeholder={t('events:search.labelLanguage')}
                   options={languageOptions}
@@ -110,6 +167,7 @@ const EventSearchForm = ({
                     }}
                     type="button"
                     variant="supplementary"
+                    iconLeft={<IconPen />}
                   >
                     {t('events:search.buttonClear')}
                   </Button>

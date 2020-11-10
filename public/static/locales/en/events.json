@@ -25,6 +25,23 @@
     "labelDate": "From",
     "labelEndDate": "To",
     "labelPlaces": "Places",
-    "placeInputPlaceholder": "Write search word"
+    "labelCategories": "Categories",
+    "labelTargetGroups": "Target groups",
+    "labelOtherClassification": "Other classification",
+    "placeInputPlaceholder": "Write search word",
+    "accessibility": {
+      "audienceDropdown": {
+        "clearButtonAriaLabel": "Delete audience filters",
+        "selectedItemRemoveButtonAriaLabel": "Delete audience filter"
+      },
+      "categoryDropdown": {
+        "clearButtonAriaLabel": "Delete category filters",
+        "selectedItemRemoveButtonAriaLabel": "Delete category filter"
+      },
+      "otherClassificationDropdown": {
+        "clearButtonAriaLabel": "Delete other classification filters",
+        "selectedItemRemoveButtonAriaLabel": "Delete other classification filter"
+      }
+    }
   }
 }

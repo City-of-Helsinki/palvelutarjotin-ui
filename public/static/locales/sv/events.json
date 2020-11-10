@@ -25,6 +25,23 @@
     "labelDate": "från",
     "labelEndDate": "I slutet",
     "labelPlaces": "Platser",
-    "placeInputPlaceholder": "Skriv sökord"
+    "labelCategories": "Kategorier",
+    "labelTargetGroups": "Målgrupper",
+    "labelOtherClassification": "Annan klassificering",
+    "placeInputPlaceholder": "Skriv sökord",
+    "accessibility": {
+      "audienceDropdown": {
+        "clearButtonAriaLabel": "Ta bort målgruppsfilter",
+        "selectedItemRemoveButtonAriaLabel": "Ta bort publikfilter"
+      },
+      "categoryDropdown": {
+        "clearButtonAriaLabel": "Ta bort kategorifilter",
+        "selectedItemRemoveButtonAriaLabel": "Ta bort kategorifilter"
+      },
+      "otherClassificationDropdown": {
+        "clearButtonAriaLabel": "Ta bort andra klassificeringsfilter",
+        "selectedItemRemoveButtonAriaLabel": "Ta bort annat klassificeringsfilter"
+      }
+    }
   }
 }

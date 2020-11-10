@@ -25,6 +25,23 @@
     "labelDate": "Alkaen",
     "labelEndDate": "Päättyen",
     "labelPlaces": "Paikat",
-    "placeInputPlaceholder": "Kirjoita hakusana"
+    "labelCategories": "Kategoriat",
+    "labelTargetGroups": "Kohderyhmät",
+    "labelOtherClassification": "Muu luokittelu",
+    "placeInputPlaceholder": "Kirjoita hakusana",
+    "accessibility": {
+      "audienceDropdown": {
+        "clearButtonAriaLabel": "Poista kohderyhmävalinnat",
+        "selectedItemRemoveButtonAriaLabel": "Poista kohderyhmä"
+      },
+      "categoryDropdown": {
+        "clearButtonAriaLabel": "Poista kategoriavalinnat",
+        "selectedItemRemoveButtonAriaLabel": "Poista kategoria"
+      },
+      "otherClassificationDropdown": {
+        "clearButtonAriaLabel": "Poista muut luokitteluvalinnat",
+        "selectedItemRemoveButtonAriaLabel": "Poista muu luokitteluvalinta"
+      }
+    }
   }
 }

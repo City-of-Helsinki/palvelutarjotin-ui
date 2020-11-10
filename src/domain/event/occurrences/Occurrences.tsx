@@ -5,6 +5,7 @@ import {
   Button,
   IconLocation,
   IconClock,
+  IconArrowDown,
 } from 'hds-react';
 import React from 'react';
 
@@ -303,7 +304,11 @@ const Occurrences: React.FC<Props> = ({
       />
       {showMoreButtonVisible && (
         <div className={styles.loadMoreButtonWrapper}>
-          <Button onClick={showMoreOccurrences} variant="supplementary">
+          <Button
+            onClick={showMoreOccurrences}
+            variant="supplementary"
+            iconLeft={<IconArrowDown />}
+          >
             {t('event:occurrenceList.loadMoreOccurrences')}
           </Button>
         </div>

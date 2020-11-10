@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { Button } from 'hds-react';
+import { Button, IconPen } from 'hds-react';
 import React from 'react';
 
 import Datepicker from '../../../common/components/datepicker/Datepicker';
@@ -39,6 +39,7 @@ const DateFilter: React.FC<DateFilterProps> = ({
           className={styles.resetDateFiltersButton}
           variant="supplementary"
           onClick={setInitialDateFilters}
+          iconLeft={<IconPen />}
         >
           {t('event:filters.deleteDateFilter')}
         </Button>
