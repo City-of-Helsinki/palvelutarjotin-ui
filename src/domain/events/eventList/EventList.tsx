@@ -1,4 +1,4 @@
-import { Button, Dropdown } from 'hds-react';
+import { Button, Dropdown, IconArrowDown } from 'hds-react';
 import React, { ReactElement } from 'react';
 
 import LoadingSpinner from '../../../common/components/loadingSpinner/LoadingSpinner';
@@ -78,7 +78,11 @@ const EventList = ({
       {shouldShowLoadMore && (
         <LoadingSpinner isLoading={isLoading}>
           <div className={styles.loadMoreButtonWrapper}>
-            <Button onClick={fetchMore} variant="supplementary">
+            <Button
+              onClick={fetchMore}
+              variant="supplementary"
+              iconLeft={<IconArrowDown />}
+            >
               {t('events:eventList.buttonLoadMore')}
             </Button>
           </div>

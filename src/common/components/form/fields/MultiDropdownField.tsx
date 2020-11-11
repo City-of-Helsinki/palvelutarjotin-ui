@@ -5,6 +5,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { invalidFieldClass } from '../constants';
+import styles from '../multiDropdownField.module.scss';
 import { getErrorText } from '../utils';
 
 export type Option = {
@@ -14,25 +15,27 @@ export type Option = {
 
 type Props = SelectProps<Option> &
   FieldProps & {
-    options: Option[];
-    defaultValue: Option;
+    defaultValue: Option[];
     setFieldValue?: (
       field: string,
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       value: any,
       shouldValidate?: boolean | undefined
     ) => void;
+    hideLabel: boolean;
+    clearButtonAriaLabel: string;
+    selectedItemRemoveButtonAriaLabel: string;
   };
 
-const DropdownField: React.FC<Props> = ({
+const MultiDropdownField: React.FC<Props> = ({
   className,
   field: { name, onBlur, onChange, value, ...field },
   form: { errors, touched },
   helper,
-  multiselect,
   options,
   placeholder,
   setFieldValue,
+  hideLabel,
   ...rest
 }) => {
   const { t } = useTranslation();
@@ -63,11 +66,6 @@ const DropdownField: React.FC<Props> = ({
     });
   };
 
-  const selectedValue = options.find((option) => option.value === value) || {
-    label: '',
-    value: '',
-  };
-
   return (
     <Select
       {...rest}
@@ -75,15 +73,23 @@ const DropdownField: React.FC<Props> = ({
       helper={errorText || helper}
       invalid={Boolean(errorText)}
       optionLabelField={'label'}
+      multiselect={true}
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       onChange={handleChange as (selectedItems: any) => void}
       options={options}
       id={name}
       placeholder={placeholder || t('common:dropdown.placeholder')}
-      value={selectedValue}
-      className={classNames(className, { [invalidFieldClass]: errorText })}
+      value={value
+        .map((item: string) => options.find((option) => option.value === item))
+        .filter((i: Option | undefined) => i)}
+      className={classNames(className, {
+        [invalidFieldClass]: errorText,
+        [styles.hideLabel]: hideLabel,
+      })}
+      // clearButtonAriaLabel="clearButtonAriaLabel"
+      // selectedItemRemoveButtonAriaLabel="selectedItemRemoveButtonAriaLabel"
     />
   );
 };
 
-export default DropdownField;
+export default MultiDropdownField;

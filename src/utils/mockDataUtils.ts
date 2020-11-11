@@ -29,6 +29,7 @@ import {
   PersonNodeConnection,
   PersonNodeEdge,
   Place,
+  PlaceListResponse,
   StudyGroupNode,
   StudyLevel,
   VenueNode,
@@ -92,6 +93,8 @@ export const fakeEvent = (overrides?: Partial<Event>): Event => {
     offers: [] as any,
     subEvents: [] as any,
     endTime: '2020-07-13T05:51:05.761000Z',
+    additionalCriteria: [],
+    categories: [],
     __typename: 'Event',
     ...overrides,
   };
@@ -169,7 +172,10 @@ export const fakePlace = (overrides?: Partial<Place>): Place => ({
   ...overrides,
 });
 
-export const fakePlaces = (count = 1, places?: Partial<Place>[]) => ({
+export const fakePlaces = (
+  count = 1,
+  places?: Partial<Place>[]
+): PlaceListResponse => ({
   meta: {
     __typename: 'Meta',
     count: count,

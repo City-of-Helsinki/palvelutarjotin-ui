@@ -44,11 +44,28 @@ export const getEventFilterVariables = (
   include: ['keywords,location'],
   text: getTextFromDict(query, 'text', undefined),
   inLanguage: getTextFromDict(query, 'inLanguage', undefined),
+  keywords: getKeywordsToQuery(query),
   start: getDateString(query.date) || 'now',
   end: getDateString(query.endDate),
   location: getTextFromDict(query, 'places', undefined),
   ...options,
 });
+
+const getKeywordsToQuery = ({
+  categories,
+  targetGroups,
+  additionalCriteria,
+}: {
+  categories?: string | string[];
+  targetGroups?: string | string[];
+  additionalCriteria?: string | string[];
+}) => {
+  return [
+    ...(Array.isArray(categories) ? categories : []),
+    ...(Array.isArray(targetGroups) ? targetGroups : []),
+    ...(Array.isArray(additionalCriteria) ? additionalCriteria : []),
+  ];
+};
 
 export const getDateString = (date?: string | string[]): string | null => {
   return typeof date === 'string' && isValidDate(new Date(date))
@@ -65,6 +82,9 @@ export const getInitialValues = (
     endDate: getInitialDate(query.endDate),
     inLanguage: queryParameterToArray(query.inLanguage as EVENT_LANGUAGES),
     places: queryParameterToArray(query.places),
+    targetGroups: queryParameterToArray(query.targetGroups),
+    categories: queryParameterToArray(query.categories),
+    additionalCriteria: queryParameterToArray(query.additionalCriteria),
   };
 };
 

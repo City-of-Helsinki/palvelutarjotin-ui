@@ -10,7 +10,13 @@ import {
   fakeLocalizedObject,
   fakeKeyword,
 } from '../../../utils/mockDataUtils';
-import { render, screen, act, configure } from '../../../utils/testUtils';
+import {
+  render,
+  screen,
+  act,
+  configure,
+  waitFor,
+} from '../../../utils/testUtils';
 import EventsPage from '../EventsPage';
 
 configure({ defaultHidden: true });
@@ -60,6 +66,7 @@ const mocks: MockedResponse[] = [
       query: EventsDocument,
       variables: {
         include: ['keywords,location'],
+        keywords: [],
         text: '',
         inLanguage: '',
         location: '',
