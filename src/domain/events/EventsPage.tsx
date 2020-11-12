@@ -37,7 +37,7 @@ const EventsPage = (): ReactElement => {
 
   const initialValues = React.useMemo(() => getInitialValues(query), [query]);
 
-  const { data: eventsData, fetchMore, loading, error } = useEventsQuery({
+  const { data: eventsData, fetchMore, loading } = useEventsQuery({
     ssr: false,
     variables: { ...variables, sort },
   });
