@@ -41,10 +41,10 @@ export const getEventFilterVariables = (
   query: NodeJS.Dict<string | string[]>,
   options?: EventFilterOptions
 ): EventsQueryVariables => ({
-  include: ['keywords,location'],
+  include: ['keywords', 'location'],
   text: getTextFromDict(query, 'text', undefined),
   inLanguage: getTextFromDict(query, 'inLanguage', undefined),
-  keywords: getKeywordsToQuery(query),
+  keyword: getKeywordsToQuery(query),
   start: getDateString(query.date) || 'now',
   end: getDateString(query.endDate),
   location: getTextFromDict(query, 'places', undefined),
@@ -59,12 +59,13 @@ const getKeywordsToQuery = ({
   categories?: string | string[];
   targetGroups?: string | string[];
   additionalCriteria?: string | string[];
-}) => {
-  return [
-    ...(Array.isArray(categories) ? categories : []),
-    ...(Array.isArray(targetGroups) ? targetGroups : []),
-    ...(Array.isArray(additionalCriteria) ? additionalCriteria : []),
-  ];
+}): string[] => {
+  return [categories, targetGroups, additionalCriteria].reduce<string[]>(
+    (prev, next) => {
+      return [...prev, ...(Array.isArray(next) ? next : next ? [next] : [])];
+    },
+    []
+  );
 };
 
 export const getDateString = (date?: string | string[]): string | null => {

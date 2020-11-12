@@ -39,7 +39,7 @@ const EventPage = (): ReactElement => {
   >([]);
 
   const { data: eventData, loading } = useEventQuery({
-    variables: { id: eventId as string, include: ['keywords,location'] },
+    variables: { id: eventId as string, include: ['keywords', 'location'] },
   });
 
   const enrolOccurrence = (occurrenceId: string) => {
