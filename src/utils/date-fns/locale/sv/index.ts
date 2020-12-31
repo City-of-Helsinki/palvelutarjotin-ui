@@ -8,7 +8,7 @@ const dayValues = {
   short: ['sö', 'må', 'ti', 'ons', 'to', 'fre', 'lö'],
   wide: ['söndag', 'måndag', 'tisdag', 'onsdag', 'torsdag', 'fredag', 'lördag'],
 };
-
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 (sv.localize as any).day = buildLocalizeFn({
   defaultWidth: 'wide',
   values: dayValues,

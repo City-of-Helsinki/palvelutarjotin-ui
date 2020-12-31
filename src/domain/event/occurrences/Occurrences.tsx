@@ -203,7 +203,7 @@ const Occurrences: React.FC<Props> = ({
       }: {
         value: OccurrenceFieldsFragment;
         row: {
-          getToggleRowExpandedProps: any;
+          getToggleRowExpandedProps: () => React.ComponentProps<'button'>;
           isExpanded: boolean;
         };
       }) => {
@@ -211,7 +211,7 @@ const Occurrences: React.FC<Props> = ({
           <button
             aria-label={t('occurrence:showOccurrenceDetails')}
             // row.isExpanded is undefined when is not expanded for some reason
-            aria-expanded={row.isExpanded ? true : false}
+            aria-expanded={row.isExpanded}
             {...row.getToggleRowExpandedProps()}
           >
             <IconAngleDown

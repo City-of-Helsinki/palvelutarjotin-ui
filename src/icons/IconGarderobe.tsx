@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { ReactComponentElement } from 'react';
 
 type Props = { className?: string };
 
-export default function IconGarderobe({ className = '' }: Props) {
+export default function IconGarderobe({
+  className = '',
+}: Props): ReactComponentElement<'svg', Props> {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

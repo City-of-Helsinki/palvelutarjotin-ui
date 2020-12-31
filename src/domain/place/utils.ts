@@ -13,7 +13,7 @@ export const generateHslLink = (
   streetAddress: string,
   addressLocality: string,
   locale: Language
-) => {
+): string => {
   return `https://www.reittiopas.fi/${locale}/?to=${streetAddress.replace(
     /\s+/g,
     '+'
@@ -26,16 +26,25 @@ export const generateHslLink = (
  * @param {string} locale
  * @return {string}
  */
-export const generateServiceMapLink = (id: string, locale: Language) => {
+export const generateServiceMapLink = (
+  id: string,
+  locale: Language
+): string => {
   const unitId = id.split(':')[1];
   return `https://palvelukartta.hel.fi/${locale}/unit/${unitId}`;
 };
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+type PlaceFields = {
+  name: string;
+  streetAddress: string;
+  telephone: string;
+  addressLocality: string;
+};
+
 export const getPlaceFields = (
   place: PlaceFieldsFragment | null | undefined,
   locale: Language
-) => {
+): PlaceFields => {
   return {
     name: getLocalizedString(place?.name, locale),
     streetAddress: getLocalizedString(place?.streetAddress, locale),

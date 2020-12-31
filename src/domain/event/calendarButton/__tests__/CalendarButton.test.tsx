@@ -4,7 +4,11 @@ import { render, screen, waitFor } from '@testing-library/react';
 import * as ICS from 'ics';
 import React from 'react';
 
-import { PlaceDocument } from '../../../../generated/graphql';
+import {
+  EventFieldsFragment,
+  OccurrenceFieldsFragment,
+  PlaceDocument,
+} from '../../../../generated/graphql';
 import {
   fakeEvent,
   fakeLocalizedObject,
@@ -22,7 +26,7 @@ const placeResult = {
   },
 };
 
-const eventMock = fakeEvent();
+const eventMock = fakeEvent() as EventFieldsFragment;
 
 const mocks = [
   {
@@ -39,6 +43,7 @@ const mocks = [
 const originalCreateEvent = ICS.createEvent;
 
 beforeAll(() => {
+  // eslint-disable-next-line  @typescript-eslint/no-explicit-any
   (ICS as any).createEvent = jest.fn();
 });
 
@@ -47,17 +52,18 @@ beforeEach(() => {
 });
 
 afterAll(() => {
+  // eslint-disable-next-line  @typescript-eslint/no-explicit-any
   (ICS as any).createEvent = originalCreateEvent;
 });
 
-const occurrence = {
+const occurrence: OccurrenceFieldsFragment = {
   startTime: '2020-07-15T09:00:00+00:00',
-};
+} as OccurrenceFieldsFragment;
 
 test('matches snapshot', async () => {
   const { container } = render(
     <MockedProvider mocks={mocks}>
-      <CalendarButton occurrence={occurrence as any} event={eventMock as any} />
+      <CalendarButton occurrence={occurrence} event={eventMock} />
     </MockedProvider>
   );
 
@@ -71,7 +77,7 @@ test('matches snapshot', async () => {
 test('renders correct label', async () => {
   render(
     <MockedProvider mocks={mocks}>
-      <CalendarButton occurrence={occurrence as any} event={eventMock as any} />
+      <CalendarButton occurrence={occurrence} event={eventMock} />
     </MockedProvider>
   );
 
@@ -85,7 +91,7 @@ test('renders correct label', async () => {
 test('works correctly when download button is clicked', async () => {
   render(
     <MockedProvider mocks={mocks}>
-      <CalendarButton occurrence={occurrence as any} event={eventMock as any} />
+      <CalendarButton occurrence={occurrence} event={eventMock} />
     </MockedProvider>
   );
 

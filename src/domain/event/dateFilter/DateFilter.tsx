@@ -6,7 +6,7 @@ import Datepicker from '../../../common/components/datepicker/Datepicker';
 import { useTranslation } from '../../../i18n';
 import styles from './dateFilter.module.scss';
 
-interface DateFilterProps {
+export interface DateFilterProps {
   dateFiltersChanged: boolean;
   setInitialDateFilters: () => void;
   setStartFilterDate: () => void;

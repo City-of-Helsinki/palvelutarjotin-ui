@@ -186,17 +186,6 @@ export const fakePlaces = (
   __typename: 'PlaceListResponse',
 });
 
-export const fakeKeywords = (count = 1, keywords?: Partial<Keyword>[]) => ({
-  meta: {
-    __typename: 'Meta',
-    count: count,
-    next: '',
-    previous: '',
-  },
-  data: generateNodeArray((i) => fakeKeyword(keywords?.[i]), count),
-  __typename: 'KeywordsListResponse',
-});
-
 export const fakeKeyword = (overrides?: Partial<Keyword>): Keyword => ({
   id: faker.random.uuid(),
   name: fakeLocalizedObject(),

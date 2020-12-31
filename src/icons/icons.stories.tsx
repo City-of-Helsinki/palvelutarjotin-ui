@@ -1,7 +1,7 @@
-import path from 'path';
+import * as path from 'path';
 
 import { storiesOf } from '@storybook/react';
-import React from 'react';
+import * as React from 'react';
 
 const Wrapper = ({ children, size }) => (
   <div

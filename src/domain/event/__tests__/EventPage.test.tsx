@@ -1,10 +1,10 @@
 import { MockedProvider } from '@apollo/react-testing';
 import {
+  configure,
   render,
   screen,
-  within,
   waitFor,
-  configure,
+  within,
 } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { advanceTo } from 'jest-date-mock';
@@ -16,6 +16,7 @@ import eventMessages from '../../../../public/static/locales/fi/event.json';
 import occurrenceMessages from '../../../../public/static/locales/fi/occurrence.json';
 import {
   EventDocument,
+  Language,
   PlaceDocument,
   VenueDocument,
 } from '../../../generated/graphql';
@@ -125,7 +126,7 @@ const venueResult = {
       translations: [
         {
           description: data.venueDescription,
-          languageCode: 'FI' as any,
+          languageCode: Language.Fi,
           __typename: 'VenueTranslationType',
         },
       ],
@@ -175,6 +176,7 @@ advanceTo(new Date(2020, 6, 14));
 
 beforeAll(() => {
   jest.setTimeout(30000);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   (Router.useRouter as any) = () => {
     return {
       query: {
@@ -187,6 +189,7 @@ beforeAll(() => {
 
 afterAll(() => {
   jest.setTimeout(5000);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   (Router.useRouter as any) = originalUseRouter;
 });
 

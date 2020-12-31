@@ -3,20 +3,24 @@ import React from 'react';
 
 import { OccurrenceFieldsFragment } from '../../../generated/graphql';
 import { isSameDayOrAfter, isSameDayOrBefore } from '../../../utils/dateUtils';
+import { DateFilterProps } from '../dateFilter/DateFilter';
 import { getFirstOrLastDateOfOccurrences } from '../utils';
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+type UseDateFilteringProps = DateFilterProps & {
+  filteredOccurrences: OccurrenceFieldsFragment[];
+};
+
 export const useDateFiltering = ({
   occurrences,
 }: {
   occurrences: OccurrenceFieldsFragment[];
-}) => {
+}): UseDateFilteringProps => {
   const [initialStartDate, initialEndDate] = React.useMemo(
     () => [
       getFirstOrLastDateOfOccurrences(occurrences, 'first'),
       getFirstOrLastDateOfOccurrences(occurrences, 'last'),
     ],
-    [occurrences.length]
+    [occurrences]
   );
 
   const [startDate, setStartDate] = React.useState(initialStartDate);
