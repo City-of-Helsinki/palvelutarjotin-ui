@@ -7,6 +7,7 @@ on:
   workflow_dispatch:
 env:
   TZ: Europe/Helsinki
+  SASS_PATH: './src/assets/styles'
 jobs:
   test:
     name: Test
