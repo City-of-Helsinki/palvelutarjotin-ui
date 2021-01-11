@@ -1,4 +1,4 @@
-import * as path from 'path';
+import path from 'path';
 
 import { storiesOf } from '@storybook/react';
 import * as React from 'react';
