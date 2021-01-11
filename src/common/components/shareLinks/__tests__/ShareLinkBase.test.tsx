@@ -23,7 +23,7 @@ test('should apply an aria label', () => {
   const { queryByLabelText } = getWrapper({
     linkLabel: testLabel,
     windowName: testWindowName,
-  } as any);
+  } as ShareLinkBaseProps);
 
   expect(queryByLabelText(testLabel)).not.toEqual(null);
 });
@@ -32,7 +32,7 @@ test('should have button attribute', () => {
   const { queryByLabelText } = getWrapper({
     linkLabel: testLabel,
     windowName: testWindowName,
-  } as any);
+  } as ShareLinkBaseProps);
 
   expect(queryByLabelText(testLabel)).toHaveAttribute('type', 'button');
 });
@@ -48,7 +48,8 @@ test('should launch sharing link in a pop up window with encoded uri components'
     queryParameters,
     url,
     windowName: testWindowName,
-  } as any);
+    icon: null,
+  } as ShareLinkBaseProps);
   const link = getByLabelText(testLabel);
 
   fireEvent.click(link);

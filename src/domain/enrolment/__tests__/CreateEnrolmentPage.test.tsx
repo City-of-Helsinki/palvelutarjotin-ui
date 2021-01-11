@@ -36,7 +36,7 @@ const eventName = 'Testitapahtuma';
 const locationId = 'locationId';
 
 configure({ defaultHidden: true });
-
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 (utils.getCAPTCHAToken as any) = jest.fn().mockResolvedValue('captcha-token');
 
 const mockBase = (event: Event): MockedResponse => ({
@@ -183,6 +183,7 @@ test('renders form and user can fill it and submit', async () => {
   const enrolOccurrenceMock = jest.fn();
   jest
     .spyOn(graphqlFns, 'useEnrolOccurrenceMutation')
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     .mockReturnValue([enrolOccurrenceMock] as any);
   render(<CreateEnrolmentPage />, {
     mocks: mock3,
@@ -244,7 +245,7 @@ test('renders form and user can fill it and submit', async () => {
 
   // select grade from dropdown
   userEvent.click(
-    screen.getByRole('button', { name: /luokka\-aste valitse\.\.\./i })
+    screen.getByRole('button', { name: /luokka-aste valitse\.\.\./i })
   );
   userEvent.click(screen.getByRole('option', { name: /4\. luokka/i }));
 

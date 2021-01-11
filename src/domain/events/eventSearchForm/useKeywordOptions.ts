@@ -7,7 +7,15 @@ import {
 import useLocale from '../../../hooks/useLocale';
 import getLocalizedString from '../../../utils/getLocalisedString';
 
-export const useKeywordOptions = () => {
+type Option = { label: string; value?: string | null };
+
+type KeyWordOptions = {
+  targetGroups: Option[];
+  categoryKeywords: Option[];
+  additionalCriteriaKeywords: Option[];
+};
+
+export const useKeywordOptions = (): KeyWordOptions => {
   const locale = useLocale();
 
   const { data: additionalCriteriaData } = useKeywordSetQuery({

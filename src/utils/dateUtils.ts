@@ -64,10 +64,10 @@ const getParsedDate = (value: string): Date =>
 
 /**
  * Convert string in Finnish date format (e.g. 31.12.2019) or in format without dots (e.g. 31122019) to Date object
- * @param value
  * @returns {object}
+ * @param str
  */
-export const convertFinnishDateStrToDate = (str: string) => {
+export const convertFinnishDateStrToDate = (str: string): Date | null => {
   let parsedDate = getParsedDate(str);
 
   if (isValidDate(parsedDate)) {

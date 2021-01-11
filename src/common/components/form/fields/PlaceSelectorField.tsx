@@ -13,7 +13,7 @@ interface Props extends DropdownProps, FieldProps {
   options: Option[];
   title: string;
   inputPlaceholder: string;
-  setFieldValue?: FormikHelpers<any>['setFieldValue'];
+  setFieldValue?: FormikHelpers<Option[]>['setFieldValue'];
 }
 
 const PlaceSelectorField: React.FC<Props> = ({

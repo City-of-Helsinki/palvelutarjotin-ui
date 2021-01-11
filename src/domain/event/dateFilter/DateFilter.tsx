@@ -6,11 +6,11 @@ import Datepicker from '../../../common/components/datepicker/Datepicker';
 import { useTranslation } from '../../../i18n';
 import styles from './dateFilter.module.scss';
 
-interface DateFilterProps {
+export interface DateFilterProps {
   dateFiltersChanged: boolean;
   setInitialDateFilters: () => void;
-  setStartFilterDate: () => void;
-  setEndFilterDate: () => void;
+  setStartFilterDate: (date?: Date | null) => void;
+  setEndFilterDate: (date?: Date | null) => void;
   isInitialStartDate: boolean;
   startDate: Date;
   isInitialEndDate: boolean;

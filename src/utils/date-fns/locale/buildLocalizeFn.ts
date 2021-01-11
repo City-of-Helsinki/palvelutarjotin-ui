@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 // This helper function is copied from
 // https://github.com/date-fns/date-fns/blob/master/src/locale/_lib/buildLocalizeFn/index.js
-const buildLocalizeFn = (args: any) => {
+export default (args: any) => {
   return function (dirtyIndex: number, dirtyOptions: any) {
     const options = dirtyOptions || {};
 
@@ -25,5 +26,3 @@ const buildLocalizeFn = (args: any) => {
     return valuesArray[index];
   };
 };
-
-export default buildLocalizeFn;

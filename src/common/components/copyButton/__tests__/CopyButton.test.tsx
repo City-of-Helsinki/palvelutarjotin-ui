@@ -42,7 +42,7 @@ test('should add success class for 4s after a successful copy', () => {
   const { getByLabelText } = getWrapper({
     className: testClass,
     successClass: testSuccessClass,
-  } as any);
+  } as CopyButtonProps);
 
   fireEvent.click(getByLabelText(testLabel));
   expect(getByLabelText(testLabel)).toHaveClass(testClass, testSuccessClass);

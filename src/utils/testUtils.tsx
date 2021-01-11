@@ -2,6 +2,7 @@ import { MockedProvider, MockedResponse } from '@apollo/react-testing';
 import { AnyAction, Store } from '@reduxjs/toolkit';
 import { render, RenderResult, fireEvent } from '@testing-library/react';
 import * as router from 'next/router';
+import { NextRouter } from 'next/router';
 import React from 'react';
 import { Provider } from 'react-redux';
 
@@ -19,9 +20,6 @@ export const enterKeyPressHelper = (): boolean =>
 export const escKeyPressHelper = (): boolean =>
   fireEvent.keyDown(document, { code: 27, key: 'Escape' });
 
-export const tabKeyPressHelper = (): boolean =>
-  fireEvent.keyDown(document, { code: 9, key: 'Tab' });
-
 const customRender: CustomRender = (
   ui,
   { mocks = [], store = reduxStore, path = '/', query = {} } = {}
@@ -32,7 +30,7 @@ const customRender: CustomRender = (
     asPath: path,
     route: '',
     basePath: path,
-  } as any);
+  } as NextRouter);
 
   const Wrapper: React.FC = ({ children }) => (
     <Provider store={store}>
@@ -51,9 +49,10 @@ type CustomRender = {
     ui: React.ReactElement,
     options?: {
       mocks?: MockedResponse[];
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       store?: Store<any, AnyAction>;
       path?: string;
-      query?: {};
+      query?: Record<string, unknown>;
     }
   ): CustomRenderResult;
 };

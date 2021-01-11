@@ -38,7 +38,7 @@ const EventList = ({
       };
     });
   }, [t]);
-
+  // eslint-disable-next-line  @typescript-eslint/no-explicit-any
   const handleSort = (option: { [key: string]: any }) => {
     setSort(option.value);
   };

@@ -10,13 +10,7 @@ import {
   fakeLocalizedObject,
   fakeKeyword,
 } from '../../../utils/mockDataUtils';
-import {
-  render,
-  screen,
-  act,
-  configure,
-  waitFor,
-} from '../../../utils/testUtils';
+import { render, screen, act, configure } from '../../../utils/testUtils';
 import EventsPage from '../EventsPage';
 
 configure({ defaultHidden: true });
@@ -121,11 +115,20 @@ test('renders search form and events list with correct information', async () =>
   ).toBeInTheDocument();
 
   eventMocks.forEach((event) => {
-    expect(screen.queryByText(event.name!.fi!)).toBeInTheDocument();
-    expect(screen.queryByText(event.description!.fi!)).toBeInTheDocument();
+    if (!event?.name?.fi) {
+      throw new Error('Event name is missing');
+    }
+    if (!event?.description?.fi) {
+      throw new Error('Event description is missing');
+    }
+    expect(screen.queryByText(event.name.fi)).toBeInTheDocument();
+    expect(screen.queryByText(event.description.fi)).toBeInTheDocument();
   });
 
   fakeKeywords.forEach((keyword) => {
-    expect(screen.getAllByText(keyword.name!.fi!)).toHaveLength(3);
+    if (!keyword?.name?.fi) {
+      throw new Error('keyword name is missing');
+    }
+    expect(screen.getAllByText(keyword.name.fi)).toHaveLength(3);
   });
 });

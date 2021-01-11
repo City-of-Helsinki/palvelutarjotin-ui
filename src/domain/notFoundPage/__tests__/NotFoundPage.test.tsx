@@ -11,7 +11,8 @@ test('renders correctly', () => {
   ).toBeInTheDocument();
   expect(
     screen.getByText(
-      'Pahoittelemme, mutta palvelussa ilmeni virhe. Voit yrittää uudestaan, mutta jos tilanne toistuu, kerro siitä meille alalaidan palautelinkin kautta.'
+      'Pahoittelemme, mutta palvelussa ilmeni virhe. Voit yrittää uudestaan, mutta jos tilanne toistuu, ' +
+        'kerro siitä meille alalaidan palautelinkin kautta.'
     )
   ).toBeInTheDocument();
   expect(
