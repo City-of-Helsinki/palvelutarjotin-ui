@@ -29,7 +29,7 @@ build-staging:
     DOCKER_BUILD_ARG_NEXT_PUBLIC_CAPTCHA_KEY: '$GL_QA_CAPTCHA_KEY'
   only:
     refs:
-      - develop
+      - master
 
 build-production:
   extends: .build
