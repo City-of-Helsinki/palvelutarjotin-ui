@@ -4,6 +4,7 @@ import { NormalizedCacheObject } from 'apollo-cache-inmemory';
 import { ApolloClient } from 'apollo-client';
 import flow from 'lodash/flow';
 import App from 'next/app';
+import { Router } from 'next/router';
 import React, { ErrorInfo } from 'react';
 import { Provider } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
@@ -35,6 +36,8 @@ class MyApp extends App<Props> {
         html.setAttribute('lang', lang);
       }
     });
+
+    this.setTabIndexOnRouteChange();
   }
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
@@ -45,6 +48,18 @@ class MyApp extends App<Props> {
     });
 
     super.componentDidCatch(error, errorInfo);
+  }
+
+  // next focuses body between route changes if it has tabIndex=-1
+  setTabIndexOnRouteChange() {
+    // see: https://github.com/vercel/next.js/issues/7681#issuecomment-603032899
+    Router.events.on('routeChangeStart', () => {
+      document.body.setAttribute('tabIndex', '-1');
+    });
+
+    document.body.addEventListener('blur', () => {
+      document.body.removeAttribute('tabIndex');
+    });
   }
 
   render() {
