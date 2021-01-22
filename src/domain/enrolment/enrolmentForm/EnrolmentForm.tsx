@@ -123,13 +123,11 @@ const EnrolmentForm: React.FC<Props> = ({
                 label={t(
                   'enrolment:enrolmentForm.studyGroup.notificationLabel'
                 )}
-              >
-                {t('enrolment:enrolmentForm.studyGroup.notificationText')}
-              </Notification>
+              />
               <FormGroup>
                 <Field
                   required
-                  aria-required="true"
+                  aria-required
                   labelText={t(
                     'enrolment:enrolmentForm.studyGroup.person.labelName'
                   )}
@@ -140,7 +138,7 @@ const EnrolmentForm: React.FC<Props> = ({
               <FormGroup>
                 <Field
                   required
-                  aria-required="true"
+                  aria-required
                   labelText={t(
                     'enrolment:enrolmentForm.studyGroup.person.labelEmailAddress'
                   )}
@@ -151,7 +149,7 @@ const EnrolmentForm: React.FC<Props> = ({
               <FormGroup>
                 <Field
                   required
-                  aria-required="true"
+                  aria-required
                   labelText={t(
                     'enrolment:enrolmentForm.studyGroup.person.labelPhoneNumber'
                   )}
@@ -162,7 +160,7 @@ const EnrolmentForm: React.FC<Props> = ({
               <FormGroup>
                 <Field
                   required
-                  aria-required="true"
+                  aria-required
                   labelText={t('enrolment:enrolmentForm.studyGroup.labelName')}
                   component={TextInputField}
                   name="studyGroup.name"
@@ -172,7 +170,7 @@ const EnrolmentForm: React.FC<Props> = ({
                 <FormGroup>
                   <Field
                     required
-                    aria-required="true"
+                    aria-required
                     helperText={t(
                       'enrolment:enrolmentForm.studyGroup.helperGroupName'
                     )}
@@ -187,7 +185,7 @@ const EnrolmentForm: React.FC<Props> = ({
                 <FormGroup>
                   <Field
                     required
-                    aria-required="true"
+                    aria-required
                     label={t(
                       'enrolment:enrolmentForm.studyGroup.labelStudyLevel'
                     )}
@@ -203,7 +201,7 @@ const EnrolmentForm: React.FC<Props> = ({
                 <FormGroup>
                   <Field
                     required
-                    aria-required="true"
+                    aria-required
                     labelText={t(
                       'enrolment:enrolmentForm.studyGroup.labelGroupSize'
                     )}
@@ -216,7 +214,7 @@ const EnrolmentForm: React.FC<Props> = ({
                 <FormGroup>
                   <Field
                     required
-                    aria-required="true"
+                    aria-required
                     labelText={t(
                       'enrolment:enrolmentForm.studyGroup.labelAmountOfAdult'
                     )}
@@ -334,7 +332,7 @@ const EnrolmentForm: React.FC<Props> = ({
                 <div className={styles.checkboxWrapper}>
                   <Field
                     required
-                    aria-required="true"
+                    aria-required
                     label={`${t(
                       'enrolment:enrolmentForm.labelIsSharingDataAccepted'
                     )} *`}

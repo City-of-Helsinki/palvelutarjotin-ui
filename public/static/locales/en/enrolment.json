@@ -30,8 +30,7 @@
       "labelStudyLevel": "Grade level",
       "titleGroup": "Group information",
       "titleNotifier": "Notifier information",
-      "notificationLabel": "Please fill the required information",
-      "notificationText": "Please fill the required information"
+      "notificationLabel": "Please fill the required information"
     },
     "titleNotifications": "Event notifications",
     "titleResponsiblePerson": "An adult in charge of the group during the event",

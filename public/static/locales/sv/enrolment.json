@@ -30,8 +30,7 @@
       "labelStudyLevel": "Betygsnivå",
       "titleGroup": "Gruppinformation",
       "titleNotifier": "Anmälaren informations",
-      "notificationLabel": "Please fill the required information",
-      "notificationText": "Please fill the required information"
+      "notificationLabel": "Fyll i informationen som saknas"
     },
     "titleNotifications": "Meddelanden om händelse",
     "titleResponsiblePerson": "An adult in charge of the group during the event",

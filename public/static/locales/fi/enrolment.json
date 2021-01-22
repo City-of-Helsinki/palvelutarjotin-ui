@@ -30,8 +30,7 @@
       "labelStudyLevel": "Luokka-aste",
       "titleGroup": "Ryhmän tiedot",
       "titleNotifier": "Ilmoittajan tiedot",
-      "notificationLabel": "Please fill the required information",
-      "notificationText": "Please fill the required information"
+      "notificationLabel": "Täytä puuttuvat tiedot"
     },
     "titleNotifications": "Tapahtumaa koskevat ilmoitukset",
     "titleResponsiblePerson": "Tapahtuman aikana ryhmästä vastuussa oleva aikuinen",

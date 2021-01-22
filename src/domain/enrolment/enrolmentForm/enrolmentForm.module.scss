@@ -51,5 +51,8 @@
 
   .notification {
     margin-bottom: var(--spacing-layout-xs);
+    svg {
+      margin-top: -4px;
+    }
   }
 }
