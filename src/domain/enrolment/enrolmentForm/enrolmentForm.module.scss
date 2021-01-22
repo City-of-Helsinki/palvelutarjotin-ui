@@ -51,8 +51,14 @@
 
   .notification {
     margin-bottom: var(--spacing-layout-xs);
-    svg {
-      margin-top: -4px;
-    }
+  }
+
+  .requiredIndicator {
+    color: var(--color-black-90);
+    display: inline-block;
+    font-size: var(--fontsize-body-xl);
+    line-height: 1;
+    margin-left: var(--spacing-2-xs);
+    transform: translateY(var(--spacing-3-xs));
   }
 }

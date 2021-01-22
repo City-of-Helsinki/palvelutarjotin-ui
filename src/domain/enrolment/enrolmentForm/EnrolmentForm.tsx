@@ -123,7 +123,9 @@ const EnrolmentForm: React.FC<Props> = ({
                 label={t(
                   'enrolment:enrolmentForm.studyGroup.notificationLabel'
                 )}
-              />
+              >
+                {t('enrolment:enrolmentForm.studyGroup.notificationText')}
+              </Notification>
               <FormGroup>
                 <Field
                   required
@@ -333,12 +335,13 @@ const EnrolmentForm: React.FC<Props> = ({
                   <Field
                     required
                     aria-required
-                    label={`${t(
+                    label={t(
                       'enrolment:enrolmentForm.labelIsSharingDataAccepted'
-                    )} *`}
+                    )}
                     component={CheckboxField}
                     name="isSharingDataAccepted"
                   />
+                  <span className={styles.requiredIndicator}>*</span>
                 </div>
               </FormGroup>
 
