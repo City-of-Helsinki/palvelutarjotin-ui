@@ -210,13 +210,13 @@ test('renders form and user can fill it and submit', async () => {
 
   expect(
     screen.queryByRole('row', {
-      name: '25.09.2020 12:30 – 12:30 Kirjasto 0 / 30',
+      name: '25.09.2020 12:30 – 12:30 Kirjasto 30 / 30',
     })
   ).toBeInTheDocument();
 
   expect(
     screen.queryByRole('row', {
-      name: '26.09.2020 13:20 – 12:30 Kirjasto 0 / 30',
+      name: '26.09.2020 13:20 – 12:30 Kirjasto 30 / 30',
     })
   ).toBeInTheDocument();
 

@@ -184,7 +184,7 @@ const Occurrences: React.FC<Props> = ({
     {
       Header: t('enrolment:occurrenceTable.columnSeatsInfo'),
       accessor: (row: OccurrenceFieldsFragment) =>
-        `${row.seatsTaken} / ${row.amountOfSeats}`,
+        `${row.amountOfSeats - row.seatsTaken} / ${row.amountOfSeats}`,
       id: 'seatsInfo',
     },
     {
