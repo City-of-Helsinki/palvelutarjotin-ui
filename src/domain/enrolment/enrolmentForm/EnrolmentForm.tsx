@@ -1,13 +1,14 @@
-import { Formik, Field } from 'formik';
-import { Button } from 'hds-react';
-import React from 'react';
+import { Formik, Field, useFormikContext } from 'formik';
+import { Button, Notification } from 'hds-react';
+import isEmpty from 'lodash/isEmpty';
+import React, { useEffect } from 'react';
 
 import ErrorMessage from '../../../common/components/form/ErrorMessage';
 import CheckboxField from '../../../common/components/form/fields/CheckboxField';
 import DropdownField from '../../../common/components/form/fields/DropdownField';
 import TextAreaField from '../../../common/components/form/fields/TextAreaField';
 import TextInputField from '../../../common/components/form/fields/TextInputField';
-import FocusToFirstError from '../../../common/components/form/FocusToFirstError';
+import { doFocus as focusToFirstError } from '../../../common/components/form/FocusToFirstError';
 import FormGroup from '../../../common/components/form/FormGroup';
 import { PRIVACY_POLICY_LINKS } from '../../../constants';
 import { Language, StudyLevel } from '../../../generated/graphql';
@@ -111,12 +112,16 @@ const EnrolmentForm: React.FC<Props> = ({
         errors,
         handleSubmit,
         touched,
+        submitCount,
         values: { isSameResponsiblePerson },
       }) => {
+        const showErrorNotification = !isEmpty(errors) && !!submitCount;
+        console.log(errors);
         return (
           <form className={styles.enrolmentForm} onSubmit={handleSubmit}>
-            <FocusToFirstError />
+            {/* <FocusToFirstError /> */}
             <Container size="small">
+              {showErrorNotification && <FormErrorNotification />}
               <h2>{t('enrolment:enrolmentForm.studyGroup.titleNotifier')}</h2>
               <FormGroup>
                 <Field
@@ -336,6 +341,52 @@ const EnrolmentForm: React.FC<Props> = ({
         );
       }}
     </Formik>
+  );
+};
+
+const FormErrorNotification: React.FC<{ label: string; text: string }> = ({
+  label,
+  text,
+}) => {
+  const { submitCount } = useFormikContext();
+  const containerRef = React.useRef<HTMLDivElement>(null);
+  const tabUsed = React.useRef<boolean>(false);
+
+  useEffect(() => {
+    containerRef.current?.focus();
+    tabUsed.current = false;
+  }, [submitCount]);
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (e.key === 'Tab' && !e.shiftKey) {
+      const focused = focusToFirstError();
+      if (focused) {
+        e.preventDefault();
+      }
+    }
+  };
+
+  // Focus first error element after tabbing from notification
+  const handleOnBlur = () => {
+    if (tabUsed.current) {
+      focusToFirstError();
+    }
+  };
+
+  return (
+    <div
+      className={styles.errorNotificationContainer}
+      role="alert"
+      tabIndex={-1}
+      ref={containerRef}
+      key={submitCount}
+      onBlur={handleOnBlur}
+      onKeyDown={handleKeyDown}
+    >
+      <Notification label="Täytä puuttuvien kenttien tiedot" type="error">
+        Seuraavien kenttien tiedot puuttuvat:
+      </Notification>
+    </div>
   );
 };
 
