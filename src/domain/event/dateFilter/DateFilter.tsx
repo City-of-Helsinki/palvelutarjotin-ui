@@ -59,7 +59,9 @@ const DateFilter: React.FC<DateFilterProps> = ({
           onChange={setStartFilterDate}
         />
       </div>
-      <span className={styles.dateSeparator}>-</span>
+      <span className={styles.dateSeparator} area-hidden="true">
+        -
+      </span>
       <div
         className={classNames(styles.dateFilter, {
           [styles.inactiveDateFilter]: isInitialEndDate,
