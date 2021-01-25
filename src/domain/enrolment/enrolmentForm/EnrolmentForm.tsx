@@ -1,5 +1,5 @@
 import { Formik, Field } from 'formik';
-import { Button } from 'hds-react';
+import { Button, Notification } from 'hds-react';
 import isEmpty from 'lodash/isEmpty';
 import React from 'react';
 
@@ -152,20 +152,32 @@ const EnrolmentForm: React.FC<Props> = ({
         return (
           <form className={styles.enrolmentForm} onSubmit={handleSubmit}>
             <Container size="small">
+              <h2>{t('enrolment:enrolmentForm.studyGroup.titleNotifier')}</h2>
               <FormErrorNotification
                 errors={errorLabelKeys}
                 visible={showErrorNotification}
               />
-              <h2>{t('enrolment:enrolmentForm.studyGroup.titleNotifier')}</h2>
+              <Notification
+                className={styles.notification}
+                label={t(
+                  'enrolment:enrolmentForm.studyGroup.notificationLabel'
+                )}
+              >
+                {t('enrolment:enrolmentForm.studyGroup.notificationText')}
+              </Notification>
               <FormGroup>
                 <Field
                   labelText={t(nameToLabelPath['studyGroup.person.name'])}
+                  required
+                  aria-required
                   component={TextInputField}
                   name="studyGroup.person.name"
                 />
               </FormGroup>
               <FormGroup>
                 <Field
+                  required
+                  aria-required
                   labelText={t(
                     nameToLabelPath['studyGroup.person.emailAddress']
                   )}
@@ -175,6 +187,8 @@ const EnrolmentForm: React.FC<Props> = ({
               </FormGroup>
               <FormGroup>
                 <Field
+                  required
+                  aria-required
                   labelText={t(
                     nameToLabelPath['studyGroup.person.phoneNumber']
                   )}
@@ -185,6 +199,8 @@ const EnrolmentForm: React.FC<Props> = ({
               <FormGroup>
                 <Field
                   labelText={t(nameToLabelPath['studyGroup.name'])}
+                  required
+                  aria-required
                   component={TextInputField}
                   name="studyGroup.name"
                 />
@@ -192,6 +208,8 @@ const EnrolmentForm: React.FC<Props> = ({
               <div className={styles.rowWith2Columns}>
                 <FormGroup>
                   <Field
+                    required
+                    aria-required
                     helperText={t(
                       'enrolment:enrolmentForm.studyGroup.helperGroupName'
                     )}
@@ -204,6 +222,8 @@ const EnrolmentForm: React.FC<Props> = ({
                 <FormGroup>
                   <Field
                     label={t(nameToLabelPath['studyGroup.studyLevel'])}
+                    required
+                    aria-required
                     component={DropdownField}
                     name="studyGroup.studyLevel"
                     options={studyLevelOptions}
@@ -216,6 +236,8 @@ const EnrolmentForm: React.FC<Props> = ({
                 <FormGroup>
                   <Field
                     labelText={t(nameToLabelPath['studyGroup.groupSize'])}
+                    required
+                    aria-required
                     component={TextInputField}
                     min={0}
                     name="studyGroup.groupSize"
@@ -225,6 +247,8 @@ const EnrolmentForm: React.FC<Props> = ({
                 <FormGroup>
                   <Field
                     labelText={t(nameToLabelPath['studyGroup.amountOfAdult'])}
+                    required
+                    aria-required
                     component={TextInputField}
                     min={0}
                     name="studyGroup.amountOfAdult"
@@ -327,9 +351,12 @@ const EnrolmentForm: React.FC<Props> = ({
                 <div className={styles.checkboxWrapper}>
                   <Field
                     label={t(nameToLabelPath['isSharingDataAccepted'])}
+                    required
+                    aria-required
                     component={CheckboxField}
                     name="isSharingDataAccepted"
                   />
+                  <span className={styles.requiredIndicator}>*</span>
                 </div>
               </FormGroup>
 
