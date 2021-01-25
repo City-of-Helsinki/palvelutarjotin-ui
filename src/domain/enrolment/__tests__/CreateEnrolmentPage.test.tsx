@@ -253,8 +253,8 @@ test('renders form and user can fill it and submit', async () => {
   // close dropdown
   userEvent.click(screen.getByRole('button', { name: /luokka-aste/i }));
 
-  userEvent.type(screen.getByLabelText('Lapsia'), '10');
-  userEvent.type(screen.getByLabelText('Aikuisia'), '2');
+  userEvent.type(screen.getByLabelText(/lapsia/i), '10');
+  userEvent.type(screen.getByLabelText(/aikuisia/i), '2');
 
   expect(
     screen.getByRole('checkbox', { name: /sama kuin ilmoittaja/i })
