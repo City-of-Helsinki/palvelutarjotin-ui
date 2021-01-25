@@ -26,6 +26,10 @@
       "max": "Arvon tulee olla enintään {{max}}"
     }
   },
+  "errorNotification": {
+    "title": "Virhe lomakkeessa",
+    "listTitle": "Tarkista seuraavat kentät"
+  },
   "placeInfo": {
     "buttonEdit": "Vaihda",
     "labelReittiopas": "Reittiopas:",

@@ -1,19 +1,20 @@
-import { Formik, Field, useFormikContext } from 'formik';
-import { Button, Notification } from 'hds-react';
+import { Formik, Field } from 'formik';
+import { Button } from 'hds-react';
 import isEmpty from 'lodash/isEmpty';
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import ErrorMessage from '../../../common/components/form/ErrorMessage';
 import CheckboxField from '../../../common/components/form/fields/CheckboxField';
 import DropdownField from '../../../common/components/form/fields/DropdownField';
 import TextAreaField from '../../../common/components/form/fields/TextAreaField';
 import TextInputField from '../../../common/components/form/fields/TextInputField';
-import { doFocus as focusToFirstError } from '../../../common/components/form/FocusToFirstError';
+import FormErrorNotification from '../../../common/components/form/FormErrorNotification';
 import FormGroup from '../../../common/components/form/FormGroup';
 import { PRIVACY_POLICY_LINKS } from '../../../constants';
 import { Language, StudyLevel } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
 import { useTranslation } from '../../../i18n';
+import keyify from '../../../utils/keyify';
 import { translateValue } from '../../../utils/translateUtils';
 import Container from '../../app/layout/Container';
 import styles from './enrolmentForm.module.scss';
@@ -75,6 +76,32 @@ export const defaultInitialValues: EnrolmentFormFields = {
   },
 };
 
+export const nameToLabelPath: Record<any, string> = {
+  'studyGroup.person.name': 'enrolment:enrolmentForm.person.labelName',
+  'studyGroup.person.phoneNumber':
+    'enrolment:enrolmentForm.person.labelPhoneNumber',
+  'studyGroup.person.emailAddress':
+    'enrolment:enrolmentForm.person.labelEmailAddress',
+  'studyGroup.name': 'enrolment:enrolmentForm.studyGroup.labelName',
+  'studyGroup.groupName': 'enrolment:enrolmentForm.studyGroup.labelGroupName',
+  'studyGroup.groupSize': 'enrolment:enrolmentForm.studyGroup.labelGroupSize',
+  'studyGroup.amountOfAdult':
+    'enrolment:enrolmentForm.studyGroup.labelAmountOfAdult',
+  'studyGroup.studyLevel': 'enrolment:enrolmentForm.studyGroup.labelStudyLevel',
+  'studyGroup.extraNeeds': 'enrolment:enrolmentForm.studyGroup.labelExtraNeeds',
+  hasEmailNotification: 'enrolment:enrolmentForm.labelHasEmailNotification',
+  hasSmsNotification: 'enrolment:enrolmentForm.labelHasSmsNotification',
+  isSameResponsiblePerson:
+    'enrolment:enrolmentForm.labelIsSameResponsiblePerson',
+  isSharingDataAccepted: 'enrolment:enrolmentForm.labelIsSharingDataAccepted',
+  language: 'enrolment:enrolmentForm.labelLanguage',
+  'person.name': 'enrolment:enrolmentForm.studyGroup.person.labelName',
+  'person.phoneNumber':
+    'enrolment:enrolmentForm.studyGroup.person.labelPhoneNumber',
+  'person.emailAddress':
+    'enrolment:enrolmentForm.studyGroup.person.labelEmailAddress',
+};
+
 interface Props {
   initialValues?: EnrolmentFormFields;
   onSubmit: (values: EnrolmentFormFields) => void;
@@ -116,18 +143,23 @@ const EnrolmentForm: React.FC<Props> = ({
         values: { isSameResponsiblePerson },
       }) => {
         const showErrorNotification = !isEmpty(errors) && !!submitCount;
-        console.log(errors);
+        const errorLabelKeys = keyify(errors)
+          .map((path) => {
+            return nameToLabelPath[path];
+          })
+          .filter((i) => i);
+
         return (
           <form className={styles.enrolmentForm} onSubmit={handleSubmit}>
-            {/* <FocusToFirstError /> */}
             <Container size="small">
-              {showErrorNotification && <FormErrorNotification />}
+              <FormErrorNotification
+                errors={errorLabelKeys}
+                visible={showErrorNotification}
+              />
               <h2>{t('enrolment:enrolmentForm.studyGroup.titleNotifier')}</h2>
               <FormGroup>
                 <Field
-                  labelText={t(
-                    'enrolment:enrolmentForm.studyGroup.person.labelName'
-                  )}
+                  labelText={t(nameToLabelPath['studyGroup.person.name'])}
                   component={TextInputField}
                   name="studyGroup.person.name"
                 />
@@ -135,7 +167,7 @@ const EnrolmentForm: React.FC<Props> = ({
               <FormGroup>
                 <Field
                   labelText={t(
-                    'enrolment:enrolmentForm.studyGroup.person.labelEmailAddress'
+                    nameToLabelPath['studyGroup.person.emailAddress']
                   )}
                   component={TextInputField}
                   name="studyGroup.person.emailAddress"
@@ -144,7 +176,7 @@ const EnrolmentForm: React.FC<Props> = ({
               <FormGroup>
                 <Field
                   labelText={t(
-                    'enrolment:enrolmentForm.studyGroup.person.labelPhoneNumber'
+                    nameToLabelPath['studyGroup.person.phoneNumber']
                   )}
                   component={TextInputField}
                   name="studyGroup.person.phoneNumber"
@@ -152,7 +184,7 @@ const EnrolmentForm: React.FC<Props> = ({
               </FormGroup>
               <FormGroup>
                 <Field
-                  labelText={t('enrolment:enrolmentForm.studyGroup.labelName')}
+                  labelText={t(nameToLabelPath['studyGroup.name'])}
                   component={TextInputField}
                   name="studyGroup.name"
                 />
@@ -163,9 +195,7 @@ const EnrolmentForm: React.FC<Props> = ({
                     helperText={t(
                       'enrolment:enrolmentForm.studyGroup.helperGroupName'
                     )}
-                    labelText={t(
-                      'enrolment:enrolmentForm.studyGroup.labelGroupName'
-                    )}
+                    labelText={t(nameToLabelPath['studyGroup.groupName'])}
                     component={TextInputField}
                     name="studyGroup.groupName"
                   />
@@ -173,9 +203,7 @@ const EnrolmentForm: React.FC<Props> = ({
 
                 <FormGroup>
                   <Field
-                    label={t(
-                      'enrolment:enrolmentForm.studyGroup.labelStudyLevel'
-                    )}
+                    label={t(nameToLabelPath['studyGroup.studyLevel'])}
                     component={DropdownField}
                     name="studyGroup.studyLevel"
                     options={studyLevelOptions}
@@ -187,9 +215,7 @@ const EnrolmentForm: React.FC<Props> = ({
               <div className={styles.rowWith2Columns}>
                 <FormGroup>
                   <Field
-                    labelText={t(
-                      'enrolment:enrolmentForm.studyGroup.labelGroupSize'
-                    )}
+                    labelText={t(nameToLabelPath['studyGroup.groupSize'])}
                     component={TextInputField}
                     min={0}
                     name="studyGroup.groupSize"
@@ -198,9 +224,7 @@ const EnrolmentForm: React.FC<Props> = ({
                 </FormGroup>
                 <FormGroup>
                   <Field
-                    labelText={t(
-                      'enrolment:enrolmentForm.studyGroup.labelAmountOfAdult'
-                    )}
+                    labelText={t(nameToLabelPath['studyGroup.amountOfAdult'])}
                     component={TextInputField}
                     min={0}
                     name="studyGroup.amountOfAdult"
@@ -213,9 +237,7 @@ const EnrolmentForm: React.FC<Props> = ({
                   helperText={t(
                     'enrolment:enrolmentForm.studyGroup.helperExtraNeeds'
                   )}
-                  labelText={t(
-                    'enrolment:enrolmentForm.studyGroup.labelExtraNeeds'
-                  )}
+                  labelText={t(nameToLabelPath['studyGroup.extraNeeds'])}
                   component={TextAreaField}
                   name="studyGroup.extraNeeds"
                 />
@@ -225,9 +247,7 @@ const EnrolmentForm: React.FC<Props> = ({
               <FormGroup>
                 <div className={styles.checkboxWrapper}>
                   <Field
-                    label={t(
-                      'enrolment:enrolmentForm.labelIsSameResponsiblePerson'
-                    )}
+                    label={t(nameToLabelPath['isSameResponsiblePerson'])}
                     component={CheckboxField}
                     name="isSameResponsiblePerson"
                   />
@@ -237,25 +257,21 @@ const EnrolmentForm: React.FC<Props> = ({
                 <>
                   <FormGroup>
                     <Field
-                      labelText={t('enrolment:enrolmentForm.person.labelName')}
+                      labelText={t(nameToLabelPath['person.name'])}
                       component={TextInputField}
                       name="person.name"
                     />
                   </FormGroup>
                   <FormGroup>
                     <Field
-                      labelText={t(
-                        'enrolment:enrolmentForm.person.labelEmailAddress'
-                      )}
+                      labelText={t(nameToLabelPath['person.emailAddress'])}
                       component={TextInputField}
                       name="person.emailAddress"
                     />
                   </FormGroup>
                   <FormGroup>
                     <Field
-                      labelText={t(
-                        'enrolment:enrolmentForm.person.labelPhoneNumber'
-                      )}
+                      labelText={t(nameToLabelPath['person.phoneNumber'])}
                       component={TextInputField}
                       name="person.phoneNumber"
                     />
@@ -270,9 +286,7 @@ const EnrolmentForm: React.FC<Props> = ({
                 <FormGroup>
                   <div className={styles.checkboxWrapper}>
                     <Field
-                      label={t(
-                        'enrolment:enrolmentForm.labelHasEmailNotification'
-                      )}
+                      label={t(nameToLabelPath['hasEmailNotification'])}
                       component={CheckboxField}
                       name="hasEmailNotification"
                     />
@@ -281,9 +295,7 @@ const EnrolmentForm: React.FC<Props> = ({
                 <FormGroup>
                   <div className={styles.checkboxWrapper}>
                     <Field
-                      label={t(
-                        'enrolment:enrolmentForm.labelHasSmsNotification'
-                      )}
+                      label={t(nameToLabelPath['hasSmsNotification'])}
                       component={CheckboxField}
                       name="hasSmsNotification"
                     />
@@ -291,7 +303,7 @@ const EnrolmentForm: React.FC<Props> = ({
                 </FormGroup>
                 <FormGroup>
                   <Field
-                    label={t('enrolment:enrolmentForm.labelLanguage')}
+                    label={t(nameToLabelPath['language'])}
                     component={DropdownField}
                     name="language"
                     options={languageOptions}
@@ -314,9 +326,7 @@ const EnrolmentForm: React.FC<Props> = ({
               <FormGroup>
                 <div className={styles.checkboxWrapper}>
                   <Field
-                    label={t(
-                      'enrolment:enrolmentForm.labelIsSharingDataAccepted'
-                    )}
+                    label={t(nameToLabelPath['isSharingDataAccepted'])}
                     component={CheckboxField}
                     name="isSharingDataAccepted"
                   />
@@ -341,52 +351,6 @@ const EnrolmentForm: React.FC<Props> = ({
         );
       }}
     </Formik>
-  );
-};
-
-const FormErrorNotification: React.FC<{ label: string; text: string }> = ({
-  label,
-  text,
-}) => {
-  const { submitCount } = useFormikContext();
-  const containerRef = React.useRef<HTMLDivElement>(null);
-  const tabUsed = React.useRef<boolean>(false);
-
-  useEffect(() => {
-    containerRef.current?.focus();
-    tabUsed.current = false;
-  }, [submitCount]);
-
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
-    if (e.key === 'Tab' && !e.shiftKey) {
-      const focused = focusToFirstError();
-      if (focused) {
-        e.preventDefault();
-      }
-    }
-  };
-
-  // Focus first error element after tabbing from notification
-  const handleOnBlur = () => {
-    if (tabUsed.current) {
-      focusToFirstError();
-    }
-  };
-
-  return (
-    <div
-      className={styles.errorNotificationContainer}
-      role="alert"
-      tabIndex={-1}
-      ref={containerRef}
-      key={submitCount}
-      onBlur={handleOnBlur}
-      onKeyDown={handleKeyDown}
-    >
-      <Notification label="Täytä puuttuvien kenttien tiedot" type="error">
-        Seuraavien kenttien tiedot puuttuvat:
-      </Notification>
-    </div>
   );
 };
 

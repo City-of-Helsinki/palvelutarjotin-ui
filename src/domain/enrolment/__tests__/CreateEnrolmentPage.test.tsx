@@ -265,11 +265,26 @@ test('renders form and user can fill it and submit', async () => {
     screen.getByRole('textbox', { name: /lisätiedot \(valinnainen\)/i }),
     'Lisätietoja ilmoittautumiseen'
   );
+
+  userEvent.click(
+    screen.getByRole('button', { name: /lähetä ilmoittautuminen/i })
+  );
+
+  const alertContainer = await screen.findByRole('alert');
+  expect(alertContainer).toHaveTextContent(/Virhe lomakkeessa/i);
+  expect(alertContainer).toHaveTextContent(
+    /hyväksyn tietojeni jakamisen tapahtuman järjestäjän kanssa/i
+  );
+
   userEvent.click(
     screen.getByRole('checkbox', {
       name: /hyväksyn tietojeni jakamisen tapahtuman järjestäjän kanssa/i,
     })
   );
+
+  await waitFor(() => {
+    expect(screen.queryByRole('alert')).not.toBeInTheDocument();
+  });
 
   userEvent.click(
     screen.getByRole('button', { name: /lähetä ilmoittautuminen/i })
