@@ -6,6 +6,7 @@ import React from 'react';
 import ErrorMessage from '../../../common/components/form/ErrorMessage';
 import CheckboxField from '../../../common/components/form/fields/CheckboxField';
 import DropdownField from '../../../common/components/form/fields/DropdownField';
+import MultiDropdownField from '../../../common/components/form/fields/MultiDropdownField';
 import TextAreaField from '../../../common/components/form/fields/TextAreaField';
 import TextInputField from '../../../common/components/form/fields/TextInputField';
 import FormErrorNotification from '../../../common/components/form/FormErrorNotification';
@@ -43,7 +44,7 @@ export type EnrolmentFormFields = {
     groupName: string;
     groupSize: string;
     amountOfAdult: string;
-    studyLevel: string;
+    studyLevel: string[];
     extraNeeds: string;
   };
 };
@@ -71,7 +72,7 @@ export const defaultInitialValues: EnrolmentFormFields = {
     groupName: '',
     groupSize: '',
     amountOfAdult: '',
-    studyLevel: '',
+    studyLevel: [],
     extraNeeds: '',
   },
 };
@@ -144,9 +145,7 @@ const EnrolmentForm: React.FC<Props> = ({
       }) => {
         const showErrorNotification = !isEmpty(errors) && !!submitCount;
         const errorLabelKeys = keyify(errors)
-          .map((path) => {
-            return nameToLabelPath[path];
-          })
+          .map((path) => nameToLabelPath[path])
           .filter((i) => i);
 
         return (
@@ -204,7 +203,7 @@ const EnrolmentForm: React.FC<Props> = ({
                 <FormGroup>
                   <Field
                     label={t(nameToLabelPath['studyGroup.studyLevel'])}
-                    component={DropdownField}
+                    component={MultiDropdownField}
                     name="studyGroup.studyLevel"
                     options={studyLevelOptions}
                   />

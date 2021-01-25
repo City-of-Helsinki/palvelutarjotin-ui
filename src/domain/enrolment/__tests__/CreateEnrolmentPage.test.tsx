@@ -248,6 +248,10 @@ test('renders form and user can fill it and submit', async () => {
     screen.getByRole('button', { name: /luokka-aste valitse\.\.\./i })
   );
   userEvent.click(screen.getByRole('option', { name: /4\. luokka/i }));
+  userEvent.click(screen.getByRole('option', { name: /2\. luokka/i }));
+
+  // close dropdown
+  userEvent.click(screen.getByRole('button', { name: /luokka-aste/i }));
 
   userEvent.type(screen.getByLabelText('Lapsia'), '10');
   userEvent.type(screen.getByLabelText('Aikuisia'), '2');
@@ -310,7 +314,7 @@ test('renders form and user can fill it and submit', async () => {
               name: 'Nimi Niminen',
               phoneNumber: '123321123123321123',
             },
-            studyLevel: 'GRADE_4',
+            studyLevel: ['GRADE_4', 'GRADE_2'],
           },
         },
       },
