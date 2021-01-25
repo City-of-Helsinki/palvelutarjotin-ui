@@ -1,5 +1,5 @@
 import { Formik, Field } from 'formik';
-import { Button } from 'hds-react';
+import { Button, Notification } from 'hds-react';
 import React from 'react';
 
 import ErrorMessage from '../../../common/components/form/ErrorMessage';
@@ -118,8 +118,18 @@ const EnrolmentForm: React.FC<Props> = ({
             <FocusToFirstError />
             <Container size="small">
               <h2>{t('enrolment:enrolmentForm.studyGroup.titleNotifier')}</h2>
+              <Notification
+                className={styles.notification}
+                label={t(
+                  'enrolment:enrolmentForm.studyGroup.notificationLabel'
+                )}
+              >
+                {t('enrolment:enrolmentForm.studyGroup.notificationText')}
+              </Notification>
               <FormGroup>
                 <Field
+                  required
+                  aria-required
                   labelText={t(
                     'enrolment:enrolmentForm.studyGroup.person.labelName'
                   )}
@@ -129,6 +139,8 @@ const EnrolmentForm: React.FC<Props> = ({
               </FormGroup>
               <FormGroup>
                 <Field
+                  required
+                  aria-required
                   labelText={t(
                     'enrolment:enrolmentForm.studyGroup.person.labelEmailAddress'
                   )}
@@ -138,6 +150,8 @@ const EnrolmentForm: React.FC<Props> = ({
               </FormGroup>
               <FormGroup>
                 <Field
+                  required
+                  aria-required
                   labelText={t(
                     'enrolment:enrolmentForm.studyGroup.person.labelPhoneNumber'
                   )}
@@ -147,6 +161,8 @@ const EnrolmentForm: React.FC<Props> = ({
               </FormGroup>
               <FormGroup>
                 <Field
+                  required
+                  aria-required
                   labelText={t('enrolment:enrolmentForm.studyGroup.labelName')}
                   component={TextInputField}
                   name="studyGroup.name"
@@ -155,6 +171,8 @@ const EnrolmentForm: React.FC<Props> = ({
               <div className={styles.rowWith2Columns}>
                 <FormGroup>
                   <Field
+                    required
+                    aria-required
                     helperText={t(
                       'enrolment:enrolmentForm.studyGroup.helperGroupName'
                     )}
@@ -168,6 +186,8 @@ const EnrolmentForm: React.FC<Props> = ({
 
                 <FormGroup>
                   <Field
+                    required
+                    aria-required
                     label={t(
                       'enrolment:enrolmentForm.studyGroup.labelStudyLevel'
                     )}
@@ -182,6 +202,8 @@ const EnrolmentForm: React.FC<Props> = ({
               <div className={styles.rowWith2Columns}>
                 <FormGroup>
                   <Field
+                    required
+                    aria-required
                     labelText={t(
                       'enrolment:enrolmentForm.studyGroup.labelGroupSize'
                     )}
@@ -193,6 +215,8 @@ const EnrolmentForm: React.FC<Props> = ({
                 </FormGroup>
                 <FormGroup>
                   <Field
+                    required
+                    aria-required
                     labelText={t(
                       'enrolment:enrolmentForm.studyGroup.labelAmountOfAdult'
                     )}
@@ -309,12 +333,15 @@ const EnrolmentForm: React.FC<Props> = ({
               <FormGroup>
                 <div className={styles.checkboxWrapper}>
                   <Field
+                    required
+                    aria-required
                     label={t(
                       'enrolment:enrolmentForm.labelIsSharingDataAccepted'
                     )}
                     component={CheckboxField}
                     name="isSharingDataAccepted"
                   />
+                  <span className={styles.requiredIndicator}>*</span>
                 </div>
               </FormGroup>
 

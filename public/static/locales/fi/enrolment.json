@@ -29,7 +29,9 @@
       "labelName": "Päiväkoti / koulu / oppilaitos",
       "labelStudyLevel": "Luokka-aste",
       "titleGroup": "Ryhmän tiedot",
-      "titleNotifier": "Ilmoittajan tiedot"
+      "titleNotifier": "Ilmoittajan tiedot",
+      "notificationLabel": "Täytä puuttuvat tiedot",
+      "notificationText": "Kaikki pakolliset kentät on merkitty *: llä"
     },
     "titleNotifications": "Tapahtumaa koskevat ilmoitukset",
     "titleResponsiblePerson": "Tapahtuman aikana ryhmästä vastuussa oleva aikuinen",
