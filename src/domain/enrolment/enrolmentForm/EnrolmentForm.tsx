@@ -12,12 +12,13 @@ import TextInputField from '../../../common/components/form/fields/TextInputFiel
 import FormErrorNotification from '../../../common/components/form/FormErrorNotification';
 import FormGroup from '../../../common/components/form/FormGroup';
 import { PRIVACY_POLICY_LINKS } from '../../../constants';
-import { Language, StudyLevel } from '../../../generated/graphql';
+import { Language } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
 import { useTranslation } from '../../../i18n';
 import keyify from '../../../utils/keyify';
 import { translateValue } from '../../../utils/translateUtils';
 import Container from '../../app/layout/Container';
+import useStudyLevels from '../../studyLevel/useStudyLevels';
 import {
   defaultInitialValues,
   EnrolmentFormFields,
@@ -38,15 +39,7 @@ const EnrolmentForm: React.FC<Props> = ({
   const { t } = useTranslation();
   const locale = useLocale();
 
-  const studyLevelOptions = Object.values(StudyLevel).map((level) => ({
-    label: level.startsWith('GRADE')
-      ? t('enrolment:studyLevel.grade_interval', {
-          postProcess: 'interval',
-          count: Number(level.split('_')[1]),
-        })
-      : translateValue('enrolment:studyLevel.', level, t),
-    value: level,
-  }));
+  const { options: studyLevelOptions } = useStudyLevels();
 
   const languageOptions = Object.values(Language).map((level) => ({
     label: translateValue('enrolment:language.', level, t),
@@ -147,12 +140,12 @@ const EnrolmentForm: React.FC<Props> = ({
 
                 <FormGroup>
                   <Field
-                    label={t(nameToLabelPath['studyGroup.studyLevel'])}
+                    label={t(nameToLabelPath['studyGroup.studyLevels'])}
                     component={MultiDropdownField}
                     required
                     aria-required
-                    name="studyGroup.studyLevel"
-                    options={studyLevelOptions}
+                    name="studyGroup.studyLevels"
+                    options={studyLevelOptions?.length ? studyLevelOptions : []}
                   />
                 </FormGroup>
               </div>

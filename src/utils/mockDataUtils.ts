@@ -31,7 +31,9 @@ import {
   Place,
   PlaceListResponse,
   StudyGroupNode,
-  StudyLevel,
+  StudyLevelNodeConnection,
+  StudyLevelNodeEdge,
+  StudyLevelNode,
   VenueNode,
 } from '../generated/graphql';
 
@@ -142,7 +144,7 @@ export const fakeStudyGroup = (
   person: fakePerson(),
   updatedAt: '',
   __typename: 'StudyGroupNode',
-  studyLevel: StudyLevel.Grade_5,
+  studyLevels: fakeStudyLevels(),
   ...overrides,
 });
 
@@ -291,6 +293,7 @@ export const fakeOccurrence = (
   startTime: '2020-08-03T09:00:00+00:00',
   endTime: '2020-08-03T09:30:00+00:00',
   placeId: '',
+  seatType: null as any,
   seatsTaken: 0,
   seatsApproved: 0,
   contactPersons: [] as any,
@@ -389,3 +392,53 @@ const generateNodeArray = <T extends (...args: any) => any>(
 ): ReturnType<T>[] => {
   return Array.from({ length }).map((_, i) => fakeFunc(i));
 };
+
+export enum StudyLevel {
+  Preschool = 'PRESCHOOL',
+  Grade_1 = 'GRADE_1',
+  Grade_2 = 'GRADE_2',
+  Grade_3 = 'GRADE_3',
+  Grade_4 = 'GRADE_4',
+  Grade_5 = 'GRADE_5',
+  Grade_6 = 'GRADE_6',
+  Grade_7 = 'GRADE_7',
+  Grade_8 = 'GRADE_8',
+  Grade_9 = 'GRADE_9',
+  Grade_10 = 'GRADE_10',
+  Secondary = 'SECONDARY',
+}
+
+export const fakeStudyLevels = (): StudyLevelNodeConnection => ({
+  edges: Object.values(StudyLevel).map((label: StudyLevel, level: number) => ({
+    node: fakeStudyLevel({ id: label, label, level }),
+    cursor: '',
+    __typename: 'StudyLevelNodeEdge',
+  })),
+  pageInfo: PageInfoMock,
+  __typename: 'StudyLevelNodeConnection',
+});
+
+export const fakeStudyLevel = (
+  overrides?: Partial<StudyLevelNode>
+): StudyLevelNode => ({
+  __typename: 'StudyLevelNode',
+  id: faker.random.word(),
+  label: faker.random.words(),
+  level: faker.random.number(),
+  translations: [
+    {
+      languageCode: 'FI' as Language,
+      label: faker.random.word(),
+      __typename: 'StudyLevelTranslationType',
+    },
+  ],
+  ...overrides,
+});
+
+export const fakeStudyLevelNodeEdge = (
+  overrides?: Partial<StudyLevelNode>
+): StudyLevelNodeEdge => ({
+  cursor: '',
+  node: fakeStudyLevel(overrides),
+  __typename: 'StudyLevelNodeEdge',
+});

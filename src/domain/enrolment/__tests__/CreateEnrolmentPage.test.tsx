@@ -9,6 +9,7 @@ import {
   EventDocument,
   OccurrenceNode,
   PlaceDocument,
+  StudyLevelsDocument,
 } from '../../../generated/graphql';
 import * as graphqlFns from '../../../generated/graphql';
 import {
@@ -17,6 +18,7 @@ import {
   fakeEvent,
   fakeOccurrences,
   fakePlace,
+  fakeStudyLevels,
 } from '../../../utils/mockDataUtils';
 import {
   render,
@@ -53,6 +55,18 @@ const mockBase = (event: Event): MockedResponse => ({
   },
 });
 
+const mockStudyLevels = (): MockedResponse => ({
+  request: {
+    query: StudyLevelsDocument,
+    variables: {},
+  },
+  result: {
+    data: {
+      studyLevels: fakeStudyLevels(),
+    },
+  },
+});
+
 // mock that has enrol time ended
 const occurrenceOverrides1: Partial<OccurrenceNode>[] = [
   { id: occurrenceId1, startTime: new Date(2020, 8, 10, 12, 30) },
@@ -73,6 +87,7 @@ const mock1: MockedResponse[] = [
       }),
     })
   ),
+  mockStudyLevels(),
 ];
 
 const occurrenceOverrides2: Partial<OccurrenceNode>[] = [
@@ -93,6 +108,7 @@ const mock2: MockedResponse[] = [
       }),
     })
   ),
+  mockStudyLevels(),
 ];
 
 const occurrenceOverrides3: Partial<OccurrenceNode>[] = [
@@ -127,6 +143,7 @@ const mock3: MockedResponse[] = [
       }),
     })
   ),
+  mockStudyLevels(),
 ];
 
 advanceTo(new Date(2020, 8, 8));
@@ -261,6 +278,7 @@ test('renders form and user can fill it and submit', async () => {
   userEvent.click(
     screen.getByRole('button', { name: /luokka-aste valitse\.\.\./i })
   );
+
   userEvent.click(screen.getByRole('option', { name: /4\. luokka/i }));
   userEvent.click(screen.getByRole('option', { name: /2\. luokka/i }));
 
@@ -328,7 +346,7 @@ test('renders form and user can fill it and submit', async () => {
               name: 'Nimi Niminen',
               phoneNumber: '123321123123321123',
             },
-            studyLevel: ['GRADE_4', 'GRADE_2'],
+            studyLevels: ['GRADE_4', 'GRADE_2'],
           },
         },
       },
