@@ -150,7 +150,11 @@ const EnrolmentForm: React.FC<Props> = ({
           .filter((i) => i);
 
         return (
-          <form className={styles.enrolmentForm} onSubmit={handleSubmit}>
+          <form
+            className={styles.enrolmentForm}
+            onSubmit={handleSubmit}
+            noValidate
+          >
             <Container size="small">
               <h2>{t('enrolment:enrolmentForm.studyGroup.titleNotifier')}</h2>
               <FormErrorNotification
