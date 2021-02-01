@@ -23,10 +23,11 @@ import {
   isEnrolmentStarted,
 } from '../occurrence/utils';
 import { ENROLMENT_URL_PARAMS, ENROLMENT_ERRORS } from './constants';
-import EnrolmentForm, {
+import {
   defaultInitialValues,
   EnrolmentFormFields,
-} from './enrolmentForm/EnrolmentForm';
+} from './enrolmentForm/constants';
+import EnrolmentForm from './enrolmentForm/EnrolmentForm';
 import styles from './enrolmentPage.module.scss';
 import EventInfo from './eventInfo/EventInfo';
 import OccurrenceTable from './occurrenceTable/OccurrenceTable';

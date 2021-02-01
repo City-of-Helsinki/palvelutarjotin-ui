@@ -1,4 +1,5 @@
 import { MockedResponse } from '@apollo/react-testing';
+import { axe } from 'jest-axe';
 import { advanceTo } from 'jest-date-mock';
 import React from 'react';
 import wait from 'waait';
@@ -24,6 +25,7 @@ import {
   waitFor,
   userEvent,
   configure,
+  within,
 } from '../../../utils/testUtils';
 import CreateEnrolmentPage from '../CreateEnrolmentPage';
 import * as utils from '../utils';
@@ -129,6 +131,18 @@ const mock3: MockedResponse[] = [
 
 advanceTo(new Date(2020, 8, 8));
 jest.setTimeout(20000);
+
+// Notification component has a problem:
+// "svg elements with an img role have an alternative text (svg-img-alt)"
+test.skip('page is accessible', async () => {
+  const { container } = render(<CreateEnrolmentPage />, {
+    mocks: mock1,
+    query: { eventId: eventId, occurrences: occurrenceIds },
+  });
+
+  await act(wait);
+  expect(await axe(container)).toHaveNoViolations();
+});
 
 test('renders enrolment has ended text', async () => {
   render(<CreateEnrolmentPage />, {
@@ -266,10 +280,10 @@ test('renders form and user can fill it and submit', async () => {
     'Lisätietoja ilmoittautumiseen'
   );
 
+  // test that error notification works
   userEvent.click(
     screen.getByRole('button', { name: /lähetä ilmoittautuminen/i })
   );
-
   const alertContainer = await screen.findByRole('alert');
   expect(alertContainer).toHaveTextContent(/Virhe lomakkeessa/i);
   expect(alertContainer).toHaveTextContent(
@@ -316,4 +330,44 @@ test('renders form and user can fill it and submit', async () => {
       },
     });
   });
+});
+
+test('render and focuses error notification correctly', async () => {
+  render(<CreateEnrolmentPage />, {
+    mocks: mock3,
+    query: { eventId: eventId, occurrences: occurrenceIds },
+  });
+
+  await waitFor(() => {
+    expect(
+      screen.queryByRole('heading', { name: /ilmoittajan tiedot/i })
+    ).toBeInTheDocument();
+  });
+
+  userEvent.click(
+    screen.getByRole('button', { name: /lähetä ilmoittautuminen/i })
+  );
+
+  const alertContainer = await screen.findByRole('alert');
+  expect(alertContainer).toHaveTextContent(/Virhe lomakkeessa/i);
+
+  const withinAlertContainer = within(alertContainer);
+
+  const requiredFieldLabels = [
+    'Hyväksyn tietojeni jakamisen tapahtuman järjestäjän kanssa',
+    'Nimi',
+    'Puhelinnumero',
+    'Sähköpostiosoite',
+    'Päiväkoti / koulu / oppilaitos',
+    'Ryhmä',
+    'Lapsia',
+    'Aikuisia',
+    'Luokka-aste',
+  ];
+
+  requiredFieldLabels.forEach((label) => {
+    expect(withinAlertContainer.getByText(label)).toBeInTheDocument();
+  });
+
+  expect(alertContainer).toHaveFocus();
 });
