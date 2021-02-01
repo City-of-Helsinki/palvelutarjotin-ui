@@ -370,4 +370,8 @@ test('render and focuses error notification correctly', async () => {
   });
 
   expect(alertContainer).toHaveFocus();
+
+  userEvent.tab();
+
+  expect(screen.getByRole('textbox', { name: 'Nimi' })).toHaveFocus();
 });
