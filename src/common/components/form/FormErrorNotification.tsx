@@ -11,14 +11,17 @@ const FormErrorNotification: React.FC<{
   visible: boolean;
 }> = ({ errors, visible }) => {
   const { t } = useTranslation();
-  const { submitCount } = useFormikContext();
+  const { submitCount, isSubmitting } = useFormikContext();
   const containerRef = React.useRef<HTMLDivElement>(null);
   const tabUsed = React.useRef<boolean>(false);
 
   React.useEffect(() => {
-    containerRef.current?.focus();
+    // Focus only after submitting is done (after that errors are available)
+    if (submitCount && !isSubmitting) {
+      containerRef.current?.focus();
+    }
     tabUsed.current = false;
-  }, [submitCount]);
+  }, [submitCount, isSubmitting]);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
     if (e.key === 'Tab' && !e.shiftKey) {
