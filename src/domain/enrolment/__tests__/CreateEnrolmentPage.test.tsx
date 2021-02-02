@@ -1,4 +1,5 @@
 import { MockedResponse } from '@apollo/react-testing';
+import { axe } from 'jest-axe';
 import { advanceTo } from 'jest-date-mock';
 import React from 'react';
 import wait from 'waait';
@@ -8,6 +9,7 @@ import {
   EventDocument,
   OccurrenceNode,
   PlaceDocument,
+  StudyLevelsDocument,
 } from '../../../generated/graphql';
 import * as graphqlFns from '../../../generated/graphql';
 import {
@@ -16,6 +18,7 @@ import {
   fakeEvent,
   fakeOccurrences,
   fakePlace,
+  fakeStudyLevels,
 } from '../../../utils/mockDataUtils';
 import {
   render,
@@ -24,6 +27,7 @@ import {
   waitFor,
   userEvent,
   configure,
+  within,
 } from '../../../utils/testUtils';
 import CreateEnrolmentPage from '../CreateEnrolmentPage';
 import * as utils from '../utils';
@@ -51,6 +55,18 @@ const mockBase = (event: Event): MockedResponse => ({
   },
 });
 
+const mockStudyLevels = (): MockedResponse => ({
+  request: {
+    query: StudyLevelsDocument,
+    variables: {},
+  },
+  result: {
+    data: {
+      studyLevels: fakeStudyLevels(),
+    },
+  },
+});
+
 // mock that has enrol time ended
 const occurrenceOverrides1: Partial<OccurrenceNode>[] = [
   { id: occurrenceId1, startTime: new Date(2020, 8, 10, 12, 30) },
@@ -71,6 +87,7 @@ const mock1: MockedResponse[] = [
       }),
     })
   ),
+  mockStudyLevels(),
 ];
 
 const occurrenceOverrides2: Partial<OccurrenceNode>[] = [
@@ -91,6 +108,7 @@ const mock2: MockedResponse[] = [
       }),
     })
   ),
+  mockStudyLevels(),
 ];
 
 const occurrenceOverrides3: Partial<OccurrenceNode>[] = [
@@ -125,10 +143,23 @@ const mock3: MockedResponse[] = [
       }),
     })
   ),
+  mockStudyLevels(),
 ];
 
 advanceTo(new Date(2020, 8, 8));
 jest.setTimeout(20000);
+
+// Notification component has a problem:
+// "svg elements with an img role have an alternative text (svg-img-alt)"
+test.skip('page is accessible', async () => {
+  const { container } = render(<CreateEnrolmentPage />, {
+    mocks: mock1,
+    query: { eventId: eventId, occurrences: occurrenceIds },
+  });
+
+  await act(wait);
+  expect(await axe(container)).toHaveNoViolations();
+});
 
 test('renders enrolment has ended text', async () => {
   render(<CreateEnrolmentPage />, {
@@ -247,7 +278,12 @@ test('renders form and user can fill it and submit', async () => {
   userEvent.click(
     screen.getByRole('button', { name: /luokka-aste valitse\.\.\./i })
   );
+
   userEvent.click(screen.getByRole('option', { name: /4\. luokka/i }));
+  userEvent.click(screen.getByRole('option', { name: /2\. luokka/i }));
+
+  // close dropdown
+  userEvent.click(screen.getByRole('button', { name: /luokka-aste/i }));
 
   userEvent.type(screen.getByLabelText(/lapsia/i), '10');
   userEvent.type(screen.getByLabelText(/aikuisia/i), '2');
@@ -265,11 +301,26 @@ test('renders form and user can fill it and submit', async () => {
     screen.getByRole('textbox', { name: /lisätiedot \(valinnainen\)/i }),
     'Lisätietoja ilmoittautumiseen'
   );
+
+  // test that error notification works
+  userEvent.click(
+    screen.getByRole('button', { name: /lähetä ilmoittautuminen/i })
+  );
+  const alertContainer = await screen.findByRole('alert');
+  expect(alertContainer).toHaveTextContent(/Virhe lomakkeessa/i);
+  expect(alertContainer).toHaveTextContent(
+    /hyväksyn tietojeni jakamisen tapahtuman järjestäjän kanssa/i
+  );
+
   userEvent.click(
     screen.getByRole('checkbox', {
       name: /hyväksyn tietojeni jakamisen tapahtuman järjestäjän kanssa/i,
     })
   );
+
+  await waitFor(() => {
+    expect(screen.queryByRole('alert')).not.toBeInTheDocument();
+  });
 
   userEvent.click(
     screen.getByRole('button', { name: /lähetä ilmoittautuminen/i })
@@ -295,10 +346,54 @@ test('renders form and user can fill it and submit', async () => {
               name: 'Nimi Niminen',
               phoneNumber: '123321123123321123',
             },
-            studyLevel: 'GRADE_4',
+            studyLevels: ['GRADE_4', 'GRADE_2'],
           },
         },
       },
     });
   });
+});
+
+test('render and focuses error notification correctly', async () => {
+  render(<CreateEnrolmentPage />, {
+    mocks: mock3,
+    query: { eventId: eventId, occurrences: occurrenceIds },
+  });
+
+  await waitFor(() => {
+    expect(
+      screen.queryByRole('heading', { name: /ilmoittajan tiedot/i })
+    ).toBeInTheDocument();
+  });
+
+  userEvent.click(
+    screen.getByRole('button', { name: /lähetä ilmoittautuminen/i })
+  );
+
+  const alertContainer = await screen.findByRole('alert');
+  expect(alertContainer).toHaveTextContent(/Virhe lomakkeessa/i);
+
+  const withinAlertContainer = within(alertContainer);
+
+  const requiredFieldLabels = [
+    'Hyväksyn tietojeni jakamisen tapahtuman järjestäjän kanssa',
+    'Nimi',
+    'Puhelinnumero',
+    'Sähköpostiosoite',
+    'Päiväkoti / koulu / oppilaitos',
+    'Ryhmä',
+    'Lapsia',
+    'Aikuisia',
+    'Luokka-aste',
+  ];
+
+  requiredFieldLabels.forEach((label) => {
+    expect(withinAlertContainer.getByText(label)).toBeInTheDocument();
+  });
+
+  expect(alertContainer).toHaveFocus();
+
+  userEvent.tab();
+
+  expect(screen.getByRole('textbox', { name: 'Nimi' })).toHaveFocus();
 });

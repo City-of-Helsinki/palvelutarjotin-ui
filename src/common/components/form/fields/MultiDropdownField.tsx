@@ -70,7 +70,8 @@ const MultiDropdownField: React.FC<Props> = ({
     <Select
       {...rest}
       {...field}
-      helper={errorText || helper}
+      helper={errorText ? '' : helper}
+      error={errorText}
       invalid={Boolean(errorText)}
       optionLabelField={'label'}
       multiselect={true}

@@ -1,78 +1,31 @@
 import { Formik, Field } from 'formik';
 import { Button, Notification } from 'hds-react';
+import isEmpty from 'lodash/isEmpty';
 import React from 'react';
 
 import ErrorMessage from '../../../common/components/form/ErrorMessage';
 import CheckboxField from '../../../common/components/form/fields/CheckboxField';
 import DropdownField from '../../../common/components/form/fields/DropdownField';
+import MultiDropdownField from '../../../common/components/form/fields/MultiDropdownField';
 import TextAreaField from '../../../common/components/form/fields/TextAreaField';
 import TextInputField from '../../../common/components/form/fields/TextInputField';
-import FocusToFirstError from '../../../common/components/form/FocusToFirstError';
+import FormErrorNotification from '../../../common/components/form/FormErrorNotification';
 import FormGroup from '../../../common/components/form/FormGroup';
 import { PRIVACY_POLICY_LINKS } from '../../../constants';
-import { Language, StudyLevel } from '../../../generated/graphql';
+import { Language } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
 import { useTranslation } from '../../../i18n';
+import keyify from '../../../utils/keyify';
 import { translateValue } from '../../../utils/translateUtils';
 import Container from '../../app/layout/Container';
+import useStudyLevels from '../../studyLevel/useStudyLevels';
+import {
+  defaultInitialValues,
+  EnrolmentFormFields,
+  nameToLabelPath,
+} from './constants';
 import styles from './enrolmentForm.module.scss';
 import ValidationSchema from './ValidationSchema';
-
-export type EnrolmentFormFields = {
-  hasEmailNotification: boolean;
-  hasSmsNotification: boolean;
-  isSameResponsiblePerson: boolean;
-  isSharingDataAccepted: boolean;
-  language: string;
-  maxGroupSize: number;
-  minGroupSize: number;
-  person: {
-    name: string;
-    phoneNumber: string;
-    emailAddress: string;
-  };
-  studyGroup: {
-    person: {
-      name: string;
-      phoneNumber: string;
-      emailAddress: string;
-    };
-    name: string;
-    groupName: string;
-    groupSize: string;
-    amountOfAdult: string;
-    studyLevel: string;
-    extraNeeds: string;
-  };
-};
-
-export const defaultInitialValues: EnrolmentFormFields = {
-  hasEmailNotification: false,
-  hasSmsNotification: false,
-  isSameResponsiblePerson: true,
-  isSharingDataAccepted: false,
-  language: '',
-  maxGroupSize: 0,
-  minGroupSize: 0,
-  person: {
-    name: '',
-    phoneNumber: '',
-    emailAddress: '',
-  },
-  studyGroup: {
-    person: {
-      name: '',
-      phoneNumber: '',
-      emailAddress: '',
-    },
-    name: '',
-    groupName: '',
-    groupSize: '',
-    amountOfAdult: '',
-    studyLevel: '',
-    extraNeeds: '',
-  },
-};
 
 interface Props {
   initialValues?: EnrolmentFormFields;
@@ -86,15 +39,7 @@ const EnrolmentForm: React.FC<Props> = ({
   const { t } = useTranslation();
   const locale = useLocale();
 
-  const studyLevelOptions = Object.values(StudyLevel).map((level) => ({
-    label: level.startsWith('GRADE')
-      ? t('enrolment:studyLevel.grade_interval', {
-          postProcess: 'interval',
-          count: Number(level.split('_')[1]),
-        })
-      : translateValue('enrolment:studyLevel.', level, t),
-    value: level,
-  }));
+  const { options: studyLevelOptions } = useStudyLevels();
 
   const languageOptions = Object.values(Language).map((level) => ({
     label: translateValue('enrolment:language.', level, t),
@@ -111,13 +56,26 @@ const EnrolmentForm: React.FC<Props> = ({
         errors,
         handleSubmit,
         touched,
+        submitCount,
         values: { isSameResponsiblePerson },
       }) => {
+        const showErrorNotification = !isEmpty(errors) && !!submitCount;
+        const errorLabelKeys = keyify(errors)
+          .map((path) => nameToLabelPath[path])
+          .filter((i) => i);
+
         return (
-          <form className={styles.enrolmentForm} onSubmit={handleSubmit}>
-            <FocusToFirstError />
+          <form
+            className={styles.enrolmentForm}
+            onSubmit={handleSubmit}
+            noValidate
+          >
             <Container size="small">
               <h2>{t('enrolment:enrolmentForm.studyGroup.titleNotifier')}</h2>
+              <FormErrorNotification
+                errors={errorLabelKeys}
+                visible={showErrorNotification}
+              />
               <Notification
                 className={styles.notification}
                 label={t(
@@ -128,11 +86,9 @@ const EnrolmentForm: React.FC<Props> = ({
               </Notification>
               <FormGroup>
                 <Field
+                  labelText={t(nameToLabelPath['studyGroup.person.name'])}
                   required
                   aria-required
-                  labelText={t(
-                    'enrolment:enrolmentForm.studyGroup.person.labelName'
-                  )}
                   component={TextInputField}
                   name="studyGroup.person.name"
                 />
@@ -142,7 +98,7 @@ const EnrolmentForm: React.FC<Props> = ({
                   required
                   aria-required
                   labelText={t(
-                    'enrolment:enrolmentForm.studyGroup.person.labelEmailAddress'
+                    nameToLabelPath['studyGroup.person.emailAddress']
                   )}
                   component={TextInputField}
                   name="studyGroup.person.emailAddress"
@@ -153,7 +109,7 @@ const EnrolmentForm: React.FC<Props> = ({
                   required
                   aria-required
                   labelText={t(
-                    'enrolment:enrolmentForm.studyGroup.person.labelPhoneNumber'
+                    nameToLabelPath['studyGroup.person.phoneNumber']
                   )}
                   component={TextInputField}
                   name="studyGroup.person.phoneNumber"
@@ -161,9 +117,9 @@ const EnrolmentForm: React.FC<Props> = ({
               </FormGroup>
               <FormGroup>
                 <Field
+                  labelText={t(nameToLabelPath['studyGroup.name'])}
                   required
                   aria-required
-                  labelText={t('enrolment:enrolmentForm.studyGroup.labelName')}
                   component={TextInputField}
                   name="studyGroup.name"
                 />
@@ -176,9 +132,7 @@ const EnrolmentForm: React.FC<Props> = ({
                     helperText={t(
                       'enrolment:enrolmentForm.studyGroup.helperGroupName'
                     )}
-                    labelText={t(
-                      'enrolment:enrolmentForm.studyGroup.labelGroupName'
-                    )}
+                    labelText={t(nameToLabelPath['studyGroup.groupName'])}
                     component={TextInputField}
                     name="studyGroup.groupName"
                   />
@@ -186,14 +140,12 @@ const EnrolmentForm: React.FC<Props> = ({
 
                 <FormGroup>
                   <Field
+                    label={t(nameToLabelPath['studyGroup.studyLevels'])}
+                    component={MultiDropdownField}
                     required
                     aria-required
-                    label={t(
-                      'enrolment:enrolmentForm.studyGroup.labelStudyLevel'
-                    )}
-                    component={DropdownField}
-                    name="studyGroup.studyLevel"
-                    options={studyLevelOptions}
+                    name="studyGroup.studyLevels"
+                    options={studyLevelOptions?.length ? studyLevelOptions : []}
                   />
                 </FormGroup>
               </div>
@@ -202,11 +154,9 @@ const EnrolmentForm: React.FC<Props> = ({
               <div className={styles.rowWith2Columns}>
                 <FormGroup>
                   <Field
+                    labelText={t(nameToLabelPath['studyGroup.groupSize'])}
                     required
                     aria-required
-                    labelText={t(
-                      'enrolment:enrolmentForm.studyGroup.labelGroupSize'
-                    )}
                     component={TextInputField}
                     min={0}
                     name="studyGroup.groupSize"
@@ -215,11 +165,9 @@ const EnrolmentForm: React.FC<Props> = ({
                 </FormGroup>
                 <FormGroup>
                   <Field
+                    labelText={t(nameToLabelPath['studyGroup.amountOfAdult'])}
                     required
                     aria-required
-                    labelText={t(
-                      'enrolment:enrolmentForm.studyGroup.labelAmountOfAdult'
-                    )}
                     component={TextInputField}
                     min={0}
                     name="studyGroup.amountOfAdult"
@@ -232,9 +180,7 @@ const EnrolmentForm: React.FC<Props> = ({
                   helperText={t(
                     'enrolment:enrolmentForm.studyGroup.helperExtraNeeds'
                   )}
-                  labelText={t(
-                    'enrolment:enrolmentForm.studyGroup.labelExtraNeeds'
-                  )}
+                  labelText={t(nameToLabelPath['studyGroup.extraNeeds'])}
                   component={TextAreaField}
                   name="studyGroup.extraNeeds"
                 />
@@ -244,9 +190,7 @@ const EnrolmentForm: React.FC<Props> = ({
               <FormGroup>
                 <div className={styles.checkboxWrapper}>
                   <Field
-                    label={t(
-                      'enrolment:enrolmentForm.labelIsSameResponsiblePerson'
-                    )}
+                    label={t(nameToLabelPath['isSameResponsiblePerson'])}
                     component={CheckboxField}
                     name="isSameResponsiblePerson"
                   />
@@ -256,25 +200,21 @@ const EnrolmentForm: React.FC<Props> = ({
                 <>
                   <FormGroup>
                     <Field
-                      labelText={t('enrolment:enrolmentForm.person.labelName')}
+                      labelText={t(nameToLabelPath['person.name'])}
                       component={TextInputField}
                       name="person.name"
                     />
                   </FormGroup>
                   <FormGroup>
                     <Field
-                      labelText={t(
-                        'enrolment:enrolmentForm.person.labelEmailAddress'
-                      )}
+                      labelText={t(nameToLabelPath['person.emailAddress'])}
                       component={TextInputField}
                       name="person.emailAddress"
                     />
                   </FormGroup>
                   <FormGroup>
                     <Field
-                      labelText={t(
-                        'enrolment:enrolmentForm.person.labelPhoneNumber'
-                      )}
+                      labelText={t(nameToLabelPath['person.phoneNumber'])}
                       component={TextInputField}
                       name="person.phoneNumber"
                     />
@@ -289,9 +229,7 @@ const EnrolmentForm: React.FC<Props> = ({
                 <FormGroup>
                   <div className={styles.checkboxWrapper}>
                     <Field
-                      label={t(
-                        'enrolment:enrolmentForm.labelHasEmailNotification'
-                      )}
+                      label={t(nameToLabelPath['hasEmailNotification'])}
                       component={CheckboxField}
                       name="hasEmailNotification"
                     />
@@ -300,9 +238,7 @@ const EnrolmentForm: React.FC<Props> = ({
                 <FormGroup>
                   <div className={styles.checkboxWrapper}>
                     <Field
-                      label={t(
-                        'enrolment:enrolmentForm.labelHasSmsNotification'
-                      )}
+                      label={t(nameToLabelPath['hasSmsNotification'])}
                       component={CheckboxField}
                       name="hasSmsNotification"
                     />
@@ -310,7 +246,7 @@ const EnrolmentForm: React.FC<Props> = ({
                 </FormGroup>
                 <FormGroup>
                   <Field
-                    label={t('enrolment:enrolmentForm.labelLanguage')}
+                    label={t(nameToLabelPath['language'])}
                     component={DropdownField}
                     name="language"
                     options={languageOptions}
@@ -333,11 +269,9 @@ const EnrolmentForm: React.FC<Props> = ({
               <FormGroup>
                 <div className={styles.checkboxWrapper}>
                   <Field
+                    label={t(nameToLabelPath['isSharingDataAccepted'])}
                     required
                     aria-required
-                    label={t(
-                      'enrolment:enrolmentForm.labelIsSharingDataAccepted'
-                    )}
                     component={CheckboxField}
                     name="isSharingDataAccepted"
                   />

@@ -5,3 +5,11 @@
   line-height: var(--label-height);
   font-size: var(--fontsize-body-l);
 }
+
+.errorNotificationContainer {
+  &:focus {
+    outline: 2px solid var(--color-coat-of-arms);
+  }
+
+  margin-bottom: var(--spacing-s);
+}

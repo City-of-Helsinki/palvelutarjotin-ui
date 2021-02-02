@@ -1,10 +1,9 @@
 import {
   EnrolOccurrenceMutationInput,
   Language,
-  StudyLevel,
   NotificationType,
 } from '../../generated/graphql';
-import { EnrolmentFormFields } from './enrolmentForm/EnrolmentForm';
+import { EnrolmentFormFields } from './enrolmentForm/constants';
 
 const getNotificationType = (
   values: EnrolmentFormFields
@@ -38,7 +37,7 @@ export const getEnrolmentPayload = ({
         ...values.studyGroup.person,
         language: values.language as Language,
       },
-      studyLevel: values.studyGroup.studyLevel as StudyLevel,
+      studyLevels: values.studyGroup.studyLevels,
     },
   };
 };

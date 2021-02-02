@@ -26,6 +26,10 @@
       "max": "This time must be before {{max}}"
     }
   },
+  "errorNotification": {
+    "title": "Error in form",
+    "listTitle": "Check the following fields"
+  },
   "placeInfo": {
     "buttonEdit": "Change",
     "labelReittiopas": "Reittiopas:",

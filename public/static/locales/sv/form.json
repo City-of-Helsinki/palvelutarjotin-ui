@@ -26,6 +26,10 @@
       "max": "Den här tiden måste vara innan {{max}}"
     }
   },
+  "errorNotification": {
+    "title": "Fel i form",
+    "listTitle": "Kontrollera följande fält"
+  },
   "placeInfo": {
     "buttonEdit": "Förändra",
     "labelReittiopas": "Reittiopas:",
