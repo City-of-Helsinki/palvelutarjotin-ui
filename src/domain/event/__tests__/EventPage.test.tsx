@@ -170,7 +170,7 @@ const apolloMocks = [
 const eventData = eventResult.data.event;
 const originalUseRouter = Router.useRouter;
 
-const rowText = `27.07.2020 12:00 – 12:30 ${data.placeName} 0 / 30 Ilmoittaudu`;
+const rowText = `27.07.2020 12:00 – 12:30 ${data.placeName} 30 / 30 Ilmoittaudu`;
 
 advanceTo(new Date(2020, 6, 14));
 
