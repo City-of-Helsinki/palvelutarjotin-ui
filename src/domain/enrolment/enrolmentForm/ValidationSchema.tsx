@@ -59,7 +59,7 @@ export default Yup.object().shape({
             min: param.min,
             key: VALIDATION_MESSAGE_KEYS.NUMBER_MIN,
           })),
-        studyLevel: Yup.array()
+        studyLevels: Yup.array()
           .required(VALIDATION_MESSAGE_KEYS.STRING_REQUIRED)
           .min(0),
       });

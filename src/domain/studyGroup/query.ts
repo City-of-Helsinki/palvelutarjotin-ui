@@ -7,7 +7,13 @@ export const QUERY_PERSON = gql`
     groupSize
     amountOfAdult
     groupName
-    studyLevel
+    studyLevels {
+      edges {
+        node {
+          ...studyLevelFields
+        }
+      }
+    }
     extraNeeds
     person {
       ...personFields
