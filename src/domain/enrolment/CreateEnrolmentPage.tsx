@@ -8,6 +8,7 @@ import LoadingSpinner from '../../common/components/loadingSpinner/LoadingSpinne
 import {
   useEventQuery,
   useEnrolOccurrenceMutation,
+  OccurrenceSeatType,
 } from '../../generated/graphql';
 import useLocale from '../../hooks/useLocale';
 import { Router, useTranslation } from '../../i18n';
@@ -68,18 +69,27 @@ const CreateEnrolmentPage: React.FC = () => {
   const initialValues = React.useMemo(
     () => ({
       ...defaultInitialValues,
+      language: locale.toUpperCase(),
+      // some of the values used only for validation purposes
       minGroupSize: Math.max(
         ...filteredOccurrences.map((item) => item?.minGroupSize || 0)
       ),
+      // figure out maxGroup size based on all occurrences selected
+      // if OccurrenceType is EnrolmentCount, use only maxGroupSize
       maxGroupSize: Math.min(
-        ...filteredOccurrences.map((item) =>
-          Math.min(
-            item?.maxGroupSize || item.amountOfSeats,
-            item.amountOfSeats - (item.seatsTaken || 0)
-          )
-        )
+        ...filteredOccurrences.map((item) => {
+          if (item.seatType === OccurrenceSeatType.ChildrenCount) {
+            return Math.min(
+              item?.maxGroupSize || item.amountOfSeats,
+              item.amountOfSeats - (item.seatsTaken || 0)
+            );
+          }
+          if (item.seatType === OccurrenceSeatType.EnrolmentCount) {
+            return Math.min(item?.maxGroupSize || 0);
+          }
+          return 0;
+        })
       ),
-      language: locale.toUpperCase(),
     }),
     [filteredOccurrences, locale]
   );

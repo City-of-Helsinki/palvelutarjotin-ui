@@ -8,6 +8,8 @@ export const QUERY_OCCURRENCE = gql`
     }
     amountOfSeats
     seatsTaken
+    seatType
+    remainingSeats
     minGroupSize
     maxGroupSize
     languages {

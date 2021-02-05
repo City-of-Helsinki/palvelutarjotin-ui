@@ -89,7 +89,7 @@ const Occurrences: React.FC<Props> = ({
     return null;
   };
 
-  const renderEnrolmentButton = ({
+  const renderEnrolmentButtonCell = ({
     value,
   }: {
     value: OccurrenceFieldsFragment;
@@ -189,7 +189,7 @@ const Occurrences: React.FC<Props> = ({
     },
     {
       accessor: (row: OccurrenceFieldsFragment) => row,
-      Cell: renderEnrolmentButton,
+      Cell: renderEnrolmentButtonCell,
       id: 'enrol',
       style: {
         width: enrolButtonColumnWidth,

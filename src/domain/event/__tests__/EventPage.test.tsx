@@ -17,6 +17,7 @@ import occurrenceMessages from '../../../../public/static/locales/fi/occurrence.
 import {
   EventDocument,
   Language,
+  OccurrenceSeatType,
   PlaceDocument,
   VenueDocument,
 } from '../../../generated/graphql';
@@ -79,6 +80,9 @@ const eventResult = {
             startTime: '2020-07-15T09:00:00+00:00',
             placeId: data.placeId,
             id: data.placeId1,
+            amountOfSeats: 30,
+            seatsApproved: 10,
+            remainingSeats: 20,
           },
           {
             startTime: '2020-07-16T09:00:00+00:00',
@@ -93,11 +97,36 @@ const eventResult = {
           { startTime: '2020-07-20T09:00:00+00:00', placeId: data.placeId },
           { startTime: '2020-07-21T09:00:00+00:00', placeId: data.placeId },
           { startTime: '2020-07-22T09:00:00+00:00', placeId: data.placeId },
-          { startTime: '2020-07-23T09:00:00+00:00', placeId: data.placeId },
-          { startTime: '2020-07-27T09:00:00+00:00', placeId: data.placeId },
-          { startTime: '2020-07-28T09:00:00+00:00', placeId: data.placeId },
-          { startTime: '2020-07-29T09:00:00+00:00', placeId: data.placeId },
-          { startTime: '2020-07-30T09:30:00+00:00', placeId: data.placeId },
+          // full event
+          {
+            startTime: '2020-07-23T09:00:00+00:00',
+            placeId: data.placeId,
+            amountOfSeats: 1,
+            remainingSeats: 0,
+            seatsTaken: 1,
+            seatType: OccurrenceSeatType.EnrolmentCount,
+          },
+          {
+            startTime: '2020-07-27T09:00:00+00:00',
+            placeId: data.placeId,
+          },
+          {
+            startTime: '2020-07-28T09:00:00+00:00',
+            placeId: data.placeId,
+          },
+          // full event
+          {
+            startTime: '2020-07-29T09:00:00+00:00',
+            placeId: data.placeId,
+            amountOfSeats: 30,
+            seatsApproved: 10,
+            remainingSeats: 20,
+            seatsTaken: 30,
+          },
+          {
+            startTime: '2020-07-30T09:30:00+00:00',
+            placeId: data.placeId,
+          },
         ]),
         neededOccurrences: data.neededOccurrences,
       }),
@@ -191,6 +220,39 @@ afterAll(() => {
   jest.setTimeout(5000);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   (Router.useRouter as any) = originalUseRouter;
+});
+
+it('shows full events correctly in occurrences list', async () => {
+  render(
+    <MockedProvider mocks={apolloMocks}>
+      <EventPage />
+    </MockedProvider>
+  );
+
+  // wait for graphql request to complete
+  await screen.findByRole('heading', {
+    name: data.name,
+  });
+
+  await waitFor(() => {
+    expect(screen.queryAllByText(data.placeName)).toHaveLength(10);
+  });
+
+  const fullOccurrenceRowText1 =
+    '23.07.2020 12:00 – 12:30 Soukan kirjasto 0 / 1 Tapahtuma on täynnä';
+  const fullOccurrenceRowText2 =
+    '29.07.2020 12:00 – 12:30 Soukan kirjasto 0 / 30 Tapahtuma on täynnä';
+
+  expect(
+    screen.queryByRole('row', {
+      name: fullOccurrenceRowText1,
+    })
+  ).toBeInTheDocument();
+  expect(
+    screen.queryByRole('row', {
+      name: fullOccurrenceRowText2,
+    })
+  ).toBeInTheDocument();
 });
 
 it('renders page and event information correctly', async () => {
@@ -387,14 +449,14 @@ it('selecting enrolments works and buttons have correct texts', async () => {
       .filter((button) => !button.hasAttribute('disabled'))
   ).toHaveLength(3);
 
-  // should be 7 disabled buttons with 'valittu' text
+  // should be 6 disabled buttons with 'valittu' text
   expect(
     screen
       .queryAllByRole('button', {
         name: getSelectedOccurrencesButtonText(3, data.neededOccurrences),
       })
       .filter((button) => button.hasAttribute('disabled'))
-  ).toHaveLength(8);
+  ).toHaveLength(6);
 
   const originalRouter = i18nRouter.push;
   i18nRouter.push = jest.fn();
@@ -485,5 +547,5 @@ it('filters occurrence list correctly when sate filters are selected', async () 
   const occurrenceEnrolButtons = screen.getAllByRole('button', {
     name: eventMessages.occurrenceList.enrolOccurrenceButton,
   });
-  expect(occurrenceEnrolButtons).toHaveLength(2);
+  expect(occurrenceEnrolButtons).toHaveLength(1);
 });

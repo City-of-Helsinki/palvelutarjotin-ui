@@ -3,13 +3,22 @@ import { isPast, subDays } from 'date-fns';
 import {
   EventFieldsFragment,
   OccurrenceFieldsFragment,
+  OccurrenceSeatType,
 } from '../../generated/graphql';
 
 export const hasOccurrenceSpace = (
   occurrence: OccurrenceFieldsFragment
 ): boolean => {
-  const minGroupSize = occurrence?.minGroupSize || 0;
-  return minGroupSize < occurrence.amountOfSeats - (occurrence.seatsTaken || 0);
+  if (occurrence.seatType === OccurrenceSeatType.ChildrenCount) {
+    const minGroupSize = occurrence?.minGroupSize || 0;
+    return (
+      minGroupSize < occurrence.amountOfSeats - (occurrence.seatsTaken || 0)
+    );
+  } else if (occurrence.seatType === OccurrenceSeatType.EnrolmentCount) {
+    return occurrence.remainingSeats > 0;
+  }
+
+  return false;
 };
 
 export const isEnrolmentStarted = (
