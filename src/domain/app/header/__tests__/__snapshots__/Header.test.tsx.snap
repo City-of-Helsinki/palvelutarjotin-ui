@@ -1,7 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Header matches snapshot 1`] = `
-<header>
+<header
+  class="header"
+>
+  <a
+    aria-label="Siirry sisältöön"
+    class="skipToContent"
+    href="#main-content"
+  >
+    Siirry sisältöön
+  </a>
   <div
     class="mobileNavbar"
   >
