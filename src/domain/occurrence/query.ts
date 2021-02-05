@@ -5,6 +5,7 @@ export const QUERY_OCCURRENCE = gql`
     id
     pEvent {
       id
+      paymentInstruction
     }
     amountOfSeats
     seatsTaken
@@ -17,6 +18,21 @@ export const QUERY_OCCURRENCE = gql`
     startTime
     endTime
     placeId
+    linkedEvent {
+      offers {
+        isFree
+        description {
+          fi
+          sv
+          en
+        }
+        price {
+          fi
+          sv
+          en
+        }
+      }
+    }
   }
 
   query Occurrence($id: ID!) {

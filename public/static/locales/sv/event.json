@@ -23,7 +23,8 @@
     "downloadToCalendar": "Importera till kalender...",
     "showAllLocationEvents": "Visa alla händelser på den här platsen",
     "labelStartDateFilter": "Startdatum för händelsefilter",
-    "labelEndDateFilter": "Slutdatum för händelsefilter"
+    "labelEndDateFilter": "Slutdatum för händelsefilter",
+    "eventIsFree": "Fri"
   },
   "location": {
     "labelLocation": "Standard venue",

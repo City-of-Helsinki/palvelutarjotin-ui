@@ -55,6 +55,7 @@ export type Query = {
   studyLevel?: Maybe<StudyLevelNode>;
   venues?: Maybe<VenueNodeConnection>;
   venue?: Maybe<VenueNode>;
+  cancellingEnrolment?: Maybe<EnrolmentNode>;
   enrolments?: Maybe<EnrolmentNodeConnection>;
   /** The ID of the object */
   enrolment?: Maybe<EnrolmentNode>;
@@ -125,6 +126,10 @@ export type QueryVenuesArgs = {
 };
 
 export type QueryVenueArgs = {
+  id: Scalars['ID'];
+};
+
+export type QueryCancellingEnrolmentArgs = {
   id: Scalars['ID'];
 };
 
@@ -349,6 +354,8 @@ export type PalvelutarjotinEventNode = Node & {
   contactPhoneNumber: Scalars['String'];
   contactEmail: Scalars['String'];
   autoAcceptance: Scalars['Boolean'];
+  mandatoryAdditionalInformation: Scalars['Boolean'];
+  paymentInstruction: Scalars['String'];
   occurrences: OccurrenceNodeConnection;
   nextOccurrenceDatetime?: Maybe<Scalars['DateTime']>;
   lastOccurrenceDatetime?: Maybe<Scalars['DateTime']>;
@@ -996,10 +1003,14 @@ export enum NotificationTemplateType {
   OccurrenceUnenrolment = 'OCCURRENCE_UNENROLMENT',
   EnrolmentApproved = 'ENROLMENT_APPROVED',
   EnrolmentDeclined = 'ENROLMENT_DECLINED',
+  EnrolmentCancellation = 'ENROLMENT_CANCELLATION',
+  EnrolmentCancelled = 'ENROLMENT_CANCELLED',
   OccurrenceEnrolmentSms = 'OCCURRENCE_ENROLMENT_SMS',
   OccurrenceUnenrolmentSms = 'OCCURRENCE_UNENROLMENT_SMS',
   EnrolmentApprovedSms = 'ENROLMENT_APPROVED_SMS',
   EnrolmentDeclinedSms = 'ENROLMENT_DECLINED_SMS',
+  EnrolmentCancellationSms = 'ENROLMENT_CANCELLATION_SMS',
+  EnrolmentCancelledSms = 'ENROLMENT_CANCELLED_SMS',
   OccurrenceCancelled = 'OCCURRENCE_CANCELLED',
   OccurrenceCancelledSms = 'OCCURRENCE_CANCELLED_SMS',
   EnrolmentSummaryReport = 'ENROLMENT_SUMMARY_REPORT',
@@ -1025,6 +1036,7 @@ export type Mutation = {
   updateEnrolment?: Maybe<UpdateEnrolmentMutationPayload>;
   approveEnrolment?: Maybe<ApproveEnrolmentMutationPayload>;
   declineEnrolment?: Maybe<DeclineEnrolmentMutationPayload>;
+  cancelEnrolment?: Maybe<CancelEnrolmentMutationPayload>;
   createMyProfile?: Maybe<CreateMyProfileMutationPayload>;
   updateMyProfile?: Maybe<UpdateMyProfileMutationPayload>;
   addOrganisation?: Maybe<AddOrganisationMutationPayload>;
@@ -1099,6 +1111,10 @@ export type MutationApproveEnrolmentArgs = {
 
 export type MutationDeclineEnrolmentArgs = {
   input: DeclineEnrolmentMutationInput;
+};
+
+export type MutationCancelEnrolmentArgs = {
+  input: CancelEnrolmentMutationInput;
 };
 
 export type MutationCreateMyProfileArgs = {
@@ -1416,6 +1432,19 @@ export type DeclineEnrolmentMutationInput = {
   clientMutationId?: Maybe<Scalars['String']>;
 };
 
+export type CancelEnrolmentMutationPayload = {
+  __typename?: 'CancelEnrolmentMutationPayload';
+  enrolment?: Maybe<EnrolmentNode>;
+  clientMutationId?: Maybe<Scalars['String']>;
+};
+
+export type CancelEnrolmentMutationInput = {
+  uniqueId: Scalars['ID'];
+  /** Need to be included to actually cancel the enrolment,without this token, BE only initiate thecancellation process by sending a confirmation email to teacher */
+  token?: Maybe<Scalars['String']>;
+  clientMutationId?: Maybe<Scalars['String']>;
+};
+
 export type CreateMyProfileMutationPayload = {
   __typename?: 'CreateMyProfileMutationPayload';
   myProfile?: Maybe<PersonNode>;
@@ -1569,6 +1598,8 @@ export type PalvelutarjotinEventInput = {
   contactPhoneNumber?: Maybe<Scalars['String']>;
   contactEmail?: Maybe<Scalars['String']>;
   autoAcceptance?: Maybe<Scalars['Boolean']>;
+  mandatoryAdditionalInformation?: Maybe<Scalars['Boolean']>;
+  paymentInstruction?: Maybe<Scalars['String']>;
 };
 
 export type UpdateEventMutation = {
@@ -1932,11 +1963,31 @@ export type OccurrenceFieldsFragment = { __typename?: 'OccurrenceNode' } & Pick<
     pEvent?: Maybe<
       { __typename?: 'PalvelutarjotinEventNode' } & Pick<
         PalvelutarjotinEventNode,
-        'id'
+        'id' | 'paymentInstruction'
       >
     >;
     languages: Array<
       { __typename?: 'LanguageType' } & Pick<LanguageType, 'id' | 'name'>
+    >;
+    linkedEvent?: Maybe<
+      { __typename?: 'Event' } & {
+        offers: Array<
+          { __typename?: 'Offer' } & Pick<Offer, 'isFree'> & {
+              description?: Maybe<
+                { __typename?: 'LocalisedObject' } & Pick<
+                  LocalisedObject,
+                  'fi' | 'sv' | 'en'
+                >
+              >;
+              price?: Maybe<
+                { __typename?: 'LocalisedObject' } & Pick<
+                  LocalisedObject,
+                  'fi' | 'sv' | 'en'
+                >
+              >;
+            }
+        >;
+      }
     >;
   };
 
@@ -2183,6 +2234,7 @@ export const OccurrenceFieldsFragmentDoc = gql`
     id
     pEvent {
       id
+      paymentInstruction
     }
     amountOfSeats
     seatsTaken
@@ -2195,6 +2247,21 @@ export const OccurrenceFieldsFragmentDoc = gql`
     startTime
     endTime
     placeId
+    linkedEvent {
+      offers {
+        isFree
+        description {
+          fi
+          sv
+          en
+        }
+        price {
+          fi
+          sv
+          en
+        }
+      }
+    }
   }
 `;
 export const PEventFieldsFragmentDoc = gql`

@@ -6,6 +6,7 @@ import {
   IconLocation,
   IconClock,
   IconArrowDown,
+  IconGlyphEuro,
 } from 'hds-react';
 import React from 'react';
 
@@ -231,11 +232,16 @@ const Occurrences: React.FC<Props> = ({
   ];
 
   const renderOccurrenceInfo = (occurrence: OccurrenceFieldsFragment) => {
-    const { placeId, startTime, endTime } = occurrence;
+    const { placeId, startTime, endTime, linkedEvent, pEvent } = occurrence;
     const date = formatDate(new Date(startTime));
     const time =
       startTime &&
       formatTimeRange(new Date(startTime), new Date(endTime), locale);
+    const offer = linkedEvent?.offers?.[0];
+    const price: string = offer?.price?.[locale] || '';
+    const priceDescription: string = offer?.description?.[locale] || '';
+    const isFree: boolean = offer?.isFree || price === '';
+    const paymentInstruction = pEvent?.paymentInstruction || '';
     return (
       <div className={styles.occurrenceDetails}>
         <div>
@@ -249,6 +255,27 @@ const Occurrences: React.FC<Props> = ({
               </div>
               <div>{t('occurrence:textDateAndTime', { date, time })}</div>
               <OccurrenceGroupInfo occurrence={occurrence} />
+            </div>
+          </div>
+          <div className={styles.infoSection}>
+            <div>
+              <IconGlyphEuro />
+            </div>
+            <div>
+              <div className={styles.infoTitle}>
+                <div data-testid="event-price">
+                  {isFree && t('event:occurrenceList.eventIsFree')}
+                  {!isFree && price}
+                </div>
+              </div>
+              {priceDescription !== '' && (
+                <p data-testid="event-priceDescription">{priceDescription}</p>
+              )}
+              {paymentInstruction !== '' && (
+                <p data-testid="event-paymentInstruction">
+                  {paymentInstruction}
+                </p>
+              )}
             </div>
           </div>
           <div className={styles.infoSection}>

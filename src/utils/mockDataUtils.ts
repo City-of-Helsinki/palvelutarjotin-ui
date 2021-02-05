@@ -243,6 +243,8 @@ export const fakePEvent = (
   autoAcceptance: false,
   nextOccurrenceDatetime: '',
   lastOccurrenceDatetime: '',
+  mandatoryAdditionalInformation: false,
+  paymentInstruction: 'paymentInstruction',
   __typename: 'PalvelutarjotinEventNode',
   ...overrides,
 });
@@ -281,6 +283,7 @@ export const fakeOccurrence = (
   id: faker.random.uuid(),
   pEvent: {
     id: 'UGFsdmVsdXRhcmpvdGluRXZlbnROb2RlOjcw',
+    paymentInstruction: 'paymentInstruction',
     __typename: 'PalvelutarjotinEventNode',
   } as PalvelutarjotinEventNode,
   amountOfSeats: 30,
@@ -303,6 +306,10 @@ export const fakeOccurrence = (
   updatedAt: '' as any,
   remainingSeats: null as any,
   cancelled: false,
+  linkedEvent: {
+    __typename: 'Event',
+    offers: [fakeOffer()],
+  } as any,
   __typename: 'OccurrenceNode',
   ...overrides,
 });
