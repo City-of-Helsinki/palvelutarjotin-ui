@@ -232,16 +232,27 @@ const Occurrences: React.FC<Props> = ({
   ];
 
   const renderOccurrenceInfo = (occurrence: OccurrenceFieldsFragment) => {
-    const { placeId, startTime, endTime, linkedEvent, pEvent } = occurrence;
+    const { placeId, startTime, endTime, linkedEvent } = occurrence;
     const date = formatDate(new Date(startTime));
     const time =
       startTime &&
       formatTimeRange(new Date(startTime), new Date(endTime), locale);
     const offer = linkedEvent?.offers?.[0];
-    const price: string = offer?.price?.[locale] || '';
-    const priceDescription: string = offer?.description?.[locale] || '';
-    const isFree: boolean = offer?.isFree || price === '';
-    const paymentInstruction = pEvent?.paymentInstruction || '';
+    const price = offer?.price?.[locale];
+    const priceDescription = offer?.description?.[locale];
+    const isFree = offer?.isFree ?? !price;
+    const priceInfoUrl = offer?.infoUrl?.[locale];
+
+    const createLink = (prefix: string, url: string) => (
+      <>
+        {prefix}
+        {prefix && ' '}
+        <a href={url} rel="noopener noreferrer" target="_blank">
+          {url}
+        </a>
+      </>
+    );
+
     return (
       <div className={styles.occurrenceDetails}>
         <div>
@@ -268,12 +279,12 @@ const Occurrences: React.FC<Props> = ({
                   {!isFree && price}
                 </div>
               </div>
-              {priceDescription !== '' && (
+              {!!priceDescription && (
                 <p data-testid="event-priceDescription">{priceDescription}</p>
               )}
-              {paymentInstruction !== '' && (
-                <p data-testid="event-paymentInstruction">
-                  {paymentInstruction}
+              {!!priceInfoUrl && (
+                <p data-testid="event-priceInfoUrl">
+                  {createLink('', priceInfoUrl)}
                 </p>
               )}
             </div>
