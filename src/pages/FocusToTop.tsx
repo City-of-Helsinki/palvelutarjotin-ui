@@ -4,10 +4,7 @@ import * as React from 'react';
 const FocusToTop: React.FC = () => {
   const focusRef = React.useRef<HTMLDivElement>(null);
 
-  const handleFocus = () => {
-    focusRef.current?.focus();
-  };
-
+  const handleFocus = () => focusRef.current?.focus();
   React.useEffect(() => {
     Router.events.on('routeChangeComplete', handleFocus);
     return () => {
