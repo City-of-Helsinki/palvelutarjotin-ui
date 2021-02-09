@@ -59,7 +59,7 @@ const DateFilter: React.FC<DateFilterProps> = ({
           onChange={setStartFilterDate}
         />
       </div>
-      <span className={styles.dateSeparator} area-hidden="true">
+      <span className={styles.dateSeparator} aria-hidden>
         -
       </span>
       <div
