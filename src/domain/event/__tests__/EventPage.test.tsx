@@ -1,14 +1,5 @@
-import { MockedProvider } from '@apollo/react-testing';
-import {
-  configure,
-  render,
-  screen,
-  waitFor,
-  within,
-} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { advanceTo } from 'jest-date-mock';
-import * as Router from 'next/router';
 import React from 'react';
 
 import enrolmentMessages from '../../../../public/static/locales/fi/enrolment.json';
@@ -21,6 +12,7 @@ import {
   PlaceDocument,
   VenueDocument,
 } from '../../../generated/graphql';
+import * as graphqlFuncs from '../../../generated/graphql';
 import { Router as i18nRouter } from '../../../i18n';
 import {
   fakeEvent,
@@ -34,7 +26,16 @@ import {
   fakePlace,
   fakeVenue,
 } from '../../../utils/mockDataUtils';
+import {
+  render,
+  configure,
+  screen,
+  waitFor,
+  within,
+  CustomRenderOptions,
+} from '../../../utils/testUtils';
 import { ROUTES } from '../../app/routes/constants';
+import { ENROLMENT_URL_PARAMS } from '../../enrolment/constants';
 import EventPage from '../EventPage';
 
 const data = {
@@ -58,7 +59,7 @@ const data = {
   placeId3: 'aghrewghher534643',
 };
 
-const eventResult = {
+const eventData = {
   data: {
     event: fakeEvent({
       id: data.id,
@@ -174,7 +175,7 @@ const apolloMocks = [
         include: ['keywords', 'location'],
       },
     },
-    result: eventResult,
+    result: eventData,
   },
   {
     request: {
@@ -196,47 +197,39 @@ const apolloMocks = [
   },
 ];
 
-const eventData = eventResult.data.event;
-const originalUseRouter = Router.useRouter;
-
 const rowText = `27.07.2020 12:00 – 12:30 ${data.placeName} 30 / 30 Ilmoittaudu`;
 
 advanceTo(new Date(2020, 6, 14));
 
+const renderComponent = (options?: CustomRenderOptions) => {
+  return render(<EventPage />, {
+    mocks: apolloMocks,
+    query: { eventId: eventData.data.event.id },
+    path: `/fi${ROUTES.EVENT_DETAILS.replace(':id', data.id)}`,
+    ...options,
+  });
+};
+
+const waitForRequestsToComplete = async () => {
+  await screen.findByRole('heading', {
+    name: data.name,
+  });
+  await waitFor(() => {
+    expect(screen.queryAllByText(data.placeName)).toHaveLength(10);
+  });
+};
+
 beforeAll(() => {
   jest.setTimeout(30000);
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  (Router.useRouter as any) = () => {
-    return {
-      query: {
-        eventId: eventResult.data.event.id,
-      },
-      asPath: '/fi/event/palvelutarjotin:afzunowba4',
-    };
-  };
 });
 
 afterAll(() => {
   jest.setTimeout(5000);
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  (Router.useRouter as any) = originalUseRouter;
 });
 
 it('shows full events correctly in occurrences list', async () => {
-  render(
-    <MockedProvider mocks={apolloMocks}>
-      <EventPage />
-    </MockedProvider>
-  );
-
-  // wait for graphql request to complete
-  await screen.findByRole('heading', {
-    name: data.name,
-  });
-
-  await waitFor(() => {
-    expect(screen.queryAllByText(data.placeName)).toHaveLength(10);
-  });
+  renderComponent();
+  await waitForRequestsToComplete();
 
   const fullOccurrenceRowText1 =
     '23.07.2020 12:00 – 12:30 Soukan kirjasto 0 / 1 Tapahtuma on täynnä';
@@ -256,20 +249,8 @@ it('shows full events correctly in occurrences list', async () => {
 });
 
 it('renders page and event information correctly', async () => {
-  render(
-    <MockedProvider mocks={apolloMocks}>
-      <EventPage />
-    </MockedProvider>
-  );
-
-  // wait for graphql request to complete
-  await screen.findByRole('heading', {
-    name: data.name,
-  });
-
-  await waitFor(() => {
-    expect(screen.queryAllByText(data.placeName)).toHaveLength(10);
-  });
+  renderComponent();
+  await waitForRequestsToComplete();
 
   // items that should be found by text in the document
   const queryByText = [
@@ -308,7 +289,7 @@ it('renders page and event information correctly', async () => {
   const eventImage = screen.queryByRole('img', {
     name: data.fakeAltText,
   });
-  expect(eventImage).toHaveAttribute('src', eventData.images[0].url);
+  expect(eventImage).toHaveAttribute('src', eventData.data.event.images[0].url);
 
   // All keywords should be found in the document
   data.keywords.forEach((keyword) => {
@@ -317,20 +298,8 @@ it('renders page and event information correctly', async () => {
 });
 
 it('renders occurrences table and related stuff correctly', async () => {
-  render(
-    <MockedProvider mocks={apolloMocks}>
-      <EventPage />
-    </MockedProvider>
-  );
-
-  // wait for graphql request to complete
-  await screen.findByRole('heading', {
-    name: data.name,
-  });
-
-  await waitFor(() => {
-    expect(screen.queryAllByText(data.placeName)).toHaveLength(10);
-  });
+  renderComponent();
+  await waitForRequestsToComplete();
 
   const occurrencesTitle = screen.queryByText(
     eventMessages.occurrencesTitle.replace('{{count}}', '10')
@@ -341,7 +310,7 @@ it('renders occurrences table and related stuff correctly', async () => {
   const enrolmentButton = screen.queryByRole('button', {
     name: occurrenceMessages.occurrenceSelection.buttonSelectOccurrences.replace(
       '{{neededOccurrences}}',
-      eventData.pEvent.neededOccurrences.toString()
+      eventData.data.event.pEvent.neededOccurrences.toString()
     ),
   });
 
@@ -374,20 +343,8 @@ it('renders occurrences table and related stuff correctly', async () => {
 });
 
 it('selecting enrolments works and buttons have correct texts', async () => {
-  render(
-    <MockedProvider mocks={apolloMocks}>
-      <EventPage />
-    </MockedProvider>
-  );
-
-  // wait for graphql request to complete
-  await screen.findByRole('heading', {
-    name: data.name,
-  });
-
-  await waitFor(() => {
-    expect(screen.queryAllByText(data.placeName)).toHaveLength(10);
-  });
+  renderComponent();
+  await waitForRequestsToComplete();
 
   let occurrenceEnrolmentButtons = screen.getAllByRole('button', {
     name: occurrenceMessages.occurrenceSelection.buttonEnrolOccurrence,
@@ -464,7 +421,10 @@ it('selecting enrolments works and buttons have correct texts', async () => {
   userEvent.click(screen.getByRole('button', { name: 'Ilmoittaudu' }));
 
   expect(i18nRouter.push).toHaveBeenCalledWith({
-    pathname: ROUTES.CREATE_ENROLMENT.replace(':id', eventData.id as string),
+    pathname: ROUTES.CREATE_ENROLMENT.replace(
+      ':id',
+      eventData.data.event.id as string
+    ),
     query: {
       occurrences: [data.placeId1, data.placeId2, data.placeId3],
     },
@@ -474,20 +434,8 @@ it('selecting enrolments works and buttons have correct texts', async () => {
 });
 
 it('opens expanded area when clicked', async () => {
-  render(
-    <MockedProvider mocks={apolloMocks}>
-      <EventPage />
-    </MockedProvider>
-  );
-
-  // wait for graphql request to complete
-  await screen.findByRole('heading', {
-    name: data.name,
-  });
-
-  await waitFor(() => {
-    expect(screen.queryAllByText(data.placeName)).toHaveLength(10);
-  });
+  renderComponent();
+  await waitForRequestsToComplete();
 
   const occurrenceRow = within(
     screen.getByRole('row', {
@@ -515,20 +463,8 @@ it('opens expanded area when clicked', async () => {
 });
 
 it('filters occurrence list correctly when sate filters are selected', async () => {
-  render(
-    <MockedProvider mocks={apolloMocks}>
-      <EventPage />
-    </MockedProvider>
-  );
-
-  // wait for graphql request to complete
-  await screen.findByRole('heading', {
-    name: data.name,
-  });
-
-  await waitFor(() => {
-    expect(screen.queryAllByText(data.placeName)).toHaveLength(10);
-  });
+  renderComponent();
+  await waitForRequestsToComplete();
 
   userEvent.click(
     screen.getByLabelText(eventMessages.occurrenceList.labelStartDateFilter)
@@ -548,4 +484,50 @@ it('filters occurrence list correctly when sate filters are selected', async () 
     name: eventMessages.occurrenceList.enrolOccurrenceButton,
   });
   expect(occurrenceEnrolButtons).toHaveLength(1);
+});
+
+describe.only('refetch of event works correctly', () => {
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
+
+  const mockEventQuery = (refetchMock: jest.Mock) => {
+    jest
+      .spyOn(graphqlFuncs, 'useEventQuery')
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      .mockReturnValue({
+        refetch: refetchMock,
+        data: {},
+        loading: true,
+      } as any);
+  };
+
+  it('refetches event so that occurrences update after enrolment is done', async () => {
+    const refetchMock = jest.fn();
+    mockEventQuery(refetchMock);
+    renderComponent({
+      path: `/fi/${ROUTES.EVENT_DETAILS.replace(':id', data.id)}?${
+        ENROLMENT_URL_PARAMS.ENROLMENT_CREATED
+      }=true`,
+      query: {
+        eventId: data.id,
+        [ENROLMENT_URL_PARAMS.ENROLMENT_CREATED]: true,
+      },
+    });
+
+    expect(refetchMock).toHaveBeenCalled();
+  });
+
+  it("won't try to refetch if enrolment wasn't created", async () => {
+    const refetchMock = jest.fn();
+    mockEventQuery(refetchMock);
+    renderComponent({
+      path: `/fi/${ROUTES.EVENT_DETAILS.replace(':id', data.id)}`,
+      query: {
+        eventId: data.id,
+      },
+    });
+
+    expect(refetchMock).not.toHaveBeenCalled();
+  });
 });
