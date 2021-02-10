@@ -5,20 +5,22 @@ import {
   OccurrenceFieldsFragment,
   OccurrenceSeatType,
 } from '../../generated/graphql';
+import assertUnreachable from '../../utils/assertUnreachable';
 
 export const hasOccurrenceSpace = (
   occurrence: OccurrenceFieldsFragment
 ): boolean => {
-  if (occurrence.seatType === OccurrenceSeatType.ChildrenCount) {
-    const minGroupSize = occurrence?.minGroupSize || 0;
-    return (
-      minGroupSize < occurrence.amountOfSeats - (occurrence.seatsTaken || 0)
-    );
-  } else if (occurrence.seatType === OccurrenceSeatType.EnrolmentCount) {
-    return occurrence.remainingSeats > 0;
+  switch (occurrence.seatType) {
+    case OccurrenceSeatType.ChildrenCount:
+      const minGroupSize = occurrence?.minGroupSize || 0;
+      return (
+        minGroupSize < occurrence.amountOfSeats - (occurrence.seatsTaken || 0)
+      );
+    case OccurrenceSeatType.EnrolmentCount:
+      return occurrence.remainingSeats > 0;
+    default:
+      assertUnreachable(occurrence.seatType);
   }
-
-  return false;
 };
 
 export const isEnrolmentStarted = (

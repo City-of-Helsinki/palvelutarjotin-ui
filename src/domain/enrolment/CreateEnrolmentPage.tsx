@@ -12,6 +12,7 @@ import {
 } from '../../generated/graphql';
 import useLocale from '../../hooks/useLocale';
 import { Router, useTranslation } from '../../i18n';
+import assertUnreachable from '../../utils/assertUnreachable';
 import { translateValue } from '../../utils/translateUtils';
 import Container from '../app/layout/Container';
 import PageWrapper from '../app/layout/PageWrapper';
@@ -78,16 +79,17 @@ const CreateEnrolmentPage: React.FC = () => {
       // if OccurrenceType is EnrolmentCount, use only maxGroupSize
       maxGroupSize: Math.min(
         ...filteredOccurrences.map((item) => {
-          if (item.seatType === OccurrenceSeatType.ChildrenCount) {
-            return Math.min(
-              item?.maxGroupSize || item.amountOfSeats,
-              item.amountOfSeats - (item.seatsTaken || 0)
-            );
+          switch (item.seatType) {
+            case OccurrenceSeatType.ChildrenCount:
+              return Math.min(
+                item?.maxGroupSize || item.amountOfSeats,
+                item.amountOfSeats - (item.seatsTaken || 0)
+              );
+            case OccurrenceSeatType.EnrolmentCount:
+              return item?.maxGroupSize || 0;
+            default:
+              return assertUnreachable(item.seatType);
           }
-          if (item.seatType === OccurrenceSeatType.EnrolmentCount) {
-            return Math.min(item?.maxGroupSize || 0);
-          }
-          return 0;
         })
       ),
     }),
