@@ -24,6 +24,9 @@
       "required": "Tämä kenttä on pakollinen",
       "min": "Arvon tulee olla vähintään {{min}}",
       "max": "Arvon tulee olla enintään {{max}}"
+    },
+    "studygroup": {
+      "adultmaxwithchildren": "Arvon tulee olla enintään {{max}} yhdessä lasten lukumäärän kanssa"
     }
   },
   "errorNotification": {

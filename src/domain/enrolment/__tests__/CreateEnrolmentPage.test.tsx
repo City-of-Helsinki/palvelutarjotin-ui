@@ -397,3 +397,68 @@ test('render and focuses error notification correctly', async () => {
 
   expect(screen.getByRole('textbox', { name: 'Nimi' })).toHaveFocus();
 });
+
+test('amount of adults is limited to 1 when there is 1 seat left after children', async () => {
+  render(<CreateEnrolmentPage />, {
+    mocks: mock3,
+    query: { eventId: eventId, occurrences: occurrenceIds },
+  });
+  await waitFor(() => {
+    expect(screen.getByLabelText(/lapsia/i)).toBeInTheDocument();
+  });
+  userEvent.type(screen.getByLabelText(/lapsia/i), '19');
+  userEvent.type(screen.getByLabelText(/aikuisia/i), '2');
+  userEvent.tab();
+  await waitFor(() => {
+    expect(
+      screen.getByText(
+        /Arvon tulee olla enintään 1 yhdessä lasten lukumäärän kanssa/i
+      )
+    ).toBeInTheDocument();
+  });
+});
+
+test('amount of adults is limited to 0 when children fills the group in whole', async () => {
+  render(<CreateEnrolmentPage />, {
+    mocks: mock3,
+    query: { eventId: eventId, occurrences: occurrenceIds },
+  });
+  await waitFor(() => {
+    expect(screen.getByLabelText(/lapsia/i)).toBeInTheDocument();
+  });
+  userEvent.type(screen.getByLabelText(/lapsia/i), '20');
+  userEvent.type(screen.getByLabelText(/aikuisia/i), '2');
+  userEvent.tab();
+  await waitFor(() => {
+    expect(
+      screen.getByText(
+        /Arvon tulee olla enintään 0 yhdessä lasten lukumäärän kanssa/i
+      )
+    ).toBeInTheDocument();
+  });
+});
+
+test('adults should not validated against max group limit when there are already too many children', async () => {
+  render(<CreateEnrolmentPage />, {
+    mocks: mock3,
+    query: { eventId: eventId, occurrences: occurrenceIds },
+  });
+  await waitFor(() => {
+    expect(screen.getByLabelText(/lapsia/i)).toBeInTheDocument();
+  });
+  userEvent.type(screen.getByLabelText(/lapsia/i), '21');
+  userEvent.type(screen.getByLabelText(/aikuisia/i), '2');
+  userEvent.tab();
+  await waitFor(() => {
+    expect(
+      screen.getByText(/Arvon tulee olla enintään 20/i)
+    ).toBeInTheDocument();
+  });
+  await waitFor(() => {
+    expect(
+      screen.queryByText(
+        /Arvon tulee olla enintään 0 yhdessä lasten lukumäärän kanssa/i
+      )
+    ).not.toBeInTheDocument();
+  });
+});

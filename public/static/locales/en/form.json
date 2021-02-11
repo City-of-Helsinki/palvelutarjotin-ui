@@ -24,6 +24,9 @@
       "required": "This field is required",
       "min": "This time must be after {{min}}",
       "max": "This time must be before {{max}}"
+    },
+    "studygroup": {
+      "adultmaxwithchildren": "Maximun value is {{max}} with current amount of children"
     }
   },
   "errorNotification": {
