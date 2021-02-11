@@ -7,6 +7,7 @@ import useLocale from '../../../hooks/useLocale';
 import { useTranslation } from '../../../i18n';
 import formatDate from '../../../utils/formatDate';
 import formatTimeRange from '../../../utils/formatTimeRange';
+import { getAmountOfSeatsLeft } from '../../occurrence/utils';
 import PlaceText from '../../place/placeText/PlaceText';
 
 interface Props {
@@ -42,7 +43,7 @@ const OccurrenceTable: React.FC<Props> = ({ eventLocationId, occurrences }) => {
     {
       Header: t('enrolment:occurrenceTable.columnSeatsInfo'),
       accessor: (row: OccurrenceFieldsFragment) =>
-        `${row.amountOfSeats - row.seatsTaken} / ${row.amountOfSeats}`,
+        `${getAmountOfSeatsLeft(row)} / ${row.amountOfSeats}`,
       id: 'seatsInfo',
     },
   ];

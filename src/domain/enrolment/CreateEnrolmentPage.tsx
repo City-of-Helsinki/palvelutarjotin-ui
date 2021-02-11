@@ -8,9 +8,11 @@ import LoadingSpinner from '../../common/components/loadingSpinner/LoadingSpinne
 import {
   useEventQuery,
   useEnrolOccurrenceMutation,
+  OccurrenceSeatType,
 } from '../../generated/graphql';
 import useLocale from '../../hooks/useLocale';
 import { Router, useTranslation } from '../../i18n';
+import assertUnreachable from '../../utils/assertUnreachable';
 import { translateValue } from '../../utils/translateUtils';
 import Container from '../app/layout/Container';
 import PageWrapper from '../app/layout/PageWrapper';
@@ -18,6 +20,7 @@ import { ROUTES } from '../app/routes/constants';
 import { getEventFields } from '../event/utils';
 import NotFoundPage from '../notFoundPage/NotFoundPage';
 import {
+  getAmountOfSeatsLeft,
   hasOccurrenceSpace,
   isEnrolmentClosed,
   isEnrolmentStarted,
@@ -68,18 +71,28 @@ const CreateEnrolmentPage: React.FC = () => {
   const initialValues = React.useMemo(
     () => ({
       ...defaultInitialValues,
+      language: locale.toUpperCase(),
+      // some of the values used only for validation purposes
       minGroupSize: Math.max(
         ...filteredOccurrences.map((item) => item?.minGroupSize || 0)
       ),
+      // figure out maxGroup size based on all occurrences selected
+      // if OccurrenceType is EnrolmentCount, use only maxGroupSize
       maxGroupSize: Math.min(
-        ...filteredOccurrences.map((item) =>
-          Math.min(
-            item?.maxGroupSize || item.amountOfSeats,
-            item.amountOfSeats - (item.seatsTaken || 0)
-          )
-        )
+        ...filteredOccurrences.map((item) => {
+          switch (item.seatType) {
+            case OccurrenceSeatType.ChildrenCount:
+              return Math.min(
+                item?.maxGroupSize || item.amountOfSeats,
+                getAmountOfSeatsLeft(item)
+              );
+            case OccurrenceSeatType.EnrolmentCount:
+              return item?.maxGroupSize || 0;
+            default:
+              return assertUnreachable(item.seatType);
+          }
+        })
       ),
-      language: locale.toUpperCase(),
     }),
     [filteredOccurrences, locale]
   );

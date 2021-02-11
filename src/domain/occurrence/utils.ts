@@ -3,14 +3,27 @@ import { isPast, subDays } from 'date-fns';
 import {
   EventFieldsFragment,
   OccurrenceFieldsFragment,
+  OccurrenceSeatType,
 } from '../../generated/graphql';
+import assertUnreachable from '../../utils/assertUnreachable';
 
 export const hasOccurrenceSpace = (
   occurrence: OccurrenceFieldsFragment
 ): boolean => {
-  const minGroupSize = occurrence?.minGroupSize || 0;
-  return minGroupSize < occurrence.amountOfSeats - (occurrence.seatsTaken || 0);
+  switch (occurrence.seatType) {
+    case OccurrenceSeatType.ChildrenCount:
+      const minGroupSize = occurrence?.minGroupSize || 0;
+      return minGroupSize < getAmountOfSeatsLeft(occurrence);
+    case OccurrenceSeatType.EnrolmentCount:
+      return occurrence.remainingSeats > 0;
+    default:
+      assertUnreachable(occurrence.seatType);
+  }
 };
+
+export const getAmountOfSeatsLeft = (
+  occurrence: OccurrenceFieldsFragment
+): number => occurrence.amountOfSeats - (occurrence.seatsTaken || 0);
 
 export const isEnrolmentStarted = (
   event?: EventFieldsFragment | null
