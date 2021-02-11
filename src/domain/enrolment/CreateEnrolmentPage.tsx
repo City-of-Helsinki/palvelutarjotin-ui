@@ -20,6 +20,7 @@ import { ROUTES } from '../app/routes/constants';
 import { getEventFields } from '../event/utils';
 import NotFoundPage from '../notFoundPage/NotFoundPage';
 import {
+  getAmountOfSeatsLeft,
   hasOccurrenceSpace,
   isEnrolmentClosed,
   isEnrolmentStarted,
@@ -83,7 +84,7 @@ const CreateEnrolmentPage: React.FC = () => {
             case OccurrenceSeatType.ChildrenCount:
               return Math.min(
                 item?.maxGroupSize || item.amountOfSeats,
-                item.amountOfSeats - (item.seatsTaken || 0)
+                getAmountOfSeatsLeft(item)
               );
             case OccurrenceSeatType.EnrolmentCount:
               return item?.maxGroupSize || 0;

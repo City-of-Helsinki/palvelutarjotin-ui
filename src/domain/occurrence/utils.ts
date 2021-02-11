@@ -13,15 +13,17 @@ export const hasOccurrenceSpace = (
   switch (occurrence.seatType) {
     case OccurrenceSeatType.ChildrenCount:
       const minGroupSize = occurrence?.minGroupSize || 0;
-      return (
-        minGroupSize < occurrence.amountOfSeats - (occurrence.seatsTaken || 0)
-      );
+      return minGroupSize < getAmountOfSeatsLeft(occurrence);
     case OccurrenceSeatType.EnrolmentCount:
       return occurrence.remainingSeats > 0;
     default:
       assertUnreachable(occurrence.seatType);
   }
 };
+
+export const getAmountOfSeatsLeft = (
+  occurrence: OccurrenceFieldsFragment
+): number => occurrence.amountOfSeats - (occurrence.seatsTaken || 0);
 
 export const isEnrolmentStarted = (
   event?: EventFieldsFragment | null
