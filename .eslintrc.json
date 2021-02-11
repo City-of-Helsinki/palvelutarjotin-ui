@@ -8,7 +8,7 @@
     "plugin:import/typescript",
     "plugin:testcafe/recommended"
   ],
-  "plugins": ["testcafe"],
+  "plugins": ["testcafe", "no-only-tests"],
   "rules": {
     "@typescript-eslint/brace-style": [
       "error",
@@ -41,6 +41,7 @@
     "no-console": "warn",
     "no-plusplus": "error",
     "no-undef": "warn",
-    "object-curly-spacing": ["warn", "always"]
+    "object-curly-spacing": ["warn", "always"],
+    "no-only-tests/no-only-tests": "error"
   }
 }

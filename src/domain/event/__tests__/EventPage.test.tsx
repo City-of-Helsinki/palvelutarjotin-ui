@@ -486,7 +486,7 @@ it('filters occurrence list correctly when sate filters are selected', async () 
   expect(occurrenceEnrolButtons).toHaveLength(1);
 });
 
-describe.only('refetch of event works correctly', () => {
+describe('refetch of event works correctly', () => {
   afterEach(() => {
     jest.restoreAllMocks();
   });
