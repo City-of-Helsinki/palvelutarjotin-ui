@@ -38,9 +38,16 @@ const EventPage = (): ReactElement => {
     string[]
   >([]);
 
-  const { data: eventData, loading } = useEventQuery({
+  const { data: eventData, loading, refetch: refetchEvent } = useEventQuery({
     variables: { id: eventId as string, include: ['keywords', 'location'] },
   });
+
+  // refetch event data (to get updated occurrences) if enrolment was created
+  React.useEffect(() => {
+    if (enrolmentCreated) {
+      refetchEvent();
+    }
+  }, [enrolmentCreated, refetchEvent]);
 
   const enrolOccurrence = (occurrenceId: string) => {
     Router.push({

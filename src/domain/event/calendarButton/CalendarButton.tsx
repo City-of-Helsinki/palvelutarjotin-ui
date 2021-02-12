@@ -45,7 +45,10 @@ const CalendarButton: React.FC<CalendarButtonProps> = ({
       const icsEvent: EventAttributes = {
         description: t('event:info.textCalendarLinkDescription', {
           description: getLocalisedString(event.shortDescription || {}, locale),
-          link: `${domain}/${locale}${ROUTES.EVENT.replace(':id', event.id)}`,
+          link: `${domain}/${locale}${ROUTES.EVENT_DETAILS.replace(
+            ':id',
+            event.id
+          )}`,
         }),
         end: occurrence.endTime
           ? getDateArray(occurrence.endTime)

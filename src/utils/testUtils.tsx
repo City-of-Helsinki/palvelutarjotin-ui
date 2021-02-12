@@ -44,17 +44,16 @@ const customRender: CustomRender = (
   return { ...renderResult };
 };
 
+export type CustomRenderOptions = {
+  mocks?: MockedResponse[];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  store?: Store<any, AnyAction>;
+  path?: string;
+  query?: Record<string, unknown>;
+};
+
 type CustomRender = {
-  (
-    ui: React.ReactElement,
-    options?: {
-      mocks?: MockedResponse[];
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      store?: Store<any, AnyAction>;
-      path?: string;
-      query?: Record<string, unknown>;
-    }
-  ): CustomRenderResult;
+  (ui: React.ReactElement, options?: CustomRenderOptions): CustomRenderResult;
 };
 
 type CustomRenderResult = RenderResult;

@@ -35,6 +35,7 @@ import {
   StudyLevelNodeEdge,
   StudyLevelNode,
   VenueNode,
+  OccurrenceSeatType,
 } from '../generated/graphql';
 
 const organizationNames = [
@@ -297,6 +298,7 @@ export const fakeOccurrence = (
   amountOfSeats: 30,
   minGroupSize: 10,
   maxGroupSize: 20,
+
   languages: [
     { id: 'en', name: 'English', __typename: 'LanguageType' },
     { id: 'fi', name: 'Finnish', __typename: 'LanguageType' },
@@ -304,7 +306,7 @@ export const fakeOccurrence = (
   startTime: '2020-08-03T09:00:00+00:00',
   endTime: '2020-08-03T09:30:00+00:00',
   placeId: '',
-  seatType: null as any,
+  seatType: OccurrenceSeatType.ChildrenCount,
   seatsTaken: 0,
   seatsApproved: 0,
   contactPersons: [] as any,
@@ -312,7 +314,7 @@ export const fakeOccurrence = (
   enrolments: [] as any,
   studyGroups: [] as any,
   updatedAt: '' as any,
-  remainingSeats: null as any,
+  remainingSeats: 30,
   cancelled: false,
   linkedEvent: {
     __typename: 'Event',

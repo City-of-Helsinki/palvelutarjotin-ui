@@ -24,6 +24,7 @@ import { translateValue } from '../../../utils/translateUtils';
 import { ENROLMENT_ERRORS } from '../../enrolment/constants';
 import OccurrenceGroupInfo from '../../occurrence/occurrenceGroupInfo/OccurrenceGroupInfo';
 import {
+  getAmountOfSeatsLeft,
   hasOccurrenceSpace,
   isEnrolmentClosed,
   isEnrolmentStarted,
@@ -90,7 +91,7 @@ const Occurrences: React.FC<Props> = ({
     return null;
   };
 
-  const renderEnrolmentButton = ({
+  const renderEnrolmentButtonCell = ({
     value,
   }: {
     value: OccurrenceFieldsFragment;
@@ -185,12 +186,12 @@ const Occurrences: React.FC<Props> = ({
     {
       Header: t('enrolment:occurrenceTable.columnSeatsInfo'),
       accessor: (row: OccurrenceFieldsFragment) =>
-        `${row.amountOfSeats - row.seatsTaken} / ${row.amountOfSeats}`,
+        `${getAmountOfSeatsLeft(row)} / ${row.amountOfSeats}`,
       id: 'seatsInfo',
     },
     {
       accessor: (row: OccurrenceFieldsFragment) => row,
-      Cell: renderEnrolmentButton,
+      Cell: renderEnrolmentButtonCell,
       id: 'enrol',
       style: {
         width: enrolButtonColumnWidth,
