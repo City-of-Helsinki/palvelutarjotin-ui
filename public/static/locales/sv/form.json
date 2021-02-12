@@ -24,6 +24,9 @@
       "required": "Detta fält krävs",
       "min": "Den här tiden måste vara efter {{min}}",
       "max": "Den här tiden måste vara innan {{max}}"
+    },
+    "studygroup": {
+      "adultmaxwithchildren": "Maxvärdet är {{max}} med nuvarande antal barn"
     }
   },
   "errorNotification": {

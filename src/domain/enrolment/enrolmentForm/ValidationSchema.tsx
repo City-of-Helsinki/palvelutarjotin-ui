@@ -58,7 +58,22 @@ export default Yup.object().shape({
           .min(0, (param) => ({
             min: param.min,
             key: VALIDATION_MESSAGE_KEYS.NUMBER_MIN,
-          })),
+          }))
+          .when(
+            ['groupSize'],
+            (groupSize: number, schema: Yup.NumberSchema) => {
+              // Don't validate until groupSize -field is valid.
+              // This is preventing negative param.max to occur in validation.
+              if (!groupSize || maxGroupSize - groupSize < 0) {
+                return schema;
+              }
+              // Count how many seats are left after children count is given.
+              return schema.max(maxGroupSize - groupSize, (param) => ({
+                max: param.max,
+                key: VALIDATION_MESSAGE_KEYS.STUDYGROUP_MAX_WITH_CHILDREN,
+              }));
+            }
+          ),
         studyLevels: Yup.array()
           .required(VALIDATION_MESSAGE_KEYS.STRING_REQUIRED)
           .min(0),
