@@ -67,8 +67,18 @@ export const fakeEvents = (
 
 export const fakeOffer = (overrides?: Partial<Offer>): Offer => ({
   isFree: true,
-  description: null,
-  price: null,
+  description: {
+    en: null,
+    fi: 'description',
+    sv: null,
+    __typename: 'LocalisedObject',
+  },
+  price: {
+    en: null,
+    fi: '99,9',
+    sv: null,
+    __typename: 'LocalisedObject',
+  },
   infoUrl: null,
   __typename: 'Offer',
   ...overrides,
@@ -245,7 +255,6 @@ export const fakePEvent = (
   nextOccurrenceDatetime: '',
   lastOccurrenceDatetime: '',
   mandatoryAdditionalInformation: false,
-  paymentInstruction: '',
   __typename: 'PalvelutarjotinEventNode',
   ...overrides,
 });
@@ -307,6 +316,10 @@ export const fakeOccurrence = (
   updatedAt: '' as any,
   remainingSeats: 30,
   cancelled: false,
+  linkedEvent: {
+    __typename: 'Event',
+    offers: [fakeOffer()],
+  } as any,
   __typename: 'OccurrenceNode',
   ...overrides,
 });

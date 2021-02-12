@@ -355,7 +355,6 @@ export type PalvelutarjotinEventNode = Node & {
   contactEmail: Scalars['String'];
   autoAcceptance: Scalars['Boolean'];
   mandatoryAdditionalInformation: Scalars['Boolean'];
-  paymentInstruction: Scalars['String'];
   occurrences: OccurrenceNodeConnection;
   nextOccurrenceDatetime?: Maybe<Scalars['DateTime']>;
   lastOccurrenceDatetime?: Maybe<Scalars['DateTime']>;
@@ -1599,7 +1598,6 @@ export type PalvelutarjotinEventInput = {
   contactEmail?: Maybe<Scalars['String']>;
   autoAcceptance?: Maybe<Scalars['Boolean']>;
   mandatoryAdditionalInformation?: Maybe<Scalars['Boolean']>;
-  paymentInstruction?: Maybe<Scalars['String']>;
 };
 
 export type UpdateEventMutation = {
@@ -1971,6 +1969,32 @@ export type OccurrenceFieldsFragment = { __typename?: 'OccurrenceNode' } & Pick<
     languages: Array<
       { __typename?: 'LanguageType' } & Pick<LanguageType, 'id' | 'name'>
     >;
+    linkedEvent?: Maybe<
+      { __typename?: 'Event' } & {
+        offers: Array<
+          { __typename?: 'Offer' } & Pick<Offer, 'isFree'> & {
+              description?: Maybe<
+                { __typename?: 'LocalisedObject' } & Pick<
+                  LocalisedObject,
+                  'fi' | 'sv' | 'en'
+                >
+              >;
+              price?: Maybe<
+                { __typename?: 'LocalisedObject' } & Pick<
+                  LocalisedObject,
+                  'fi' | 'sv' | 'en'
+                >
+              >;
+              infoUrl?: Maybe<
+                { __typename?: 'LocalisedObject' } & Pick<
+                  LocalisedObject,
+                  'fi' | 'sv' | 'en'
+                >
+              >;
+            }
+        >;
+      }
+    >;
   };
 
 export type OccurrenceQueryVariables = Exact<{
@@ -2230,6 +2254,26 @@ export const OccurrenceFieldsFragmentDoc = gql`
     startTime
     endTime
     placeId
+    linkedEvent {
+      offers {
+        isFree
+        description {
+          fi
+          sv
+          en
+        }
+        price {
+          fi
+          sv
+          en
+        }
+        infoUrl {
+          fi
+          sv
+          en
+        }
+      }
+    }
   }
 `;
 export const PEventFieldsFragmentDoc = gql`

@@ -19,6 +19,11 @@ export const QUERY_OCCURRENCE = gql`
     startTime
     endTime
     placeId
+    linkedEvent {
+      offers {
+        ...offerFields
+      }
+    }
   }
 
   query Occurrence($id: ID!) {

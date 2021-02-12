@@ -6,6 +6,7 @@ import {
   IconLocation,
   IconClock,
   IconArrowDown,
+  IconGlyphEuro,
 } from 'hds-react';
 import React from 'react';
 
@@ -232,11 +233,27 @@ const Occurrences: React.FC<Props> = ({
   ];
 
   const renderOccurrenceInfo = (occurrence: OccurrenceFieldsFragment) => {
-    const { placeId, startTime, endTime } = occurrence;
+    const { placeId, startTime, endTime, linkedEvent } = occurrence;
     const date = formatDate(new Date(startTime));
     const time =
       startTime &&
       formatTimeRange(new Date(startTime), new Date(endTime), locale);
+    const offer = linkedEvent?.offers?.[0];
+    const price = offer?.price?.[locale];
+    const priceDescription = offer?.description?.[locale];
+    const isFree = offer?.isFree ?? !price;
+    const priceInfoUrl = offer?.infoUrl?.[locale];
+
+    const createLink = (prefix: string, url: string) => (
+      <>
+        {prefix}
+        {prefix && ' '}
+        <a href={url} rel="noopener noreferrer" target="_blank">
+          {url}
+        </a>
+      </>
+    );
+
     return (
       <div className={styles.occurrenceDetails}>
         <div>
@@ -250,6 +267,27 @@ const Occurrences: React.FC<Props> = ({
               </div>
               <div>{t('occurrence:textDateAndTime', { date, time })}</div>
               <OccurrenceGroupInfo occurrence={occurrence} />
+            </div>
+          </div>
+          <div className={styles.infoSection}>
+            <div>
+              <IconGlyphEuro />
+            </div>
+            <div>
+              <div className={styles.infoTitle}>
+                <div data-testid="event-price">
+                  {isFree && t('event:occurrenceList.eventIsFree')}
+                  {!isFree && price}
+                </div>
+              </div>
+              {!!priceDescription && (
+                <p data-testid="event-priceDescription">{priceDescription}</p>
+              )}
+              {!!priceInfoUrl && (
+                <p data-testid="event-priceInfoUrl">
+                  {createLink('', priceInfoUrl)}
+                </p>
+              )}
             </div>
           </div>
           <div className={styles.infoSection}>
