@@ -14,11 +14,6 @@ import getLocalisedString from '../../utils/getLocalisedString';
 import getTimeFormat from '../../utils/getTimeFormat';
 import { EVENT_PLACEHOLDER_IMAGES, EVENT_SOME_IMAGE } from './constants';
 
-/**
- * Get event placeholder image url
- * @param {string} id
- * @return {string}
- */
 export const getEventPlaceholderImage = (id: string): string => {
   const numbers = id.match(/\d+/g);
   const sum = numbers
@@ -57,11 +52,6 @@ export const getEventStartTimeStr = (
   });
 };
 
-/**
- * Check is event free
- * @param eventData
- * @return {boolean}
- */
 export const isEventFree = (event: EventFieldsFragment): boolean =>
   Boolean(event.offers.find((item) => item.isFree)?.isFree);
 
@@ -87,6 +77,8 @@ export const getEventFields = (
         contactEmail: event.pEvent?.contactEmail,
         contactPerson: event.pEvent?.contactPerson?.name,
         neededOccurrences: event.pEvent?.neededOccurrences,
+        isMandatoryAdditionalInformationRequired: !!event.pEvent
+          ?.mandatoryAdditionalInformation,
         occurrences:
           event.pEvent?.occurrences.edges.map(
             (edge) => edge?.node as OccurrenceFieldsFragment

@@ -3,6 +3,7 @@ export type EnrolmentFormFields = {
   hasSmsNotification: boolean;
   isSameResponsiblePerson: boolean;
   isSharingDataAccepted: boolean;
+  isMandatoryAdditionalInformationRequired: boolean;
   language: string;
   maxGroupSize: number;
   minGroupSize: number;
@@ -31,6 +32,7 @@ export const defaultInitialValues: EnrolmentFormFields = {
   hasSmsNotification: false,
   isSameResponsiblePerson: true,
   isSharingDataAccepted: false,
+  isMandatoryAdditionalInformationRequired: false,
   language: '',
   maxGroupSize: 0,
   minGroupSize: 0,
@@ -68,6 +70,8 @@ export const nameToLabelPath: Record<string, string> = {
   'studyGroup.studyLevels':
     'enrolment:enrolmentForm.studyGroup.labelStudyLevel',
   'studyGroup.extraNeeds': 'enrolment:enrolmentForm.studyGroup.labelExtraNeeds',
+  'studyGroup.extraNeedsOptional':
+    'enrolment:enrolmentForm.studyGroup.labelExtraNeedsOptional',
   hasEmailNotification: 'enrolment:enrolmentForm.labelHasEmailNotification',
   hasSmsNotification: 'enrolment:enrolmentForm.labelHasSmsNotification',
   isSameResponsiblePerson:
