@@ -114,13 +114,13 @@ const EventSearchForm = ({
                   hideLabel
                   name="additionalCriteria"
                   component={MultiDropdownField}
-                  label={t('events:search.labelOtherClassification')}
-                  placeholder={t('events:search.labelOtherClassification')}
+                  label={t('events:search.labelActivities')}
+                  placeholder={t('events:search.labelActivities')}
                   clearButtonAriaLabel={t(
-                    'events:search.accessibility.otherClassificationDropdown.clearButtonAriaLabel'
+                    'events:search.accessibility.activityDropdown.clearButtonAriaLabel'
                   )}
                   selectedItemRemoveButtonAriaLabel={t(
-                    'events:search.accessibility.otherClassificationDropdown.selectedItemRemoveButtonAriaLabel'
+                    'events:search.accessibility.activityDropdown.selectedItemRemoveButtonAriaLabel'
                   )}
                   options={additionalCriteriaKeywords}
                 />
