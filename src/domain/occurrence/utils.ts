@@ -13,7 +13,7 @@ export const hasOccurrenceSpace = (
   switch (occurrence.seatType) {
     case OccurrenceSeatType.ChildrenCount:
       const minGroupSize = occurrence?.minGroupSize || 0;
-      return minGroupSize < getAmountOfSeatsLeft(occurrence);
+      return minGroupSize <= getAmountOfSeatsLeft(occurrence);
     case OccurrenceSeatType.EnrolmentCount:
       return occurrence.remainingSeats > 0;
     default:
