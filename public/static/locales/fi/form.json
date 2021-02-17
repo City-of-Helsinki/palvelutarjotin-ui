@@ -26,7 +26,9 @@
       "max": "Arvon tulee olla enintään {{max}}"
     },
     "studygroup": {
-      "adultmaxwithchildren": "Arvon tulee olla enintään {{max}} yhdessä lasten lukumäärän kanssa"
+      "adultmaxwithchildren": "Arvon tulee olla enintään {{max}} yhdessä lasten lukumäärän kanssa",
+      "childrenmaxwithadults": "Arvon tulee olla enintään {{max}} yhdessä aikuisten lukumäärän kanssa",
+      "childrenandadultmax": "Lasten ja aikuisten yhteislukumäärän tulee olla enintään {{max}}"
     }
   },
   "errorNotification": {
