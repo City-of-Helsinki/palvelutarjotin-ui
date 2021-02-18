@@ -27,7 +27,7 @@
     "labelPlaces": "Platser",
     "labelCategories": "Kategorier",
     "labelTargetGroups": "Målgrupper",
-    "labelOtherClassification": "Annan klassificering",
+    "labelActivities": "Aktiviteter",
     "placeInputPlaceholder": "Skriv sökord",
     "accessibility": {
       "audienceDropdown": {
@@ -38,9 +38,9 @@
         "clearButtonAriaLabel": "Ta bort kategorifilter",
         "selectedItemRemoveButtonAriaLabel": "Ta bort kategorifilter"
       },
-      "otherClassificationDropdown": {
-        "clearButtonAriaLabel": "Ta bort andra klassificeringsfilter",
-        "selectedItemRemoveButtonAriaLabel": "Ta bort annat klassificeringsfilter"
+      "activityDropdown": {
+        "clearButtonAriaLabel": "Ta bort aktiviteter",
+        "selectedItemRemoveButtonAriaLabel": "Ta bort aktivitet"
       }
     }
   }
