@@ -58,6 +58,7 @@ const CreateEnrolmentPage: React.FC = () => {
     locationId: eventLocationId,
     neededOccurrences,
     occurrences: allOccurrences,
+    isMandatoryAdditionalInformationRequired,
   } = getEventFields(event, locale);
 
   const selectedOccurrences = Array.isArray(occurrences)
@@ -93,8 +94,9 @@ const CreateEnrolmentPage: React.FC = () => {
           }
         })
       ),
+      isMandatoryAdditionalInformationRequired: !!isMandatoryAdditionalInformationRequired,
     }),
-    [filteredOccurrences, locale]
+    [filteredOccurrences, locale, isMandatoryAdditionalInformationRequired]
   );
 
   const submit = async (values: EnrolmentFormFields) => {

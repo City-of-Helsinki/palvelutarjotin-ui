@@ -1763,6 +1763,7 @@ export type PEventFieldsFragment = {
   | 'neededOccurrences'
   | 'contactPhoneNumber'
   | 'contactEmail'
+  | 'mandatoryAdditionalInformation'
   | 'nextOccurrenceDatetime'
   | 'lastOccurrenceDatetime'
 > & {
@@ -1971,28 +1972,7 @@ export type OccurrenceFieldsFragment = { __typename?: 'OccurrenceNode' } & Pick<
     >;
     linkedEvent?: Maybe<
       { __typename?: 'Event' } & {
-        offers: Array<
-          { __typename?: 'Offer' } & Pick<Offer, 'isFree'> & {
-              description?: Maybe<
-                { __typename?: 'LocalisedObject' } & Pick<
-                  LocalisedObject,
-                  'fi' | 'sv' | 'en'
-                >
-              >;
-              price?: Maybe<
-                { __typename?: 'LocalisedObject' } & Pick<
-                  LocalisedObject,
-                  'fi' | 'sv' | 'en'
-                >
-              >;
-              infoUrl?: Maybe<
-                { __typename?: 'LocalisedObject' } & Pick<
-                  LocalisedObject,
-                  'fi' | 'sv' | 'en'
-                >
-              >;
-            }
-        >;
+        offers: Array<{ __typename?: 'Offer' } & OfferFieldsFragment>;
       }
     >;
   };
@@ -2256,25 +2236,11 @@ export const OccurrenceFieldsFragmentDoc = gql`
     placeId
     linkedEvent {
       offers {
-        isFree
-        description {
-          fi
-          sv
-          en
-        }
-        price {
-          fi
-          sv
-          en
-        }
-        infoUrl {
-          fi
-          sv
-          en
-        }
+        ...offerFields
       }
     }
   }
+  ${OfferFieldsFragmentDoc}
 `;
 export const PEventFieldsFragmentDoc = gql`
   fragment pEventFields on PalvelutarjotinEventNode {
@@ -2284,6 +2250,7 @@ export const PEventFieldsFragmentDoc = gql`
     neededOccurrences
     contactPhoneNumber
     contactEmail
+    mandatoryAdditionalInformation
     organisation {
       id
       name

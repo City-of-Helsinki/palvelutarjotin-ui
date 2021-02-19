@@ -57,13 +57,15 @@ const EnrolmentForm: React.FC<Props> = ({
         handleSubmit,
         touched,
         submitCount,
-        values: { isSameResponsiblePerson },
+        values: {
+          isSameResponsiblePerson,
+          isMandatoryAdditionalInformationRequired,
+        },
       }) => {
         const showErrorNotification = !isEmpty(errors) && !!submitCount;
         const errorLabelKeys = keyify(errors)
           .map((path) => nameToLabelPath[path])
           .filter((i) => i);
-
         return (
           <form
             className={styles.enrolmentForm}
@@ -180,9 +182,14 @@ const EnrolmentForm: React.FC<Props> = ({
                   helperText={t(
                     'enrolment:enrolmentForm.studyGroup.helperExtraNeeds'
                   )}
-                  labelText={t(nameToLabelPath['studyGroup.extraNeeds'])}
+                  labelText={
+                    isMandatoryAdditionalInformationRequired
+                      ? t(nameToLabelPath['studyGroup.extraNeeds'])
+                      : t(nameToLabelPath['studyGroup.extraNeedsOptional'])
+                  }
                   component={TextAreaField}
                   name="studyGroup.extraNeeds"
+                  required={isMandatoryAdditionalInformationRequired}
                 />
               </FormGroup>
 

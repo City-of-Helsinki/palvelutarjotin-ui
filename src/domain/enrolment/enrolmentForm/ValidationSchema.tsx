@@ -27,8 +27,17 @@ export default Yup.object().shape({
     }
   ),
   studyGroup: Yup.object().when(
-    ['maxGroupSize', 'minGroupSize'],
-    (maxGroupSize: number, minGroupSize: number, schema: Yup.ObjectSchema) => {
+    [
+      'maxGroupSize',
+      'minGroupSize',
+      'isMandatoryAdditionalInformationRequired',
+    ],
+    (
+      maxGroupSize: number,
+      minGroupSize: number,
+      isMandatoryAdditionalInformationRequired: boolean,
+      schema: Yup.ObjectSchema
+    ) => {
       return schema.shape({
         person: Yup.object().shape({
           name: Yup.string().required(VALIDATION_MESSAGE_KEYS.STRING_REQUIRED),
@@ -74,6 +83,9 @@ export default Yup.object().shape({
               }));
             }
           ),
+        extraNeeds: isMandatoryAdditionalInformationRequired
+          ? Yup.string().required(VALIDATION_MESSAGE_KEYS.STRING_REQUIRED)
+          : Yup.string(),
         studyLevels: Yup.array()
           .required(VALIDATION_MESSAGE_KEYS.STRING_REQUIRED)
           .min(0),
