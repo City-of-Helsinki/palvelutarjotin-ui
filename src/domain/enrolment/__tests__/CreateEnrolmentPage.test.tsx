@@ -105,6 +105,7 @@ const mock2: MockedResponse[] = [
         enrolmentEndDays: 3,
         occurrences: fakeOccurrences(3, occurrenceOverrides2),
         neededOccurrences: 2,
+        mandatoryAdditionalInformation: true,
       }),
     })
   ),
@@ -144,6 +145,22 @@ const mock3: MockedResponse[] = [
     })
   ),
   mockStudyLevels(),
+];
+
+const mock4: MockedResponse[] = [
+  mockBase(
+    fakeEvent({
+      name: fakeLocalizedObject(eventName),
+      location: fakePlace({ id: locationId }),
+      pEvent: fakePEvent({
+        enrolmentStart: new Date(2020, 8, 7).toISOString(),
+        enrolmentEndDays: 3,
+        occurrences: fakeOccurrences(3, occurrenceOverrides3),
+        neededOccurrences: 2,
+        mandatoryAdditionalInformation: true,
+      }),
+    })
+  ),
 ];
 
 advanceTo(new Date(2020, 8, 8));
@@ -468,5 +485,20 @@ describe('max group size validation of the Children and Adults -fields', () => {
         /Arvon tulee olla enintään 1 yhdessä lasten lukumäärän kanssa/i
       )
     ).not.toBeInTheDocument();
+  });
+});
+
+test('mandatory additional information forces extraNeeds field to be required', async () => {
+  render(<CreateEnrolmentPage />, {
+    mocks: mock4,
+    query: { eventId: eventId, occurrences: occurrenceIds },
+  });
+  await waitFor(() => {
+    expect(screen.getByLabelText(/Lisätiedot/i)).toBeInTheDocument();
+  });
+  userEvent.type(screen.getByRole('textbox', { name: /Lisätiedot/i }), '');
+  userEvent.tab();
+  await waitFor(() => {
+    expect(screen.getByText(/Tämä kenttä on pakollinen/i)).toBeInTheDocument();
   });
 });

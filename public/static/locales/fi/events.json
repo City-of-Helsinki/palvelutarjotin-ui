@@ -27,7 +27,7 @@
     "labelPlaces": "Paikat",
     "labelCategories": "Kategoriat",
     "labelTargetGroups": "Kohderyhmät",
-    "labelOtherClassification": "Muu luokittelu",
+    "labelActivities": "Aktiviteetit",
     "placeInputPlaceholder": "Kirjoita hakusana",
     "accessibility": {
       "audienceDropdown": {
@@ -38,9 +38,9 @@
         "clearButtonAriaLabel": "Poista kategoriavalinnat",
         "selectedItemRemoveButtonAriaLabel": "Poista kategoria"
       },
-      "otherClassificationDropdown": {
-        "clearButtonAriaLabel": "Poista muut luokitteluvalinnat",
-        "selectedItemRemoveButtonAriaLabel": "Poista muu luokitteluvalinta"
+      "activityDropdown": {
+        "clearButtonAriaLabel": "Poista aktiviteetti",
+        "selectedItemRemoveButtonAriaLabel": "Poista aktiviteetit"
       }
     }
   }

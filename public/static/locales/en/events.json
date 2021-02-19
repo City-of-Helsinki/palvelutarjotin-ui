@@ -27,7 +27,7 @@
     "labelPlaces": "Places",
     "labelCategories": "Categories",
     "labelTargetGroups": "Target groups",
-    "labelOtherClassification": "Other classification",
+    "labelActivities": "Activities",
     "placeInputPlaceholder": "Write search word",
     "accessibility": {
       "audienceDropdown": {
@@ -38,9 +38,9 @@
         "clearButtonAriaLabel": "Delete category filters",
         "selectedItemRemoveButtonAriaLabel": "Delete category filter"
       },
-      "otherClassificationDropdown": {
-        "clearButtonAriaLabel": "Delete other classification filters",
-        "selectedItemRemoveButtonAriaLabel": "Delete other classification filter"
+      "activityDropdown": {
+        "clearButtonAriaLabel": "Delete activity filters",
+        "selectedItemRemoveButtonAriaLabel": "Delete activity filter"
       }
     }
   }
