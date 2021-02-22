@@ -26,7 +26,9 @@
       "max": "Den här tiden måste vara innan {{max}}"
     },
     "studygroup": {
-      "adultmaxwithchildren": "Maxvärdet är {{max}} med nuvarande antal barn"
+      "adultmaxwithchildren": "Maxvärdet är {{max}} med nuvarande antal barn",
+      "childrenmaxwithadults": "Maxvärdet är {{max}} med nuvarande antal vuxen",
+      "childrenandadultmax": "Det totala antalet barn och vuxna får inte överstiga {{max}}"
     }
   },
   "errorNotification": {
