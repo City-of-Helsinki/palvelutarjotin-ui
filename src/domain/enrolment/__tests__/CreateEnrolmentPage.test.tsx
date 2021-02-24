@@ -443,6 +443,38 @@ describe('max group size validation of the Children and Adults -fields', () => {
     });
   });
 
+  test('both of the fields are less than the min group size, but the total is valid', async () => {
+    await createEnrolmentForm('8', '9');
+    await waitFor(() => {
+      expect(
+        screen.queryByText(
+          /Lasten ja aikuisten yhteislukumäärän tulee olla enintään 20/i
+        )
+      ).not.toBeInTheDocument();
+    });
+    expect(
+      screen.queryByText(
+        /Lasten ja aikuisten yhteislukumäärän tulee olla vähintään 10/i
+      )
+    ).not.toBeInTheDocument();
+  });
+
+  test('one of the fields are less than the min group size, but the total is valid', async () => {
+    await createEnrolmentForm('7', '11');
+    await waitFor(() => {
+      expect(
+        screen.queryByText(
+          /Lasten ja aikuisten yhteislukumäärän tulee olla enintään 20/i
+        )
+      ).not.toBeInTheDocument();
+    });
+    expect(
+      screen.queryByText(
+        /Lasten ja aikuisten yhteislukumäärän tulee olla vähintään 10/i
+      )
+    ).not.toBeInTheDocument();
+  });
+
   test('one field is greater than the max group size and another one is (still) empty', async () => {
     await createEnrolmentForm('21', '');
     await waitFor(() => {
@@ -453,6 +485,17 @@ describe('max group size validation of the Children and Adults -fields', () => {
       ).toBeInTheDocument();
     });
     expect(screen.getByText(/Tämä kenttä on pakollinen/i)).toBeInTheDocument();
+  });
+
+  test('the total count is less than minimum', async () => {
+    await createEnrolmentForm('1', '2');
+    await waitFor(() => {
+      expect(
+        screen.getAllByText(
+          /Lasten ja aikuisten yhteislukumäärän tulee olla vähintään 10/i
+        )
+      ).toHaveLength(2);
+    });
   });
 
   test('both the fields are valid as a single, but the total is greater than the maximum group size', async () => {
