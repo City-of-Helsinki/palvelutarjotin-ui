@@ -108,6 +108,7 @@ export const fakeEvent = (overrides?: Partial<Event>): Event => {
     endTime: '2020-07-13T05:51:05.761000Z',
     additionalCriteria: [],
     categories: [],
+    activities: [],
     __typename: 'Event',
     ...overrides,
   };

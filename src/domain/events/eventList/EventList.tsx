@@ -2,7 +2,7 @@ import { Button, Dropdown, IconArrowDown } from 'hds-react';
 import React, { ReactElement } from 'react';
 
 import LoadingSpinner from '../../../common/components/loadingSpinner/LoadingSpinner';
-import { EventFieldsFragment } from '../../../generated/graphql';
+import { EventsFieldsFragment } from '../../../generated/graphql';
 import { useTranslation } from '../../../i18n';
 import { translateValue } from '../../../utils/translateUtils';
 import { ROUTES } from '../../app/routes/constants';
@@ -11,7 +11,7 @@ import { EVENT_SORT_OPTIONS } from '../constants';
 import styles from './eventList.module.scss';
 
 interface Props {
-  events: EventFieldsFragment[];
+  events: EventsFieldsFragment[];
   fetchMore: () => void;
   isLoading: boolean;
   shouldShowLoadMore: boolean;

@@ -2,7 +2,7 @@
 import { IconLocation } from 'hds-react';
 import React from 'react';
 
-import { EventFieldsFragment } from '../../../generated/graphql';
+import { EventsFieldsFragment } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
 import { useTranslation, Link } from '../../../i18n';
 import IconClock from '../../../icons/IconClock';
@@ -13,7 +13,7 @@ import { getEventPlaceholderImage, getEventStartTimeStr } from '../utils';
 import styles from './eventCard.module.scss';
 
 interface Props {
-  event: EventFieldsFragment;
+  event: EventsFieldsFragment;
   link: string;
 }
 
