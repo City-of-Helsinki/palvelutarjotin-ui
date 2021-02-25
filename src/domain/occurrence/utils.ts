@@ -23,7 +23,13 @@ export const hasOccurrenceSpace = (
 
 export const getAmountOfSeatsLeft = (
   occurrence: OccurrenceFieldsFragment
-): number => occurrence.amountOfSeats - (occurrence.seatsTaken || 0);
+): number => {
+  const amountOfSeatsLeft =
+    occurrence.amountOfSeats - (occurrence.seatsTaken || 0);
+
+  // Don't return negative space left, but a 0 instead
+  return Math.max(0, amountOfSeatsLeft);
+};
 
 export const isEnrolmentStarted = (
   event?: EventFieldsFragment | null
