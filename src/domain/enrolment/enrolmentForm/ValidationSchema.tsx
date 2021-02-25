@@ -39,26 +39,45 @@ export default Yup.object().shape({
       schema: Yup.ObjectSchema
     ) => {
       const validateSumOfSizePair = (
-        sizePair: number,
+        sizePair: number | undefined,
         schema: Yup.NumberSchema,
-        fieldLimitValidationMessage: string,
-        totalLimitValidationMessage: string
+        totalMinLimitValidationMessage: string,
+        fieldMaxLimitValidationMessage: string,
+        totalMaxLimitValidationMessage: string
       ): Yup.NumberSchema => {
-        // Validate a single field against the max size.
+        // Validate a single field against the total min and max sizes.
         // The used validation error message will be the same for both the fields.
         // This is also preventing negative param.max to occur in validation.
-        if (!sizePair || sizePair < 0 || sizePair > maxGroupSize) {
-          return schema.max(maxGroupSize, (param) => ({
-            max: param.max,
-            key: totalLimitValidationMessage,
-          }));
+        if (
+          !sizePair ||
+          sizePair < 0 ||
+          sizePair < minGroupSize ||
+          sizePair > maxGroupSize
+        ) {
+          return (
+            schema
+              // Min-limit is current a gap to minimum group size.
+              .min(
+                sizePair != null ? minGroupSize - sizePair : minGroupSize,
+                () => ({
+                  min: minGroupSize,
+                  key: totalMinLimitValidationMessage,
+                })
+              )
+              // Max-limit is maximum group size
+              .max(maxGroupSize, (param) => ({
+                max: param.max,
+                key: totalMaxLimitValidationMessage,
+              }))
+          );
         }
+
         // After the field pair is given, count how many seats are left
         // and use that as max limit.
         // The used validation error message will be unique for both the fields.
         return schema.max(maxGroupSize - sizePair, (param) => ({
           max: param.max,
-          key: fieldLimitValidationMessage,
+          key: fieldMaxLimitValidationMessage,
         }));
       };
 
@@ -82,30 +101,24 @@ export default Yup.object().shape({
           // NOTE: GroupSize is (currently) the amount of children
           groupSize: Yup.number()
             .required(VALIDATION_MESSAGE_KEYS.NUMBER_REQUIRED)
-            .min(0, (param) => ({
-              min: param.min,
-              key: VALIDATION_MESSAGE_KEYS.NUMBER_MIN,
-            }))
             .when(
               ['amountOfAdult'],
               (sizePair: number, schema: Yup.NumberSchema) =>
                 validateSumOfSizePair(
                   sizePair,
                   schema,
+                  VALIDATION_MESSAGE_KEYS.STUDYGROUP_MIN_CHILDREN_WITH_ADULTS,
                   VALIDATION_MESSAGE_KEYS.STUDYGROUP_MAX_WITH_ADULTS,
                   VALIDATION_MESSAGE_KEYS.STUDYGROUP_MAX_CHILDREN_WITH_ADULTS
                 )
             ),
           amountOfAdult: Yup.number()
             .required(VALIDATION_MESSAGE_KEYS.NUMBER_REQUIRED)
-            .min(0, (param) => ({
-              min: param.min,
-              key: VALIDATION_MESSAGE_KEYS.NUMBER_MIN,
-            }))
             .when(['groupSize'], (sizePair: number, schema: Yup.NumberSchema) =>
               validateSumOfSizePair(
                 sizePair,
                 schema,
+                VALIDATION_MESSAGE_KEYS.STUDYGROUP_MIN_CHILDREN_WITH_ADULTS,
                 VALIDATION_MESSAGE_KEYS.STUDYGROUP_MAX_WITH_CHILDREN,
                 VALIDATION_MESSAGE_KEYS.STUDYGROUP_MAX_CHILDREN_WITH_ADULTS
               )

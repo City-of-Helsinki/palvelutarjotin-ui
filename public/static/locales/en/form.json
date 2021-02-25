@@ -26,8 +26,9 @@
       "max": "This time must be before {{max}}"
     },
     "studygroup": {
-      "adultmaxwithchildren": "Maximun value is {{max}} with current amount of children",
-      "childrenmaxwithadults": "Maximun value is {{max}} with current amount of adults",
+      "childrenandadultmin": "The total number of children and adults must be at least {{min}}",
+      "adultmaxwithchildren": "Maximum value is {{max}} with current amount of children",
+      "childrenmaxwithadults": "Maximum value is {{max}} with current amount of adults",
       "childrenandadultmax": "The total number of children and adults must not exceed {{max}}"
     }
   },
