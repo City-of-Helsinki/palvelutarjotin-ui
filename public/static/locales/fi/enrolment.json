@@ -9,6 +9,7 @@
     "labelIsSameResponsiblePerson": "Sama kuin ilmoittaja",
     "labelIsSharingDataAccepted": "Hyväksyn tietojeni jakamisen tapahtuman järjestäjän kanssa",
     "labelLanguage": "Kieli",
+    "labelNotificationLanguage": "Ilmoitusten kieli",
     "person": {
       "labelEmailAddress": "Sähköpostiosoite",
       "labelName": "Nimi",

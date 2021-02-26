@@ -9,6 +9,7 @@
     "labelIsSameResponsiblePerson": "Samma som anmälare",
     "labelIsSharingDataAccepted": "Jag accepterar att dela min information med arrangören",
     "labelLanguage": "Språk",
+    "labelNotificationLanguage": "Språket som används i påminnelser",
     "person": {
       "labelEmailAddress": "E-postadress",
       "labelName": "Name",

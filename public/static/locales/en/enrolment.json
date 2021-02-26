@@ -9,6 +9,7 @@
     "labelIsSameResponsiblePerson": "Same as notifier",
     "labelIsSharingDataAccepted": "I agree to share my information with the event organizer",
     "labelLanguage": "Language",
+    "labelNotificationLanguage": "Language used in notifications",
     "person": {
       "labelEmailAddress": "Email address",
       "labelName": "Name",
