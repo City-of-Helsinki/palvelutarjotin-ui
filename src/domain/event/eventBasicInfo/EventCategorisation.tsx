@@ -7,6 +7,7 @@ import {
 import useLocale from '../../../hooks/useLocale';
 import { useTranslation } from '../../../i18n';
 import getLocalizedString from '../../../utils/getLocalisedString';
+import keywordArrayToText from '../../../utils/keywordArrayToText';
 import { getEventFields, getRealKeywords } from '../utils';
 import styles from './eventBasicInfo.module.scss';
 
@@ -20,18 +21,6 @@ const EventCategorisation: React.FC<{
   const { t } = useTranslation();
   const { categories, activities, audience } = getEventFields(event, locale);
 
-  const arrayToText = (
-    items: { name?: LocalisedFieldsFragment | null }[] | undefined
-  ) => {
-    return (
-      items
-        ?.map((item) => getLocalizedString(item.name || {}, locale))
-        .filter(Boolean)
-        .sort()
-        .join(', ') || '-'
-    );
-  };
-
   return (
     <div
       className={styles.eventCategorisation}
@@ -40,21 +29,21 @@ const EventCategorisation: React.FC<{
       <div className={styles.categorisationRow}>
         <CategorySection
           title={t('event:categorisation.labelCategories')}
-          text={arrayToText(categories)}
+          text={keywordArrayToText(categories, locale)}
         />
         <CategorySection
           title={t('event:categorisation.labelActivities')}
-          text={arrayToText(activities)}
+          text={keywordArrayToText(activities, locale)}
         />
       </div>
       <div className={styles.categorisationRow}>
         <CategorySection
           title={t('event:categorisation.labelAudience')}
-          text={arrayToText(audience)}
+          text={keywordArrayToText(audience, locale)}
         />
         <CategorySection
           title={t('event:categorisation.labelKeywords')}
-          text={arrayToText(realKeywords)}
+          text={keywordArrayToText(realKeywords, locale)}
         />
       </div>
     </div>
