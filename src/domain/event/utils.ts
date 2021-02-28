@@ -131,16 +131,16 @@ export const orderOccurrencesByDate = (
   return 0;
 };
 
+// Get keywords that are not already included in additionalCriteria or categories.
 export const getRealKeywords = (
   eventData: EventQuery
 ): Keyword[] | undefined => {
   const { additionalCriteria, categories } = eventData.event || {};
-  return eventData?.event?.keywords.filter((keyword) => {
-    return !(
-      categories?.find((category) => category.id === keyword.id) ||
-      additionalCriteria?.find(
-        (additionalCriteria) => additionalCriteria.id === keyword.id
-      )
-    );
-  });
+
+  // Combine other keywords into a single array to make filtering simpler
+  const otherKeywords = [...(additionalCriteria ?? []), ...(categories ?? [])];
+
+  return eventData?.event?.keywords.filter(
+    (keyword) => !otherKeywords?.find((category) => category.id === keyword.id)
+  );
 };
