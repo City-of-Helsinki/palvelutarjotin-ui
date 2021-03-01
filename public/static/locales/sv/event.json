@@ -39,6 +39,12 @@
   "eventImageAltText": "Händelsebild",
   "contactPerson": "Kontakt person",
   "occurrencesTitle": "Händelsetider ({{count}} st)",
+  "categorisation": {
+    "labelAudience": "Målgrupper",
+    "labelKeywords": "Evenemangs nyckelord",
+    "labelCategories": "Kategorier",
+    "labelActivities": "Aktiviteter"
+  },
   "shareLinks": {
     "title": "Dela händelsen"
   },

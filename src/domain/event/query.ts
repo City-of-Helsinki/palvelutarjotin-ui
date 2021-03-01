@@ -94,6 +94,12 @@ export const QUERY_EVENT = gql`
       ...venueFields
     }
     startTime
+    additionalCriteria {
+      ...keywordFields
+    }
+    categories {
+      ...keywordFields
+    }
   }
 
   query Event($id: ID!, $include: [String]) {

@@ -9,6 +9,7 @@ import addUrlSlashes from '../../../utils/addUrlSlashes';
 import EventKeywords from '../eventKeywords/EventKeywords';
 import { getEventFields } from '../utils';
 import styles from './eventBasicInfo.module.scss';
+import EventCategorisation from './EventCategorisation';
 
 interface EventBasicInfoProps {
   event: EventFieldsFragment;
@@ -37,6 +38,7 @@ const EventBasicInfo: React.FC<EventBasicInfoProps> = ({ event }) => {
         <p className={styles.shortDescription}>{shortDescription}</p>
         <p>{description}</p>
         <EventKeywords event={event} />
+        <EventCategorisation event={event} />
       </div>
       <div className={styles.infoRight}>
         {/* TODO: Add price information when it is implemented to palveluntarjotin-admin prject */}

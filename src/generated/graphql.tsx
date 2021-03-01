@@ -1834,6 +1834,10 @@ export type EventFieldsFragment = { __typename?: 'Event' } & Pick<
     keywords: Array<{ __typename?: 'Keyword' } & KeywordFieldsFragment>;
     location: { __typename?: 'Place' } & PlaceFieldsFragment;
     venue?: Maybe<{ __typename?: 'VenueNode' } & VenueFieldsFragment>;
+    additionalCriteria: Array<
+      { __typename?: 'Keyword' } & KeywordFieldsFragment
+    >;
+    categories: Array<{ __typename?: 'Keyword' } & KeywordFieldsFragment>;
   };
 
 export type EventQueryVariables = Exact<{
@@ -2279,10 +2283,10 @@ export const PEventFieldsFragmentDoc = gql`
 export const KeywordFieldsFragmentDoc = gql`
   fragment keywordFields on Keyword {
     id
+    internalId
     name {
       ...localisedFields
     }
-    internalId
   }
   ${LocalisedFieldsFragmentDoc}
 `;
@@ -2362,6 +2366,12 @@ export const EventFieldsFragmentDoc = gql`
       ...venueFields
     }
     startTime
+    additionalCriteria {
+      ...keywordFields
+    }
+    categories {
+      ...keywordFields
+    }
   }
   ${LocalisedFieldsFragmentDoc}
   ${ImageFieldsFragmentDoc}

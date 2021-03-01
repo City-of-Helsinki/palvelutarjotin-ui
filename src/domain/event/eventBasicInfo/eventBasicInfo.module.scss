@@ -1,12 +1,14 @@
 @import 'variables';
+@import 'layout';
 
 .eventBasicInfo {
   --inforow-spacing: var(--spacing-m);
+  --grid-gap: 1rem;
 }
 
 .eventBasicInfo {
   display: grid;
-  grid-gap: 1rem;
+  grid-gap: var(--grid-gap);
   grid-template-columns: 3fr 1fr;
 
   .descriptionPart {
@@ -58,5 +60,30 @@
     p {
       margin: 0;
     }
+  }
+
+  .eventCategorisation {
+    margin-top: var(--inforow-spacing);
+  }
+
+  .categorisationRow {
+    display: grid;
+    grid-gap: var(--grid-gap);
+
+    p {
+      margin-top: 0;
+    }
+
+    @include respond_above(sm) {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .categoryTitle {
+    display: block;
+    color: var(--color-black-90);
+    font-size: var(--fontsize-subtitle);
+    font-weight: 700;
+    margin-bottom: var(--spacing-3-xs);
   }
 }
