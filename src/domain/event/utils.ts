@@ -6,6 +6,8 @@ import { TFunction } from 'next-i18next';
 
 import {
   EventFieldsFragment,
+  EventQuery,
+  Keyword,
   EventsFieldsFragment,
   OccurrenceFieldsFragment,
 } from '../../generated/graphql';
@@ -79,6 +81,9 @@ export const getEventFields = (
         contactEmail: event.pEvent?.contactEmail,
         contactPerson: event.pEvent?.contactPerson?.name,
         neededOccurrences: event.pEvent?.neededOccurrences,
+        categories: event.categories,
+        activities: event.additionalCriteria,
+        audience: event.audience,
         isMandatoryAdditionalInformationRequired: !!event.pEvent
           ?.mandatoryAdditionalInformation,
         occurrences:
@@ -126,4 +131,18 @@ export const orderOccurrencesByDate = (
     return 1;
   }
   return 0;
+};
+
+// Get keywords that are not already included in additionalCriteria or categories.
+export const getRealKeywords = (
+  eventData: EventQuery
+): Keyword[] | undefined => {
+  const { additionalCriteria, categories } = eventData.event || {};
+
+  // Combine other keywords into a single array to make filtering simpler
+  const otherKeywords = [...(additionalCriteria ?? []), ...(categories ?? [])];
+
+  return eventData?.event?.keywords.filter(
+    (keyword) => !otherKeywords?.find((category) => category.id === keyword.id)
+  );
 };

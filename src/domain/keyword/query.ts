@@ -3,10 +3,10 @@ import gql from 'graphql-tag';
 export const QUERY_KEYWORD = gql`
   fragment keywordFields on Keyword {
     id
+    internalId
     name {
       ...localisedFields
     }
-    internalId
   }
 
   query Keyword($id: ID!) {

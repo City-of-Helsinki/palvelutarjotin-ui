@@ -36,6 +36,7 @@ import {
 } from '../../../utils/testUtils';
 import { ROUTES } from '../../app/routes/constants';
 import { ENROLMENT_URL_PARAMS } from '../../enrolment/constants';
+import { categorisationSectionTestId } from '../eventBasicInfo/EventCategorisation';
 import EventPage from '../EventPage';
 
 const data = {
@@ -52,12 +53,18 @@ const data = {
   fakeAltText: 'Vaihtoehtoinen teksti',
   neededOccurrences: 3,
   placeName: 'Soukan kirjasto',
-  keywords: ['perheet', 'lapset'],
   venueDescription: 'Venue description',
   placeId1: 'sdgfdgsequrwtw',
   placeId2: 'adsgfhwdgfnsagdbs',
   placeId3: 'aghrewghher534643',
+  keywords: ['perheet', 'lapset'],
+  categories: ['Musiikki', 'Teatteri'],
+  audience: ['1.–2. luokat', '3.–6. luokat', 'Valmistava opetus'],
+  additionalCriteria: ['Luento', 'Työpaja', 'perheet'],
 };
+
+const createFakeKeyword = (k: string) =>
+  fakeKeyword({ name: fakeLocalizedObject(k), id: k });
 
 const eventData = {
   data: {
@@ -137,9 +144,11 @@ const eventData = {
           altText: data.fakeAltText,
         }),
       ],
-      keywords: data.keywords.map((k) =>
-        fakeKeyword({ name: fakeLocalizedObject(k) })
-      ),
+      keywords: data.keywords.map(createFakeKeyword),
+      categories: data.categories.map(createFakeKeyword),
+      audience: data.audience.map(createFakeKeyword),
+      // activities
+      additionalCriteria: data.additionalCriteria.map(createFakeKeyword),
     }),
   },
 };
@@ -293,7 +302,29 @@ it('renders page and event information correctly', async () => {
 
   // All keywords should be found in the document
   data.keywords.forEach((keyword) => {
-    expect(screen.queryByText(keyword, { exact: true })).toBeInTheDocument();
+    expect(
+      screen.queryAllByText(keyword, { exact: true }).length
+    ).toBeGreaterThanOrEqual(1);
+  });
+});
+
+it('renders categorisation section with all categories and keywords', async () => {
+  renderComponent();
+  await waitForRequestsToComplete();
+
+  const categorisationContainer = within(
+    screen.getByTestId(categorisationSectionTestId)
+  );
+
+  [
+    ...data.categories,
+    ...data.audience,
+    ...data.keywords,
+    ...data.additionalCriteria,
+  ].forEach((k) => {
+    expect(
+      categorisationContainer.getByText(new RegExp(k, 'i'))
+    ).toBeInTheDocument();
   });
 });
 

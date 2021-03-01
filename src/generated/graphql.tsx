@@ -871,6 +871,10 @@ export type VenueNode = Node & {
   hasClothingStorage: Scalars['Boolean'];
   hasSnackEatingPlace: Scalars['Boolean'];
   outdoorActivity: Scalars['Boolean'];
+  hasToiletNearby: Scalars['Boolean'];
+  hasAreaForGroupWork: Scalars['Boolean'];
+  hasIndoorPlayingArea: Scalars['Boolean'];
+  hasOutdoorPlayingArea: Scalars['Boolean'];
   translations: Array<VenueTranslationType>;
   /** place_id from linkedEvent */
   id: Scalars['ID'];
@@ -1268,6 +1272,10 @@ export type AddVenueMutationInput = {
   hasClothingStorage: Scalars['Boolean'];
   hasSnackEatingPlace: Scalars['Boolean'];
   outdoorActivity: Scalars['Boolean'];
+  hasToiletNearby: Scalars['Boolean'];
+  hasAreaForGroupWork: Scalars['Boolean'];
+  hasIndoorPlayingArea: Scalars['Boolean'];
+  hasOutdoorPlayingArea: Scalars['Boolean'];
   clientMutationId?: Maybe<Scalars['String']>;
 };
 
@@ -1289,6 +1297,10 @@ export type UpdateVenueMutationInput = {
   hasClothingStorage?: Maybe<Scalars['Boolean']>;
   hasSnackEatingPlace?: Maybe<Scalars['Boolean']>;
   outdoorActivity?: Maybe<Scalars['Boolean']>;
+  hasToiletNearby?: Maybe<Scalars['Boolean']>;
+  hasAreaForGroupWork?: Maybe<Scalars['Boolean']>;
+  hasIndoorPlayingArea?: Maybe<Scalars['Boolean']>;
+  hasOutdoorPlayingArea?: Maybe<Scalars['Boolean']>;
   clientMutationId?: Maybe<Scalars['String']>;
 };
 
@@ -1837,6 +1849,10 @@ export type EventFieldsFragment = { __typename?: 'Event' } & Pick<
     keywords: Array<{ __typename?: 'Keyword' } & KeywordFieldsFragment>;
     location: { __typename?: 'Place' } & PlaceFieldsFragment;
     venue?: Maybe<{ __typename?: 'VenueNode' } & VenueFieldsFragment>;
+    additionalCriteria: Array<
+      { __typename?: 'Keyword' } & KeywordFieldsFragment
+    >;
+    categories: Array<{ __typename?: 'Keyword' } & KeywordFieldsFragment>;
   };
 
 export type EventQueryVariables = Exact<{
@@ -2312,10 +2328,10 @@ export const PEventFieldsFragmentDoc = gql`
 export const KeywordFieldsFragmentDoc = gql`
   fragment keywordFields on Keyword {
     id
+    internalId
     name {
       ...localisedFields
     }
-    internalId
   }
   ${LocalisedFieldsFragmentDoc}
 `;
@@ -2395,6 +2411,12 @@ export const EventFieldsFragmentDoc = gql`
       ...venueFields
     }
     startTime
+    additionalCriteria {
+      ...keywordFields
+    }
+    categories {
+      ...keywordFields
+    }
   }
   ${LocalisedFieldsFragmentDoc}
   ${ImageFieldsFragmentDoc}

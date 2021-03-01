@@ -39,6 +39,12 @@
   "eventImageAltText": "Tapahtuman kuva",
   "contactPerson": "Yhteyshenkilö",
   "occurrencesTitle": "Tapahtumat ({{count}} kpl)",
+  "categorisation": {
+    "labelCategories": "Kategoriat",
+    "labelAudience": "Kohderyhmät",
+    "labelActivities": "Aktiviteetit",
+    "labelKeywords": "Avainsanat"
+  },
   "shareLinks": {
     "title": "Share Event"
   },

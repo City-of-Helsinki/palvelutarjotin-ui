@@ -39,6 +39,12 @@
   "eventImageAltText": "Event image",
   "contactPerson": "Contact person",
   "occurrencesTitle": "Occurrences ({{count}} pcs)",
+  "categorisation": {
+    "labelCategories": "Categories",
+    "labelAudience": "Target groups",
+    "labelActivities": "Activities",
+    "labelKeywords": "Keywords"
+  },
   "shareLinks": {
     "title": "Jaa tapahtuma"
   },
