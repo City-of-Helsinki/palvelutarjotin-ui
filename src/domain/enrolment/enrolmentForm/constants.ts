@@ -77,7 +77,7 @@ export const nameToLabelPath: Record<string, string> = {
   isSameResponsiblePerson:
     'enrolment:enrolmentForm.labelIsSameResponsiblePerson',
   isSharingDataAccepted: 'enrolment:enrolmentForm.labelIsSharingDataAccepted',
-  language: 'enrolment:enrolmentForm.labelLanguage',
+  language: 'enrolment:enrolmentForm.labelNotificationLanguage',
   'person.name': 'enrolment:enrolmentForm.studyGroup.person.labelName',
   'person.phoneNumber':
     'enrolment:enrolmentForm.studyGroup.person.labelPhoneNumber',
