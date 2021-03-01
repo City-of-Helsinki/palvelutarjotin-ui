@@ -1,6 +1,9 @@
 import React, { ReactElement } from 'react';
 
-import { EventFieldsFragment } from '../../../generated/graphql';
+import {
+  EventFieldsFragment,
+  EventsFieldsFragment,
+} from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
 import { useTranslation } from '../../../i18n';
 import getLocalisedString from '../../../utils/getLocalisedString';
@@ -8,7 +11,7 @@ import { isEventFree } from '../utils';
 import styles from './eventKeywords.module.scss';
 
 interface Props {
-  event: EventFieldsFragment;
+  event: EventFieldsFragment | EventsFieldsFragment;
 }
 
 const EventKeywords = ({ event }: Props): ReactElement => {

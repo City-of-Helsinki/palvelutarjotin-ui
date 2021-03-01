@@ -8,6 +8,7 @@ import {
   EventFieldsFragment,
   EventQuery,
   Keyword,
+  EventsFieldsFragment,
   OccurrenceFieldsFragment,
 } from '../../generated/graphql';
 import { Language } from '../../types';
@@ -27,7 +28,7 @@ export const getEventPlaceholderImage = (id: string): string => {
 };
 
 export const getEventStartTimeStr = (
-  event: EventFieldsFragment,
+  event: EventFieldsFragment | EventsFieldsFragment,
   locale: Language,
   t: TFunction
 ): string | null => {
@@ -54,8 +55,9 @@ export const getEventStartTimeStr = (
   });
 };
 
-export const isEventFree = (event: EventFieldsFragment): boolean =>
-  Boolean(event.offers.find((item) => item.isFree)?.isFree);
+export const isEventFree = (
+  event: EventFieldsFragment | EventsFieldsFragment
+): boolean => Boolean(event.offers.find((item) => item.isFree)?.isFree);
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const getEventFields = (

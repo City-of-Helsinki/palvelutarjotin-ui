@@ -7,6 +7,50 @@ export const QUERY_EVENTS = gql`
     previous
   }
 
+  fragment eventsFields on Event {
+    id
+    internalId
+    name {
+      ...localisedFields
+    }
+    shortDescription {
+      ...localisedFields
+    }
+    description {
+      ...localisedFields
+    }
+    images {
+      ...imageFields
+    }
+    infoUrl {
+      ...localisedFields
+    }
+    offers {
+      ...offerFields
+    }
+    pEvent {
+      id
+      nextOccurrenceDatetime
+    }
+    inLanguage {
+      id
+      internalId
+      name {
+        ...localisedFields
+      }
+    }
+    audience {
+      ...keywordFields
+    }
+    keywords {
+      ...keywordFields
+    }
+    location {
+      ...placeFields
+    }
+    startTime
+  }
+
   query Events(
     $division: [String]
     $end: String
@@ -51,7 +95,7 @@ export const QUERY_EVENTS = gql`
         ...metaFields
       }
       data {
-        ...eventFields
+        ...eventsFields
       }
     }
   }

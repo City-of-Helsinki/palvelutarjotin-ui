@@ -3,7 +3,7 @@ import isValidDate from 'date-fns/isValid';
 import { EVENT_LANGUAGES } from '../../constants';
 import {
   EventsQueryVariables,
-  EventFieldsFragment,
+  EventsFieldsFragment,
   EventsQuery,
 } from '../../generated/graphql';
 import { queryParameterToArray } from '../../utils/queryParameterToArray';
@@ -99,6 +99,6 @@ export const getInitialDate = (date?: string | string[]): Date | null => {
 
 export const getEventsThatHaveUpcomingOccurrence = (
   eventData?: EventsQuery
-): EventFieldsFragment[] | undefined => {
+): EventsFieldsFragment[] | undefined => {
   return eventData?.events?.data.filter((e) => e.pEvent.nextOccurrenceDatetime);
 };

@@ -722,6 +722,8 @@ export type Event = {
   categories: Array<Keyword>;
   /** Only use this field in single event query for best performance. This field only work if `keywords` is included in the query argument */
   additionalCriteria: Array<Keyword>;
+  /** Only use this field in single event query for best performance. This field only work if `keywords` is included in the query argument */
+  activities: Array<Keyword>;
 };
 
 export type Place = {
@@ -869,6 +871,10 @@ export type VenueNode = Node & {
   hasClothingStorage: Scalars['Boolean'];
   hasSnackEatingPlace: Scalars['Boolean'];
   outdoorActivity: Scalars['Boolean'];
+  hasToiletNearby: Scalars['Boolean'];
+  hasAreaForGroupWork: Scalars['Boolean'];
+  hasIndoorPlayingArea: Scalars['Boolean'];
+  hasOutdoorPlayingArea: Scalars['Boolean'];
   translations: Array<VenueTranslationType>;
   /** place_id from linkedEvent */
   id: Scalars['ID'];
@@ -949,6 +955,7 @@ export type KeywordSet = {
 export enum KeywordSetType {
   Category = 'CATEGORY',
   AdditionalCriteria = 'ADDITIONAL_CRITERIA',
+  Activities = 'ACTIVITIES',
   TargetGroup = 'TARGET_GROUP',
 }
 
@@ -1265,6 +1272,10 @@ export type AddVenueMutationInput = {
   hasClothingStorage: Scalars['Boolean'];
   hasSnackEatingPlace: Scalars['Boolean'];
   outdoorActivity: Scalars['Boolean'];
+  hasToiletNearby: Scalars['Boolean'];
+  hasAreaForGroupWork: Scalars['Boolean'];
+  hasIndoorPlayingArea: Scalars['Boolean'];
+  hasOutdoorPlayingArea: Scalars['Boolean'];
   clientMutationId?: Maybe<Scalars['String']>;
 };
 
@@ -1286,6 +1297,10 @@ export type UpdateVenueMutationInput = {
   hasClothingStorage?: Maybe<Scalars['Boolean']>;
   hasSnackEatingPlace?: Maybe<Scalars['Boolean']>;
   outdoorActivity?: Maybe<Scalars['Boolean']>;
+  hasToiletNearby?: Maybe<Scalars['Boolean']>;
+  hasAreaForGroupWork?: Maybe<Scalars['Boolean']>;
+  hasIndoorPlayingArea?: Maybe<Scalars['Boolean']>;
+  hasOutdoorPlayingArea?: Maybe<Scalars['Boolean']>;
   clientMutationId?: Maybe<Scalars['String']>;
 };
 
@@ -1854,6 +1869,36 @@ export type MetaFieldsFragment = { __typename?: 'Meta' } & Pick<
   'count' | 'next' | 'previous'
 >;
 
+export type EventsFieldsFragment = { __typename?: 'Event' } & Pick<
+  Event,
+  'id' | 'internalId' | 'startTime'
+> & {
+    name: { __typename?: 'LocalisedObject' } & LocalisedFieldsFragment;
+    shortDescription: {
+      __typename?: 'LocalisedObject';
+    } & LocalisedFieldsFragment;
+    description: { __typename?: 'LocalisedObject' } & LocalisedFieldsFragment;
+    images: Array<{ __typename?: 'Image' } & ImageFieldsFragment>;
+    infoUrl?: Maybe<
+      { __typename?: 'LocalisedObject' } & LocalisedFieldsFragment
+    >;
+    offers: Array<{ __typename?: 'Offer' } & OfferFieldsFragment>;
+    pEvent: { __typename?: 'PalvelutarjotinEventNode' } & Pick<
+      PalvelutarjotinEventNode,
+      'id' | 'nextOccurrenceDatetime'
+    >;
+    inLanguage: Array<
+      { __typename?: 'InLanguage' } & Pick<InLanguage, 'id' | 'internalId'> & {
+          name?: Maybe<
+            { __typename?: 'LocalisedObject' } & LocalisedFieldsFragment
+          >;
+        }
+    >;
+    audience: Array<{ __typename?: 'Keyword' } & KeywordFieldsFragment>;
+    keywords: Array<{ __typename?: 'Keyword' } & KeywordFieldsFragment>;
+    location: { __typename?: 'Place' } & PlaceFieldsFragment;
+  };
+
 export type EventsQueryVariables = Exact<{
   division?: Maybe<Array<Maybe<Scalars['String']>>>;
   end?: Maybe<Scalars['String']>;
@@ -1879,7 +1924,7 @@ export type EventsQuery = { __typename?: 'Query' } & {
   events?: Maybe<
     { __typename?: 'EventListResponse' } & {
       meta: { __typename?: 'Meta' } & MetaFieldsFragment;
-      data: Array<{ __typename?: 'Event' } & EventFieldsFragment>;
+      data: Array<{ __typename?: 'Event' } & EventsFieldsFragment>;
     }
   >;
 };
@@ -2388,6 +2433,56 @@ export const MetaFieldsFragmentDoc = gql`
     previous
   }
 `;
+export const EventsFieldsFragmentDoc = gql`
+  fragment eventsFields on Event {
+    id
+    internalId
+    name {
+      ...localisedFields
+    }
+    shortDescription {
+      ...localisedFields
+    }
+    description {
+      ...localisedFields
+    }
+    images {
+      ...imageFields
+    }
+    infoUrl {
+      ...localisedFields
+    }
+    offers {
+      ...offerFields
+    }
+    pEvent {
+      id
+      nextOccurrenceDatetime
+    }
+    inLanguage {
+      id
+      internalId
+      name {
+        ...localisedFields
+      }
+    }
+    audience {
+      ...keywordFields
+    }
+    keywords {
+      ...keywordFields
+    }
+    location {
+      ...placeFields
+    }
+    startTime
+  }
+  ${LocalisedFieldsFragmentDoc}
+  ${ImageFieldsFragmentDoc}
+  ${OfferFieldsFragmentDoc}
+  ${KeywordFieldsFragmentDoc}
+  ${PlaceFieldsFragmentDoc}
+`;
 export const EnrolOccurrenceDocument = gql`
   mutation EnrolOccurrence($input: EnrolOccurrenceMutationInput!) {
     enrolOccurrence(input: $input) {
@@ -2598,12 +2693,12 @@ export const EventsDocument = gql`
         ...metaFields
       }
       data {
-        ...eventFields
+        ...eventsFields
       }
     }
   }
   ${MetaFieldsFragmentDoc}
-  ${EventFieldsFragmentDoc}
+  ${EventsFieldsFragmentDoc}
 `;
 export type EventsProps<TChildProps = {}, TDataName extends string = 'data'> = {
   [key in TDataName]: ApolloReactHoc.DataValue<
