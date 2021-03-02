@@ -5,27 +5,32 @@ import useLocale from '../../../hooks/useLocale';
 import { useTranslation } from '../../../i18n';
 import { Language } from '../../../types';
 import VenueInfo from '../../venue/venueInfo/VenueInfo';
-import {
-  generateHslLink,
-  generateServiceMapLink,
-  getPlaceFields,
-} from '../utils';
+import { getPlaceFields } from '../utils';
 import styles from './placeInfo.module.scss';
+import PlaceMapLink from './PlaceMapLink';
+import usePlaceMapLinks from './usePlaceMapLinks';
 
-interface Props {
+export interface PlaceInfoProps {
   id: string;
   language: Language;
   onEditButtonClick?: (show: boolean) => void;
   showEditButton?: boolean;
   showVenueInfo?: boolean;
+  showPlaceInfoLinks?: boolean;
+}
+export interface PlaceInfoLinkProps {
+  id: string;
+  language: Language;
+  variant?: 'a' | 'button';
 }
 
-const PlaceInfo: React.FC<Props> = ({
+const PlaceInfo: React.FC<PlaceInfoProps> = ({
   id,
   language,
   onEditButtonClick,
   showEditButton,
   showVenueInfo,
+  showPlaceInfoLinks,
 }) => {
   const { t } = useTranslation();
   const locale = useLocale();
@@ -33,13 +38,10 @@ const PlaceInfo: React.FC<Props> = ({
 
   if (!data) return null;
 
-  const { name, streetAddress, telephone, addressLocality } = getPlaceFields(
+  const { name, streetAddress, telephone } = getPlaceFields(
     data?.place,
     locale
   );
-
-  const serviceMapLink = generateServiceMapLink(id, language);
-  const hslLink = generateHslLink(streetAddress, addressLocality, language);
 
   const handleEditButtonClick = () => {
     if (onEditButtonClick) {
@@ -65,27 +67,33 @@ const PlaceInfo: React.FC<Props> = ({
       )}
       {streetAddress && <p>{streetAddress}</p>}
       {telephone && <p>{telephone}</p>}
-      <div className={styles.linkRows}>
-        <div className={styles.linkRow}>
-          <div className={styles.linkTitle}>
-            {t('form:placeInfo.labelServicemap')}
+      {showPlaceInfoLinks && (
+        <div className={styles.placeInfo}>
+          <div className={styles.linkRows}>
+            <PlaceInfoLinks id={id} language={language} />
           </div>
-          <a href={serviceMapLink} rel="noopener noreferrer" target="_blank">
-            {serviceMapLink}
-          </a>
         </div>
-        <div className={styles.linkRow}>
-          <div className={styles.linkTitle}>
-            {t('form:placeInfo.labelReittiopas')}
-          </div>
-          <a href={hslLink} rel="noopener noreferrer" target="_blank">
-            {hslLink}
-          </a>
-        </div>
-      </div>
+      )}
       {showVenueInfo && <VenueInfo language={language} placeId={id} />}
     </div>
   );
 };
 
+const PlaceInfoLinks: React.FC<PlaceInfoLinkProps> = ({
+  id,
+  language,
+  variant = 'a',
+}) => {
+  const mapLinks = usePlaceMapLinks({ id, language });
+
+  return (
+    <div className={styles.placeInfo}>
+      {mapLinks.map((link) => (
+        <PlaceMapLink key={link.id} {...link} variant={variant} />
+      ))}
+    </div>
+  );
+};
+
 export default PlaceInfo;
+export { PlaceInfoLinks };

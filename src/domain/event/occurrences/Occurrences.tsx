@@ -29,7 +29,7 @@ import {
   isEnrolmentClosed,
   isEnrolmentStarted,
 } from '../../occurrence/utils';
-import PlaceInfo from '../../place/placeInfo/PlaceInfo';
+import PlaceInfo, { PlaceInfoLinks } from '../../place/placeInfo/PlaceInfo';
 import PlaceText from '../../place/placeText/PlaceText';
 import CalendarButton from '../calendarButton/CalendarButton';
 import DateFilter from '../dateFilter/DateFilter';
@@ -232,91 +232,6 @@ const Occurrences: React.FC<Props> = ({
     },
   ];
 
-  const renderOccurrenceInfo = (occurrence: OccurrenceFieldsFragment) => {
-    const { placeId, startTime, endTime, linkedEvent } = occurrence;
-    const date = formatDate(new Date(startTime));
-    const time =
-      startTime &&
-      formatTimeRange(new Date(startTime), new Date(endTime), locale);
-    const offer = linkedEvent?.offers?.[0];
-    const price = offer?.price?.[locale];
-    const priceDescription = offer?.description?.[locale];
-    const isFree = offer?.isFree ?? !price;
-    const priceInfoUrl = offer?.infoUrl?.[locale];
-
-    const createLink = (prefix: string, url: string) => (
-      <>
-        {prefix}
-        {prefix && ' '}
-        <a href={url} rel="noopener noreferrer" target="_blank">
-          {url}
-        </a>
-      </>
-    );
-
-    return (
-      <div className={styles.occurrenceDetails}>
-        <div>
-          <div className={styles.infoSection}>
-            <div>
-              <IconClock />
-            </div>
-            <div>
-              <div className={styles.infoTitle}>
-                {t('occurrence:dateAndTimeTitle')}
-              </div>
-              <div>{t('occurrence:textDateAndTime', { date, time })}</div>
-              <OccurrenceGroupInfo occurrence={occurrence} />
-            </div>
-          </div>
-          <div className={styles.infoSection}>
-            <div>
-              <IconGlyphEuro />
-            </div>
-            <div>
-              <div className={styles.infoTitle}>
-                <div data-testid="event-price">
-                  {isFree && t('event:occurrenceList.eventIsFree')}
-                  {!isFree && price}
-                </div>
-              </div>
-              {!!priceDescription && (
-                <p data-testid="event-priceDescription">{priceDescription}</p>
-              )}
-              {!!priceInfoUrl && (
-                <p data-testid="event-priceInfoUrl">
-                  {createLink('', priceInfoUrl)}
-                </p>
-              )}
-            </div>
-          </div>
-          <div className={styles.infoSection}>
-            <div>
-              <IconLocation />
-            </div>
-            <div>
-              <div className={styles.infoTitle}>
-                {t('event:location.title')}
-              </div>
-              <PlaceInfo
-                id={placeId || eventLocationId}
-                language={locale}
-                showVenueInfo
-              />
-            </div>
-          </div>
-        </div>
-        <div className={styles.occurrenceActions}>
-          {/* TODO: functionality for these buttons */}
-          <CalendarButton event={event} occurrence={occurrence} />
-          <Button iconLeft={<IconLocation />} variant="supplementary">
-            {t('event:occurrenceList.showAllLocationEvents')}
-          </Button>
-        </div>
-      </div>
-    );
-  };
-
   return occurrences.length ? (
     <section className={styles.occurrenceTable}>
       <div className={styles.titleAndFilters}>
@@ -339,7 +254,13 @@ const Occurrences: React.FC<Props> = ({
       <Table
         columns={columns}
         data={filteredOccurrences}
-        renderExpandedArea={renderOccurrenceInfo}
+        renderExpandedArea={(occurrence: OccurrenceFieldsFragment) => (
+          <OccurrenceInfo
+            occurrence={occurrence}
+            event={event}
+            eventLocationId={eventLocationId}
+          />
+        )}
       />
       {showMoreButtonVisible && (
         <div className={styles.loadMoreButtonWrapper}>
@@ -358,6 +279,130 @@ const Occurrences: React.FC<Props> = ({
       label={t('enrolment:occurrenceTable.noOccurrences')}
       type="error"
     />
+  );
+};
+
+interface OccurrenceInfoProps {
+  occurrence: OccurrenceFieldsFragment;
+  event: EventFieldsFragment;
+  eventLocationId: string;
+}
+
+const OccurrenceInfo: React.FC<OccurrenceInfoProps> = ({
+  occurrence,
+  event,
+  eventLocationId,
+}) => {
+  const { placeId, startTime, endTime, linkedEvent } = occurrence;
+  const { t } = useTranslation();
+  const locale = useLocale();
+  const date = formatDate(new Date(startTime));
+  const time =
+    startTime &&
+    formatTimeRange(new Date(startTime), new Date(endTime), locale);
+  const offer = linkedEvent?.offers?.[0];
+  const price = offer?.price?.[locale];
+  const priceDescription = offer?.description?.[locale];
+  const isFree = offer?.isFree ?? !price;
+  const priceInfoUrl = offer?.infoUrl?.[locale];
+
+  const createLink = (prefix: string, url: string) => (
+    <>
+      {prefix}
+      {prefix && ' '}
+      <a href={url} rel="noopener noreferrer" target="_blank">
+        {url}
+      </a>
+    </>
+  );
+
+  const renderOccurrenceTimeInfoSection = (
+    <>
+      <div>
+        <IconClock />
+      </div>
+      <div>
+        <div className={styles.infoTitle}>
+          {t('occurrence:dateAndTimeTitle')}
+        </div>
+        <div>{t('occurrence:textDateAndTime', { date, time })}</div>
+        <OccurrenceGroupInfo occurrence={occurrence} />
+      </div>
+    </>
+  );
+
+  const renderOccurrencePriceInfoSection = (
+    <>
+      <div>
+        <IconGlyphEuro />
+      </div>
+      <div>
+        <div className={styles.infoTitle}>
+          <div data-testid="event-price">
+            {isFree && t('event:occurrenceList.eventIsFree')}
+            {!isFree && price}
+          </div>
+        </div>
+        {!!priceDescription && (
+          <p data-testid="event-priceDescription">{priceDescription}</p>
+        )}
+        {!!priceInfoUrl && (
+          <p data-testid="event-priceInfoUrl">{createLink('', priceInfoUrl)}</p>
+        )}
+      </div>
+    </>
+  );
+
+  const renderOccurrenceLocationInfoSection = (
+    <>
+      <div>
+        <IconLocation />
+      </div>
+      <div>
+        <div className={styles.infoTitle}>{t('event:location.title')}</div>
+        <PlaceInfo
+          id={placeId || eventLocationId}
+          language={locale}
+          showVenueInfo
+          showPlaceInfoLinks
+        />
+      </div>
+    </>
+  );
+
+  const renderOccurrenceActions = (
+    <>
+      {/* TODO: functionality for these buttons */}
+      <CalendarButton event={event} occurrence={occurrence} />
+      <Button iconLeft={<IconLocation />} variant="supplementary">
+        {t('event:occurrenceList.showAllLocationEvents')}
+      </Button>
+      {/* Move map links down a bit show they would be 
+      closer to location info shown in left column  */}
+      <div style={{ height: '50px' }}></div>
+      <PlaceInfoLinks
+        id={placeId || eventLocationId}
+        language={locale}
+        variant="button"
+      />
+    </>
+  );
+
+  return (
+    <div className={styles.occurrenceDetails}>
+      <div>
+        <div className={styles.infoSection}>
+          {renderOccurrenceTimeInfoSection}
+        </div>
+        <div className={styles.infoSection}>
+          {renderOccurrencePriceInfoSection}
+        </div>
+        <div className={styles.infoSection}>
+          {renderOccurrenceLocationInfoSection}
+        </div>
+      </div>
+      <div className={styles.occurrenceActions}>{renderOccurrenceActions}</div>
+    </div>
   );
 };
 
