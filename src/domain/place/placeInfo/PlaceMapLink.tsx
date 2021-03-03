@@ -21,36 +21,33 @@ const PlaceMapLink: React.FC<PlaceMapLinkProps> = ({
   url,
   variant = 'button',
 }) => {
-  // <a> -element variant
-  if (variant === 'a') {
-    return (
-      <>
-        <a
-          id={id}
-          href={url}
-          rel="noopener noreferrer"
-          target="_blank"
-          className={styles.linkEntry}
-        >
-          <IconMap className={styles.linkIcon} />
-          {label}
-        </a>
-        {description && <p className={styles.linkDescription}>{description}</p>}
-      </>
-    );
-  }
+  const { Component, labelPrefix, props } = {
+    a: {
+      Component: 'a',
+      labelPrefix: <IconMap className={styles.linkIcon} />,
+      props: {
+        href: url,
+        rel: 'noopener noreferrer',
+        target: '_blank',
+        className: styles.linkEntry,
+      },
+    },
+    button: {
+      Component: Button,
+      props: {
+        onClick: () => window.open(url),
+        iconLeft: <IconMap className={styles.linkIcon} />,
+        variant: 'supplementary' as const,
+      },
+    },
+  }[variant];
 
-  // <button> -element variant
   return (
     <>
-      <Button
-        id={id}
-        onClick={() => window.open(url)}
-        iconLeft={<IconMap />}
-        variant="supplementary"
-      >
+      <Component id={id} {...props}>
+        {labelPrefix}
         {label}
-      </Button>
+      </Component>
       {description && <p className={styles.linkDescription}>{description}</p>}
     </>
   );
