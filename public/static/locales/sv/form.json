@@ -38,7 +38,8 @@
   },
   "placeInfo": {
     "buttonEdit": "Förändra",
-    "labelReittiopas": "Reittiopas:",
-    "labelServicemap": "Servicekartan:"
+    "labelReittiopas": "Reittiopas",
+    "labelServicemap": "Servicekartan",
+    "descriptionServicemap": "Mer information om arenan finns på Servicekartan."
   }
 }

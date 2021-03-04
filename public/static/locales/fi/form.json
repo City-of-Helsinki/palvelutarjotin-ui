@@ -38,7 +38,8 @@
   },
   "placeInfo": {
     "buttonEdit": "Vaihda",
-    "labelReittiopas": "Reittiopas:",
-    "labelServicemap": "Palvelukartta:"
+    "labelReittiopas": "Reittiopas",
+    "labelServicemap": "Palvelukartta",
+    "descriptionServicemap": "Lisää tietoa tapahtumapaikasta löydät palvelukartalta."
   }
 }

@@ -38,8 +38,9 @@
   },
   "placeInfo": {
     "buttonEdit": "Change",
-    "labelReittiopas": "Reittiopas:",
-    "labelServicemap": "Servicemap:"
+    "labelReittiopas": "Reittiopas",
+    "labelServicemap": "Servicemap",
+    "descriptionServicemap": "More information about the venue can be found from the Servicemap."
   },
   "multiDropdown": {
     "clearButtonAriaLabel": "Poista valinnat",

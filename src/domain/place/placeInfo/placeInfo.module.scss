@@ -4,9 +4,10 @@
   color: var(--color-black-90);
   font-size: var(--fontsize-body-l);
   line-height: 2rem;
+  margin-top: var(--spacing-m);
 
   p {
-    margin: 0 !important;
+    margin: 0;
   }
 
   a {
@@ -17,13 +18,27 @@
     margin: var(--spacing-m) 0;
   }
 
-  .linkRow {
-    display: table-row;
-
-    .linkTitle {
-      display: table-cell;
+  .linkEntry {
+    .linkIcon {
       padding-right: 1rem;
+      vertical-align: text-top;
     }
+  }
+
+  .linkDescription {
+    // padding-left: var(--spacing-m);
+    font-size: small;
+    margin-top: 0;
+  }
+
+  .linkDescription {
+    // padding-left: var(--spacing-m);
+    font-size: small;
+    margin-top: 0;
+    margin-bottom: var(--spacing-s) !important;
+  }
+  button + .linkDescription {
+    padding-left: var(--spacing-m);
   }
 
   .buttonChange {
