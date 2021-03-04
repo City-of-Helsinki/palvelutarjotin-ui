@@ -364,7 +364,6 @@ const OccurrenceInfo: React.FC<OccurrenceInfoProps> = ({
           id={placeId || eventLocationId}
           language={locale}
           showVenueInfo
-          showPlaceInfoLinks
         />
       </div>
     </>
@@ -374,12 +373,12 @@ const OccurrenceInfo: React.FC<OccurrenceInfoProps> = ({
     <>
       {/* TODO: functionality for these buttons */}
       <CalendarButton event={event} occurrence={occurrence} />
-      <Button iconLeft={<IconLocation />} variant="supplementary">
+      <Button iconLeft={<IconLocation />} variant="supplementary" disabled>
         {t('event:occurrenceList.showAllLocationEvents')}
       </Button>
       {/* Move map links down a bit show they would be 
       closer to location info shown in left column  */}
-      <div style={{ height: '50px' }}></div>
+      <div style={{ height: '50px' }} />
       <PlaceInfoLinks
         id={placeId || eventLocationId}
         language={locale}
