@@ -162,6 +162,13 @@ const placeResult = {
 const venueResult = {
   data: {
     venue: fakeVenue({
+      hasClothingStorage: true,
+      hasSnackEatingPlace: true,
+      outdoorActivity: true,
+      hasToiletNearby: true,
+      hasAreaForGroupWork: true,
+      hasIndoorPlayingArea: true,
+      hasOutdoorPlayingArea: true,
       translations: [
         {
           description: data.venueDescription,
@@ -491,6 +498,18 @@ it('opens expanded area when clicked', async () => {
   expect(
     screen.queryByText(occurrenceMessages.dateAndTimeTitle)
   ).toBeInTheDocument();
+
+  [
+    'Eväidensyöntipaikka',
+    'Ulkovaatesäilytys',
+    'Toiminta tapahtuu ulkona',
+    'WC lähellä tilaa',
+    'Ryhmätyötilaa',
+    'Leikkitilaa sisällä',
+    'Leikkitilaa ulkona',
+  ].forEach((amenity) => {
+    expect(screen.queryByText(amenity)).toBeInTheDocument();
+  });
 });
 
 it('filters occurrence list correctly when sate filters are selected', async () => {

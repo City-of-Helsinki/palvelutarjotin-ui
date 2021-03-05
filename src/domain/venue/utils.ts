@@ -17,5 +17,9 @@ export const getVenueFields = (
     hasClothingStorage: venue?.hasClothingStorage,
     hasSnackEatingPlace: venue?.hasSnackEatingPlace,
     outdoorActivity: venue?.outdoorActivity,
+    hasToiletNearby: venue?.hasToiletNearby,
+    hasAreaForGroupWork: venue?.hasAreaForGroupWork,
+    hasIndoorPlayingArea: venue?.hasIndoorPlayingArea,
+    hasOutdoorPlayingArea: venue?.hasOutdoorPlayingArea,
   };
 };

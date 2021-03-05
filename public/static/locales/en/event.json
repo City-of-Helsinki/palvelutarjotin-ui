@@ -29,9 +29,13 @@
   "location": {
     "labelLocation": "Default venue",
     "labelLocationDescription": "Description of the venue",
-    "snackEatingPlace": "Snack eating place",
-    "clothingStorage": "Clothing storage",
-    "outdoorActivity": "Outdoor activity",
+    "labelHasClothingStorage": "Clothing storage",
+    "labelHasSnackEatingPlace": "Snack eating place",
+    "labelOutdoorActivity": "Outdoor activity",
+    "labelHasToiletNearby": "Toilet nearby",
+    "labelHasAreaForGroupWork": "Area for group work",
+    "labelHasIndoorPlayingArea": "Indoor playing area",
+    "labelHasOutdoorPlayingArea": "Outdoor playing area",
     "title": "Location"
   },
   "pageTitle": "Event",

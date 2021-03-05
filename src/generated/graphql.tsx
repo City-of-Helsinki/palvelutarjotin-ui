@@ -2148,7 +2148,14 @@ export type StudyLevelQuery = { __typename?: 'Query' } & {
 
 export type VenueFieldsFragment = { __typename?: 'VenueNode' } & Pick<
   VenueNode,
-  'id' | 'hasClothingStorage' | 'hasSnackEatingPlace' | 'outdoorActivity'
+  | 'id'
+  | 'hasClothingStorage'
+  | 'hasSnackEatingPlace'
+  | 'outdoorActivity'
+  | 'hasToiletNearby'
+  | 'hasAreaForGroupWork'
+  | 'hasIndoorPlayingArea'
+  | 'hasOutdoorPlayingArea'
 > & {
     translations: Array<
       { __typename?: 'VenueTranslationType' } & Pick<
@@ -2360,6 +2367,10 @@ export const VenueFieldsFragmentDoc = gql`
     hasClothingStorage
     hasSnackEatingPlace
     outdoorActivity
+    hasToiletNearby
+    hasAreaForGroupWork
+    hasIndoorPlayingArea
+    hasOutdoorPlayingArea
     translations {
       languageCode
       description

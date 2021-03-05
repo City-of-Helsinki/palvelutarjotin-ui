@@ -29,9 +29,13 @@
   "location": {
     "labelLocation": "Oletustapahtumapaikka",
     "labelLocationDescription": "Tapahtumapaikan kuvaus",
-    "snackEatingPlace": "Eväidensyöntipaikka",
-    "clothingStorage": "Vaatesäilytys",
-    "outdoorActivity": "Toiminta tapahtuu ulkona",
+    "labelHasClothingStorage": "Ulkovaatesäilytys",
+    "labelHasSnackEatingPlace": "Eväidensyöntipaikka",
+    "labelOutdoorActivity": "Toiminta tapahtuu ulkona",
+    "labelHasToiletNearby": "WC lähellä tilaa",
+    "labelHasAreaForGroupWork": "Ryhmätyötilaa",
+    "labelHasIndoorPlayingArea": "Leikkitilaa sisällä",
+    "labelHasOutdoorPlayingArea": "Leikkitilaa ulkona",
     "title": "Tapahtumapaikka"
   },
   "pageTitle": "Tapahtuma",

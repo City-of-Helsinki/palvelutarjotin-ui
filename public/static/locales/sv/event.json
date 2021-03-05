@@ -29,9 +29,13 @@
   "location": {
     "labelLocation": "Standard venue",
     "labelLocationDescription": "Beskrivning av arenan",
-    "snackEatingPlace": "Snack äta plats",
-    "clothingStorage": "Klädförvaring",
-    "outdoorActivity": "Utomhusaktivitet",
+    "labelHasClothingStorage": "Klädförvaring",
+    "labelHasSnackEatingPlace": "Snack äta plats",
+    "labelOutdoorActivity": "Utomhusaktivitet",
+    "labelHasToiletNearby": "Toalett i närheten",
+    "labelHasAreaForGroupWork": "Grupparbetsutrymme",
+    "labelHasIndoorPlayingArea": "Lekutrymme inne",
+    "labelHasOutdoorPlayingArea": "Lekutrymme ute",
     "title": "Plats"
   },
   "pageTitle": "Evenemang",
