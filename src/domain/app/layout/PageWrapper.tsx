@@ -1,6 +1,7 @@
+import { useMatomo } from '@datapunt/matomo-tracker-react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import useLocale from '../../../hooks/useLocale';
 import { useTranslation } from '../../../i18n';
@@ -12,11 +13,20 @@ interface Props {
 const PageWrapper: React.FC<Props> = ({ children, title = 'appName' }) => {
   const { t } = useTranslation();
   const locale = useLocale();
+  const { trackPageView } = useMatomo();
   const { asPath: pathname } = useRouter();
+
   const translatedTitle =
     title !== 'appName'
       ? `${t(title)} - ${t('common:appName')}`
       : t('common:appName');
+
+  // Track page changes when pathnname changes
+  useEffect(() => {
+    trackPageView({
+      href: window.location.href,
+    });
+  }, [pathname, trackPageView]);
 
   let path = pathname.replace(`/${locale}`, '');
   path = path.startsWith('/') ? path.slice(1) : path;
