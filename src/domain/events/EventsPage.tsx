@@ -4,6 +4,7 @@ import React, { ReactElement } from 'react';
 import LoadingSpinner from '../../common/components/loadingSpinner/LoadingSpinner';
 import { useEventsQuery, EventsQuery } from '../../generated/graphql';
 import { Router, useTranslation } from '../../i18n';
+import deleteEmptyValuesFromObject from '../../utils/deleteEmptyValuesFromObject';
 import getPageNumberFromUrl from '../../utils/getPageNumberFromUrl';
 import Container from '../app/layout/Container';
 import PageWrapper from '../app/layout/PageWrapper';

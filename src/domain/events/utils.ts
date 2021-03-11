@@ -6,20 +6,18 @@ import {
   EventsFieldsFragment,
   EventsQuery,
 } from '../../generated/graphql';
+import deleteEmptyValuesFromObject from '../../utils/deleteEmptyValuesFromObject';
 import { queryParameterToArray } from '../../utils/queryParameterToArray';
 import { EventSearchFormValues } from './eventSearchForm/EventSearchForm';
 
 export const getSearchQueryObject = (
   values: EventSearchFormValues
-): Omit<EventSearchFormValues, 'date' | 'endDate'> & {
-  date: string | undefined;
-  endDate: string | undefined;
-} => {
-  return {
+): Record<string, string | string[]> => {
+  return deleteEmptyValuesFromObject({
     ...values,
     date: values.date?.toISOString(),
     endDate: values.endDate?.toISOString(),
-  };
+  });
 };
 
 export const getTextFromDict = (
