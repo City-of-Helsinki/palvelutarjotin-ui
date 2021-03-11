@@ -1,4 +1,8 @@
 import { ApolloProvider } from '@apollo/react-hooks';
+import {
+  createInstance as createMatomoInstance,
+  MatomoProvider,
+} from '@datapunt/matomo-tracker-react';
 import * as Sentry from '@sentry/browser';
 import { NormalizedCacheObject } from 'apollo-cache-inmemory';
 import { ApolloClient } from 'apollo-client';
@@ -25,6 +29,12 @@ if (process.env.NODE_ENV === 'production') {
     environment: process.env.NEXT_PUBLIC_ENVIRONMENT,
   });
 }
+
+const matomoInstance = createMatomoInstance({
+  disabled: process.env.NEXT_PUBLIC_MATOMO_ENABLED !== 'true',
+  urlBase: process.env.NEXT_PUBLIC_MATOMO_URL_BASE as string,
+  siteId: Number(process.env.NEXT_PUBLIC_MATOMO_SITE_ID),
+});
 
 class MyApp extends App<Props> {
   componentDidMount() {
@@ -54,11 +64,16 @@ class MyApp extends App<Props> {
     return (
       <ApolloProvider client={apollo}>
         <Provider store={store}>
-          <FocusToTop />
-          <PageLayout {...pageProps} namespacesRequired={['common', 'footer']}>
-            <Component {...pageProps} />
-          </PageLayout>
-          <ToastContainer position="bottom-right" />
+          <MatomoProvider value={matomoInstance}>
+            <FocusToTop />
+            <PageLayout
+              {...pageProps}
+              namespacesRequired={['common', 'footer']}
+            >
+              <Component {...pageProps} />
+            </PageLayout>
+            <ToastContainer position="bottom-right" />
+          </MatomoProvider>
         </Provider>
       </ApolloProvider>
     );

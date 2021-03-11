@@ -2005,6 +2005,18 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
+"@datapunt/matomo-tracker-js@^0.4.0":
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/@datapunt/matomo-tracker-js/-/matomo-tracker-js-0.4.0.tgz#0b5012e1de5d302f4ba169ae94904155e526266e"
+  integrity sha512-jOLKZCyPc1y8ZntTTW0vnHAbU1jQHA5Ibdyb7G9jt+KWvGDR2wotX4ki2/x7SMD+IfOrfKDJ9pXzVo29dPIjAg==
+
+"@datapunt/matomo-tracker-react@^0.4.0":
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/@datapunt/matomo-tracker-react/-/matomo-tracker-react-0.4.0.tgz#415dda2ebc82c612f9d829d9efe112edd3577dfa"
+  integrity sha512-R5iGHtdjgY0Iw0yg2vNO/WlBEwh/3QhZTinkh/SI/fbACeFaIZhcUt9PKB5nrMVMCdZWPfvMfW5T/6wtlyb3fA==
+  dependencies:
+    "@datapunt/matomo-tracker-js" "^0.4.0"
+
 "@datepicker-react/hooks@2.3.1":
   version "2.3.1"
   resolved "https://registry.yarnpkg.com/@datepicker-react/hooks/-/hooks-2.3.1.tgz#b33f28aa9dc8628b5c273846544c38693452bd8a"
