@@ -39,7 +39,7 @@ const EventPage = (): ReactElement => {
   >([]);
 
   const { data: eventData, loading, refetch: refetchEvent } = useEventQuery({
-    variables: { id: eventId as string, include: ['keywords', 'location'] },
+    variables: { id: eventId as string, include: ['keywords', 'location', 'audience'] },
   });
 
   // refetch event data (to get updated occurrences) if enrolment was created
