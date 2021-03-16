@@ -188,7 +188,7 @@ const apolloMocks = [
       query: EventDocument,
       variables: {
         id: data.id,
-        include: ['keywords', 'location'],
+        include: ['keywords', 'location', 'audience'],
       },
     },
     result: eventData,
