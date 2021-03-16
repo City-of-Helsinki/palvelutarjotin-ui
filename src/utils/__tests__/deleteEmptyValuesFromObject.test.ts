@@ -1,6 +1,6 @@
 import deleteEmptyValuesFromObject from '../deleteEmptyValuesFromObject';
 
-test('deletes properties from object when they are empty', () => {
+test('deletes properties from object when they have empty value', () => {
   const testValues = [
     {
       param: {},
