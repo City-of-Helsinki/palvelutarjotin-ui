@@ -17,7 +17,7 @@ export const QUERY_EVENT = gql`
       id
       name
     }
-    occurrences {
+    occurrences(upcoming: $upcomingOccurrencesOnly) {
       edges {
         node {
           ...occurrenceFields
@@ -102,7 +102,7 @@ export const QUERY_EVENT = gql`
     }
   }
 
-  query Event($id: ID!, $include: [String]) {
+  query Event($id: ID!, $include: [String], $upcomingOccurrencesOnly: Boolean) {
     event(id: $id, include: $include) {
       ...eventFields
     }

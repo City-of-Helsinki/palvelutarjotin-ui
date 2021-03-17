@@ -1858,6 +1858,7 @@ export type EventFieldsFragment = { __typename?: 'Event' } & Pick<
 export type EventQueryVariables = Exact<{
   id: Scalars['ID'];
   include?: Maybe<Array<Maybe<Scalars['String']>>>;
+  upcomingOccurrencesOnly?: Maybe<Scalars['Boolean']>;
 }>;
 
 export type EventQuery = { __typename?: 'Query' } & {
@@ -2316,7 +2317,7 @@ export const PEventFieldsFragmentDoc = gql`
       id
       name
     }
-    occurrences {
+    occurrences(upcoming: $upcomingOccurrencesOnly) {
       edges {
         node {
           ...occurrenceFields
@@ -2580,7 +2581,7 @@ export type EnrolOccurrenceMutationOptions = ApolloReactCommon.BaseMutationOptio
   EnrolOccurrenceMutationVariables
 >;
 export const EventDocument = gql`
-  query Event($id: ID!, $include: [String]) {
+  query Event($id: ID!, $include: [String], $upcomingOccurrencesOnly: Boolean) {
     event(id: $id, include: $include) {
       ...eventFields
     }
@@ -2628,6 +2629,7 @@ export function withEvent<
  *   variables: {
  *      id: // value for 'id'
  *      include: // value for 'include'
+ *      upcomingOccurrencesOnly: // value for 'upcomingOccurrencesOnly'
  *   },
  * });
  */

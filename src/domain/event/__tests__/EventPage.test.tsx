@@ -189,6 +189,7 @@ const apolloMocks = [
       variables: {
         id: data.id,
         include: ['keywords', 'location', 'audience'],
+        upcomingOccurrencesOnly: true,
       },
     },
     result: eventData,

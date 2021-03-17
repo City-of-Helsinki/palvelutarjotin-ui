@@ -44,7 +44,11 @@ const CreateEnrolmentPage: React.FC = () => {
   } = useRouter();
 
   const { data: eventData, loading } = useEventQuery({
-    variables: { id: eventId as string, include: ['location', 'keywords'] },
+    variables: {
+      id: eventId as string,
+      include: ['location', 'keywords'],
+      upcomingOccurrencesOnly: true,
+    },
   });
 
   const [enrolOccurrence] = useEnrolOccurrenceMutation();
