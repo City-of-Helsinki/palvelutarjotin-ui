@@ -12,7 +12,9 @@ import {
   InLanguage,
   Keyword,
   Language,
-  LanguageType,
+  LanguageNode,
+  LanguageNodeConnection,
+  LanguageNodeEdge,
   LocalisedObject,
   NotificationType,
   OccurrenceNode,
@@ -291,6 +293,30 @@ export const fakeOccurrenceNodeEdge = (
   node: fakeOccurrence(overrides),
   __typename: 'OccurrenceNodeEdge',
 });
+export const fakeLanguages = (
+  languages: Partial<LanguageNode>[]
+): LanguageNodeConnection => ({
+  edges: languages.map((language) => fakeLanguageNodeEdge(language)),
+  pageInfo: PageInfoMock,
+  __typename: 'LanguageNodeConnection',
+});
+
+export const fakeLanguageNodeEdge = (
+  overrides?: Partial<LanguageNode>
+): LanguageNodeEdge => ({
+  cursor: '',
+  node: fakeLanguage(overrides),
+  __typename: 'LanguageNodeEdge',
+});
+
+export const fakeLanguage = (
+  overrides?: Partial<LanguageNode>
+): LanguageNode => ({
+  id: 'fi',
+  name: 'Finnish',
+  __typename: 'LanguageNode',
+  ...overrides,
+});
 
 export const fakeOccurrence = (
   overrides?: Partial<OccurrenceNode>
@@ -303,11 +329,10 @@ export const fakeOccurrence = (
   amountOfSeats: 30,
   minGroupSize: 10,
   maxGroupSize: 20,
-
-  languages: [
-    { id: 'en', name: 'English', __typename: 'LanguageType' },
-    { id: 'fi', name: 'Finnish', __typename: 'LanguageType' },
-  ] as LanguageType[],
+  languages: fakeLanguages([
+    { id: 'en', name: 'English' },
+    { id: 'fi', name: 'Finnish' },
+  ]),
   startTime: '2020-08-03T09:00:00+00:00',
   endTime: '2020-08-03T09:30:00+00:00',
   placeId: '',

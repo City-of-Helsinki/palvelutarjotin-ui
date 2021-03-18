@@ -1,6 +1,11 @@
 import gql from 'graphql-tag';
 
 export const QUERY_OCCURRENCE = gql`
+  fragment languageFields on LanguageNode {
+    id
+    name
+  }
+
   fragment occurrenceFields on OccurrenceNode {
     id
     pEvent {
@@ -13,8 +18,11 @@ export const QUERY_OCCURRENCE = gql`
     minGroupSize
     maxGroupSize
     languages {
-      id
-      name
+      edges {
+        node {
+          ...languageFields
+        }
+      }
     }
     startTime
     endTime
