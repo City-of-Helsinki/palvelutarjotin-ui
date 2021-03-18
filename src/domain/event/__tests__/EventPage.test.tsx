@@ -17,6 +17,7 @@ import { Router as i18nRouter } from '../../../i18n';
 import {
   fakeEvent,
   fakeImage,
+  fakeInLanguage,
   fakeKeyword,
   fakeLocalizedObject,
   fakeOccurrences,
@@ -61,6 +62,7 @@ const data = {
   categories: ['Musiikki', 'Teatteri'],
   audience: ['1.–2. luokat', '3.–6. luokat', 'Valmistava opetus'],
   additionalCriteria: ['Luento', 'Työpaja', 'perheet'],
+  languages: ['suomi', 'englanti'],
 };
 
 const createFakeKeyword = (k: string) =>
@@ -149,6 +151,19 @@ const eventData = {
       audience: data.audience.map(createFakeKeyword),
       // activities
       additionalCriteria: data.additionalCriteria.map(createFakeKeyword),
+      inLanguage: [
+        fakeInLanguage(),
+        fakeInLanguage({
+          id: 'en',
+          internalId: 'https://api.hel.fi/linkedevents-test/v1/language/en/',
+          name: {
+            en: 'English',
+            fi: 'englanti',
+            sv: 'Engelska',
+            __typename: 'LocalisedObject',
+          },
+        }),
+      ],
     }),
   },
 };
@@ -188,7 +203,7 @@ const apolloMocks = [
       query: EventDocument,
       variables: {
         id: data.id,
-        include: ['keywords', 'location', 'audience'],
+        include: ['keywords', 'location', 'audience', 'in_language'],
         upcomingOccurrencesOnly: true,
       },
     },
@@ -329,6 +344,7 @@ it('renders categorisation section with all categories and keywords', async () =
     ...data.audience,
     ...data.keywords,
     ...data.additionalCriteria,
+    ...data.languages,
   ].forEach((k) => {
     expect(
       categorisationContainer.getByText(new RegExp(k, 'i'))

@@ -41,7 +41,7 @@ const EventPage = (): ReactElement => {
   const { data: eventData, loading, refetch: refetchEvent } = useEventQuery({
     variables: {
       id: eventId as string,
-      include: ['keywords', 'location', 'audience'],
+      include: ['keywords', 'location', 'audience', 'in_language'],
       upcomingOccurrencesOnly: true,
     },
   });
