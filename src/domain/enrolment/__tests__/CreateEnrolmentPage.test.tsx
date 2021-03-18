@@ -46,7 +46,11 @@ configure({ defaultHidden: true });
 const mockBase = (event: Event): MockedResponse => ({
   request: {
     query: EventDocument,
-    variables: { id: eventId, include: ['location', 'keywords'] },
+    variables: {
+      id: eventId,
+      include: ['location', 'keywords'],
+      upcomingOccurrencesOnly: true,
+    },
   },
   result: {
     data: {

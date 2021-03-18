@@ -42,6 +42,7 @@ const EventPage = (): ReactElement => {
     variables: {
       id: eventId as string,
       include: ['keywords', 'location', 'audience'],
+      upcomingOccurrencesOnly: true,
     },
   });
 
