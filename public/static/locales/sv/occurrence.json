@@ -4,8 +4,10 @@
   "textAmountOfSeats": "{{count}} plats",
   "textAmountOfSeats_plural": "{{count}} platser",
   "textGroupInfo": "gruppstorlek {{minGroupSize}}–{{maxGroupSize}}",
+  "labelGroupInfo": "Platser",
+  "labelLanguages": "Språk",
   "languages": {
-    "en": "engelsk",
+    "en": "engelska",
     "fi": "finska",
     "sv": "svenska"
   },

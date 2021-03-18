@@ -24,14 +24,15 @@ const OccurrenceGroupInfo: React.FC<Props> = ({ occurrence }) => {
       maxGroupSize,
       minGroupSize,
     }),
-    languages
-      ?.map((language) => t(`occurrence:languages.${language}`))
-      .join(', '),
   ]
     .filter((e) => e)
     .join(', ');
 
-  return <p>{groupInfo}</p>;
+  return (
+    <p>
+      {t('occurrence:labelGroupInfo')}: {groupInfo}
+    </p>
+  );
 };
 
 export default OccurrenceGroupInfo;
