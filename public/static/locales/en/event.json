@@ -47,7 +47,8 @@
     "labelCategories": "Categories",
     "labelAudience": "Target groups",
     "labelActivities": "Activities",
-    "labelKeywords": "Keywords"
+    "labelKeywords": "Keywords",
+    "labelLanguages": "Event languages"
   },
   "shareLinks": {
     "title": "Jaa tapahtuma"

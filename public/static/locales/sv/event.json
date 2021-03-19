@@ -47,7 +47,8 @@
     "labelAudience": "Målgrupper",
     "labelKeywords": "Evenemangs nyckelord",
     "labelCategories": "Kategorier",
-    "labelActivities": "Aktiviteter"
+    "labelActivities": "Aktiviteter",
+    "labelLanguages": "Evenemangspråk"
   },
   "shareLinks": {
     "title": "Dela händelsen"

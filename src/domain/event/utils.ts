@@ -84,6 +84,7 @@ export const getEventFields = (
         categories: event.categories,
         activities: event.additionalCriteria,
         audience: event.audience,
+        languages: event.inLanguage,
         isMandatoryAdditionalInformationRequired: !!event.pEvent
           ?.mandatoryAdditionalInformation,
         occurrences:

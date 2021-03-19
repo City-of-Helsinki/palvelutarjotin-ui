@@ -23,6 +23,7 @@ import formatTimeRange from '../../../utils/formatTimeRange';
 import { translateValue } from '../../../utils/translateUtils';
 import { ENROLMENT_ERRORS } from '../../enrolment/constants';
 import OccurrenceGroupInfo from '../../occurrence/occurrenceGroupInfo/OccurrenceGroupInfo';
+import OccurrenceGroupLanguageInfo from '../../occurrence/occurrenceGroupInfo/OccurrenceGroupLanguageInfo';
 import {
   getAmountOfSeatsLeft,
   hasOccurrenceSpace,
@@ -327,6 +328,7 @@ const OccurrenceInfo: React.FC<OccurrenceInfoProps> = ({
         </div>
         <div>{t('occurrence:textDateAndTime', { date, time })}</div>
         <OccurrenceGroupInfo occurrence={occurrence} />
+        <OccurrenceGroupLanguageInfo occurrence={occurrence} />
       </div>
     </>
   );

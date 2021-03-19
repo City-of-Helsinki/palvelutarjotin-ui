@@ -4,10 +4,12 @@
   "textAmountOfSeats": "{{count}} seat",
   "textAmountOfSeats_plural": "{{count}} seats",
   "textGroupInfo": "group size {{minGroupSize}}–{{maxGroupSize}}",
+  "labelGroupInfo": "Seats",
+  "labelLanguages": "Language",
   "languages": {
-    "en": "in English",
-    "fi": "in Finnish",
-    "sv": "in Swedish"
+    "en": "English",
+    "fi": "Finnish",
+    "sv": "Swedish"
   },
   "showOccurrenceDetails": "Show occurrence details",
   "occurrenceSelection": {

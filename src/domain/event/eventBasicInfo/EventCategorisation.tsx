@@ -19,7 +19,10 @@ const EventCategorisation: React.FC<{
   const locale = useLocale();
   const realKeywords = getRealKeywords({ event });
   const { t } = useTranslation();
-  const { categories, activities, audience } = getEventFields(event, locale);
+  const { categories, activities, audience, languages } = getEventFields(
+    event,
+    locale
+  );
 
   return (
     <div
@@ -44,6 +47,12 @@ const EventCategorisation: React.FC<{
         <CategorySection
           title={t('event:categorisation.labelKeywords')}
           text={keywordArrayToText(realKeywords, locale)}
+        />
+      </div>
+      <div className={styles.categorisationRow}>
+        <CategorySection
+          title={t('event:categorisation.labelLanguages')}
+          text={keywordArrayToText(languages, locale)}
         />
       </div>
     </div>

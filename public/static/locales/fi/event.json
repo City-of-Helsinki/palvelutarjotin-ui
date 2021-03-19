@@ -47,7 +47,8 @@
     "labelCategories": "Kategoriat",
     "labelAudience": "Kohderyhmät",
     "labelActivities": "Aktiviteetit",
-    "labelKeywords": "Avainsanat"
+    "labelKeywords": "Avainsanat",
+    "labelLanguages": "Tapahtuman kielet"
   },
   "shareLinks": {
     "title": "Share Event"
