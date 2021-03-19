@@ -8,6 +8,7 @@ import {
   IconArrowDown,
   IconGlyphEuro,
 } from 'hds-react';
+import capitalize from 'lodash/capitalize';
 import React from 'react';
 
 import ErrorMessage from '../../../common/components/form/ErrorMessage';
@@ -297,7 +298,7 @@ const OccurrenceInfo: React.FC<OccurrenceInfoProps> = ({
   const { placeId, startTime, endTime, linkedEvent } = occurrence;
   const { t } = useTranslation();
   const locale = useLocale();
-  const date = formatDate(new Date(startTime));
+  const date = formatDate(new Date(startTime), 'EEEE dd.MM.yyyy', locale);
   const time =
     startTime &&
     formatTimeRange(new Date(startTime), new Date(endTime), locale);
@@ -326,7 +327,9 @@ const OccurrenceInfo: React.FC<OccurrenceInfoProps> = ({
         <div className={styles.infoTitle}>
           {t('occurrence:dateAndTimeTitle')}
         </div>
-        <div>{t('occurrence:textDateAndTime', { date, time })}</div>
+        <div>
+          {t('occurrence:textDateAndTime', { date: capitalize(date), time })}
+        </div>
         <OccurrenceGroupInfo occurrence={occurrence} />
         <OccurrenceGroupLanguageInfo occurrence={occurrence} />
       </div>
