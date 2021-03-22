@@ -1,4 +1,4 @@
-import deleteEmptyValuesFromObject from '../deleteEmptyValuesFromObject';
+import deleteEmptyPropertiesFromObject from '../deleteEmptyPropertiesFromObject';
 
 test('deletes properties from object when they have empty value', () => {
   const testValues = [
@@ -27,6 +27,6 @@ test('deletes properties from object when they have empty value', () => {
   ];
 
   testValues.forEach((t) => {
-    expect(deleteEmptyValuesFromObject(t.param)).toEqual(t.expected);
+    expect(deleteEmptyPropertiesFromObject(t.param)).toEqual(t.expected);
   });
 });
