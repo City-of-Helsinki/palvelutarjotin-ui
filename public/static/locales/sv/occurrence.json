@@ -6,11 +6,6 @@
   "textGroupInfo": "gruppstorlek {{minGroupSize}}–{{maxGroupSize}}",
   "labelGroupInfo": "Platser",
   "labelLanguages": "Språk",
-  "languages": {
-    "en": "engelska",
-    "fi": "finska",
-    "sv": "svenska"
-  },
   "showOccurrenceDetails": "Visa händelsedetaljer",
   "occurrenceSelection": {
     "buttonSelectOccurrence": "Välj",

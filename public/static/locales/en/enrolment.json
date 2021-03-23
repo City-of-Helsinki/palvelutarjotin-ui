@@ -58,11 +58,6 @@
       "notEnoughCapacityError": "There are no more seats available for the event"
     }
   },
-  "language": {
-    "en": "English",
-    "fi": "Finnish",
-    "sv": "Swedish"
-  },
   "occurrenceTable": {
     "columnAdditionalInfo": "Additional info",
     "columnDate": "Date",

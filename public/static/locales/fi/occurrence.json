@@ -6,11 +6,6 @@
   "textGroupInfo": "ryhmän koko {{minGroupSize}}–{{maxGroupSize}}",
   "labelGroupInfo": "Paikkoja",
   "labelLanguages": "Kieli",
-  "languages": {
-    "en": "englanti",
-    "fi": "suomi",
-    "sv": "ruotsi"
-  },
   "showOccurrenceDetails": "Näytä tapahtuma-ajan lisätiedot",
   "occurrenceSelection": {
     "buttonSelectOccurrence": "Valitse",

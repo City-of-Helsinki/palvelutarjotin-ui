@@ -315,7 +315,7 @@ test('renders form and user can fill it and submit', async () => {
   userEvent.click(screen.getByRole('checkbox', { name: /sähköpostilla/i }));
   userEvent.click(screen.getByText(/tekstiviestillä/i));
 
-  userEvent.click(screen.getByRole('button', { name: /Suomi/ }));
+  userEvent.click(screen.getByRole('button', { name: /suomi/ }));
   userEvent.click(screen.getByRole('option', { name: /suomi/i }));
 
   userEvent.type(

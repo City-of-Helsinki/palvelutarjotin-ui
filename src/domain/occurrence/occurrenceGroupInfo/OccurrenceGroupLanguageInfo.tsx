@@ -17,7 +17,7 @@ const OccurrenceGroupLanguageInfo: React.FC<Props> = ({ occurrence }) => {
     <p>
       {t('occurrence:labelLanguages')}:{' '}
       {languages
-        ?.map((language) => t(`occurrence:languages.${language}`))
+        ?.map((language) => t(`common:languages.${language}`))
         .join(', ')}
     </p>
   );

@@ -58,11 +58,6 @@
       "notEnoughCapacityError": "Tapahtumaan ei ole enää vapaita paikkoja"
     }
   },
-  "language": {
-    "en": "Englanti",
-    "fi": "Suomi",
-    "sv": "Ruotsi"
-  },
   "occurrenceTable": {
     "columnAdditionalInfo": "Lisätiedot",
     "columnDate": "Pvm",
