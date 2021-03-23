@@ -5,12 +5,12 @@
     "buttonClear": "Tyhjennä valinnat"
   },
   "languages": {
-    "ar": "Arabia",
-    "en": "Englanti",
-    "fi": "Suomi",
-    "ru": "Venäjä",
-    "sv": "Ruotsi",
-    "zh_hans": "Kiina"
+    "ar": "arabia",
+    "en": "englanti",
+    "fi": "suomi",
+    "ru": "venäjä",
+    "sv": "ruotsi",
+    "zh_hans": "kiina"
   },
   "accessibilityStatement": {
     "title": "Saavutettavuusseloste"

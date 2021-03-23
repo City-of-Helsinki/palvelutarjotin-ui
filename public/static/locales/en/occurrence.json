@@ -6,11 +6,6 @@
   "textGroupInfo": "group size {{minGroupSize}}–{{maxGroupSize}}",
   "labelGroupInfo": "Seats",
   "labelLanguages": "Language",
-  "languages": {
-    "en": "English",
-    "fi": "Finnish",
-    "sv": "Swedish"
-  },
   "showOccurrenceDetails": "Show occurrence details",
   "occurrenceSelection": {
     "buttonSelectOccurrence": "Select",

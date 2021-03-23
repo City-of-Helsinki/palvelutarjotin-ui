@@ -58,11 +58,6 @@
       "notEnoughCapacityError": "Det finns inga fler platser tillgängliga för evenemanget"
     }
   },
-  "language": {
-    "en": "Engelska",
-    "fi": "Finska",
-    "sv": "Svenska"
-  },
   "occurrenceTable": {
     "columnAdditionalInfo": "Ytterligare info",
     "columnDate": "Datum",
