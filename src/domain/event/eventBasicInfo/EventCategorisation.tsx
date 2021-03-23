@@ -1,12 +1,8 @@
 import * as React from 'react';
 
-import {
-  EventFieldsFragment,
-  LocalisedFieldsFragment,
-} from '../../../generated/graphql';
+import { EventFieldsFragment } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
 import { useTranslation } from '../../../i18n';
-import getLocalizedString from '../../../utils/getLocalisedString';
 import keywordArrayToText from '../../../utils/keywordArrayToText';
 import { getEventFields, getRealKeywords } from '../utils';
 import styles from './eventBasicInfo.module.scss';
