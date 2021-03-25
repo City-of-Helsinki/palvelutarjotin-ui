@@ -3,6 +3,10 @@ import * as Yup from 'yup';
 import { VALIDATION_MESSAGE_KEYS } from '../../app/forms/constants';
 
 export default Yup.object().shape({
+  hasEmailNotification: Yup.bool().oneOf(
+    [true],
+    'enrolment:enrolmentForm.validation.hasEmailNotification'
+  ),
   isSharingDataAccepted: Yup.bool().oneOf(
     [true],
     'enrolment:enrolmentForm.validation.isSharingDataAccepted'

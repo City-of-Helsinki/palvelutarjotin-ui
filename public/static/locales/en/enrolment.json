@@ -38,7 +38,8 @@
     "titleNotifications": "Event notifications",
     "titleResponsiblePerson": "An adult in charge of the group during the event",
     "validation": {
-      "isSharingDataAccepted": "Sharing information with the event organizer must be accepted"
+      "isSharingDataAccepted": "Sharing information with the event organizer must be accepted",
+      "hasEmailNotification": "Email notifications are mandatory"
     }
   },
   "errors": {

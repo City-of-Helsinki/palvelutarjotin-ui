@@ -38,7 +38,8 @@
     "titleNotifications": "Tapahtumaa koskevat ilmoitukset",
     "titleResponsiblePerson": "Tapahtuman aikana ryhmästä vastuussa oleva aikuinen",
     "validation": {
-      "isSharingDataAccepted": "Tietojen jakaminen tapahtuman järjestäjän kanssa tulee olla hyväksytty"
+      "isSharingDataAccepted": "Tietojen jakaminen tapahtuman järjestäjän kanssa tulee olla hyväksytty",
+      "hasEmailNotification": "Sähköposti-ilmoitukset ovat pakollisia"
     }
   },
   "errors": {

@@ -238,6 +238,7 @@ const EnrolmentForm: React.FC<Props> = ({
                 <FormGroup>
                   <div className={styles.checkboxWrapper}>
                     <Field
+                      disabled
                       label={t(nameToLabelPath['hasEmailNotification'])}
                       component={CheckboxField}
                       name="hasEmailNotification"
