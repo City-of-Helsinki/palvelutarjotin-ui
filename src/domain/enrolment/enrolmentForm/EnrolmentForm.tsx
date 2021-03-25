@@ -108,8 +108,6 @@ const EnrolmentForm: React.FC<Props> = ({
               </FormGroup>
               <FormGroup>
                 <Field
-                  required
-                  aria-required
                   labelText={t(
                     nameToLabelPath['studyGroup.person.phoneNumber']
                   )}
@@ -207,6 +205,8 @@ const EnrolmentForm: React.FC<Props> = ({
                 <>
                   <FormGroup>
                     <Field
+                      required
+                      aria-required
                       labelText={t(nameToLabelPath['person.name'])}
                       component={TextInputField}
                       name="person.name"
@@ -214,6 +214,8 @@ const EnrolmentForm: React.FC<Props> = ({
                   </FormGroup>
                   <FormGroup>
                     <Field
+                      required
+                      aria-required
                       labelText={t(nameToLabelPath['person.emailAddress'])}
                       component={TextInputField}
                       name="person.emailAddress"
