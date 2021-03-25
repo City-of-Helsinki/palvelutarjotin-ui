@@ -53,23 +53,39 @@ interface Props {
 
 const enrolButtonColumnWidth = '250px';
 
-const Occurrences: React.FC<Props> = ({
+const Occurrences: React.FC<Props> = (props) => {
+  const { t } = useTranslation();
+
+  if (!props.occurrences.length) {
+    return (
+      <Notification
+        label={t('enrolment:occurrenceTable.noOccurrences')}
+        type="error"
+      />
+    );
+  }
+
+  return <OccurrencesSection {...props} />;
+};
+
+const OccurrencesSection: React.FC<Props> = ({
   event,
   eventLocationId,
   occurrences,
   showMoreOccurrences,
   enrolOccurrence,
   showMoreButtonVisible,
-  deselectOccurrence,
   selectOccurrence,
-  neededOccurrences = 0,
+  deselectOccurrence,
+  neededOccurrences,
   selectedOccurrences,
 }) => {
   const { t } = useTranslation();
-  const locale = useLocale();
 
   // This hook filters occurrences only by date, rest of the filtering (if added more)
   // could be in this hook but hook name should be changed
+  // FIXME: if occurrences is an empty list, useDateFiltering would fail
+  // because of index out of bound error.
   const {
     startDate,
     endDate,
@@ -82,87 +98,71 @@ const Occurrences: React.FC<Props> = ({
     dateFiltersChanged,
   } = useDateFiltering({ occurrences });
 
-  const getEnrolmentError = (
-    occurrence: OccurrenceFieldsFragment,
-    event: EventFieldsFragment
-  ) => {
-    if (isEnrolmentClosed(occurrence, event))
-      return ENROLMENT_ERRORS.ENROLMENT_CLOSED_ERROR;
-    if (!hasOccurrenceSpace(occurrence))
-      return ENROLMENT_ERRORS.NOT_ENOUGH_CAPACITY_ERROR;
-    return null;
-  };
+  return (
+    <section className={styles.occurrenceTable}>
+      <div className={styles.titleAndFilters}>
+        <p className={styles.occurrencesTitle}>
+          {t('event:occurrencesTitle', { count: occurrences.length })}{' '}
+        </p>
+        <div className={styles.dateFilters}>
+          <DateFilter
+            startDate={startDate}
+            endDate={endDate}
+            dateFiltersChanged={dateFiltersChanged}
+            isInitialStartDate={isInitialStartDate}
+            isInitialEndDate={isInitialEndDate}
+            setInitialDateFilters={setInitialDateFilters}
+            setStartFilterDate={setStartFilterDate}
+            setEndFilterDate={setEndFilterDate}
+          />
+        </div>
+      </div>
+      <OccurrenceEnrolmentTable
+        event={event}
+        eventLocationId={eventLocationId}
+        enrolOccurrence={enrolOccurrence}
+        selectOccurrence={selectOccurrence}
+        deselectOccurrence={deselectOccurrence}
+        neededOccurrences={neededOccurrences}
+        selectedOccurrences={selectedOccurrences}
+        filteredOccurrences={filteredOccurrences}
+      />
+      {showMoreButtonVisible && (
+        <div className={styles.loadMoreButtonWrapper}>
+          <Button
+            onClick={showMoreOccurrences}
+            variant="supplementary"
+            iconLeft={<IconArrowDown />}
+          >
+            {t('event:occurrenceList.loadMoreOccurrences')}
+          </Button>
+        </div>
+      )}
+    </section>
+  );
+};
 
-  const renderEnrolmentButtonCell = ({
-    value,
-  }: {
-    value: OccurrenceFieldsFragment;
-  }) => {
-    if (!isEnrolmentStarted(event)) {
-      return t('enrolment:errors.label.enrolmentStartsAt', {
-        date: formatDate(new Date(event.pEvent.enrolmentStart), 'dd.MM.yyyy'),
-        time: formatDate(new Date(event.pEvent.enrolmentStart), 'HH:mm'),
-      });
-    }
-
-    // Show error message if enrolment is not available
-    const error = getEnrolmentError(value, event);
-    if (error) {
-      return (
-        <ErrorMessage>
-          {translateValue('enrolment:errors.label.', error, t)}
-        </ErrorMessage>
-      );
-    }
-    // if required amount of occurrences already selected, show disabled button for others
-    const selectionDisabled =
-      selectedOccurrences?.length === neededOccurrences &&
-      !selectedOccurrences.includes(value.id);
-    const isSelectedOccurrence = selectedOccurrences?.includes(value.id);
-
-    if (neededOccurrences === 1) {
-      return (
-        <button
-          className={styles.enrolButton}
-          onClick={() => {
-            if (enrolOccurrence) {
-              enrolOccurrence(value.id);
-            }
-          }}
-        >
-          {t('event:occurrenceList.enrolOccurrenceButton')}
-        </button>
-      );
-    }
-
-    let buttonText: string;
-    if (selectionDisabled || isSelectedOccurrence) {
-      buttonText = t(
-        'occurrence:occurrenceSelection.buttonSelectedOccurrences',
-        { selectedOccurrences: selectedOccurrences?.length, neededOccurrences }
-      );
-    } else {
-      buttonText = t('occurrence:occurrenceSelection.buttonEnrolOccurrence');
-    }
-
-    return (
-      <Button
-        variant={
-          selectionDisabled || isSelectedOccurrence ? 'primary' : 'secondary'
-        }
-        onClick={
-          isSelectedOccurrence
-            ? () => deselectOccurrence(value.id)
-            : () => selectOccurrence(value.id)
-        }
-        style={{ width: enrolButtonColumnWidth }}
-        disabled={selectionDisabled}
-      >
-        {buttonText}
-      </Button>
-    );
-  };
-
+const OccurrenceEnrolmentTable: React.FC<{
+  event: EventFieldsFragment;
+  eventLocationId: string;
+  enrolOccurrence: ((id: string) => void) | null;
+  selectOccurrence: (id: string) => void;
+  deselectOccurrence: (id: string) => void;
+  neededOccurrences?: number;
+  selectedOccurrences?: string[];
+  filteredOccurrences: OccurrenceFieldsFragment[];
+}> = ({
+  event,
+  eventLocationId,
+  enrolOccurrence,
+  selectOccurrence,
+  deselectOccurrence,
+  neededOccurrences,
+  selectedOccurrences,
+  filteredOccurrences,
+}) => {
+  const { t } = useTranslation();
+  const locale = useLocale();
   const columns = [
     {
       Header: t('enrolment:occurrenceTable.columnDate'),
@@ -193,7 +193,17 @@ const Occurrences: React.FC<Props> = ({
     },
     {
       accessor: (row: OccurrenceFieldsFragment) => row,
-      Cell: renderEnrolmentButtonCell,
+      Cell: ({ value }: { value: OccurrenceFieldsFragment }) => (
+        <EnrolmentButtonCell
+          value={value}
+          event={event}
+          selectedOccurrences={selectedOccurrences}
+          neededOccurrences={neededOccurrences}
+          enrolOccurrence={enrolOccurrence}
+          deselectOccurrence={deselectOccurrence}
+          selectOccurrence={selectOccurrence}
+        />
+      ),
       id: 'enrol',
       style: {
         width: enrolButtonColumnWidth,
@@ -234,67 +244,120 @@ const Occurrences: React.FC<Props> = ({
     },
   ];
 
-  return occurrences.length ? (
-    <section className={styles.occurrenceTable}>
-      <div className={styles.titleAndFilters}>
-        <p className={styles.occurrencesTitle}>
-          {t('event:occurrencesTitle', { count: occurrences.length })}{' '}
-        </p>
-        <div className={styles.dateFilters}>
-          <DateFilter
-            startDate={startDate}
-            endDate={endDate}
-            dateFiltersChanged={dateFiltersChanged}
-            isInitialStartDate={isInitialStartDate}
-            isInitialEndDate={isInitialEndDate}
-            setInitialDateFilters={setInitialDateFilters}
-            setStartFilterDate={setStartFilterDate}
-            setEndFilterDate={setEndFilterDate}
-          />
-        </div>
-      </div>
-      <Table
-        columns={columns}
-        data={filteredOccurrences}
-        renderExpandedArea={(occurrence: OccurrenceFieldsFragment) => (
-          <OccurrenceInfo
-            occurrence={occurrence}
-            event={event}
-            eventLocationId={eventLocationId}
-          />
-        )}
-      />
-      {showMoreButtonVisible && (
-        <div className={styles.loadMoreButtonWrapper}>
-          <Button
-            onClick={showMoreOccurrences}
-            variant="supplementary"
-            iconLeft={<IconArrowDown />}
-          >
-            {t('event:occurrenceList.loadMoreOccurrences')}
-          </Button>
-        </div>
+  return (
+    <Table
+      columns={columns}
+      data={filteredOccurrences}
+      renderExpandedArea={(occurrence: OccurrenceFieldsFragment) => (
+        <OccurrenceInfo
+          occurrence={occurrence}
+          event={event}
+          eventLocationId={eventLocationId}
+        />
       )}
-    </section>
-  ) : (
-    <Notification
-      label={t('enrolment:occurrenceTable.noOccurrences')}
-      type="error"
     />
   );
 };
 
-interface OccurrenceInfoProps {
+const EnrolmentButtonCell: React.FC<{
+  event: EventFieldsFragment;
+  value: OccurrenceFieldsFragment;
+  selectedOccurrences: string[] | undefined;
+  enrolOccurrence: ((id: string) => void) | null;
+  selectOccurrence: (id: string) => void;
+  deselectOccurrence: (id: string) => void;
+  neededOccurrences?: number;
+}> = ({
+  value,
+  event,
+  selectedOccurrences,
+  neededOccurrences,
+  enrolOccurrence,
+  deselectOccurrence,
+  selectOccurrence,
+}) => {
+  const { t } = useTranslation();
+  const getEnrolmentError = (
+    occurrence: OccurrenceFieldsFragment,
+    event: EventFieldsFragment
+  ) => {
+    if (isEnrolmentClosed(occurrence, event))
+      return ENROLMENT_ERRORS.ENROLMENT_CLOSED_ERROR;
+    if (!hasOccurrenceSpace(occurrence))
+      return ENROLMENT_ERRORS.NOT_ENOUGH_CAPACITY_ERROR;
+    return null;
+  };
+
+  if (!isEnrolmentStarted(event)) {
+    return t('enrolment:errors.label.enrolmentStartsAt', {
+      date: formatDate(new Date(event.pEvent.enrolmentStart), 'dd.MM.yyyy'),
+      time: formatDate(new Date(event.pEvent.enrolmentStart), 'HH:mm'),
+    });
+  }
+
+  // Show error message if enrolment is not available
+  const error = getEnrolmentError(value, event);
+  if (error) {
+    return (
+      <ErrorMessage>
+        {translateValue('enrolment:errors.label.', error, t)}
+      </ErrorMessage>
+    );
+  }
+  // if required amount of occurrences already selected, show disabled button for others
+  const selectionDisabled =
+    selectedOccurrences?.length === neededOccurrences &&
+    !selectedOccurrences?.includes(value.id);
+  const isSelectedOccurrence = selectedOccurrences?.includes(value.id);
+
+  if (neededOccurrences === 1) {
+    return (
+      <button
+        className={styles.enrolButton}
+        onClick={() => {
+          if (enrolOccurrence) {
+            enrolOccurrence(value.id);
+          }
+        }}
+      >
+        {t('event:occurrenceList.enrolOccurrenceButton')}
+      </button>
+    );
+  }
+
+  let buttonText: string;
+  if (selectionDisabled || isSelectedOccurrence) {
+    buttonText = t('occurrence:occurrenceSelection.buttonSelectedOccurrences', {
+      selectedOccurrences: selectedOccurrences?.length,
+      neededOccurrences,
+    });
+  } else {
+    buttonText = t('occurrence:occurrenceSelection.buttonEnrolOccurrence');
+  }
+
+  return (
+    <Button
+      variant={
+        selectionDisabled || isSelectedOccurrence ? 'primary' : 'secondary'
+      }
+      onClick={
+        isSelectedOccurrence
+          ? () => deselectOccurrence(value.id)
+          : () => selectOccurrence(value.id)
+      }
+      style={{ width: enrolButtonColumnWidth }}
+      disabled={selectionDisabled}
+    >
+      {buttonText}
+    </Button>
+  );
+};
+
+const OccurrenceInfo: React.FC<{
   occurrence: OccurrenceFieldsFragment;
   event: EventFieldsFragment;
   eventLocationId: string;
-}
-
-const OccurrenceInfo: React.FC<OccurrenceInfoProps> = ({
-  occurrence,
-  event,
-  eventLocationId,
-}) => {
+}> = ({ occurrence, event, eventLocationId }) => {
   const { placeId, startTime, endTime, linkedEvent } = occurrence;
   const { t } = useTranslation();
   const locale = useLocale();
@@ -318,7 +381,7 @@ const OccurrenceInfo: React.FC<OccurrenceInfoProps> = ({
     </>
   );
 
-  const renderOccurrenceTimeInfoSection = (
+  const OccurrenceTimeInfoSection = () => (
     <>
       <div>
         <IconClock />
@@ -336,7 +399,7 @@ const OccurrenceInfo: React.FC<OccurrenceInfoProps> = ({
     </>
   );
 
-  const renderOccurrencePriceInfoSection = (
+  const OccurrencePriceInfoSection = () => (
     <>
       <div>
         <IconGlyphEuro />
@@ -358,7 +421,7 @@ const OccurrenceInfo: React.FC<OccurrenceInfoProps> = ({
     </>
   );
 
-  const renderOccurrenceLocationInfoSection = (
+  const OccurrenceLocationInfoSection = () => (
     <>
       <div>
         <IconLocation />
@@ -374,7 +437,7 @@ const OccurrenceInfo: React.FC<OccurrenceInfoProps> = ({
     </>
   );
 
-  const renderOccurrenceActions = (
+  const OccurrenceActions = () => (
     <>
       {/* TODO: functionality for these buttons */}
       <CalendarButton event={event} occurrence={occurrence} />
@@ -396,16 +459,18 @@ const OccurrenceInfo: React.FC<OccurrenceInfoProps> = ({
     <div className={styles.occurrenceDetails}>
       <div>
         <div className={styles.infoSection}>
-          {renderOccurrenceTimeInfoSection}
+          <OccurrenceTimeInfoSection />
         </div>
         <div className={styles.infoSection}>
-          {renderOccurrencePriceInfoSection}
+          <OccurrencePriceInfoSection />
         </div>
         <div className={styles.infoSection}>
-          {renderOccurrenceLocationInfoSection}
+          <OccurrenceLocationInfoSection />
         </div>
       </div>
-      <div className={styles.occurrenceActions}>{renderOccurrenceActions}</div>
+      <div className={styles.occurrenceActions}>
+        <OccurrenceActions />
+      </div>
     </div>
   );
 };
