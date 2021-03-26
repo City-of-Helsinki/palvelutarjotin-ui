@@ -374,11 +374,20 @@ const OccurrenceInfo: React.FC<OccurrenceInfoProps> = ({
     </>
   );
 
+  const showAllLocationEvents = () => {
+    const url = `/?places=${placeId || eventLocationId}`;
+    window.open(url);
+  };
+
   const renderOccurrenceActions = (
     <>
       {/* TODO: functionality for these buttons */}
       <CalendarButton event={event} occurrence={occurrence} />
-      <Button iconLeft={<IconLocation />} variant="supplementary" disabled>
+      <Button
+        iconLeft={<IconLocation />}
+        variant="supplementary"
+        onClick={showAllLocationEvents}
+      >
         {t('event:occurrenceList.showAllLocationEvents')}
       </Button>
       {/* Move map links down a bit show they would be 
