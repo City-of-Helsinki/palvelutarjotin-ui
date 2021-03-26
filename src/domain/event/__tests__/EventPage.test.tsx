@@ -230,7 +230,7 @@ const apolloMocks = [
   },
 ];
 
-const rowText = `27.07.2020 12:00 – 12:30 ${data.placeName} 30 / 30 Ilmoittaudu`;
+const rowText = `27.07.2020 ma 12:00 – 12:30 ${data.placeName} 30 / 30 Ilmoittaudu`;
 
 advanceTo(new Date(2020, 6, 14));
 
@@ -265,9 +265,9 @@ it('shows full events correctly in occurrences list', async () => {
   await waitForRequestsToComplete();
 
   const fullOccurrenceRowText1 =
-    '23.07.2020 12:00 – 12:30 Soukan kirjasto 0 / 1 Tapahtuma on täynnä';
+    '23.07.2020 to 12:00 – 12:30 Soukan kirjasto 0 / 1 Tapahtuma on täynnä';
   const fullOccurrenceRowText2 =
-    '29.07.2020 12:00 – 12:30 Soukan kirjasto 0 / 30 Tapahtuma on täynnä';
+    '29.07.2020 ke 12:00 – 12:30 Soukan kirjasto 0 / 30 Tapahtuma on täynnä';
 
   expect(
     screen.queryByRole('row', {

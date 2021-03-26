@@ -22,7 +22,7 @@ const OccurrenceTable: React.FC<Props> = ({ eventLocationId, occurrences }) => {
     {
       Header: t('enrolment:occurrenceTable.columnDate'),
       accessor: (row: OccurrenceFieldsFragment) =>
-        formatDate(new Date(row.startTime)),
+        formatDate(new Date(row.startTime), 'dd.MM.yyyy eeeeee', locale),
       id: 'date',
     },
     {
