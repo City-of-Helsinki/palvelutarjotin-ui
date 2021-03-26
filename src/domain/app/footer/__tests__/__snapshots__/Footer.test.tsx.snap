@@ -71,6 +71,15 @@ exports[`Footer matches snapshot 1`] = `
               Saavutettavuusseloste
             </a>
              
+            •
+             
+            <a
+              href="https://www.hel.fi/helsinki/fi/kaupunki-ja-hallinto/osallistu-ja-vaikuta/palaute"
+              rel="noreferrer"
+              target="_blank"
+            >
+              Anna palautetta
+            </a>
           </div>
         </div>
       </div>

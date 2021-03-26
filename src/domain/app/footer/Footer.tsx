@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import { Koros } from 'hds-react';
 import React from 'react';
 
-import { PRIVACY_POLICY_LINKS } from '../../../constants';
+import { FEEDBACK_LINKS, PRIVACY_POLICY_LINKS } from '../../../constants';
 import useLocale from '../../../hooks/useLocale';
 import { useTranslation, Link } from '../../../i18n';
 import Container from '../layout/Container';
@@ -41,6 +41,10 @@ const Footer = ({ isMobileMenuOpen = false }: Props): React.ReactElement => {
               <Link href="/accessibility">
                 {t('common:accessibilityStatement.title')}
               </Link>{' '}
+              •{' '}
+              <a href={FEEDBACK_LINKS[locale]} target="_blank" rel="noreferrer">
+                {t('common:feedbackLink')}
+              </a>
             </div>
           </div>
         </div>
