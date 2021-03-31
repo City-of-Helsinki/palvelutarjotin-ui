@@ -99,6 +99,12 @@ export const getEventSomeImageUrl = (event: EventFieldsFragment): string => {
   return image ? image.url : EVENT_SOME_IMAGE;
 };
 
+/* NOTE: occurrences could be an empty list, 
+and then we would get index out of bound error. 
+However, TypeScript makes it hard or impossible 
+at the moment to return undefined from here, 
+because callers are waiting for a Date 
+and hooks don't allow early returns */
 export const getFirstOrLastDateOfOccurrences = (
   occurrences: OccurrenceFieldsFragment[],
   option: 'first' | 'last'

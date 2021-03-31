@@ -598,4 +598,42 @@ describe('refetch of event works correctly', () => {
 
     expect(refetchMock).not.toHaveBeenCalled();
   });
+
+  it('informs when there are no occurrences in future', async () => {
+    render(<EventPage />, {
+      mocks: [
+        {
+          request: {
+            query: EventDocument,
+            variables: {
+              id: data.id,
+              include: ['keywords', 'location', 'audience', 'in_language'],
+              upcomingOccurrencesOnly: true,
+            },
+          },
+          result: {
+            ...eventData,
+            data: {
+              ...eventData.data,
+              event: {
+                ...eventData.data.event,
+                pEvent: {
+                  ...eventData.data.event.pEvent,
+                  occurrences: fakeOccurrences(0),
+                },
+              },
+            },
+          },
+        },
+      ],
+      query: { eventId: eventData.data.event.id },
+      path: `/fi${ROUTES.EVENT_DETAILS.replace(':id', data.id)}`,
+    });
+
+    await waitFor(() => {
+      expect(
+        screen.queryByText('Tapahtumalla ei ole tapahtuma-aikoja')
+      ).toBeInTheDocument();
+    });
+  });
 });
