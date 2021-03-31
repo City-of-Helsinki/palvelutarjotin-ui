@@ -9,6 +9,7 @@ import {
   IconGlyphEuro,
 } from 'hds-react';
 import capitalize from 'lodash/capitalize';
+import Link from 'next/link';
 import React from 'react';
 
 import ErrorMessage from '../../../common/components/form/ErrorMessage';
@@ -374,22 +375,15 @@ const OccurrenceInfo: React.FC<OccurrenceInfoProps> = ({
     </>
   );
 
-  const showAllLocationEvents = () => {
-    const url = `/?places=${placeId || eventLocationId}`;
-    window.open(url);
-  };
-
   const renderOccurrenceActions = (
     <>
       {/* TODO: functionality for these buttons */}
       <CalendarButton event={event} occurrence={occurrence} />
-      <Button
-        iconLeft={<IconLocation />}
-        variant="supplementary"
-        onClick={showAllLocationEvents}
-      >
-        {t('event:occurrenceList.showAllLocationEvents')}
-      </Button>
+      <Link href={`/?places=${placeId || eventLocationId}`} passHref>
+        <Button iconLeft={<IconLocation />} variant="supplementary">
+          {t('event:occurrenceList.showAllLocationEvents')}
+        </Button>
+      </Link>
       {/* Move map links down a bit show they would be 
       closer to location info shown in left column  */}
       <div style={{ height: '50px' }} />
