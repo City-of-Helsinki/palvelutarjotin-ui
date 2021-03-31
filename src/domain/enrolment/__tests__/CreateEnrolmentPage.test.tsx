@@ -399,7 +399,6 @@ test('render and focuses error notification correctly', async () => {
   const requiredFieldLabels = [
     'Hyväksyn tietojeni jakamisen tapahtuman järjestäjän kanssa',
     'Nimi',
-    'Puhelinnumero',
     'Sähköpostiosoite',
     'Päiväkoti / koulu / oppilaitos',
     'Ryhmä',

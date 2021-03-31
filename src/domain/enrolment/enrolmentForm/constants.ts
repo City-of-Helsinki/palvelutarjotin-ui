@@ -28,7 +28,7 @@ export type EnrolmentFormFields = {
 };
 
 export const defaultInitialValues: EnrolmentFormFields = {
-  hasEmailNotification: false,
+  hasEmailNotification: true,
   hasSmsNotification: false,
   isSameResponsiblePerson: true,
   isSharingDataAccepted: false,

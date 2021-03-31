@@ -5,15 +5,10 @@ import {
 } from '../../generated/graphql';
 import { EnrolmentFormFields } from './enrolmentForm/constants';
 
-const getNotificationType = (
-  values: EnrolmentFormFields
-): NotificationType | undefined => {
-  if (values.hasEmailNotification && values.hasSmsNotification)
-    return NotificationType.EmailSms;
-  else if (values.hasEmailNotification) return NotificationType.Email;
-  else if (values.hasSmsNotification) return NotificationType.Sms;
-
-  return undefined;
+const getNotificationType = (values: EnrolmentFormFields): NotificationType => {
+  return values.hasEmailNotification && values.hasSmsNotification
+    ? NotificationType.EmailSms
+    : NotificationType.Email;
 };
 
 export const getEnrolmentPayload = ({

@@ -3,6 +3,10 @@ import * as Yup from 'yup';
 import { VALIDATION_MESSAGE_KEYS } from '../../app/forms/constants';
 
 export default Yup.object().shape({
+  hasEmailNotification: Yup.bool().oneOf(
+    [true],
+    'enrolment:enrolmentForm.validation.hasEmailNotification'
+  ),
   isSharingDataAccepted: Yup.bool().oneOf(
     [true],
     'enrolment:enrolmentForm.validation.isSharingDataAccepted'
@@ -15,9 +19,6 @@ export default Yup.object().shape({
         ? schema
         : schema.shape({
             name: Yup.string().required(
-              VALIDATION_MESSAGE_KEYS.STRING_REQUIRED
-            ),
-            phoneNumber: Yup.string().required(
               VALIDATION_MESSAGE_KEYS.STRING_REQUIRED
             ),
             emailAddress: Yup.string()
@@ -85,9 +86,6 @@ export default Yup.object().shape({
         {
           person: Yup.object().shape({
             name: Yup.string().required(
-              VALIDATION_MESSAGE_KEYS.STRING_REQUIRED
-            ),
-            phoneNumber: Yup.string().required(
               VALIDATION_MESSAGE_KEYS.STRING_REQUIRED
             ),
             emailAddress: Yup.string()
