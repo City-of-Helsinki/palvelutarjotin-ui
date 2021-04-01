@@ -9,6 +9,7 @@ import {
   IconGlyphEuro,
 } from 'hds-react';
 import capitalize from 'lodash/capitalize';
+import Link from 'next/link';
 import React from 'react';
 
 import ErrorMessage from '../../../common/components/form/ErrorMessage';
@@ -407,8 +408,7 @@ const OccurrenceInfo: React.FC<{
       <div>
         <div className={styles.infoTitle}>
           <div data-testid="event-price">
-            {isFree && t('event:occurrenceList.eventIsFree')}
-            {!isFree && price}
+            {isFree ? t('event:occurrenceList.eventIsFree') : price}
           </div>
         </div>
         {!!priceDescription && (
@@ -441,9 +441,11 @@ const OccurrenceInfo: React.FC<{
     <>
       {/* TODO: functionality for these buttons */}
       <CalendarButton event={event} occurrence={occurrence} />
-      <Button iconLeft={<IconLocation />} variant="supplementary" disabled>
-        {t('event:occurrenceList.showAllLocationEvents')}
-      </Button>
+      <Link href={`/?places=${placeId || eventLocationId}`} passHref>
+        <Button iconLeft={<IconLocation />} variant="supplementary">
+          {t('event:occurrenceList.showAllLocationEvents')}
+        </Button>
+      </Link>
       {/* Move map links down a bit show they would be 
       closer to location info shown in left column  */}
       <div style={{ height: '50px' }} />
