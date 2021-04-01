@@ -345,8 +345,7 @@ const OccurrenceInfo: React.FC<OccurrenceInfoProps> = ({
       <div>
         <div className={styles.infoTitle}>
           <div data-testid="event-price">
-            {isFree && t('event:occurrenceList.eventIsFree')}
-            {!isFree && price}
+            {isFree ? t('event:occurrenceList.eventIsFree') : price}
           </div>
         </div>
         {!!priceDescription && (
