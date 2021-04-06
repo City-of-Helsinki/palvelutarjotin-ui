@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import { Koros } from 'hds-react';
 import React from 'react';
 
+import ExternalLink from '../../../common/components/externalLink/ExternalLink';
 import SrOnly from '../../../common/components/SrOnly/SrOnly';
 import { FEEDBACK_LINKS, PRIVACY_POLICY_LINKS } from '../../../constants';
 import useLocale from '../../../hooks/useLocale';
@@ -31,21 +32,15 @@ const Footer = ({ isMobileMenuOpen = false }: Props): React.ReactElement => {
           <div className={styles.copyright}>
             <div>{t('footer:copyrightText')}</div>
             <div className={styles.links}>
-              <a
-                href={PRIVACY_POLICY_LINKS[locale]}
-                target="_blank"
-                rel="noreferrer"
-              >
+              <ExternalLink href={PRIVACY_POLICY_LINKS[locale]}>
                 {t('common:privacyPolicy')}
-                <SrOnly>{t('common:srOnly.opensInANewTab')}</SrOnly>
-              </a>
+              </ExternalLink>
               <Link href="/accessibility">
                 {t('common:accessibilityStatement.title')}
               </Link>
-              <a href={FEEDBACK_LINKS[locale]} target="_blank" rel="noreferrer">
+              <ExternalLink href={FEEDBACK_LINKS[locale]}>
                 {t('common:feedbackLink')}
-                <SrOnly>{t('common:srOnly.opensInANewTab')}</SrOnly>
-              </a>
+              </ExternalLink>
             </div>
           </div>
         </div>
