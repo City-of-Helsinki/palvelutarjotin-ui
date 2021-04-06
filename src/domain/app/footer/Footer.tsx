@@ -2,7 +2,9 @@ import classNames from 'classnames';
 import { Koros } from 'hds-react';
 import React from 'react';
 
-import { PRIVACY_POLICY_LINKS } from '../../../constants';
+import ExternalLink from '../../../common/components/externalLink/ExternalLink';
+import SrOnly from '../../../common/components/SrOnly/SrOnly';
+import { FEEDBACK_LINKS, PRIVACY_POLICY_LINKS } from '../../../constants';
 import useLocale from '../../../hooks/useLocale';
 import { useTranslation, Link } from '../../../i18n';
 import Container from '../layout/Container';
@@ -30,17 +32,15 @@ const Footer = ({ isMobileMenuOpen = false }: Props): React.ReactElement => {
           <div className={styles.copyright}>
             <div>{t('footer:copyrightText')}</div>
             <div className={styles.links}>
-              <a
-                href={PRIVACY_POLICY_LINKS[locale]}
-                target="_blank"
-                rel="noreferrer"
-              >
+              <ExternalLink href={PRIVACY_POLICY_LINKS[locale]}>
                 {t('common:privacyPolicy')}
-              </a>{' '}
-              •{' '}
+              </ExternalLink>
               <Link href="/accessibility">
                 {t('common:accessibilityStatement.title')}
-              </Link>{' '}
+              </Link>
+              <ExternalLink href={FEEDBACK_LINKS[locale]}>
+                {t('common:feedbackLink')}
+              </ExternalLink>
             </div>
           </div>
         </div>

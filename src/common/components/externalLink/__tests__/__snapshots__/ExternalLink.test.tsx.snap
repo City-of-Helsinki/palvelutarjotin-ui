@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`matches snapshot 1`] = `
+<div>
+  <a
+    href="https://test.test.fi"
+    rel="noreferrer"
+    target="_blank"
+  >
+    TestLink
+    <div
+      class="srOnly"
+    >
+      Avautuu uudessa välilehdessä
+    </div>
+  </a>
+</div>
+`;

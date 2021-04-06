@@ -44,5 +44,9 @@
     "buttonClose": "Sulje"
   },
   "privacyPolicy": "Rekisteriseloste",
-  "linkSkipToContent": "Siirry sisältöön"
+  "linkSkipToContent": "Siirry sisältöön",
+  "feedbackLink": "Anna palautetta",
+  "srOnly": {
+    "opensInANewTab": "Avautuu uudessa välilehdessä"
+  }
 }

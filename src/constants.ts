@@ -27,3 +27,10 @@ export const PRIVACY_POLICY_LINKS = {
   sv:
     'https://www.hel.fi/static/liitteet/kanslia/rekisteriselosteet/Kuva/Kuva-EU-Palvelutarjotin-SV.pdf',
 };
+
+export const FEEDBACK_LINKS = {
+  fi:
+    'https://www.hel.fi/helsinki/fi/kaupunki-ja-hallinto/osallistu-ja-vaikuta/palaute',
+  en: 'https://www.hel.fi/helsinki/en/administration/participate/feedback',
+  sv: 'https://www.hel.fi/helsinki/sv/stad-och-forvaltning/delta/feedback',
+};

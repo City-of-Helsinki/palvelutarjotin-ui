@@ -44,5 +44,9 @@
     "buttonClose": "Close"
   },
   "privacyPolicy": "Privacy policy",
-  "linkSkipToContent": "Skip to content"
+  "linkSkipToContent": "Skip to content",
+  "feedbackLink": "Give feedback",
+  "srOnly": {
+    "opensInANewTab": "Opens in a new tab"
+  }
 }
