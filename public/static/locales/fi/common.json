@@ -45,5 +45,8 @@
   },
   "privacyPolicy": "Rekisteriseloste",
   "linkSkipToContent": "Siirry sisältöön",
-  "feedbackLink": "Anna palautetta"
+  "feedbackLink": "Anna palautetta",
+  "srOnly": {
+    "opensInANewTab": "Avautuu uudessa välilehdessä"
+  }
 }

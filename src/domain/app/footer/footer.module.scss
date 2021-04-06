@@ -10,6 +10,7 @@
   --color-copyright: var(--color-black-60);
   --color-footer: var(--color-black);
   --color-koro: var(--background-color-footer);
+  --color-link: var(--color-black-60);
 
   --height-koro: 1.25rem;
   --height-logo: 3rem;
@@ -20,6 +21,9 @@
   --padding-footer: 1rem 0;
 
   --width-logo: 5rem;
+  --size-dot: 5px;
+
+  --link-spacing: var(--spacing-m);
 }
 
 .footer {
@@ -50,7 +54,24 @@
 
 .links {
   margin: 1rem 0;
-  color: var(--color-black-60);
+  color: var(--color-link);
+
+  a:not(:first-child) {
+    margin-left: var(--link-spacing);
+    position: relative;
+
+    &:before {
+      content: '';
+      position: absolute;
+      left: calc(-1 * (var(--link-spacing) / 2 + var(--size-dot) / 2));
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: var(--color-link);
+      width: var(--size-dot);
+      height: var(--size-dot);
+      border-radius: 50%;
+    }
+  }
 }
 
 .contentWrapper {

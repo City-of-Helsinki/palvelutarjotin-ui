@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import { Koros } from 'hds-react';
 import React from 'react';
 
+import SrOnly from '../../../common/components/SrOnly/SrOnly';
 import { FEEDBACK_LINKS, PRIVACY_POLICY_LINKS } from '../../../constants';
 import useLocale from '../../../hooks/useLocale';
 import { useTranslation, Link } from '../../../i18n';
@@ -36,14 +37,14 @@ const Footer = ({ isMobileMenuOpen = false }: Props): React.ReactElement => {
                 rel="noreferrer"
               >
                 {t('common:privacyPolicy')}
-              </a>{' '}
-              •{' '}
+                <SrOnly>{t('common:srOnly.opensInANewTab')}</SrOnly>
+              </a>
               <Link href="/accessibility">
                 {t('common:accessibilityStatement.title')}
-              </Link>{' '}
-              •{' '}
+              </Link>
               <a href={FEEDBACK_LINKS[locale]} target="_blank" rel="noreferrer">
                 {t('common:feedbackLink')}
+                <SrOnly>{t('common:srOnly.opensInANewTab')}</SrOnly>
               </a>
             </div>
           </div>

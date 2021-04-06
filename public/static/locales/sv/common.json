@@ -44,5 +44,8 @@
   },
   "privacyPolicy": "Integritetspolicy",
   "linkSkipToContent": "Gå till innehållet",
-  "feedbackLink": "Ge respons"
+  "feedbackLink": "Ge respons",
+  "srOnly": {
+    "opensInANewTab": "Öppnas i en ny flik"
+  }
 }

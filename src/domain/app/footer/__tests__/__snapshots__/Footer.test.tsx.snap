@@ -61,24 +61,28 @@ exports[`Footer matches snapshot 1`] = `
               target="_blank"
             >
               Rekisteriseloste
+              <div
+                class="srOnly"
+              >
+                Avautuu uudessa välilehdessä
+              </div>
             </a>
-             
-            •
-             
             <a
               href="/fi/accessibility"
             >
               Saavutettavuusseloste
             </a>
-             
-            •
-             
             <a
               href="https://www.hel.fi/helsinki/fi/kaupunki-ja-hallinto/osallistu-ja-vaikuta/palaute"
               rel="noreferrer"
               target="_blank"
             >
               Anna palautetta
+              <div
+                class="srOnly"
+              >
+                Avautuu uudessa välilehdessä
+              </div>
             </a>
           </div>
         </div>
