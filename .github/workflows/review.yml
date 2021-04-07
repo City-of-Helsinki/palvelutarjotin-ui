@@ -84,7 +84,7 @@ jobs:
       - name: Run Acceptance Tests (TestCafe Browser Tests)
         id: testcafe
         run: yarn browser-test:ci
-      - name: Upload screenshots and videos of failed tests to artifact for V${{ matrix.version }}
+      - name: Upload screenshots and videos of failed tests to artifact
         uses: actions/upload-artifact@v2
         with:
           name: report

@@ -89,7 +89,7 @@ jobs:
         run: yarn browser-test:ci
         env:
           BROWSER_TESTS_LOCAL_ENV_URL: https://${{ secrets.ENVIRONMENT_URL_STAGING }}
-      - name: Upload screenshots and videos of failed tests to artifact for ${{matrix.DOCKER_BUILD_ARG_PUBLIC_URL}}
+      - name: Upload screenshots and videos of failed tests to artifact
         uses: actions/upload-artifact@v2
         with:
           name: report
