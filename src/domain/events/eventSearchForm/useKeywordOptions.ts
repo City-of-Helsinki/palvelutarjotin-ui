@@ -1,3 +1,5 @@
+import capitalize from 'lodash/capitalize';
+
 import {
   Keyword,
   KeywordSet,
@@ -31,7 +33,7 @@ export const useKeywordOptions = (): KeyWordOptions => {
   const keywordSetToOptions = (keywordSet?: KeywordSet | null) =>
     keywordSet?.keywords.map((k: Keyword) => ({
       value: k.id,
-      label: getLocalizedString(k.name || {}, locale),
+      label: capitalize(getLocalizedString(k.name || {}, locale)),
     })) || [];
 
   const additionalCriteriaKeywords = keywordSetToOptions(
