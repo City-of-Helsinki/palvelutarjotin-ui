@@ -575,3 +575,33 @@ test('Do not allow sms notifications if no phone number is given', async () => {
   });
   expect(smsField).not.toBeChecked();
 });
+
+test('Allow sms notifications if any of the phone numbers are given', async () => {
+  render(<CreateEnrolmentPage />, {
+    mocks: mock4,
+    query: { eventId: eventId, occurrences: occurrenceIds },
+  });
+  await waitFor(() => {
+    expect(screen.getByLabelText(/Sama kuin ilmoittaja/i)).toBeInTheDocument();
+  });
+  const isResponsiblePersonField = screen.getByLabelText(
+    /Sama kuin ilmoittaja/i
+  );
+
+  userEvent.click(isResponsiblePersonField);
+
+  const phoneFields = screen.queryAllByLabelText(/Puhelinnumero/i);
+
+  phoneFields.forEach((f) => userEvent.type(f, '123'));
+  await waitFor(() => {
+    expect(screen.getByLabelText(/Tekstiviestillä/i)).not.toBeDisabled();
+  });
+  userEvent.clear(phoneFields[0]);
+  await waitFor(() => {
+    expect(screen.getByLabelText(/Tekstiviestillä/i)).not.toBeDisabled();
+  });
+  phoneFields.forEach((f) => userEvent.clear(f));
+  await waitFor(() => {
+    expect(screen.getByLabelText(/Tekstiviestillä/i)).toBeDisabled();
+  });
+});

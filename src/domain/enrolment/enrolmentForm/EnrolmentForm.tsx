@@ -64,6 +64,7 @@ const EnrolmentForm: React.FC<Props> = ({
         const {
           isSameResponsiblePerson,
           isMandatoryAdditionalInformationRequired,
+          person: { phoneNumber },
           studyGroup: {
             person: { phoneNumber: studyGroupPhoneNumber },
           },
@@ -73,16 +74,26 @@ const EnrolmentForm: React.FC<Props> = ({
           .map((path) => nameToLabelPath[path])
           .filter((i) => i);
         const hasPhoneNumber = () => {
-          return !!studyGroupPhoneNumber;
+          return !!phoneNumber || !!studyGroupPhoneNumber;
         };
-        const handlePhonNumberChange = (
+        const handlePersonPhoneNumberChange = (
           e: React.ChangeEvent<HTMLInputElement>
         ) => {
           handleChange(e);
-          if (!e.target.value) {
+          if (!e.target.value && !studyGroupPhoneNumber) {
             setFieldValue('hasSmsNotification', false);
           }
         };
+
+        const handleStudyGroupPhoneNumberChange = (
+          e: React.ChangeEvent<HTMLInputElement>
+        ) => {
+          handleChange(e);
+          if (!e.target.value && !phoneNumber) {
+            setFieldValue('hasSmsNotification', false);
+          }
+        };
+
         return (
           <form
             className={styles.enrolmentForm}
@@ -129,7 +140,7 @@ const EnrolmentForm: React.FC<Props> = ({
                     nameToLabelPath['studyGroup.person.phoneNumber']
                   )}
                   component={TextInputField}
-                  onChange={handlePhonNumberChange}
+                  onChange={handleStudyGroupPhoneNumberChange}
                   name="studyGroup.person.phoneNumber"
                 />
               </FormGroup>
@@ -244,6 +255,7 @@ const EnrolmentForm: React.FC<Props> = ({
                       labelText={t(nameToLabelPath['person.phoneNumber'])}
                       component={TextInputField}
                       name="person.phoneNumber"
+                      onChange={handlePersonPhoneNumberChange}
                     />
                   </FormGroup>
                 </>
