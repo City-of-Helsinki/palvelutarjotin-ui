@@ -6,6 +6,8 @@
     "infoText2": "Vi skickar ett separat bekräftelsemeddelande när organisatören har behandlat och bekräftat din registrering.",
     "labelHasEmailNotification": "Via e-post",
     "labelHasSmsNotification": "Via SMS",
+    "titleTextHasEmailNotification": "E-postaviseringar krävs",
+    "titleTextHasSmsNotification": "SMS-aviseringar är tillgängliga när ett telefonnummer anges",
     "labelIsSameResponsiblePerson": "Samma som anmälare",
     "labelIsSharingDataAccepted": "Jag accepterar att dela min information med arrangören",
     "labelLanguage": "Språk",

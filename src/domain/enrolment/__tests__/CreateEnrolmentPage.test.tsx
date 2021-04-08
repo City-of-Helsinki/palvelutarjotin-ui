@@ -548,3 +548,18 @@ test('mandatory additional information forces extraNeeds field to be required', 
     expect(screen.getByText(/Tämä kenttä on pakollinen/i)).toBeInTheDocument();
   });
 });
+
+test('Do not allow sms notifications if no phone number is given', async () => {
+  render(<CreateEnrolmentPage />, {
+    mocks: mock4,
+    query: { eventId: eventId, occurrences: occurrenceIds },
+  });
+  await waitFor(() => {
+    expect(screen.getByLabelText(/Puhelinnumero/i)).toBeInTheDocument();
+  });
+  expect(screen.getByLabelText(/Puhelinnumero/i)).not.toHaveValue();
+  expect(screen.getByLabelText(/Tekstiviestillä/i)).toBeDisabled();
+  userEvent.type(screen.getByLabelText(/Puhelinnumero/i), '123');
+  userEvent.tab();
+  expect(screen.getByLabelText(/Tekstiviestillä/i)).not.toBeDisabled();
+});

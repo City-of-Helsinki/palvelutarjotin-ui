@@ -52,20 +52,21 @@ const EnrolmentForm: React.FC<Props> = ({
       onSubmit={onSubmit}
       validationSchema={ValidationSchema}
     >
-      {({
-        errors,
-        handleSubmit,
-        touched,
-        submitCount,
-        values: {
+      {({ errors, handleSubmit, touched, submitCount, values }) => {
+        const {
           isSameResponsiblePerson,
           isMandatoryAdditionalInformationRequired,
-        },
-      }) => {
+          studyGroup: {
+            person: { phoneNumber: studyGroupPhoneNumber },
+          },
+        } = values;
         const showErrorNotification = !isEmpty(errors) && !!submitCount;
         const errorLabelKeys = keyify(errors)
           .map((path) => nameToLabelPath[path])
           .filter((i) => i);
+        const hasPhoneNumber = () => {
+          return !!studyGroupPhoneNumber;
+        };
         return (
           <form
             className={styles.enrolmentForm}
@@ -239,6 +240,9 @@ const EnrolmentForm: React.FC<Props> = ({
                   <div className={styles.checkboxWrapper}>
                     <Field
                       disabled
+                      title={t(
+                        'enrolment:enrolmentForm.titleTextHasEmailNotification'
+                      )}
                       label={t(nameToLabelPath['hasEmailNotification'])}
                       component={CheckboxField}
                       name="hasEmailNotification"
@@ -248,6 +252,10 @@ const EnrolmentForm: React.FC<Props> = ({
                 <FormGroup>
                   <div className={styles.checkboxWrapper}>
                     <Field
+                      disabled={!hasPhoneNumber()}
+                      title={t(
+                        'enrolment:enrolmentForm.titleTextHasSmsNotification'
+                      )}
                       label={t(nameToLabelPath['hasSmsNotification'])}
                       component={CheckboxField}
                       name="hasSmsNotification"

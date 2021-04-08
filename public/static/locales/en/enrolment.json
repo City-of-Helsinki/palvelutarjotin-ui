@@ -6,6 +6,8 @@
     "infoText2": "We will send you a separate confirmation message once the organizer has processed and confirmed your registration.",
     "labelHasEmailNotification": "By e-mail",
     "labelHasSmsNotification": "By SMS",
+    "titleTextHasEmailNotification": "Email notifications are mandatory",
+    "titleTextHasSmsNotification": "SMS notifications are available when a phone number is entered",
     "labelIsSameResponsiblePerson": "Same as notifier",
     "labelIsSharingDataAccepted": "I agree to share my information with the event organizer",
     "labelLanguage": "Language",

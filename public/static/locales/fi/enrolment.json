@@ -6,6 +6,8 @@
     "infoText2": "Lähetämme sinulle erillisen vahvistusviestin, kun järjestäjä on käsitellyt ja vahvistanut ilmoittautumisesi.",
     "labelHasEmailNotification": "Sähköpostilla",
     "labelHasSmsNotification": "Tekstiviestillä",
+    "titleTextHasEmailNotification": "Sähköposti-ilmoitukset ovat pakollisia",
+    "titleTextHasSmsNotification": "Tekstiviesti-ilmoitukset valittavissa kun puhelinnumero on annettu",
     "labelIsSameResponsiblePerson": "Sama kuin ilmoittaja",
     "labelIsSharingDataAccepted": "Hyväksyn tietojeni jakamisen tapahtuman järjestäjän kanssa",
     "labelLanguage": "Kieli",
