@@ -65,6 +65,7 @@
     "yup": "^0.29.1"
   },
   "devDependencies": {
+    "@ffmpeg-installer/ffmpeg": "^1.0.20",
     "@graphql-codegen/cli": "^1.15.3",
     "@graphql-codegen/typescript": "^1.15.3",
     "@graphql-codegen/typescript-operations": "^1.15.3",
