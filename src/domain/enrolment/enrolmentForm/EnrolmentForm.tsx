@@ -52,7 +52,15 @@ const EnrolmentForm: React.FC<Props> = ({
       onSubmit={onSubmit}
       validationSchema={ValidationSchema}
     >
-      {({ errors, handleSubmit, touched, submitCount, values }) => {
+      {({
+        errors,
+        handleSubmit,
+        touched,
+        submitCount,
+        values,
+        setFieldValue,
+        handleChange,
+      }) => {
         const {
           isSameResponsiblePerson,
           isMandatoryAdditionalInformationRequired,
@@ -66,6 +74,14 @@ const EnrolmentForm: React.FC<Props> = ({
           .filter((i) => i);
         const hasPhoneNumber = () => {
           return !!studyGroupPhoneNumber;
+        };
+        const handlePhonNumberChange = (
+          e: React.ChangeEvent<HTMLInputElement>
+        ) => {
+          handleChange(e);
+          if (!e.target.value) {
+            setFieldValue('hasSmsNotification', false);
+          }
         };
         return (
           <form
@@ -113,6 +129,7 @@ const EnrolmentForm: React.FC<Props> = ({
                     nameToLabelPath['studyGroup.person.phoneNumber']
                   )}
                   component={TextInputField}
+                  onChange={handlePhonNumberChange}
                   name="studyGroup.person.phoneNumber"
                 />
               </FormGroup>

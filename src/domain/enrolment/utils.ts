@@ -6,7 +6,9 @@ import {
 import { EnrolmentFormFields } from './enrolmentForm/constants';
 
 const getNotificationType = (values: EnrolmentFormFields): NotificationType => {
-  return values.hasEmailNotification && values.hasSmsNotification
+  return values.hasEmailNotification &&
+    values.studyGroup.person.phoneNumber &&
+    values.hasSmsNotification
     ? NotificationType.EmailSms
     : NotificationType.Email;
 };

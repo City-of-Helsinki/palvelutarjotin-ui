@@ -557,9 +557,21 @@ test('Do not allow sms notifications if no phone number is given', async () => {
   await waitFor(() => {
     expect(screen.getByLabelText(/Puhelinnumero/i)).toBeInTheDocument();
   });
-  expect(screen.getByLabelText(/Puhelinnumero/i)).not.toHaveValue();
-  expect(screen.getByLabelText(/Tekstiviestillä/i)).toBeDisabled();
-  userEvent.type(screen.getByLabelText(/Puhelinnumero/i), '123');
+  const phoneField = screen.getByLabelText(/Puhelinnumero/i);
+  const smsField = screen.getByLabelText(/Tekstiviestillä/i);
+  expect(phoneField).not.toHaveValue();
+  expect(smsField).toBeDisabled();
+  userEvent.type(phoneField, '123');
   userEvent.tab();
-  expect(screen.getByLabelText(/Tekstiviestillä/i)).not.toBeDisabled();
+  await waitFor(() => {
+    expect(screen.getByLabelText(/Tekstiviestillä/i)).not.toBeDisabled();
+  });
+  userEvent.click(smsField);
+  expect(smsField).toBeChecked();
+  userEvent.clear(phoneField);
+  userEvent.tab();
+  await waitFor(() => {
+    expect(screen.getByLabelText(/Tekstiviestillä/i)).toBeDisabled();
+  });
+  expect(smsField).not.toBeChecked();
 });
