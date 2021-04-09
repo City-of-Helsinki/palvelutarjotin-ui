@@ -70,6 +70,7 @@ export const QUERY_EVENTS = gql`
     $superEventType: [String]
     $text: String
     $translation: String
+    $organisationId: String
   ) {
     events(
       division: $division
@@ -90,6 +91,7 @@ export const QUERY_EVENTS = gql`
       superEventType: $superEventType
       text: $text
       translation: $translation
+      organisationId: $organisationId
     ) {
       meta {
         ...metaFields

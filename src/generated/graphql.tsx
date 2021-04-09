@@ -1945,6 +1945,7 @@ export type EventsQueryVariables = Exact<{
   superEventType?: Maybe<Array<Maybe<Scalars['String']>>>;
   text?: Maybe<Scalars['String']>;
   translation?: Maybe<Scalars['String']>;
+  organisationId?: Maybe<Scalars['String']>;
 }>;
 
 export type EventsQuery = { __typename?: 'Query' } & {
@@ -2730,6 +2731,7 @@ export const EventsDocument = gql`
     $superEventType: [String]
     $text: String
     $translation: String
+    $organisationId: String
   ) {
     events(
       division: $division
@@ -2750,6 +2752,7 @@ export const EventsDocument = gql`
       superEventType: $superEventType
       text: $text
       translation: $translation
+      organisationId: $organisationId
     ) {
       meta {
         ...metaFields
@@ -2822,6 +2825,7 @@ export function withEvents<
  *      superEventType: // value for 'superEventType'
  *      text: // value for 'text'
  *      translation: // value for 'translation'
+ *      organisationId: // value for 'organisationId'
  *   },
  * });
  */

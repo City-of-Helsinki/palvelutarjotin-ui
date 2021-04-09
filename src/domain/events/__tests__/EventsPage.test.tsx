@@ -68,6 +68,7 @@ const mocks: MockedResponse[] = [
         pageSize: 10,
         sort: 'start_time',
         end: null,
+        organisationId: '',
       },
     },
     result: {
