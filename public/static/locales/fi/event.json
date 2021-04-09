@@ -16,6 +16,9 @@
       "tomorrow": "Huomenna klo {{time}}"
     }
   },
+  "organization": {
+    "showAllOrganizationEvents": "Näytä järjestäjän tapahtumat"
+  },
   "occurrenceList": {
     "loadMoreOccurrences": "Näytä lisää aikoja",
     "enrolOccurrenceButton": "Ilmoittaudu",

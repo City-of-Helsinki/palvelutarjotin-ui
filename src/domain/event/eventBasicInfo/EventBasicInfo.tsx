@@ -3,7 +3,7 @@ import React from 'react';
 
 import { EventFieldsFragment } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
-import { useTranslation } from '../../../i18n';
+import { Link, useTranslation } from '../../../i18n';
 import IconTicket from '../../../icons/IconTicket';
 import addUrlSlashes from '../../../utils/addUrlSlashes';
 import EventKeywords from '../eventKeywords/EventKeywords';
@@ -25,6 +25,7 @@ const EventBasicInfo: React.FC<EventBasicInfoProps> = ({ event }) => {
     shortDescription,
     isEventFree,
     organization,
+    organizationId,
     contactEmail,
     contactPerson,
     contactPhoneNumber,
@@ -58,20 +59,53 @@ const EventBasicInfo: React.FC<EventBasicInfoProps> = ({ event }) => {
         )}
         <div>
           <IconFaceSmile />
-          <div>
-            <p className={styles.organization}>{organization}</p>
-            {contactPerson && (
-              <div className={styles.contactInfo}>
-                <p>{t('event:contactPerson')}</p>
-                <p>{contactPerson}</p>
-                {contactEmail && <p>{contactEmail}</p>}
-                {contactPhoneNumber && <p>{contactPhoneNumber}</p>}
-              </div>
-            )}
-          </div>
+          {organization && organizationId && (
+            <OrganizationInfo
+              organization={organization}
+              organizationId={organizationId}
+              contactEmail={contactEmail}
+              contactPerson={contactPerson}
+              contactPhoneNumber={contactPhoneNumber}
+            />
+          )}
         </div>
       </div>
     </section>
+  );
+};
+
+const OrganizationInfo: React.FC<{
+  organizationId: string;
+  organization: string;
+  contactEmail: string | undefined;
+  contactPerson: string | undefined;
+  contactPhoneNumber: string | undefined;
+}> = ({
+  organization,
+  organizationId,
+  contactEmail,
+  contactPerson,
+  contactPhoneNumber,
+}) => {
+  const { t } = useTranslation();
+  const organizationSearchUrl = `/?organization=${organizationId}`;
+  return (
+    <div>
+      <p className={styles.organization}>{organization}</p>
+      <p className={styles.organizationLink}>
+        <Link href={organizationSearchUrl} passHref>
+          {t('event:organization.showAllOrganizationEvents')}
+        </Link>
+      </p>
+      {contactPerson && (
+        <div className={styles.contactInfo}>
+          <p>{t('event:contactPerson')}</p>
+          <p>{contactPerson}</p>
+          {contactEmail && <p>{contactEmail}</p>}
+          {contactPhoneNumber && <p>{contactPhoneNumber}</p>}
+        </div>
+      )}
+    </div>
   );
 };
 
