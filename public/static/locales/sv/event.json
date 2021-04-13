@@ -5,7 +5,8 @@
       "emailSms": "Vi skickar ett bekräftelsemail och textmeddelande.",
       "sms": "Vi skickar en bekräftelse via SMS."
     },
-    "title": "Registrering skickad"
+    "title": "Registrering skickad",
+    "titleEnquiry": "Bokningsförfrågan skickad"
   },
   "eventCard": {
     "ariaLabelOpenEvent": "Gå till evenemang: {{eventName}}",
@@ -22,6 +23,7 @@
   "occurrenceList": {
     "loadMoreOccurrences": "Visa fler händelser",
     "enrolOccurrenceButton": "Skriva in",
+    "reservationEnquiryButton": "Bokningsförfrågan",
     "chooseOccurrenceButton": "Välja",
     "downloadToCalendar": "Importera till kalender...",
     "showAllLocationEvents": "Visa alla händelser på den här platsen",

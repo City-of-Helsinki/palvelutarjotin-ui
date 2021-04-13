@@ -9,20 +9,10 @@ import '../src/assets/styles/main.scss';
 import 'hds-core/lib/base.css';
 import i18n from '../src/tests/initI18n';
 import placeMock from '../src/domain/place/__mocks__/place.json';
+import {createPlaceQueryMock} from "../src/tests/apollo-mocks/placeMocks";
 
-const mocks = [
-  {
-    request: {
-      query: PlaceDocument,
-      variables: {
-        id: placeMock.data.place.id,
-      },
-    },
-    result: {
-      ...placeMock,
-    },
-  },
-];
+const mocks = [createPlaceQueryMock(placeMock.data.place)];
+
 
 addDecorator(withA11y);
 addDecorator((story) => (

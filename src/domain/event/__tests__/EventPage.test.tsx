@@ -10,13 +10,18 @@ import {
   EventDocument,
   Language,
   OccurrenceSeatType,
-  PlaceDocument,
-  VenueDocument,
+  VenueNode,
+  Event,
 } from '../../../generated/graphql';
 import * as graphqlFuncs from '../../../generated/graphql';
 import { Router as i18nRouter } from '../../../i18n';
 import {
-  fakeEvent,
+  createEventQueryMock,
+  createEventQueryMockIncludeLanguageAndAudience,
+} from '../../../tests/apollo-mocks/eventMocks';
+import { createPlaceQueryMock } from '../../../tests/apollo-mocks/placeMocks';
+import { createVenueQueryMock } from '../../../tests/apollo-mocks/venueMocks';
+import {
   fakeImage,
   fakeInLanguage,
   fakeKeyword,
@@ -26,7 +31,6 @@ import {
   fakePerson,
   fakePEvent,
   fakePlace,
-  fakeVenue,
 } from '../../../utils/mockDataUtils';
 import {
   render,
@@ -69,165 +73,128 @@ const data = {
 const createFakeKeyword = (k: string) =>
   fakeKeyword({ name: fakeLocalizedObject(k), id: k });
 
-const eventData = {
-  data: {
-    event: fakeEvent({
-      id: data.id,
-      name: fakeLocalizedObject(data.name),
-      description: fakeLocalizedObject(data.description),
-      shortDescription: fakeLocalizedObject(data.shortDescription),
-      location: fakePlace({ id: data.placeId }),
-      pEvent: fakePEvent({
-        enrolmentEndDays: 1,
-        enrolmentStart: '2020-07-13T06:00:00+00:00',
-        organisation: fakeOrganisation({ name: data.organisationName }),
-        contactPhoneNumber: data.contactPersonPhoneNumber,
-        contactEmail: data.contactPersonEmail,
-        contactPerson: fakePerson({
-          name: data.contactPersonName,
-        }),
-        occurrences: fakeOccurrences(11, [
-          {
-            startTime: '2020-07-15T09:00:00+00:00',
-            placeId: data.placeId,
-            id: data.placeId1,
-            amountOfSeats: 30,
-            seatsApproved: 10,
-            remainingSeats: 20,
-          },
-          {
-            startTime: '2020-07-16T09:00:00+00:00',
-            placeId: data.placeId,
-            id: data.placeId2,
-          },
-          {
-            startTime: '2020-07-19T09:00:00+00:00',
-            placeId: data.placeId,
-            id: data.placeId3,
-          },
-          { startTime: '2020-07-20T09:00:00+00:00', placeId: data.placeId },
-          { startTime: '2020-07-21T09:00:00+00:00', placeId: data.placeId },
-          { startTime: '2020-07-22T09:00:00+00:00', placeId: data.placeId },
-          // full event
-          {
-            startTime: '2020-07-23T09:00:00+00:00',
-            placeId: data.placeId,
-            amountOfSeats: 1,
-            remainingSeats: 0,
-            seatsTaken: 1,
-            seatType: OccurrenceSeatType.EnrolmentCount,
-          },
-          {
-            startTime: '2020-07-27T09:00:00+00:00',
-            placeId: data.placeId,
-          },
-          {
-            startTime: '2020-07-28T09:00:00+00:00',
-            placeId: data.placeId,
-          },
-          // full event
-          {
-            startTime: '2020-07-29T09:00:00+00:00',
-            placeId: data.placeId,
-            amountOfSeats: 30,
-            seatsApproved: 10,
-            remainingSeats: 20,
-            seatsTaken: 30,
-          },
-          {
-            startTime: '2020-07-30T09:30:00+00:00',
-            placeId: data.placeId,
-          },
-        ]),
-        neededOccurrences: data.neededOccurrences,
-      }),
-      images: [
-        fakeImage({
-          photographerName: data.imagePhotographerName,
-          altText: data.fakeAltText,
-        }),
-      ],
-      keywords: data.keywords.map(createFakeKeyword),
-      categories: data.categories.map(createFakeKeyword),
-      audience: data.audience.map(createFakeKeyword),
-      // activities
-      additionalCriteria: data.additionalCriteria.map(createFakeKeyword),
-      inLanguage: [
-        fakeInLanguage(),
-        fakeInLanguage({
-          id: 'en',
-          internalId: 'https://api.hel.fi/linkedevents-test/v1/language/en/',
-          name: {
-            en: 'English',
-            fi: 'englanti',
-            sv: 'Engelska',
-            __typename: 'LocalisedObject',
-          },
-        }),
-      ],
+const eventData: Partial<Event> = {
+  id: data.id,
+  name: fakeLocalizedObject(data.name),
+  description: fakeLocalizedObject(data.description),
+  shortDescription: fakeLocalizedObject(data.shortDescription),
+  location: fakePlace({ id: data.placeId }),
+  pEvent: fakePEvent({
+    enrolmentEndDays: 1,
+    enrolmentStart: '2020-07-13T06:00:00+00:00',
+    organisation: fakeOrganisation({ name: data.organisationName }),
+    contactPhoneNumber: data.contactPersonPhoneNumber,
+    contactEmail: data.contactPersonEmail,
+    contactPerson: fakePerson({
+      name: data.contactPersonName,
     }),
-  },
+    occurrences: fakeOccurrences(11, [
+      {
+        startTime: '2020-07-15T09:00:00+00:00',
+        placeId: data.placeId,
+        id: data.placeId1,
+        amountOfSeats: 30,
+        seatsApproved: 10,
+        remainingSeats: 20,
+      },
+      {
+        startTime: '2020-07-16T09:00:00+00:00',
+        placeId: data.placeId,
+        id: data.placeId2,
+      },
+      {
+        startTime: '2020-07-19T09:00:00+00:00',
+        placeId: data.placeId,
+        id: data.placeId3,
+      },
+      { startTime: '2020-07-20T09:00:00+00:00', placeId: data.placeId },
+      { startTime: '2020-07-21T09:00:00+00:00', placeId: data.placeId },
+      { startTime: '2020-07-22T09:00:00+00:00', placeId: data.placeId },
+      // full event
+      {
+        startTime: '2020-07-23T09:00:00+00:00',
+        placeId: data.placeId,
+        amountOfSeats: 1,
+        remainingSeats: 0,
+        seatsTaken: 1,
+        seatType: OccurrenceSeatType.EnrolmentCount,
+      },
+      {
+        startTime: '2020-07-27T09:00:00+00:00',
+        placeId: data.placeId,
+      },
+      {
+        startTime: '2020-07-28T09:00:00+00:00',
+        placeId: data.placeId,
+      },
+      // full event
+      {
+        startTime: '2020-07-29T09:00:00+00:00',
+        placeId: data.placeId,
+        amountOfSeats: 30,
+        seatsApproved: 10,
+        remainingSeats: 20,
+        seatsTaken: 30,
+      },
+      {
+        startTime: '2020-07-30T09:30:00+00:00',
+        placeId: data.placeId,
+      },
+    ]),
+    neededOccurrences: data.neededOccurrences,
+  }),
+  images: [
+    fakeImage({
+      photographerName: data.imagePhotographerName,
+      altText: data.fakeAltText,
+    }),
+  ],
+  keywords: data.keywords.map(createFakeKeyword),
+  categories: data.categories.map(createFakeKeyword),
+  audience: data.audience.map(createFakeKeyword),
+  // activities
+  additionalCriteria: data.additionalCriteria.map(createFakeKeyword),
+  inLanguage: [
+    fakeInLanguage(),
+    fakeInLanguage({
+      id: 'en',
+      internalId: 'https://api.hel.fi/linkedevents-test/v1/language/en/',
+      name: {
+        en: 'English',
+        fi: 'englanti',
+        sv: 'Engelska',
+        __typename: 'LocalisedObject',
+      },
+    }),
+  ],
 };
 
-const placeResult = {
-  data: {
-    place: fakePlace({ name: fakeLocalizedObject(data.placeName) }),
-  },
-};
-
-const venueResult = {
-  data: {
-    venue: fakeVenue({
-      hasClothingStorage: true,
-      hasSnackEatingPlace: true,
-      outdoorActivity: true,
-      hasToiletNearby: true,
-      hasAreaForGroupWork: true,
-      hasIndoorPlayingArea: true,
-      hasOutdoorPlayingArea: true,
-      translations: [
-        {
-          description: data.venueDescription,
-          languageCode: Language.Fi,
-          __typename: 'VenueTranslationType',
-        },
-      ],
-    }),
-  },
+const venueData: Partial<VenueNode> = {
+  hasClothingStorage: true,
+  hasSnackEatingPlace: true,
+  outdoorActivity: true,
+  hasToiletNearby: true,
+  hasAreaForGroupWork: true,
+  hasIndoorPlayingArea: true,
+  hasOutdoorPlayingArea: true,
+  translations: [
+    {
+      description: data.venueDescription,
+      languageCode: Language.Fi,
+      __typename: 'VenueTranslationType',
+    },
+  ],
 };
 
 configure({ defaultHidden: true });
 
 const apolloMocks = [
-  {
-    request: {
-      query: EventDocument,
-      variables: {
-        id: data.id,
-        include: ['keywords', 'location', 'audience', 'in_language'],
-        upcomingOccurrencesOnly: true,
-      },
-    },
-    result: eventData,
-  },
-  {
-    request: {
-      query: PlaceDocument,
-      variables: {
-        id: data.placeId,
-      },
-    },
-    result: placeResult,
-  },
-  {
-    request: {
-      query: VenueDocument,
-      variables: {
-        id: data.placeId,
-      },
-    },
-    result: venueResult,
-  },
+  createEventQueryMockIncludeLanguageAndAudience({ id: data.id, ...eventData }),
+  createPlaceQueryMock({
+    id: data.placeId,
+    name: fakeLocalizedObject(data.placeName),
+  }),
+  createVenueQueryMock({ id: data.placeId, ...venueData }),
 ];
 
 const rowText = `27.07.2020 ma 12:00 – 12:30 ${data.placeName} 30 / 30 Ilmoittaudu`;
@@ -237,7 +204,7 @@ advanceTo(new Date(2020, 6, 14));
 const renderComponent = (options?: CustomRenderOptions) => {
   return render(<EventPage />, {
     mocks: apolloMocks,
-    query: { eventId: eventData.data.event.id },
+    query: { eventId: eventData.id },
     path: `/fi${ROUTES.EVENT_DETAILS.replace(':id', data.id)}`,
     ...options,
   });
@@ -322,7 +289,7 @@ it('renders page and event information correctly', async () => {
   const eventImage = screen.queryByRole('img', {
     name: data.fakeAltText,
   });
-  expect(eventImage).toHaveAttribute('src', eventData.data.event.images[0].url);
+  expect(eventImage).toHaveAttribute('src', eventData.images?.[0].url);
 
   // All keywords should be found in the document
   data.keywords.forEach((keyword) => {
@@ -366,7 +333,7 @@ it('renders occurrences table and related stuff correctly', async () => {
   const enrolmentButton = screen.queryByRole('button', {
     name: occurrenceMessages.occurrenceSelection.buttonSelectOccurrences.replace(
       '{{neededOccurrences}}',
-      eventData.data.event.pEvent.neededOccurrences.toString()
+      eventData.pEvent?.neededOccurrences.toString() ?? '0'
     ),
   });
 
@@ -477,10 +444,7 @@ it('selecting enrolments works and buttons have correct texts', async () => {
   userEvent.click(screen.getByRole('button', { name: 'Ilmoittaudu' }));
 
   expect(i18nRouter.push).toHaveBeenCalledWith({
-    pathname: ROUTES.CREATE_ENROLMENT.replace(
-      ':id',
-      eventData.data.event.id as string
-    ),
+    pathname: ROUTES.CREATE_ENROLMENT.replace(':id', eventData.id as string),
     query: {
       occurrences: [data.placeId1, data.placeId2, data.placeId3],
     },
@@ -602,37 +566,48 @@ describe('refetch of event works correctly', () => {
   it('informs when there are no occurrences in future', async () => {
     render(<EventPage />, {
       mocks: [
-        {
-          request: {
-            query: EventDocument,
-            variables: {
-              id: data.id,
-              include: ['keywords', 'location', 'audience', 'in_language'],
-              upcomingOccurrencesOnly: true,
-            },
-          },
-          result: {
-            ...eventData,
-            data: {
-              ...eventData.data,
-              event: {
-                ...eventData.data.event,
-                pEvent: {
-                  ...eventData.data.event.pEvent,
-                  occurrences: fakeOccurrences(0),
-                },
-              },
-            },
-          },
-        },
+        createEventQueryMockIncludeLanguageAndAudience({
+          ...eventData,
+          id: data.id,
+          pEvent: fakePEvent({
+            ...eventData.pEvent,
+            occurrences: fakeOccurrences(0),
+          }),
+        }),
       ],
-      query: { eventId: eventData.data.event.id },
+      query: { eventId: eventData.id },
       path: `/fi${ROUTES.EVENT_DETAILS.replace(':id', data.id)}`,
     });
 
     await waitFor(() => {
       expect(
         screen.queryByText('Tapahtumalla ei ole tapahtuma-aikoja')
+      ).toBeInTheDocument();
+    });
+  });
+  it('shows inquire registration button when no autoacceptance', async () => {
+    render(<EventPage />, {
+      mocks: [
+        createEventQueryMockIncludeLanguageAndAudience({
+          ...eventData,
+          id: data.id,
+          pEvent: fakePEvent({
+            ...eventData.pEvent,
+            autoAcceptance: false,
+            neededOccurrences: 1,
+            occurrences: fakeOccurrences(1),
+          }),
+        }),
+      ],
+      query: { eventId: eventData.id },
+      path: `/fi${ROUTES.EVENT_DETAILS.replace(':id', data.id)}`,
+    });
+
+    await waitFor(() => {
+      expect(
+        screen.getByRole('button', {
+          name: /varaustiedustelu/i,
+        })
       ).toBeInTheDocument();
     });
   });
@@ -650,15 +625,13 @@ describe('refetch of event works correctly', () => {
 
   it('does not render organisation section when organisation is not given', async () => {
     const eventWithoutOrganisation = {
-      ...eventData,
       data: {
-        ...eventData.data,
         event: {
-          ...eventData.data.event,
+          ...eventData,
           pEvent: {
-            ...eventData.data.event.pEvent,
+            ...eventData.pEvent,
             organisation: {
-              ...eventData.data.event.pEvent.organisation,
+              ...eventData.pEvent?.organisation,
               name: '',
             },
           },
@@ -675,7 +648,7 @@ describe('refetch of event works correctly', () => {
 
     render(<EventPage />, {
       mocks: mocks,
-      query: { eventId: eventData.data.event.id },
+      query: { eventId: eventData.id },
       path: `/fi${ROUTES.EVENT_DETAILS.replace(':id', data.id)}`,
     });
     await waitForRequestsToComplete();

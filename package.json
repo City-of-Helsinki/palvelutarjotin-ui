@@ -129,9 +129,9 @@
   },
   "lint-staged": {
     "src/**/*.{tsx,ts}": [
-      "yarn test:staged",
       "eslint --fix",
-      "prettier --write"
+      "prettier --write",
+      "yarn test:staged"
     ]
   }
 }

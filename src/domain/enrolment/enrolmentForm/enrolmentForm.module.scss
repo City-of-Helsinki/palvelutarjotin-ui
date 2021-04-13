@@ -49,6 +49,17 @@
     text-align: right;
   }
 
+  .enrolButton {
+    color: var(--color-bus) ;
+    background-color: rgb(0, 215, 167);
+  }
+
+  .enquiryButton {
+    color: var(--color-black-90);
+    border-color: var(--color-black-90) !important;
+    background-color: var(--color-engel-medium-light);
+  }
+
   .notification {
     margin-bottom: var(--spacing-layout-xs);
   }

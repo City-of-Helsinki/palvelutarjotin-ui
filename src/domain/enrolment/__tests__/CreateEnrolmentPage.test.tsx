@@ -5,20 +5,18 @@ import React from 'react';
 import wait from 'waait';
 
 import {
-  Event,
-  EventDocument,
   OccurrenceNode,
-  PlaceDocument,
-  StudyLevelsDocument,
+  PalvelutarjotinEventNode,
 } from '../../../generated/graphql';
 import * as graphqlFns from '../../../generated/graphql';
+import { createEventQueryMock } from '../../../tests/apollo-mocks/eventMocks';
+import { createPlaceQueryMock } from '../../../tests/apollo-mocks/placeMocks';
+import { createStudyLevelsQueryMock } from '../../../tests/apollo-mocks/studyLevelsMocks';
 import {
   fakePEvent,
   fakeLocalizedObject,
-  fakeEvent,
   fakeOccurrences,
   fakePlace,
-  fakeStudyLevels,
 } from '../../../utils/mockDataUtils';
 import {
   render,
@@ -43,129 +41,93 @@ configure({ defaultHidden: true });
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 (utils.getCAPTCHAToken as any) = jest.fn().mockResolvedValue('captcha-token');
 
-const mockBase = (event: Event): MockedResponse => ({
-  request: {
-    query: EventDocument,
-    variables: {
-      id: eventId,
-      include: ['location', 'keywords'],
-      upcomingOccurrencesOnly: true,
-    },
-  },
-  result: {
-    data: {
-      event,
-    },
-  },
-});
-
-const mockStudyLevels = (): MockedResponse => ({
-  request: {
-    query: StudyLevelsDocument,
-    variables: {},
-  },
-  result: {
-    data: {
-      studyLevels: fakeStudyLevels(),
-    },
-  },
-});
+const createPageMock = (
+  pEventOverrides: Partial<PalvelutarjotinEventNode>,
+  locationId?: string
+): MockedResponse[] => [
+  createEventQueryMock({
+    id: eventId,
+    name: fakeLocalizedObject(eventName),
+    location: fakePlace(locationId ? { id: locationId } : {}),
+    pEvent: fakePEvent(pEventOverrides),
+  }),
+  createStudyLevelsQueryMock(),
+];
 
 // mock that has enrol time ended
-const occurrenceOverrides1: Partial<OccurrenceNode>[] = [
+const occurencesEnrolTimeEnded: Partial<OccurrenceNode>[] = [
   { id: occurrenceId1, startTime: new Date(2020, 8, 10, 12, 30) },
   { id: occurrenceId2, startTime: new Date(2020, 8, 10, 12, 30) },
   { id: 'sdfgdfhbf345345yreg' },
 ];
 
-// mock that has enrol time ended
-const mock1: MockedResponse[] = [
-  mockBase(
-    fakeEvent({
-      name: fakeLocalizedObject(eventName),
-      pEvent: fakePEvent({
-        enrolmentStart: new Date(2020, 8, 7).toISOString(),
-        enrolmentEndDays: 3,
-        occurrences: fakeOccurrences(3, occurrenceOverrides1),
-        neededOccurrences: 2,
-      }),
-    })
-  ),
-  mockStudyLevels(),
-];
-
-const occurrenceOverrides2: Partial<OccurrenceNode>[] = [
+const occurencesEnrolSameTimes: Partial<OccurrenceNode>[] = [
   { id: occurrenceId1, startTime: new Date(2020, 8, 25, 12, 30) },
   { id: occurrenceId2, startTime: new Date(2020, 8, 25, 12, 30) },
   { id: 'sdfgdfhbf345345yreg' },
 ];
 
-const mock2: MockedResponse[] = [
-  mockBase(
-    fakeEvent({
-      name: fakeLocalizedObject(eventName),
-      pEvent: fakePEvent({
-        enrolmentStart: new Date(2020, 8, 20).toISOString(),
-        enrolmentEndDays: 3,
-        occurrences: fakeOccurrences(3, occurrenceOverrides2),
-        neededOccurrences: 2,
-        mandatoryAdditionalInformation: true,
-      }),
-    })
-  ),
-  mockStudyLevels(),
-];
-
-const occurrenceOverrides3: Partial<OccurrenceNode>[] = [
+const occurrenceEnrolDifferentTimes: Partial<OccurrenceNode>[] = [
   { id: occurrenceId1, startTime: new Date(2020, 8, 25, 12, 30) },
   { id: occurrenceId2, startTime: new Date(2020, 8, 26, 13, 20) },
   { id: 'sdfgdfhbf345345yreg' },
 ];
 
-const mock3: MockedResponse[] = [
-  {
-    request: {
-      query: PlaceDocument,
-      variables: {
-        id: locationId,
-      },
+const pageMockEnrolTimeEnded = createPageMock({
+  enrolmentStart: new Date(2020, 8, 7).toISOString(),
+  enrolmentEndDays: 3,
+  occurrences: fakeOccurrences(3, occurencesEnrolTimeEnded),
+  neededOccurrences: 2,
+});
+
+const PageMockEnrolTimeNotStarted: MockedResponse[] = createPageMock({
+  enrolmentStart: new Date(2020, 8, 20).toISOString(),
+  enrolmentEndDays: 3,
+  occurrences: fakeOccurrences(3, occurencesEnrolSameTimes),
+  neededOccurrences: 2,
+  mandatoryAdditionalInformation: true,
+});
+
+const PageMockWithSelectedPlace: MockedResponse[] = [
+  createPlaceQueryMock({
+    id: locationId,
+    name: fakeLocalizedObject('Kirjasto'),
+  }),
+  ...createPageMock(
+    {
+      enrolmentStart: new Date(2020, 8, 7).toISOString(),
+      enrolmentEndDays: 3,
+      occurrences: fakeOccurrences(3, occurrenceEnrolDifferentTimes),
+      neededOccurrences: 2,
     },
-    result: {
-      data: {
-        place: fakePlace({ name: fakeLocalizedObject('Kirjasto') }),
-      },
-    },
-  },
-  mockBase(
-    fakeEvent({
-      name: fakeLocalizedObject(eventName),
-      location: fakePlace({ id: locationId }),
-      pEvent: fakePEvent({
-        enrolmentStart: new Date(2020, 8, 7).toISOString(),
-        enrolmentEndDays: 3,
-        occurrences: fakeOccurrences(3, occurrenceOverrides3),
-        neededOccurrences: 2,
-      }),
-    })
+    locationId
   ),
-  mockStudyLevels(),
 ];
 
-const mock4: MockedResponse[] = [
-  mockBase(
-    fakeEvent({
-      name: fakeLocalizedObject(eventName),
-      location: fakePlace({ id: locationId }),
-      pEvent: fakePEvent({
-        enrolmentStart: new Date(2020, 8, 7).toISOString(),
-        enrolmentEndDays: 3,
-        occurrences: fakeOccurrences(3, occurrenceOverrides3),
-        neededOccurrences: 2,
-        mandatoryAdditionalInformation: true,
-      }),
-    })
-  ),
-];
+const pageMockWithLocation: MockedResponse[] = createPageMock(
+  {
+    enrolmentStart: new Date(2020, 8, 7).toISOString(),
+    enrolmentEndDays: 3,
+    occurrences: fakeOccurrences(3, occurrenceEnrolDifferentTimes),
+    neededOccurrences: 2,
+    mandatoryAdditionalInformation: true,
+  },
+  locationId
+);
+
+const PageMockEnrolHandpick: MockedResponse[] = createPageMock(
+  {
+    enrolmentStart: new Date(2020, 8, 7).toISOString(),
+    enrolmentEndDays: 3,
+    occurrences: fakeOccurrences(1, [
+      { id: occurrenceId1, startTime: new Date(2020, 8, 25, 12, 30) },
+    ]),
+    neededOccurrences: 1,
+    autoAcceptance: false,
+    mandatoryAdditionalInformation: true,
+  },
+  locationId
+);
 
 advanceTo(new Date(2020, 8, 8));
 jest.setTimeout(20000);
@@ -174,7 +136,7 @@ jest.setTimeout(20000);
 // "svg elements with an img role have an alternative text (svg-img-alt)"
 test.skip('page is accessible', async () => {
   const { container } = render(<CreateEnrolmentPage />, {
-    mocks: mock1,
+    mocks: PageMockEnrolTimeNotStarted,
     query: { eventId: eventId, occurrences: occurrenceIds },
   });
 
@@ -182,9 +144,56 @@ test.skip('page is accessible', async () => {
   expect(await axe(container)).toHaveNoViolations();
 });
 
+test('has enrolment title and button', async () => {
+  render(<CreateEnrolmentPage />, {
+    mocks: PageMockWithSelectedPlace,
+    query: { eventId: eventId, occurrences: occurrenceIds },
+  });
+
+  await act(wait);
+
+  expect(
+    screen.getByRole('heading', { name: 'Ilmoittaudu tapahtumaan' })
+  ).toBeInTheDocument();
+
+  expect(
+    screen.getByRole('button', { name: /lähetä ilmoittautuminen/i })
+  ).toBeInTheDocument();
+});
+
+test('has inquiry title and button', async () => {
+  render(<CreateEnrolmentPage />, {
+    mocks: PageMockEnrolHandpick,
+    query: { eventId: eventId, occurrences: [occurrenceId1] },
+  });
+
+  await act(wait);
+
+  expect(
+    screen.getByRole('heading', { name: /varaustiedustelu tapahtumaan/i })
+  ).toBeInTheDocument();
+
+  expect(
+    screen.getByRole('button', { name: /lähetä varaustiedustelu/i })
+  ).toBeInTheDocument();
+});
+
 test('renders enrolment has ended text', async () => {
   render(<CreateEnrolmentPage />, {
-    mocks: mock1,
+    mocks: pageMockEnrolTimeEnded,
+    query: { eventId: eventId, occurrences: occurrenceIds },
+  });
+
+  await act(wait);
+
+  expect(
+    screen.getByRole('heading', { name: 'Ilmoittaudu tapahtumaan' })
+  ).toBeInTheDocument();
+});
+
+test('renders enrolment has ended text', async () => {
+  render(<CreateEnrolmentPage />, {
+    mocks: pageMockEnrolTimeEnded,
     query: { eventId: eventId, occurrences: occurrenceIds },
   });
 
@@ -207,7 +216,7 @@ test('renders enrolment has ended text', async () => {
 
 test('renders enrolment has not started yet text', async () => {
   render(<CreateEnrolmentPage />, {
-    mocks: mock2,
+    mocks: PageMockEnrolTimeNotStarted,
     query: { eventId: eventId, occurrences: occurrenceIds },
   });
 
@@ -238,7 +247,7 @@ test('renders form and user can fill it and submit', async () => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     .mockReturnValue([enrolOccurrenceMock] as any);
   render(<CreateEnrolmentPage />, {
-    mocks: mock3,
+    mocks: PageMockWithSelectedPlace,
     query: { eventId: eventId, occurrences: occurrenceIds },
   });
 
@@ -377,7 +386,7 @@ test('renders form and user can fill it and submit', async () => {
 
 test('render and focuses error notification correctly', async () => {
   render(<CreateEnrolmentPage />, {
-    mocks: mock3,
+    mocks: PageMockWithSelectedPlace,
     query: { eventId: eventId, occurrences: occurrenceIds },
   });
 
@@ -424,7 +433,7 @@ describe('max group size validation of the Children and Adults -fields', () => {
     adultsCount: string
   ) => {
     render(<CreateEnrolmentPage />, {
-      mocks: mock3,
+      mocks: PageMockWithSelectedPlace,
       query: { eventId: eventId, occurrences: occurrenceIds },
     });
     await waitFor(() => {
@@ -536,7 +545,7 @@ describe('max group size validation of the Children and Adults -fields', () => {
 
 test('mandatory additional information forces extraNeeds field to be required', async () => {
   render(<CreateEnrolmentPage />, {
-    mocks: mock4,
+    mocks: pageMockWithLocation,
     query: { eventId: eventId, occurrences: occurrenceIds },
   });
   await waitFor(() => {

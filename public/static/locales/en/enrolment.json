@@ -2,6 +2,7 @@
   "buttonBack": "Back",
   "enrolmentForm": {
     "buttonSubmit": "Submit registration",
+    "buttonSubmitEnquiry": "Submit Enquiry",
     "infoText1": "We do not use the information you provide for marketing purposes.",
     "infoText2": "We will send you a separate confirmation message once the organizer has processed and confirmed your registration.",
     "labelHasEmailNotification": "By e-mail",
@@ -71,7 +72,6 @@
     "noSelectedOccurrences": "No selected event times",
     "title": "Selected event times"
   },
-  "pageTitle": "Enrol for the event",
   "studyLevel": {
     "grade_interval": "(1){1st grade};(2){2nd grade};",
     "grade_plural": "{{count}}th grade",
@@ -81,5 +81,11 @@
     "age34": "3-4 aged",
     "other": "Other group"
   },
+<<<<<<< HEAD
   "title": "Enrol for the event"
 }
+=======
+  "title": "Enrol for the event",
+  "titleEnquiry": "Enquiry for the event"
+}
+>>>>>>> d182e4e (PT-913: autoAcceptance and enquiry reservation buttons, texts and styles)

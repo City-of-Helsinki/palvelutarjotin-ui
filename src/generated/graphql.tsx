@@ -1798,6 +1798,7 @@ export type PEventFieldsFragment = {
   __typename?: 'PalvelutarjotinEventNode';
 } & Pick<
   PalvelutarjotinEventNode,
+  | 'autoAcceptance'
   | 'id'
   | 'enrolmentEndDays'
   | 'enrolmentStart'
@@ -2351,6 +2352,7 @@ export const OccurrenceFieldsFragmentDoc = gql`
 `;
 export const PEventFieldsFragmentDoc = gql`
   fragment pEventFields on PalvelutarjotinEventNode {
+    autoAcceptance
     id
     enrolmentEndDays
     enrolmentStart

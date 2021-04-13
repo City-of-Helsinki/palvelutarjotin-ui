@@ -5,7 +5,8 @@
       "emailSms": "We will send you a confirmation email and text message.",
       "sms": "We will send you a confirmation via SMS."
     },
-    "title": "Registration sent"
+    "title": "Registration sent",
+    "titleEnquiry": "Reservation enquiry sent"
   },
   "eventCard": {
     "ariaLabelOpenEvent": "Go to event: {{eventName}}",
@@ -22,6 +23,7 @@
   "occurrenceList": {
     "loadMoreOccurrences": "Show more occurrences",
     "enrolOccurrenceButton": "Enrol",
+    "reservationEnquiryButton": "Reservation enquiry",
     "chooseOccurrenceButton": "Choose",
     "downloadToCalendar": "Import to calendar...",
     "showAllLocationEvents": "Show all events of this location",

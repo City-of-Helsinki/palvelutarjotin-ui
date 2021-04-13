@@ -9,6 +9,7 @@ import {
   OccurrenceFieldsFragment,
   PlaceDocument,
 } from '../../../../generated/graphql';
+import { createPlaceQueryMock } from '../../../../tests/apollo-mocks/placeMocks';
 import {
   fakeEvent,
   fakeLocalizedObject,
@@ -17,27 +18,14 @@ import {
 import CalendarButton from '../CalendarButton';
 
 const placeId = 'placeid-234324';
-const placeResult = {
-  data: {
-    place: fakePlace({
-      id: placeId,
-      name: fakeLocalizedObject('Lasten liikennekaupunki'),
-    }),
-  },
-};
 
 const eventMock = fakeEvent() as EventFieldsFragment;
 
 const mocks = [
-  {
-    request: {
-      query: PlaceDocument,
-      variables: {
-        id: placeId,
-      },
-    },
-    result: placeResult,
-  },
+  createPlaceQueryMock({
+    id: placeId,
+    name: fakeLocalizedObject('Lasten liikennekaupunki'),
+  }),
 ];
 
 const originalCreateEvent = ICS.createEvent;
