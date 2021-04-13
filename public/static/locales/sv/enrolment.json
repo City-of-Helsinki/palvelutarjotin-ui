@@ -82,11 +82,6 @@
     "age34": "3-4 åldrig",
     "other": "Annan grupp"
   },
-<<<<<<< HEAD
-  "title": "Anmäl dig till evenemanget"
-}
-=======
   "title": "Anmäl dig till evenemanget",
   "titleEnquiry": "Bokningsförfrågan till evenemanget"
 }
->>>>>>> d182e4e (PT-913: autoAcceptance and enquiry reservation buttons, texts and styles)

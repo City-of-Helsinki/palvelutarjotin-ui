@@ -81,11 +81,6 @@
     "age34": "3-4 aged",
     "other": "Other group"
   },
-<<<<<<< HEAD
-  "title": "Enrol for the event"
-}
-=======
   "title": "Enrol for the event",
   "titleEnquiry": "Enquiry for the event"
 }
->>>>>>> d182e4e (PT-913: autoAcceptance and enquiry reservation buttons, texts and styles)
