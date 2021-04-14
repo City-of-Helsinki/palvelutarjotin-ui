@@ -1,7 +1,7 @@
-import { Formik, Field } from 'formik';
+import { Formik, Field, useFormikContext } from 'formik';
 import { Button, Notification } from 'hds-react';
 import isEmpty from 'lodash/isEmpty';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import ErrorMessage from '../../../common/components/form/ErrorMessage';
 import CheckboxField from '../../../common/components/form/fields/CheckboxField';
@@ -52,47 +52,15 @@ const EnrolmentForm: React.FC<Props> = ({
       onSubmit={onSubmit}
       validationSchema={ValidationSchema}
     >
-      {({
-        errors,
-        handleSubmit,
-        touched,
-        submitCount,
-        values,
-        setFieldValue,
-        handleChange,
-      }) => {
+      {({ errors, handleSubmit, touched, submitCount, values }) => {
         const {
           isSameResponsiblePerson,
           isMandatoryAdditionalInformationRequired,
-          person: { phoneNumber },
-          studyGroup: {
-            person: { phoneNumber: studyGroupPhoneNumber },
-          },
         } = values;
         const showErrorNotification = !isEmpty(errors) && !!submitCount;
         const errorLabelKeys = keyify(errors)
           .map((path) => nameToLabelPath[path])
           .filter((i) => i);
-        const hasPhoneNumber = () => {
-          return !!phoneNumber || !!studyGroupPhoneNumber;
-        };
-        const handlePersonPhoneNumberChange = (
-          e: React.ChangeEvent<HTMLInputElement>
-        ) => {
-          handleChange(e);
-          if (!e.target.value && !studyGroupPhoneNumber) {
-            setFieldValue('hasSmsNotification', false);
-          }
-        };
-
-        const handleStudyGroupPhoneNumberChange = (
-          e: React.ChangeEvent<HTMLInputElement>
-        ) => {
-          handleChange(e);
-          if (!e.target.value && !phoneNumber) {
-            setFieldValue('hasSmsNotification', false);
-          }
-        };
 
         return (
           <form
@@ -140,7 +108,6 @@ const EnrolmentForm: React.FC<Props> = ({
                     nameToLabelPath['studyGroup.person.phoneNumber']
                   )}
                   component={TextInputField}
-                  onChange={handleStudyGroupPhoneNumberChange}
                   name="studyGroup.person.phoneNumber"
                 />
               </FormGroup>
@@ -255,7 +222,6 @@ const EnrolmentForm: React.FC<Props> = ({
                       labelText={t(nameToLabelPath['person.phoneNumber'])}
                       component={TextInputField}
                       name="person.phoneNumber"
-                      onChange={handlePersonPhoneNumberChange}
                     />
                   </FormGroup>
                 </>
@@ -280,14 +246,9 @@ const EnrolmentForm: React.FC<Props> = ({
                 </FormGroup>
                 <FormGroup>
                   <div className={styles.checkboxWrapper}>
-                    <Field
-                      disabled={!hasPhoneNumber()}
-                      title={t(
-                        'enrolment:enrolmentForm.titleTextHasSmsNotification'
-                      )}
-                      label={t(nameToLabelPath['hasSmsNotification'])}
-                      component={CheckboxField}
+                    <SmsNotificationField
                       name="hasSmsNotification"
+                      label={t(nameToLabelPath['hasSmsNotification'])}
                     />
                   </div>
                 </FormGroup>
@@ -344,6 +305,42 @@ const EnrolmentForm: React.FC<Props> = ({
         );
       }}
     </Formik>
+  );
+};
+
+const SmsNotificationField: React.FC<{ name: string; label: string }> = ({
+  name,
+  label,
+}) => {
+  const { t } = useTranslation();
+
+  const { values, setFieldValue } = useFormikContext();
+
+  const {
+    person: { phoneNumber },
+    studyGroup: {
+      person: { phoneNumber: studyGroupPhoneNumber },
+    },
+  } = values as EnrolmentFormFields;
+
+  useEffect(() => {
+    if (!(studyGroupPhoneNumber && phoneNumber)) {
+      setFieldValue(name, false);
+    }
+  }, [name, setFieldValue, studyGroupPhoneNumber, phoneNumber]);
+
+  const hasPhoneNumber = () => {
+    return !!phoneNumber || !!studyGroupPhoneNumber;
+  };
+
+  return (
+    <Field
+      disabled={!hasPhoneNumber()}
+      title={t('enrolment:enrolmentForm.titleTextHasSmsNotification')}
+      label={label}
+      name={name}
+      component={CheckboxField}
+    />
   );
 };
 
