@@ -7,18 +7,15 @@ import enrolmentMessages from '../../../../public/static/locales/fi/enrolment.js
 import eventMessages from '../../../../public/static/locales/fi/event.json';
 import occurrenceMessages from '../../../../public/static/locales/fi/occurrence.json';
 import {
-  EventDocument,
   Language,
   OccurrenceSeatType,
   VenueNode,
   Event,
+  NotificationType,
 } from '../../../generated/graphql';
 import * as graphqlFuncs from '../../../generated/graphql';
 import { Router as i18nRouter } from '../../../i18n';
-import {
-  createEventQueryMock,
-  createEventQueryMockIncludeLanguageAndAudience,
-} from '../../../tests/apollo-mocks/eventMocks';
+import { createEventQueryMockIncludeLanguageAndAudience } from '../../../tests/apollo-mocks/eventMocks';
 import { createPlaceQueryMock } from '../../../tests/apollo-mocks/placeMocks';
 import { createVenueQueryMock } from '../../../tests/apollo-mocks/venueMocks';
 import {
@@ -664,4 +661,56 @@ describe('refetch of event works correctly', () => {
       expect(screen.queryByText(text)).not.toBeInTheDocument()
     );
   });
+});
+
+it('shows enrolment confirmation notification after enrolment is done', async () => {
+  renderComponent({
+    path: `/fi/${ROUTES.EVENT_DETAILS.replace(':id', data.id)}?${
+      ENROLMENT_URL_PARAMS.ENROLMENT_CREATED
+    }=true&${ENROLMENT_URL_PARAMS.NOTIFICATION_TYPE}=${NotificationType.Email}`,
+    query: {
+      eventId: data.id,
+      [ENROLMENT_URL_PARAMS.ENROLMENT_CREATED]: true,
+      [ENROLMENT_URL_PARAMS.NOTIFICATION_TYPE]: NotificationType.Email,
+    },
+  });
+
+  await screen.findByRole('heading', {
+    name: /ilmoittautuminen lähetetty/i,
+  });
+  await screen.getByText(/lähetämme sinulle vahvistuksen sähköpostitse\./i);
+});
+
+it('shows inquire registration notification after enrolment is done', async () => {
+  render(<EventPage />, {
+    mocks: [
+      createEventQueryMockIncludeLanguageAndAudience({
+        ...eventData,
+        id: data.id,
+        pEvent: fakePEvent({
+          ...eventData.pEvent,
+          autoAcceptance: false,
+          neededOccurrences: 1,
+          occurrences: fakeOccurrences(1),
+        }),
+      }),
+    ],
+    path: `/fi/${ROUTES.EVENT_DETAILS.replace(':id', data.id)}?${
+      ENROLMENT_URL_PARAMS.ENROLMENT_CREATED
+    }=true&${ENROLMENT_URL_PARAMS.NOTIFICATION_TYPE}=${
+      NotificationType.EmailSms
+    }`,
+    query: {
+      eventId: data.id,
+      [ENROLMENT_URL_PARAMS.ENROLMENT_CREATED]: true,
+      [ENROLMENT_URL_PARAMS.NOTIFICATION_TYPE]: NotificationType.EmailSms,
+    },
+  });
+
+  await screen.findByRole('heading', {
+    name: /varaustiedustelu lähetetty/i,
+  });
+  await screen.getByText(
+    /lähetämme sinulle vahvistuksen sähköpostitse ja tekstiviestillä\./i
+  );
 });

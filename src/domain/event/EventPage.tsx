@@ -114,7 +114,7 @@ const EventPage = (): ReactElement => {
               <Notification
                 label={t(
                   `event:enrolmentConfirmation.${
-                    autoAcceptance ? 'enquiryTitle' : 'title'
+                    autoAcceptance ? 'title' : 'titleEnquiry'
                   }`
                 )}
                 type={autoAcceptance ? 'success' : 'alert'}
