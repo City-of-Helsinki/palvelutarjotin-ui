@@ -1,7 +1,11 @@
-import { combineReducers } from '@reduxjs/toolkit';
+import { combineReducers, createReducer } from '@reduxjs/toolkit';
 
-import mobileMenuReducers from './header/mobileMenu/reducers';
+export const defaultMobileMenuState = {
+  isMenuOpen: false,
+};
+
+export const defaultReducer = createReducer(defaultMobileMenuState, {});
 
 export default combineReducers({
-  mobileMenu: mobileMenuReducers,
+  mobileMenu: defaultReducer,
 });
