@@ -57,9 +57,9 @@ const EventBasicInfo: React.FC<EventBasicInfoProps> = ({ event }) => {
             </a>
           </div>
         )}
-        <div>
-          <IconFaceSmile />
-          {organization && organizationId && (
+        {organization && organizationId && (
+          <div>
+            <IconFaceSmile />
             <OrganizationInfo
               organization={organization}
               organizationId={organizationId}
@@ -67,8 +67,8 @@ const EventBasicInfo: React.FC<EventBasicInfoProps> = ({ event }) => {
               contactPerson={contactPerson}
               contactPhoneNumber={contactPhoneNumber}
             />
-          )}
-        </div>
+          </div>
+        )}
       </div>
     </section>
   );
@@ -77,9 +77,9 @@ const EventBasicInfo: React.FC<EventBasicInfoProps> = ({ event }) => {
 const OrganizationInfo: React.FC<{
   organizationId: string;
   organization: string;
-  contactEmail: string | undefined;
-  contactPerson: string | undefined;
-  contactPhoneNumber: string | undefined;
+  contactEmail?: string;
+  contactPerson?: string;
+  contactPhoneNumber?: string;
 }> = ({
   organization,
   organizationId,
