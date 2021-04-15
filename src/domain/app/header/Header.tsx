@@ -1,4 +1,5 @@
 import { Navigation, IconGlobe } from 'hds-react';
+import { useRouter } from 'next/router';
 import React from 'react';
 
 import { SUPPORTED_LANGUAGES } from '../../../constants';
@@ -13,6 +14,7 @@ import styles from './header.module.scss';
 const Header: React.FC = () => {
   const { t } = useTranslation();
   const locale = useLocale();
+  const router = useRouter();
 
   const [menuOpen, setMenuOpen] = React.useState(false);
   const toggleMenu = () => setMenuOpen(!menuOpen);
@@ -30,7 +32,7 @@ const Header: React.FC = () => {
   ) => {
     const url = window.location.href;
     event.preventDefault();
-    window.location.href = updateLocaleParam(url, locale, newLanguage.value);
+    router.push(updateLocaleParam(url, locale, newLanguage.value));
   };
 
   const isTabActive = (pathname: string): boolean => {
@@ -44,7 +46,7 @@ const Header: React.FC = () => {
     event?: React.MouseEvent<HTMLAnchorElement>
   ) => {
     event?.preventDefault();
-    window.location.href = pathname;
+    router.push(pathname);
     closeMenu();
   };
 
