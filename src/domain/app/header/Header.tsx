@@ -4,9 +4,8 @@ import React from 'react';
 
 import { SUPPORTED_LANGUAGES } from '../../../constants';
 import useLocale from '../../../hooks/useLocale';
-import { useTranslation } from '../../../i18n';
+import { i18n, useTranslation } from '../../../i18n';
 import { OptionType } from '../../../types';
-import { updateLocaleParam } from '../../../utils/updateLocaleParam';
 import { MAIN_CONTENT_ID } from '../layout/PageLayout';
 import { ROUTES } from '../routes/constants';
 import styles from './header.module.scss';
@@ -30,9 +29,9 @@ const Header: React.FC = () => {
   const changeLanguage = (newLanguage: OptionType) => (
     event: React.MouseEvent<HTMLAnchorElement, MouseEvent>
   ) => {
-    const url = window.location.href;
     event.preventDefault();
-    router.push(updateLocaleParam(url, locale, newLanguage.value));
+    i18n.changeLanguage(newLanguage.value);
+    closeMenu();
   };
 
   const isTabActive = (pathname: string): boolean => {
