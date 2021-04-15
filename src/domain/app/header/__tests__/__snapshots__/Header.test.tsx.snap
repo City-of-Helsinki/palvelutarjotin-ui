@@ -157,7 +157,7 @@ exports[`Header matches snapshot 1`] = `
               <span
                 class="MenuButton-module_toggleButtonLabel__3NiHR"
               >
-                suomi
+                Suomeksi
               </span>
               <svg
                 class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
@@ -194,7 +194,7 @@ exports[`Header matches snapshot 1`] = `
                 <span
                   class="NavigationItem-module_label__1UsXG button_hds-button__label__3r3Mi"
                 >
-                  suomi
+                  Suomeksi
                 </span>
               </a>
               <a
@@ -205,7 +205,7 @@ exports[`Header matches snapshot 1`] = `
                 <span
                   class="NavigationItem-module_label__1UsXG button_hds-button__label__3r3Mi"
                 >
-                  ruotsi
+                  På svenska
                 </span>
               </a>
               <a
@@ -216,7 +216,7 @@ exports[`Header matches snapshot 1`] = `
                 <span
                   class="NavigationItem-module_label__1UsXG button_hds-button__label__3r3Mi"
                 >
-                  englanti
+                  In English
                 </span>
               </a>
             </div>

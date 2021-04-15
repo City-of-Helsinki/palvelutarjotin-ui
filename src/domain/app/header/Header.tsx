@@ -21,7 +21,7 @@ const Header: React.FC = () => {
 
   const languageOptions: OptionType[] = React.useMemo(() => {
     return Object.values(SUPPORTED_LANGUAGES).map((language) => ({
-      label: t(`common:languages:${language}`),
+      label: t(`header:languages:${language}`),
       value: language,
     }));
   }, [t]);
@@ -29,9 +29,7 @@ const Header: React.FC = () => {
   const changeLanguage = (newLanguage: OptionType) => (
     event: React.MouseEvent<HTMLAnchorElement, MouseEvent>
   ) => {
-    event.preventDefault();
     i18n.changeLanguage(newLanguage.value);
-    closeMenu();
   };
 
   const isTabActive = (pathname: string): boolean => {
@@ -104,7 +102,7 @@ const Header: React.FC = () => {
         <Navigation.LanguageSelector
           buttonAriaLabel={t('header:changeLanguage')}
           className={styles.languageSelector}
-          label={t(`common:languages:${locale}`)}
+          label={t(`header:languages:${locale}`)}
           icon={<IconGlobe />}
         >
           {languageOptions.map((option) => (
