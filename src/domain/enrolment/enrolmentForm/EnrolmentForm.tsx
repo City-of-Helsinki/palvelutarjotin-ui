@@ -1,7 +1,7 @@
-import { Formik, Field } from 'formik';
+import { Formik, Field, useFormikContext } from 'formik';
 import { Button, Notification } from 'hds-react';
 import isEmpty from 'lodash/isEmpty';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import ErrorMessage from '../../../common/components/form/ErrorMessage';
 import CheckboxField from '../../../common/components/form/fields/CheckboxField';
@@ -52,20 +52,16 @@ const EnrolmentForm: React.FC<Props> = ({
       onSubmit={onSubmit}
       validationSchema={ValidationSchema}
     >
-      {({
-        errors,
-        handleSubmit,
-        touched,
-        submitCount,
-        values: {
+      {({ errors, handleSubmit, touched, submitCount, values }) => {
+        const {
           isSameResponsiblePerson,
           isMandatoryAdditionalInformationRequired,
-        },
-      }) => {
+        } = values;
         const showErrorNotification = !isEmpty(errors) && !!submitCount;
         const errorLabelKeys = keyify(errors)
           .map((path) => nameToLabelPath[path])
           .filter((i) => i);
+
         return (
           <form
             className={styles.enrolmentForm}
@@ -239,6 +235,9 @@ const EnrolmentForm: React.FC<Props> = ({
                   <div className={styles.checkboxWrapper}>
                     <Field
                       disabled
+                      title={t(
+                        'enrolment:enrolmentForm.titleTextHasEmailNotification'
+                      )}
                       label={t(nameToLabelPath['hasEmailNotification'])}
                       component={CheckboxField}
                       name="hasEmailNotification"
@@ -247,10 +246,9 @@ const EnrolmentForm: React.FC<Props> = ({
                 </FormGroup>
                 <FormGroup>
                   <div className={styles.checkboxWrapper}>
-                    <Field
-                      label={t(nameToLabelPath['hasSmsNotification'])}
-                      component={CheckboxField}
+                    <SmsNotificationField
                       name="hasSmsNotification"
+                      label={t(nameToLabelPath['hasSmsNotification'])}
                     />
                   </div>
                 </FormGroup>
@@ -307,6 +305,42 @@ const EnrolmentForm: React.FC<Props> = ({
         );
       }}
     </Formik>
+  );
+};
+
+const SmsNotificationField: React.FC<{ name: string; label: string }> = ({
+  name,
+  label,
+}) => {
+  const { t } = useTranslation();
+
+  const { values, setFieldValue } = useFormikContext();
+
+  const {
+    person: { phoneNumber },
+    studyGroup: {
+      person: { phoneNumber: studyGroupPhoneNumber },
+    },
+  } = values as EnrolmentFormFields;
+
+  useEffect(() => {
+    if (!(studyGroupPhoneNumber && phoneNumber)) {
+      setFieldValue(name, false);
+    }
+  }, [name, setFieldValue, studyGroupPhoneNumber, phoneNumber]);
+
+  const hasPhoneNumber = () => {
+    return !!phoneNumber || !!studyGroupPhoneNumber;
+  };
+
+  return (
+    <Field
+      disabled={!hasPhoneNumber()}
+      title={t('enrolment:enrolmentForm.titleTextHasSmsNotification')}
+      label={label}
+      name={name}
+      component={CheckboxField}
+    />
   );
 };
 
