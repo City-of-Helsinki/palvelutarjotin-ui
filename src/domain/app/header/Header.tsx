@@ -1,4 +1,4 @@
-import { Navigation, IconGlobe } from 'hds-react';
+import { Navigation, IconGlobe, IconSignin } from 'hds-react';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -66,12 +66,13 @@ const Header: React.FC = () => {
       url: `/${locale}${ROUTES.MOVING}`,
     },
     {
-      label: t('header:navigation:forOrganizer'),
-      url: `/${locale}${ROUTES.FOR_ORGANIZER}`,
-    },
-    {
       label: t('header:navigation:now'),
       url: `/${locale}${ROUTES.NOW}`,
+    },
+    {
+      label: t('header:navigation:forOrganizer'),
+      url: `/${locale}${ROUTES.FOR_ORGANIZER}`,
+      icon: <IconSignin />,
     },
   ];
 
@@ -96,6 +97,7 @@ const Header: React.FC = () => {
             href={item.url}
             label={item.label}
             onClick={goToPage(item.url)}
+            icon={item.icon}
           />
         ))}
       </Navigation.Row>

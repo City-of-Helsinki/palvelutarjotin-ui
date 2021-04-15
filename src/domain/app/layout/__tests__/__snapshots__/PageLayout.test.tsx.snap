@@ -81,22 +81,45 @@ exports[`PageLayout matches snapshot 1`] = `
             </a>
             <a
               class="NavigationItem-module_rowItem__2QxRz navigationItem"
-              href="/fi/for-organizer"
-            >
-              <span
-                class="NavigationItem-module_label__1UsXG button_hds-button__label__3r3Mi"
-              >
-                Toiminnan järjestäjälle
-              </span>
-            </a>
-            <a
-              class="NavigationItem-module_rowItem__2QxRz navigationItem"
               href="/fi/now"
             >
               <span
                 class="NavigationItem-module_label__1UsXG button_hds-button__label__3r3Mi"
               >
                 Ajassa NYT
+              </span>
+            </a>
+            <a
+              class="NavigationItem-module_rowItem__2QxRz navigationItem"
+              href="/fi/for-organizer"
+            >
+              <span
+                class="NavigationItem-module_icon__3sdYZ button_hds-icon__3CVhk"
+              >
+                <svg
+                  class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
+                  role="img"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <g
+                    fill="none"
+                    fill-rule="evenodd"
+                  >
+                    <path
+                      d="M0 0h24v24H0z"
+                    />
+                    <path
+                      d="M21 2v20H8v-5h2v3h9V4h-9v3H8V2h13zm-8.5 5l5 5-5 5-1.5-1.5 2.5-2.501L2 13v-2l11.499-.001L11 8.5 12.5 7z"
+                      fill="currentColor"
+                    />
+                  </g>
+                </svg>
+              </span>
+              <span
+                class="NavigationItem-module_label__1UsXG button_hds-button__label__3r3Mi"
+              >
+                Toiminnan järjestäjälle
               </span>
             </a>
           </nav>
