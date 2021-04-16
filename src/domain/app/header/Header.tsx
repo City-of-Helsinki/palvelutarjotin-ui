@@ -104,6 +104,7 @@ const Header: React.FC = () => {
           className={styles.languageSelector}
           label={t(`header:languages:${locale}`)}
           icon={<IconGlobe />}
+          closeOnItemClick
         >
           {languageOptions.map((option) => (
             <Navigation.Item
