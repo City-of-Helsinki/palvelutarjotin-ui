@@ -640,9 +640,12 @@ describe('refetch of event works correctly', () => {
   it('renders a link which leads to all events of the organisation', async () => {
     renderComponent();
     await waitForRequestsToComplete();
-    expect(
-      screen.queryByText('Näytä järjestäjän tapahtumat')
-    ).toBeInTheDocument();
+    await screen.findByRole('link', { name: /näytä järjestäjän tapahtumat/i });
+    [
+      data.contactPersonName,
+      data.contactPersonEmail,
+      data.contactPersonPhoneNumber,
+    ].forEach((text) => expect(screen.queryByText(text)).toBeInTheDocument());
   });
 
   it('does not render organisation section when organisation is not given', async () => {
@@ -677,7 +680,7 @@ describe('refetch of event works correctly', () => {
     });
     await waitForRequestsToComplete();
     expect(
-      screen.queryByText('Näytä järjestäjän tapahtumat')
+      screen.queryByRole('link', { name: /näytä järjestäjän tapahtumat/i })
     ).not.toBeInTheDocument();
 
     [
