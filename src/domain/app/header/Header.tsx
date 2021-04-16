@@ -52,23 +52,23 @@ const Header: React.FC = () => {
   const navigationItems = [
     {
       label: t('header:navigation:about'),
-      url: `/${locale}${ROUTES.ABOUT}`,
+      url: `/${locale}${ROUTES.HOME}`,
     },
     {
       label: t('header:navigation:culturalEducation'),
-      url: `/${locale}${ROUTES.CULTURAL_EDUCATION}`,
+      url: `/${locale}${ROUTES.HOME}`,
     },
     {
       label: t('header:navigation:helsinkiMoving'),
-      url: `/${locale}${ROUTES.MOVING}`,
+      url: `/${locale}${ROUTES.HOME}`,
     },
     {
       label: t('header:navigation:now'),
-      url: `/${locale}${ROUTES.NOW}`,
+      url: `/${locale}${ROUTES.HOME}`,
     },
     {
       label: t('header:navigation:forOrganizer'),
-      url: `/${locale}${ROUTES.FOR_ORGANIZER}`,
+      url: `/${locale}${ROUTES.HOME}`,
       icon: <IconSignin />,
     },
   ];

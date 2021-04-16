@@ -219,7 +219,7 @@ exports[`PageLayout matches snapshot 1`] = `
             >
               <a
                 class="NavigationItem-module_rowItem__2QxRz navigationItem"
-                href="/fi/about"
+                href="/fi/"
               >
                 <span
                   class="NavigationItem-module_label__1UsXG button_hds-button__label__3r3Mi"
@@ -229,7 +229,7 @@ exports[`PageLayout matches snapshot 1`] = `
               </a>
               <a
                 class="NavigationItem-module_rowItem__2QxRz navigationItem"
-                href="/fi/education"
+                href="/fi/"
               >
                 <span
                   class="NavigationItem-module_label__1UsXG button_hds-button__label__3r3Mi"
@@ -239,7 +239,7 @@ exports[`PageLayout matches snapshot 1`] = `
               </a>
               <a
                 class="NavigationItem-module_rowItem__2QxRz navigationItem"
-                href="/fi/moving"
+                href="/fi/"
               >
                 <span
                   class="NavigationItem-module_label__1UsXG button_hds-button__label__3r3Mi"
@@ -249,7 +249,7 @@ exports[`PageLayout matches snapshot 1`] = `
               </a>
               <a
                 class="NavigationItem-module_rowItem__2QxRz navigationItem"
-                href="/fi/now"
+                href="/fi/"
               >
                 <span
                   class="NavigationItem-module_label__1UsXG button_hds-button__label__3r3Mi"
@@ -259,7 +259,7 @@ exports[`PageLayout matches snapshot 1`] = `
               </a>
               <a
                 class="NavigationItem-module_rowItem__2QxRz navigationItem"
-                href="/fi/for-organizer"
+                href="/fi/"
               >
                 <span
                   class="NavigationItem-module_icon__3sdYZ button_hds-icon__3CVhk"
