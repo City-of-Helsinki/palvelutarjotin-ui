@@ -88,7 +88,7 @@ const EnrolmentForm: React.FC<Props> = ({
               </Notification>
               <FormGroup>
                 <Field
-                  labelText={t(nameToLabelPath['studyGroup.person.name'])}
+                  label={t(nameToLabelPath['studyGroup.person.name'])}
                   required
                   aria-required
                   component={TextInputField}
@@ -99,25 +99,21 @@ const EnrolmentForm: React.FC<Props> = ({
                 <Field
                   required
                   aria-required
-                  labelText={t(
-                    nameToLabelPath['studyGroup.person.emailAddress']
-                  )}
+                  label={t(nameToLabelPath['studyGroup.person.emailAddress'])}
                   component={TextInputField}
                   name="studyGroup.person.emailAddress"
                 />
               </FormGroup>
               <FormGroup>
                 <Field
-                  labelText={t(
-                    nameToLabelPath['studyGroup.person.phoneNumber']
-                  )}
+                  label={t(nameToLabelPath['studyGroup.person.phoneNumber'])}
                   component={TextInputField}
                   name="studyGroup.person.phoneNumber"
                 />
               </FormGroup>
               <FormGroup>
                 <Field
-                  labelText={t(nameToLabelPath['studyGroup.name'])}
+                  label={t(nameToLabelPath['studyGroup.name'])}
                   required
                   aria-required
                   component={TextInputField}
@@ -132,7 +128,7 @@ const EnrolmentForm: React.FC<Props> = ({
                     helperText={t(
                       'enrolment:enrolmentForm.studyGroup.helperGroupName'
                     )}
-                    labelText={t(nameToLabelPath['studyGroup.groupName'])}
+                    label={t(nameToLabelPath['studyGroup.groupName'])}
                     component={TextInputField}
                     name="studyGroup.groupName"
                   />
@@ -154,7 +150,7 @@ const EnrolmentForm: React.FC<Props> = ({
               <div className={styles.rowWith2Columns}>
                 <FormGroup>
                   <Field
-                    labelText={t(nameToLabelPath['studyGroup.groupSize'])}
+                    label={t(nameToLabelPath['studyGroup.groupSize'])}
                     required
                     aria-required
                     component={TextInputField}
@@ -165,7 +161,7 @@ const EnrolmentForm: React.FC<Props> = ({
                 </FormGroup>
                 <FormGroup>
                   <Field
-                    labelText={t(nameToLabelPath['studyGroup.amountOfAdult'])}
+                    label={t(nameToLabelPath['studyGroup.amountOfAdult'])}
                     required
                     aria-required
                     component={TextInputField}
@@ -180,7 +176,7 @@ const EnrolmentForm: React.FC<Props> = ({
                   helperText={t(
                     'enrolment:enrolmentForm.studyGroup.helperExtraNeeds'
                   )}
-                  labelText={
+                  label={
                     isMandatoryAdditionalInformationRequired
                       ? t(nameToLabelPath['studyGroup.extraNeeds'])
                       : t(nameToLabelPath['studyGroup.extraNeedsOptional'])
@@ -207,7 +203,7 @@ const EnrolmentForm: React.FC<Props> = ({
                     <Field
                       required
                       aria-required
-                      labelText={t(nameToLabelPath['person.name'])}
+                      label={t(nameToLabelPath['person.name'])}
                       component={TextInputField}
                       name="person.name"
                     />
@@ -216,14 +212,14 @@ const EnrolmentForm: React.FC<Props> = ({
                     <Field
                       required
                       aria-required
-                      labelText={t(nameToLabelPath['person.emailAddress'])}
+                      label={t(nameToLabelPath['person.emailAddress'])}
                       component={TextInputField}
                       name="person.emailAddress"
                     />
                   </FormGroup>
                   <FormGroup>
                     <Field
-                      labelText={t(nameToLabelPath['person.phoneNumber'])}
+                      label={t(nameToLabelPath['person.phoneNumber'])}
                       component={TextInputField}
                       name="person.phoneNumber"
                     />
