@@ -621,30 +621,23 @@ describe('refetch of event works correctly', () => {
   });
 
   it('does not render organisation section when organisation is not given', async () => {
-    const eventWithoutOrganisation = {
-      data: {
-        event: {
-          ...eventData,
-          pEvent: {
-            ...eventData.pEvent,
-            organisation: {
-              ...eventData.pEvent?.organisation,
-              name: '',
-            },
-          },
-        },
-      },
-    };
-    const mocks = apolloMocks.map((m, index) => {
-      const mock = { ...m };
-      if (index === 0) {
-        mock.result = eventWithoutOrganisation as any;
+    const eventWithoutOrganisationMock = createEventQueryMockIncludeLanguageAndAudience(
+      {
+        ...eventData,
+        id: data.id,
+        pEvent: fakePEvent({
+          ...eventData.pEvent,
+          organisation: fakeOrganisation({
+            ...eventData.pEvent?.organisation,
+            name: '',
+          }),
+        }),
       }
-      return mock;
-    });
+    );
+    const [, ...mocks] = apolloMocks;
 
     render(<EventPage />, {
-      mocks: mocks,
+      mocks: [eventWithoutOrganisationMock, ...mocks],
       query: { eventId: eventData.id },
       path: `/fi${ROUTES.EVENT_DETAILS.replace(':id', data.id)}`,
     });
