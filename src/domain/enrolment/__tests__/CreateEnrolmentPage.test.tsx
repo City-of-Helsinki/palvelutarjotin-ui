@@ -488,12 +488,10 @@ test('mandatory additional information forces extraNeeds field to be required', 
 
 test('Do not allow sms notifications if no phone number is given', async () => {
   render(<CreateEnrolmentPage />, {
-    mocks: mock4,
+    mocks: pageMockWithLocation,
     query: { eventId: eventId, occurrences: occurrenceIds },
   });
-  await waitFor(() => {
-    expect(screen.getByLabelText(/Puhelinnumero/i)).toBeInTheDocument();
-  });
+  await screen.findByLabelText(/Puhelinnumero/i);
   const phoneField = screen.getByLabelText(/Puhelinnumero/i);
   const smsField = screen.getByLabelText(/Tekstiviestillä/i);
   expect(phoneField).not.toHaveValue();
@@ -515,12 +513,10 @@ test('Do not allow sms notifications if no phone number is given', async () => {
 
 test('Allow sms notifications if any of the phone numbers are given', async () => {
   render(<CreateEnrolmentPage />, {
-    mocks: mock4,
+    mocks: pageMockWithLocation,
     query: { eventId: eventId, occurrences: occurrenceIds },
   });
-  await waitFor(() => {
-    expect(screen.getByLabelText(/Sama kuin ilmoittaja/i)).toBeInTheDocument();
-  });
+  await screen.findByLabelText(/Sama kuin ilmoittaja/i);
   const isResponsiblePersonField = screen.getByLabelText(
     /Sama kuin ilmoittaja/i
   );
