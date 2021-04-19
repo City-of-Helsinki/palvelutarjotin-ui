@@ -300,13 +300,13 @@ const EnrolmentForm: React.FC<Props> = ({
               <div className={styles.submitButtonWrapper}>
                 <Button
                   type="submit"
-                  className={styles[enquiry ? 'enquiryButton' : 'enrolButton']}
+                  className={
+                    enquiry ? styles.enquiryButton : styles.enrolButton
+                  }
                 >
-                  {t(
-                    `enrolment:enrolmentForm.${
-                      enquiry ? 'buttonSubmitEnquiry' : 'buttonSubmit'
-                    }`
-                  )}
+                  {enquiry
+                    ? t('enrolment:enrolmentForm.buttonSubmitEnquiry')
+                    : t('enrolment:enrolmentForm.buttonSubmit')}
                 </Button>
               </div>
             </Container>

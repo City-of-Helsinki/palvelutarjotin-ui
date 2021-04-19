@@ -150,15 +150,8 @@ test('has enrolment title and button', async () => {
     query: { eventId: eventId, occurrences: occurrenceIds },
   });
 
-  await act(wait);
-
-  expect(
-    screen.getByRole('heading', { name: 'Ilmoittaudu tapahtumaan' })
-  ).toBeInTheDocument();
-
-  expect(
-    screen.getByRole('button', { name: /lähetä ilmoittautuminen/i })
-  ).toBeInTheDocument();
+  await screen.findByRole('heading', { name: 'Ilmoittaudu tapahtumaan' });
+  await screen.findByRole('button', { name: /lähetä ilmoittautuminen/i });
 });
 
 test('has inquiry title and button', async () => {
@@ -167,15 +160,8 @@ test('has inquiry title and button', async () => {
     query: { eventId: eventId, occurrences: [occurrenceId1] },
   });
 
-  await act(wait);
-
-  expect(
-    screen.getByRole('heading', { name: /varaustiedustelu tapahtumaan/i })
-  ).toBeInTheDocument();
-
-  expect(
-    screen.getByRole('button', { name: /lähetä varaustiedustelu/i })
-  ).toBeInTheDocument();
+  await screen.findByRole('heading', { name: /varaustiedustelu tapahtumaan/i });
+  await screen.findByRole('button', { name: /lähetä varaustiedustelu/i });
 });
 
 test('renders enrolment has ended text', async () => {
@@ -184,11 +170,7 @@ test('renders enrolment has ended text', async () => {
     query: { eventId: eventId, occurrences: occurrenceIds },
   });
 
-  await act(wait);
-
-  expect(
-    screen.getByRole('heading', { name: 'Ilmoittaudu tapahtumaan' })
-  ).toBeInTheDocument();
+  await screen.findByRole('heading', { name: 'Ilmoittaudu tapahtumaan' });
 });
 
 test('renders enrolment has ended text', async () => {
@@ -197,17 +179,10 @@ test('renders enrolment has ended text', async () => {
     query: { eventId: eventId, occurrences: occurrenceIds },
   });
 
-  await act(wait);
-
-  expect(
-    screen.getByRole('heading', { name: 'Ilmoittaudu tapahtumaan' })
-  ).toBeInTheDocument();
-
-  expect(screen.queryByText(eventName)).toBeInTheDocument();
-  expect(screen.queryByText('Ilmoittautuminen päättynyt')).toBeInTheDocument();
-  expect(
-    screen.queryByText('Tapahtuman ilmoittautuminen on päättynyt')
-  ).toBeInTheDocument();
+  await screen.findByRole('heading', { name: 'Ilmoittaudu tapahtumaan' });
+  await screen.findByText(eventName);
+  await screen.findByText('Ilmoittautuminen päättynyt');
+  await screen.findByText('Tapahtuman ilmoittautuminen on päättynyt');
 
   expect(
     screen.queryByRole('heading', { name: /ilmoittajan tiedot/i })
@@ -220,19 +195,10 @@ test('renders enrolment has not started yet text', async () => {
     query: { eventId: eventId, occurrences: occurrenceIds },
   });
 
-  await act(wait);
-
-  expect(
-    screen.getByRole('heading', { name: 'Ilmoittaudu tapahtumaan' })
-  ).toBeInTheDocument();
-
-  expect(screen.queryByText(eventName)).toBeInTheDocument();
-  expect(
-    screen.queryByText('Ilmoitautuminen ei ole avautunut')
-  ).toBeInTheDocument();
-  expect(
-    screen.queryByText('Tapahtuman ilmoittautuminen ei ole vielä avautunut')
-  ).toBeInTheDocument();
+  await screen.findByRole('heading', { name: 'Ilmoittaudu tapahtumaan' });
+  await screen.findByText(eventName);
+  await screen.findByText('Ilmoitautuminen ei ole avautunut');
+  await screen.findByText('Tapahtuman ilmoittautuminen ei ole vielä avautunut');
 
   expect(
     screen.queryByRole('heading', { name: /ilmoittajan tiedot/i })
@@ -251,35 +217,21 @@ test('renders form and user can fill it and submit', async () => {
     query: { eventId: eventId, occurrences: occurrenceIds },
   });
 
-  await waitFor(() => {
-    expect(
-      screen.queryByRole('heading', { name: /ilmoittajan tiedot/i })
-    ).toBeInTheDocument();
-  });
-
-  expect(
-    screen.getByRole('heading', { name: 'Ilmoittaudu tapahtumaan' })
-  ).toBeInTheDocument();
-
-  expect(
-    screen.getByRole('heading', { name: 'Valitut tapahtuma-ajat' })
-  ).toBeInTheDocument();
+  await screen.findByRole('heading', { name: /ilmoittajan tiedot/i });
+  await screen.findByRole('heading', { name: 'Ilmoittaudu tapahtumaan' });
+  await screen.findByRole('heading', { name: 'Valitut tapahtuma-ajat' });
 
   await waitFor(() => {
-    expect(screen.queryAllByText('Kirjasto')).toHaveLength(2);
+    expect(screen.getAllByText('Kirjasto')).toHaveLength(2);
   });
 
-  expect(
-    screen.queryByRole('row', {
-      name: '25.09.2020 pe 12:30 – 12:30 Kirjasto 30 / 30',
-    })
-  ).toBeInTheDocument();
+  await screen.findByRole('row', {
+    name: '25.09.2020 pe 12:30 – 12:30 Kirjasto 30 / 30',
+  });
 
-  expect(
-    screen.queryByRole('row', {
-      name: '26.09.2020 la 13:20 – 12:30 Kirjasto 30 / 30',
-    })
-  ).toBeInTheDocument();
+  await screen.findByRole('row', {
+    name: '26.09.2020 la 13:20 – 12:30 Kirjasto 30 / 30',
+  });
 
   userEvent.type(
     screen.getByRole('textbox', { name: /nimi/i }),
@@ -390,11 +342,7 @@ test('render and focuses error notification correctly', async () => {
     query: { eventId: eventId, occurrences: occurrenceIds },
   });
 
-  await waitFor(() => {
-    expect(
-      screen.queryByRole('heading', { name: /ilmoittajan tiedot/i })
-    ).toBeInTheDocument();
-  });
+  await screen.findByRole('heading', { name: /ilmoittajan tiedot/i });
 
   userEvent.click(
     screen.getByRole('button', { name: /lähetä ilmoittautuminen/i })
@@ -436,9 +384,7 @@ describe('max group size validation of the Children and Adults -fields', () => {
       mocks: PageMockWithSelectedPlace,
       query: { eventId: eventId, occurrences: occurrenceIds },
     });
-    await waitFor(() => {
-      expect(screen.getByLabelText(/lapsia/i)).toBeInTheDocument();
-    });
+    await screen.findByLabelText(/lapsia/i);
     userEvent.type(screen.getByLabelText(/lapsia/i), childrenCount);
     userEvent.type(screen.getByLabelText(/aikuisia/i), adultsCount);
     userEvent.tab();
@@ -489,14 +435,10 @@ describe('max group size validation of the Children and Adults -fields', () => {
 
   test('one field is greater than the max group size and another one is (still) empty', async () => {
     await createEnrolmentForm('21', '');
-    await waitFor(() => {
-      expect(
-        screen.getByText(
-          /Lasten ja aikuisten yhteislukumäärän tulee olla enintään 20/i
-        )
-      ).toBeInTheDocument();
-    });
-    expect(screen.getByText(/Tämä kenttä on pakollinen/i)).toBeInTheDocument();
+    await screen.findByText(
+      /Lasten ja aikuisten yhteislukumäärän tulee olla enintään 20/i
+    );
+    await screen.findByText(/Tämä kenttä on pakollinen/i);
   });
 
   test('the total count is less than minimum', async () => {
@@ -512,29 +454,19 @@ describe('max group size validation of the Children and Adults -fields', () => {
 
   test('both the fields are valid as a single, but the total is greater than the maximum group size', async () => {
     await createEnrolmentForm('19', '18');
-    await waitFor(() => {
-      expect(
-        screen.getByText(
-          /Arvon tulee olla enintään 2 yhdessä aikuisten lukumäärän kanssa/i
-        )
-      ).toBeInTheDocument();
-    });
-    expect(
-      screen.getByText(
-        /Arvon tulee olla enintään 1 yhdessä lasten lukumäärän kanssa/i
-      )
-    ).toBeInTheDocument();
+    await screen.findByText(
+      /Arvon tulee olla enintään 2 yhdessä aikuisten lukumäärän kanssa/i
+    );
+    await screen.findByText(
+      /Arvon tulee olla enintään 1 yhdessä lasten lukumäärän kanssa/i
+    );
   });
 
   test('one of the field values is valid, but another one is greater than the max group size', async () => {
     await createEnrolmentForm('22', '18');
-    await waitFor(() => {
-      expect(
-        screen.getByText(
-          /Arvon tulee olla enintään 2 yhdessä aikuisten lukumäärän kanssa/i
-        )
-      ).toBeInTheDocument();
-    });
+    await screen.findByText(
+      /Arvon tulee olla enintään 2 yhdessä aikuisten lukumäärän kanssa/i
+    );
     expect(
       screen.queryByText(
         /Arvon tulee olla enintään 1 yhdessä lasten lukumäärän kanssa/i
@@ -548,14 +480,10 @@ test('mandatory additional information forces extraNeeds field to be required', 
     mocks: pageMockWithLocation,
     query: { eventId: eventId, occurrences: occurrenceIds },
   });
-  await waitFor(() => {
-    expect(screen.getByLabelText(/Lisätiedot/i)).toBeInTheDocument();
-  });
+  await screen.findByLabelText(/Lisätiedot/i);
   userEvent.type(screen.getByRole('textbox', { name: /Lisätiedot/i }), '');
   userEvent.tab();
-  await waitFor(() => {
-    expect(screen.getByText(/Tämä kenttä on pakollinen/i)).toBeInTheDocument();
-  });
+  await screen.findByText(/Tämä kenttä on pakollinen/i);
 });
 
 test('Do not allow sms notifications if no phone number is given', async () => {
