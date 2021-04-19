@@ -77,6 +77,7 @@ export const getEventFields = (
         locationId: event.location?.id,
         photographerName: event.images?.[0]?.photographerName,
         organization: event.pEvent?.organisation?.name,
+        organizationId: event.pEvent?.organisation?.id,
         contactPhoneNumber: event.pEvent?.contactPhoneNumber,
         contactEmail: event.pEvent?.contactEmail,
         contactPerson: event.pEvent?.contactPerson?.name,

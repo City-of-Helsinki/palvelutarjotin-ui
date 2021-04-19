@@ -16,6 +16,9 @@
       "tomorrow": "Tomorrow at {{time}}"
     }
   },
+  "organization": {
+    "showAllOrganizationEvents": "Show all events of this provider"
+  },
   "occurrenceList": {
     "loadMoreOccurrences": "Show more occurrences",
     "enrolOccurrenceButton": "Enrol",

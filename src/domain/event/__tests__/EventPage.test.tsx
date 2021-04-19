@@ -636,4 +636,59 @@ describe('refetch of event works correctly', () => {
       ).toBeInTheDocument();
     });
   });
+
+  it('renders a link which leads to all events of the organisation', async () => {
+    renderComponent();
+    await waitForRequestsToComplete();
+    await screen.findByRole('link', { name: /näytä järjestäjän tapahtumat/i });
+    [
+      data.contactPersonName,
+      data.contactPersonEmail,
+      data.contactPersonPhoneNumber,
+    ].forEach((text) => expect(screen.queryByText(text)).toBeInTheDocument());
+  });
+
+  it('does not render organisation section when organisation is not given', async () => {
+    const eventWithoutOrganisation = {
+      ...eventData,
+      data: {
+        ...eventData.data,
+        event: {
+          ...eventData.data.event,
+          pEvent: {
+            ...eventData.data.event.pEvent,
+            organisation: {
+              ...eventData.data.event.pEvent.organisation,
+              name: '',
+            },
+          },
+        },
+      },
+    };
+    const mocks = apolloMocks.map((m, index) => {
+      const mock = { ...m };
+      if (index === 0) {
+        mock.result = eventWithoutOrganisation as any;
+      }
+      return mock;
+    });
+
+    render(<EventPage />, {
+      mocks: mocks,
+      query: { eventId: eventData.data.event.id },
+      path: `/fi${ROUTES.EVENT_DETAILS.replace(':id', data.id)}`,
+    });
+    await waitForRequestsToComplete();
+    expect(
+      screen.queryByRole('link', { name: /näytä järjestäjän tapahtumat/i })
+    ).not.toBeInTheDocument();
+
+    [
+      data.contactPersonName,
+      data.contactPersonEmail,
+      data.contactPersonPhoneNumber,
+    ].forEach((text) =>
+      expect(screen.queryByText(text)).not.toBeInTheDocument()
+    );
+  });
 });

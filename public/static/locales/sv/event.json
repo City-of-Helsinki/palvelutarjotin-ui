@@ -16,6 +16,9 @@
       "tomorrow": "Imorgon kl {{time}}"
     }
   },
+  "organization": {
+    "showAllOrganizationEvents": "Visa arrangörshändelser"
+  },
   "occurrenceList": {
     "loadMoreOccurrences": "Visa fler händelser",
     "enrolOccurrenceButton": "Skriva in",
