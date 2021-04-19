@@ -8,3 +8,5 @@ export enum EVENT_SORT_OPTIONS {
   START_TIME = 'start_time',
   START_TIME_DESC = '-start_time',
 }
+
+export const EVENT_TOP_CATEGORIES = ['yso:p26626'];
