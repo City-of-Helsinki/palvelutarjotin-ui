@@ -67,7 +67,7 @@ export const fakeEvents = (
   __typename: 'EventListResponse',
 });
 
-const fakeOffer = (overrides?: Partial<Offer>): Offer => ({
+export const fakeOffer = (overrides?: Partial<Offer>): Offer => ({
   isFree: true,
   description: {
     en: null,
@@ -115,7 +115,23 @@ export const fakeEvent = (overrides?: Partial<Event>): Event => {
     ...overrides,
   };
 };
-const fakeEnrolment = (overrides?: Partial<EnrolmentNode>): EnrolmentNode => ({
+
+export const fakeEnrolments = (
+  count = 1,
+  enrolments?: Partial<EnrolmentNode>[]
+): EnrolmentNodeConnection => ({
+  edges: generateNodeArray(
+    (i) => fakeEnrolmentNodeEdge(enrolments?.[i]),
+    count
+  ),
+  pageInfo: PageInfoMock,
+  __typename: 'EnrolmentNodeConnection',
+  count,
+});
+
+export const fakeEnrolment = (
+  overrides?: Partial<EnrolmentNode>
+): EnrolmentNode => ({
   enrolmentTime: '2020-08-18T06:37:40.755109+00:00',
   id: faker.random.uuid(),
   occurrence: fakeOccurrence(),
@@ -127,7 +143,7 @@ const fakeEnrolment = (overrides?: Partial<EnrolmentNode>): EnrolmentNode => ({
   ...overrides,
 });
 
-const fakeStudyGroup = (
+export const fakeStudyGroup = (
   overrides?: Partial<StudyGroupNode>
 ): StudyGroupNode => ({
   amountOfAdult: 1,
@@ -170,6 +186,20 @@ export const fakePlace = (overrides?: Partial<Place>): Place => ({
   telephone: fakeLocalizedObject(),
   __typename: 'Place',
   ...overrides,
+});
+
+export const fakePlaces = (
+  count = 1,
+  places?: Partial<Place>[]
+): PlaceListResponse => ({
+  meta: {
+    __typename: 'Meta',
+    count: count,
+    next: '',
+    previous: '',
+  },
+  data: generateNodeArray((i) => fakePlace(places?.[i]), count),
+  __typename: 'PlaceListResponse',
 });
 
 export const fakeKeyword = (overrides?: Partial<Keyword>): Keyword => ({
@@ -248,15 +278,22 @@ export const fakeOccurrences = (
   __typename: 'OccurrenceNodeConnection',
 });
 
-const fakeOccurrenceNodeEdge = (
+export const fakeEnrolmentNodeEdge = (
+  overrides?: Partial<EnrolmentNode>
+): EnrolmentNodeEdge => ({
+  cursor: '',
+  node: fakeEnrolment(overrides),
+  __typename: 'EnrolmentNodeEdge',
+});
+
+export const fakeOccurrenceNodeEdge = (
   overrides?: Partial<OccurrenceNode>
 ): OccurrenceNodeEdge => ({
   cursor: '',
   node: fakeOccurrence(overrides),
   __typename: 'OccurrenceNodeEdge',
 });
-
-const fakeLanguages = (
+export const fakeLanguages = (
   languages: Partial<LanguageNode>[]
 ): LanguageNodeConnection => ({
   edges: languages.map((language) => fakeLanguageNodeEdge(language)),
@@ -264,7 +301,7 @@ const fakeLanguages = (
   __typename: 'LanguageNodeConnection',
 });
 
-const fakeLanguageNodeEdge = (
+export const fakeLanguageNodeEdge = (
   overrides?: Partial<LanguageNode>
 ): LanguageNodeEdge => ({
   cursor: '',
@@ -272,7 +309,9 @@ const fakeLanguageNodeEdge = (
   __typename: 'LanguageNodeEdge',
 });
 
-const fakeLanguage = (overrides?: Partial<LanguageNode>): LanguageNode => ({
+export const fakeLanguage = (
+  overrides?: Partial<LanguageNode>
+): LanguageNode => ({
   id: 'fi',
   name: 'Finnish',
   __typename: 'LanguageNode',
@@ -315,6 +354,26 @@ export const fakeOccurrence = (
   ...overrides,
 });
 
+export const fakeOrganisations = (
+  count = 1,
+  organisations?: Partial<OrganisationNode>[]
+): OrganisationNodeConnection => ({
+  edges: generateNodeArray(
+    (i) => fakeOrganisationNodeEdge(organisations?.[i]),
+    count
+  ),
+  pageInfo: PageInfoMock,
+  __typename: 'OrganisationNodeConnection',
+});
+
+export const fakeOrganisationNodeEdge = (
+  overrides?: Partial<OrganisationNode>
+): OrganisationNodeEdge => ({
+  cursor: '',
+  __typename: 'OrganisationNodeEdge',
+  node: fakeOrganisation(overrides),
+});
+
 export const fakeOrganisation = (
   overrides: Partial<OrganisationNode> = {}
 ): OrganisationNode => ({
@@ -330,7 +389,7 @@ export const fakeOrganisation = (
   ...overrides,
 });
 
-const fakePersons = (
+export const fakePersons = (
   count = 1,
   persons?: Partial<PersonNode>[]
 ): PersonNodeConnection => ({
@@ -339,7 +398,7 @@ const fakePersons = (
   __typename: 'PersonNodeConnection',
 });
 
-const fakePersonNodeEdge = (
+export const fakePersonNodeEdge = (
   overrides?: Partial<PersonNode>
 ): PersonNodeEdge => ({
   cursor: '',
@@ -381,7 +440,7 @@ const generateNodeArray = <T extends (...args: any) => any>(
   return Array.from({ length }).map((_, i) => fakeFunc(i));
 };
 
-enum StudyLevel {
+export enum StudyLevel {
   Preschool = 'PRESCHOOL',
   Grade_1 = 'GRADE_1',
   Grade_2 = 'GRADE_2',
@@ -406,7 +465,7 @@ export const fakeStudyLevels = (): StudyLevelNodeConnection => ({
   __typename: 'StudyLevelNodeConnection',
 });
 
-const fakeStudyLevel = (
+export const fakeStudyLevel = (
   overrides?: Partial<StudyLevelNode>
 ): StudyLevelNode => ({
   __typename: 'StudyLevelNode',
@@ -421,4 +480,12 @@ const fakeStudyLevel = (
     },
   ],
   ...overrides,
+});
+
+export const fakeStudyLevelNodeEdge = (
+  overrides?: Partial<StudyLevelNode>
+): StudyLevelNodeEdge => ({
+  cursor: '',
+  node: fakeStudyLevel(overrides),
+  __typename: 'StudyLevelNodeEdge',
 });
