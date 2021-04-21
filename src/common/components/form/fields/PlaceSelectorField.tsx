@@ -4,7 +4,7 @@ import React from 'react';
 
 import PlaceSelector from '../../../../domain/place/placeSelector/PlaceSelector';
 
-export type Option = {
+type Option = {
   label: string;
   value: string;
 };

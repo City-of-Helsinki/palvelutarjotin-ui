@@ -4,7 +4,7 @@ import React, { CSSProperties, FC, ReactNode } from 'react';
 
 import styles from './inputWrapper.module.scss';
 
-export type InputWrapperProps = {
+type InputWrapperProps = {
   children?: ReactNode;
   className?: string;
   hasIcon?: boolean;

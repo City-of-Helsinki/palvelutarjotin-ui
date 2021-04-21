@@ -61,5 +61,3 @@ export default withApollo(
   ({ initialState }) => initApolloClient(initialState),
   { getDataFromTree }
 );
-
-export { apolloClient };

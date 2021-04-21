@@ -1,6 +1,6 @@
 import { createContext } from 'react';
 
-export const datepickerContextDefaultValue: DatepickerContext = {
+const datepickerContextDefaultValue: DatepickerContext = {
   focusedDate: null,
   selectedDate: null,
   isDateFocused: (date: Date) => false,

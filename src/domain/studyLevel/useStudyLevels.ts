@@ -2,13 +2,13 @@ import { StudyLevelsQuery, useStudyLevelsQuery } from '../../generated/graphql';
 import { useTranslation } from '../../i18n';
 import { translateValue } from '../../utils/translateUtils';
 
-export interface StudyLevelsState {
+interface StudyLevelsState {
   data: StudyLevelsQuery | undefined;
   loading: boolean;
   options: StudyLevelOption[];
 }
 
-export interface StudyLevelOption {
+interface StudyLevelOption {
   label: string;
   value: string;
 }

@@ -58,14 +58,3 @@ export const isEnrolmentOpen = (
 ): boolean => {
   return isEnrolmentStarted(event) && !isEnrolmentClosed(occurrence, event);
 };
-
-export const isEnrolmentAvailable = (
-  occurrence: OccurrenceFieldsFragment,
-  event?: EventFieldsFragment | null
-): boolean => {
-  return (
-    !!event &&
-    hasOccurrenceSpace(occurrence) &&
-    isEnrolmentOpen(occurrence, event)
-  );
-};
