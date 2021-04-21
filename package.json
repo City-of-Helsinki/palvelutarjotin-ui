@@ -15,10 +15,7 @@
     "test:staged": "SASS_PATH=./src/assets/styles jest --findRelatedTests",
     "ci": "jest --verbose --coverage",
     "browser-test": "testcafe \"chrome --window-size='1920,1080'\" testcafe/e2e/",
-    "browser-test:ci": "testcafe \"chrome:headless --disable-gpu --window-size='1920,1080'\" --screenshots takeOnFails=true,path=report,fullPage=true --video report testcafe/e2e/",
-    "storybook": "start-storybook -p 9009 -s ./public",
-    "deploy-storybook": "storybook-to-ghpages",
-    "build-storybook": "build-storybook -s public"
+    "browser-test:ci": "testcafe \"chrome:headless --disable-gpu --window-size='1920,1080'\" --screenshots takeOnFails=true,path=report,fullPage=true --video report testcafe/e2e/"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -70,13 +67,6 @@
     "@graphql-codegen/typescript": "^1.15.3",
     "@graphql-codegen/typescript-operations": "^1.15.3",
     "@graphql-codegen/typescript-react-apollo": "^1.15.3",
-    "@storybook/addon-a11y": "^5.3.19",
-    "@storybook/addon-actions": "^5.3.19",
-    "@storybook/addon-knobs": "^5.3.19",
-    "@storybook/addon-links": "^5.3.19",
-    "@storybook/addon-storysource": "^5.3.19",
-    "@storybook/react": "^5.3.19",
-    "@storybook/storybook-deployer": "^2.8.6",
     "@testing-library/jest-dom": "^5.10.0",
     "@testing-library/react": "^10.4.9",
     "@testing-library/react-hooks": "^3.3.0",

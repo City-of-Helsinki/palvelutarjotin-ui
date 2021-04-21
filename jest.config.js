@@ -24,5 +24,5 @@ module.exports = {
     '<rootDir>/src/domain/app/apollo/configureApollo.tsx',
     '<rootDir>/src/utils/testUtils.ts',
   ],
-  collectCoverageFrom: ['src/**/*.{js,jsx,tsx}', '!src/**/*.stories.tsx'],
+  collectCoverageFrom: ['src/**/*.{js,jsx,tsx}'],
 };
