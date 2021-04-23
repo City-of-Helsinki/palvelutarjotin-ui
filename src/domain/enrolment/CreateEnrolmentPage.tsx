@@ -46,7 +46,7 @@ const CreateEnrolmentPage: React.FC = () => {
   const { data: eventData, loading } = useEventQuery({
     variables: {
       id: eventId as string,
-      include: ['location', 'keywords'],
+      include: ['keywords', 'location'],
       upcomingOccurrencesOnly: true,
     },
   });
@@ -63,6 +63,7 @@ const CreateEnrolmentPage: React.FC = () => {
     neededOccurrences,
     occurrences: allOccurrences,
     isMandatoryAdditionalInformationRequired,
+    autoAcceptance,
   } = getEventFields(event, locale);
 
   const selectedOccurrences = Array.isArray(occurrences)
@@ -148,8 +149,10 @@ const CreateEnrolmentPage: React.FC = () => {
     return null;
   }, [event, filteredOccurrences, neededOccurrences]);
 
+  const title = t(`enrolment:${autoAcceptance ? 'title' : 'titleEnquiry'}`);
+
   return (
-    <PageWrapper title={t('enrolment:pageTitle')}>
+    <PageWrapper title={title}>
       <LoadingSpinner isLoading={loading}>
         {event ? (
           <div className={styles.enrolmentPage}>
@@ -164,7 +167,7 @@ const CreateEnrolmentPage: React.FC = () => {
                 </Button>
               </div>
 
-              <h1>{t('enrolment:title')}</h1>
+              <h1>{title}</h1>
               <div className={styles.divider} />
 
               <EventInfo event={event} />
@@ -184,6 +187,7 @@ const CreateEnrolmentPage: React.FC = () => {
                     occurrences={filteredOccurrences}
                   />
                   <EnrolmentForm
+                    enquiry={!autoAcceptance}
                     initialValues={initialValues}
                     onSubmit={submit}
                   />

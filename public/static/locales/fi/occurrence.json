@@ -11,6 +11,7 @@
     "buttonSelectOccurrence": "Valitse",
     "buttonSelectedOccurrences": "Valittu {{selectedOccurrences}} / {{neededOccurrences}}",
     "buttonSelectOccurrences": "Valitse {{neededOccurrences}} tapahtuma-aikaa",
-    "buttonEnrolOccurrence": "Ilmoittaudu"
+    "buttonEnrolOccurrence": "Ilmoittaudu",
+    "reservationEnquiryButton": "Varaustiedustelu"
   }
 }

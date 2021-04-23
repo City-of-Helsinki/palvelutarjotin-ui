@@ -5,20 +5,18 @@ import React from 'react';
 import wait from 'waait';
 
 import {
-  Event,
-  EventDocument,
   OccurrenceNode,
-  PlaceDocument,
-  StudyLevelsDocument,
+  PalvelutarjotinEventNode,
 } from '../../../generated/graphql';
 import * as graphqlFns from '../../../generated/graphql';
+import { createEventQueryMock } from '../../../tests/apollo-mocks/eventMocks';
+import { createPlaceQueryMock } from '../../../tests/apollo-mocks/placeMocks';
+import { createStudyLevelsQueryMock } from '../../../tests/apollo-mocks/studyLevelsMocks';
 import {
   fakePEvent,
   fakeLocalizedObject,
-  fakeEvent,
   fakeOccurrences,
   fakePlace,
-  fakeStudyLevels,
 } from '../../../utils/mockDataUtils';
 import {
   render,
@@ -43,129 +41,93 @@ configure({ defaultHidden: true });
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 (utils.getCAPTCHAToken as any) = jest.fn().mockResolvedValue('captcha-token');
 
-const mockBase = (event: Event): MockedResponse => ({
-  request: {
-    query: EventDocument,
-    variables: {
-      id: eventId,
-      include: ['location', 'keywords'],
-      upcomingOccurrencesOnly: true,
-    },
-  },
-  result: {
-    data: {
-      event,
-    },
-  },
-});
-
-const mockStudyLevels = (): MockedResponse => ({
-  request: {
-    query: StudyLevelsDocument,
-    variables: {},
-  },
-  result: {
-    data: {
-      studyLevels: fakeStudyLevels(),
-    },
-  },
-});
+const createPageMock = (
+  pEventOverrides: Partial<PalvelutarjotinEventNode>,
+  locationId?: string
+): MockedResponse[] => [
+  createEventQueryMock({
+    id: eventId,
+    name: fakeLocalizedObject(eventName),
+    location: fakePlace(locationId ? { id: locationId } : {}),
+    pEvent: fakePEvent(pEventOverrides),
+  }),
+  createStudyLevelsQueryMock(),
+];
 
 // mock that has enrol time ended
-const occurrenceOverrides1: Partial<OccurrenceNode>[] = [
+const occurencesEnrolTimeEnded: Partial<OccurrenceNode>[] = [
   { id: occurrenceId1, startTime: new Date(2020, 8, 10, 12, 30) },
   { id: occurrenceId2, startTime: new Date(2020, 8, 10, 12, 30) },
   { id: 'sdfgdfhbf345345yreg' },
 ];
 
-// mock that has enrol time ended
-const mock1: MockedResponse[] = [
-  mockBase(
-    fakeEvent({
-      name: fakeLocalizedObject(eventName),
-      pEvent: fakePEvent({
-        enrolmentStart: new Date(2020, 8, 7).toISOString(),
-        enrolmentEndDays: 3,
-        occurrences: fakeOccurrences(3, occurrenceOverrides1),
-        neededOccurrences: 2,
-      }),
-    })
-  ),
-  mockStudyLevels(),
-];
-
-const occurrenceOverrides2: Partial<OccurrenceNode>[] = [
+const occurencesEnrolSameTimes: Partial<OccurrenceNode>[] = [
   { id: occurrenceId1, startTime: new Date(2020, 8, 25, 12, 30) },
   { id: occurrenceId2, startTime: new Date(2020, 8, 25, 12, 30) },
   { id: 'sdfgdfhbf345345yreg' },
 ];
 
-const mock2: MockedResponse[] = [
-  mockBase(
-    fakeEvent({
-      name: fakeLocalizedObject(eventName),
-      pEvent: fakePEvent({
-        enrolmentStart: new Date(2020, 8, 20).toISOString(),
-        enrolmentEndDays: 3,
-        occurrences: fakeOccurrences(3, occurrenceOverrides2),
-        neededOccurrences: 2,
-        mandatoryAdditionalInformation: true,
-      }),
-    })
-  ),
-  mockStudyLevels(),
-];
-
-const occurrenceOverrides3: Partial<OccurrenceNode>[] = [
+const occurrenceEnrolDifferentTimes: Partial<OccurrenceNode>[] = [
   { id: occurrenceId1, startTime: new Date(2020, 8, 25, 12, 30) },
   { id: occurrenceId2, startTime: new Date(2020, 8, 26, 13, 20) },
   { id: 'sdfgdfhbf345345yreg' },
 ];
 
-const mock3: MockedResponse[] = [
-  {
-    request: {
-      query: PlaceDocument,
-      variables: {
-        id: locationId,
-      },
+const pageMockEnrolTimeEnded = createPageMock({
+  enrolmentStart: new Date(2020, 8, 7).toISOString(),
+  enrolmentEndDays: 3,
+  occurrences: fakeOccurrences(3, occurencesEnrolTimeEnded),
+  neededOccurrences: 2,
+});
+
+const PageMockEnrolTimeNotStarted: MockedResponse[] = createPageMock({
+  enrolmentStart: new Date(2020, 8, 20).toISOString(),
+  enrolmentEndDays: 3,
+  occurrences: fakeOccurrences(3, occurencesEnrolSameTimes),
+  neededOccurrences: 2,
+  mandatoryAdditionalInformation: true,
+});
+
+const PageMockWithSelectedPlace: MockedResponse[] = [
+  createPlaceQueryMock({
+    id: locationId,
+    name: fakeLocalizedObject('Kirjasto'),
+  }),
+  ...createPageMock(
+    {
+      enrolmentStart: new Date(2020, 8, 7).toISOString(),
+      enrolmentEndDays: 3,
+      occurrences: fakeOccurrences(3, occurrenceEnrolDifferentTimes),
+      neededOccurrences: 2,
     },
-    result: {
-      data: {
-        place: fakePlace({ name: fakeLocalizedObject('Kirjasto') }),
-      },
-    },
-  },
-  mockBase(
-    fakeEvent({
-      name: fakeLocalizedObject(eventName),
-      location: fakePlace({ id: locationId }),
-      pEvent: fakePEvent({
-        enrolmentStart: new Date(2020, 8, 7).toISOString(),
-        enrolmentEndDays: 3,
-        occurrences: fakeOccurrences(3, occurrenceOverrides3),
-        neededOccurrences: 2,
-      }),
-    })
+    locationId
   ),
-  mockStudyLevels(),
 ];
 
-const mock4: MockedResponse[] = [
-  mockBase(
-    fakeEvent({
-      name: fakeLocalizedObject(eventName),
-      location: fakePlace({ id: locationId }),
-      pEvent: fakePEvent({
-        enrolmentStart: new Date(2020, 8, 7).toISOString(),
-        enrolmentEndDays: 3,
-        occurrences: fakeOccurrences(3, occurrenceOverrides3),
-        neededOccurrences: 2,
-        mandatoryAdditionalInformation: true,
-      }),
-    })
-  ),
-];
+const pageMockWithLocation: MockedResponse[] = createPageMock(
+  {
+    enrolmentStart: new Date(2020, 8, 7).toISOString(),
+    enrolmentEndDays: 3,
+    occurrences: fakeOccurrences(3, occurrenceEnrolDifferentTimes),
+    neededOccurrences: 2,
+    mandatoryAdditionalInformation: true,
+  },
+  locationId
+);
+
+const PageMockEnrolHandpick: MockedResponse[] = createPageMock(
+  {
+    enrolmentStart: new Date(2020, 8, 7).toISOString(),
+    enrolmentEndDays: 3,
+    occurrences: fakeOccurrences(1, [
+      { id: occurrenceId1, startTime: new Date(2020, 8, 25, 12, 30) },
+    ]),
+    neededOccurrences: 1,
+    autoAcceptance: false,
+    mandatoryAdditionalInformation: true,
+  },
+  locationId
+);
 
 advanceTo(new Date(2020, 8, 8));
 jest.setTimeout(20000);
@@ -174,7 +136,7 @@ jest.setTimeout(20000);
 // "svg elements with an img role have an alternative text (svg-img-alt)"
 test.skip('page is accessible', async () => {
   const { container } = render(<CreateEnrolmentPage />, {
-    mocks: mock1,
+    mocks: PageMockEnrolTimeNotStarted,
     query: { eventId: eventId, occurrences: occurrenceIds },
   });
 
@@ -182,23 +144,45 @@ test.skip('page is accessible', async () => {
   expect(await axe(container)).toHaveNoViolations();
 });
 
-test('renders enrolment has ended text', async () => {
+test('has enrolment title and button', async () => {
   render(<CreateEnrolmentPage />, {
-    mocks: mock1,
+    mocks: PageMockWithSelectedPlace,
     query: { eventId: eventId, occurrences: occurrenceIds },
   });
 
-  await act(wait);
+  await screen.findByRole('heading', { name: 'Ilmoittaudu tapahtumaan' });
+  await screen.findByRole('button', { name: /lähetä ilmoittautuminen/i });
+});
 
-  expect(
-    screen.getByRole('heading', { name: 'Ilmoittaudu tapahtumaan' })
-  ).toBeInTheDocument();
+test('has inquiry title and button', async () => {
+  render(<CreateEnrolmentPage />, {
+    mocks: PageMockEnrolHandpick,
+    query: { eventId: eventId, occurrences: [occurrenceId1] },
+  });
 
-  expect(screen.queryByText(eventName)).toBeInTheDocument();
-  expect(screen.queryByText('Ilmoittautuminen päättynyt')).toBeInTheDocument();
-  expect(
-    screen.queryByText('Tapahtuman ilmoittautuminen on päättynyt')
-  ).toBeInTheDocument();
+  await screen.findByRole('heading', { name: /varaustiedustelu tapahtumaan/i });
+  await screen.findByRole('button', { name: /lähetä varaustiedustelu/i });
+});
+
+test('renders enrolment has ended text', async () => {
+  render(<CreateEnrolmentPage />, {
+    mocks: pageMockEnrolTimeEnded,
+    query: { eventId: eventId, occurrences: occurrenceIds },
+  });
+
+  await screen.findByRole('heading', { name: 'Ilmoittaudu tapahtumaan' });
+});
+
+test('renders enrolment has ended text', async () => {
+  render(<CreateEnrolmentPage />, {
+    mocks: pageMockEnrolTimeEnded,
+    query: { eventId: eventId, occurrences: occurrenceIds },
+  });
+
+  await screen.findByRole('heading', { name: 'Ilmoittaudu tapahtumaan' });
+  await screen.findByText(eventName);
+  await screen.findByText('Ilmoittautuminen päättynyt');
+  await screen.findByText('Tapahtuman ilmoittautuminen on päättynyt');
 
   expect(
     screen.queryByRole('heading', { name: /ilmoittajan tiedot/i })
@@ -207,23 +191,14 @@ test('renders enrolment has ended text', async () => {
 
 test('renders enrolment has not started yet text', async () => {
   render(<CreateEnrolmentPage />, {
-    mocks: mock2,
+    mocks: PageMockEnrolTimeNotStarted,
     query: { eventId: eventId, occurrences: occurrenceIds },
   });
 
-  await act(wait);
-
-  expect(
-    screen.getByRole('heading', { name: 'Ilmoittaudu tapahtumaan' })
-  ).toBeInTheDocument();
-
-  expect(screen.queryByText(eventName)).toBeInTheDocument();
-  expect(
-    screen.queryByText('Ilmoitautuminen ei ole avautunut')
-  ).toBeInTheDocument();
-  expect(
-    screen.queryByText('Tapahtuman ilmoittautuminen ei ole vielä avautunut')
-  ).toBeInTheDocument();
+  await screen.findByRole('heading', { name: 'Ilmoittaudu tapahtumaan' });
+  await screen.findByText(eventName);
+  await screen.findByText('Ilmoitautuminen ei ole avautunut');
+  await screen.findByText('Tapahtuman ilmoittautuminen ei ole vielä avautunut');
 
   expect(
     screen.queryByRole('heading', { name: /ilmoittajan tiedot/i })
@@ -238,39 +213,25 @@ test('renders form and user can fill it and submit', async () => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     .mockReturnValue([enrolOccurrenceMock] as any);
   render(<CreateEnrolmentPage />, {
-    mocks: mock3,
+    mocks: PageMockWithSelectedPlace,
     query: { eventId: eventId, occurrences: occurrenceIds },
   });
 
-  await waitFor(() => {
-    expect(
-      screen.queryByRole('heading', { name: /ilmoittajan tiedot/i })
-    ).toBeInTheDocument();
-  });
-
-  expect(
-    screen.getByRole('heading', { name: 'Ilmoittaudu tapahtumaan' })
-  ).toBeInTheDocument();
-
-  expect(
-    screen.getByRole('heading', { name: 'Valitut tapahtuma-ajat' })
-  ).toBeInTheDocument();
+  await screen.findByRole('heading', { name: /ilmoittajan tiedot/i });
+  await screen.findByRole('heading', { name: 'Ilmoittaudu tapahtumaan' });
+  await screen.findByRole('heading', { name: 'Valitut tapahtuma-ajat' });
 
   await waitFor(() => {
-    expect(screen.queryAllByText('Kirjasto')).toHaveLength(2);
+    expect(screen.getAllByText('Kirjasto')).toHaveLength(2);
   });
 
-  expect(
-    screen.queryByRole('row', {
-      name: '25.09.2020 pe 12:30 – 12:30 Kirjasto 30 / 30',
-    })
-  ).toBeInTheDocument();
+  await screen.findByRole('row', {
+    name: '25.09.2020 pe 12:30 – 12:30 Kirjasto 30 / 30',
+  });
 
-  expect(
-    screen.queryByRole('row', {
-      name: '26.09.2020 la 13:20 – 12:30 Kirjasto 30 / 30',
-    })
-  ).toBeInTheDocument();
+  await screen.findByRole('row', {
+    name: '26.09.2020 la 13:20 – 12:30 Kirjasto 30 / 30',
+  });
 
   userEvent.type(
     screen.getByRole('textbox', { name: /nimi/i }),
@@ -377,15 +338,11 @@ test('renders form and user can fill it and submit', async () => {
 
 test('render and focuses error notification correctly', async () => {
   render(<CreateEnrolmentPage />, {
-    mocks: mock3,
+    mocks: PageMockWithSelectedPlace,
     query: { eventId: eventId, occurrences: occurrenceIds },
   });
 
-  await waitFor(() => {
-    expect(
-      screen.queryByRole('heading', { name: /ilmoittajan tiedot/i })
-    ).toBeInTheDocument();
-  });
+  await screen.findByRole('heading', { name: /ilmoittajan tiedot/i });
 
   userEvent.click(
     screen.getByRole('button', { name: /lähetä ilmoittautuminen/i })
@@ -424,12 +381,10 @@ describe('max group size validation of the Children and Adults -fields', () => {
     adultsCount: string
   ) => {
     render(<CreateEnrolmentPage />, {
-      mocks: mock3,
+      mocks: PageMockWithSelectedPlace,
       query: { eventId: eventId, occurrences: occurrenceIds },
     });
-    await waitFor(() => {
-      expect(screen.getByLabelText(/lapsia/i)).toBeInTheDocument();
-    });
+    await screen.findByLabelText(/lapsia/i);
     userEvent.type(screen.getByLabelText(/lapsia/i), childrenCount);
     userEvent.type(screen.getByLabelText(/aikuisia/i), adultsCount);
     userEvent.tab();
@@ -480,14 +435,10 @@ describe('max group size validation of the Children and Adults -fields', () => {
 
   test('one field is greater than the max group size and another one is (still) empty', async () => {
     await createEnrolmentForm('21', '');
-    await waitFor(() => {
-      expect(
-        screen.getByText(
-          /Lasten ja aikuisten yhteislukumäärän tulee olla enintään 20/i
-        )
-      ).toBeInTheDocument();
-    });
-    expect(screen.getByText(/Tämä kenttä on pakollinen/i)).toBeInTheDocument();
+    await screen.findByText(
+      /Lasten ja aikuisten yhteislukumäärän tulee olla enintään 20/i
+    );
+    await screen.findByText(/Tämä kenttä on pakollinen/i);
   });
 
   test('the total count is less than minimum', async () => {
@@ -503,29 +454,19 @@ describe('max group size validation of the Children and Adults -fields', () => {
 
   test('both the fields are valid as a single, but the total is greater than the maximum group size', async () => {
     await createEnrolmentForm('19', '18');
-    await waitFor(() => {
-      expect(
-        screen.getByText(
-          /Arvon tulee olla enintään 2 yhdessä aikuisten lukumäärän kanssa/i
-        )
-      ).toBeInTheDocument();
-    });
-    expect(
-      screen.getByText(
-        /Arvon tulee olla enintään 1 yhdessä lasten lukumäärän kanssa/i
-      )
-    ).toBeInTheDocument();
+    await screen.findByText(
+      /Arvon tulee olla enintään 2 yhdessä aikuisten lukumäärän kanssa/i
+    );
+    await screen.findByText(
+      /Arvon tulee olla enintään 1 yhdessä lasten lukumäärän kanssa/i
+    );
   });
 
   test('one of the field values is valid, but another one is greater than the max group size', async () => {
     await createEnrolmentForm('22', '18');
-    await waitFor(() => {
-      expect(
-        screen.getByText(
-          /Arvon tulee olla enintään 2 yhdessä aikuisten lukumäärän kanssa/i
-        )
-      ).toBeInTheDocument();
-    });
+    await screen.findByText(
+      /Arvon tulee olla enintään 2 yhdessä aikuisten lukumäärän kanssa/i
+    );
     expect(
       screen.queryByText(
         /Arvon tulee olla enintään 1 yhdessä lasten lukumäärän kanssa/i
@@ -536,27 +477,21 @@ describe('max group size validation of the Children and Adults -fields', () => {
 
 test('mandatory additional information forces extraNeeds field to be required', async () => {
   render(<CreateEnrolmentPage />, {
-    mocks: mock4,
+    mocks: pageMockWithLocation,
     query: { eventId: eventId, occurrences: occurrenceIds },
   });
-  await waitFor(() => {
-    expect(screen.getByLabelText(/Lisätiedot/i)).toBeInTheDocument();
-  });
+  await screen.findByLabelText(/Lisätiedot/i);
   userEvent.type(screen.getByRole('textbox', { name: /Lisätiedot/i }), '');
   userEvent.tab();
-  await waitFor(() => {
-    expect(screen.getByText(/Tämä kenttä on pakollinen/i)).toBeInTheDocument();
-  });
+  await screen.findByText(/Tämä kenttä on pakollinen/i);
 });
 
 test('Do not allow sms notifications if no phone number is given', async () => {
   render(<CreateEnrolmentPage />, {
-    mocks: mock4,
+    mocks: pageMockWithLocation,
     query: { eventId: eventId, occurrences: occurrenceIds },
   });
-  await waitFor(() => {
-    expect(screen.getByLabelText(/Puhelinnumero/i)).toBeInTheDocument();
-  });
+  await screen.findByLabelText(/Puhelinnumero/i);
   const phoneField = screen.getByLabelText(/Puhelinnumero/i);
   const smsField = screen.getByLabelText(/Tekstiviestillä/i);
   expect(phoneField).not.toHaveValue();
@@ -578,12 +513,10 @@ test('Do not allow sms notifications if no phone number is given', async () => {
 
 test('Allow sms notifications if any of the phone numbers are given', async () => {
   render(<CreateEnrolmentPage />, {
-    mocks: mock4,
+    mocks: pageMockWithLocation,
     query: { eventId: eventId, occurrences: occurrenceIds },
   });
-  await waitFor(() => {
-    expect(screen.getByLabelText(/Sama kuin ilmoittaja/i)).toBeInTheDocument();
-  });
+  await screen.findByLabelText(/Sama kuin ilmoittaja/i);
   const isResponsiblePersonField = screen.getByLabelText(
     /Sama kuin ilmoittaja/i
   );

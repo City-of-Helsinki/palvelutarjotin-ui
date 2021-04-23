@@ -36,6 +36,7 @@ import PlaceInfo, { PlaceInfoLinks } from '../../place/placeInfo/PlaceInfo';
 import PlaceText from '../../place/placeText/PlaceText';
 import CalendarButton from '../calendarButton/CalendarButton';
 import DateFilter from '../dateFilter/DateFilter';
+import { getEventFields } from '../utils';
 import styles from './occurrences.module.scss';
 import { useDateFiltering } from './useDateFiltering';
 
@@ -277,7 +278,9 @@ const EnrolmentButtonCell: React.FC<{
   deselectOccurrence,
   selectOccurrence,
 }) => {
+  const locale = useLocale();
   const { t } = useTranslation();
+  const { autoAcceptance } = getEventFields(event, locale);
   const getEnrolmentError = (
     occurrence: OccurrenceFieldsFragment,
     event: EventFieldsFragment
@@ -310,18 +313,22 @@ const EnrolmentButtonCell: React.FC<{
     selectedOccurrences?.length === neededOccurrences &&
     !selectedOccurrences?.includes(value.id);
   const isSelectedOccurrence = selectedOccurrences?.includes(value.id);
-
   if (neededOccurrences === 1) {
+    const buttonText = t(
+      `event:occurrenceList.${
+        autoAcceptance ? 'enrolOccurrenceButton' : 'reservationEnquiryButton'
+      }`
+    );
     return (
       <button
-        className={styles.enrolButton}
+        className={styles[autoAcceptance ? 'enrolButton' : 'enquiryButton']}
         onClick={() => {
           if (enrolOccurrence) {
             enrolOccurrence(value.id);
           }
         }}
       >
-        {t('event:occurrenceList.enrolOccurrenceButton')}
+        {buttonText}
       </button>
     );
   }
@@ -333,7 +340,11 @@ const EnrolmentButtonCell: React.FC<{
       neededOccurrences,
     });
   } else {
-    buttonText = t('occurrence:occurrenceSelection.buttonEnrolOccurrence');
+    buttonText = t(
+      `occurrence:occurrenceSelection.${
+        autoAcceptance ? 'buttonEnrolOccurrence' : 'reservationEnquiryButton'
+      }`
+    );
   }
 
   return (
@@ -341,12 +352,11 @@ const EnrolmentButtonCell: React.FC<{
       variant={
         selectionDisabled || isSelectedOccurrence ? 'primary' : 'secondary'
       }
-      onClick={
-        isSelectedOccurrence
-          ? () => deselectOccurrence(value.id)
-          : () => selectOccurrence(value.id)
+      onClick={() =>
+        (isSelectedOccurrence ? deselectOccurrence : selectOccurrence)(value.id)
       }
       style={{ width: enrolButtonColumnWidth }}
+      className={styles[autoAcceptance ? 'enrolButton' : 'enquiryButton']}
       disabled={selectionDisabled}
     >
       {buttonText}

@@ -11,6 +11,7 @@
     "buttonSelectOccurrence": "Select",
     "buttonSelectedOccurrences": "Selected {{selectedOccurrences}} / {{neededOccurrences}}",
     "buttonSelectOccurrences": "Select {{neededOccurrences}} occurrences",
-    "buttonEnrolOccurrence": "Enrol"
+    "buttonEnrolOccurrence": "Enrol",
+    "reservationEnquiryButton": "Reservation enquiry"
   }
 }

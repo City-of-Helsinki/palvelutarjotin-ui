@@ -2,6 +2,7 @@ import gql from 'graphql-tag';
 
 export const QUERY_EVENT = gql`
   fragment pEventFields on PalvelutarjotinEventNode {
+    autoAcceptance
     id
     enrolmentEndDays
     enrolmentStart

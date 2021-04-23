@@ -96,6 +96,7 @@ const EventPage = (): ReactElement => {
     occurrences,
     locationId,
     neededOccurrences,
+    autoAcceptance,
   } = getEventFields(eventData?.event, locale);
 
   const visibleOccurrences = take(occurrences, occurrencesVisible);
@@ -111,8 +112,12 @@ const EventPage = (): ReactElement => {
             <EventPageMeta event={eventData?.event} />
             {enrolmentCreated && (
               <Notification
-                label={t('event:enrolmentConfirmation.title')}
-                type="success"
+                label={t(
+                  `event:enrolmentConfirmation.${
+                    autoAcceptance ? 'title' : 'titleEnquiry'
+                  }`
+                )}
+                type={autoAcceptance ? 'success' : 'alert'}
               >
                 {notificationType &&
                   translateValue(

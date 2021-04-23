@@ -2,6 +2,7 @@
   "buttonBack": "Takaisin",
   "enrolmentForm": {
     "buttonSubmit": "Lähetä ilmoittautuminen",
+    "buttonSubmitEnquiry": "Lähetä varaustiedustelu",
     "infoText1": "Emme käytä antamiasi tietoja markkinointiin.",
     "infoText2": "Lähetämme sinulle erillisen vahvistusviestin, kun järjestäjä on käsitellyt ja vahvistanut ilmoittautumisesi.",
     "labelHasEmailNotification": "Sähköpostilla",
@@ -71,7 +72,6 @@
     "noSelectedOccurrences": "Ei valittuja tapahtuma-aikoja",
     "title": "Valitut tapahtuma-ajat"
   },
-  "pageTitle": "Ilmoittaudu tapahtumaan",
   "studyLevel": {
     "grade": "{{count}}. luokka",
     "grade_plural": "{{count}}. luokka",
@@ -81,5 +81,6 @@
     "age34": "3-4 -vuotiaat",
     "other": "Muu ryhmä"
   },
-  "title": "Ilmoittaudu tapahtumaan"
+  "title": "Ilmoittaudu tapahtumaan",
+  "titleEnquiry": "Varaustiedustelu tapahtumaan"
 }

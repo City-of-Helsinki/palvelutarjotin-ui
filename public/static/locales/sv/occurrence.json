@@ -11,6 +11,7 @@
     "buttonSelectOccurrence": "Välj",
     "buttonSelectedOccurrences": "Vald {{selectedOccurrences}} / {{neededOccurrences}}",
     "buttonSelectOccurrences": "Välj {{neededOccurrences}} förekomster",
-    "buttonEnrolOccurrence": "Skriva in"
+    "buttonEnrolOccurrence": "Skriva in",
+    "reservationEnquiryButton": "Bokningsförfrågan"
   }
 }

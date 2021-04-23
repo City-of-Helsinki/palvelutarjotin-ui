@@ -29,11 +29,13 @@ import ValidationSchema from './ValidationSchema';
 
 interface Props {
   initialValues?: EnrolmentFormFields;
+  enquiry: boolean;
   onSubmit: (values: EnrolmentFormFields) => void;
 }
 
 const EnrolmentForm: React.FC<Props> = ({
   initialValues = defaultInitialValues,
+  enquiry,
   onSubmit,
 }) => {
   const { t } = useTranslation();
@@ -296,8 +298,15 @@ const EnrolmentForm: React.FC<Props> = ({
               </FormGroup>
 
               <div className={styles.submitButtonWrapper}>
-                <Button type="submit">
-                  {t('enrolment:enrolmentForm.buttonSubmit')}
+                <Button
+                  type="submit"
+                  className={
+                    enquiry ? styles.enquiryButton : styles.enrolButton
+                  }
+                >
+                  {enquiry
+                    ? t('enrolment:enrolmentForm.buttonSubmitEnquiry')
+                    : t('enrolment:enrolmentForm.buttonSubmit')}
                 </Button>
               </div>
             </Container>

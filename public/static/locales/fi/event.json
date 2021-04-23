@@ -5,7 +5,8 @@
       "emailSms": "Lähetämme sinulle vahvistuksen sähköpostitse ja tekstiviestillä.",
       "sms": "Lähetämme sinulle vahvistuksen tekstiviestillä."
     },
-    "title": "Ilmoittautuminen lähetetty"
+    "title": "Ilmoittautuminen lähetetty",
+    "titleEnquiry": "Varaustiedustelu lähetetty"
   },
   "eventCard": {
     "ariaLabelOpenEvent": "Siirry tapahtumaan: {{eventName}}",
@@ -22,6 +23,7 @@
   "occurrenceList": {
     "loadMoreOccurrences": "Näytä lisää aikoja",
     "enrolOccurrenceButton": "Ilmoittaudu",
+    "reservationEnquiryButton": "Varaustiedustelu",
     "chooseOccurrenceButton": "Valitse",
     "downloadToCalendar": "Lataa kalenteriin...",
     "showAllLocationEvents": "Näytä paikan kaikki tapahtumat",

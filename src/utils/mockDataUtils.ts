@@ -258,7 +258,7 @@ export const fakePEvent = (
   createdAt: '' as any,
   linkedEventId: '' as any,
   updatedAt: '' as any,
-  autoAcceptance: false,
+  autoAcceptance: true,
   nextOccurrenceDatetime: '',
   lastOccurrenceDatetime: '',
   mandatoryAdditionalInformation: false,
