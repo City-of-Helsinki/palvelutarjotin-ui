@@ -258,7 +258,7 @@ test('renders form and user can fill it and submit', async () => {
 
   // select grade from dropdown
   userEvent.click(
-    screen.getByRole('button', { name: /luokka-aste valitse\.\.\./i })
+    screen.getByRole('button', { name: /luokka-aste \* valitse\.\.\./i })
   );
 
   userEvent.click(screen.getByRole('option', { name: /4\. luokka/i }));
@@ -372,7 +372,7 @@ test('render and focuses error notification correctly', async () => {
 
   userEvent.tab();
 
-  expect(screen.getByRole('textbox', { name: 'Nimi' })).toHaveFocus();
+  expect(screen.getByRole('textbox', { name: /nimi/i })).toHaveFocus();
 });
 
 describe('max group size validation of the Children and Adults -fields', () => {
