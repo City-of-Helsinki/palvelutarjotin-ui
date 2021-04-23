@@ -19,16 +19,14 @@ const Header: React.FC = () => {
   const toggleMenu = () => setMenuOpen(!menuOpen);
   const closeMenu = () => setMenuOpen(false);
 
-  const languageOptions: OptionType[] = React.useMemo(() => {
+  const getLanguageOptions = (): OptionType[] => {
     return Object.values(SUPPORTED_LANGUAGES).map((language) => ({
       label: t(`header:languages:${language}`),
       value: language,
     }));
-  }, [t]);
+  };
 
-  const changeLanguage = (newLanguage: OptionType) => (
-    event: React.MouseEvent<HTMLAnchorElement, MouseEvent>
-  ) => {
+  const changeLanguage = (newLanguage: OptionType) => () => {
     i18n.changeLanguage(newLanguage.value);
   };
 
@@ -106,7 +104,7 @@ const Header: React.FC = () => {
           icon={<IconGlobe />}
           closeOnItemClick
         >
-          {languageOptions.map((option) => (
+          {getLanguageOptions().map((option) => (
             <Navigation.Item
               key={option.value}
               href="#"
