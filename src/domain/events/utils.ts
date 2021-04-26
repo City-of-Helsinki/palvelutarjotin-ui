@@ -67,7 +67,7 @@ const getKeywordsToQuery = ({
   );
 };
 
-export const getDateString = (date?: string | string[]): string | null => {
+const getDateString = (date?: string | string[]): string | null => {
   return typeof date === 'string' && isValidDate(new Date(date))
     ? new Date(date).toISOString()
     : null;
@@ -88,7 +88,7 @@ export const getInitialValues = (
   };
 };
 
-export const getInitialDate = (date?: string | string[]): Date | null => {
+const getInitialDate = (date?: string | string[]): Date | null => {
   if (typeof date === 'string' && isValidDate(new Date(date))) {
     return new Date(date);
   }

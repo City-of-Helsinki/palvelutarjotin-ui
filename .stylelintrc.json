@@ -1,0 +1,7 @@
+{
+  "extends": "stylelint-config-recommended-scss",
+  "plugins": ["stylelint-no-unused-selectors"],
+  "rules": {
+    "plugin/no-unused-selectors": true
+  }
+}

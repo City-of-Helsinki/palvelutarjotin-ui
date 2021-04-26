@@ -58,9 +58,8 @@ type CustomRender = {
 
 type CustomRenderResult = RenderResult;
 
-export { customRender as render, reduxStore };
+export { customRender as render };
 
 // re-export everything
 export * from '@testing-library/react';
-export { render as defaultRender } from '@testing-library/react';
 export { default as userEvent } from '@testing-library/user-event';

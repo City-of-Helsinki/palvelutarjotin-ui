@@ -11,7 +11,7 @@ import styles from './multiSelectDropdown.module.scss';
 
 const SELECT_ALL = 'SELECT_ALL';
 
-export type Option = {
+type Option = {
   text: string;
   value: string;
 };

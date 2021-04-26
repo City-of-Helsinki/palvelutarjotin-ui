@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { invalidFieldClass } from '../constants';
 import { getErrorText } from '../utils';
 
-export type Option = {
+type Option = {
   label: string;
   value: string;
 };

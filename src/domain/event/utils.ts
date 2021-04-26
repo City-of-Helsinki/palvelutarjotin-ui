@@ -127,7 +127,7 @@ export const getFirstOrLastDateOfOccurrences = (
 };
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export const orderOccurrencesByDate = (
+const orderOccurrencesByDate = (
   a: OccurrenceFieldsFragment,
   b: OccurrenceFieldsFragment
 ) => {

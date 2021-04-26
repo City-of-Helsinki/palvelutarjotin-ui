@@ -17,7 +17,7 @@ import getLocalisedString from '../../../utils/getLocalisedString';
 import { ROUTES } from '../../app/routes/constants';
 import { getPlaceFields } from '../../place/utils';
 
-export interface CalendarButtonProps {
+interface CalendarButtonProps {
   event: EventFieldsFragment;
   occurrence: OccurrenceFieldsFragment;
 }

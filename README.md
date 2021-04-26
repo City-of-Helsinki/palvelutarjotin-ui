@@ -93,20 +93,26 @@ Browser tests are written in TypeScript with [TestCafe](https://devexpress.githu
 
 Run tests and generate coverage report
 
-### `yarn storybook`
+### `yarn storybook` DELETED
 
-Runs storybook in development mode
-Open [http://localhost:9009](http://localhost:9009) to view it in browser
+Note: if storybook is needed, find the deleted files from git log.
 
-### `yarn build-storybook`
+(Runs storybook in development mode
+Open [http://localhost:9009](http://localhost:9009) to view it in browser)
 
-Exports storybook as a static app
+### `yarn build-storybook` DELETED
 
-### `yarn deploy-storybook`
+Note: if storybook is needed, find the deleted files from git log.
 
-Deploys a new version of Storybook. Storybook is used for development and there's no CI/CD pipeline set up.
+(Exports storybook as a static app)
 
-To verify deployment, open [https://city-of-helsinki.github.io/palvelutarjotin-ui/](https://city-of-helsinki.github.io/palvelutarjotin-ui/) and check that everything is looking ok.
+### `yarn deploy-storybook` DELETED
+
+Note: if storybook is needed, find the deleted files from git log.
+
+(Deploys a new version of Storybook. Storybook is used for development and there's no CI/CD pipeline set up.
+
+To verify deployment, open [https://city-of-helsinki.github.io/palvelutarjotin-ui/](https://city-of-helsinki.github.io/palvelutarjotin-ui/) and check that everything is looking ok.)
 
 ## Browser tests
 

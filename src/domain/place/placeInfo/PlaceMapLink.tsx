@@ -10,7 +10,7 @@ export interface PlaceMapLinkEntryProps {
   url: string;
 }
 
-export interface PlaceMapLinkProps extends PlaceMapLinkEntryProps {
+interface PlaceMapLinkProps extends PlaceMapLinkEntryProps {
   variant?: 'a' | 'button';
 }
 

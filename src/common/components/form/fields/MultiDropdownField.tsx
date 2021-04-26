@@ -8,7 +8,7 @@ import { invalidFieldClass } from '../constants';
 import styles from '../multiDropdownField.module.scss';
 import { getErrorText } from '../utils';
 
-export type Option = {
+type Option = {
   label: string;
   value: string;
 };

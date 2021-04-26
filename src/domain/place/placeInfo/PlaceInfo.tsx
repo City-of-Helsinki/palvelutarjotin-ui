@@ -10,7 +10,7 @@ import styles from './placeInfo.module.scss';
 import PlaceMapLink from './PlaceMapLink';
 import usePlaceMapLinks from './usePlaceMapLinks';
 
-export interface PlaceInfoProps {
+interface PlaceInfoProps {
   id: string;
   language: Language;
   onEditButtonClick?: (show: boolean) => void;

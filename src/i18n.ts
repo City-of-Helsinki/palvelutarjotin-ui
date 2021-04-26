@@ -16,8 +16,6 @@ const NextI18NextInstance = new NextI18Next({
 
 NextI18NextInstance.i18n.use(intervalPlural);
 
-export default NextI18NextInstance;
-
 /* Optionally, export class methods as named exports */
 export const {
   appWithTranslation,
@@ -25,5 +23,4 @@ export const {
   Link,
   Router,
   useTranslation,
-  withTranslation,
 } = NextI18NextInstance;
