@@ -16,6 +16,9 @@
   --padding-container: var(--spacing-l) 0;
 
   --width-button: 17.625rem;
+
+  background-color: var(--background-color-container);
+  padding: var(--padding-container);
 }
 
 .filtersRow {
@@ -28,11 +31,6 @@
       margin-right: var(--spacing-m);
     }
   }
-}
-
-.eventSearchForm {
-  background-color: var(--background-color-container);
-  padding: var(--padding-container);
 }
 
 .contentWrapper {

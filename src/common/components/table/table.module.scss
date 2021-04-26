@@ -1,3 +1,7 @@
+.tableWrapper {
+  max-width: 100%;
+}
+
 .table {
   --background-color-cell: var(--color-white);
   --background-color-cell-header: var(--color-black-10);
@@ -14,12 +18,7 @@
   --spacing-cell: var(--spacing-m);
 
   --expanded-row-border-color: var(--color-black-30);
-}
-.tableWrapper {
-  max-width: 100%;
-}
 
-.table {
   width: 100%;
   border-collapse: collapse;
   margin-bottom: var(--margin-bottom-table);
@@ -61,6 +60,13 @@
       cursor: pointer;
     }
 
+    tr.expandedArea {
+      td {
+        border: 1px solid var(--expanded-row-border-color);
+        border-top: none;
+      }
+    }
+
     tr.expandedRow {
       td {
         border-bottom: none;
@@ -73,13 +79,6 @@
         &:first-child {
           border-left: 1px solid var(--expanded-row-border-color);
         }
-      }
-    }
-
-    tr.expandedArea {
-      td {
-        border: 1px solid var(--expanded-row-border-color);
-        border-top: none;
       }
     }
   }

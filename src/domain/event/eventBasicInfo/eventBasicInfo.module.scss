@@ -4,9 +4,7 @@
 .eventBasicInfo {
   --inforow-spacing: var(--spacing-m);
   --grid-gap: 1rem;
-}
 
-.eventBasicInfo {
   display: grid;
   grid-gap: var(--grid-gap);
   grid-template-columns: 3fr 1fr;
@@ -23,6 +21,25 @@
 
     .shortDescription {
       font-size: var(--fontsize-heading-s);
+    }
+  }
+
+  .contactInfo {
+    p {
+      margin: 0;
+    }
+  }
+
+  .categorisationRow {
+    display: grid;
+    grid-gap: var(--grid-gap);
+
+    p {
+      margin-top: 0;
+    }
+
+    @include respond_above(sm) {
+      grid-template-columns: 1fr 1fr;
     }
   }
 
@@ -56,27 +73,8 @@
     text-decoration: none;
   }
 
-  .contactInfo {
-    p {
-      margin: 0;
-    }
-  }
-
   .eventCategorisation {
     margin-top: var(--inforow-spacing);
-  }
-
-  .categorisationRow {
-    display: grid;
-    grid-gap: var(--grid-gap);
-
-    p {
-      margin-top: 0;
-    }
-
-    @include respond_above(sm) {
-      grid-template-columns: 1fr 1fr;
-    }
   }
 
   .categoryTitle {

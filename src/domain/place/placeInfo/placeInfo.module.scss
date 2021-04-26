@@ -29,14 +29,9 @@
     // padding-left: var(--spacing-m);
     font-size: small;
     margin-top: 0;
-  }
-
-  .linkDescription {
-    // padding-left: var(--spacing-m);
-    font-size: small;
-    margin-top: 0;
     margin-bottom: var(--spacing-s) !important;
   }
+
   button + .linkDescription {
     padding-left: var(--spacing-m);
   }
