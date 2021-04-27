@@ -19,24 +19,19 @@
 }
 
 .filtersRow {
-  display: flex;
+  display: grid;
+  grid-gap: var(--grid-gap-mobile);
 
-  & > * {
-    flex: 1;
-
-    &:not(:last-child) {
-      margin-right: var(--spacing-m);
-    }
+  @include respond_above(md) {
+    grid-gap: var(--grid-gap);
+    grid-template-columns: 1fr 1fr 1fr;
   }
 }
 
 .eventSearchForm {
   background-color: var(--color-black-70);
-
-  @include respond_above(sm) {
-    padding: var(--spacing-layout-s);
-    margin: 0;
-  }
+  padding: var(--spacing-layout-s);
+  margin: var(--spacing-layout-s);
 
   @include respond_above(md) {
     padding: var(--spacing-layout-m);
