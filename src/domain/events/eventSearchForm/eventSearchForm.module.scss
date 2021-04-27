@@ -31,8 +31,17 @@
 }
 
 .eventSearchForm {
-  background-color: var(--background-color-container);
-  padding: var(--padding-container);
+  background-color: var(--color-black-70);
+
+  @include respond_above(sm) {
+    padding: var(--spacing-layout-s);
+    margin: 0;
+  }
+
+  @include respond_above(md) {
+    padding: var(--spacing-layout-m);
+    margin: var(--spacing-layout-m);
+  }
 }
 
 .contentWrapper {
@@ -51,20 +60,25 @@
 
 .buttonRow {
   display: grid;
-
-  grid-gap: var(--grid-gap-mobile);
+  color: var(--color-white);
 
   @include respond_above(sm) {
-    grid-gap: var(--grid-gap);
-    grid-template-columns: 1fr var(--width-button);
+    grid-template-columns: 180px auto;
   }
 
   .clearButtonWrapper {
     text-align: center;
     align-self: center;
+    button {
+      color: var(--color-white);
+      &:hover {
+        color: var(--color-black);
+      }
+    }
 
     @include respond_above(sm) {
-      text-align: right;
+      text-align: left;
+      margin-left: var(--spacing-s);
     }
   }
 }

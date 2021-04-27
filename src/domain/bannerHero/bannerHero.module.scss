@@ -1,0 +1,25 @@
+.bannerHeroContainer {
+  width: 100%;
+  background-position: 50%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding-top: var(--spacing-layout-m);
+
+  h1 {
+    font-size: 5rem;
+    padding-left: var(--spacing-layout-m);
+    margin: 0;
+    font-weight: bold;
+    color: var(--color-white);
+  }
+
+  h2 {
+    font-size: var(--fontsize-heading-l);
+    padding-left: var(--spacing-layout-m);
+    color: var(--color-white);
+  }
+}
+
+.koros {
+  fill: var(--color-white);
+}

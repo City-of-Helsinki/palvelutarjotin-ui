@@ -1,5 +1,9 @@
 {
   "appName": "Kultus beta",
+  "bannerHero": {
+    "title": "Opptimisen kulttuuri- ja toimintakalenteri",
+    "description": "Tapahtumia päiväkodeille, kouluille a oppilaitoksille"
+  },
   "dropdown": {
     "placeholder": "Select...",
     "buttonClear": "Clear selections"
