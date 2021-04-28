@@ -23,7 +23,6 @@
   grid-gap: var(--grid-gap-mobile);
 
   @include respond_above(md) {
-    grid-gap: var(--grid-gap);
     grid-template-columns: 1fr 1fr 1fr;
   }
 }

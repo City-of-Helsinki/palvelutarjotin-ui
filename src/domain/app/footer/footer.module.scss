@@ -2,6 +2,10 @@
   position: relative;
   --footer-background: var(--color-engel-medium-light) !important;
 
+  & > div:first-child {
+    background-color: var(--background-color-body);
+  }
+
   & > div > svg {
     width: 100% !important;
   }

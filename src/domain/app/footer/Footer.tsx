@@ -1,7 +1,6 @@
 import { Footer } from 'hds-react';
 import React from 'react';
 
-import SrOnly from '../../../common/components/SrOnly/SrOnly';
 import { FEEDBACK_LINKS, PRIVACY_POLICY_LINKS } from '../../../constants';
 import useLocale from '../../../hooks/useLocale';
 import { useTranslation } from '../../../i18n';
