@@ -9,14 +9,8 @@ fixture('Events page').page(getEnvUrl('fi'));
 test('Changing language on events page', async (t) => {
   await t
     .expect(
-      screen.queryByRole('heading', {
-        name: /Opptimisen kulttuuri- ja toimintakalenteri/i,
-      }).exists
-    )
-    .ok()
-    .expect(
       screen.getByRole('heading', {
-        name: /Tapahtumia päiväkodeille, kouluille a oppilaitoksille/i,
+        name: /Oppimisen kulttuuri- ja tapahtumakalenteri päiväkodeille, kouluille ja oppilaitoksille/i,
       }).exists
     )
     .ok();
@@ -30,13 +24,7 @@ test('Changing language on events page', async (t) => {
   await t
     .expect(
       screen.queryByRole('heading', {
-        name: /Opptimisen kulttuuri- ja toimintakalenteri/i,
-      }).exists
-    )
-    .ok()
-    .expect(
-      screen.queryByRole('heading', {
-        name: /Tapahtumia päiväkodeille, kouluille a oppilaitoksille/i,
+        name: /Tnlärnings kultur- och evenemang kalender för dagis och skolor/i,
       }).exists
     )
     .ok();

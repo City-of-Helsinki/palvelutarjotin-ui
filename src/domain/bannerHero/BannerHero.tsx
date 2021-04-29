@@ -17,8 +17,7 @@ const BannerHero: React.FC = ({ children }) => {
       }}
     >
       <Container>
-        <h2>{t('common:bannerHero.title')}</h2>
-        <h1>{t('common:bannerHero.description')}</h1>
+        <h1>{t('common:bannerHero.title')}</h1>
       </Container>
       {children}
       <Koros className={styles.koros} />
