@@ -24,7 +24,7 @@ test('Changing language on events page', async (t) => {
   await t
     .expect(
       screen.queryByRole('heading', {
-        name: /Tnlärnings kultur- och evenemang kalender för dagis och skolor/i,
+        name: /Inlärnings kultur- och evenemang kalender för dagis och skolor/i,
       }).exists
     )
     .ok();
