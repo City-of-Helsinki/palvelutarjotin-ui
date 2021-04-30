@@ -71,7 +71,6 @@ const EventSearchForm = ({
         return (
           <form className={styles.eventSearchForm} onSubmit={handleSubmit}>
             <Container className={styles.contentWrapper}>
-              <h2>{t('events:search.title')}</h2>
               <div className={styles.textRow}>
                 <Field
                   hideLabel
@@ -159,6 +158,14 @@ const EventSearchForm = ({
                 />
               </div>
               <div className={styles.buttonRow}>
+                <Button
+                  variant="success"
+                  fullWidth={true}
+                  iconLeft={<IconSearch />}
+                  type="submit"
+                >
+                  {t('events:search.buttonSearch')}
+                </Button>
                 <div className={styles.clearButtonWrapper}>
                   <Button
                     onClick={() => {
@@ -170,15 +177,6 @@ const EventSearchForm = ({
                     iconLeft={<IconPen />}
                   >
                     {t('events:search.buttonClear')}
-                  </Button>
-                </div>
-                <div>
-                  <Button
-                    fullWidth={true}
-                    iconLeft={<IconSearch />}
-                    type="submit"
-                  >
-                    {t('events:search.buttonSearch')}
                   </Button>
                 </div>
               </div>

@@ -1,5 +1,8 @@
 {
   "appName": "Kultus beta",
+  "bannerHero": {
+    "title": "Konst, kultur och evenemang för skolor och dagis"
+  },
   "dropdown": {
     "placeholder": "Välj...",
     "buttonClear": "Tomma val"

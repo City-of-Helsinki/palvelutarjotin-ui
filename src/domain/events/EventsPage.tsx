@@ -8,6 +8,7 @@ import getPageNumberFromUrl from '../../utils/getPageNumberFromUrl';
 import Container from '../app/layout/Container';
 import PageWrapper from '../app/layout/PageWrapper';
 import { ROUTES } from '../app/routes/constants';
+import BannerHero from '../bannerHero/BannerHero';
 import { EVENT_LIST_PAGE_SIZE, EVENT_SORT_OPTIONS } from './constants';
 import EventList from './eventList/EventList';
 import EventSearchForm, {
@@ -96,14 +97,16 @@ const EventsPage = (): ReactElement => {
 
   return (
     <PageWrapper>
-      <Container>
-        <h1>{t('common:appName')}</h1>
-      </Container>
-      <EventSearchForm
-        initialValues={initialValues}
-        onClear={clearForm}
-        onSubmit={search}
-      />
+      <BannerHero>
+        <Container>
+          <EventSearchForm
+            initialValues={initialValues}
+            onClear={clearForm}
+            onSubmit={search}
+          />
+        </Container>
+      </BannerHero>
+
       <Container>
         <LoadingSpinner isLoading={loading}>
           {eventsWithUpcomingOccurrences && (

@@ -90,10 +90,9 @@ test('renders search form and events list with correct information', async () =>
   await act(wait);
 
   expect(
-    screen.queryByRole('heading', { name: 'Kultus beta' })
-  ).toBeInTheDocument();
-  expect(
-    screen.queryByRole('heading', { name: 'Hae tapahtumia' })
+    screen.queryByRole('heading', {
+      name: 'Taidetta, kulttuuria ja tapahtumia kouluille ja päiväkodeille',
+    })
   ).toBeInTheDocument();
   expect(screen.queryByLabelText('Hae tapahtumia')).toBeInTheDocument();
   expect(

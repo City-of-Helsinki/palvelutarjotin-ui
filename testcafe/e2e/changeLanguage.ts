@@ -8,9 +8,11 @@ fixture('Events page').page(getEnvUrl('fi'));
 
 test('Changing language on events page', async (t) => {
   await t
-    .expect(screen.queryByRole('heading', { name: /Kultus beta/i }).exists)
-    .ok()
-    .expect(screen.getByRole('heading', { name: /Hae tapahtumia/i }).exists)
+    .expect(
+      screen.getByRole('heading', {
+        name: /Taidetta, kulttuuria ja tapahtumia kouluille ja päiväkodeille/i,
+      }).exists
+    )
     .ok();
 
   await t
@@ -20,8 +22,10 @@ test('Changing language on events page', async (t) => {
     .eql('/sv');
 
   await t
-    .expect(screen.queryByRole('heading', { name: /Kultus beta/i }).exists)
-    .ok()
-    .expect(screen.queryByRole('heading', { name: /Sök evenemang/i }).exists)
+    .expect(
+      screen.queryByRole('heading', {
+        name: /Konst, kultur och evenemang för skolor och dagis/i,
+      }).exists
+    )
     .ok();
 });

@@ -1,5 +1,8 @@
 {
   "appName": "Kultus beta",
+  "bannerHero": {
+    "title": "Taidetta, kulttuuria ja tapahtumia kouluille ja päiväkodeille"
+  },
   "dropdown": {
     "placeholder": "Valitse...",
     "buttonClear": "Tyhjennä valinnat"

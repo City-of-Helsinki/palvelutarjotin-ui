@@ -1,5 +1,8 @@
 {
   "appName": "Kultus beta",
+  "bannerHero": {
+    "title": "Arts, culture, and events for daycare and schools"
+  },
   "dropdown": {
     "placeholder": "Select...",
     "buttonClear": "Clear selections"
