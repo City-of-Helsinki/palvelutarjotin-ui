@@ -10,7 +10,7 @@ test('Changing language on events page', async (t) => {
   await t
     .expect(
       screen.getByRole('heading', {
-        name: /Oppimisen kulttuuri- ja tapahtumakalenteri päiväkodeille, kouluille ja oppilaitoksille/i,
+        name: /Taidetta, kulttuuria ja tapahtumia kouluille ja päiväkodeille/i,
       }).exists
     )
     .ok();
@@ -24,7 +24,7 @@ test('Changing language on events page', async (t) => {
   await t
     .expect(
       screen.queryByRole('heading', {
-        name: /Inlärnings kultur- och evenemang kalender för dagis och skolor/i,
+        name: /Konst, kultur och evenemang för skolor och dagis/i,
       }).exists
     )
     .ok();

@@ -91,8 +91,7 @@ test('renders search form and events list with correct information', async () =>
 
   expect(
     screen.queryByRole('heading', {
-      name:
-        'Oppimisen kulttuuri- ja tapahtumakalenteri päiväkodeille, kouluille ja oppilaitoksille',
+      name: 'Taidetta, kulttuuria ja tapahtumia kouluille ja päiväkodeille',
     })
   ).toBeInTheDocument();
   expect(screen.queryByLabelText('Hae tapahtumia')).toBeInTheDocument();
