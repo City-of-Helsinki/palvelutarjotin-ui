@@ -8,7 +8,6 @@ import PlaceSelectorField from '../../../common/components/form/fields/PlaceSele
 import TextInputField from '../../../common/components/form/fields/TextInputField';
 import { EVENT_LANGUAGES } from '../../../constants';
 import { useTranslation } from '../../../i18n';
-import Container from '../../app/layout/Container';
 import styles from './eventSearchForm.module.scss';
 import { useKeywordOptions } from './useKeywordOptions';
 
@@ -70,7 +69,7 @@ const EventSearchForm = ({
       {({ handleSubmit, values, resetForm }) => {
         return (
           <form className={styles.eventSearchForm} onSubmit={handleSubmit}>
-            <Container className={styles.contentWrapper}>
+            <div className={styles.contentWrapper}>
               <div className={styles.textRow}>
                 <Field
                   hideLabel
@@ -80,7 +79,7 @@ const EventSearchForm = ({
                   placeholder={t('events:search.placeholderText')}
                 />
               </div>
-              <div className={styles.filtersRow}>
+              <div className={styles.filtersRow3}>
                 <Field
                   hideLabel
                   name="targetGroups"
@@ -124,7 +123,7 @@ const EventSearchForm = ({
                   options={additionalCriteriaKeywords}
                 />
               </div>
-              <div className={styles.filtersRow}>
+              <div className={styles.filtersRow4}>
                 <Field
                   hideLabel
                   name="inLanguage"
@@ -180,7 +179,7 @@ const EventSearchForm = ({
                   </Button>
                 </div>
               </div>
-            </Container>
+            </div>
           </form>
         );
       }}
