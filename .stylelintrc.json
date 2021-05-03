@@ -1,7 +1,17 @@
 {
   "extends": "stylelint-config-recommended-scss",
-  "plugins": ["stylelint-no-unused-selectors"],
   "rules": {
-    "plugin/no-unused-selectors": true
+    "selector-pseudo-class-no-unknown": [
+      true,
+      {
+        "ignorePseudoClasses": ["global"]
+      }
+    ],
+    "property-no-unknown": [
+      true,
+      {
+        "ignoreProperties": ["composes", "compose-with"]
+      }
+    ]
   }
 }
