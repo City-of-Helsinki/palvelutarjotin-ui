@@ -19,7 +19,7 @@ const Header: React.FC = () => {
   const toggleMenu = () => setMenuOpen(!menuOpen);
   const closeMenu = () => setMenuOpen(false);
 
-  const navigatinLinksEnabled = false;
+  const navigationLinksEnabled = false;
 
   const getLanguageOptions = (): OptionType[] => {
     return Object.values(SUPPORTED_LANGUAGES).map((language) => ({
@@ -85,7 +85,7 @@ const Header: React.FC = () => {
       logoLanguage={logoLang}
       title={t('common:appName')}
     >
-      {navigatinLinksEnabled && (
+      {navigationLinksEnabled && (
         <Navigation.Row variant="inline">
           {navigationItems.map((item, index) => (
             <Navigation.Item
