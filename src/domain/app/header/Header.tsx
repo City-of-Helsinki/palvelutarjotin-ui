@@ -19,6 +19,8 @@ const Header: React.FC = () => {
   const toggleMenu = () => setMenuOpen(!menuOpen);
   const closeMenu = () => setMenuOpen(false);
 
+  const navigationLinksEnabled = false;
+
   const getLanguageOptions = (): OptionType[] => {
     return Object.values(SUPPORTED_LANGUAGES).map((language) => ({
       label: t(`header:languages:${language}`),
@@ -83,19 +85,21 @@ const Header: React.FC = () => {
       logoLanguage={logoLang}
       title={t('common:appName')}
     >
-      <Navigation.Row variant="inline">
-        {navigationItems.map((item, index) => (
-          <Navigation.Item
-            key={index}
-            active={isTabActive(item.url)}
-            className={styles.navigationItem}
-            href={item.url}
-            label={item.label}
-            onClick={goToPage(item.url)}
-            icon={item.icon}
-          />
-        ))}
-      </Navigation.Row>
+      {navigationLinksEnabled && (
+        <Navigation.Row variant="inline">
+          {navigationItems.map((item, index) => (
+            <Navigation.Item
+              key={index}
+              active={isTabActive(item.url)}
+              className={styles.navigationItem}
+              href={item.url}
+              label={item.label}
+              onClick={goToPage(item.url)}
+              icon={item.icon}
+            />
+          ))}
+        </Navigation.Row>
+      )}
       <Navigation.Actions>
         <Navigation.LanguageSelector
           buttonAriaLabel={t('header:changeLanguage')}

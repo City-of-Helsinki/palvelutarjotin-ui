@@ -10,7 +10,7 @@ test('Changing language on events page', async (t) => {
   await t
     .expect(
       screen.getByRole('heading', {
-        name: /Taidetta, kulttuuria ja tapahtumia kouluille ja päiväkodeille/i,
+        name: /Oppimisen elämyksiä koko kaupungissa/i,
       }).exists
     )
     .ok();
