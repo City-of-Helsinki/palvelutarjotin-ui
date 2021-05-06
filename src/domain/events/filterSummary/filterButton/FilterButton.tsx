@@ -1,7 +1,6 @@
 import classNames from 'classnames';
 import { IconCross } from 'hds-react';
 import React from 'react';
-import { useTranslation } from 'react-i18next';
 
 import styles from './filterButton.module.scss';
 
@@ -15,8 +14,6 @@ interface Props {
 }
 
 const FilterButton: React.FC<Props> = ({ onRemove, text, type, value }) => {
-  const { t } = useTranslation();
-
   const handleRemove = () => {
     onRemove(value, type);
   };
@@ -27,7 +24,7 @@ const FilterButton: React.FC<Props> = ({ onRemove, text, type, value }) => {
         type="button"
         className={styles.closeButton}
         onClick={handleRemove}
-        aria-label="123123123"
+        aria-label={value}
       >
         <IconCross size="s" aria-hidden />
       </button>
