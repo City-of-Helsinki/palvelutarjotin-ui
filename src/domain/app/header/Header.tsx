@@ -22,10 +22,16 @@ const Header: React.FC = () => {
   const navigationLinksEnabled = false;
 
   const getLanguageOptions = (): OptionType[] => {
-    return Object.values(SUPPORTED_LANGUAGES).map((language) => ({
-      label: t(`header:languages:${language}`),
-      value: language,
-    }));
+    const createOptions = (languages: string[]) =>
+      languages.map((language) => ({
+        label: t(`header:languages:${language}`),
+        value: language as string,
+      }));
+
+    if (process.env.NEXT_PUBLIC_LANGUAGE_CIMODE_VISIBLE === 'true') {
+      return createOptions([...Object.values(SUPPORTED_LANGUAGES), 'cimode']);
+    }
+    return createOptions(Object.values(SUPPORTED_LANGUAGES));
   };
 
   const changeLanguage = (newLanguage: OptionType) => () => {
