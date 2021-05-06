@@ -3,7 +3,7 @@ import React, { ReactElement } from 'react';
 
 import LoadingSpinner from '../../common/components/loadingSpinner/LoadingSpinner';
 import { useEventsQuery, EventsQuery } from '../../generated/graphql';
-import { Router, useTranslation } from '../../i18n';
+import { Router } from '../../i18n';
 import getPageNumberFromUrl from '../../utils/getPageNumberFromUrl';
 import Container from '../app/layout/Container';
 import PageWrapper from '../app/layout/PageWrapper';
@@ -23,7 +23,6 @@ import {
 } from './utils';
 
 const EventsPage = (): ReactElement => {
-  const { t } = useTranslation();
   const { query } = useRouter();
   const [isLoadingMore, setIsLoadingMore] = React.useState(false);
 
@@ -36,12 +35,23 @@ const EventsPage = (): ReactElement => {
       EVENT_SORT_OPTIONS.START_TIME) as EVENT_SORT_OPTIONS
   );
 
-  const initialValues = React.useMemo(() => getInitialValues(query), [query]);
-
   const { data: eventsData, fetchMore, loading } = useEventsQuery({
     ssr: false,
     variables: { ...variables, sort },
   });
+
+  const organisationName =
+    eventsData?.events?.data?.filter(
+      (event) => event.pEvent.organisation?.id === query?.organization
+    )[0]?.pEvent.organisation?.name || '';
+
+  const initialValues = React.useMemo(() => {
+    return {
+      ...getInitialValues(query),
+      organisation: organisationName,
+      organisationId: query?.organization,
+    };
+  }, [query, organisationName]);
 
   const eventsWithUpcomingOccurrences = getEventsThatHaveUpcomingOccurrence(
     eventsData

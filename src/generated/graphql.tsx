@@ -716,7 +716,7 @@ export type Event = {
   lastModifiedTime?: Maybe<Scalars['String']>;
   dataSource?: Maybe<Scalars['String']>;
   publisher?: Maybe<Scalars['String']>;
-  location: Place;
+  location?: Maybe<Place>;
   keywords: Array<Keyword>;
   superEvent?: Maybe<IdObject>;
   eventStatus?: Maybe<Scalars['String']>;
@@ -1067,6 +1067,7 @@ export type Mutation = {
   unenrolOccurrence?: Maybe<UnenrolOccurrenceMutationPayload>;
   updateEnrolment?: Maybe<UpdateEnrolmentMutationPayload>;
   approveEnrolment?: Maybe<ApproveEnrolmentMutationPayload>;
+  massApproveEnrolments?: Maybe<MassApproveEnrolmentsMutationPayload>;
   declineEnrolment?: Maybe<DeclineEnrolmentMutationPayload>;
   cancelEnrolment?: Maybe<CancelEnrolmentMutationPayload>;
   createMyProfile?: Maybe<CreateMyProfileMutationPayload>;
@@ -1139,6 +1140,10 @@ export type MutationUpdateEnrolmentArgs = {
 
 export type MutationApproveEnrolmentArgs = {
   input: ApproveEnrolmentMutationInput;
+};
+
+export type MutationMassApproveEnrolmentsArgs = {
+  input: MassApproveEnrolmentsMutationInput;
 };
 
 export type MutationDeclineEnrolmentArgs = {
@@ -1460,6 +1465,18 @@ export type ApproveEnrolmentMutationInput = {
   clientMutationId?: Maybe<Scalars['String']>;
 };
 
+export type MassApproveEnrolmentsMutationPayload = {
+  __typename?: 'MassApproveEnrolmentsMutationPayload';
+  enrolments: Array<Maybe<EnrolmentNode>>;
+  clientMutationId?: Maybe<Scalars['String']>;
+};
+
+export type MassApproveEnrolmentsMutationInput = {
+  enrolmentIds: Array<Maybe<Scalars['ID']>>;
+  customMessage?: Maybe<Scalars['String']>;
+  clientMutationId?: Maybe<Scalars['String']>;
+};
+
 export type DeclineEnrolmentMutationPayload = {
   __typename?: 'DeclineEnrolmentMutationPayload';
   enrolment?: Maybe<EnrolmentNode>;
@@ -1580,7 +1597,7 @@ export type EventMutationResponse = {
 };
 
 export type AddEventMutationInput = {
-  location: IdObjectInput;
+  location?: Maybe<IdObjectInput>;
   keywords: Array<IdObjectInput>;
   superEvent?: Maybe<Scalars['String']>;
   eventStatus?: Maybe<Scalars['String']>;
@@ -1647,7 +1664,7 @@ export type UpdateEventMutation = {
 };
 
 export type UpdateEventMutationInput = {
-  location: IdObjectInput;
+  location?: Maybe<IdObjectInput>;
   keywords: Array<IdObjectInput>;
   superEvent?: Maybe<Scalars['String']>;
   eventStatus?: Maybe<Scalars['String']>;
@@ -1687,7 +1704,7 @@ export type PublishEventMutation = {
 };
 
 export type PublishEventMutationInput = {
-  location: IdObjectInput;
+  location?: Maybe<IdObjectInput>;
   keywords: Array<IdObjectInput>;
   superEvent?: Maybe<Scalars['String']>;
   eventStatus?: Maybe<Scalars['String']>;
@@ -1874,7 +1891,7 @@ export type EventFieldsFragment = { __typename?: 'Event' } & Pick<
     >;
     audience: Array<{ __typename?: 'Keyword' } & KeywordFieldsFragment>;
     keywords: Array<{ __typename?: 'Keyword' } & KeywordFieldsFragment>;
-    location: { __typename?: 'Place' } & PlaceFieldsFragment;
+    location?: Maybe<{ __typename?: 'Place' } & PlaceFieldsFragment>;
     venue?: Maybe<{ __typename?: 'VenueNode' } & VenueFieldsFragment>;
     additionalCriteria: Array<
       { __typename?: 'Keyword' } & KeywordFieldsFragment
@@ -1914,7 +1931,14 @@ export type EventsFieldsFragment = { __typename?: 'Event' } & Pick<
     pEvent: { __typename?: 'PalvelutarjotinEventNode' } & Pick<
       PalvelutarjotinEventNode,
       'id' | 'nextOccurrenceDatetime'
-    >;
+    > & {
+        organisation?: Maybe<
+          { __typename?: 'OrganisationNode' } & Pick<
+            OrganisationNode,
+            'id' | 'name'
+          >
+        >;
+      };
     inLanguage: Array<
       { __typename?: 'InLanguage' } & Pick<InLanguage, 'id' | 'internalId'> & {
           name?: Maybe<
@@ -1924,7 +1948,7 @@ export type EventsFieldsFragment = { __typename?: 'Event' } & Pick<
     >;
     audience: Array<{ __typename?: 'Keyword' } & KeywordFieldsFragment>;
     keywords: Array<{ __typename?: 'Keyword' } & KeywordFieldsFragment>;
-    location: { __typename?: 'Place' } & PlaceFieldsFragment;
+    location?: Maybe<{ __typename?: 'Place' } & PlaceFieldsFragment>;
   };
 
 export type EventsQueryVariables = Exact<{
@@ -2522,6 +2546,10 @@ export const EventsFieldsFragmentDoc = gql`
     pEvent {
       id
       nextOccurrenceDatetime
+      organisation {
+        id
+        name
+      }
     }
     inLanguage {
       id

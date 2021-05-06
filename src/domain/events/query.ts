@@ -31,6 +31,10 @@ export const QUERY_EVENTS = gql`
     pEvent {
       id
       nextOccurrenceDatetime
+      organisation {
+        id
+        name
+      }
     }
     inLanguage {
       id

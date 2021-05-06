@@ -8,6 +8,7 @@ import PlaceSelectorField from '../../../common/components/form/fields/PlaceSele
 import TextInputField from '../../../common/components/form/fields/TextInputField';
 import { EVENT_LANGUAGES } from '../../../constants';
 import { useTranslation } from '../../../i18n';
+import FilterSummary from '../filterSummary/FilterSummary';
 import styles from './eventSearchForm.module.scss';
 import { useKeywordOptions } from './useKeywordOptions';
 
@@ -20,6 +21,7 @@ export type EventSearchFormValues = {
   date: Date | null;
   endDate: Date | null;
   places: string[];
+  organisation?: string;
 };
 
 const defaultInitialValues: EventSearchFormValues = {
@@ -31,6 +33,7 @@ const defaultInitialValues: EventSearchFormValues = {
   date: null,
   endDate: null,
   places: [],
+  organisation: '',
 };
 
 interface Props {
@@ -165,6 +168,7 @@ const EventSearchForm = ({
                 >
                   {t('events:search.buttonSearch')}
                 </Button>
+                <FilterSummary filters={initialValues} />
                 <div className={styles.clearButtonWrapper}>
                   <Button
                     onClick={() => {

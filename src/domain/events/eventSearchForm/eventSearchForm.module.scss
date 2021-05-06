@@ -59,8 +59,8 @@
   display: grid;
   color: var(--color-white);
 
-  @include respond_above(sm) {
-    grid-template-columns: 180px auto;
+  @include respond_above(md) {
+    grid-template-columns: 180px 1fr auto;
   }
 
   .clearButtonWrapper {
@@ -73,7 +73,7 @@
       }
     }
 
-    @include respond_above(sm) {
+    @include respond_above(md) {
       text-align: right;
       margin-left: var(--spacing-s);
     }
