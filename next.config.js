@@ -4,6 +4,7 @@ const localeSubpaths = {
   fi: 'fi',
   en: 'en',
   sv: 'sv',
+  cimode: 'cimode'
 };
 
 module.exports = {
