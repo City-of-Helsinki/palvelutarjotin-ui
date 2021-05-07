@@ -1,7 +1,11 @@
 import { Footer } from 'hds-react';
 import React from 'react';
 
-import { FEEDBACK_LINKS, PRIVACY_POLICY_LINKS } from '../../../constants';
+import {
+  FEEDBACK_LINKS,
+  PRIVACY_POLICY_LINKS,
+  PROVIDER_UI_LINKS,
+} from '../../../constants';
 import useLocale from '../../../hooks/useLocale';
 import { useTranslation } from '../../../i18n';
 import styles from './footer.module.scss';
@@ -22,6 +26,13 @@ const FooterSection = (): React.ReactElement => {
         copyrightHolder={t('footer:copyrightText')}
         copyrightText={t('footer:allRightsReservedText')}
       >
+        <Footer.Item
+          as={'a'}
+          href={PROVIDER_UI_LINKS[locale]}
+          label={t('common:providerUI')}
+          target="_blank"
+          rel="noopener noreferrer"
+        />
         <Footer.Item
           as={'a'}
           href={PRIVACY_POLICY_LINKS[locale]}

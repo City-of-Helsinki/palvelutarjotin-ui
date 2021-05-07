@@ -34,3 +34,9 @@ export const FEEDBACK_LINKS = {
   en: 'https://www.hel.fi/helsinki/en/administration/participate/feedback',
   sv: 'https://www.hel.fi/helsinki/sv/stad-och-forvaltning/delta/feedback',
 };
+
+export const PROVIDER_UI_LINKS = {
+  fi: 'https://provider.kultus.fi',
+  en: 'https://provider.kultus.fi/en',
+  sv: 'https://provider.kultus.fi/sv',
+};
