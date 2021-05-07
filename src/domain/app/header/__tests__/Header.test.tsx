@@ -1,4 +1,4 @@
-import { render, findAllByText, queryAllByText } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import React from 'react';
 import { Provider } from 'react-redux';
 
@@ -29,13 +29,13 @@ describe('cimode in language selector', () => {
 
   test('cimode is rendered in a list of languages when feature flag is on', async () => {
     process.env.NEXT_PUBLIC_LANGUAGE_CIMODE_VISIBLE = 'true';
-    const { container } = render(<Header />);
-    await findAllByText(container, /CIMODE/);
+    render(<Header />);
+    await screen.findAllByText(/CIMODE/);
   });
 
   test('cimode is not rendered in a list of languages when feature flag is off', async () => {
     process.env.NEXT_PUBLIC_LANGUAGE_CIMODE_VISIBLE = 'false';
-    const { container } = render(<Header />);
-    expect(queryAllByText(container, /CIMODE/).length).toBe(0);
+    render(<Header />);
+    expect(screen.queryAllByText(/CIMODE/).length).toBe(0);
   });
 });
