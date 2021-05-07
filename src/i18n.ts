@@ -10,7 +10,7 @@ const NextI18NextInstance = new NextI18Next({
   defaultLanguage: 'fi',
   ignoreRoutes: ['/healthz', '/readiness', '/_next', '/static', '/favicon.ico'],
   localeSubpaths: publicRuntimeConfig.localeSubpaths,
-  otherLanguages: ['en', 'sv'],
+  otherLanguages: ['en', 'sv', 'cimode'],
   localePath: path.resolve('./public/static/locales'),
 });
 
