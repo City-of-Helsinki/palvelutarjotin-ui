@@ -24,8 +24,8 @@ const EventBasicInfo: React.FC<EventBasicInfoProps> = ({ event }) => {
     eventName,
     shortDescription,
     isEventFree,
-    organization,
-    organizationId,
+    organisation,
+    organisationId,
     contactEmail,
     contactPerson,
     contactPhoneNumber,
@@ -57,12 +57,12 @@ const EventBasicInfo: React.FC<EventBasicInfoProps> = ({ event }) => {
             </a>
           </div>
         )}
-        {organization && organizationId && (
+        {organisation && organisationId && (
           <div>
             <IconFaceSmile />
-            <OrganizationInfo
-              organization={organization}
-              organizationId={organizationId}
+            <OrganisationInfo
+              organisation={organisation}
+              organisationId={organisationId}
               contactEmail={contactEmail}
               contactPerson={contactPerson}
               contactPhoneNumber={contactPhoneNumber}
@@ -74,27 +74,27 @@ const EventBasicInfo: React.FC<EventBasicInfoProps> = ({ event }) => {
   );
 };
 
-const OrganizationInfo: React.FC<{
-  organizationId: string;
-  organization: string;
+const OrganisationInfo: React.FC<{
+  organisationId: string;
+  organisation: string;
   contactEmail?: string;
   contactPerson?: string;
   contactPhoneNumber?: string;
 }> = ({
-  organization,
-  organizationId,
+  organisation,
+  organisationId,
   contactEmail,
   contactPerson,
   contactPhoneNumber,
 }) => {
   const { t } = useTranslation();
-  const organizationSearchUrl = `/?organization=${organizationId}`;
+  const organisationSearchUrl = `/?organisation=${organisationId}`;
   return (
     <div>
-      <p className={styles.organization}>{organization}</p>
-      <p className={styles.organizationLink}>
-        <Link href={organizationSearchUrl} passHref>
-          {t('event:organization.showAllOrganizationEvents')}
+      <p className={styles.organisation}>{organisation}</p>
+      <p className={styles.organisationLink}>
+        <Link href={organisationSearchUrl} passHref>
+          {t('event:organisation.showAllOrganisationEvents')}
         </Link>
       </p>
       {contactPerson && (
