@@ -22,6 +22,8 @@ export type EventSearchFormValues = {
   endDate: Date | null;
   places: string[];
   organisation?: string;
+  organization?: string;
+  organisationId?: string;
 };
 
 const defaultInitialValues: EventSearchFormValues = {
@@ -34,6 +36,8 @@ const defaultInitialValues: EventSearchFormValues = {
   endDate: null,
   places: [],
   organisation: '',
+  organization: '',
+  organisationId: '',
 };
 
 interface Props {
