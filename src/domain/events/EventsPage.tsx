@@ -43,14 +43,14 @@ const EventsPage = (): ReactElement => {
 
   const organisationName =
     eventsData?.events?.data?.filter(
-      (event) => event.pEvent.organisation?.id === query?.organization
+      (event) => event.pEvent.organisation?.id === query?.organisation
     )[0]?.pEvent.organisation?.name || '';
 
   const initialValues = React.useMemo(() => {
     return {
       ...getInitialValues(query),
       organisation: organisationName,
-      organisationId: query?.organization as string,
+      organisationId: query?.organisation as string,
     };
   }, [query, organisationName]);
 
@@ -59,8 +59,7 @@ const EventsPage = (): ReactElement => {
   );
 
   const search = (values: EventSearchFormValues) => {
-    values = { ...values, organization: values.organisationId };
-    delete values.organisation;
+    values = { ...values, organisation: values.organisationId };
     delete values.organisationId;
 
     Router.push({

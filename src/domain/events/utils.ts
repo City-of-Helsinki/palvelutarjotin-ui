@@ -46,7 +46,7 @@ export const getEventFilterVariables = (
   start: getDateString(query.date) || 'now',
   end: getDateString(query.endDate),
   location: getTextFromDict(query, 'places', undefined),
-  organisationId: getTextFromDict(query, 'organization', undefined),
+  organisationId: getTextFromDict(query, 'organisation', undefined),
   ...options,
 });
 

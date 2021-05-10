@@ -40,7 +40,7 @@ import {
   OccurrenceSeatType,
 } from '../generated/graphql';
 
-const organizationNames = [
+const organisationNames = [
   'Kulttuuri- ja vapaa-aikalautakunnan kulttuurijaosto',
   'Kulttuurin ja vapaa-ajan toimiala',
 ];
@@ -378,7 +378,7 @@ export const fakeOrganisation = (
   overrides: Partial<OrganisationNode> = {}
 ): OrganisationNode => ({
   id: faker.random.uuid(),
-  name: faker.random.arrayElement(organizationNames) as string,
+  name: faker.random.arrayElement(organisationNames) as string,
   // avoid infinite recursion
   persons: overrides.persons || fakePersons(5),
   phoneNumber: faker.phone.phoneNumber(),
