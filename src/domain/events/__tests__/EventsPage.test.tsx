@@ -1,5 +1,5 @@
 import { MockedResponse } from '@apollo/react-testing';
-import { advanceTo } from 'jest-date-mock';
+import { advanceTo, clear } from 'jest-date-mock';
 import React from 'react';
 import wait from 'waait';
 
@@ -78,6 +78,10 @@ const mocks: MockedResponse[] = [
     },
   },
 ];
+
+afterEach(() => {
+  clear();
+});
 
 test('renders search form and events list with correct information', async () => {
   advanceTo(testDate);
