@@ -1,4 +1,8 @@
 {
+  "pageMeta": {
+    "description": "Learning experiences around the city! Arts, culture, and events for daycare and schools.",
+    "keywords": "Culture, cultural path, events, cultural education, art education, cultural heritage education, multiliteracy, moving, environmental education, excursion, audience development, art"
+  },
   "eventList": {
     "buttonLoadMore": "Show more",
     "count": "{{count}} pcs",

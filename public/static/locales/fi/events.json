@@ -1,4 +1,8 @@
 {
+  "pageMeta": {
+    "description": "Oppimisen elämyksiä koko kaupungissa! Taidetta, kulttuuria ja tapahtumia päiväkodeille ja kouluille.",
+    "keywords": "Kulttuuri, kulttuuripolku, tapahtumat, kulttuurikasvatus, taidekasvatus, kulttuuriperintökasvatus, monilukutaito, liikkuminen, ympäristökasvatus, retki, yleisötyö, taide"
+  },
   "eventList": {
     "buttonLoadMore": "Näytä lisää",
     "count": "{{count}} kpl",
