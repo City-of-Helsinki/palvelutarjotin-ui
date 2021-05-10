@@ -1,9 +1,10 @@
+import Head from 'next/head';
 import { useRouter } from 'next/router';
 import React, { ReactElement } from 'react';
 
 import LoadingSpinner from '../../common/components/loadingSpinner/LoadingSpinner';
 import { useEventsQuery, EventsQuery } from '../../generated/graphql';
-import { Router } from '../../i18n';
+import { Router, useTranslation } from '../../i18n';
 import getPageNumberFromUrl from '../../utils/getPageNumberFromUrl';
 import Container from '../app/layout/Container';
 import PageWrapper from '../app/layout/PageWrapper';
@@ -107,6 +108,7 @@ const EventsPage = (): ReactElement => {
 
   return (
     <PageWrapper>
+      <EventsPageMeta />
       <BannerHero>
         <Container>
           <EventSearchForm
@@ -133,6 +135,28 @@ const EventsPage = (): ReactElement => {
         </LoadingSpinner>
       </Container>
     </PageWrapper>
+  );
+};
+
+const EventsPageMeta: React.FC = () => {
+  const { t } = useTranslation();
+  const title = 'Kultus beta';
+  const description = t('events:pageMeta.description');
+
+  const openGraphProperties: { [key: string]: string } = {
+    description,
+    title,
+  };
+
+  return (
+    <Head>
+      <title>{title}</title>
+      <meta name="description" content={description} />
+      <meta name="keywords" content={t('events:pageMeta.keywords')} />
+      {Object.entries(openGraphProperties).map(([property, value]) => (
+        <meta key={property} property={`og:${property}`} content={value} />
+      ))}
+    </Head>
   );
 };
 

@@ -1,4 +1,8 @@
 {
+  "pageMeta": {
+    "description": "Upplevelser av att lära sig runt om i stan! Konst, kultur och evenemang för skolor och daghem.",
+    "keywords": "Kultur, kulturstigen, evenemang, kulturfostran, konstfostran, kulturarvsfostran, multilitteracitet, idrott, miljöfostran, utfärd, publikarbete, konst"
+  },
   "eventList": {
     "buttonLoadMore": "Visa mer",
     "count": "{{count}} st",
