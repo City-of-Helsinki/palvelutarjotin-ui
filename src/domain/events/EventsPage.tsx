@@ -50,7 +50,7 @@ const EventsPage = (): ReactElement => {
     return {
       ...getInitialValues(query),
       organisation: organisationName,
-      organisationId: query?.organization,
+      organisationId: query?.organization as string,
     };
   }, [query, organisationName]);
 
@@ -59,6 +59,10 @@ const EventsPage = (): ReactElement => {
   );
 
   const search = (values: EventSearchFormValues) => {
+    values = { ...values, organization: values.organisationId };
+    delete values.organisation;
+    delete values.organisationId;
+
     Router.push({
       pathname: ROUTES.HOME,
       query: getSearchQueryObject(values),
