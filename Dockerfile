@@ -71,7 +71,7 @@ COPY --chown=appuser:appuser next.config.js /app/
 COPY --chown=appuser:appuser public package.json yarn.lock /app/
 
 # Install production dependencies
-RUN yarn install --production
+RUN yarn install --production --frozen-lockfile && yarn cache clean --force
 
 # Copy public folder
 COPY --chown=appuser:appuser public /app/public
