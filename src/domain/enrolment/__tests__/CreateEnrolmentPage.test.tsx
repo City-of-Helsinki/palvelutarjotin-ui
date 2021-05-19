@@ -61,6 +61,14 @@ const occurencesEnrolTimeEnded: Partial<OccurrenceNode>[] = [
   { id: 'sdfgdfhbf345345yreg' },
 ];
 
+const occurrencesCancelled: Partial<OccurrenceNode>[] = [
+  {
+    id: occurrenceId1,
+    startTime: new Date(2020, 9, 10, 12, 30),
+    cancelled: true,
+  },
+];
+
 const occurencesEnrolSameTimes: Partial<OccurrenceNode>[] = [
   { id: occurrenceId1, startTime: new Date(2020, 8, 25, 12, 30) },
   { id: occurrenceId2, startTime: new Date(2020, 8, 25, 12, 30) },
@@ -77,6 +85,13 @@ const pageMockEnrolTimeEnded = createPageMock({
   enrolmentStart: new Date(2020, 8, 7).toISOString(),
   enrolmentEndDays: 3,
   occurrences: fakeOccurrences(3, occurencesEnrolTimeEnded),
+  neededOccurrences: 2,
+});
+
+const pageMockOccurrenceCanceled = createPageMock({
+  enrolmentStart: new Date(2020, 8, 7).toISOString(),
+  enrolmentEndDays: 3,
+  occurrences: fakeOccurrences(1, occurrencesCancelled),
   neededOccurrences: 2,
 });
 
@@ -183,6 +198,23 @@ test('renders enrolment has ended text', async () => {
   await screen.findByText(eventName);
   await screen.findByText('Ilmoittautuminen päättynyt');
   await screen.findByText('Tapahtuman ilmoittautuminen on päättynyt');
+
+  expect(
+    screen.queryByRole('heading', { name: /ilmoittajan tiedot/i })
+  ).not.toBeInTheDocument();
+});
+
+test('renders occurrence is cancelled text', async () => {
+  render(<CreateEnrolmentPage />, {
+    mocks: pageMockOccurrenceCanceled,
+    query: { eventId: eventId, occurrences: occurrenceIds },
+  });
+
+  await screen.findByRole('heading', { name: 'Ilmoittaudu tapahtumaan' });
+  await screen.findByText(eventName);
+  const cancelledTexts = await screen.findAllByText('Tapahtuma on peruttu');
+
+  expect(cancelledTexts).toHaveLength(2);
 
   expect(
     screen.queryByRole('heading', { name: /ilmoittajan tiedot/i })

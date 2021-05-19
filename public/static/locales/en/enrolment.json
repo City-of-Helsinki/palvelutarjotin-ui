@@ -50,6 +50,7 @@
     "label": {
       "enrolmentClosedError": "Registration ended",
       "enrolmentNotStartedError": "Registration has not opened",
+      "enrolmentCancelledError": "Occurrence is cancelled",
       "invalidOccurrenceAmountError": "Invalid amount of event times is selected",
       "notEnoughCapacityError": "The event is full",
       "enrolmentStartsAt": "Enrolments start {{date}} at {{time}}"
@@ -57,6 +58,7 @@
     "text": {
       "enrolmentClosedError": "Event registration has ended",
       "enrolmentNotStartedError": "Registration for the event has not yet opened",
+      "enrolmentCancelledError": "Occurrence has been cancelled",
       "invalidOccurrenceAmountError": "{{count}} event time has to be selected",
       "invalidOccurrenceAmountError_plural": "{{count}} event times have to be selected",
       "notEnoughCapacityError": "There are no more seats available for the event"

@@ -21,6 +21,10 @@ export const hasOccurrenceSpace = (
   }
 };
 
+export const isOccurrenceCancelled = (
+  occurrence: OccurrenceFieldsFragment
+): boolean => occurrence.cancelled;
+
 export const getAmountOfSeatsLeft = (
   occurrence: OccurrenceFieldsFragment
 ): number => {

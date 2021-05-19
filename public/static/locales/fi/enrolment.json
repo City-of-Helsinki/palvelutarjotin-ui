@@ -50,6 +50,7 @@
     "label": {
       "enrolmentClosedError": "Ilmoittautuminen päättynyt",
       "enrolmentNotStartedError": "Ilmoitautuminen ei ole avautunut",
+      "enrolmentCancelledError": "Tapahtuma on peruttu",
       "invalidOccurrenceAmountError": "Virheellinen määrä tapahtuma-aikoja valittuna",
       "notEnoughCapacityError": "Tapahtuma on täynnä",
       "enrolmentStartsAt": "Ilmoittautuminen alkaa {{date}} klo {{time}}"
@@ -57,6 +58,7 @@
     "text": {
       "enrolmentClosedError": "Tapahtuman ilmoittautuminen on päättynyt",
       "enrolmentNotStartedError": "Tapahtuman ilmoittautuminen ei ole vielä avautunut",
+      "enrolmentCancelledError": "Tapahtuma on peruttu",
       "invalidOccurrenceAmountError": "{{count}} tapahtuma-aika tulee olla valittuna",
       "invalidOccurrenceAmountError_plural": "{{count}} tapahtuma-aikaa tulee olla valittuna",
       "notEnoughCapacityError": "Tapahtumaan ei ole enää vapaita paikkoja"

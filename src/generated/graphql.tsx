@@ -456,6 +456,7 @@ export type PersonNode = Node & {
   occurrences: OccurrenceNodeConnection;
   studygroupSet: StudyGroupNodeConnection;
   enrolmentSet: EnrolmentNodeConnection;
+  isStaff: Scalars['Boolean'];
 };
 
 export type PersonNodeOrganisationsArgs = {
@@ -2064,6 +2065,7 @@ export type OccurrenceFieldsFragment = { __typename?: 'OccurrenceNode' } & Pick<
   | 'remainingSeats'
   | 'minGroupSize'
   | 'maxGroupSize'
+  | 'cancelled'
   | 'startTime'
   | 'endTime'
   | 'placeId'
@@ -2362,6 +2364,7 @@ export const OccurrenceFieldsFragmentDoc = gql`
         }
       }
     }
+    cancelled
     startTime
     endTime
     placeId
