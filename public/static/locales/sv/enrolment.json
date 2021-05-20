@@ -50,6 +50,7 @@
     "label": {
       "enrolmentClosedError": "Registreringen avslutades",
       "enrolmentNotStartedError": "Registreringen har inte öppnats",
+      "enrolmentCancelledError": "Förekomst avbryts",
       "invalidOccurrenceAmountError": "Ogiltig mängd evenemangtider väljs",
       "notEnoughCapacityError": "Evenemang är full",
       "enrolmentStartsAt": "Registreringen börjar {{date}} kl. {{time}}"
@@ -57,6 +58,7 @@
     "text": {
       "enrolmentClosedError": "Registrering av evenemang har avslutats",
       "enrolmentNotStartedError": "Anmälan till evenemanget har ännu inte öppnats",
+      "enrolmentCancelledError": "Förekomst avbryts",
       "invalidOccurrenceAmountError": "{{count}} evenemangtid måste väljas",
       "invalidOccurrenceAmountError_plural": "{{count}} evenemangtided måste väljas",
       "notEnoughCapacityError": "Det finns inga fler platser tillgängliga för evenemanget"

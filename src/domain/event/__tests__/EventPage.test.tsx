@@ -104,7 +104,12 @@ const eventData: Partial<Event> = {
         placeId: data.placeId,
         id: data.placeId3,
       },
-      { startTime: '2020-07-20T09:00:00+00:00', placeId: data.placeId },
+      // cancelled event
+      {
+        startTime: '2020-07-20T09:00:00+00:00',
+        placeId: data.placeId,
+        cancelled: true,
+      },
       { startTime: '2020-07-21T09:00:00+00:00', placeId: data.placeId },
       { startTime: '2020-07-22T09:00:00+00:00', placeId: data.placeId },
       // full event
@@ -194,8 +199,6 @@ const apolloMocks = [
   createVenueQueryMock({ id: data.placeId, ...venueData }),
 ];
 
-const rowText = `27.07.2020 ma 12:00 – 12:30 ${data.placeName} 30 / 30 Ilmoittaudu`;
-
 advanceTo(new Date(2020, 6, 14));
 
 const renderComponent = (options?: CustomRenderOptions) => {
@@ -229,20 +232,24 @@ it('shows full events correctly in occurrences list', async () => {
   await waitForRequestsToComplete();
 
   const fullOccurrenceRowText1 =
-    '23.07.2020 to 12:00 – 12:30 Soukan kirjasto 0 / 1 Tapahtuma on täynnä';
+    '23.07.2020 to12:00 – 12:30Soukan kirjasto0 / 1Tapahtuma on täynnä';
   const fullOccurrenceRowText2 =
-    '29.07.2020 ke 12:00 – 12:30 Soukan kirjasto 0 / 30 Tapahtuma on täynnä';
+    '29.07.2020 ke12:00 – 12:30Soukan kirjasto0 / 30Tapahtuma on täynnä';
 
-  expect(
-    screen.queryByRole('row', {
-      name: fullOccurrenceRowText1,
-    })
-  ).toBeInTheDocument();
-  expect(
-    screen.queryByRole('row', {
-      name: fullOccurrenceRowText2,
-    })
-  ).toBeInTheDocument();
+  const tableRows = screen.queryAllByRole('row');
+  expect(tableRows[7]).toHaveTextContent(fullOccurrenceRowText1);
+  expect(tableRows[10]).toHaveTextContent(fullOccurrenceRowText2);
+});
+
+it('shows cancelled events correctly in list', async () => {
+  renderComponent();
+  await waitForRequestsToComplete();
+
+  const cancelledOccurrenceRowText =
+    '20.07.2020 ma12:00 – 12:30Soukan kirjasto30 / 30Tapahtuma on peruttu';
+
+  const tableRows = screen.queryAllByRole('row');
+  expect(tableRows[4]).toHaveTextContent(cancelledOccurrenceRowText);
 });
 
 it('renders page and event information correctly', async () => {
@@ -352,14 +359,10 @@ it('renders occurrences table and related stuff correctly', async () => {
     ).toBeInTheDocument();
   });
 
-  const occurrences = within(screen.getByTestId('occurrences-section'));
+  const rowText = `27.07.2020 ma12:00 – 12:30${data.placeName}30 / 30Ilmoittaudu`;
 
-  // might be too slow test
-  expect(
-    occurrences.getByRole('row', {
-      name: rowText,
-    })
-  ).toBeInTheDocument();
+  const tableRows = screen.getAllByRole('row');
+  expect(tableRows[8]).toHaveTextContent(rowText);
 });
 
 it('selecting enrolments works and buttons have correct texts', async () => {
@@ -433,7 +436,7 @@ it('selecting enrolments works and buttons have correct texts', async () => {
         name: getSelectedOccurrencesButtonText(3, data.neededOccurrences),
       })
       .filter((button) => button.hasAttribute('disabled'))
-  ).toHaveLength(6);
+  ).toHaveLength(5);
 
   const originalRouter = i18nRouter.push;
   i18nRouter.push = jest.fn();
@@ -454,11 +457,7 @@ it('opens expanded area when clicked', async () => {
   renderComponent();
   await waitForRequestsToComplete();
 
-  const occurrenceRow = within(
-    screen.getByRole('row', {
-      name: rowText,
-    })
-  );
+  const occurrenceRow = within(screen.getAllByRole('row')[8]);
 
   const expandButton = occurrenceRow.getByRole('button', {
     name: occurrenceMessages.showOccurrenceDetails,
@@ -582,6 +581,7 @@ describe('refetch of event works correctly', () => {
       ).toBeInTheDocument();
     });
   });
+
   it('shows inquire registration button when no autoacceptance', async () => {
     render(<EventPage />, {
       mocks: [

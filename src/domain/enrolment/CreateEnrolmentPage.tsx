@@ -24,6 +24,7 @@ import {
   hasOccurrenceSpace,
   isEnrolmentClosed,
   isEnrolmentStarted,
+  isOccurrenceCancelled,
 } from '../occurrence/utils';
 import { ENROLMENT_URL_PARAMS, ENROLMENT_ERRORS } from './constants';
 import {
@@ -144,6 +145,8 @@ const CreateEnrolmentPage: React.FC = () => {
       return ENROLMENT_ERRORS.ENROLMENT_CLOSED_ERROR;
     if (filteredOccurrences.some((o) => !hasOccurrenceSpace(o)))
       return ENROLMENT_ERRORS.NOT_ENOUGH_CAPACITY_ERROR;
+    if (filteredOccurrences.some((o) => isOccurrenceCancelled(o)))
+      return ENROLMENT_ERRORS.ENROLMENT_CANCDELLED_ERROR;
     if (neededOccurrences !== filteredOccurrences.length)
       return ENROLMENT_ERRORS.INVALID_OCCURRENCE_AMOUNT_ERROR;
     return null;

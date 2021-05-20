@@ -31,6 +31,7 @@ import {
   hasOccurrenceSpace,
   isEnrolmentClosed,
   isEnrolmentStarted,
+  isOccurrenceCancelled,
 } from '../../occurrence/utils';
 import PlaceInfo, { PlaceInfoLinks } from '../../place/placeInfo/PlaceInfo';
 import PlaceText from '../../place/placeText/PlaceText';
@@ -281,6 +282,7 @@ const EnrolmentButtonCell: React.FC<{
   const locale = useLocale();
   const { t } = useTranslation();
   const { autoAcceptance } = getEventFields(event, locale);
+
   const getEnrolmentError = (
     occurrence: OccurrenceFieldsFragment,
     event: EventFieldsFragment
@@ -289,6 +291,9 @@ const EnrolmentButtonCell: React.FC<{
       return ENROLMENT_ERRORS.ENROLMENT_CLOSED_ERROR;
     if (!hasOccurrenceSpace(occurrence))
       return ENROLMENT_ERRORS.NOT_ENOUGH_CAPACITY_ERROR;
+    if (isOccurrenceCancelled(occurrence)) {
+      return ENROLMENT_ERRORS.ENROLMENT_CANCDELLED_ERROR;
+    }
     return null;
   };
 
@@ -313,6 +318,7 @@ const EnrolmentButtonCell: React.FC<{
     selectedOccurrences?.length === neededOccurrences &&
     !selectedOccurrences?.includes(value.id);
   const isSelectedOccurrence = selectedOccurrences?.includes(value.id);
+
   if (neededOccurrences === 1) {
     const buttonText = t(
       `event:occurrenceList.${
@@ -356,7 +362,6 @@ const EnrolmentButtonCell: React.FC<{
         (isSelectedOccurrence ? deselectOccurrence : selectOccurrence)(value.id)
       }
       style={{ width: enrolButtonColumnWidth }}
-      className={styles[autoAcceptance ? 'enrolButton' : 'enquiryButton']}
       disabled={selectionDisabled}
     >
       {buttonText}

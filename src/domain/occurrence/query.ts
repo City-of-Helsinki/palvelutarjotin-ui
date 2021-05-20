@@ -24,6 +24,7 @@ export const QUERY_OCCURRENCE = gql`
         }
       }
     }
+    cancelled
     startTime
     endTime
     placeId
