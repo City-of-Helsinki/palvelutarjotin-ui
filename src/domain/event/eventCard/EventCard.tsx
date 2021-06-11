@@ -23,7 +23,10 @@ const EventCard: React.FC<Props> = ({ event, link }) => {
 
   const id = event.id;
   const name = getLocalisedString(event.name, locale);
-  const description = getLocalisedString(event.description || {}, locale);
+  const shortDescription = getLocalisedString(
+    event.shortDescription || {},
+    locale
+  );
   const image = event.images[0]?.url;
   const time = getEventStartTimeStr(event, locale, t);
 
@@ -47,7 +50,7 @@ const EventCard: React.FC<Props> = ({ event, link }) => {
         <div className={styles.contentWrapper}>
           <div className={styles.titleWrapper}>
             <div className={styles.title}>{name}</div>
-            <div className={styles.description}>{description}</div>
+            <div className={styles.description}>{shortDescription}</div>
           </div>
           <div className={styles.occurrenceInfoWrapper}>
             <div className={styles.textWithIcon}>
