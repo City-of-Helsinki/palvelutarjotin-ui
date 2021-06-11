@@ -27,7 +27,7 @@ const fakeKeywords = [
 const eventMocks: Partial<Event>[] = [
   {
     name: fakeLocalizedObject('Testitapahtuma 1'),
-    description: fakeLocalizedObject('Tapahtuman kuvaus 1'),
+    shortDescription: fakeLocalizedObject('Tapahtuman lyhytkuvaus 1'),
     pEvent: fakePEvent({
       nextOccurrenceDatetime: new Date(2020, 8, 20, 10, 30).toISOString(),
       lastOccurrenceDatetime: '',
@@ -36,7 +36,7 @@ const eventMocks: Partial<Event>[] = [
   },
   {
     name: fakeLocalizedObject('Testitapahtuma 2'),
-    description: fakeLocalizedObject('Tapahtuman kuvaus 2'),
+    shortDescription: fakeLocalizedObject('Tapahtuman lyhytkuvaus 2'),
     pEvent: fakePEvent({
       nextOccurrenceDatetime: new Date(2020, 9, 21, 10, 20).toISOString(),
       lastOccurrenceDatetime: '',
@@ -45,7 +45,7 @@ const eventMocks: Partial<Event>[] = [
   },
   {
     name: fakeLocalizedObject('Testitapahtuma 3'),
-    description: fakeLocalizedObject('Tapahtuman kuvaus 3'),
+    shortDescription: fakeLocalizedObject('Tapahtuman lyhytkuvaus 3'),
     pEvent: fakePEvent({
       nextOccurrenceDatetime: new Date(2020, 10, 22, 12, 40).toISOString(),
       lastOccurrenceDatetime: '',
@@ -118,11 +118,11 @@ test('renders search form and events list with correct information', async () =>
     if (!event?.name?.fi) {
       throw new Error('Event name is missing');
     }
-    if (!event?.description?.fi) {
+    if (!event?.shortDescription?.fi) {
       throw new Error('Event description is missing');
     }
     expect(screen.queryByText(event.name.fi)).toBeInTheDocument();
-    expect(screen.queryByText(event.description.fi)).toBeInTheDocument();
+    expect(screen.queryByText(event.shortDescription.fi)).toBeInTheDocument();
   });
 
   fakeKeywords.forEach((keyword) => {
