@@ -1,8 +1,11 @@
-import { getDataFromTree } from '@apollo/react-ssr';
-import { InMemoryCache, NormalizedCacheObject } from 'apollo-cache-inmemory';
-import { ApolloClient } from 'apollo-client';
-import { ApolloLink } from 'apollo-link';
-import { HttpLink } from 'apollo-link-http';
+import {
+  ApolloClient,
+  InMemoryCache,
+  NormalizedCacheObject,
+  ApolloLink,
+  HttpLink,
+} from '@apollo/client';
+import { getDataFromTree } from '@apollo/client/react/ssr';
 import withApollo from 'next-with-apollo';
 
 import { IS_CLIENT } from '../../../constants';
@@ -15,18 +18,7 @@ const createApolloClient = (
     uri: process.env.NEXT_PUBLIC_API_BASE_URL,
   });
 
-  const cache = new InMemoryCache({
-    cacheRedirects: {
-      Query: {
-        keyword: (_, args, { getCacheKey }) =>
-          getCacheKey({ __typename: 'Keyword', id: args.id }),
-        place: (_, args, { getCacheKey }) =>
-          getCacheKey({ __typename: 'Place', id: args.id }),
-        venue: (_, args, { getCacheKey }) =>
-          getCacheKey({ __typename: 'VenueNode', id: args.id }),
-      },
-    },
-  }).restore(initialState || {});
+  const cache = createApolloCache().restore(initialState || {});
 
   return new ApolloClient({
     ssrMode: !IS_CLIENT, // Disables forceFetch on the server (so queries are only run once)
@@ -35,6 +27,54 @@ const createApolloClient = (
     cache,
   });
 };
+
+const excludeArgs = (excludedArgs: string[]) => (
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  args: Record<string, any> | null
+) =>
+  args
+    ? Object.keys(args).filter((key: string) => !excludedArgs.includes(key))
+    : false;
+
+export const createApolloCache = (): InMemoryCache =>
+  new InMemoryCache({
+    typePolicies: {
+      Query: {
+        fields: {
+          keyword(_, { args, toReference }) {
+            return toReference({
+              __typename: 'Keyword',
+              id: args?.id,
+            });
+          },
+          place(_, { args, toReference }) {
+            return toReference({
+              __typename: 'Place',
+              id: args?.id,
+            });
+          },
+          venue(_, { args, toReference }) {
+            return toReference({
+              __typename: 'VenueNode',
+              id: args?.id,
+            });
+          },
+          events: {
+            // Only ignore page argument in caching to get fetchMore pagination working correctly
+            // Other args are needed to separate different serch queries to separate caches
+            // Docs: https://www.apollographql.com/docs/react/pagination/key-args/
+            keyArgs: excludeArgs(['page']),
+            merge(existing, incoming) {
+              return {
+                data: [...(existing?.data ?? []), ...incoming.data],
+                meta: incoming.meta,
+              };
+            },
+          },
+        },
+      },
+    },
+  });
 
 /**
  * Always creates a new apollo client on the server

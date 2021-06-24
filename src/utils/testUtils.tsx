@@ -1,4 +1,4 @@
-import { MockedProvider, MockedResponse } from '@apollo/react-testing';
+import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { AnyAction, Store } from '@reduxjs/toolkit';
 import { render, RenderResult, fireEvent } from '@testing-library/react';
 import * as router from 'next/router';
@@ -6,6 +6,7 @@ import { NextRouter } from 'next/router';
 import React from 'react';
 import { Provider } from 'react-redux';
 
+import { createApolloCache } from '../domain/app/apollo/configureApollo';
 import { store as reduxStore } from '../domain/app/store';
 
 export const arrowUpKeyPressHelper = (): boolean =>
@@ -34,7 +35,7 @@ const customRender: CustomRender = (
 
   const Wrapper: React.FC = ({ children }) => (
     <Provider store={store}>
-      <MockedProvider mocks={mocks}>
+      <MockedProvider mocks={mocks} cache={createApolloCache()}>
         {children as React.ReactElement}
       </MockedProvider>
     </Provider>

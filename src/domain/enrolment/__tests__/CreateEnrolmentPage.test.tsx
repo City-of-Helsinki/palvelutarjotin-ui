@@ -1,4 +1,4 @@
-import { MockedResponse } from '@apollo/react-testing';
+import { MockedResponse } from '@apollo/client/testing';
 import { axe } from 'jest-axe';
 import { advanceTo } from 'jest-date-mock';
 import React from 'react';
@@ -36,6 +36,7 @@ const occurrenceId2 = '321123';
 const occurrenceIds = [occurrenceId1, occurrenceId2];
 const eventName = 'Testitapahtuma';
 const locationId = 'locationId';
+const locationName = 'Kirjasto';
 
 configure({ defaultHidden: true });
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -48,7 +49,11 @@ const createPageMock = (
   createEventQueryMock({
     id: eventId,
     name: fakeLocalizedObject(eventName),
-    location: fakePlace(locationId ? { id: locationId } : {}),
+    location: fakePlace(
+      locationId
+        ? { id: locationId, name: fakeLocalizedObject(locationName) }
+        : {}
+    ),
     pEvent: fakePEvent(pEventOverrides),
   }),
   createStudyLevelsQueryMock(),
@@ -106,7 +111,7 @@ const PageMockEnrolTimeNotStarted: MockedResponse[] = createPageMock({
 const PageMockWithSelectedPlace: MockedResponse[] = [
   createPlaceQueryMock({
     id: locationId,
-    name: fakeLocalizedObject('Kirjasto'),
+    name: fakeLocalizedObject(locationName),
   }),
   ...createPageMock(
     {

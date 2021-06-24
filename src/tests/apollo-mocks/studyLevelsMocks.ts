@@ -1,4 +1,4 @@
-import { MockedResponse } from '@apollo/react-testing';
+import { MockedResponse } from '@apollo/client/testing';
 
 import { StudyLevelsDocument } from '../../generated/graphql';
 import { fakeStudyLevels } from '../../utils/mockDataUtils';

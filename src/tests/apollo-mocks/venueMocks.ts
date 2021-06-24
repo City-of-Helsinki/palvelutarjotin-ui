@@ -1,7 +1,7 @@
-import { MockedResponse } from '@apollo/react-testing';
+import { MockedResponse } from '@apollo/client/testing';
 
 import { VenueDocument, VenueNode } from '../../generated/graphql';
-import { fakePlace, fakeVenue } from '../../utils/mockDataUtils';
+import { fakeVenue } from '../../utils/mockDataUtils';
 
 export const createVenueQueryMock = (
   overrides: Partial<VenueNode> & { id: VenueNode['id'] }

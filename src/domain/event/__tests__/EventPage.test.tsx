@@ -75,7 +75,10 @@ const eventData: Partial<Event> = {
   name: fakeLocalizedObject(data.name),
   description: fakeLocalizedObject(data.description),
   shortDescription: fakeLocalizedObject(data.shortDescription),
-  location: fakePlace({ id: data.placeId }),
+  location: fakePlace({
+    id: data.placeId,
+    name: fakeLocalizedObject(data.placeName),
+  }),
   pEvent: fakePEvent({
     enrolmentEndDays: 1,
     enrolmentStart: '2020-07-13T06:00:00+00:00',

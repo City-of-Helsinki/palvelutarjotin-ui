@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import React, { ReactElement } from 'react';
 
 import LoadingSpinner from '../../common/components/loadingSpinner/LoadingSpinner';
-import { useEventsQuery, EventsQuery } from '../../generated/graphql';
+import { useEventsQuery } from '../../generated/graphql';
 import { Router, useTranslation } from '../../i18n';
 import getPageNumberFromUrl from '../../utils/getPageNumberFromUrl';
 import Container from '../app/layout/Container';
@@ -87,17 +87,6 @@ const EventsPage = (): ReactElement => {
       try {
         setIsLoadingMore(true);
         await fetchMore({
-          updateQuery: (prev: EventsQuery, { fetchMoreResult }) => {
-            if (!fetchMoreResult?.events) {
-              return prev;
-            }
-
-            const prevEvents = prev.events?.data || [];
-            const newEvents = fetchMoreResult.events?.data || [];
-            fetchMoreResult.events.data = [...prevEvents, ...newEvents];
-
-            return fetchMoreResult;
-          },
           variables: {
             page: nextPage,
           },
