@@ -2,7 +2,7 @@
 
 exports[`Container matches snapshot 1`] = `
 <div
-  class="container"
+  class="container default"
 >
   <div>
     Container children

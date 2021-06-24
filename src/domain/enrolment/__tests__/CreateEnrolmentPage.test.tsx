@@ -294,9 +294,7 @@ test('renders form and user can fill it and submit', async () => {
   userEvent.type(screen.getByRole('textbox', { name: /ryhmä/i }), '4a');
 
   // select grade from dropdown
-  userEvent.click(
-    screen.getByRole('button', { name: /luokka-aste \* valitse\.\.\./i })
-  );
+  userEvent.click(screen.getByRole('button', { name: /luokka-aste \*/i }));
 
   userEvent.click(screen.getByRole('option', { name: /4\. luokka/i }));
   userEvent.click(screen.getByRole('option', { name: /2\. luokka/i }));
@@ -313,7 +311,7 @@ test('renders form and user can fill it and submit', async () => {
   userEvent.click(screen.getByRole('checkbox', { name: /sähköpostilla/i }));
   userEvent.click(screen.getByText(/tekstiviestillä/i));
 
-  userEvent.click(screen.getByRole('button', { name: /suomi/ }));
+  userEvent.click(screen.getByRole('button', { name: /Ilmoitusten kieli/ }));
   userEvent.click(screen.getByRole('option', { name: /suomi/i }));
 
   userEvent.type(

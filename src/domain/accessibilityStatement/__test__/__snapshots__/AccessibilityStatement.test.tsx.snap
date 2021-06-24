@@ -5,7 +5,7 @@ exports[`matches snapshot 1`] = `
   <div>
     <main>
       <div
-        class="container"
+        class="container default"
       >
         <div>
           <div
