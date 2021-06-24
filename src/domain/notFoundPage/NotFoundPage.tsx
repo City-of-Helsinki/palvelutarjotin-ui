@@ -1,6 +1,6 @@
+import { useTranslation } from 'next-i18next';
 import React, { ReactElement } from 'react';
 
-import { useTranslation } from '../../i18n';
 import ErrorPage from '../errorPage/ErrorPage';
 
 const NotFoundPage = (): ReactElement => {

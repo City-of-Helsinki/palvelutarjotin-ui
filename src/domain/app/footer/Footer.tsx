@@ -1,4 +1,5 @@
 import { Footer } from 'hds-react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import {
@@ -7,12 +8,7 @@ import {
   PROVIDER_UI_LINKS,
 } from '../../../constants';
 import useLocale from '../../../hooks/useLocale';
-import { useTranslation } from '../../../i18n';
 import styles from './footer.module.scss';
-
-interface Props {
-  isMobileMenuOpen?: boolean;
-}
 
 const FooterSection = (): React.ReactElement => {
   const { t } = useTranslation();

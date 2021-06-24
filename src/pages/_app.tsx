@@ -8,17 +8,17 @@ import {
   MatomoProvider,
 } from '@datapunt/matomo-tracker-react';
 import * as Sentry from '@sentry/browser';
-import flow from 'lodash/flow';
+import { appWithTranslation } from 'next-i18next';
 import App from 'next/app';
 import React, { ErrorInfo } from 'react';
 import { Provider } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
 
+import nextI18nextConfig from '../../next-i18next.config';
 import '../assets/styles/main.scss';
 import withApollo from '../domain/app/apollo/configureApollo';
 import PageLayout from '../domain/app/layout/PageLayout';
 import { store } from '../domain/app/store';
-import { appWithTranslation, i18n } from '../i18n';
 import FocusToTop from './FocusToTop';
 
 interface Props {
@@ -41,13 +41,12 @@ const matomoInstance = createMatomoInstance({
 class MyApp extends App<Props> {
   componentDidMount() {
     // Change <html>'s language on languageChanged event
-    i18n.on('languageChanged', (lang) => {
-      const html = document.querySelector('html');
-
-      if (html) {
-        html.setAttribute('lang', lang);
-      }
-    });
+    // i18n.on('languageChanged', (lang: string) => {
+    //   const html = document.querySelector('html');
+    //   if (html) {
+    //     html.setAttribute('lang', lang);
+    //   }
+    // });
   }
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
@@ -57,7 +56,7 @@ class MyApp extends App<Props> {
       Sentry.captureException(error);
     });
 
-    super.componentDidCatch(error, errorInfo);
+    super.componentDidCatch?.(error, errorInfo);
   }
 
   render() {
@@ -68,10 +67,7 @@ class MyApp extends App<Props> {
         <Provider store={store}>
           <MatomoProvider value={matomoInstance}>
             <FocusToTop />
-            <PageLayout
-              {...pageProps}
-              namespacesRequired={['common', 'footer']}
-            >
+            <PageLayout {...pageProps}>
               <Component {...pageProps} />
             </PageLayout>
             <ToastContainer position="bottom-right" />
@@ -82,4 +78,4 @@ class MyApp extends App<Props> {
   }
 }
 
-export default flow(withApollo, appWithTranslation)(MyApp);
+export default appWithTranslation(withApollo(MyApp) as any, nextI18nextConfig);

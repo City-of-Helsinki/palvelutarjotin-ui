@@ -9,6 +9,7 @@ import {
   IconGlyphEuro,
 } from 'hds-react';
 import capitalize from 'lodash/capitalize';
+import { useTranslation } from 'next-i18next';
 import Link from 'next/link';
 import React from 'react';
 
@@ -19,7 +20,6 @@ import {
   OccurrenceFieldsFragment,
 } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
-import { useTranslation } from '../../../i18n';
 import formatDate from '../../../utils/formatDate';
 import formatTimeRange from '../../../utils/formatTimeRange';
 import { translateValue } from '../../../utils/translateUtils';

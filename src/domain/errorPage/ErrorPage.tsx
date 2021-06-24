@@ -1,7 +1,8 @@
 import { Button, IconInfoCircle } from 'hds-react';
+import { useTranslation } from 'next-i18next';
+import { useRouter } from 'next/router';
 import React from 'react';
 
-import { Router, useTranslation } from '../../i18n';
 import Container from '../app/layout/Container';
 import { ROUTES } from '../app/routes/constants';
 import styles from './errorPage.module.scss';
@@ -11,9 +12,10 @@ const ErrorPage: React.FC<{ title?: string; description?: string }> = ({
   description,
 }) => {
   const { t } = useTranslation();
+  const router = useRouter();
 
   const goToFrontPage = () => {
-    Router.push(ROUTES.HOME);
+    router.push(ROUTES.HOME);
   };
 
   return (

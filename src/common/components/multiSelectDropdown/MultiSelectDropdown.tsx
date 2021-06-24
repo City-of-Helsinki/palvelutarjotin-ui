@@ -1,9 +1,9 @@
 import classNames from 'classnames';
 import { IconAngleDown, IconAngleUp, IconSearch, Checkbox } from 'hds-react';
+import { useTranslation } from 'next-i18next';
 import React, { ReactNode } from 'react';
 
 import useKeyboardNavigation from '../../../hooks/useDropdownKeyboardNavigation';
-import { useTranslation } from '../../../i18n';
 import ScrollIntoViewWithFocus from '../scrollIntoViewWithFocus/ScrollIntoViewWithFocus';
 import SearchLabel from '../search/searchLabel/SearchLabel';
 import DropdownMenu from './DropdownMenu';

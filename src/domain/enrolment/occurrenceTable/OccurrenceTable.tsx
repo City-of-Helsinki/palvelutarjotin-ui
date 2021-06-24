@@ -1,10 +1,10 @@
 import { Notification } from 'hds-react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import Table from '../../../common/components/table/Table';
 import { OccurrenceFieldsFragment } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
-import { useTranslation } from '../../../i18n';
 import formatDate from '../../../utils/formatDate';
 import formatTimeRange from '../../../utils/formatTimeRange';
 import { getAmountOfSeatsLeft } from '../../occurrence/utils';

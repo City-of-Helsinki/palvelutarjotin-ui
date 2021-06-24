@@ -1,6 +1,6 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
-import { useTranslation } from '../../../i18n';
 import styles from './dropdownMenu.module.scss';
 
 interface Props {

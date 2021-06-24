@@ -1,5 +1,6 @@
 import { Button, IconArrowLeft, Notification } from 'hds-react';
 import omit from 'lodash/omit';
+import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { toast } from 'react-toastify';
@@ -11,7 +12,6 @@ import {
   OccurrenceSeatType,
 } from '../../generated/graphql';
 import useLocale from '../../hooks/useLocale';
-import { Router, useTranslation } from '../../i18n';
 import assertUnreachable from '../../utils/assertUnreachable';
 import { translateValue } from '../../utils/translateUtils';
 import Container from '../app/layout/Container';
@@ -40,9 +40,10 @@ import { getEnrolmentPayload, getCAPTCHAToken } from './utils';
 const CreateEnrolmentPage: React.FC = () => {
   const { t } = useTranslation();
   const locale = useLocale();
+  const router = useRouter();
   const {
     query: { eventId, occurrences },
-  } = useRouter();
+  } = router;
 
   const { data: eventData, loading } = useEventQuery({
     variables: {
@@ -55,7 +56,7 @@ const CreateEnrolmentPage: React.FC = () => {
   const [enrolOccurrence] = useEnrolOccurrenceMutation();
 
   const goToEventPage = () => {
-    Router.push(ROUTES.EVENT_DETAILS.replace(':id', eventId as string));
+    router.push(ROUTES.EVENT_DETAILS.replace(':id', eventId as string));
   };
 
   const event = eventData?.event;
@@ -119,10 +120,10 @@ const CreateEnrolmentPage: React.FC = () => {
           },
         },
       });
-      Router.push({
+      router.push({
         pathname: ROUTES.EVENT_DETAILS.replace(':id', eventId as string),
         query: {
-          ...omit(Router.query, [
+          ...omit(router.query, [
             ENROLMENT_URL_PARAMS.EVENT_ID,
             ENROLMENT_URL_PARAMS.OCCURRENCES,
           ]),

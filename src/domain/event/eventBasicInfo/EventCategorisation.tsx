@@ -1,8 +1,8 @@
+import { useTranslation } from 'next-i18next';
 import * as React from 'react';
 
 import { EventFieldsFragment } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
-import { useTranslation } from '../../../i18n';
 import keywordArrayToText from '../../../utils/keywordArrayToText';
 import { getEventFields, getRealKeywords } from '../utils';
 import styles from './eventBasicInfo.module.scss';

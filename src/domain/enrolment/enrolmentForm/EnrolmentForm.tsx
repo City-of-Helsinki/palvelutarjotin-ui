@@ -1,6 +1,7 @@
 import { Formik, Field, useFormikContext } from 'formik';
 import { Button, Notification } from 'hds-react';
 import isEmpty from 'lodash/isEmpty';
+import { useTranslation } from 'next-i18next';
 import React, { useEffect } from 'react';
 
 import ErrorMessage from '../../../common/components/form/ErrorMessage';
@@ -14,7 +15,6 @@ import FormGroup from '../../../common/components/form/FormGroup';
 import { PRIVACY_POLICY_LINKS } from '../../../constants';
 import { Language } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
-import { useTranslation } from '../../../i18n';
 import keyify from '../../../utils/keyify';
 import { translateValue } from '../../../utils/translateUtils';
 import Container from '../../app/layout/Container';

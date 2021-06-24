@@ -1,10 +1,11 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import { IconLocation } from 'hds-react';
+import { useTranslation } from 'next-i18next';
+import Link from 'next/link';
 import React from 'react';
 
 import { EventsFieldsFragment } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
-import { useTranslation, Link } from '../../../i18n';
 import IconClock from '../../../icons/IconClock';
 import getLocalisedString from '../../../utils/getLocalisedString';
 import PlaceText from '../../place/placeText/PlaceText';

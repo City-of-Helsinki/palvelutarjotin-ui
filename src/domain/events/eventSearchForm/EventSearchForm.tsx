@@ -1,5 +1,6 @@
 import { Field, Formik } from 'formik';
 import { Button, IconSearch, IconPen } from 'hds-react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import DateInputField from '../../../common/components/form/fields/DateInputField';
@@ -7,7 +8,6 @@ import MultiDropdownField from '../../../common/components/form/fields/MultiDrop
 import PlaceSelectorField from '../../../common/components/form/fields/PlaceSelectorField';
 import TextInputField from '../../../common/components/form/fields/TextInputField';
 import { EVENT_LANGUAGES } from '../../../constants';
-import { useTranslation } from '../../../i18n';
 import FilterSummary from '../filterSummary/FilterSummary';
 import styles from './eventSearchForm.module.scss';
 import { useKeywordOptions } from './useKeywordOptions';
