@@ -9,7 +9,7 @@ import {
 } from '@datapunt/matomo-tracker-react';
 import * as Sentry from '@sentry/browser';
 import { appWithTranslation } from 'next-i18next';
-import App from 'next/app';
+import { AppProps } from 'next/dist/next-server/lib/router/router';
 import React, { ErrorInfo } from 'react';
 import { Provider } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
@@ -19,6 +19,7 @@ import '../assets/styles/main.scss';
 import withApollo from '../domain/app/apollo/configureApollo';
 import PageLayout from '../domain/app/layout/PageLayout';
 import { store } from '../domain/app/store';
+import useLocale from '../hooks/useLocale';
 import FocusToTop from './FocusToTop';
 
 interface Props {
@@ -38,31 +39,18 @@ const matomoInstance = createMatomoInstance({
   siteId: Number(process.env.NEXT_PUBLIC_MATOMO_SITE_ID),
 });
 
-class MyApp extends App<Props> {
-  componentDidMount() {
-    // Change <html>'s language on languageChanged event
-    // i18n.on('languageChanged', (lang: string) => {
-    //   const html = document.querySelector('html');
-    //   if (html) {
-    //     html.setAttribute('lang', lang);
-    //   }
-    // });
-  }
+const MyApp = ({ Component, pageProps, apollo }: AppProps & Props) => {
+  const locale = useLocale();
 
-  componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    Sentry.withScope((scope) => {
-      scope.setExtra('componentStack', errorInfo.componentStack);
+  React.useEffect(() => {
+    const html = document.querySelector('html');
+    if (html) {
+      html.setAttribute('lang', locale);
+    }
+  }, [locale]);
 
-      Sentry.captureException(error);
-    });
-
-    super.componentDidCatch?.(error, errorInfo);
-  }
-
-  render() {
-    const { apollo, Component, pageProps } = this.props;
-
-    return (
+  return (
+    <ErrorBoundary>
       <ApolloProvider client={apollo}>
         <Provider store={store}>
           <MatomoProvider value={matomoInstance}>
@@ -74,8 +62,25 @@ class MyApp extends App<Props> {
           </MatomoProvider>
         </Provider>
       </ApolloProvider>
-    );
+    </ErrorBoundary>
+  );
+};
+
+class ErrorBoundary extends React.Component {
+  componentDidCatch(error: Error, errorInfo: ErrorInfo) {
+    Sentry.withScope((scope) => {
+      scope.setExtra('componentStack', errorInfo.componentStack);
+
+      Sentry.captureException(error);
+    });
+
+    super.componentDidCatch?.(error, errorInfo);
+  }
+
+  render() {
+    return this.props.children;
   }
 }
 
-export default appWithTranslation(withApollo(MyApp) as any, nextI18nextConfig);
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export default withApollo(appWithTranslation(MyApp as any, nextI18nextConfig));

@@ -1,13 +1,26 @@
+import { GetServerSideProps } from 'next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import React from 'react';
 
-import { COMMON_I18N_NAMESPACES } from '../../../../constants';
+import {
+  COMMON_I18N_NAMESPACES,
+  DEFAULT_LANGUAGE,
+} from '../../../../constants';
 import CreateEnrolmentPage from '../../../../domain/enrolment/CreateEnrolmentPage';
 import { RouteComponent } from '../../../../types';
 
-const Event: RouteComponent = () => <CreateEnrolmentPage />;
+const CreateEnrolment: RouteComponent = () => <CreateEnrolmentPage />;
 
-Event.getInitialProps = async () => ({
-  namespacesRequired: [...COMMON_I18N_NAMESPACES, 'enrolment', 'form'],
-});
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale ?? DEFAULT_LANGUAGE, [
+        ...COMMON_I18N_NAMESPACES,
+        'enrolment',
+        'form',
+      ])),
+    },
+  };
+};
 
-export default Event;
+export default CreateEnrolment;
