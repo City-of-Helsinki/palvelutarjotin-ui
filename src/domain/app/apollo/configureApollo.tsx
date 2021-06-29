@@ -9,7 +9,6 @@ import { getDataFromTree } from '@apollo/client/react/ssr';
 import withApollo from 'next-with-apollo';
 
 import { IS_CLIENT } from '../../../constants';
-let apolloClient: ApolloClient<NormalizedCacheObject> | null = null;
 
 const createApolloClient = (
   initialState: NormalizedCacheObject = {}
@@ -28,13 +27,15 @@ const createApolloClient = (
   });
 };
 
-const excludeArgs = (excludedArgs: string[]) => (
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  args: Record<string, any> | null
-) =>
-  args
-    ? Object.keys(args).filter((key: string) => !excludedArgs.includes(key))
-    : false;
+const excludeArgs =
+  (excludedArgs: string[]) =>
+  (
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    args: Record<string, any> | null
+  ) =>
+    args
+      ? Object.keys(args).filter((key: string) => !excludedArgs.includes(key))
+      : false;
 
 export const createApolloCache = (): InMemoryCache =>
   new InMemoryCache({
@@ -76,28 +77,9 @@ export const createApolloCache = (): InMemoryCache =>
     },
   });
 
-/**
- * Always creates a new apollo client on the server
- * Creates or reuses apollo client in the browser.
- */
-const initApolloClient = (
-  initialState?: NormalizedCacheObject
-): ApolloClient<NormalizedCacheObject> => {
-  // Make sure to create a new client for every server-side request so that data
-  // isn't shared between connections (which would be bad)
-  if (!IS_CLIENT) {
-    return createApolloClient(initialState);
-  }
-
-  // Reuse client on the client-side
-  if (!apolloClient) {
-    apolloClient = createApolloClient(initialState);
-  }
-
-  return apolloClient;
-};
-
 export default withApollo(
-  ({ initialState }) => initApolloClient(initialState),
-  { getDataFromTree }
+  ({ initialState }) => createApolloClient(initialState),
+  {
+    getDataFromTree,
+  }
 );

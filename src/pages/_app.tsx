@@ -22,9 +22,11 @@ import { store } from '../domain/app/store';
 import useLocale from '../hooks/useLocale';
 import FocusToTop from './FocusToTop';
 
-interface Props {
+interface ApolloProps {
   apollo: ApolloClient<NormalizedCacheObject>;
 }
+
+type MyAppProps = AppProps & ApolloProps;
 
 if (process.env.NODE_ENV === 'production') {
   Sentry.init({
@@ -39,7 +41,7 @@ const matomoInstance = createMatomoInstance({
   siteId: Number(process.env.NEXT_PUBLIC_MATOMO_SITE_ID),
 });
 
-const MyApp = ({ Component, pageProps, apollo }: AppProps & Props) => {
+const MyApp = ({ Component, pageProps, apollo }: MyAppProps) => {
   const locale = useLocale();
 
   React.useEffect(() => {

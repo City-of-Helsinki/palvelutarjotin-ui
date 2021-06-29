@@ -1,11 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import userEvent from '@testing-library/user-event';
 import { advanceTo } from 'jest-date-mock';
+import { RouterContext } from 'next-server/dist/lib/router-context';
 import React from 'react';
 
-import enrolmentMessages from '../../../../public/static/locales/fi/enrolment.json';
-import eventMessages from '../../../../public/static/locales/fi/event.json';
-import occurrenceMessages from '../../../../public/static/locales/fi/occurrence.json';
+import enrolmentMessages from '../../../../public/locales/fi/enrolment.json';
+import eventMessages from '../../../../public/locales/fi/event.json';
+import occurrenceMessages from '../../../../public/locales/fi/occurrence.json';
 import {
   Language,
   OccurrenceSeatType,
@@ -14,7 +15,7 @@ import {
   NotificationType,
 } from '../../../generated/graphql';
 import * as graphqlFuncs from '../../../generated/graphql';
-import { Router as i18nRouter } from '../../../i18n';
+// import { Router as i18nRouter } from '../../../i18n';
 import { createEventQueryMockIncludeLanguageAndAudience } from '../../../tests/apollo-mocks/eventMocks';
 import { createPlaceQueryMock } from '../../../tests/apollo-mocks/placeMocks';
 import { createVenueQueryMock } from '../../../tests/apollo-mocks/venueMocks';
@@ -624,8 +625,8 @@ describe('refetch of event works correctly', () => {
   });
 
   it('does not render organisation section when organisation is not given', async () => {
-    const eventWithoutOrganisationMock = createEventQueryMockIncludeLanguageAndAudience(
-      {
+    const eventWithoutOrganisationMock =
+      createEventQueryMockIncludeLanguageAndAudience({
         ...eventData,
         id: data.id,
         pEvent: fakePEvent({
@@ -635,8 +636,7 @@ describe('refetch of event works correctly', () => {
             name: '',
           }),
         }),
-      }
-    );
+      });
     const [, ...mocks] = apolloMocks;
 
     render(<EventPage />, {
