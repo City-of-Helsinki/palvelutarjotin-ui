@@ -101,7 +101,8 @@ const CreateEnrolmentPage: React.FC = () => {
           }
         })
       ),
-      isMandatoryAdditionalInformationRequired: !!isMandatoryAdditionalInformationRequired,
+      isMandatoryAdditionalInformationRequired:
+        !!isMandatoryAdditionalInformationRequired,
     }),
     [filteredOccurrences, locale, isMandatoryAdditionalInformationRequired]
   );

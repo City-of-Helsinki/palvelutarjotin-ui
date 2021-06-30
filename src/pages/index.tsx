@@ -1,23 +1,14 @@
-import { GetServerSideProps } from 'next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+/* eslint-disable @typescript-eslint/no-require-imports */
+import { NextPage, NextPageContext } from 'next';
 import React from 'react';
 
-import { COMMON_I18N_NAMESPACES, DEFAULT_LANGUAGE } from '../constants';
+import withApollo from '../domain/app/apollo/configureApollo';
 import EventsPage from '../domain/events/EventsPage';
-import { RouteComponent } from '../types';
+import getLocalizationProps from '../utils/getLocalizationProps';
 
-const Events: RouteComponent = () => <EventsPage />;
+const Events: NextPage = () => <EventsPage />;
 
-export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
-  return {
-    props: {
-      ...(await serverSideTranslations(locale ?? DEFAULT_LANGUAGE, [
-        ...COMMON_I18N_NAMESPACES,
-        'events',
-        'event',
-      ])),
-    },
-  };
-};
+Events.getInitialProps = async ({ locale }: NextPageContext) =>
+  getLocalizationProps(locale);
 
-export default Events;
+export default withApollo(Events);

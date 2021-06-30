@@ -1,26 +1,13 @@
-import { GetServerSideProps } from 'next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { NextPage, NextPageContext } from 'next';
 import React from 'react';
 
-import { COMMON_I18N_NAMESPACES, DEFAULT_LANGUAGE } from '../../../constants';
+import withApollo from '../../../domain/app/apollo/configureApollo';
 import EventPage from '../../../domain/event/EventPage';
-import { RouteComponent } from '../../../types';
+import getLocalizationProps from '../../../utils/getLocalizationProps';
 
-const Event: RouteComponent = () => <EventPage />;
+const Event: NextPage = () => <EventPage />;
 
-export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
-  return {
-    props: {
-      ...(await serverSideTranslations(locale ?? DEFAULT_LANGUAGE, [
-        ...COMMON_I18N_NAMESPACES,
-        'event',
-        'events',
-        'enrolment',
-        'form',
-        'occurrence',
-      ])),
-    },
-  };
-};
+Event.getInitialProps = async ({ locale }: NextPageContext) =>
+  getLocalizationProps(locale);
 
-export default Event;
+export default withApollo(Event);

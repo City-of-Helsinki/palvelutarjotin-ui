@@ -37,7 +37,11 @@ const EventsPage = (): ReactElement => {
       EVENT_SORT_OPTIONS.START_TIME) as EVENT_SORT_OPTIONS
   );
 
-  const { data: eventsData, fetchMore, loading } = useEventsQuery({
+  const {
+    data: eventsData,
+    fetchMore,
+    loading,
+  } = useEventsQuery({
     ssr: false,
     variables: { ...variables, sort },
   });
@@ -55,9 +59,8 @@ const EventsPage = (): ReactElement => {
     };
   }, [router.query, organisationName]);
 
-  const eventsWithUpcomingOccurrences = getEventsThatHaveUpcomingOccurrence(
-    eventsData
-  );
+  const eventsWithUpcomingOccurrences =
+    getEventsThatHaveUpcomingOccurrence(eventsData);
 
   const search = (values: EventSearchFormValues) => {
     values = { ...values, organisation: values.organisationId };

@@ -1,26 +1,13 @@
-import { GetServerSideProps } from 'next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { NextPage, NextPageContext } from 'next';
 import React from 'react';
 
-import {
-  COMMON_I18N_NAMESPACES,
-  DEFAULT_LANGUAGE,
-} from '../../../../constants';
+import withApollo from '../../../../domain/app/apollo/configureApollo';
 import CreateEnrolmentPage from '../../../../domain/enrolment/CreateEnrolmentPage';
-import { RouteComponent } from '../../../../types';
+import getLocalizationProps from '../../../../utils/getLocalizationProps';
 
-const CreateEnrolment: RouteComponent = () => <CreateEnrolmentPage />;
+const CreateEnrolment: NextPage = () => <CreateEnrolmentPage />;
 
-export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
-  return {
-    props: {
-      ...(await serverSideTranslations(locale ?? DEFAULT_LANGUAGE, [
-        ...COMMON_I18N_NAMESPACES,
-        'enrolment',
-        'form',
-      ])),
-    },
-  };
-};
+CreateEnrolment.getInitialProps = async ({ locale }: NextPageContext) =>
+  getLocalizationProps(locale);
 
-export default CreateEnrolment;
+export default withApollo(CreateEnrolment);

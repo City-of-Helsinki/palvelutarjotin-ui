@@ -17,7 +17,16 @@ export enum EVENT_LANGUAGES {
 
 export const DEFAULT_LANGUAGE = SUPPORTED_LANGUAGES.FI;
 
-export const COMMON_I18N_NAMESPACES = ['common', 'footer', 'header'];
+export const ALL_I18N_NAMESPACES = [
+  'common',
+  'footer',
+  'header',
+  'enrolment',
+  'event',
+  'events',
+  'form',
+  'occurrence',
+];
 
 export const PRIVACY_POLICY_LINKS = {
   fi: 'https://www.hel.fi/static/liitteet/kanslia/rekisteriselosteet/Kuva/Kuva-EU-Palvelutarjotin.pdf',

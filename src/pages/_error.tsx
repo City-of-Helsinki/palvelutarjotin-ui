@@ -1,13 +1,12 @@
+import { NextPage, NextPageContext } from 'next';
 import React from 'react';
 
-import { COMMON_I18N_NAMESPACES } from '../constants';
 import NotFoundPage from '../domain/notFoundPage/NotFoundPage';
-import { RouteComponent } from '../types';
+import getLocalizationProps from '../utils/getLocalizationProps';
 
-const Error: RouteComponent = () => <NotFoundPage />;
+const Error: NextPage = () => <NotFoundPage />;
 
-Error.getInitialProps = async () => ({
-  namespacesRequired: [...COMMON_I18N_NAMESPACES],
-});
+Error.getInitialProps = async ({ locale }: NextPageContext) =>
+  getLocalizationProps(locale);
 
 export default Error;

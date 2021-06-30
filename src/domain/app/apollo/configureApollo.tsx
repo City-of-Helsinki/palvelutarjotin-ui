@@ -4,6 +4,7 @@ import {
   NormalizedCacheObject,
   ApolloLink,
   HttpLink,
+  ApolloProvider,
 } from '@apollo/client';
 import { getDataFromTree } from '@apollo/client/react/ssr';
 import withApollo from 'next-with-apollo';
@@ -81,5 +82,12 @@ export default withApollo(
   ({ initialState }) => createApolloClient(initialState),
   {
     getDataFromTree,
+    render: ({ Page, props }) => {
+      return (
+        <ApolloProvider client={props.apollo}>
+          <Page {...props} />
+        </ApolloProvider>
+      );
+    },
   }
 );

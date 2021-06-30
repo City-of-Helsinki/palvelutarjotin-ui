@@ -8,5 +8,8 @@ module.exports = {
     locales: ['fi', 'en', 'sv', 'cimode'],
     use: [intervalPlural],
     serializeConfig: false,
+    react: {
+      useSuspense: false,
+    },
   },
 };
