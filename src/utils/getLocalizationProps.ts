@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
 
-import { ALL_I18N_NAMESPACES } from '../constants';
+import { ALL_I18N_NAMESPACES, SUPPORTED_LANGUAGES } from '../constants';
 
 type NextI18NextProps = {
   _nextI18Next: {
@@ -31,15 +31,19 @@ const getLocalizationProps = (
 
   return {
     _nextI18Next: {
-      initialI18nStore: {
-        [locale]: ALL_I18N_NAMESPACES.reduce(
-          (prev, namespace) => ({
-            ...prev,
-            [namespace]: require(`../../public/locales/${locale}/${namespace}.json`),
-          }),
-          {}
-        ),
-      },
+      initialI18nStore: Object.values(SUPPORTED_LANGUAGES).reduce(
+        (prev, locale) => ({
+          ...prev,
+          [locale]: ALL_I18N_NAMESPACES.reduce(
+            (prev, namespace) => ({
+              ...prev,
+              [namespace]: require(`../../public/locales/${locale}/${namespace}.json`),
+            }),
+            {}
+          ),
+        }),
+        {}
+      ),
       initialLocale: locale,
       userConfig: null,
     },
