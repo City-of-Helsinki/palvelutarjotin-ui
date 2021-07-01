@@ -1,11 +1,13 @@
-import { ApolloProvider } from '@apollo/react-hooks';
+import {
+  ApolloClient,
+  ApolloProvider,
+  NormalizedCacheObject,
+} from '@apollo/client';
 import {
   createInstance as createMatomoInstance,
   MatomoProvider,
 } from '@datapunt/matomo-tracker-react';
 import * as Sentry from '@sentry/browser';
-import { NormalizedCacheObject } from 'apollo-cache-inmemory';
-import { ApolloClient } from 'apollo-client';
 import flow from 'lodash/flow';
 import App from 'next/app';
 import React, { ErrorInfo } from 'react';

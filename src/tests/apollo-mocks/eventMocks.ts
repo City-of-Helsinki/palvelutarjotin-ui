@@ -1,4 +1,4 @@
-import { MockedResponse } from '@apollo/react-testing';
+import { MockedResponse } from '@apollo/client/testing';
 
 import { Event, EventDocument } from '../../generated/graphql';
 import { fakeEvent } from '../../utils/mockDataUtils';

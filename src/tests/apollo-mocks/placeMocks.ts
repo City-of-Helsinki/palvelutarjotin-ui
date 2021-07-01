@@ -1,4 +1,4 @@
-import { MockedResponse } from '@apollo/react-testing';
+import { MockedResponse } from '@apollo/client/testing';
 
 import { Place, PlaceDocument } from '../../generated/graphql';
 import { fakePlace } from '../../utils/mockDataUtils';

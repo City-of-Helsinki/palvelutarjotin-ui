@@ -1,4 +1,4 @@
-import { MockedProvider } from '@apollo/react-testing';
+import { MockedProvider } from '@apollo/client/testing';
 import userEvent from '@testing-library//user-event';
 import { render, screen, waitFor } from '@testing-library/react';
 import * as ICS from 'ics';
@@ -7,13 +7,11 @@ import React from 'react';
 import {
   EventFieldsFragment,
   OccurrenceFieldsFragment,
-  PlaceDocument,
 } from '../../../../generated/graphql';
 import { createPlaceQueryMock } from '../../../../tests/apollo-mocks/placeMocks';
 import {
   fakeEvent,
   fakeLocalizedObject,
-  fakePlace,
 } from '../../../../utils/mockDataUtils';
 import CalendarButton from '../CalendarButton';
 
