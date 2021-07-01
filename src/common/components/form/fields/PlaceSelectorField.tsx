@@ -1,5 +1,5 @@
 import { FieldProps, FormikHelpers } from 'formik';
-import { DropdownProps } from 'hds-react';
+import { SelectProps } from 'hds-react';
 import React from 'react';
 
 import PlaceSelector from '../../../../domain/place/placeSelector/PlaceSelector';
@@ -9,12 +9,13 @@ type Option = {
   value: string;
 };
 
-interface Props extends DropdownProps, FieldProps {
-  options: Option[];
-  title: string;
-  inputPlaceholder: string;
-  setFieldValue?: FormikHelpers<Option[]>['setFieldValue'];
-}
+type Props = SelectProps<Option> &
+  FieldProps & {
+    options: Option[];
+    title: string;
+    inputPlaceholder: string;
+    setFieldValue?: FormikHelpers<Option[]>['setFieldValue'];
+  };
 
 const PlaceSelectorField: React.FC<Props> = ({
   field: { name, onBlur, onChange, value, ...field },

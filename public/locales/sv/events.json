@@ -6,7 +6,7 @@
   "eventList": {
     "buttonLoadMore": "Visa mer",
     "count": "{{count}} st",
-    "labelSort": "Beställa:",
+    "labelSort": "Beställa",
     "title": "Evenemang"
   },
   "sortOptions": {

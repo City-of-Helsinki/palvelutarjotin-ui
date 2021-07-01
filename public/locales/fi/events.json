@@ -6,7 +6,7 @@
   "eventList": {
     "buttonLoadMore": "Näytä lisää",
     "count": "{{count}} kpl",
-    "labelSort": "Järjestys:",
+    "labelSort": "Järjestys",
     "title": "Tapahtumat"
   },
   "sortOptions": {

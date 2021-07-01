@@ -46,7 +46,7 @@ const PlaceSelector: React.FC<Props> = ({
         }))
         .sort((a, b) => (a.text > b.text ? 1 : -1)) || []
     );
-  }, [locale, placesData?.places?.data.map]);
+  }, [locale, placesData?.places?.data]);
 
   const renderOptionText = (id: string) => {
     try {

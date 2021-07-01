@@ -1,4 +1,4 @@
-import { Button, Dropdown, IconArrowDown } from 'hds-react';
+import { Button, Select, IconArrowDown } from 'hds-react';
 import { useTranslation } from 'next-i18next';
 import React, { ReactElement } from 'react';
 
@@ -53,14 +53,17 @@ const EventList = ({
           </span>
         </h2>
         <div className={styles.sortSelectorWrapper}>
-          <span>{t('events:eventList.labelSort')}</span>
-          <Dropdown
+          <Select
             className={styles.orderDropdown}
-            hideLabel={true}
             label={t('events:eventList.labelSort')}
             onChange={handleSort}
             options={sortOptions}
-            selectedOption={sortOptions.find((option) => option.value === sort)}
+            value={
+              sortOptions.find((option) => option.value === sort) || {
+                label: '',
+                value: '',
+              }
+            }
           />
         </div>
       </div>
