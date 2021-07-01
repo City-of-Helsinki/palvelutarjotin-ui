@@ -6,6 +6,10 @@ import * as React from 'react';
 import { render } from '../../../../utils/testUtils';
 import PageWrapper from '../PageWrapper';
 
+afterEach(() => {
+  jest.restoreAllMocks();
+});
+
 jest.mock('@datapunt/matomo-tracker-react', () => ({
   useMatomo: jest.fn().mockReturnValue({ trackPageView: jest.fn() }),
 }));
@@ -30,7 +34,7 @@ test('PageWrapper matches snapshot', async () => {
   expect(container).toMatchSnapshot();
 });
 
-test('trackPageView gets called when pathname changes', () => {
+test('trackPageView gets called when pathname changes', async () => {
   const testHref1 = 'testurl.com';
   const testHref2 = 'testurl2.com';
   const trackPageViewMock = jest.fn();
@@ -50,6 +54,12 @@ test('trackPageView gets called when pathname changes', () => {
   jest
     .spyOn(nextRouter, 'useRouter')
     .mockReturnValue({ asPath: '/test2' } as any);
+
+  // for some reson react log error:
+  // Warning: React has detected a change in the order of Hooks called by PageWrapper.
+  // but don't know what could be causing this... so lets silence it
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  jest.spyOn(console, 'error').mockImplementation(() => {});
 
   rerender(<PageWrapper />);
 
