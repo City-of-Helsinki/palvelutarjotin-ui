@@ -34,10 +34,11 @@ const CalendarButton: React.FC<CalendarButtonProps> = ({
     variables: { id: placeId },
   });
 
-  const { streetAddress, addressLocality, name: locationName } = getPlaceFields(
-    data?.place,
-    locale
-  );
+  const {
+    streetAddress,
+    addressLocality,
+    name: locationName,
+  } = getPlaceFields(data?.place, locale);
 
   const downloadIcsFile = () => {
     if (event.id && occurrence.startTime) {

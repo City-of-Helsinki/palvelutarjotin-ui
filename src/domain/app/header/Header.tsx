@@ -45,13 +45,12 @@ const Header: React.FC = () => {
     );
   };
 
-  const goToPage = (pathname: string) => (
-    event?: React.MouseEvent<HTMLAnchorElement>
-  ) => {
-    event?.preventDefault();
-    router.push(pathname);
-    closeMenu();
-  };
+  const goToPage =
+    (pathname: string) => (event?: React.MouseEvent<HTMLAnchorElement>) => {
+      event?.preventDefault();
+      router.push(pathname);
+      closeMenu();
+    };
 
   const logoLang = locale === 'sv' ? 'sv' : 'fi';
 

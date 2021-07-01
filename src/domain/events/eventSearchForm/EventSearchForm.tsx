@@ -59,11 +59,8 @@ const EventSearchForm = ({
     [t]
   );
 
-  const {
-    additionalCriteriaKeywords,
-    categoryKeywords,
-    targetGroups,
-  } = useKeywordOptions();
+  const { additionalCriteriaKeywords, categoryKeywords, targetGroups } =
+    useKeywordOptions();
 
   return (
     <Formik

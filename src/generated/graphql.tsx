@@ -2634,9 +2634,8 @@ export function useEnrolOccurrenceMutation(
 export type EnrolOccurrenceMutationHookResult = ReturnType<
   typeof useEnrolOccurrenceMutation
 >;
-export type EnrolOccurrenceMutationResult = Apollo.MutationResult<
-  EnrolOccurrenceMutation
->;
+export type EnrolOccurrenceMutationResult =
+  Apollo.MutationResult<EnrolOccurrenceMutation>;
 export type EnrolOccurrenceMutationOptions = Apollo.BaseMutationOptions<
   EnrolOccurrenceMutation,
   EnrolOccurrenceMutationVariables

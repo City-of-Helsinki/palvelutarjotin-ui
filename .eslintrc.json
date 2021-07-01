@@ -9,6 +9,14 @@
     "plugin:testcafe/recommended"
   ],
   "plugins": ["testcafe", "no-only-tests"],
+  "overrides": [
+    {
+      "files": ["*.{ts,tsx}"],
+      "rules": {
+        "no-undef": "off"
+      }
+    }
+  ],
   "rules": {
     "@typescript-eslint/brace-style": [
       "error",

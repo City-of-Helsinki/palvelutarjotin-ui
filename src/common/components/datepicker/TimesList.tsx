@@ -39,7 +39,8 @@ const TimesList = React.memo(
         setup: setupKeyboardNav,
         teardown: teardownKeyoboardNav,
       } = useDropdownKeyboardNavigation({
-        container: forwardedRef as React.MutableRefObject<HTMLDivElement | null>,
+        container:
+          forwardedRef as React.MutableRefObject<HTMLDivElement | null>,
         listLength: times.length,
         initialFocusedIndex: findSelectedIndex(),
       });

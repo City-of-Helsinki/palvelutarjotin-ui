@@ -87,8 +87,8 @@ export const getEventFields = (
         audience: event.audience,
         languages: event.inLanguage,
         autoAcceptance: event.pEvent?.autoAcceptance,
-        isMandatoryAdditionalInformationRequired: !!event.pEvent
-          ?.mandatoryAdditionalInformation,
+        isMandatoryAdditionalInformationRequired:
+          !!event.pEvent?.mandatoryAdditionalInformation,
         occurrences:
           event.pEvent?.occurrences.edges.map(
             (edge) => edge?.node as OccurrenceFieldsFragment
