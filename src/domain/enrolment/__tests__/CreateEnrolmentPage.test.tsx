@@ -150,7 +150,7 @@ const PageMockEnrolHandpick: MockedResponse[] = createPageMock(
 );
 
 advanceTo(new Date(2020, 8, 8));
-jest.setTimeout(20000);
+jest.setTimeout(30000);
 
 // Notification component has a problem:
 // "svg elements with an img role have an alternative text (svg-img-alt)"
