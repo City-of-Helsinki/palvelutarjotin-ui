@@ -1,8 +1,8 @@
 import { FieldProps } from 'formik';
 import { TextInput, TextInputProps } from 'hds-react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
-import { useTranslation } from '../../../../i18n';
 import { invalidFieldClass } from '../constants';
 import { getErrorText } from '../utils';
 
@@ -23,7 +23,8 @@ const InputField: React.FC<Props> = (props) => {
       {...field}
       {...rest}
       id={name}
-      helperText={errorText || helperText}
+      helperText={helperText}
+      errorText={errorText}
       invalid={!!errorText}
       className={errorText ? invalidFieldClass : undefined}
     />

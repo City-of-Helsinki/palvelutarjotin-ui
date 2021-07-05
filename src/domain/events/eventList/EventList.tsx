@@ -1,9 +1,9 @@
-import { Button, Dropdown, IconArrowDown } from 'hds-react';
+import { Button, Select, IconArrowDown } from 'hds-react';
+import { useTranslation } from 'next-i18next';
 import React, { ReactElement } from 'react';
 
 import LoadingSpinner from '../../../common/components/loadingSpinner/LoadingSpinner';
 import { EventsFieldsFragment } from '../../../generated/graphql';
-import { useTranslation } from '../../../i18n';
 import { translateValue } from '../../../utils/translateUtils';
 import { ROUTES } from '../../app/routes/constants';
 import EventCard from '../../event/eventCard/EventCard';
@@ -53,14 +53,17 @@ const EventList = ({
           </span>
         </h2>
         <div className={styles.sortSelectorWrapper}>
-          <span>{t('events:eventList.labelSort')}</span>
-          <Dropdown
+          <Select
             className={styles.orderDropdown}
-            hideLabel={true}
             label={t('events:eventList.labelSort')}
             onChange={handleSort}
             options={sortOptions}
-            selectedOption={sortOptions.find((option) => option.value === sort)}
+            value={
+              sortOptions.find((option) => option.value === sort) || {
+                label: '',
+                value: '',
+              }
+            }
           />
         </div>
       </div>

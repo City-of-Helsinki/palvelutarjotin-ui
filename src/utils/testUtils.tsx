@@ -1,7 +1,9 @@
+import { ParsedUrlQuery } from 'querystring';
+
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { AnyAction, Store } from '@reduxjs/toolkit';
 import { render, RenderResult, fireEvent } from '@testing-library/react';
-import * as router from 'next/router';
+import { RouterContext } from 'next/dist/next-server/lib/router-context';
 import { NextRouter } from 'next/router';
 import React from 'react';
 import { Provider } from 'react-redux';
@@ -23,26 +25,49 @@ export const escKeyPressHelper = (): boolean =>
 
 const customRender: CustomRender = (
   ui,
-  { mocks = [], store = reduxStore, path = '/', query = {} } = {}
+  { mocks = [], store = reduxStore, path = '/', query = {}, router = {} } = {}
 ) => {
-  jest.spyOn(router, 'useRouter').mockReturnValue({
-    query,
-    pathname: path,
-    asPath: path,
-    route: '',
-    basePath: path,
-  } as NextRouter);
-
   const Wrapper: React.FC = ({ children }) => (
-    <Provider store={store}>
-      <MockedProvider mocks={mocks} cache={createApolloCache()}>
-        {children as React.ReactElement}
-      </MockedProvider>
-    </Provider>
+    <RouterContext.Provider
+      value={{
+        ...mockRouter,
+        ...router,
+        ...(path ? { pathname: path, asPath: path, basePath: path } : {}),
+        ...(query ? { query } : {}),
+      }}
+    >
+      <Provider store={store}>
+        <MockedProvider mocks={mocks} cache={createApolloCache()}>
+          {children as React.ReactElement}
+        </MockedProvider>
+      </Provider>
+    </RouterContext.Provider>
   );
 
   const renderResult = render(ui, { wrapper: Wrapper });
   return { ...renderResult };
+};
+const mockRouter: NextRouter = {
+  basePath: '',
+  pathname: '/',
+  route: '/',
+  asPath: '/',
+  query: {},
+  push: jest.fn(() => Promise.resolve(true)),
+  replace: jest.fn(() => Promise.resolve(true)),
+  reload: jest.fn(() => Promise.resolve(true)),
+  prefetch: jest.fn(() => Promise.resolve()),
+  back: jest.fn(() => Promise.resolve(true)),
+  beforePopState: jest.fn(() => Promise.resolve(true)),
+  events: {
+    on: jest.fn(),
+    off: jest.fn(),
+    emit: jest.fn(),
+  },
+  isFallback: false,
+  isLocaleDomain: false,
+  isReady: true,
+  isPreview: false,
 };
 
 export type CustomRenderOptions = {
@@ -50,7 +75,8 @@ export type CustomRenderOptions = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   store?: Store<any, AnyAction>;
   path?: string;
-  query?: Record<string, unknown>;
+  query?: ParsedUrlQuery;
+  router?: Partial<NextRouter>;
 };
 
 type CustomRender = {

@@ -150,7 +150,7 @@ const PageMockEnrolHandpick: MockedResponse[] = createPageMock(
 );
 
 advanceTo(new Date(2020, 8, 8));
-jest.setTimeout(20000);
+jest.setTimeout(30000);
 
 // Notification component has a problem:
 // "svg elements with an img role have an alternative text (svg-img-alt)"
@@ -420,8 +420,12 @@ describe('max group size validation of the Children and Adults -fields', () => {
       query: { eventId: eventId, occurrences: occurrenceIds },
     });
     await screen.findByLabelText(/lapsia/i);
-    userEvent.type(screen.getByLabelText(/lapsia/i), childrenCount);
-    userEvent.type(screen.getByLabelText(/aikuisia/i), adultsCount);
+    childrenCount
+      ? userEvent.type(screen.getByLabelText(/lapsia/i), childrenCount)
+      : userEvent.click(screen.getByLabelText(/lapsia/i));
+    adultsCount
+      ? userEvent.type(screen.getByLabelText(/aikuisia/i), adultsCount)
+      : userEvent.click(screen.getByLabelText(/aikuisia/i));
     userEvent.tab();
   };
 
@@ -516,7 +520,7 @@ test('mandatory additional information forces extraNeeds field to be required', 
     query: { eventId: eventId, occurrences: occurrenceIds },
   });
   await screen.findByLabelText(/Lisätiedot/i);
-  userEvent.type(screen.getByRole('textbox', { name: /Lisätiedot/i }), '');
+  userEvent.click(screen.getByRole('textbox', { name: /Lisätiedot/i }));
   userEvent.tab();
   await screen.findByText(/Tämä kenttä on pakollinen/i);
 });
@@ -552,9 +556,8 @@ test('Allow sms notifications if any of the phone numbers are given', async () =
     query: { eventId: eventId, occurrences: occurrenceIds },
   });
   await screen.findByLabelText(/Sama kuin ilmoittaja/i);
-  const isResponsiblePersonField = screen.getByLabelText(
-    /Sama kuin ilmoittaja/i
-  );
+  const isResponsiblePersonField =
+    screen.getByLabelText(/Sama kuin ilmoittaja/i);
 
   userEvent.click(isResponsiblePersonField);
 

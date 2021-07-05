@@ -3,6 +3,7 @@
 !public
 !src
 !next.config.js
+!next-i18next.config.js
 !package.json
 !tsconfig.json
 !yarn.lock

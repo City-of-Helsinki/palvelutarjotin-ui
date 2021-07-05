@@ -71,12 +71,8 @@ const defaultProps: MenuDropdownProps = {
 
 describe('MenuDropdown component', () => {
   it('changes focused item correctly', async () => {
-    const {
-      arrowDown,
-      arrowUp,
-      clickOnToggleButton,
-      getItemAtIndex,
-    } = renderMenuDropdown(defaultProps);
+    const { arrowDown, arrowUp, clickOnToggleButton, getItemAtIndex } =
+      renderMenuDropdown(defaultProps);
 
     clickOnToggleButton();
 
@@ -103,9 +99,8 @@ describe('MenuDropdown component', () => {
   });
 
   it('calls onChange callback correctly', () => {
-    const { getItemAtIndex, clickOnToggleButton } = renderMenuDropdown(
-      defaultProps
-    );
+    const { getItemAtIndex, clickOnToggleButton } =
+      renderMenuDropdown(defaultProps);
 
     clickOnToggleButton();
 

@@ -1,9 +1,9 @@
 import { IconGroup, IconSignout } from 'hds-react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import TextTitle from '../../../common/components/textTitle/TextTitle';
 import { useVenueQuery } from '../../../generated/graphql';
-import { useTranslation } from '../../../i18n';
 import IconFood from '../../../icons/IconFood';
 import IconGarderobe from '../../../icons/IconGarderobe';
 import IconPlayIndoor from '../../../icons/IconPlayIndoor';

@@ -1,10 +1,10 @@
 import { Navigation, IconGlobe, IconSignin } from 'hds-react';
+import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import React from 'react';
 
 import { SUPPORTED_LANGUAGES } from '../../../constants';
 import useLocale from '../../../hooks/useLocale';
-import { i18n, useTranslation } from '../../../i18n';
 import { OptionType } from '../../../types';
 import { MAIN_CONTENT_ID } from '../layout/PageLayout';
 import { ROUTES } from '../routes/constants';
@@ -35,7 +35,7 @@ const Header: React.FC = () => {
   };
 
   const changeLanguage = (newLanguage: OptionType) => () => {
-    i18n.changeLanguage(newLanguage.value);
+    router.push(router.asPath, undefined, { locale: newLanguage.value });
   };
 
   const isTabActive = (pathname: string): boolean => {
@@ -45,13 +45,12 @@ const Header: React.FC = () => {
     );
   };
 
-  const goToPage = (pathname: string) => (
-    event?: React.MouseEvent<HTMLAnchorElement>
-  ) => {
-    event?.preventDefault();
-    router.push(pathname);
-    closeMenu();
-  };
+  const goToPage =
+    (pathname: string) => (event?: React.MouseEvent<HTMLAnchorElement>) => {
+      event?.preventDefault();
+      router.push(pathname);
+      closeMenu();
+    };
 
   const logoLang = locale === 'sv' ? 'sv' : 'fi';
 
@@ -117,7 +116,7 @@ const Header: React.FC = () => {
           {getLanguageOptions().map((option) => (
             <Navigation.Item
               key={option.value}
-              href="#"
+              // href="#"
               lang={option.value}
               label={option.label}
               onClick={changeLanguage(option)}

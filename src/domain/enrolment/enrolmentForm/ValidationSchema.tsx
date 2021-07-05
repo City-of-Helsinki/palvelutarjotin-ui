@@ -14,7 +14,7 @@ export default Yup.object().shape({
   language: Yup.string().required(VALIDATION_MESSAGE_KEYS.STRING_REQUIRED),
   person: Yup.object().when(
     ['isSameResponsiblePerson'],
-    (isSameResponsiblePerson: boolean, schema: Yup.ObjectSchema) => {
+    (isSameResponsiblePerson: boolean, schema: Yup.AnyObjectSchema) => {
       return isSameResponsiblePerson
         ? schema
         : schema.shape({
@@ -33,11 +33,11 @@ export default Yup.object().shape({
       'minGroupSize',
       'isMandatoryAdditionalInformationRequired',
     ],
-    (
+    ((
       maxGroupSize: number,
       minGroupSize: number,
       isMandatoryAdditionalInformationRequired: boolean,
-      schema: Yup.ObjectSchema
+      schema: Yup.AnyObjectSchema
     ) => {
       const validateSumOfSizePair = (
         sizePair: number | undefined,
@@ -126,10 +126,12 @@ export default Yup.object().shape({
             : Yup.string(),
           studyLevels: Yup.array()
             .required(VALIDATION_MESSAGE_KEYS.STRING_REQUIRED)
-            .min(0),
+            .min(1, VALIDATION_MESSAGE_KEYS.STRING_REQUIRED),
         },
         [['groupSize', 'amountOfAdult']]
       );
-    }
+      // For some reason typescript complains event though it is correct
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    }) as any
   ),
 });

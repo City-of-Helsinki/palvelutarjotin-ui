@@ -6,7 +6,7 @@
   "eventList": {
     "buttonLoadMore": "Show more",
     "count": "{{count}} pcs",
-    "labelSort": "Order:",
+    "labelSort": "Order",
     "title": "Events"
   },
   "sortOptions": {

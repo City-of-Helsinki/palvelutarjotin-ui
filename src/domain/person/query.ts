@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import { gql } from 'graphql-tag';
 
 export const QUERY_PERSON = gql`
   fragment personFields on PersonNode {

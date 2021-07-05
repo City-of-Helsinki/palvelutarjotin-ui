@@ -1,15 +1,12 @@
+import { NextPage, NextPageContext } from 'next';
 import React from 'react';
 
-import { COMMON_I18N_NAMESPACES } from '../../constants';
 import AccessibilityStatementPage from '../../domain/accessibilityStatement/AccessibilityStatement';
-import { RouteComponent } from '../../types';
+import getLocalizationProps from '../../utils/getLocalizationProps';
 
-const AccessibilityStatement: RouteComponent = () => (
-  <AccessibilityStatementPage />
-);
+const AccessibilityStatement: NextPage = () => <AccessibilityStatementPage />;
 
-AccessibilityStatement.getInitialProps = async () => ({
-  namespacesRequired: [...COMMON_I18N_NAMESPACES],
-});
+AccessibilityStatement.getInitialProps = async ({ locale }: NextPageContext) =>
+  getLocalizationProps(locale);
 
 export default AccessibilityStatement;

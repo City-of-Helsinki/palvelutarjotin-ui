@@ -1,7 +1,7 @@
 import { IconLinkedin } from 'hds-react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
-import { useTranslation } from '../../../i18n';
 import ShareLinkBase from './ShareLinkBase';
 import { ShareLinkProps } from './types';
 

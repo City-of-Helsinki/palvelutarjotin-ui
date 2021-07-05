@@ -1,7 +1,7 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import { OccurrenceFieldsFragment } from '../../../generated/graphql';
-import { useTranslation } from '../../../i18n';
 
 interface Props {
   occurrence: OccurrenceFieldsFragment;

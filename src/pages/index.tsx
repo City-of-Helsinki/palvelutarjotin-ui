@@ -1,13 +1,14 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
+import { NextPage, NextPageContext } from 'next';
 import React from 'react';
 
-import { COMMON_I18N_NAMESPACES } from '../constants';
+import withApollo from '../domain/app/apollo/configureApollo';
 import EventsPage from '../domain/events/EventsPage';
-import { RouteComponent } from '../types';
+import getLocalizationProps from '../utils/getLocalizationProps';
 
-const Events: RouteComponent = () => <EventsPage />;
+const Events: NextPage = () => <EventsPage />;
 
-Events.getInitialProps = async () => ({
-  namespacesRequired: [...COMMON_I18N_NAMESPACES, 'events', 'event'],
-});
+Events.getInitialProps = async ({ locale }: NextPageContext) =>
+  getLocalizationProps(locale);
 
-export default Events;
+export default withApollo(Events);

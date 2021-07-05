@@ -1,5 +1,6 @@
 import { Notification } from 'hds-react';
 import take from 'lodash/take';
+import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import React, { ReactElement } from 'react';
 
@@ -7,7 +8,6 @@ import LoadingSpinner from '../../common/components/loadingSpinner/LoadingSpinne
 import ShareLinks from '../../common/components/shareLinks/ShareLinks';
 import { useEventQuery } from '../../generated/graphql';
 import useLocale from '../../hooks/useLocale';
-import { Router, useTranslation } from '../../i18n';
 import { translateValue } from '../../utils/translateUtils';
 import Container from '../app/layout/Container';
 import PageWrapper from '../app/layout/PageWrapper';
@@ -26,6 +26,7 @@ import { getEventFields } from './utils';
 const EventPage = (): ReactElement => {
   const { t } = useTranslation();
   const locale = useLocale();
+  const router = useRouter();
   const {
     query: { eventId, ...query },
   } = useRouter();
@@ -38,7 +39,11 @@ const EventPage = (): ReactElement => {
     string[]
   >([]);
 
-  const { data: eventData, loading, refetch: refetchEvent } = useEventQuery({
+  const {
+    data: eventData,
+    loading,
+    refetch: refetchEvent,
+  } = useEventQuery({
     variables: {
       id: eventId as string,
       include: ['keywords', 'location', 'audience', 'in_language'],
@@ -54,7 +59,7 @@ const EventPage = (): ReactElement => {
   }, [enrolmentCreated, refetchEvent]);
 
   const enrolOccurrence = (occurrenceId: string) => {
-    Router.push({
+    router.push({
       pathname: ROUTES.CREATE_ENROLMENT.replace(':id', eventId as string),
       query: {
         occurrences: occurrenceId,
@@ -63,7 +68,7 @@ const EventPage = (): ReactElement => {
   };
 
   const enrolOccurrences = () => {
-    Router.push({
+    router.push({
       pathname: ROUTES.CREATE_ENROLMENT.replace(':id', eventId as string),
       query: {
         occurrences: selectedOccurrences,

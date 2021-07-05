@@ -2,6 +2,7 @@ import * as Sentry from '@sentry/browser';
 import { saveAs } from 'file-saver';
 import { Button, IconCalendar } from 'hds-react';
 import { createEvent, EventAttributes } from 'ics';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import {
@@ -10,7 +11,6 @@ import {
   usePlaceQuery,
 } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
-import { useTranslation } from '../../../i18n';
 import getDateArray from '../../../utils/getDateArray';
 import getDomain from '../../../utils/getDomain';
 import getLocalisedString from '../../../utils/getLocalisedString';
@@ -34,10 +34,11 @@ const CalendarButton: React.FC<CalendarButtonProps> = ({
     variables: { id: placeId },
   });
 
-  const { streetAddress, addressLocality, name: locationName } = getPlaceFields(
-    data?.place,
-    locale
-  );
+  const {
+    streetAddress,
+    addressLocality,
+    name: locationName,
+  } = getPlaceFields(data?.place, locale);
 
   const downloadIcsFile = () => {
     if (event.id && occurrence.startTime) {

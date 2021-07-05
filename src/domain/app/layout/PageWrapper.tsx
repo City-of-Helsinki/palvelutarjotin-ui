@@ -1,10 +1,10 @@
 import { useMatomo } from '@datapunt/matomo-tracker-react';
+import { useTranslation } from 'next-i18next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
 
 import useLocale from '../../../hooks/useLocale';
-import { useTranslation } from '../../../i18n';
 
 interface Props {
   title?: string;

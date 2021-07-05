@@ -1,8 +1,8 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import { usePlaceQuery } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
-import { useTranslation } from '../../../i18n';
 import { Language } from '../../../types';
 import VenueInfo from '../../venue/venueInfo/VenueInfo';
 import { getPlaceFields } from '../utils';

@@ -1,7 +1,7 @@
 import { Koros } from 'hds-react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
-import { useTranslation } from '../../i18n';
 import Container from '../app/layout/Container';
 import styles from './bannerHero.module.scss';
 import { BANNER_IMAGE } from './constants';

@@ -1,8 +1,8 @@
 import { useFormikContext } from 'formik';
 import { Notification } from 'hds-react';
+import { useTranslation } from 'next-i18next';
 import * as React from 'react';
 
-import { useTranslation } from '../../../i18n';
 import styles from './errorMessage.module.scss';
 import { doFocus as focusToFirstError } from './FocusToFirstError';
 

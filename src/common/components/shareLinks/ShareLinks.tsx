@@ -1,7 +1,7 @@
 import classNames from 'classnames';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
-import { useTranslation } from '../../../i18n';
 import IconLink from '../../../icons/IconLink';
 import isClient from '../../../utils/isClient';
 import CopyButton from '../copyButton/CopyButton';

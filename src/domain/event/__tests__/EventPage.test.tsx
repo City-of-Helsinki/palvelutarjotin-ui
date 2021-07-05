@@ -3,9 +3,9 @@ import userEvent from '@testing-library/user-event';
 import { advanceTo } from 'jest-date-mock';
 import React from 'react';
 
-import enrolmentMessages from '../../../../public/static/locales/fi/enrolment.json';
-import eventMessages from '../../../../public/static/locales/fi/event.json';
-import occurrenceMessages from '../../../../public/static/locales/fi/occurrence.json';
+import enrolmentMessages from '../../../../public/locales/fi/enrolment.json';
+import eventMessages from '../../../../public/locales/fi/event.json';
+import occurrenceMessages from '../../../../public/locales/fi/occurrence.json';
 import {
   Language,
   OccurrenceSeatType,
@@ -14,7 +14,6 @@ import {
   NotificationType,
 } from '../../../generated/graphql';
 import * as graphqlFuncs from '../../../generated/graphql';
-import { Router as i18nRouter } from '../../../i18n';
 import { createEventQueryMockIncludeLanguageAndAudience } from '../../../tests/apollo-mocks/eventMocks';
 import { createPlaceQueryMock } from '../../../tests/apollo-mocks/placeMocks';
 import { createVenueQueryMock } from '../../../tests/apollo-mocks/venueMocks';
@@ -369,7 +368,8 @@ it('renders occurrences table and related stuff correctly', async () => {
 });
 
 it('selecting enrolments works and buttons have correct texts', async () => {
-  renderComponent();
+  const pushMock = jest.fn();
+  renderComponent({ router: { push: pushMock } });
   await waitForRequestsToComplete();
 
   let occurrenceEnrolmentButtons = screen.getAllByRole('button', {
@@ -441,19 +441,14 @@ it('selecting enrolments works and buttons have correct texts', async () => {
       .filter((button) => button.hasAttribute('disabled'))
   ).toHaveLength(5);
 
-  const originalRouter = i18nRouter.push;
-  i18nRouter.push = jest.fn();
-
   userEvent.click(screen.getByRole('button', { name: 'Ilmoittaudu' }));
 
-  expect(i18nRouter.push).toHaveBeenCalledWith({
+  expect(pushMock).toHaveBeenCalledWith({
     pathname: ROUTES.CREATE_ENROLMENT.replace(':id', eventData.id as string),
     query: {
       occurrences: [data.placeId1, data.placeId2, data.placeId3],
     },
   });
-
-  i18nRouter.push = originalRouter;
 });
 
 it('opens expanded area when clicked', async () => {
@@ -542,7 +537,7 @@ describe('refetch of event works correctly', () => {
       }=true`,
       query: {
         eventId: data.id,
-        [ENROLMENT_URL_PARAMS.ENROLMENT_CREATED]: true,
+        [ENROLMENT_URL_PARAMS.ENROLMENT_CREATED]: 'true',
       },
     });
 
@@ -624,8 +619,8 @@ describe('refetch of event works correctly', () => {
   });
 
   it('does not render organisation section when organisation is not given', async () => {
-    const eventWithoutOrganisationMock = createEventQueryMockIncludeLanguageAndAudience(
-      {
+    const eventWithoutOrganisationMock =
+      createEventQueryMockIncludeLanguageAndAudience({
         ...eventData,
         id: data.id,
         pEvent: fakePEvent({
@@ -635,8 +630,7 @@ describe('refetch of event works correctly', () => {
             name: '',
           }),
         }),
-      }
-    );
+      });
     const [, ...mocks] = apolloMocks;
 
     render(<EventPage />, {
@@ -666,7 +660,7 @@ it('shows enrolment confirmation notification after enrolment is done', async ()
     }=true&${ENROLMENT_URL_PARAMS.NOTIFICATION_TYPE}=${NotificationType.Email}`,
     query: {
       eventId: data.id,
-      [ENROLMENT_URL_PARAMS.ENROLMENT_CREATED]: true,
+      [ENROLMENT_URL_PARAMS.ENROLMENT_CREATED]: 'true',
       [ENROLMENT_URL_PARAMS.NOTIFICATION_TYPE]: NotificationType.Email,
     },
   });
@@ -698,7 +692,7 @@ it('shows inquire registration notification after enrolment is done', async () =
     }`,
     query: {
       eventId: data.id,
-      [ENROLMENT_URL_PARAMS.ENROLMENT_CREATED]: true,
+      [ENROLMENT_URL_PARAMS.ENROLMENT_CREATED]: 'true',
       [ENROLMENT_URL_PARAMS.NOTIFICATION_TYPE]: NotificationType.EmailSms,
     },
   });

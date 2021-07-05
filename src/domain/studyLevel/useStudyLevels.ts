@@ -1,5 +1,6 @@
+import { useTranslation } from 'next-i18next';
+
 import { StudyLevelsQuery, useStudyLevelsQuery } from '../../generated/graphql';
-import { useTranslation } from '../../i18n';
 import { translateValue } from '../../utils/translateUtils';
 
 interface StudyLevelsState {

@@ -1,9 +1,9 @@
 import classNames from 'classnames';
 import { FieldProps } from 'formik';
 import { TextInputProps } from 'hds-react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
-import { useTranslation } from '../../../../i18n';
 import Datepicker from '../../datepicker/Datepicker';
 import { invalidFieldClass } from '../constants';
 import { getErrorText } from '../utils';

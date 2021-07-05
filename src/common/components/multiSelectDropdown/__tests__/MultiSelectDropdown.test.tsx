@@ -143,8 +143,10 @@ describe('ArrowUp, ArrowDown', () => {
     arrowUpKeyPressHelper();
 
     expect(
-      (screen.getByLabelText(options[options.length - 1].text)
-        .parentElement as HTMLElement).parentElement
+      (
+        screen.getByLabelText(options[options.length - 1].text)
+          .parentElement as HTMLElement
+      ).parentElement
     ).toHaveClass('dropdownItem--isFocused');
   });
 

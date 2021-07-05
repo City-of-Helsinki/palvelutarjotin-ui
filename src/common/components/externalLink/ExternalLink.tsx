@@ -1,6 +1,6 @@
+import { useTranslation } from 'next-i18next';
 import * as React from 'react';
 
-import { useTranslation } from '../../../i18n';
 import SrOnly from '../SrOnly/SrOnly';
 
 type Props = React.AnchorHTMLAttributes<HTMLAnchorElement>;

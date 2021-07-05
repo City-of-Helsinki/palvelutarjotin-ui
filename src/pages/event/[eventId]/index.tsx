@@ -1,20 +1,13 @@
+import { NextPage, NextPageContext } from 'next';
 import React from 'react';
 
-import { COMMON_I18N_NAMESPACES } from '../../../constants';
+import withApollo from '../../../domain/app/apollo/configureApollo';
 import EventPage from '../../../domain/event/EventPage';
-import { RouteComponent } from '../../../types';
+import getLocalizationProps from '../../../utils/getLocalizationProps';
 
-const Event: RouteComponent = () => <EventPage />;
+const Event: NextPage = () => <EventPage />;
 
-Event.getInitialProps = async () => ({
-  namespacesRequired: [
-    ...COMMON_I18N_NAMESPACES,
-    'event',
-    'events',
-    'enrolment',
-    'form',
-    'occurrence',
-  ],
-});
+Event.getInitialProps = async ({ locale }: NextPageContext) =>
+  getLocalizationProps(locale);
 
-export default Event;
+export default withApollo(Event);

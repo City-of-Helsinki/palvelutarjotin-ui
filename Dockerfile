@@ -66,6 +66,7 @@ COPY --from=staticbuilder --chown=appuser:appuser /app/.next /app/.next
 
 # Copy next.js config
 COPY --chown=appuser:appuser next.config.js /app/
+COPY --chown=appuser:appuser next-i18next.config.js /app/
 
 # Copy public package.json and yarn.lock files
 COPY --chown=appuser:appuser public package.json yarn.lock /app/
@@ -77,7 +78,7 @@ RUN yarn install --production --frozen-lockfile && yarn cache clean --force
 COPY --chown=appuser:appuser public /app/public
 
 # Copy i18.ts, start.js and server.js files
-COPY --chown=appuser:appuser src/i18n.ts src/start.js src/server.js /app/src/
+COPY --chown=appuser:appuser src/start.js src/server.js /app/src/
 
 # Expose port
 EXPOSE $PORT

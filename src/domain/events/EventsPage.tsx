@@ -1,10 +1,10 @@
+import { useTranslation } from 'next-i18next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import React, { ReactElement } from 'react';
 
 import LoadingSpinner from '../../common/components/loadingSpinner/LoadingSpinner';
 import { useEventsQuery } from '../../generated/graphql';
-import { Router, useTranslation } from '../../i18n';
 import getPageNumberFromUrl from '../../utils/getPageNumberFromUrl';
 import Container from '../app/layout/Container';
 import PageWrapper from '../app/layout/PageWrapper';
@@ -24,52 +24,56 @@ import {
 } from './utils';
 
 const EventsPage = (): ReactElement => {
-  const { query } = useRouter();
+  const router = useRouter();
   const [isLoadingMore, setIsLoadingMore] = React.useState(false);
 
   const variables = React.useMemo(
-    () => getEventFilterVariables(query, { pageSize: EVENT_LIST_PAGE_SIZE }),
-    [query]
+    () =>
+      getEventFilterVariables(router.query, { pageSize: EVENT_LIST_PAGE_SIZE }),
+    [router.query]
   );
   const [sort, setSort] = React.useState<EVENT_SORT_OPTIONS>(
-    (getTextFromDict(query, 'sort') ||
+    (getTextFromDict(router.query, 'sort') ||
       EVENT_SORT_OPTIONS.START_TIME) as EVENT_SORT_OPTIONS
   );
 
-  const { data: eventsData, fetchMore, loading } = useEventsQuery({
+  const {
+    data: eventsData,
+    fetchMore,
+    loading,
+  } = useEventsQuery({
     ssr: false,
     variables: { ...variables, sort },
   });
 
   const organisationName =
     eventsData?.events?.data?.filter(
-      (event) => event.pEvent.organisation?.id === query?.organisation
+      (event) => event.pEvent.organisation?.id === router.query?.organisation
     )[0]?.pEvent.organisation?.name || '';
 
   const initialValues = React.useMemo(() => {
     return {
-      ...getInitialValues(query),
+      ...getInitialValues(router.query),
       organisation: organisationName,
-      organisationId: query?.organisation as string,
+      organisationId: router.query?.organisation as string,
     };
-  }, [query, organisationName]);
+  }, [router.query, organisationName]);
 
-  const eventsWithUpcomingOccurrences = getEventsThatHaveUpcomingOccurrence(
-    eventsData
-  );
+  const eventsWithUpcomingOccurrences =
+    getEventsThatHaveUpcomingOccurrence(eventsData);
 
   const search = (values: EventSearchFormValues) => {
     values = { ...values, organisation: values.organisationId };
     delete values.organisationId;
 
-    Router.push({
+    router.push({
       pathname: ROUTES.HOME,
       query: getSearchQueryObject(values),
     });
   };
 
   const clearForm = () => {
-    Router.push({
+    router.push({
       pathname: ROUTES.HOME,
       query: {},
     });

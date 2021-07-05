@@ -12,25 +12,20 @@ type Props<D extends Record<string, unknown>> = {
   renderExpandedArea?: (row: D) => JSX.Element;
 };
 
-export default function Table<D extends Record<string, unknown>, T>({
+export default function Table<D extends Record<string, unknown>>({
   columns,
   data,
   onRowClick,
   renderExpandedArea,
 }: Props<D>): ReactElement {
-  const {
-    getTableBodyProps,
-    getTableProps,
-    headerGroups,
-    prepareRow,
-    rows,
-  } = useTable(
-    {
-      columns,
-      data,
-    },
-    useExpanded
-  );
+  const { getTableBodyProps, getTableProps, headerGroups, prepareRow, rows } =
+    useTable(
+      {
+        columns,
+        data,
+      },
+      useExpanded
+    );
 
   // Render the UI for your table
   return (

@@ -1,15 +1,10 @@
-const { nextI18NextRewrites } = require('next-i18next/rewrites');
+const path = require('path');
 
-const localeSubpaths = {
-  fi: 'fi',
-  en: 'en',
-  sv: 'sv',
-  cimode: 'cimode'
-};
+const { i18n } = require('./next-i18next.config');
 
 module.exports = {
-  rewrites: async () => nextI18NextRewrites(localeSubpaths),
-  publicRuntimeConfig: {
-    localeSubpaths,
+  i18n,
+  sassOptions: {
+    includePaths: [path.join(__dirname, 'src/assets/styles')],
   },
 };
