@@ -1,12 +1,16 @@
-import { screen } from '@testing-library/testcafe';
+import { screen, within } from '@testing-library/testcafe';
 
 // import translations from '../../src/domain/app/i18n/fi.json';
+
+const languageSelector = screen.getByRole('region', {
+  name: /fi kielivalikko/i,
+});
 
 export const header = {
   languageSelector: screen.getByRole('button', {
     name: /fi kielivalikko/i,
   }),
-  languageSelectorItemEn: screen.getByRole('link', { name: /in english/i }),
-  languageSelectorItemFi: screen.getByRole('link', { name: /suomeksi/i }),
-  languageSelectorItemSv: screen.getByRole('link', { name: /på svenska/i }),
+  languageSelectorItemEn: within(languageSelector).getByText(/in english/i),
+  languageSelectorItemFi: within(languageSelector).getByText(/suomeksi/i),
+  languageSelectorItemSv: within(languageSelector).getByText(/på svenska/i),
 };
