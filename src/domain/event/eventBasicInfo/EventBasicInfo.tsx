@@ -3,6 +3,7 @@ import { useTranslation } from 'next-i18next';
 import Link from 'next/link';
 import React from 'react';
 
+import TextWithHTMLOrLineBreaks from '../../../common/components/textWithHTMLOrLineBreaks/TextWithHTMLOrLineBreaks';
 import { EventFieldsFragment } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
 import IconTicket from '../../../icons/IconTicket';
@@ -38,7 +39,10 @@ const EventBasicInfo: React.FC<EventBasicInfoProps> = ({ event }) => {
       <div className={styles.descriptionPart}>
         <h1>{eventName}</h1>
         <p className={styles.shortDescription}>{shortDescription}</p>
-        <p>{description}</p>
+        <TextWithHTMLOrLineBreaks
+          text={description}
+          className={styles.description}
+        />
         <EventKeywords event={event} />
         <EventCategorisation event={event} />
       </div>
