@@ -28,16 +28,13 @@ export const getEventPlaceholderImage = (id: string): string => {
 };
 
 export const getEventStartTimeStr = (
-  event: EventFieldsFragment | EventsFieldsFragment,
+  startTime: Date,
   locale: Language,
   t: TFunction
 ): string | null => {
-  const nextOccurrenceTime = event.pEvent.nextOccurrenceDatetime;
-  const startTime = nextOccurrenceTime ? new Date(nextOccurrenceTime) : null;
+  if (!startTime) return null;
   const timeFormat = getTimeFormat(locale);
   const dateFormat = 'iiii dd.MM';
-
-  if (!startTime) return null;
 
   if (isToday(startTime))
     return t('event:eventCard.startTime.today', {

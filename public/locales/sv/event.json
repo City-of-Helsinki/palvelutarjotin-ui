@@ -15,6 +15,10 @@
       "other": "{{date}} kl {{time}}",
       "today": "Idag kl {{time}}",
       "tomorrow": "Imorgon kl {{time}}"
+    },
+    "buttonMultipleOccurrences": {
+      "closed": "+ andra evenemangstider",
+      "opened": "dölja andra tider"
     }
   },
   "organisation": {

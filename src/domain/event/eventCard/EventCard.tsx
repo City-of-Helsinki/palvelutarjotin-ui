@@ -1,10 +1,15 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { IconLocation } from 'hds-react';
+import { Button, IconLocation } from 'hds-react';
+import { times } from 'lodash';
 import { useTranslation } from 'next-i18next';
 import Link from 'next/link';
 import React from 'react';
 
-import { EventsFieldsFragment } from '../../../generated/graphql';
+import SkeletonLoader from '../../../common/components/skeletonLoader/SkeletonLoader';
+import {
+  EventsFieldsFragment,
+  useOccurrencesQuery,
+} from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
 import IconClock from '../../../icons/IconClock';
 import getLocalisedString from '../../../utils/getLocalisedString';
@@ -19,9 +24,7 @@ interface Props {
 }
 
 const EventCard: React.FC<Props> = ({ event, link }) => {
-  const { t } = useTranslation();
   const locale = useLocale();
-
   const id = event.id;
   const name = getLocalisedString(event.name, locale);
   const shortDescription = getLocalisedString(
@@ -29,7 +32,6 @@ const EventCard: React.FC<Props> = ({ event, link }) => {
     locale
   );
   const image = event.images[0]?.url;
-  const time = getEventStartTimeStr(event, locale, t);
 
   return (
     <Link href={link}>
@@ -54,19 +56,106 @@ const EventCard: React.FC<Props> = ({ event, link }) => {
             <div className={styles.description}>{shortDescription}</div>
           </div>
           <div className={styles.occurrenceInfoWrapper}>
-            <div className={styles.textWithIcon}>
-              <IconClock />
-              {time}
-            </div>
-            <div className={styles.textWithIcon}>
-              <IconLocation />
-              <PlaceText placeId={event.location?.id || ''} />
-            </div>
+            <EventTime event={event} />
+            <EventPlaceInfo event={event} />
           </div>
           <EventKeywords event={event} />
         </div>
       </a>
     </Link>
+  );
+};
+
+const EventPlaceInfo: React.FC<{
+  event: EventsFieldsFragment;
+}> = ({ event }) => {
+  return (
+    <div className={styles.textWithIcon}>
+      <IconLocation />
+      <PlaceText placeId={event.location?.id || ''} />
+    </div>
+  );
+};
+
+const EventTime: React.FC<{
+  event: EventsFieldsFragment;
+}> = ({ event }) => {
+  const { t } = useTranslation();
+  const time = event.pEvent?.nextOccurrenceDatetime
+    ? new Date(event.pEvent?.nextOccurrenceDatetime)
+    : undefined;
+  const [showOccurrences, setShowOccurrences] = React.useState(false);
+
+  const toggleShowOccurrences = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    e.preventDefault(); // Prevent event card opening
+    setShowOccurrences(!showOccurrences); // Toggle occurrences view
+  };
+  const nextOccurrenceTime = event.pEvent.nextOccurrenceDatetime;
+  const lastOccurrenceTime =
+    event.pEvent.lastOccurrenceDatetime ?? nextOccurrenceTime;
+  const hasMultipleOccurrences = nextOccurrenceTime !== lastOccurrenceTime;
+
+  const { data: occurrencesData, loading: loadingOccurrencesData } =
+    useOccurrencesQuery({
+      skip: !showOccurrences, // Render only when requested
+      variables: {
+        cancelled: false,
+        pEvent: event.pEvent.id,
+        orderBy: 'startTime',
+      },
+    });
+
+  const occurrenceTimes = loadingOccurrencesData
+    ? times(3, (key) => (
+        <li key={`skeleton-${key}`}>
+          <SkeletonLoader />
+        </li>
+      ))
+    : occurrencesData?.occurrences?.edges
+        ?.slice(1) // First one is alraedy rendered
+        .map((edge) => (
+          <OccurrenceTime
+            key={`occurrence-${edge?.node?.id}`}
+            time={new Date(edge?.node?.startTime)}
+          />
+        ));
+
+  return (
+    <div className={styles.eventTimes}>
+      <ul className={styles.occurrenceTimes}>
+        <OccurrenceTime time={time} />
+        {showOccurrences && occurrenceTimes}
+      </ul>
+      {hasMultipleOccurrences && (
+        <Button
+          variant="secondary"
+          className={styles.multipleOccurrenceButton}
+          onClick={(e) => toggleShowOccurrences(e)}
+        >
+          {showOccurrences
+            ? t('event:eventCard.buttonMultipleOccurrences.opened')
+            : t('event:eventCard.buttonMultipleOccurrences.closed')}
+        </Button>
+      )}
+    </div>
+  );
+};
+
+const OccurrenceTime: React.FC<{
+  time: Date | undefined;
+}> = ({ time }) => {
+  const { t } = useTranslation();
+  const locale = useLocale();
+  if (!time) {
+    return null;
+  }
+  return (
+    <li className={styles.textWithIcon}>
+      <IconClock />
+      {getEventStartTimeStr(time, locale, t)}
+    </li>
   );
 };
 

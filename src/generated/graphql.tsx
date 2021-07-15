@@ -1084,6 +1084,8 @@ export type PalvelutarjotinEventNodeOccurrencesArgs = {
   upcoming?: Maybe<Scalars['Boolean']>;
   date?: Maybe<Scalars['Date']>;
   time?: Maybe<Scalars['Time']>;
+  pEvent?: Maybe<Scalars['ID']>;
+  cancelled?: Maybe<Scalars['Boolean']>;
 };
 
 export type PalvelutarjotinEventNodeConnection = {
@@ -1156,6 +1158,8 @@ export type PersonNodeOccurrencesArgs = {
   upcoming?: Maybe<Scalars['Boolean']>;
   date?: Maybe<Scalars['Date']>;
   time?: Maybe<Scalars['Time']>;
+  pEvent?: Maybe<Scalars['ID']>;
+  cancelled?: Maybe<Scalars['Boolean']>;
 };
 
 
@@ -1332,6 +1336,7 @@ export type Query = {
 
 
 export type QueryOccurrencesArgs = {
+  orderBy?: Maybe<Array<Maybe<Scalars['String']>>>;
   before?: Maybe<Scalars['String']>;
   after?: Maybe<Scalars['String']>;
   first?: Maybe<Scalars['Int']>;
@@ -1339,6 +1344,8 @@ export type QueryOccurrencesArgs = {
   upcoming?: Maybe<Scalars['Boolean']>;
   date?: Maybe<Scalars['Date']>;
   time?: Maybe<Scalars['Time']>;
+  pEvent?: Maybe<Scalars['ID']>;
+  cancelled?: Maybe<Scalars['Boolean']>;
 };
 
 
@@ -1596,6 +1603,8 @@ export type StudyGroupNodeOccurrencesArgs = {
   upcoming?: Maybe<Scalars['Boolean']>;
   date?: Maybe<Scalars['Date']>;
   time?: Maybe<Scalars['Time']>;
+  pEvent?: Maybe<Scalars['ID']>;
+  cancelled?: Maybe<Scalars['Boolean']>;
 };
 
 
@@ -2081,7 +2090,7 @@ export type EventsFieldsFragment = (
     & OfferFieldsFragment
   )>, pEvent: (
     { __typename?: 'PalvelutarjotinEventNode' }
-    & Pick<PalvelutarjotinEventNode, 'id' | 'nextOccurrenceDatetime'>
+    & Pick<PalvelutarjotinEventNode, 'id' | 'nextOccurrenceDatetime' | 'lastOccurrenceDatetime'>
     & { organisation?: Maybe<(
       { __typename?: 'OrganisationNode' }
       & Pick<OrganisationNode, 'id' | 'name'>
@@ -2265,6 +2274,35 @@ export type OccurrenceQuery = (
   & { occurrence?: Maybe<(
     { __typename?: 'OccurrenceNode' }
     & OccurrenceFieldsFragment
+  )> }
+);
+
+export type OccurrencesQueryVariables = Exact<{
+  after?: Maybe<Scalars['String']>;
+  before?: Maybe<Scalars['String']>;
+  first?: Maybe<Scalars['Int']>;
+  last?: Maybe<Scalars['Int']>;
+  cancelled?: Maybe<Scalars['Boolean']>;
+  pEvent?: Maybe<Scalars['ID']>;
+  orderBy?: Maybe<Array<Maybe<Scalars['String']>> | Maybe<Scalars['String']>>;
+}>;
+
+
+export type OccurrencesQuery = (
+  { __typename?: 'Query' }
+  & { occurrences?: Maybe<(
+    { __typename?: 'OccurrenceNodeConnection' }
+    & { pageInfo: (
+      { __typename?: 'PageInfo' }
+      & Pick<PageInfo, 'hasNextPage' | 'hasPreviousPage' | 'startCursor' | 'endCursor'>
+    ), edges: Array<Maybe<(
+      { __typename?: 'OccurrenceNodeEdge' }
+      & Pick<OccurrenceNodeEdge, 'cursor'>
+      & { node?: Maybe<(
+        { __typename?: 'OccurrenceNode' }
+        & OccurrenceFieldsFragment
+      )> }
+    )>> }
   )> }
 );
 
@@ -2713,6 +2751,7 @@ export const EventsFieldsFragmentDoc = gql`
   pEvent {
     id
     nextOccurrenceDatetime
+    lastOccurrenceDatetime
     organisation {
       id
       name
@@ -3093,6 +3132,66 @@ export function useOccurrenceLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions
 export type OccurrenceQueryHookResult = ReturnType<typeof useOccurrenceQuery>;
 export type OccurrenceLazyQueryHookResult = ReturnType<typeof useOccurrenceLazyQuery>;
 export type OccurrenceQueryResult = Apollo.QueryResult<OccurrenceQuery, OccurrenceQueryVariables>;
+export const OccurrencesDocument = gql`
+    query Occurrences($after: String, $before: String, $first: Int, $last: Int, $cancelled: Boolean, $pEvent: ID, $orderBy: [String]) {
+  occurrences(
+    after: $after
+    before: $before
+    first: $first
+    last: $last
+    cancelled: $cancelled
+    pEvent: $pEvent
+    orderBy: $orderBy
+  ) {
+    pageInfo {
+      hasNextPage
+      hasPreviousPage
+      startCursor
+      endCursor
+    }
+    edges {
+      node {
+        ...occurrenceFields
+      }
+      cursor
+    }
+  }
+}
+    ${OccurrenceFieldsFragmentDoc}`;
+
+/**
+ * __useOccurrencesQuery__
+ *
+ * To run a query within a React component, call `useOccurrencesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useOccurrencesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useOccurrencesQuery({
+ *   variables: {
+ *      after: // value for 'after'
+ *      before: // value for 'before'
+ *      first: // value for 'first'
+ *      last: // value for 'last'
+ *      cancelled: // value for 'cancelled'
+ *      pEvent: // value for 'pEvent'
+ *      orderBy: // value for 'orderBy'
+ *   },
+ * });
+ */
+export function useOccurrencesQuery(baseOptions?: Apollo.QueryHookOptions<OccurrencesQuery, OccurrencesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<OccurrencesQuery, OccurrencesQueryVariables>(OccurrencesDocument, options);
+      }
+export function useOccurrencesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<OccurrencesQuery, OccurrencesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<OccurrencesQuery, OccurrencesQueryVariables>(OccurrencesDocument, options);
+        }
+export type OccurrencesQueryHookResult = ReturnType<typeof useOccurrencesQuery>;
+export type OccurrencesLazyQueryHookResult = ReturnType<typeof useOccurrencesLazyQuery>;
+export type OccurrencesQueryResult = Apollo.QueryResult<OccurrencesQuery, OccurrencesQueryVariables>;
 export const PlaceDocument = gql`
     query Place($id: ID!) {
   place(id: $id) {

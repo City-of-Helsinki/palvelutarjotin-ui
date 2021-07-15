@@ -13,7 +13,7 @@
   --fontweight-title: bold;
   --fontweight-description: normal;
 
-  --height-image: 8.125rem;
+  --height-image: 13.125em;
   --height-image-mobile: 14.5rem;
 
   --lineheight-title: var(--lineheight-l);
@@ -25,7 +25,7 @@
 
   --size-icon: 1.25rem;
 
-  --width-image: 11.25rem;
+  --width-image: 12.25rem;
 
   display: grid;
   cursor: pointer;
@@ -38,13 +38,13 @@
   }
 
   .imageWrapper {
-    min-height: var(--height-image-mobile);
+    height: var(--height-image-mobile);
     background-position: center center;
     background-size: cover;
     background-repeat: no-repeat;
 
     @include respond_above(sm) {
-      min-height: var(--height-image);
+      height: var(--height-image);
     }
   }
 
@@ -80,12 +80,36 @@
 
   .textWithIcon {
     display: flex;
-    align-items: center;
 
     svg {
       height: var(--size-icon);
       width: var(--size-icon);
       margin-right: var(--margin-right-icon);
     }
+  }
+
+  ul.occurrenceTimes {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    li {
+      margin-bottom: var(--spacing-xs);
+    }
+  }
+
+  .multipleOccurrenceButton {
+    border: 0 none transparent;
+    min-height: unset;
+    height: fit-content;
+    padding: var(--spacing-3-xs);
+    span {
+      padding: 0;
+      margin: 0;
+      font-size: small;
+    }
+  }
+
+  .multipleOccurrenceContainer {
+    display: block;
   }
 }
