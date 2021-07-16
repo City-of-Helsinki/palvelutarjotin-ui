@@ -57,7 +57,12 @@ const EventBasicInfo: React.FC<EventBasicInfoProps> = ({ event }) => {
         {infoUrl && (
           <div>
             <IconInfoCircle />
-            <a href={addUrlSlashes(infoUrl)} target="_blank" rel="noreferrer">
+            <a
+              className={styles.infoLink}
+              href={addUrlSlashes(infoUrl)}
+              target="_blank"
+              rel="noreferrer"
+            >
               {infoUrl}
             </a>
           </div>

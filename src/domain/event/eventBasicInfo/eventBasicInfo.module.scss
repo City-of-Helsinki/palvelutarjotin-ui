@@ -84,4 +84,9 @@
     font-weight: 700;
     margin-bottom: var(--spacing-3-xs);
   }
+
+  .infoLink {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 }
