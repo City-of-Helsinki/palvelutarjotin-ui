@@ -15,6 +15,10 @@
       "other": "{{date}} at {{time}}",
       "today": "Today at {{time}}",
       "tomorrow": "Tomorrow at {{time}}"
+    },
+    "buttonMultipleOccurrences": {
+      "closed": "+ other event times",
+      "opened": "hide other times"
     }
   },
   "organisation": {

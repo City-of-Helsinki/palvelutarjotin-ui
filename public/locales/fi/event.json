@@ -15,6 +15,10 @@
       "other": "{{date}} klo {{time}}",
       "today": "Tänään klo {{time}}",
       "tomorrow": "Huomenna klo {{time}}"
+    },
+    "buttonMultipleOccurrences": {
+      "closed": "+ muita tapahtuma-aikoja",
+      "opened": "piilota muut ajat"
     }
   },
   "organisation": {

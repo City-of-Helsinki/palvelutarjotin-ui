@@ -31,6 +31,7 @@ export const QUERY_EVENTS = gql`
     pEvent {
       id
       nextOccurrenceDatetime
+      lastOccurrenceDatetime
       organisation {
         id
         name
