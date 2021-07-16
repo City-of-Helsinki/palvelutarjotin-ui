@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import { Button, IconLocation } from 'hds-react';
-import { times } from 'lodash';
+import times from 'lodash/times';
 import { useTranslation } from 'next-i18next';
 import Link from 'next/link';
 import React from 'react';
@@ -82,7 +82,7 @@ const EventTime: React.FC<{
 }> = ({ event }) => {
   const { t } = useTranslation();
   const time = event.pEvent?.nextOccurrenceDatetime
-    ? new Date(event.pEvent?.nextOccurrenceDatetime)
+    ? new Date(event.pEvent.nextOccurrenceDatetime)
     : undefined;
   const [showOccurrences, setShowOccurrences] = React.useState(false);
 
@@ -90,7 +90,7 @@ const EventTime: React.FC<{
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     e.preventDefault(); // Prevent event card opening
-    setShowOccurrences(!showOccurrences); // Toggle occurrences view
+    setShowOccurrences((showOccurrences) => !showOccurrences); // Toggle occurrences view
   };
   const nextOccurrenceTime = event.pEvent.nextOccurrenceDatetime;
   const lastOccurrenceTime =
@@ -99,7 +99,7 @@ const EventTime: React.FC<{
 
   const { data: occurrencesData, loading: loadingOccurrencesData } =
     useOccurrencesQuery({
-      skip: !showOccurrences, // Render only when requested
+      skip: !showOccurrences, // Fetch and render occurrences only when expanded
       variables: {
         cancelled: false,
         pEvent: event.pEvent.id,

@@ -92,7 +92,7 @@ it('does not render a butto to view multiple occurrences when only 1 occurrence 
 
   expect(
     screen.queryByRole('button', {
-      name: /\+ muita tapahtuma\-aikoja/i,
+      name: /\+ muita tapahtuma-aikoja/i,
     })
   ).not.toBeInTheDocument();
 });
