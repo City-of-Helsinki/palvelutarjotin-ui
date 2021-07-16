@@ -114,6 +114,14 @@ Note: if storybook is needed, find the deleted files from git log.
 
 To verify deployment, open [https://city-of-helsinki.github.io/palvelutarjotin-ui/](https://city-of-helsinki.github.io/palvelutarjotin-ui/) and check that everything is looking ok.)
 
+## Versioning
+
+This project uses [Standard Version](https://github.com/conventional-changelog/standard-version) with [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/)
+
+To make a new release, run:
+
+`yarn release`
+
 ## Browser tests
 
 Browser tests are written in TypeScript with [TestCafe](https://devexpress.github.io/testcafe/) framework.
