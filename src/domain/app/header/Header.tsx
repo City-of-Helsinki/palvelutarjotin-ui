@@ -46,7 +46,8 @@ const Header: React.FC = () => {
   };
 
   const goToPage =
-    (pathname: string) => (event?: React.MouseEvent<HTMLAnchorElement>) => {
+    (pathname: string) =>
+    (event?: React.MouseEvent<HTMLAnchorElement> | Event) => {
       event?.preventDefault();
       router.push(pathname);
       closeMenu();
