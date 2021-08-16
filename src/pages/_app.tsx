@@ -4,7 +4,7 @@ import {
 } from '@datapunt/matomo-tracker-react';
 import * as Sentry from '@sentry/browser';
 import { appWithTranslation } from 'next-i18next';
-import { AppProps } from 'next/dist/next-server/lib/router/router';
+import { AppProps } from 'next/app';
 import React, { ErrorInfo } from 'react';
 import { Provider } from 'react-redux';
 import { ToastContainer } from 'react-toastify';

@@ -3,7 +3,7 @@ import { ParsedUrlQuery } from 'querystring';
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { AnyAction, Store } from '@reduxjs/toolkit';
 import { render, RenderResult, fireEvent } from '@testing-library/react';
-import { RouterContext } from 'next/dist/next-server/lib/router-context';
+import { RouterContext } from 'next/dist/shared/lib/router-context';
 import { NextRouter } from 'next/router';
 import React from 'react';
 import { Provider } from 'react-redux';

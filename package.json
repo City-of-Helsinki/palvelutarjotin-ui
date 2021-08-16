@@ -44,7 +44,7 @@
     "ics": "^2.22.1",
     "jsdom": "^16.6.0",
     "lodash": "^4.17.21",
-    "next": "11.0.1",
+    "next": "11.1.0",
     "next-i18next": "^8.5.1",
     "next-with-apollo": "^5.2.1",
     "query-string": "^7.0.1",
