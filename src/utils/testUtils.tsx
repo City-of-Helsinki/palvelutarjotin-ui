@@ -85,8 +85,10 @@ type CustomRender = {
 
 type CustomRenderResult = RenderResult;
 
+// eslint-disable-next-line import/export
 export { customRender as render };
 
 // re-export everything
+// eslint-disable-next-line import/export
 export * from '@testing-library/react';
 export { default as userEvent } from '@testing-library/user-event';

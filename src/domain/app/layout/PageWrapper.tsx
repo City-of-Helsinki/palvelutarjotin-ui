@@ -38,7 +38,7 @@ const PageWrapper: React.FC<Props> = ({ children, title = 'appName' }) => {
         <link rel="icon" href="/favicon.ico" />
         <link rel="alternate" hrefLang="fi" href={'/fi/' + path} />
         <link rel="alternate" hrefLang="sv" href={'/sv/' + path} />
-        <link rel="alternate" hrefLang="en" href={'/en/' + path} />
+        <link rel="alternate" hrefLang="eln" href={'/en/' + path} />
       </Head>
       <main>{children}</main>
     </div>
