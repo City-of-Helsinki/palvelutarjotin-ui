@@ -47,7 +47,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
           <PageLayout {...pageProps}>
             <Component {...pageProps} />
           </PageLayout>
-          <ToastContainer position="bottom-right" />
+          <ToastContainer position="top-right" />
         </MatomoProvider>
       </Provider>
     </ErrorBoundary>

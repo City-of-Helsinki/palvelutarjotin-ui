@@ -1,12 +1,9 @@
 @import 'fonts';
 @import 'variables';
+@import '~react-toastify/dist/ReactToastify.min.css';
 
 * {
   font-family: $font-family-base;
-}
-
-:global {
-  @import '~react-toastify/dist/ReactToastify.min.css';
 }
 
 button {
