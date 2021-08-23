@@ -1,5 +1,4 @@
 import { Notification } from 'hds-react';
-import take from 'lodash/take';
 import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import React, { ReactElement } from 'react';
@@ -14,7 +13,6 @@ import PageWrapper from '../app/layout/PageWrapper';
 import { ROUTES } from '../app/routes/constants';
 import { ENROLMENT_URL_PARAMS } from '../enrolment/constants';
 import NotFoundPage from '../notFoundPage/NotFoundPage';
-import { OCCURRENCE_LIST_PAGE_SIZE } from './constants';
 import EnrolmentButton from './enrolmentButton/EnrolmentButton';
 import EventBasicInfo from './eventBasicInfo/EventBasicInfo';
 import EventImage from './eventImage/EventImage';
@@ -32,9 +30,6 @@ const EventPage = (): ReactElement => {
   } = useRouter();
   const enrolmentCreated = query[ENROLMENT_URL_PARAMS.ENROLMENT_CREATED];
   const notificationType = query[ENROLMENT_URL_PARAMS.NOTIFICATION_TYPE];
-  const [occurrencesVisible, setOccurrencesVisible] = React.useState(
-    OCCURRENCE_LIST_PAGE_SIZE
-  );
   const [selectedOccurrences, setSelectedOccurrences] = React.useState<
     string[]
   >([]);
@@ -76,10 +71,6 @@ const EventPage = (): ReactElement => {
     });
   };
 
-  const showMoreOccurrences = () => {
-    setOccurrencesVisible(occurrencesVisible + OCCURRENCE_LIST_PAGE_SIZE);
-  };
-
   const selectOccurrence = (occurrenceId: string) => {
     setSelectedOccurrences((selectOccurrences) => [
       ...selectOccurrences,
@@ -104,7 +95,6 @@ const EventPage = (): ReactElement => {
     autoAcceptance,
   } = getEventFields(eventData?.event, locale);
 
-  const visibleOccurrences = take(occurrences, occurrencesVisible);
   const requiredEnrolmentsSelected =
     selectedOccurrences.length === (neededOccurrences || 0);
   const showEnrolmentButton = neededOccurrences && neededOccurrences > 1;
@@ -154,11 +144,7 @@ const EventPage = (): ReactElement => {
                   enrolOccurrence={enrolOccurrence}
                   event={eventData.event}
                   eventLocationId={locationId || ''}
-                  occurrences={visibleOccurrences}
-                  showMoreOccurrences={showMoreOccurrences}
-                  showMoreButtonVisible={
-                    occurrences.length > occurrencesVisible
-                  }
+                  occurrences={occurrences}
                   neededOccurrences={neededOccurrences}
                 />
               </div>

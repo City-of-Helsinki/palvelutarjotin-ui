@@ -1,9 +1,13 @@
 import express from 'express';
 import next from 'next';
+import React from 'react';
 
 const port = process.env.PORT || 3000;
 const app = next({ dev: process.env.NODE_ENV !== 'production' });
 const handle = app.getRequestHandler();
+
+// to avoid warning: "Warning: useLayoutEffect does nothing on the server"
+React.useLayoutEffect = React.useEffect;
 
 const RESPONSES = {
   OK: 'OK',

@@ -67,6 +67,7 @@ export const createApolloCache = (): InMemoryCache =>
             // Docs: https://www.apollographql.com/docs/react/pagination/key-args/
             keyArgs: excludeArgs(['page']),
             merge(existing, incoming) {
+              if (!incoming) return existing;
               return {
                 data: [...(existing?.data ?? []), ...incoming.data],
                 meta: incoming.meta,
