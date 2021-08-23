@@ -80,7 +80,7 @@ it('renders a button to view multiple occurrences when event has them', async ()
   expect(screen.getByText(/sunnuntaina 20.09 klo 10:30/)).toBeInTheDocument();
 });
 
-it('does not render a butto to view multiple occurrences when only 1 occurrence presents', () => {
+it('does not render a button to view multiple occurrences when only 1 occurrence presents', () => {
   const occurrences = fakeOccurrences(1);
   const event = fakeEvent({
     pEvent: fakePEvent({ occurrences }),
