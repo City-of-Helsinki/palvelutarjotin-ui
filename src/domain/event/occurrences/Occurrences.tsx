@@ -381,14 +381,14 @@ const OccurrenceInfo: React.FC<{
   event: EventFieldsFragment;
   eventLocationId: string;
 }> = ({ occurrence, event, eventLocationId }) => {
-  const { placeId, startTime, endTime, linkedEvent } = occurrence;
+  const { placeId, startTime, endTime } = occurrence;
   const { t } = useTranslation();
   const locale = useLocale();
   const date = formatDate(new Date(startTime), 'EEEE dd.MM.yyyy', locale);
   const time =
     startTime &&
     formatTimeRange(new Date(startTime), new Date(endTime), locale);
-  const offer = linkedEvent?.offers?.[0];
+  const offer = event?.offers?.[0];
   const price = offer?.price?.[locale];
   const priceDescription = offer?.description?.[locale];
   const isFree = offer?.isFree ?? !price;
