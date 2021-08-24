@@ -331,7 +331,7 @@ it('renders occurrences table and related stuff correctly', async () => {
   await waitForRequestsToComplete();
 
   const occurrencesTitle = screen.queryByText(
-    eventMessages.occurrencesTitle.replace('{{count}}', '10')
+    eventMessages.occurrencesTitle.replace('{{count}}', '11')
   );
   const showMoreOccurrencesButton = screen.queryByRole('button', {
     name: eventMessages.occurrenceList.loadMoreOccurrences,

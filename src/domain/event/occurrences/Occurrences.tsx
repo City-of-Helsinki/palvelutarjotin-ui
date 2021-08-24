@@ -9,6 +9,7 @@ import {
   IconGlyphEuro,
 } from 'hds-react';
 import capitalize from 'lodash/capitalize';
+import take from 'lodash/take';
 import { useTranslation } from 'next-i18next';
 import Link from 'next/link';
 import React from 'react';
@@ -36,6 +37,7 @@ import {
 import PlaceInfo, { PlaceInfoLinks } from '../../place/placeInfo/PlaceInfo';
 import PlaceText from '../../place/placeText/PlaceText';
 import CalendarButton from '../calendarButton/CalendarButton';
+import { OCCURRENCE_LIST_PAGE_SIZE } from '../constants';
 import DateFilter from '../dateFilter/DateFilter';
 import { getEventFields } from '../utils';
 import styles from './occurrences.module.scss';
@@ -45,9 +47,7 @@ interface Props {
   event: EventFieldsFragment;
   eventLocationId: string;
   occurrences: OccurrenceFieldsFragment[];
-  showMoreOccurrences: () => void;
   enrolOccurrence: ((id: string) => void) | null;
-  showMoreButtonVisible: boolean;
   selectOccurrence: (id: string) => void;
   deselectOccurrence: (id: string) => void;
   neededOccurrences?: number;
@@ -75,14 +75,15 @@ const OccurrencesSection: React.FC<Props> = ({
   event,
   eventLocationId,
   occurrences,
-  showMoreOccurrences,
   enrolOccurrence,
-  showMoreButtonVisible,
   selectOccurrence,
   deselectOccurrence,
   neededOccurrences,
   selectedOccurrences,
 }) => {
+  const [occurrencesVisible, setOccurrencesVisible] = React.useState(
+    OCCURRENCE_LIST_PAGE_SIZE
+  );
   const { t } = useTranslation();
 
   // This hook filters occurrences only by date, rest of the filtering (if added more)
@@ -100,6 +101,12 @@ const OccurrencesSection: React.FC<Props> = ({
     isInitialStartDate,
     dateFiltersChanged,
   } = useDateFiltering({ occurrences });
+
+  const showMoreOccurrences = () => {
+    setOccurrencesVisible(occurrencesVisible + OCCURRENCE_LIST_PAGE_SIZE);
+  };
+  const visibleOccurrences = take(filteredOccurrences, occurrencesVisible);
+  const showMoreButtonVisible = filteredOccurrences.length > occurrencesVisible;
 
   return (
     <section className={styles.occurrenceTable}>
@@ -128,7 +135,7 @@ const OccurrencesSection: React.FC<Props> = ({
         deselectOccurrence={deselectOccurrence}
         neededOccurrences={neededOccurrences}
         selectedOccurrences={selectedOccurrences}
-        filteredOccurrences={filteredOccurrences}
+        filteredOccurrences={visibleOccurrences}
       />
       {showMoreButtonVisible && (
         <div className={styles.loadMoreButtonWrapper}>
