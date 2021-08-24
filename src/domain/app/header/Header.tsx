@@ -1,9 +1,17 @@
-import { Navigation, IconGlobe, IconSignin } from 'hds-react';
+import { Navigation, IconGlobe } from 'hds-react';
 import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import React from 'react';
 
 import { SUPPORTED_LANGUAGES } from '../../../constants';
+import {
+  LanguageCodeEnum,
+  MenuNodeIdTypeEnum,
+  Page,
+  useMenuQuery,
+} from '../../../generated/graphql-cms';
+import apolloClient from '../../../headless-cms/client';
+import { MENU_NAME } from '../../../headless-cms/constants';
 import useLocale from '../../../hooks/useLocale';
 import { OptionType } from '../../../types';
 import { MAIN_CONTENT_ID } from '../layout/PageLayout';
@@ -18,8 +26,6 @@ const Header: React.FC = () => {
   const [menuOpen, setMenuOpen] = React.useState(false);
   const toggleMenu = () => setMenuOpen(!menuOpen);
   const closeMenu = () => setMenuOpen(false);
-
-  const navigationLinksEnabled = false;
 
   const getLanguageOptions = (): OptionType[] => {
     const createOptions = (languages: string[]) =>
@@ -55,29 +61,15 @@ const Header: React.FC = () => {
 
   const logoLang = locale === 'sv' ? 'sv' : 'fi';
 
-  const navigationItems = [
-    {
-      label: t('header:navigation:about'),
-      url: `/${locale}${ROUTES.HOME}`,
+  const { data: navigationItems, loading: cmsMenuLoading } = useMenuQuery({
+    client: apolloClient,
+    skip: !locale,
+    variables: {
+      id: MENU_NAME.Header,
+      idType: MenuNodeIdTypeEnum.Name,
+      language: locale.toString().toUpperCase() as LanguageCodeEnum,
     },
-    {
-      label: t('header:navigation:culturalEducation'),
-      url: `/${locale}${ROUTES.HOME}`,
-    },
-    {
-      label: t('header:navigation:helsinkiMoving'),
-      url: `/${locale}${ROUTES.HOME}`,
-    },
-    {
-      label: t('header:navigation:now'),
-      url: `/${locale}${ROUTES.HOME}`,
-    },
-    {
-      label: t('header:navigation:forOrganizer'),
-      url: `/${locale}${ROUTES.HOME}`,
-      icon: <IconSignin />,
-    },
-  ];
+  });
 
   return (
     <Navigation
@@ -91,19 +83,27 @@ const Header: React.FC = () => {
       logoLanguage={logoLang}
       title={t('common:appName')}
     >
-      {navigationLinksEnabled && (
+      {!cmsMenuLoading && navigationItems && (
         <Navigation.Row variant="inline">
-          {navigationItems.map((item, index) => (
-            <Navigation.Item
-              key={index}
-              active={isTabActive(item.url)}
-              className={styles.navigationItem}
-              href={item.url}
-              label={item.label}
-              onClick={goToPage(item.url)}
-              icon={item.icon}
-            />
-          ))}
+          {navigationItems?.menu?.menuItems?.nodes
+            ?.map((node, index) => {
+              const page = node?.connectedNode?.node as Page;
+              const item = page?.translation;
+              if (!item) return null;
+              const translatedPageId = item.id as string;
+              return (
+                <Navigation.Item
+                  key={index}
+                  active={isTabActive(item.id)}
+                  className={styles.navigationItem}
+                  label={item.title}
+                  onClick={goToPage(
+                    `${ROUTES.CMS_PAGE.replace(':id', translatedPageId)}`
+                  )}
+                />
+              );
+            })
+            .filter((item) => item != null)}
         </Navigation.Row>
       )}
       <Navigation.Actions>
