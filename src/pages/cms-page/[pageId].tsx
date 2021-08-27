@@ -2,12 +2,9 @@
 import { NormalizedCacheObject } from '@apollo/client';
 import { GetStaticPropsContext, GetStaticPropsResult, NextPage } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { useRouter } from 'next/router';
-import React from 'react';
 
 import { ALL_I18N_NAMESPACES, SUPPORTED_LANGUAGES } from '../../constants';
 import {
-  LanguageCodeEnum,
   MenuNodeIdTypeEnum,
   PageDocument,
   PageQuery,
@@ -17,38 +14,14 @@ import {
   MenuQueryVariables,
   PageIdType,
   Page,
-  usePageQuery,
+  LanguageCodeEnum,
 } from '../../generated/graphql-cms';
 import { createCmsApolloClient } from '../../headless-cms/cmsApolloClient';
-import { useCMSClient } from '../../headless-cms/cmsApolloContext';
-import CmsPageContent, {
-  getUriID,
-} from '../../headless-cms/components/CmsPageContent';
+import CmsPage, { getUriID } from '../../headless-cms/components/CmsPage';
 import { MENU_NAME } from '../../headless-cms/constants';
-import useLocale from '../../hooks/useLocale';
 import { Language } from '../../types';
 
-const CmsPage: NextPage = () => {
-  const {
-    query: { pageId },
-  } = useRouter();
-  const locale = useLocale();
-  const cmsClient = useCMSClient();
-
-  const { data: pageData } = usePageQuery({
-    client: cmsClient,
-    variables: {
-      id: getUriID(pageId as string, locale),
-      idType: PageIdType.Uri,
-    },
-  });
-
-  return (
-    <div>
-      <CmsPageContent page={pageData?.page as Page} />;
-    </div>
-  );
-};
+const NextCmsPage: NextPage = () => <CmsPage />;
 
 export async function getStaticPaths() {
   const cmsClient = createCmsApolloClient();
@@ -109,6 +82,7 @@ export async function getStaticProps(
           context.locale as Language
         ),
         idType: PageIdType.Uri,
+        language: context.locale?.toUpperCase() as LanguageCodeEnum,
       },
     }),
     cmsClient.query<MenuQuery, MenuQueryVariables>({
@@ -132,4 +106,4 @@ export async function getStaticProps(
   };
 }
 
-export default CmsPage;
+export default NextCmsPage;

@@ -128,17 +128,14 @@ const Header: React.FC = () => {
         <Navigation.Row variant="inline">
           {menuItems
             ?.map((item, index) => {
-              if (!item?.id) return null;
-              const translatedPageId = item.slug as string;
+              if (!item?.uri) return null;
               return (
                 <Navigation.Item
                   key={index}
                   active={isTabActive(item.id)}
                   className={styles.navigationItem}
                   label={item.title}
-                  onClick={goToPage(
-                    `${ROUTES.CMS_PAGE.replace(':id', translatedPageId)}`
-                  )}
+                  href={`${ROUTES.CMS_PAGE.replace('/:id', item.uri)}`}
                 />
               );
             })
