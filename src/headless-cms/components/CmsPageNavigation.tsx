@@ -20,10 +20,10 @@ const CmsPageNavigation: React.FC<{
             <Link
               href={`${ROUTES.CMS_PAGE.replace(
                 '/:id',
-                parentPage.translation?.uri as string
+                parentPage?.uri as string
               )}`}
             >
-              {parentPage.translation?.title}
+              {parentPage?.title}
             </Link>
           </li>
         )}
@@ -33,14 +33,14 @@ const CmsPageNavigation: React.FC<{
         {childrenPages
           .filter((subPage) => subPage != null)
           .map((subPage) => (
-            <li key={`subPage-${subPage?.translation?.id}`}>
+            <li key={`subPage-${subPage?.id}`}>
               <Link
                 href={`${ROUTES.CMS_PAGE.replace(
                   '/:id',
-                  subPage?.translation?.uri as string
+                  subPage?.uri as string
                 )}`}
               >
-                {subPage?.translation?.title}
+                {subPage?.title}
               </Link>
             </li>
           ))}

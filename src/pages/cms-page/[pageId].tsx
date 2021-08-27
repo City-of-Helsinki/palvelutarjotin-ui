@@ -82,7 +82,6 @@ export async function getStaticProps(
           context.locale as Language
         ),
         idType: PageIdType.Uri,
-        language: context.locale?.toUpperCase() as LanguageCodeEnum,
       },
     }),
     cmsClient.query<MenuQuery, MenuQueryVariables>({

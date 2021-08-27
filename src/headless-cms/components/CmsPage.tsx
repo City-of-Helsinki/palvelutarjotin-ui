@@ -2,8 +2,8 @@ import { useRouter } from 'next/router';
 import React from 'react';
 
 import {
-  LanguageCodeEnum,
   Page,
+  PageFieldsFragment,
   PageIdType,
   usePageQuery,
 } from '../../generated/graphql-cms';
@@ -32,14 +32,13 @@ const CmsPage: React.FC = () => {
     variables: {
       id: getUriID(pageId as string, locale),
       idType: PageIdType.Uri,
-      language: locale.toString().toUpperCase() as LanguageCodeEnum,
     },
   });
 
   return (
     <div>
       <CmsPageNavigation page={pageData?.page as Page} />
-      <CmsPageContent page={pageData?.page as Page} />
+      <CmsPageContent page={pageData?.page as PageFieldsFragment} />
     </div>
   );
 };

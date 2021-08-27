@@ -41,17 +41,17 @@ export const MENU_QUERY = gql`
 `;
 
 export const PAGE_QUERY = gql`
-  query Page($id: ID!, $idType: PageIdType, $language: LanguageCodeEnum!) {
+  query Page($id: ID!, $idType: PageIdType) {
     page(id: $id, idType: $idType) {
-      id
-      title
-      translation(language: $language) {
+      ...pageFields
+      translations {
         ...pageFields
       }
       parent {
         node {
           ... on Page {
-            translation(language: $language) {
+            ...pageFields
+            translations {
               ...pageFields
             }
           }
@@ -60,7 +60,8 @@ export const PAGE_QUERY = gql`
       children {
         nodes {
           ... on Page {
-            translation(language: $language) {
+            ...pageFields
+            translations {
               ...pageFields
             }
           }
