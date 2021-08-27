@@ -3775,7 +3775,19 @@ export enum MenuLocationEnum {
   /** Put the menu in the primary___en location */
   PrimaryEn = 'PRIMARY___EN',
   /** Put the menu in the primary___sv location */
-  PrimarySv = 'PRIMARY___SV'
+  PrimarySv = 'PRIMARY___SV',
+  /** Put the menu in the secondary location */
+  Secondary = 'SECONDARY',
+  /** Put the menu in the secondary___en location */
+  SecondaryEn = 'SECONDARY___EN',
+  /** Put the menu in the secondary___sv location */
+  SecondarySv = 'SECONDARY___SV',
+  /** Put the menu in the tertiary location */
+  Tertiary = 'TERTIARY',
+  /** Put the menu in the tertiary___en location */
+  TertiaryEn = 'TERTIARY___EN',
+  /** Put the menu in the tertiary___sv location */
+  TertiarySv = 'TERTIARY___SV'
 }
 
 /** The Type of Identifier used to fetch a single node. Default is "ID". To be used along with the "id" field. */
@@ -10964,16 +10976,10 @@ export type WritingSettings = {
 export type MenuQueryVariables = Exact<{
   id: Scalars['ID'];
   idType?: Maybe<MenuNodeIdTypeEnum>;
-  language: LanguageCodeEnum;
 }>;
 
 
-export type MenuQuery = { __typename?: 'RootQuery', menu?: Maybe<{ __typename?: 'Menu', id: string, name?: Maybe<string>, slug?: Maybe<string>, menuId?: Maybe<number>, menuItems?: Maybe<{ __typename?: 'MenuToMenuItemConnection', nodes?: Maybe<Array<Maybe<{ __typename?: 'MenuItem', connectedNode?: Maybe<{ __typename?: 'MenuItemToMenuItemLinkableConnectionEdge', node?: Maybe<{ __typename?: 'Category' } | { __typename?: 'Page', id: string, translation?: Maybe<{ __typename?: 'Page', title?: Maybe<string>, uri?: Maybe<string>, link?: Maybe<string>, id: string, guid?: Maybe<string>, pageId: number, slug?: Maybe<string> }> } | { __typename?: 'Post' } | { __typename?: 'Tag' }> }> }>>> }> }> };
-
-export type MenusQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type MenusQuery = { __typename?: 'RootQuery', menus?: Maybe<{ __typename?: 'RootQueryToMenuConnection', nodes?: Maybe<Array<Maybe<{ __typename?: 'Menu', id: string, name?: Maybe<string>, slug?: Maybe<string>, menuId?: Maybe<number> }>>> }> };
+export type MenuQuery = { __typename?: 'RootQuery', menu?: Maybe<{ __typename?: 'Menu', menuItems?: Maybe<{ __typename?: 'MenuToMenuItemConnection', nodes?: Maybe<Array<Maybe<{ __typename?: 'MenuItem', connectedNode?: Maybe<{ __typename?: 'MenuItemToMenuItemLinkableConnectionEdge', node?: Maybe<{ __typename?: 'Category' } | { __typename?: 'Page', title?: Maybe<string>, uri?: Maybe<string>, link?: Maybe<string>, id: string, guid?: Maybe<string>, pageId: number, slug?: Maybe<string>, language?: Maybe<{ __typename?: 'Language', code?: Maybe<LanguageCodeEnum> }>, translations?: Maybe<Array<Maybe<{ __typename?: 'Page', title?: Maybe<string>, uri?: Maybe<string>, link?: Maybe<string>, id: string, guid?: Maybe<string>, pageId: number, slug?: Maybe<string>, language?: Maybe<{ __typename?: 'Language', code?: Maybe<LanguageCodeEnum> }> }>>> } | { __typename?: 'Post' } | { __typename?: 'Tag' }> }> }>>> }> }> };
 
 export type PageQueryVariables = Exact<{
   id: Scalars['ID'];
@@ -10981,35 +10987,42 @@ export type PageQueryVariables = Exact<{
 }>;
 
 
-export type PageQuery = { __typename?: 'RootQuery', page?: Maybe<{ __typename?: 'Page', id: string, content?: Maybe<string> }> };
+export type PageQuery = { __typename?: 'RootQuery', page?: Maybe<{ __typename?: 'Page', id: string, content?: Maybe<string>, title?: Maybe<string> }> };
 
-export type PageFieldsFragment = { __typename?: 'Page', id: string, content?: Maybe<string> };
+export type PageFieldsFragment = { __typename?: 'Page', id: string, content?: Maybe<string>, title?: Maybe<string> };
 
 export type PagesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type PagesQuery = { __typename?: 'RootQuery', pages?: Maybe<{ __typename?: 'RootQueryToPageConnection', edges?: Maybe<Array<Maybe<{ __typename?: 'RootQueryToPageConnectionEdge', node?: Maybe<{ __typename?: 'Page', id: string, content?: Maybe<string> }> }>>> }> };
+export type PagesQuery = { __typename?: 'RootQuery', pages?: Maybe<{ __typename?: 'RootQueryToPageConnection', edges?: Maybe<Array<Maybe<{ __typename?: 'RootQueryToPageConnectionEdge', node?: Maybe<{ __typename?: 'Page', id: string, content?: Maybe<string>, title?: Maybe<string> }> }>>> }> };
 
 export const PageFieldsFragmentDoc = gql`
     fragment pageFields on Page {
   id
   content
+  title
 }
     `;
 export const MenuDocument = gql`
-    query Menu($id: ID!, $idType: MenuNodeIdTypeEnum, $language: LanguageCodeEnum!) {
+    query Menu($id: ID!, $idType: MenuNodeIdTypeEnum) {
   menu(id: $id, idType: $idType) {
-    id
-    name
-    slug
-    menuId
     menuItems {
       nodes {
         connectedNode {
           node {
             ... on Page {
+              title
+              uri
+              link
               id
-              translation(language: $language) {
+              guid
+              pageId
+              slug
+              title
+              language {
+                code
+              }
+              translations {
                 title
                 uri
                 link
@@ -11017,6 +11030,9 @@ export const MenuDocument = gql`
                 guid
                 pageId
                 slug
+                language {
+                  code
+                }
               }
             }
           }
@@ -11041,7 +11057,6 @@ export const MenuDocument = gql`
  *   variables: {
  *      id: // value for 'id'
  *      idType: // value for 'idType'
- *      language: // value for 'language'
  *   },
  * });
  */
@@ -11056,45 +11071,6 @@ export function useMenuLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MenuQ
 export type MenuQueryHookResult = ReturnType<typeof useMenuQuery>;
 export type MenuLazyQueryHookResult = ReturnType<typeof useMenuLazyQuery>;
 export type MenuQueryResult = Apollo.QueryResult<MenuQuery, MenuQueryVariables>;
-export const MenusDocument = gql`
-    query Menus {
-  menus {
-    nodes {
-      id
-      name
-      slug
-      menuId
-    }
-  }
-}
-    `;
-
-/**
- * __useMenusQuery__
- *
- * To run a query within a React component, call `useMenusQuery` and pass it any options that fit your needs.
- * When your component renders, `useMenusQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useMenusQuery({
- *   variables: {
- *   },
- * });
- */
-export function useMenusQuery(baseOptions?: Apollo.QueryHookOptions<MenusQuery, MenusQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<MenusQuery, MenusQueryVariables>(MenusDocument, options);
-      }
-export function useMenusLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MenusQuery, MenusQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<MenusQuery, MenusQueryVariables>(MenusDocument, options);
-        }
-export type MenusQueryHookResult = ReturnType<typeof useMenusQuery>;
-export type MenusLazyQueryHookResult = ReturnType<typeof useMenusLazyQuery>;
-export type MenusQueryResult = Apollo.QueryResult<MenusQuery, MenusQueryVariables>;
 export const PageDocument = gql`
     query Page($id: ID!, $idType: PageIdType) {
   page(id: $id, idType: $idType) {

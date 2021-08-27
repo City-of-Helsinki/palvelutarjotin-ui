@@ -1,4 +1,5 @@
 import * as Sentry from '@sentry/browser';
+import jsdom from 'jsdom';
 import Document, {
   DocumentProps,
   Html,
@@ -9,6 +10,9 @@ import Document, {
 import React from 'react';
 
 import documentLang from '../utils/documentLang';
+
+const document = new jsdom.JSDOM('<!DOCTYPE html>').window.document;
+global.document = document;
 
 process.on('unhandledRejection', (err) => {
   Sentry.captureException(err);

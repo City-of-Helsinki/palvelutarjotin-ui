@@ -14,6 +14,8 @@ import '../assets/styles/main.scss';
 import PageLayout from '../domain/app/layout/PageLayout';
 import { store } from '../domain/app/store';
 import FocusToTop from '../FocusToTop';
+import { useCmsApollo } from '../headless-cms/cmsApolloClient';
+import CMSApolloProvider from '../headless-cms/cmsApolloContext';
 import useLocale from '../hooks/useLocale';
 
 if (process.env.NODE_ENV === 'production') {
@@ -31,6 +33,7 @@ const matomoInstance = createMatomoInstance({
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   const locale = useLocale();
+  const cmsApolloClient = useCmsApollo(pageProps.initialApolloState);
 
   React.useEffect(() => {
     const html = document.querySelector('html');
@@ -44,9 +47,11 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
       <Provider store={store}>
         <MatomoProvider value={matomoInstance}>
           <FocusToTop />
-          <PageLayout {...pageProps}>
-            <Component {...pageProps} />
-          </PageLayout>
+          <CMSApolloProvider value={cmsApolloClient}>
+            <PageLayout {...pageProps}>
+              <Component {...pageProps} />
+            </PageLayout>
+          </CMSApolloProvider>
           <ToastContainer position="top-right" />
         </MatomoProvider>
       </Provider>

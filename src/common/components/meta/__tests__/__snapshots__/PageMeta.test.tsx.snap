@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders meta elements 1`] = `
+<div>
+  <title>
+    Title
+  </title>
+  <meta
+    content="description"
+    name="description"
+  />
+  <meta
+    content="openGraphTitle"
+    property="og:title"
+  />
+  <meta
+    content="openGraphDescription"
+    property="og:description"
+  />
+</div>
+`;

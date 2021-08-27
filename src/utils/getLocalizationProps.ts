@@ -13,7 +13,7 @@ type NextI18NextProps = {
 /*
  * This function is used to provide next-i18next HOC with translations
  * Normally getServerSideProps with serverSideTranslations would be used but
- * that doesn't work well for us (it causes apollo HOC to also do requests on serevr with each page navigation).
+ * that doesn't work well for us (it causes apollo HOC to also do requests on server with each page navigation).
  * https://github.com/isaachinman/next-i18next#serversidetranslations
  *
  * NextJS docs say:

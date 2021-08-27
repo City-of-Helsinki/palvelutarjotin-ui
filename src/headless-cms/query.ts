@@ -1,23 +1,25 @@
 import { gql } from '@apollo/client/core';
 
 export const MENU_QUERY = gql`
-  query Menu(
-    $id: ID!
-    $idType: MenuNodeIdTypeEnum
-    $language: LanguageCodeEnum!
-  ) {
+  query Menu($id: ID!, $idType: MenuNodeIdTypeEnum) {
     menu(id: $id, idType: $idType) {
-      id
-      name
-      slug
-      menuId
       menuItems {
         nodes {
           connectedNode {
             node {
               ... on Page {
+                title
+                uri
+                link
                 id
-                translation(language: $language) {
+                guid
+                pageId
+                slug
+                title
+                language {
+                  code
+                }
+                translations {
                   title
                   uri
                   link
@@ -25,24 +27,14 @@ export const MENU_QUERY = gql`
                   guid
                   pageId
                   slug
+                  language {
+                    code
+                  }
                 }
               }
             }
           }
         }
-      }
-    }
-  }
-`;
-
-export const MENUS_QUERY = gql`
-  query Menus {
-    menus {
-      nodes {
-        id
-        name
-        slug
-        menuId
       }
     }
   }
@@ -57,6 +49,7 @@ export const PAGE_QUERY = gql`
   fragment pageFields on Page {
     id
     content
+    title
   }
 `;
 
