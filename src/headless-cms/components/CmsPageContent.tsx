@@ -1,42 +1,20 @@
-import { useRouter } from 'next/router';
 import React from 'react';
 
 import HtmlToReact from '../../common/components/htmlToReact/HtmlToReact';
 import PageMeta from '../../common/components/meta/PageMeta';
 import Container from '../../domain/app/layout/Container';
-import { PageIdType, usePageQuery } from '../../generated/graphql-cms';
-import useLocale from '../../hooks/useLocale';
-import { Language } from '../../types';
-import { useCMSClient } from '../cmsApolloContext';
+import { PageFieldsFragment } from '../../generated/graphql-cms';
 
-export const getUriID = (slug: string, locale: Language): string => {
-  if (locale === 'fi') {
-    return `/${slug}/`;
-  }
-  return `/${locale}/${slug}/`;
-};
-
-const CmsPageContent: React.FC = () => {
-  const {
-    query: { pageId },
-  } = useRouter();
-  const locale = useLocale();
-  const cmsClient = useCMSClient();
-  const { data: pageData } = usePageQuery({
-    client: cmsClient,
-    variables: {
-      id: getUriID(pageId as string, locale),
-      idType: PageIdType.Uri,
-    },
-  });
-
-  const title = pageData?.page?.title || '';
-  const content = pageData?.page?.content || '';
+const CmsPageContent: React.FC<{ page: PageFieldsFragment | undefined }> = ({
+  page,
+}) => {
+  const title = page?.title || '';
+  const content = page?.content || '';
 
   return (
     <Container>
       <PageMeta title={title} />
-      {pageData?.page && (
+      {page && (
         <>
           <h1>{title}</h1>
           <HtmlToReact>{content}</HtmlToReact>

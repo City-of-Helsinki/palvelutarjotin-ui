@@ -21,7 +21,7 @@ const Header: React.FC = () => {
   const locale = useLocale();
   const router = useRouter();
   const cmsClient = useCMSClient();
-  const { pageId } = router.query;
+  const { slug } = router.query;
 
   const [menuOpen, setMenuOpen] = React.useState(false);
   const toggleMenu = () => setMenuOpen(!menuOpen);
@@ -70,8 +70,6 @@ const Header: React.FC = () => {
     },
   });
 
-  console.log(navigationData);
-
   // contains menu items as arrays with all the translations
   const menuItemArrays = navigationData?.menu?.menuItems?.nodes?.map(
     (menuItem) => {
@@ -101,16 +99,11 @@ const Header: React.FC = () => {
     })
     .filter((i) => i);
 
-  console.log(menuItems);
-
   const navigationSlugs = menuItemArrays?.find((a) => {
     return a?.some((b) => {
-      return b.slug === pageId;
+      return b.slug === slug;
     });
   });
-
-  console.log(menuItems);
-  console.log(router);
 
   return (
     <Navigation
@@ -128,16 +121,15 @@ const Header: React.FC = () => {
         <Navigation.Row variant="inline">
           {menuItems
             ?.map((item, index) => {
-              if (!item?.id) return null;
-              const translatedPageId = item.slug as string;
+              if (!item?.uri) return null;
               return (
                 <Navigation.Item
                   key={index}
-                  active={isTabActive(item.id)}
+                  active={isTabActive(item.id!)}
                   className={styles.navigationItem}
                   label={item.title}
                   onClick={goToPage(
-                    `${ROUTES.CMS_PAGE.replace(':id', translatedPageId)}`
+                    `${ROUTES.CMS_PAGE.replace('/:id', item.uri)}`
                   )}
                 />
               );

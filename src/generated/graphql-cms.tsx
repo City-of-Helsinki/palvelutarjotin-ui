@@ -10979,7 +10979,7 @@ export type MenuQueryVariables = Exact<{
 }>;
 
 
-export type MenuQuery = { __typename?: 'RootQuery', menu?: Maybe<{ __typename?: 'Menu', menuItems?: Maybe<{ __typename?: 'MenuToMenuItemConnection', nodes?: Maybe<Array<Maybe<{ __typename?: 'MenuItem', connectedNode?: Maybe<{ __typename?: 'MenuItemToMenuItemLinkableConnectionEdge', node?: Maybe<{ __typename?: 'Category' } | { __typename?: 'Page', title?: Maybe<string>, uri?: Maybe<string>, link?: Maybe<string>, id: string, guid?: Maybe<string>, pageId: number, slug?: Maybe<string>, language?: Maybe<{ __typename?: 'Language', code?: Maybe<LanguageCodeEnum> }>, translations?: Maybe<Array<Maybe<{ __typename?: 'Page', title?: Maybe<string>, uri?: Maybe<string>, link?: Maybe<string>, id: string, guid?: Maybe<string>, pageId: number, slug?: Maybe<string>, language?: Maybe<{ __typename?: 'Language', code?: Maybe<LanguageCodeEnum> }> }>>> } | { __typename?: 'Post' } | { __typename?: 'Tag' }> }> }>>> }> }> };
+export type MenuQuery = { __typename?: 'RootQuery', menu?: Maybe<{ __typename?: 'Menu', menuItems?: Maybe<{ __typename?: 'MenuToMenuItemConnection', nodes?: Maybe<Array<Maybe<{ __typename?: 'MenuItem', connectedNode?: Maybe<{ __typename?: 'MenuItemToMenuItemLinkableConnectionEdge', node?: Maybe<{ __typename?: 'Category' } | { __typename?: 'Page', id: string, content?: Maybe<string>, slug?: Maybe<string>, title?: Maybe<string>, uri?: Maybe<string>, children?: Maybe<{ __typename?: 'HierarchicalContentNodeToContentNodeChildrenConnection', nodes?: Maybe<Array<Maybe<{ __typename?: 'Collection' } | { __typename?: 'Contact' } | { __typename?: 'LandingPage' } | { __typename?: 'MediaItem' } | { __typename?: 'Page', id: string, content?: Maybe<string>, slug?: Maybe<string>, title?: Maybe<string>, uri?: Maybe<string>, language?: Maybe<{ __typename?: 'Language', code?: Maybe<LanguageCodeEnum>, slug?: Maybe<string>, locale?: Maybe<string>, name?: Maybe<string> }> } | { __typename?: 'Post' } | { __typename?: 'Release' } | { __typename?: 'Translation' }>>> }>, translations?: Maybe<Array<Maybe<{ __typename?: 'Page', id: string, content?: Maybe<string>, slug?: Maybe<string>, title?: Maybe<string>, uri?: Maybe<string>, children?: Maybe<{ __typename?: 'HierarchicalContentNodeToContentNodeChildrenConnection', nodes?: Maybe<Array<Maybe<{ __typename?: 'Collection' } | { __typename?: 'Contact' } | { __typename?: 'LandingPage' } | { __typename?: 'MediaItem' } | { __typename?: 'Page', id: string, content?: Maybe<string>, slug?: Maybe<string>, title?: Maybe<string>, uri?: Maybe<string>, language?: Maybe<{ __typename?: 'Language', code?: Maybe<LanguageCodeEnum>, slug?: Maybe<string>, locale?: Maybe<string>, name?: Maybe<string> }> } | { __typename?: 'Post' } | { __typename?: 'Release' } | { __typename?: 'Translation' }>>> }>, language?: Maybe<{ __typename?: 'Language', code?: Maybe<LanguageCodeEnum>, slug?: Maybe<string>, locale?: Maybe<string>, name?: Maybe<string> }> }>>>, language?: Maybe<{ __typename?: 'Language', code?: Maybe<LanguageCodeEnum>, slug?: Maybe<string>, locale?: Maybe<string>, name?: Maybe<string> }> } | { __typename?: 'Post' } | { __typename?: 'Tag' }> }> }>>> }> }> };
 
 export type PageQueryVariables = Exact<{
   id: Scalars['ID'];
@@ -10987,51 +10987,54 @@ export type PageQueryVariables = Exact<{
 }>;
 
 
-export type PageQuery = { __typename?: 'RootQuery', page?: Maybe<{ __typename?: 'Page', id: string, content?: Maybe<string>, title?: Maybe<string> }> };
+export type PageQuery = { __typename?: 'RootQuery', page?: Maybe<{ __typename?: 'Page', id: string, content?: Maybe<string>, slug?: Maybe<string>, title?: Maybe<string>, uri?: Maybe<string>, translations?: Maybe<Array<Maybe<{ __typename?: 'Page', id: string, content?: Maybe<string>, slug?: Maybe<string>, title?: Maybe<string>, uri?: Maybe<string>, language?: Maybe<{ __typename?: 'Language', code?: Maybe<LanguageCodeEnum>, slug?: Maybe<string>, locale?: Maybe<string>, name?: Maybe<string> }> }>>>, parent?: Maybe<{ __typename?: 'HierarchicalContentNodeToParentContentNodeConnectionEdge', node?: Maybe<{ __typename?: 'Collection' } | { __typename?: 'Contact' } | { __typename?: 'LandingPage' } | { __typename?: 'MediaItem' } | { __typename?: 'Page', id: string, content?: Maybe<string>, slug?: Maybe<string>, title?: Maybe<string>, uri?: Maybe<string>, translations?: Maybe<Array<Maybe<{ __typename?: 'Page', id: string, content?: Maybe<string>, slug?: Maybe<string>, title?: Maybe<string>, uri?: Maybe<string>, language?: Maybe<{ __typename?: 'Language', code?: Maybe<LanguageCodeEnum>, slug?: Maybe<string>, locale?: Maybe<string>, name?: Maybe<string> }> }>>>, language?: Maybe<{ __typename?: 'Language', code?: Maybe<LanguageCodeEnum>, slug?: Maybe<string>, locale?: Maybe<string>, name?: Maybe<string> }> } | { __typename?: 'Post' } | { __typename?: 'Release' } | { __typename?: 'Translation' }> }>, children?: Maybe<{ __typename?: 'HierarchicalContentNodeToContentNodeChildrenConnection', nodes?: Maybe<Array<Maybe<{ __typename?: 'Collection' } | { __typename?: 'Contact' } | { __typename?: 'LandingPage' } | { __typename?: 'MediaItem' } | { __typename?: 'Page', id: string, content?: Maybe<string>, slug?: Maybe<string>, title?: Maybe<string>, uri?: Maybe<string>, translations?: Maybe<Array<Maybe<{ __typename?: 'Page', id: string, content?: Maybe<string>, slug?: Maybe<string>, title?: Maybe<string>, uri?: Maybe<string>, language?: Maybe<{ __typename?: 'Language', code?: Maybe<LanguageCodeEnum>, slug?: Maybe<string>, locale?: Maybe<string>, name?: Maybe<string> }> }>>>, language?: Maybe<{ __typename?: 'Language', code?: Maybe<LanguageCodeEnum>, slug?: Maybe<string>, locale?: Maybe<string>, name?: Maybe<string> }> } | { __typename?: 'Post' } | { __typename?: 'Release' } | { __typename?: 'Translation' }>>> }>, language?: Maybe<{ __typename?: 'Language', code?: Maybe<LanguageCodeEnum>, slug?: Maybe<string>, locale?: Maybe<string>, name?: Maybe<string> }> }> };
 
-export type PageFieldsFragment = { __typename?: 'Page', id: string, content?: Maybe<string>, title?: Maybe<string> };
+export type PageFieldsFragment = { __typename?: 'Page', id: string, content?: Maybe<string>, slug?: Maybe<string>, title?: Maybe<string>, uri?: Maybe<string>, language?: Maybe<{ __typename?: 'Language', code?: Maybe<LanguageCodeEnum>, slug?: Maybe<string>, locale?: Maybe<string>, name?: Maybe<string> }> };
 
 export type PagesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type PagesQuery = { __typename?: 'RootQuery', pages?: Maybe<{ __typename?: 'RootQueryToPageConnection', edges?: Maybe<Array<Maybe<{ __typename?: 'RootQueryToPageConnectionEdge', node?: Maybe<{ __typename?: 'Page', id: string, content?: Maybe<string>, title?: Maybe<string> }> }>>> }> };
+export type PagesQuery = { __typename?: 'RootQuery', pages?: Maybe<{ __typename?: 'RootQueryToPageConnection', edges?: Maybe<Array<Maybe<{ __typename?: 'RootQueryToPageConnectionEdge', node?: Maybe<{ __typename?: 'Page', id: string, content?: Maybe<string>, slug?: Maybe<string>, title?: Maybe<string>, uri?: Maybe<string>, language?: Maybe<{ __typename?: 'Language', code?: Maybe<LanguageCodeEnum>, slug?: Maybe<string>, locale?: Maybe<string>, name?: Maybe<string> }> }> }>>> }> };
 
 export const PageFieldsFragmentDoc = gql`
     fragment pageFields on Page {
   id
   content
+  slug
   title
+  uri
+  language {
+    code
+    slug
+    locale
+    name
+  }
 }
     `;
 export const MenuDocument = gql`
     query Menu($id: ID!, $idType: MenuNodeIdTypeEnum) {
   menu(id: $id, idType: $idType) {
-    menuItems {
+    menuItems(first: 100) {
       nodes {
         connectedNode {
           node {
             ... on Page {
-              title
-              uri
-              link
-              id
-              guid
-              pageId
-              slug
-              title
-              language {
-                code
+              ...pageFields
+              children {
+                nodes {
+                  ... on Page {
+                    ...pageFields
+                  }
+                }
               }
               translations {
-                title
-                uri
-                link
-                id
-                guid
-                pageId
-                slug
-                language {
-                  code
+                ...pageFields
+                children {
+                  nodes {
+                    ... on Page {
+                      ...pageFields
+                    }
+                  }
                 }
               }
             }
@@ -11041,7 +11044,7 @@ export const MenuDocument = gql`
     }
   }
 }
-    `;
+    ${PageFieldsFragmentDoc}`;
 
 /**
  * __useMenuQuery__
@@ -11075,6 +11078,30 @@ export const PageDocument = gql`
     query Page($id: ID!, $idType: PageIdType) {
   page(id: $id, idType: $idType) {
     ...pageFields
+    translations {
+      ...pageFields
+    }
+    parent {
+      node {
+        ... on Page {
+          id
+          ...pageFields
+          translations {
+            ...pageFields
+          }
+        }
+      }
+    }
+    children {
+      nodes {
+        ... on Page {
+          ...pageFields
+          translations {
+            ...pageFields
+          }
+        }
+      }
+    }
   }
 }
     ${PageFieldsFragmentDoc}`;
@@ -11109,7 +11136,7 @@ export type PageLazyQueryHookResult = ReturnType<typeof usePageLazyQuery>;
 export type PageQueryResult = Apollo.QueryResult<PageQuery, PageQueryVariables>;
 export const PagesDocument = gql`
     query Pages {
-  pages {
+  pages(first: 100) {
     edges {
       node {
         ...pageFields
