@@ -13,24 +13,26 @@ import { useCMSClient } from '../cmsApolloContext';
 import CmsPageContent from './CmsPageContent';
 import CmsPageNavigation from './CmsPageNavigation';
 
-export const getUriID = (slug: string, locale: Language): string => {
+export const getUriID = (slugs: string[], locale: Language): string => {
+  if (!slugs) return '/';
   if (locale === 'fi') {
-    return `/${slug}/`;
+    return `/${slugs.join('/')}/`;
   }
-  return `/${locale}/${slug}/`;
+  return `/${locale}/${slugs.join('/')}/`;
 };
 
 const CmsPage: React.FC = () => {
   const {
-    query: { pageId },
+    query: { slug },
   } = useRouter();
+
   const locale = useLocale();
   const cmsClient = useCMSClient();
 
   const { data: pageData } = usePageQuery({
     client: cmsClient,
     variables: {
-      id: getUriID(pageId as string, locale),
+      id: getUriID(slug as string[], locale),
       idType: PageIdType.Uri,
     },
   });

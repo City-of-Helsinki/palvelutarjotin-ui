@@ -12,7 +12,7 @@ const CmsPageNavigation: React.FC<{
 
   return (
     <div>
-      <p>CmsPageNavigation {page?.id}</p>
+      <p>ToC:</p>
       Parent:
       <ul>
         {parentPage && (
@@ -32,6 +32,7 @@ const CmsPageNavigation: React.FC<{
       <ul>
         {childrenPages
           .filter((subPage) => subPage != null)
+          .sort((a, b) => a.title?.localeCompare(b.title ?? '') ?? 0)
           .map((subPage) => (
             <li key={`subPage-${subPage?.id}`}>
               <Link
