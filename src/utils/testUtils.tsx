@@ -44,7 +44,9 @@ const customRender: CustomRender = (
     </RouterContext.Provider>
   );
 
-  const renderResult = render(ui, { wrapper: Wrapper });
+  const renderResult = render(ui, {
+    wrapper: Wrapper,
+  });
   return { ...renderResult };
 };
 const mockRouter: NextRouter = {

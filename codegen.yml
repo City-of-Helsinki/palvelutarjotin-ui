@@ -1,8 +1,18 @@
 overwrite: true
-schema: ${NEXT_PUBLIC_API_BASE_URL}
-documents: ['./src/**/mutation.ts', './src/**/query.ts']
 generates:
   src/generated/graphql.tsx:
+    documents: ['./src/!(headless-cms)/**/mutation.ts', './src/!(headless-cms)/**/query.ts']
+    schema: ${NEXT_PUBLIC_API_BASE_URL}
+    plugins:
+      - 'typescript'
+      - 'typescript-operations'
+      - 'typescript-react-apollo'
+    config:
+      withHooks: true
+      withComponent: false
+  src/generated/graphql-cms.tsx:
+    documents: ['./src/headless-cms/query.ts']
+    schema: ${NEXT_PUBLIC_CMS_BASE_URL}
     plugins:
       - 'typescript'
       - 'typescript-operations'

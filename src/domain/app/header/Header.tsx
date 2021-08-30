@@ -1,9 +1,15 @@
-import { Navigation, IconGlobe, IconSignin } from 'hds-react';
+import { Navigation, IconGlobe } from 'hds-react';
 import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import React from 'react';
 
 import { SUPPORTED_LANGUAGES } from '../../../constants';
+import {
+  MenuNodeIdTypeEnum,
+  useMenuQuery,
+} from '../../../generated/graphql-cms';
+import { useCMSClient } from '../../../headless-cms/cmsApolloContext';
+import { MENU_NAME } from '../../../headless-cms/constants';
 import useLocale from '../../../hooks/useLocale';
 import { OptionType } from '../../../types';
 import { MAIN_CONTENT_ID } from '../layout/PageLayout';
@@ -14,12 +20,12 @@ const Header: React.FC = () => {
   const { t } = useTranslation();
   const locale = useLocale();
   const router = useRouter();
+  const cmsClient = useCMSClient();
+  const { slug } = router.query;
 
   const [menuOpen, setMenuOpen] = React.useState(false);
   const toggleMenu = () => setMenuOpen(!menuOpen);
   const closeMenu = () => setMenuOpen(false);
-
-  const navigationLinksEnabled = false;
 
   const getLanguageOptions = (): OptionType[] => {
     const createOptions = (languages: string[]) =>
@@ -34,8 +40,8 @@ const Header: React.FC = () => {
     return createOptions(Object.values(SUPPORTED_LANGUAGES));
   };
 
-  const changeLanguage = (newLanguage: OptionType) => () => {
-    router.push(router.asPath, undefined, { locale: newLanguage.value });
+  const changeLanguage = (path: string, locale: string) => () => {
+    router.push(path, undefined, { locale });
   };
 
   const isTabActive = (pathname: string): boolean => {
@@ -55,29 +61,49 @@ const Header: React.FC = () => {
 
   const logoLang = locale === 'sv' ? 'sv' : 'fi';
 
-  const navigationItems = [
-    {
-      label: t('header:navigation:about'),
-      url: `/${locale}${ROUTES.HOME}`,
+  const { data: navigationData, loading: cmsMenuLoading } = useMenuQuery({
+    client: cmsClient,
+    skip: !locale,
+    variables: {
+      id: MENU_NAME.Header,
+      idType: MenuNodeIdTypeEnum.Name,
     },
-    {
-      label: t('header:navigation:culturalEducation'),
-      url: `/${locale}${ROUTES.HOME}`,
-    },
-    {
-      label: t('header:navigation:helsinkiMoving'),
-      url: `/${locale}${ROUTES.HOME}`,
-    },
-    {
-      label: t('header:navigation:now'),
-      url: `/${locale}${ROUTES.HOME}`,
-    },
-    {
-      label: t('header:navigation:forOrganizer'),
-      url: `/${locale}${ROUTES.HOME}`,
-      icon: <IconSignin />,
-    },
-  ];
+  });
+
+  // contains menu items as arrays with all the translations
+  const menuItemArrays = navigationData?.menu?.menuItems?.nodes?.map(
+    (menuItem) => {
+      const item = menuItem?.connectedNode?.node;
+      if (item && 'title' in item) {
+        const translationItems = item.translations?.map((translation) => ({
+          ...translation,
+          locale: translation?.language?.code,
+        }));
+
+        return [
+          {
+            ...item,
+            locale: item?.language?.code,
+          },
+          ...(translationItems ?? []),
+        ];
+      }
+
+      return null;
+    }
+  );
+
+  const menuItems = menuItemArrays
+    ?.map((item) => {
+      return item?.find((i) => i.locale?.toLowerCase() === (locale as string));
+    })
+    .filter((i) => i);
+
+  const navigationSlugs = menuItemArrays?.find((a) => {
+    return a?.some((b) => {
+      return b.slug === slug;
+    });
+  });
 
   return (
     <Navigation
@@ -91,19 +117,24 @@ const Header: React.FC = () => {
       logoLanguage={logoLang}
       title={t('common:appName')}
     >
-      {navigationLinksEnabled && (
+      {!cmsMenuLoading && navigationData && (
         <Navigation.Row variant="inline">
-          {navigationItems.map((item, index) => (
-            <Navigation.Item
-              key={index}
-              active={isTabActive(item.url)}
-              className={styles.navigationItem}
-              href={item.url}
-              label={item.label}
-              onClick={goToPage(item.url)}
-              icon={item.icon}
-            />
-          ))}
+          {menuItems
+            ?.map((item, index) => {
+              if (!item?.uri) return null;
+              return (
+                <Navigation.Item
+                  key={index}
+                  active={isTabActive(item.id!)}
+                  className={styles.navigationItem}
+                  label={item.title}
+                  onClick={goToPage(
+                    `${ROUTES.CMS_PAGE.replace('/:id', item.uri)}`
+                  )}
+                />
+              );
+            })
+            .filter((item) => item != null)}
         </Navigation.Row>
       )}
       <Navigation.Actions>
@@ -114,15 +145,28 @@ const Header: React.FC = () => {
           icon={<IconGlobe />}
           closeOnItemClick
         >
-          {getLanguageOptions().map((option) => (
-            <Navigation.Item
-              key={option.value}
-              // href="#"
-              lang={option.value}
-              label={option.label}
-              onClick={changeLanguage(option)}
-            />
-          ))}
+          {getLanguageOptions().map((option) => {
+            const nav = navigationSlugs?.find((slug) => {
+              return slug.locale?.toLowerCase() === option.value;
+            });
+
+            const stripLocaleFormUri = (uri: string) => {
+              return uri.replace('/en', '').replace('/sv', '');
+            };
+
+            return (
+              <Navigation.Item
+                key={option.value}
+                // as={Link}
+                lang={option.value}
+                label={option.label}
+                onClick={changeLanguage(
+                  `/cms-page${nav?.uri ? stripLocaleFormUri(nav?.uri) : ''}`,
+                  option.value
+                )}
+              />
+            );
+          })}
         </Navigation.LanguageSelector>
       </Navigation.Actions>
     </Navigation>
