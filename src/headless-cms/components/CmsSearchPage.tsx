@@ -11,7 +11,6 @@ import useLocale from '../../hooks/useLocale';
 import { Language } from '../../types';
 import { useCMSClient } from '../cmsApolloContext';
 import CmsPageContent from './CmsPageContent';
-import CmsPageNavigation from './CmsPageNavigation';
 import CmsPageSearch from './CmsPageSearch';
 
 export const getUriID = (slugs: string[], locale: Language): string => {
@@ -38,16 +37,10 @@ const CmsPage: React.FC = () => {
     },
   });
 
-  const showNavigation =
-    pageData?.page?.parent?.node || !!pageData?.page?.children?.nodes?.length;
-
-  const showSearch = (pageData?.page?.children?.nodes?.length ?? 0) > 1;
-
   return (
     <div>
-      {showNavigation && <CmsPageNavigation page={pageData?.page as Page} />}
       <CmsPageContent page={pageData?.page as PageFieldsFragment} />
-      {showSearch && <CmsPageSearch page={pageData?.page as Page} />}
+      <CmsPageSearch page={pageData?.page as Page} />
     </div>
   );
 };

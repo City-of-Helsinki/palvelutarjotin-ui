@@ -92,3 +92,40 @@ export const PAGES_QUERY = gql`
     }
   }
 `;
+
+export const SUBPAGES_SEARCH_QUERY = gql`
+  query SubPagesSearch($id: ID!, $idType: PageIdType, $search: String!) {
+    page(id: $id, idType: $idType) {
+      id
+      children(where: { search: $search }) {
+        edges {
+          node {
+            ... on Page {
+              ...pageFields
+              translations {
+                ...pageFields
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
+export const PAGES_SEARCH_QUERY = gql`
+  query PagesSearch($search: String!) {
+    pages(where: { search: $search }) {
+      edges {
+        node {
+          ... on Page {
+            ...pageFields
+            translations {
+              ...pageFields
+            }
+          }
+        }
+      }
+    }
+  }
+`;

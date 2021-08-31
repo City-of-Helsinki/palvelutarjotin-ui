@@ -10996,6 +10996,22 @@ export type PagesQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type PagesQuery = { __typename?: 'RootQuery', pages?: Maybe<{ __typename?: 'RootQueryToPageConnection', edges?: Maybe<Array<Maybe<{ __typename?: 'RootQueryToPageConnectionEdge', node?: Maybe<{ __typename?: 'Page', id: string, content?: Maybe<string>, slug?: Maybe<string>, title?: Maybe<string>, uri?: Maybe<string>, language?: Maybe<{ __typename?: 'Language', code?: Maybe<LanguageCodeEnum>, slug?: Maybe<string>, locale?: Maybe<string>, name?: Maybe<string> }> }> }>>> }> };
 
+export type SubPagesSearchQueryVariables = Exact<{
+  id: Scalars['ID'];
+  idType?: Maybe<PageIdType>;
+  search: Scalars['String'];
+}>;
+
+
+export type SubPagesSearchQuery = { __typename?: 'RootQuery', page?: Maybe<{ __typename?: 'Page', id: string, children?: Maybe<{ __typename?: 'HierarchicalContentNodeToContentNodeChildrenConnection', edges?: Maybe<Array<Maybe<{ __typename?: 'HierarchicalContentNodeToContentNodeChildrenConnectionEdge', node?: Maybe<{ __typename?: 'Collection' } | { __typename?: 'Contact' } | { __typename?: 'LandingPage' } | { __typename?: 'MediaItem' } | { __typename?: 'Page', id: string, content?: Maybe<string>, slug?: Maybe<string>, title?: Maybe<string>, uri?: Maybe<string>, translations?: Maybe<Array<Maybe<{ __typename?: 'Page', id: string, content?: Maybe<string>, slug?: Maybe<string>, title?: Maybe<string>, uri?: Maybe<string>, language?: Maybe<{ __typename?: 'Language', code?: Maybe<LanguageCodeEnum>, slug?: Maybe<string>, locale?: Maybe<string>, name?: Maybe<string> }> }>>>, language?: Maybe<{ __typename?: 'Language', code?: Maybe<LanguageCodeEnum>, slug?: Maybe<string>, locale?: Maybe<string>, name?: Maybe<string> }> } | { __typename?: 'Post' } | { __typename?: 'Release' } | { __typename?: 'Translation' }> }>>> }> }> };
+
+export type PagesSearchQueryVariables = Exact<{
+  search: Scalars['String'];
+}>;
+
+
+export type PagesSearchQuery = { __typename?: 'RootQuery', pages?: Maybe<{ __typename?: 'RootQueryToPageConnection', edges?: Maybe<Array<Maybe<{ __typename?: 'RootQueryToPageConnectionEdge', node?: Maybe<{ __typename?: 'Page', id: string, content?: Maybe<string>, slug?: Maybe<string>, title?: Maybe<string>, uri?: Maybe<string>, translations?: Maybe<Array<Maybe<{ __typename?: 'Page', id: string, content?: Maybe<string>, slug?: Maybe<string>, title?: Maybe<string>, uri?: Maybe<string>, language?: Maybe<{ __typename?: 'Language', code?: Maybe<LanguageCodeEnum>, slug?: Maybe<string>, locale?: Maybe<string>, name?: Maybe<string> }> }>>>, language?: Maybe<{ __typename?: 'Language', code?: Maybe<LanguageCodeEnum>, slug?: Maybe<string>, locale?: Maybe<string>, name?: Maybe<string> }> }> }>>> }> };
+
 export const PageFieldsFragmentDoc = gql`
     fragment pageFields on Page {
   id
@@ -11172,3 +11188,96 @@ export function usePagesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Page
 export type PagesQueryHookResult = ReturnType<typeof usePagesQuery>;
 export type PagesLazyQueryHookResult = ReturnType<typeof usePagesLazyQuery>;
 export type PagesQueryResult = Apollo.QueryResult<PagesQuery, PagesQueryVariables>;
+export const SubPagesSearchDocument = gql`
+    query SubPagesSearch($id: ID!, $idType: PageIdType, $search: String!) {
+  page(id: $id, idType: $idType) {
+    id
+    children(where: {search: $search}) {
+      edges {
+        node {
+          ... on Page {
+            ...pageFields
+            translations {
+              ...pageFields
+            }
+          }
+        }
+      }
+    }
+  }
+}
+    ${PageFieldsFragmentDoc}`;
+
+/**
+ * __useSubPagesSearchQuery__
+ *
+ * To run a query within a React component, call `useSubPagesSearchQuery` and pass it any options that fit your needs.
+ * When your component renders, `useSubPagesSearchQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useSubPagesSearchQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *      idType: // value for 'idType'
+ *      search: // value for 'search'
+ *   },
+ * });
+ */
+export function useSubPagesSearchQuery(baseOptions: Apollo.QueryHookOptions<SubPagesSearchQuery, SubPagesSearchQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<SubPagesSearchQuery, SubPagesSearchQueryVariables>(SubPagesSearchDocument, options);
+      }
+export function useSubPagesSearchLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<SubPagesSearchQuery, SubPagesSearchQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<SubPagesSearchQuery, SubPagesSearchQueryVariables>(SubPagesSearchDocument, options);
+        }
+export type SubPagesSearchQueryHookResult = ReturnType<typeof useSubPagesSearchQuery>;
+export type SubPagesSearchLazyQueryHookResult = ReturnType<typeof useSubPagesSearchLazyQuery>;
+export type SubPagesSearchQueryResult = Apollo.QueryResult<SubPagesSearchQuery, SubPagesSearchQueryVariables>;
+export const PagesSearchDocument = gql`
+    query PagesSearch($search: String!) {
+  pages(where: {search: $search}) {
+    edges {
+      node {
+        ... on Page {
+          ...pageFields
+          translations {
+            ...pageFields
+          }
+        }
+      }
+    }
+  }
+}
+    ${PageFieldsFragmentDoc}`;
+
+/**
+ * __usePagesSearchQuery__
+ *
+ * To run a query within a React component, call `usePagesSearchQuery` and pass it any options that fit your needs.
+ * When your component renders, `usePagesSearchQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = usePagesSearchQuery({
+ *   variables: {
+ *      search: // value for 'search'
+ *   },
+ * });
+ */
+export function usePagesSearchQuery(baseOptions: Apollo.QueryHookOptions<PagesSearchQuery, PagesSearchQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<PagesSearchQuery, PagesSearchQueryVariables>(PagesSearchDocument, options);
+      }
+export function usePagesSearchLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<PagesSearchQuery, PagesSearchQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<PagesSearchQuery, PagesSearchQueryVariables>(PagesSearchDocument, options);
+        }
+export type PagesSearchQueryHookResult = ReturnType<typeof usePagesSearchQuery>;
+export type PagesSearchLazyQueryHookResult = ReturnType<typeof usePagesSearchLazyQuery>;
+export type PagesSearchQueryResult = Apollo.QueryResult<PagesSearchQuery, PagesSearchQueryVariables>;
