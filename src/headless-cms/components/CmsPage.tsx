@@ -12,7 +12,7 @@ import { Language } from '../../types';
 import { useCMSClient } from '../cmsApolloContext';
 import CmsPageContent from './CmsPageContent';
 import CmsPageNavigation from './CmsPageNavigation';
-import CmsPageSearch from './CmsPageSearch';
+import CmsPageSearch from './CmsPageSearch/CmsPageSearch';
 
 export const getUriID = (slugs: string[], locale: Language): string => {
   if (!slugs) return '/';

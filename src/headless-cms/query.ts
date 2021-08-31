@@ -72,11 +72,22 @@ export const PAGE_QUERY = gql`
     slug
     title
     uri
+    lead
     language {
       code
       slug
       locale
       name
+    }
+    featuredImage {
+      node {
+        mediaItemUrl
+        link
+        altText
+        mimeType
+        title
+        uri
+      }
     }
   }
 `;

@@ -11,7 +11,7 @@ import useLocale from '../../hooks/useLocale';
 import { Language } from '../../types';
 import { useCMSClient } from '../cmsApolloContext';
 import CmsPageContent from './CmsPageContent';
-import CmsPageSearch from './CmsPageSearch';
+import CmsPageSearch from './CmsPageSearch/CmsPageSearch';
 
 export const getUriID = (slugs: string[], locale: Language): string => {
   if (!slugs) return '/';
