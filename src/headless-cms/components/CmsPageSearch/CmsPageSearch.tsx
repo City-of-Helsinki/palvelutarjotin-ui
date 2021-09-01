@@ -1,4 +1,4 @@
-import { Card, SearchInput } from 'hds-react';
+import { Button, Card, SearchInput } from 'hds-react';
 import Link from 'next/link';
 // import { useRouter } from 'next/router';
 import React from 'react';
@@ -15,6 +15,8 @@ import {
 import { useCMSClient } from '../../cmsApolloContext';
 import styles from './cmspagesearch.module.scss';
 
+const BLOCK_SIZE = 10;
+
 const CmsPageSearch: React.FC<{
   page?: Page | undefined | null;
 }> = ({ page }) => {
@@ -29,15 +31,56 @@ const CmsPageSearch: React.FC<{
  */
 const CmsPageSearchFromAllPages: React.FC = () => {
   const [searchTerm, setSearchTerm] = React.useState('');
+  const [isLoadingMore, setIsLoadingMore] = React.useState(false);
   const cmsClient = useCMSClient();
 
   // Search from all the pages
-  const { data: pageData, loading } = usePagesSearchQuery({
+  const {
+    data: pageData,
+    loading,
+    fetchMore,
+  } = usePagesSearchQuery({
     client: cmsClient,
     variables: {
       search: searchTerm ?? '',
+      first: BLOCK_SIZE,
+      after: '',
     },
   });
+
+  const pageInfo = pageData?.pages?.pageInfo;
+  const hasMoreToLoad = pageInfo?.hasNextPage ?? false;
+
+  const fetchMorePages = async () => {
+    if (hasMoreToLoad) {
+      try {
+        setIsLoadingMore(true);
+        await fetchMore({
+          variables: {
+            first: BLOCK_SIZE,
+            after: pageInfo?.endCursor,
+          },
+          // TODO: updateQuery seems to be deprecated
+          updateQuery: (prev, { fetchMoreResult }) => {
+            if (!fetchMoreResult) return prev;
+            return Object.assign({}, prev, {
+              ...fetchMoreResult,
+              pages: {
+                ...fetchMoreResult.pages,
+                edges: [
+                  ...(prev?.pages?.edges ?? []),
+                  ...(fetchMoreResult?.pages?.edges ?? []),
+                ].flat(),
+              },
+            });
+          },
+        });
+        setIsLoadingMore(false);
+      } catch (e) {
+        setIsLoadingMore(false);
+      }
+    }
+  };
 
   const pages =
     pageData?.pages?.edges
@@ -47,7 +90,13 @@ const CmsPageSearchFromAllPages: React.FC = () => {
   return (
     <div>
       <CmsPageSearchForm setSearchTerm={setSearchTerm} />
-      <CmsPageSearchList pages={pages} loading={loading} />
+      <CmsPageSearchList
+        pages={pages}
+        loading={loading}
+        isLoadingMore={isLoadingMore}
+        fetchMore={fetchMorePages}
+        hasMoreToLoad={hasMoreToLoad}
+      />
     </div>
   );
 };
@@ -59,18 +108,62 @@ const CmsPageSearchFromSubPages: React.FC<{
   page: Page | undefined | null;
 }> = ({ page }) => {
   const [searchTerm, setSearchTerm] = React.useState('');
+  const [isLoadingMore, setIsLoadingMore] = React.useState(false);
   const cmsClient = useCMSClient();
 
   // Search sub pages
-  const { data: pageData, loading } = useSubPagesSearchQuery({
+  const {
+    data: pageData,
+    loading,
+    fetchMore,
+  } = useSubPagesSearchQuery({
     client: cmsClient,
     skip: !page?.uri,
     variables: {
+      first: BLOCK_SIZE,
+      after: '',
       id: page?.uri ?? '',
       idType: PageIdType.Uri,
       search: searchTerm ?? '',
     },
   });
+
+  const pageInfo = pageData?.page?.children?.pageInfo;
+  const hasMoreToLoad = pageInfo?.hasNextPage ?? false;
+
+  const fetchMorePages = async () => {
+    if (hasMoreToLoad) {
+      try {
+        setIsLoadingMore(true);
+        await fetchMore({
+          variables: {
+            first: BLOCK_SIZE,
+            after: pageInfo?.endCursor,
+          },
+          // TODO: updateQuery seems to be deprecated
+          updateQuery: (prev, { fetchMoreResult }) => {
+            if (!fetchMoreResult) return prev;
+            return Object.assign({}, prev, {
+              ...fetchMoreResult,
+              page: {
+                ...fetchMoreResult.page,
+                children: {
+                  ...fetchMoreResult?.page?.children,
+                  edges: [
+                    ...(prev?.page?.children?.edges ?? []),
+                    ...(fetchMoreResult?.page?.children?.edges ?? []),
+                  ].flat(),
+                },
+              },
+            });
+          },
+        });
+        setIsLoadingMore(false);
+      } catch (e) {
+        setIsLoadingMore(false);
+      }
+    }
+  };
 
   const subPages =
     pageData?.page?.children?.edges
@@ -80,7 +173,13 @@ const CmsPageSearchFromSubPages: React.FC<{
   return (
     <div>
       <CmsPageSearchForm page={page} setSearchTerm={setSearchTerm} />
-      <CmsPageSearchList pages={subPages} loading={loading} />
+      <CmsPageSearchList
+        pages={subPages}
+        loading={loading}
+        isLoadingMore={isLoadingMore}
+        fetchMore={fetchMorePages}
+        hasMoreToLoad={hasMoreToLoad}
+      />
     </div>
   );
 };
@@ -115,7 +214,10 @@ const CmsPageSearchForm: React.FC<{
 const CmsPageSearchList: React.FC<{
   pages: Page[];
   loading: boolean;
-}> = ({ pages, loading }) => {
+  isLoadingMore: boolean;
+  hasMoreToLoad: boolean;
+  fetchMore: () => void;
+}> = ({ pages, loading, isLoadingMore, fetchMore, hasMoreToLoad }) => {
   // const router = useRouter();
   // const goToPage =
   //   (pathname: string) =>
@@ -156,6 +258,8 @@ const CmsPageSearchList: React.FC<{
           );
         })}
       </LoadingSpinner>
+      {hasMoreToLoad && <Button onClick={fetchMore}>Lataa lisää</Button>}
+      <LoadingSpinner isLoading={isLoadingMore ?? false} />
     </div>
   );
 };

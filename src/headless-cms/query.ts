@@ -105,11 +105,22 @@ export const PAGES_QUERY = gql`
 `;
 
 export const SUBPAGES_SEARCH_QUERY = gql`
-  query SubPagesSearch($id: ID!, $idType: PageIdType, $search: String!) {
+  query SubPagesSearch(
+    $id: ID!
+    $idType: PageIdType
+    $search: String!
+    $first: Int
+    $after: String
+  ) {
     page(id: $id, idType: $idType) {
       id
-      children(where: { search: $search }) {
+      children(where: { search: $search }, first: $first, after: $after) {
+        pageInfo {
+          endCursor
+          hasNextPage
+        }
         edges {
+          cursor
           node {
             ... on Page {
               ...pageFields
@@ -125,9 +136,14 @@ export const SUBPAGES_SEARCH_QUERY = gql`
 `;
 
 export const PAGES_SEARCH_QUERY = gql`
-  query PagesSearch($search: String!) {
-    pages(where: { search: $search }) {
+  query PagesSearch($search: String!, $first: Int, $after: String) {
+    pages(where: { search: $search }, first: $first, after: $after) {
+      pageInfo {
+        endCursor
+        hasNextPage
+      }
       edges {
+        cursor
         node {
           ... on Page {
             ...pageFields

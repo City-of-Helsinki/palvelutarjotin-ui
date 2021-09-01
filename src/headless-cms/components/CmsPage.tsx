@@ -41,7 +41,7 @@ const CmsPage: React.FC = () => {
   const showNavigation =
     pageData?.page?.parent?.node || !!pageData?.page?.children?.nodes?.length;
 
-  const showSearch = (pageData?.page?.children?.nodes?.length ?? 0) > 1;
+  const showSearch = (pageData?.page?.children?.nodes?.length ?? 0) > 10;
 
   return (
     <div>
