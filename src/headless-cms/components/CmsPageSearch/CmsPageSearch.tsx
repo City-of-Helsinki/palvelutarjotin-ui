@@ -3,6 +3,7 @@ import Link from 'next/link';
 // import { useRouter } from 'next/router';
 import React from 'react';
 
+import LoadingSpinner from '../../../common/components/loadingSpinner/LoadingSpinner';
 import { ROUTES } from '../../../domain/app/routes/constants';
 import { getEventPlaceholderImage } from '../../../domain/event/utils';
 import {
@@ -16,7 +17,7 @@ import styles from './cmspagesearch.module.scss';
 
 const CmsPageSearch: React.FC<{
   page?: Page | undefined | null;
-}> = ({ page }): JSX.Element => {
+}> = ({ page }) => {
   if (page) {
     return <CmsPageSearchFromSubPages page={page} />;
   }
@@ -26,8 +27,7 @@ const CmsPageSearch: React.FC<{
 /**
  * Search a page from all the pages.
  */
-const CmsPageSearchFromAllPages: React.FC = (): JSX.Element => {
-  const [searchResult, setSearchResult] = React.useState<Page[]>([]);
+const CmsPageSearchFromAllPages: React.FC = () => {
   const [searchTerm, setSearchTerm] = React.useState('');
   const cmsClient = useCMSClient();
 
@@ -39,20 +39,15 @@ const CmsPageSearchFromAllPages: React.FC = (): JSX.Element => {
     },
   });
 
-  // Update the search results
-  React.useEffect(() => {
-    if (!loading && pageData?.pages) {
-      const pages = pageData?.pages?.edges
-        ?.map((edge) => edge?.node as Page)
-        .filter((page) => !!page);
-      setSearchResult(pages ?? []);
-    }
-  }, [searchTerm, pageData, loading]);
+  const pages =
+    pageData?.pages?.edges
+      ?.map((edge) => edge?.node as Page)
+      .filter((page) => !!page) ?? [];
 
   return (
     <div>
       <CmsPageSearchForm setSearchTerm={setSearchTerm} />
-      <CmsPageSearchList pages={searchResult} />
+      <CmsPageSearchList pages={pages} loading={loading} />
     </div>
   );
 };
@@ -62,8 +57,7 @@ const CmsPageSearchFromAllPages: React.FC = (): JSX.Element => {
  */
 const CmsPageSearchFromSubPages: React.FC<{
   page: Page | undefined | null;
-}> = ({ page }): JSX.Element => {
-  const [searchResult, setSearchResult] = React.useState<Page[]>([]);
+}> = ({ page }) => {
   const [searchTerm, setSearchTerm] = React.useState('');
   const cmsClient = useCMSClient();
 
@@ -78,20 +72,15 @@ const CmsPageSearchFromSubPages: React.FC<{
     },
   });
 
-  // Update the search results
-  React.useEffect(() => {
-    if (!loading && pageData?.page) {
-      const subPages = pageData?.page?.children?.edges
-        ?.map((edge) => edge?.node as Page)
-        .filter((page) => !!page);
-      setSearchResult(subPages ?? []);
-    }
-  }, [searchTerm, pageData, loading]);
+  const subPages =
+    pageData?.page?.children?.edges
+      ?.map((edge) => edge?.node as Page)
+      .filter((page) => !!page) ?? [];
 
   return (
     <div>
       <CmsPageSearchForm page={page} setSearchTerm={setSearchTerm} />
-      <CmsPageSearchList pages={searchResult} />
+      <CmsPageSearchList pages={subPages} loading={loading} />
     </div>
   );
 };
@@ -102,8 +91,12 @@ const CmsPageSearchFromSubPages: React.FC<{
 const CmsPageSearchForm: React.FC<{
   page?: Page | undefined | null;
   setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
-}> = ({ page, setSearchTerm }): JSX.Element => {
-  const searchForm = (helperText: string) => (
+}> = ({ page, setSearchTerm }) => {
+  const helperText = page
+    ? `Search from ${page.title} page's subpages...`
+    : 'Search from all the pages...';
+
+  return (
     <div className={styles.searchForm}>
       <SearchInput
         label="Search"
@@ -114,12 +107,6 @@ const CmsPageSearchForm: React.FC<{
       />
     </div>
   );
-
-  if (page) {
-    return searchForm(`Search from ${page.title} page's subpages...`);
-  }
-
-  return searchForm('Search from all the pages...');
 };
 
 /**
@@ -127,7 +114,8 @@ const CmsPageSearchForm: React.FC<{
  */
 const CmsPageSearchList: React.FC<{
   pages: Page[];
-}> = ({ pages }): JSX.Element => {
+  loading: boolean;
+}> = ({ pages, loading }) => {
   // const router = useRouter();
   // const goToPage =
   //   (pathname: string) =>
@@ -138,34 +126,36 @@ const CmsPageSearchList: React.FC<{
 
   return (
     <div>
-      {pages.map((page, index) => {
-        const pageUri = `${ROUTES.CMS_PAGE.replace('/:id', page?.uri ?? '')}`;
-        const pageLead =
-          page.lead?.replaceAll('<p>', '')?.replaceAll('</p>', '') ?? '';
-        const pageImage = (
-          <img
-            src={
-              page.featuredImage?.node?.mediaItemUrl ??
-              getEventPlaceholderImage(page.id)
-            }
-            alt={page.featuredImage?.node?.altText ?? ''}
-            className={styles.cardImage}
-          />
-        );
-        return (
-          <Link href={pageUri}>
-            <Card
-              key={`page-${page.id}`}
-              heading={page.title ?? ''}
-              text={pageLead}
-              border={false}
-              className={styles.card}
-            >
-              {pageImage}
-            </Card>
-          </Link>
-        );
-      })}
+      <LoadingSpinner isLoading={loading}>
+        {pages.map((page, index) => {
+          const pageUri = `${ROUTES.CMS_PAGE.replace('/:id', page?.uri ?? '')}`;
+          const pageLead =
+            page.lead?.replaceAll('<p>', '')?.replaceAll('</p>', '') ?? '';
+          const pageImage = (
+            <img
+              src={
+                page.featuredImage?.node?.mediaItemUrl ??
+                getEventPlaceholderImage(page.id)
+              }
+              alt={page.featuredImage?.node?.altText ?? ''}
+              className={styles.cardImage}
+            />
+          );
+          return (
+            <Link href={pageUri}>
+              <Card
+                key={`page-${page.id}`}
+                heading={page.title ?? ''}
+                text={pageLead}
+                border={false}
+                className={styles.card}
+              >
+                {pageImage}
+              </Card>
+            </Link>
+          );
+        })}
+      </LoadingSpinner>
     </div>
   );
 };
