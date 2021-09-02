@@ -19,6 +19,7 @@ import { createCmsApolloClient } from '../../headless-cms/cmsApolloClient';
 import CmsPage, { getUriID } from '../../headless-cms/components/CmsPage';
 import { MENU_NAME } from '../../headless-cms/constants';
 import { Language } from '../../types';
+import { isFeatureEnabled } from '../../utils/featureFlags';
 
 const NextCmsPage: NextPage = () => <CmsPage />;
 
@@ -93,15 +94,19 @@ export async function getStaticPaths() {
     }
   };
 
-  return {
-    paths: menuItems
-      ?.filter((i) => i?.uri)
-      .map((item) => ({
-        params: { slug: getSlugFromUri(item?.uri) },
-        locale: item?.locale?.toLowerCase(),
-      })),
-    fallback: true,
-  };
+  if (isFeatureEnabled('HEADLESS_CMS')) {
+    return {
+      paths: menuItems
+        ?.filter((i) => i?.uri)
+        .map((item) => ({
+          params: { slug: getSlugFromUri(item?.uri) },
+          locale: item?.locale?.toLowerCase(),
+        })),
+      fallback: true,
+    };
+  }
+
+  return { paths: [], fallback: false };
 }
 
 export async function getStaticProps(
