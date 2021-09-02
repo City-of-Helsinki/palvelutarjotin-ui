@@ -12,6 +12,7 @@ import { useCMSClient } from '../../../headless-cms/cmsApolloContext';
 import { MENU_NAME } from '../../../headless-cms/constants';
 import useLocale from '../../../hooks/useLocale';
 import { OptionType } from '../../../types';
+import { isFeatureEnabled } from '../../../utils/featureFlags';
 import { MAIN_CONTENT_ID } from '../layout/PageLayout';
 import { ROUTES } from '../routes/constants';
 import styles from './header.module.scss';
@@ -20,12 +21,13 @@ const Header: React.FC = () => {
   const { t } = useTranslation();
   const locale = useLocale();
   const router = useRouter();
-  const cmsClient = useCMSClient();
-  const { slug } = router.query;
 
   const [menuOpen, setMenuOpen] = React.useState(false);
   const toggleMenu = () => setMenuOpen(!menuOpen);
   const closeMenu = () => setMenuOpen(false);
+
+  const { navigationData, cmsMenuLoading, menuItems, navigationSlugs } =
+    useCmsMenuItems();
 
   const getLanguageOptions = (): OptionType[] => {
     const createOptions = (languages: string[]) =>
@@ -60,50 +62,6 @@ const Header: React.FC = () => {
     };
 
   const logoLang = locale === 'sv' ? 'sv' : 'fi';
-
-  const { data: navigationData, loading: cmsMenuLoading } = useMenuQuery({
-    client: cmsClient,
-    skip: !locale,
-    variables: {
-      id: MENU_NAME.Header,
-      idType: MenuNodeIdTypeEnum.Name,
-    },
-  });
-
-  // contains menu items as arrays with all the translations
-  const menuItemArrays = navigationData?.menu?.menuItems?.nodes?.map(
-    (menuItem) => {
-      const item = menuItem?.connectedNode?.node;
-      if (item && 'title' in item) {
-        const translationItems = item.translations?.map((translation) => ({
-          ...translation,
-          locale: translation?.language?.code,
-        }));
-
-        return [
-          {
-            ...item,
-            locale: item?.language?.code,
-          },
-          ...(translationItems ?? []),
-        ];
-      }
-
-      return null;
-    }
-  );
-
-  const menuItems = menuItemArrays
-    ?.map((item) => {
-      return item?.find((i) => i.locale?.toLowerCase() === (locale as string));
-    })
-    .filter((i) => i);
-
-  const navigationSlugs = menuItemArrays?.find((a) => {
-    return a?.some((b) => {
-      return b.slug === slug;
-    });
-  });
 
   return (
     <Navigation
@@ -171,6 +129,63 @@ const Header: React.FC = () => {
       </Navigation.Actions>
     </Navigation>
   );
+};
+
+const useCmsMenuItems = () => {
+  const locale = useLocale();
+  const router = useRouter();
+  const cmsClient = useCMSClient();
+  const { slug } = router.query;
+  const { data: navigationData, loading: cmsMenuLoading } = useMenuQuery({
+    client: cmsClient,
+    skip: !isFeatureEnabled('HEADLESS_CMS') || !locale,
+    variables: {
+      id: MENU_NAME.Header,
+      idType: MenuNodeIdTypeEnum.Name,
+    },
+  });
+
+  // contains menu items as arrays with all the translations
+  const menuItemArrays = navigationData?.menu?.menuItems?.nodes?.map(
+    (menuItem) => {
+      const item = menuItem?.connectedNode?.node;
+      if (item && 'title' in item) {
+        const translationItems = item.translations?.map((translation) => ({
+          ...translation,
+          locale: translation?.language?.code,
+        }));
+
+        return [
+          {
+            ...item,
+            locale: item?.language?.code,
+          },
+          ...(translationItems ?? []),
+        ];
+      }
+
+      return null;
+    }
+  );
+
+  const menuItems = menuItemArrays
+    ?.map((item) => {
+      return item?.find((i) => i.locale?.toLowerCase() === (locale as string));
+    })
+    .filter((i) => i);
+
+  const navigationSlugs = menuItemArrays?.find((a) => {
+    return a?.some((b) => {
+      return b.slug === slug;
+    });
+  });
+
+  return {
+    navigationData,
+    cmsMenuLoading,
+    menuItems,
+    navigationSlugs,
+  };
 };
 
 export default Header;
