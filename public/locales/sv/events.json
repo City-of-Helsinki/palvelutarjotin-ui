@@ -10,14 +10,8 @@
     "title": "Evenemang"
   },
   "sortOptions": {
-    "duration": "Varaktighet, stigande",
-    "durationDesc": "Varaktighet, fallande",
-    "endTime": "Sluttid, stigande",
-    "endTimeDesc": "Sluttid, fallande",
-    "lastModifiedTime": "Senast modifierad, stigande",
     "lastModifiedTimeDesc": "Senast modifierad, fallande",
-    "startTime": "Starttid, stigande",
-    "startTimeDesc": "Starttid, fallande"
+    "occurrenceStartTimeDesc": "Förekomstdatum"
   },
   "search": {
     "buttonClear": "Rensa sökkriterier",

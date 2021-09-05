@@ -10,14 +10,8 @@
     "title": "Tapahtumat"
   },
   "sortOptions": {
-    "duration": "Kesto, nouseva",
-    "durationDesc": "Kesto, laskeva",
-    "endTime": "Loppuaika, nouseva",
-    "endTimeDesc": "Loppuaika, laskeva",
-    "lastModifiedTime": "Viimeki muokattu, nouseva",
-    "lastModifiedTimeDesc": "Viimeksi muokattu, laskeva",
-    "startTime": "Aika, nouseva",
-    "startTimeDesc": "Aika, laskeva"
+    "lastModifiedTimeDesc": "Viimeksi muokattu",
+    "occurrenceStartTimeDesc": "Ajankohta"
   },
   "search": {
     "buttonClear": "Tyhjennä hakuehdot",

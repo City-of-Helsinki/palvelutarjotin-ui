@@ -107,8 +107,8 @@ test('renders search form and events list with correct information', async () =>
   ).toBeInTheDocument();
 
   expect(
-    screen.getByLabelText(/Järjestys/i, { selector: 'button' })
-  ).toHaveTextContent('Aika, nouseva');
+    screen.getByText(/Järjestys/i, { selector: 'button' })
+  ).toHaveTextContent('Ajankohta');
 
   expect(
     screen.queryByRole('heading', { name: 'Tapahtumat 3 kpl' })

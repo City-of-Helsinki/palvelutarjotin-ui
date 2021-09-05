@@ -34,7 +34,7 @@ const EventsPage = (): ReactElement => {
   );
   const [sort, setSort] = React.useState<EVENT_SORT_OPTIONS>(
     (getTextFromDict(router.query, 'sort') ||
-      EVENT_SORT_OPTIONS.START_TIME) as EVENT_SORT_OPTIONS
+      EVENT_SORT_OPTIONS.OCCURRENCE_START_TIME_DESC) as EVENT_SORT_OPTIONS
   );
 
   const {
