@@ -72,11 +72,22 @@ export const PAGE_QUERY = gql`
     slug
     title
     uri
+    lead
     language {
       code
       slug
       locale
       name
+    }
+    featuredImage {
+      node {
+        mediaItemUrl
+        link
+        altText
+        mimeType
+        title
+        uri
+      }
     }
   }
 `;
@@ -87,6 +98,59 @@ export const PAGES_QUERY = gql`
       edges {
         node {
           ...pageFields
+        }
+      }
+    }
+  }
+`;
+
+export const SUBPAGES_SEARCH_QUERY = gql`
+  query SubPagesSearch(
+    $id: ID!
+    $idType: PageIdType
+    $search: String!
+    $first: Int
+    $after: String
+  ) {
+    page(id: $id, idType: $idType) {
+      id
+      children(where: { search: $search }, first: $first, after: $after) {
+        pageInfo {
+          endCursor
+          hasNextPage
+        }
+        edges {
+          cursor
+          node {
+            ... on Page {
+              ...pageFields
+              translations {
+                ...pageFields
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
+export const PAGES_SEARCH_QUERY = gql`
+  query PagesSearch($search: String!, $first: Int, $after: String) {
+    pages(where: { search: $search }, first: $first, after: $after) {
+      pageInfo {
+        endCursor
+        hasNextPage
+      }
+      edges {
+        cursor
+        node {
+          ... on Page {
+            ...pageFields
+            translations {
+              ...pageFields
+            }
+          }
         }
       }
     }
