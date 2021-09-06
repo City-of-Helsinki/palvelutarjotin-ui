@@ -1,55 +1,64 @@
-import { useRouter } from 'next/router';
 import React from 'react';
 
-import {
-  Page,
-  PageFieldsFragment,
-  PageIdType,
-  usePageQuery,
-} from '../../generated/graphql-cms';
-import useLocale from '../../hooks/useLocale';
+import PageMeta from '../../common/components/meta/PageMeta';
+import { SUPPORTED_LANGUAGES } from '../../constants';
+import { ROUTES } from '../../domain/app/routes/constants';
+import { Page, PageQuery } from '../../generated/graphql-cms';
+import { NavigationObject } from '../../pages/cms-page/[...slug]';
 import { Language } from '../../types';
-import { useCMSClient } from '../cmsApolloContext';
+import { stripLocaleFromUri } from '../utils';
 import CmsPageContent from './CmsPageContent';
 import CmsPageNavigation from './CmsPageNavigation';
 import CmsPageSearch from './CmsPageSearch/CmsPageSearch';
 
-export const getUriID = (slugs: string[], locale: Language): string => {
-  if (!slugs) return '/';
-  if (locale === 'fi') {
-    return `/${slugs.join('/')}/`;
-  }
-  return `/${locale}/${slugs.join('/')}/`;
-};
+const CmsPage: React.FC<{
+  navigation: NavigationObject[][];
+  page: PageQuery['page'];
+}> = ({ navigation, page }) => {
+  if (!page) return null;
 
-const CmsPage: React.FC = () => {
-  const {
-    query: { slug },
-  } = useRouter();
-
-  const locale = useLocale();
-  const cmsClient = useCMSClient();
-
-  const { data: pageData } = usePageQuery({
-    client: cmsClient,
-    variables: {
-      id: getUriID(slug as string[], locale),
-      idType: PageIdType.Uri,
-    },
-  });
-
-  const showNavigation =
-    pageData?.page?.parent?.node || !!pageData?.page?.children?.nodes?.length;
-
-  const showSearch = (pageData?.page?.children?.nodes?.length ?? 0) > 10;
+  const { title, ...seo } = page.seo ?? {};
+  const localePaths = formLocalePathsFromPage(page);
+  const showNavigation = page?.parent?.node || !!page?.children?.nodes?.length;
+  const showSearch = (page?.children?.nodes?.length ?? 0) > 10;
 
   return (
     <div>
-      {showNavigation && <CmsPageNavigation page={pageData?.page as Page} />}
-      <CmsPageContent page={pageData?.page as PageFieldsFragment} />
-      {showSearch && <CmsPageSearch page={pageData?.page as Page} />}
+      <PageMeta title={title ?? 'Title'} {...seo} localePaths={localePaths} />
+      {showNavigation && <CmsPageNavigation navigation={navigation} />}
+      <CmsPageContent page={page} />
+      {showSearch && <CmsPageSearch page={page as Page} />}
     </div>
   );
+};
+
+const formLocalePathsFromPage = (page: PageQuery['page']) => {
+  if (page) {
+    const localePaths = [
+      getPathAndLocale(page as Page),
+      ...(page.translations?.map((translation) =>
+        getPathAndLocale(translation as Page)
+      ) ?? []),
+    ];
+
+    return localePaths;
+  }
+
+  function getPathAndLocale(pageNode: Page) {
+    const locale = pageNode.language?.code?.toLowerCase() as Language;
+    const uriWithoutLocale = stripLocaleFromUri(pageNode.uri ?? '');
+    let cmsUri = ROUTES.CMS_PAGE.replace('/:id', uriWithoutLocale);
+
+    // locale needed in the beginning of the path
+    if (locale !== SUPPORTED_LANGUAGES.FI) {
+      cmsUri = `/${locale}${cmsUri}`;
+    }
+
+    return {
+      locale,
+      path: cmsUri,
+    };
+  }
 };
 
 export default CmsPage;

@@ -1,52 +1,56 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
+import classNames from 'classnames';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import React from 'react';
 
+import Container from '../../domain/app/layout/Container';
 import { ROUTES } from '../../domain/app/routes/constants';
-import { Page } from '../../generated/graphql-cms';
+import { NavigationObject } from '../../pages/cms-page/[...slug]';
+import { uriToBreadcrumbs } from '../utils';
+import styles from './cmsPage.module.scss';
 
 const CmsPageNavigation: React.FC<{
-  page: Page | undefined | null;
-}> = ({ page }): JSX.Element => {
-  const parentPage = page?.parent?.node as Page;
-  const childrenPages = (page?.children?.nodes as Page[]) ?? [];
+  navigation?: NavigationObject[][];
+}> = ({ navigation }): JSX.Element => {
+  const router = useRouter();
+
+  const isActiveLink = (uri: string) => {
+    const breadcrumbs = uriToBreadcrumbs(`${router.asPath}/`);
+    return breadcrumbs.some((b) => b === uri);
+  };
 
   return (
-    <div>
-      <p>ToC:</p>
-      Parent:
-      <ul>
-        {parentPage && (
-          <li>
-            <Link
-              href={`${ROUTES.CMS_PAGE.replace(
-                '/:id',
-                parentPage?.uri as string
-              )}`}
-            >
-              {parentPage?.title}
-            </Link>
-          </li>
-        )}
-      </ul>
-      Children:
-      <ul>
-        {childrenPages
-          .filter((subPage) => subPage != null)
-          .sort((a, b) => a.title?.localeCompare(b.title ?? '') ?? 0)
-          .map((subPage) => (
-            <li key={`subPage-${subPage?.id}`}>
-              <Link
-                href={`${ROUTES.CMS_PAGE.replace(
-                  '/:id',
-                  subPage?.uri as string
-                )}`}
-              >
-                {subPage?.title}
-              </Link>
-            </li>
-          ))}
-      </ul>
-    </div>
+    <>
+      {navigation?.map((navigationArray, index) => {
+        return (
+          <div className={styles.navigationRowContainer} key={index}>
+            <Container>
+              <nav>
+                <div className={styles.navigationRow} key={index}>
+                  {navigationArray
+                    ?.sort((a, b) => a.title.localeCompare(b.title))
+                    .map((n) => {
+                      const uri = ROUTES.CMS_PAGE.replace('/:id', n.uri);
+                      return (
+                        <Link key={n.uri} locale={n.locale} href={uri}>
+                          <a
+                            className={classNames({
+                              [styles.activeLink]: isActiveLink(uri),
+                            })}
+                          >
+                            <span>{n.title}</span>
+                          </a>
+                        </Link>
+                      );
+                    })}
+                </div>
+              </nav>
+            </Container>
+          </div>
+        );
+      })}
+    </>
   );
 };
 

@@ -6,10 +6,13 @@ import React from 'react';
 import { SUPPORTED_LANGUAGES } from '../../../constants';
 import {
   MenuNodeIdTypeEnum,
+  PageIdType,
   useMenuQuery,
+  usePageQuery,
 } from '../../../generated/graphql-cms';
 import { useCMSClient } from '../../../headless-cms/cmsApolloContext';
 import { MENU_NAME } from '../../../headless-cms/constants';
+import { stripLocaleFromUri } from '../../../headless-cms/utils';
 import useLocale from '../../../hooks/useLocale';
 import { OptionType } from '../../../types';
 import { isFeatureEnabled } from '../../../utils/featureFlags';
@@ -26,8 +29,8 @@ const Header: React.FC = () => {
   const toggleMenu = () => setMenuOpen(!menuOpen);
   const closeMenu = () => setMenuOpen(false);
 
-  const { navigationData, cmsMenuLoading, menuItems, navigationSlugs } =
-    useCmsMenuItems();
+  const { navigationData, cmsMenuLoading, menuItems } = useCmsMenuItems();
+  const languageOptions = useCmsLanguageOptions();
 
   const getLanguageOptions = (): OptionType[] => {
     const createOptions = (languages: string[]) =>
@@ -46,11 +49,9 @@ const Header: React.FC = () => {
     router.push(path, undefined, { locale });
   };
 
-  const isTabActive = (pathname: string): boolean => {
-    return (
-      typeof window !== 'undefined' &&
-      window.location.pathname.startsWith(pathname)
-    );
+  const isTabActive = (uri: string): boolean => {
+    const uriWithoutEndingSlash = uri.replace(/\/$/, '');
+    return router.asPath.includes(uriWithoutEndingSlash);
   };
 
   const goToPage =
@@ -80,15 +81,14 @@ const Header: React.FC = () => {
           {menuItems
             ?.map((item, index) => {
               if (!item?.uri) return null;
+              const uri = ROUTES.CMS_PAGE.replace('/:id', item.uri);
               return (
                 <Navigation.Item
                   key={index}
-                  active={isTabActive(item.id!)}
+                  active={isTabActive(uri)}
                   className={styles.navigationItem}
                   label={item.title}
-                  onClick={goToPage(
-                    `${ROUTES.CMS_PAGE.replace('/:id', item.uri)}`
-                  )}
+                  onClick={goToPage(uri)}
                 />
               );
             })
@@ -104,13 +104,9 @@ const Header: React.FC = () => {
           closeOnItemClick
         >
           {getLanguageOptions().map((option) => {
-            const nav = navigationSlugs?.find((slug) => {
-              return slug.locale?.toLowerCase() === option.value;
+            const nav = languageOptions?.find((languageOption) => {
+              return languageOption.locale?.toLowerCase() === option.value;
             });
-
-            const stripLocaleFormUri = (uri: string) => {
-              return uri.replace('/en', '').replace('/sv', '');
-            };
 
             return (
               <Navigation.Item
@@ -123,7 +119,7 @@ const Header: React.FC = () => {
                     ? changeLanguage(
                         ROUTES.CMS_PAGE.replace(
                           '/:id',
-                          nav?.uri ? stripLocaleFormUri(nav?.uri) : ''
+                          nav?.uri ? stripLocaleFromUri(nav?.uri) : ''
                         ),
                         option.value
                       )
@@ -136,6 +132,30 @@ const Header: React.FC = () => {
       </Navigation.Actions>
     </Navigation>
   );
+};
+
+const useCmsLanguageOptions = () => {
+  const router = useRouter();
+  const cmsClient = useCMSClient();
+
+  const { data: pageData } = usePageQuery({
+    client: cmsClient,
+    variables: {
+      id: `${router.asPath.replace('/cms-page', '')}/`,
+      idType: PageIdType.Uri,
+    },
+  });
+
+  return [
+    {
+      uri: pageData?.page?.uri,
+      locale: pageData?.page?.language?.code?.toLowerCase(),
+    },
+    ...(pageData?.page?.translations?.map((translation) => ({
+      uri: translation?.uri,
+      locale: translation?.language?.code?.toLowerCase(),
+    })) ?? []),
+  ];
 };
 
 const useCmsMenuItems = () => {
@@ -160,12 +180,14 @@ const useCmsMenuItems = () => {
         const translationItems = item.translations?.map((translation) => ({
           ...translation,
           locale: translation?.language?.code,
+          uri: stripLocaleFromUri(translation?.uri ?? ''),
         }));
 
         return [
           {
             ...item,
             locale: item?.language?.code,
+            uri: stripLocaleFromUri(item.uri ?? ''),
           },
           ...(translationItems ?? []),
         ];
@@ -183,7 +205,10 @@ const useCmsMenuItems = () => {
 
   const navigationSlugs = menuItemArrays?.find((a) => {
     return a?.some((b) => {
-      return b.slug === slug;
+      if (Array.isArray(slug)) {
+        return b.slug === slug?.[0];
+      }
+      return false;
     });
   });
 

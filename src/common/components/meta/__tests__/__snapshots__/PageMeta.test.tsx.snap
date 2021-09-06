@@ -17,5 +17,13 @@ exports[`renders meta elements 1`] = `
     content="openGraphDescription"
     property="og:description"
   />
+  <link
+    href="/undefined/"
+    rel="canonical"
+  />
+  <link
+    href="/favicon.ico"
+    rel="icon"
+  />
 </div>
 `;
