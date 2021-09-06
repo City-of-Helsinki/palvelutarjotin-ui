@@ -11,7 +11,7 @@
   },
   "sortOptions": {
     "lastModifiedTimeDesc": "Senast modifierad, fallande",
-    "occurrenceStartTimeDesc": "Förekomstdatum"
+    "startTime": "Aktuell"
   },
   "search": {
     "buttonClear": "Rensa sökkriterier",

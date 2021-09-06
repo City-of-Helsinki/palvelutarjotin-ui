@@ -1,7 +1,7 @@
-import { render, screen } from '@testing-library/react';
 import React from 'react';
 import { Provider } from 'react-redux';
 
+import { render, screen } from '../../../../utils/testUtils';
 import { store } from '../../store';
 import Header from '../Header';
 

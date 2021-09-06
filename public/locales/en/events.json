@@ -11,7 +11,7 @@
   },
   "sortOptions": {
     "lastModifiedTimeDesc": "Last modified",
-    "occurrenceStartTimeDesc": "Occurrence date"
+    "startTime": "Topical"
   },
   "search": {
     "buttonClear": "Clear search criteria",

@@ -11,7 +11,7 @@
   },
   "sortOptions": {
     "lastModifiedTimeDesc": "Viimeksi muokattu",
-    "occurrenceStartTimeDesc": "Ajankohta"
+    "startTime": "Ajankohtaista"
   },
   "search": {
     "buttonClear": "Tyhjennä hakuehdot",
