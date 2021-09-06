@@ -24,7 +24,7 @@ export type Props = {
 };
 
 export function getLanguageAwarePath(
-  locale: string | undefined,
+  locale: Language | undefined,
   path: string
 ): string {
   if (locale === 'fi') {
@@ -44,8 +44,8 @@ const PageMeta: React.FC<Props> = ({
   localePaths,
   ...seo
 }) => {
-  const { locale, defaultLocale, asPath } = useRouter();
-  const canonical = getLanguageAwarePath(locale, asPath);
+  const { locale, asPath } = useRouter();
+  const canonical = getLanguageAwarePath(locale as Language, asPath);
   const openGraphTitle = seo.openGraphTitle ?? title;
   const openGraphDescription = seo.openGraphDescription ?? description;
 

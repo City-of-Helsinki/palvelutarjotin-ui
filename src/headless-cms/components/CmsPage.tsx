@@ -11,6 +11,8 @@ import CmsPageContent from './CmsPageContent';
 import CmsPageNavigation from './CmsPageNavigation';
 import CmsPageSearch from './CmsPageSearch/CmsPageSearch';
 
+const SEARCH_PANEL_TRESHOLD = 10;
+
 const CmsPage: React.FC<{
   navigation: NavigationObject[][];
   page: PageQuery['page'];
@@ -20,7 +22,8 @@ const CmsPage: React.FC<{
   const { title, ...seo } = page.seo ?? {};
   const localePaths = formLocalePathsFromPage(page);
   const showNavigation = page?.parent?.node || !!page?.children?.nodes?.length;
-  const showSearch = (page?.children?.nodes?.length ?? 0) > 10;
+  const showSearch =
+    (page?.children?.nodes?.length ?? 0) > SEARCH_PANEL_TRESHOLD;
 
   return (
     <div>
