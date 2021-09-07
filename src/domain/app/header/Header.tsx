@@ -121,9 +121,10 @@ const Header: React.FC = () => {
                 onClick={
                   isFeatureEnabled('HEADLESS_CMS')
                     ? changeLanguage(
-                        `/cms-page${
+                        ROUTES.CMS_PAGE.replace(
+                          '/:id',
                           nav?.uri ? stripLocaleFormUri(nav?.uri) : ''
-                        }`,
+                        ),
                         option.value
                       )
                     : changeLanguage(router.asPath, option.value)
