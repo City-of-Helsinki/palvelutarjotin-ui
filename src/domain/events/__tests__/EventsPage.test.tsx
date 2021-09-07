@@ -106,9 +106,9 @@ test('renders search form and events list with correct information', async () =>
     screen.queryByRole('button', { name: 'Tyhjennä hakuehdot' })
   ).toBeInTheDocument();
 
-  expect(
-    screen.getByLabelText(/Järjestys/i, { selector: 'button' })
-  ).toHaveTextContent('Aika, nouseva');
+  expect(screen.getByRole('button', { name: /järjestys/i })).toHaveTextContent(
+    'Ajankohtaista'
+  );
 
   expect(
     screen.queryByRole('heading', { name: 'Tapahtumat 3 kpl' })

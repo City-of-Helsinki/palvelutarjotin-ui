@@ -10,14 +10,8 @@
     "title": "Events"
   },
   "sortOptions": {
-    "duration": "Duration, ascending",
-    "durationDesc": "Duration, descending",
-    "endTime": "End time, ascending",
-    "endTimeDesc": "End time, descending",
-    "lastModifiedTime": "Last modified, ascending",
-    "lastModifiedTimeDesc": "Last modified, descending",
-    "startTime": "Start time, ascending",
-    "startTimeDesc": "Start time, descending"
+    "lastModifiedTimeDesc": "Last modified",
+    "startTime": "Topical"
   },
   "search": {
     "buttonClear": "Clear search criteria",
