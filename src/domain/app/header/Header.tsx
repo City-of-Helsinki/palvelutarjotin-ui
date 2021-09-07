@@ -118,10 +118,17 @@ const Header: React.FC = () => {
                 // as={Link}
                 lang={option.value}
                 label={option.label}
-                onClick={changeLanguage(
-                  `/cms-page${nav?.uri ? stripLocaleFormUri(nav?.uri) : ''}`,
-                  option.value
-                )}
+                onClick={
+                  isFeatureEnabled('HEADLESS_CMS')
+                    ? changeLanguage(
+                        ROUTES.CMS_PAGE.replace(
+                          '/:id',
+                          nav?.uri ? stripLocaleFormUri(nav?.uri) : ''
+                        ),
+                        option.value
+                      )
+                    : changeLanguage(router.asPath, option.value)
+                }
               />
             );
           })}
