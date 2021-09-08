@@ -775,6 +775,18 @@ export type MutationDeleteImageMutationArgs = {
   imageId: Scalars['String'];
 };
 
+export type Neighborhood = {
+  __typename?: 'Neighborhood';
+  id: Scalars['ID'];
+  name?: Maybe<LocalisedObject>;
+};
+
+export type NeighborhoodListResponse = {
+  __typename?: 'NeighborhoodListResponse';
+  meta: Meta;
+  data: Array<Neighborhood>;
+};
+
 /** An object with an ID */
 export type Node = {
   /** The ID of the object. */
@@ -1334,6 +1346,7 @@ export type Query = {
   /** The ID of the object */
   organisation?: Maybe<OrganisationNode>;
   organisations?: Maybe<OrganisationNodeConnection>;
+  neighborhoodList?: Maybe<NeighborhoodListResponse>;
   events?: Maybe<EventListResponse>;
   event?: Maybe<Event>;
   places?: Maybe<PlaceListResponse>;
@@ -2042,6 +2055,11 @@ export type KeywordSetQueryVariables = Exact<{
 
 
 export type KeywordSetQuery = { __typename?: 'Query', keywordSet?: Maybe<{ __typename?: 'KeywordSet', internalId: string, keywords: Array<{ __typename?: 'Keyword', id?: Maybe<string>, internalId: string, name?: Maybe<{ __typename?: 'LocalisedObject', en?: Maybe<string>, fi?: Maybe<string>, sv?: Maybe<string> }> }>, name?: Maybe<{ __typename?: 'LocalisedObject', en?: Maybe<string>, fi?: Maybe<string>, sv?: Maybe<string> }> }> };
+
+export type NeighborhoodListQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type NeighborhoodListQuery = { __typename?: 'Query', neighborhoodList?: Maybe<{ __typename?: 'NeighborhoodListResponse', meta: { __typename?: 'Meta', count?: Maybe<number>, next?: Maybe<string>, previous?: Maybe<string> }, data: Array<{ __typename?: 'Neighborhood', id: string, name?: Maybe<{ __typename?: 'LocalisedObject', fi?: Maybe<string>, sv?: Maybe<string>, en?: Maybe<string> }> }> }> };
 
 export type LanguageFieldsFragment = { __typename?: 'LanguageNode', id: string, name: string };
 
@@ -2757,6 +2775,52 @@ export function useKeywordSetLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions
 export type KeywordSetQueryHookResult = ReturnType<typeof useKeywordSetQuery>;
 export type KeywordSetLazyQueryHookResult = ReturnType<typeof useKeywordSetLazyQuery>;
 export type KeywordSetQueryResult = Apollo.QueryResult<KeywordSetQuery, KeywordSetQueryVariables>;
+export const NeighborhoodListDocument = gql`
+    query NeighborhoodList {
+  neighborhoodList {
+    meta {
+      count
+      next
+      previous
+    }
+    data {
+      id
+      name {
+        fi
+        sv
+        en
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useNeighborhoodListQuery__
+ *
+ * To run a query within a React component, call `useNeighborhoodListQuery` and pass it any options that fit your needs.
+ * When your component renders, `useNeighborhoodListQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useNeighborhoodListQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useNeighborhoodListQuery(baseOptions?: Apollo.QueryHookOptions<NeighborhoodListQuery, NeighborhoodListQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<NeighborhoodListQuery, NeighborhoodListQueryVariables>(NeighborhoodListDocument, options);
+      }
+export function useNeighborhoodListLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<NeighborhoodListQuery, NeighborhoodListQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<NeighborhoodListQuery, NeighborhoodListQueryVariables>(NeighborhoodListDocument, options);
+        }
+export type NeighborhoodListQueryHookResult = ReturnType<typeof useNeighborhoodListQuery>;
+export type NeighborhoodListLazyQueryHookResult = ReturnType<typeof useNeighborhoodListLazyQuery>;
+export type NeighborhoodListQueryResult = Apollo.QueryResult<NeighborhoodListQuery, NeighborhoodListQueryVariables>;
 export const OccurrenceDocument = gql`
     query Occurrence($id: ID!) {
   occurrence(id: $id) {

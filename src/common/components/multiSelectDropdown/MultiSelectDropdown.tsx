@@ -35,6 +35,7 @@ export interface MultiselectDropdownProps {
 
 const MultiSelectDropdown: React.FC<MultiselectDropdownProps> = ({
   checkboxName,
+  icon,
   inputPlaceholder,
   inputValue,
   name,
@@ -252,6 +253,7 @@ const MultiSelectDropdown: React.FC<MultiselectDropdownProps> = ({
         onClick={handleToggleButtonClick}
         ref={toggleButton}
       >
+        <div className={styles.iconWrapper}>{icon}</div>
         <div className={styles.title}>
           <SearchLabel htmlFor={name} srOnly={true}>
             {title}

@@ -69,6 +69,7 @@ const mocks: MockedResponse[] = [
         sort: 'start_time',
         end: null,
         organisationId: '',
+        division: '',
       },
     },
     result: {
@@ -98,6 +99,7 @@ test('renders search form and events list with correct information', async () =>
   expect(
     screen.queryByLabelText('Kielet', { selector: 'button' })
   ).toBeInTheDocument();
+  expect(screen.queryByLabelText('Alueet')).toBeInTheDocument();
   expect(screen.queryByLabelText('Paikat')).toBeInTheDocument();
   expect(screen.queryByLabelText('Alkaen')).toBeInTheDocument();
   expect(screen.queryByLabelText('Päättyen')).toBeInTheDocument();
