@@ -30,7 +30,7 @@ export const getSlugFromUri = (uri?: string | null): string[] | null => {
 };
 
 export const stripLocaleFromUri = (uri: string): string => {
-  return uri.replace(/^\/(en|sv|fi)/, '');
+  return uri.replace(/^\/(en|sv|fi)(?![a-z0-9])/i, '');
 };
 
 export const removeTrailingSlash = (uri: string): string => {
