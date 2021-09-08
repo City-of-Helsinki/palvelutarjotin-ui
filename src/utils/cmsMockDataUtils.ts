@@ -4,10 +4,13 @@ import merge from 'lodash/merge';
 import {
   Language,
   LanguageCodeEnum,
+  LanguageCodeFilterEnum,
   MediaItem,
   Page,
   Seo,
 } from '../generated/graphql-cms';
+
+const generateUri = () => faker.random.words().split(' ').join('/');
 
 export const fakePage = (
   overrides?: Partial<Page>,
@@ -16,22 +19,31 @@ export const fakePage = (
   return merge<Page, typeof overrides>(
     {
       id: faker.datatype.uuid(),
-      uri: faker.internet.url(),
+      uri: generateUri(),
       title: faker.random.words(),
       lead: faker.random.word(),
-      slug: faker.random.words().split(' ').join('/'),
+      slug: generateUri(),
       content: faker.random.words(),
       databaseId: faker.datatype.number(),
       isFrontPage: false,
       isPostsPage: false,
       isPrivacyPage: false,
       pageId: faker.datatype.number(),
-      language: fakeLanguage(),
+      language: fakeLanguage({ code: LanguageCodeEnum.Fi }),
       seo: fakeSEO(),
       // to avoid infinite recursion loop :D
       translations: isTranslation
         ? null
-        : [fakePage({}, true), fakePage({}, true)],
+        : [
+            fakePage(
+              { language: fakeLanguage({ code: LanguageCodeEnum.En }) },
+              true
+            ),
+            fakePage(
+              { language: fakeLanguage({ code: LanguageCodeEnum.Sv }) },
+              true
+            ),
+          ],
       featuredImage: {
         node: fakeMediaItem(),
         __typename: 'NodeWithFeaturedImageToMediaItemConnectionEdge',

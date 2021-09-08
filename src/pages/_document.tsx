@@ -22,7 +22,7 @@ process.on('uncaughtException', (err) => {
   Sentry.captureException(err);
 });
 
-export default class MyDocument extends Document<DocumentProps> {
+class MyDocument extends Document<DocumentProps> {
   render(): React.ReactElement {
     return (
       <Html lang={documentLang(this.props)}>
@@ -46,3 +46,5 @@ export default class MyDocument extends Document<DocumentProps> {
     );
   }
 }
+
+export default MyDocument;
