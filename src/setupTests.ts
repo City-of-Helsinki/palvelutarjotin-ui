@@ -5,7 +5,7 @@ import './tests/initI18n';
 
 import { server } from './tests/msw/server';
 
-dotenv.config({ path: '.env.local' });
+dotenv.config({ path: '.env' });
 
 expect.extend(toHaveNoViolations);
 
