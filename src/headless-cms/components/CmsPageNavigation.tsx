@@ -31,7 +31,7 @@ const CmsPageNavigation: React.FC<{
                   {navigationArray
                     ?.sort((a, b) => a.title.localeCompare(b.title))
                     .map((n) => {
-                      const uri = ROUTES.CMS_PAGE.replace('/:id', n.uri);
+                      const uri = ROUTES.CMS_PAGE.replace('/:slug', n.uri);
                       return (
                         <Link key={n.uri} locale={n.locale} href={uri}>
                           <a

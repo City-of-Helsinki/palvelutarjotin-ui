@@ -2,21 +2,23 @@ import React from 'react';
 
 import PageMeta from '../../common/components/meta/PageMeta';
 import { SUPPORTED_LANGUAGES } from '../../constants';
-import { ROUTES } from '../../domain/app/routes/constants';
+import { getCmsPath } from '../../domain/app/routes/utils';
 import { Page, PageQuery } from '../../generated/graphql-cms';
 import { NavigationObject } from '../../pages/cms-page/[...slug]';
 import { Language } from '../../types';
 import { stripLocaleFromUri } from '../utils';
+import Breadcrumbs, { Breadcrumb } from './Breadcrumbs';
 import CmsPageContent from './CmsPageContent';
 import CmsPageNavigation from './CmsPageNavigation';
 import CmsPageSearch from './CmsPageSearch/CmsPageSearch';
 
-const SEARCH_PANEL_TRESHOLD = 10;
+export const SEARCH_PANEL_TRESHOLD = 5;
 
 const CmsPage: React.FC<{
   navigation: NavigationObject[][];
   page: PageQuery['page'];
-}> = ({ navigation, page }) => {
+  breadcrumbs: Breadcrumb[];
+}> = ({ navigation, page, breadcrumbs }) => {
   if (!page) return null;
 
   const { title, ...seo } = page.seo ?? {};
@@ -29,6 +31,7 @@ const CmsPage: React.FC<{
     <div>
       <PageMeta title={title ?? 'Title'} {...seo} localePaths={localePaths} />
       {showNavigation && <CmsPageNavigation navigation={navigation} />}
+      {breadcrumbs && <Breadcrumbs breadcrumbs={breadcrumbs} />}
       <CmsPageContent page={page} />
       {showSearch && <CmsPageSearch page={page as Page} />}
     </div>
@@ -43,14 +46,13 @@ const formLocalePathsFromPage = (page: PageQuery['page']) => {
         getPathAndLocale(translation as Page)
       ) ?? []),
     ];
-
     return localePaths;
   }
 
   function getPathAndLocale(pageNode: Page) {
     const locale = pageNode.language?.code?.toLowerCase() as Language;
     const uriWithoutLocale = stripLocaleFromUri(pageNode.uri ?? '');
-    let cmsUri = ROUTES.CMS_PAGE.replace('/:id', uriWithoutLocale);
+    let cmsUri = getCmsPath(uriWithoutLocale);
 
     // locale needed in the beginning of the path
     if (locale !== SUPPORTED_LANGUAGES.FI) {

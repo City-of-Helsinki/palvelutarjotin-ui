@@ -4,7 +4,6 @@ import merge from 'lodash/merge';
 import {
   Language,
   LanguageCodeEnum,
-  LanguageCodeFilterEnum,
   MediaItem,
   Page,
   Seo,
@@ -48,7 +47,11 @@ export const fakePage = (
         node: fakeMediaItem(),
         __typename: 'NodeWithFeaturedImageToMediaItemConnectionEdge',
       },
-      children: null,
+      children: {
+        edges: [],
+        nodes: [],
+        __typename: 'HierarchicalContentNodeToContentNodeChildrenConnection',
+      },
       parent: null,
       __typename: 'Page',
     },

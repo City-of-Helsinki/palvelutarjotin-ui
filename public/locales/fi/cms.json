@@ -1,0 +1,8 @@
+{
+  "linkFrontPage": "Kotisivu",
+  "pageSearch": {
+    "searchLabel": "Haku",
+    "searchHelperText": "Hae sivun {{title}} alisivuja...",
+    "loadMore": "Lataa lisää"
+  }
+}
