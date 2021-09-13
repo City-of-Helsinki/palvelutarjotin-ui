@@ -14,94 +14,45 @@ import {
   MenuQuery,
   MenuQueryVariables,
   PageIdType,
+  PageFieldsFragment,
 } from '../../generated/graphql-cms';
 import { createCmsApolloClient } from '../../headless-cms/cmsApolloClient';
-import CmsPage, { getUriID } from '../../headless-cms/components/CmsPage';
+import CmsPage from '../../headless-cms/components/CmsPage';
 import { MENU_NAME } from '../../headless-cms/constants';
+import {
+  getAllMenuPages,
+  getSlugFromUri,
+  getUriID,
+  slugsToUriSegments,
+  stripLocaleFromUri,
+} from '../../headless-cms/utils';
 import { Language } from '../../types';
 import { isFeatureEnabled } from '../../utils/featureFlags';
 
-const NextCmsPage: NextPage = () => <CmsPage />;
+export type NavigationObject = {
+  uri: string;
+  locale: string;
+  title: string;
+};
+
+const NextCmsPage: NextPage<{
+  navigation: NavigationObject[][];
+  page: PageFieldsFragment;
+}> = (props) => <CmsPage {...props} />;
 
 export async function getStaticPaths() {
-  const cmsClient = createCmsApolloClient();
-
-  // Fetch menus for all the supported languages
-  const { data: navigationData } = await cmsClient.query<
-    MenuQuery,
-    MenuQueryVariables
-  >({
-    query: MenuDocument,
-    variables: {
-      id: MENU_NAME.Header,
-      idType: MenuNodeIdTypeEnum.Name,
-    },
-  });
-
-  // contains menu items as arrays with all the translations
-  const menuItems = navigationData?.menu?.menuItems?.nodes?.flatMap(
-    (menuItem) => {
-      const item = menuItem?.connectedNode?.node;
-      if (item && 'title' in item) {
-        const childItems = item.children?.nodes?.map((node) => {
-          if (node && 'uri' in node) {
-            return {
-              ...node,
-              locale: node.language?.code?.toLocaleLowerCase(),
-            };
-          }
-          return null;
-        });
-
-        const translationItems = item.translations?.map((translation) => ({
-          ...translation,
-          locale: translation?.language?.code,
-        }));
-
-        const childTranslationItems = item.translations?.flatMap(
-          (translation) => {
-            return translation?.children?.nodes?.map((node) => {
-              if (node && 'uri' in node) {
-                return {
-                  ...node,
-                  locale: node.language?.code?.toLowerCase(),
-                };
-              }
-              return null;
-            });
-          }
-        );
-
-        return [
-          {
-            ...item,
-            locale: item?.language?.code,
-          },
-          ...(childTranslationItems ?? []),
-          ...(childItems ?? []),
-          ...(translationItems ?? []),
-        ];
-      }
-
-      return null;
-    }
-  );
-
-  const getSlugFromUri = (uri?: string | null) => {
-    const uriWithoutLang = uri?.replace('/en', '')?.replace('/sv', '');
-    if (uriWithoutLang) {
-      return uriWithoutLang.split('/').filter((i) => i);
-    }
-  };
+  const pages = await getAllMenuPages();
 
   if (isFeatureEnabled('HEADLESS_CMS')) {
     return {
-      paths: menuItems
-        ?.filter((i) => i?.uri)
-        .map((item) => ({
-          params: { slug: getSlugFromUri(item?.uri) },
-          locale: item?.locale?.toLowerCase(),
-        })),
+      paths: pages.map((page) => {
+        return {
+          params: {
+            slug: getSlugFromUri(page.uri),
+          },
+          locale: page.locale,
+        };
+      }),
       fallback: true,
     };
   }
@@ -109,33 +60,81 @@ export async function getStaticPaths() {
   return { paths: [], fallback: false };
 }
 
-export async function getStaticProps(
-  context: GetStaticPropsContext
-): Promise<
-  GetStaticPropsResult<{ initialApolloState: NormalizedCacheObject }>
+export async function getStaticProps(context: GetStaticPropsContext): Promise<
+  GetStaticPropsResult<{
+    initialApolloState: NormalizedCacheObject;
+    navigation: NavigationObject[][];
+    page: PageFieldsFragment;
+  }>
 > {
   const cmsClient = createCmsApolloClient();
 
-  // Fetch menu and cms page data to cache for the components so they can be rendered in the server
-  await Promise.all([
-    cmsClient.query<PageQuery, PageQueryVariables>({
-      query: PageDocument,
-      variables: {
-        id: getUriID(
-          context.params?.slug as string[],
-          context.locale as Language
-        ),
-        idType: PageIdType.Uri,
-      },
-    }),
-    cmsClient.query<MenuQuery, MenuQueryVariables>({
-      query: MenuDocument,
-      variables: {
-        id: MENU_NAME.Header,
-        idType: MenuNodeIdTypeEnum.Name,
-      },
-    }),
-  ]);
+  // These breadcrumb uris are used to fetch all the parent pages of the current page
+  // so that all the childrens of parent page can be figured out and sub page navigations can be formed
+  // for rendering
+  const uriSegments = slugsToUriSegments(
+    (context.params?.slug ?? []) as string[]
+  );
+
+  // Fetch menu data to cache for the components so they can be rendered in the server
+  await cmsClient.query<MenuQuery, MenuQueryVariables>({
+    query: MenuDocument,
+    variables: {
+      id: MENU_NAME.Header,
+      idType: MenuNodeIdTypeEnum.Name,
+    },
+  });
+
+  const { data: pageData } = await cmsClient.query<
+    PageQuery,
+    PageQueryVariables
+  >({
+    query: PageDocument,
+    variables: {
+      id: getUriID(
+        context.params?.slug as string[],
+        context.locale as Language
+      ),
+      idType: PageIdType.Uri,
+    },
+  });
+
+  // Fetch all parent pages for navigation data
+  const apolloPageResponses = await Promise.all(
+    uriSegments.map((uri) => {
+      return cmsClient.query<PageQuery, PageQueryVariables>({
+        query: PageDocument,
+        variables: {
+          id: uri,
+          idType: PageIdType.Uri,
+        },
+      });
+    })
+  );
+
+  const pages = apolloPageResponses.map((res) => res.data.page);
+  const currentPage = pageData.page;
+
+  // Form array of navigation arrays of all the sub menus of current cms page
+  const navigationArrays = pages
+    .map((page) => {
+      const navigationItems: NavigationObject[] = [];
+      page?.children?.nodes?.forEach((p) => {
+        if (p && 'uri' in p) {
+          navigationItems.push({
+            uri: stripLocaleFromUri(p.uri ?? '') as string,
+            locale: p.language?.code?.toLowerCase() ?? 'fi',
+            title: p.title ?? '',
+          });
+        }
+      });
+      return navigationItems;
+    })
+    .filter((i) => !!i.length);
+
+  if (!currentPage) {
+    throw new Error('Page undefined!');
+  }
 
   return {
     props: {
@@ -144,6 +143,8 @@ export async function getStaticProps(
         context.locale as string,
         ALL_I18N_NAMESPACES
       )),
+      navigation: navigationArrays,
+      page: currentPage,
     },
     revalidate: 60,
   };

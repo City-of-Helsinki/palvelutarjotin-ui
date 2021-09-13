@@ -1,9 +1,11 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import {
   ApolloClient,
+  HttpLink,
   InMemoryCache,
   NormalizedCacheObject,
 } from '@apollo/client';
+import fetch from 'cross-fetch';
 import { useMemo } from 'react';
 
 let cmsApolloClient: ApolloClient<NormalizedCacheObject>;
@@ -39,7 +41,12 @@ const initializeCmsApolloClient = (
 export const createCmsApolloClient =
   (): ApolloClient<NormalizedCacheObject> => {
     return new ApolloClient({
-      uri: process.env.NEXT_PUBLIC_CMS_BASE_URL,
+      link: new HttpLink({
+        uri:
+          process.env.NEXT_PUBLIC_CMS_BASE_URL ??
+          'https://kultus.content.api.hel.fi/graphql',
+        fetch,
+      }),
       cache: new InMemoryCache(),
     });
   };

@@ -1,5 +1,8 @@
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 import React from 'react';
+
+import { Language } from '../../../types';
 
 export type Props = {
   // Title of page, required for accessibility: pages should have unique titles
@@ -9,12 +12,27 @@ export type Props = {
   description?: string | null;
   image?: string | null;
   canonicalUrl?: string;
-  openGraphDescription?: string;
-  openGraphTitle?: string;
-  openGraphType?: string;
-  twitterDescription?: string;
-  twitterTitle?: string;
+  openGraphDescription?: string | null;
+  openGraphTitle?: string | null;
+  openGraphType?: string | null;
+  twitterDescription?: string | null;
+  twitterTitle?: string | null;
+  localePaths?: {
+    path: string;
+    locale: Language;
+  }[];
 };
+
+export function getLanguageAwarePath(
+  locale: Language | undefined,
+  path: string
+): string {
+  if (locale === 'fi') {
+    return path;
+  }
+
+  return `/${locale}${path}`;
+}
 
 const PageMeta: React.FC<Props> = ({
   title,
@@ -23,8 +41,11 @@ const PageMeta: React.FC<Props> = ({
   openGraphType,
   twitterDescription,
   twitterTitle,
+  localePaths,
   ...seo
 }) => {
+  const { locale, asPath } = useRouter();
+  const canonical = getLanguageAwarePath(locale as Language, asPath);
   const openGraphTitle = seo.openGraphTitle ?? title;
   const openGraphDescription = seo.openGraphDescription ?? description;
 
@@ -43,8 +64,12 @@ const PageMeta: React.FC<Props> = ({
         {twitterDescription && (
           <meta name="twitter:description" content={twitterDescription} />
         )}
+        {localePaths?.map(({ locale, path }) => (
+          <link key={locale} rel="alternate" hrefLang={locale} href={path} />
+        ))}
+        <link rel="canonical" href={canonical} />
+        <link rel="icon" href="/favicon.ico" />
       </Head>
-      {/* <RouteMeta languages={languages} /> */}
     </>
   );
 };

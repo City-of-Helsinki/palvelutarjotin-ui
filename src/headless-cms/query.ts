@@ -45,7 +45,6 @@ export const PAGE_QUERY = gql`
       parent {
         node {
           ... on Page {
-            id
             ...pageFields
             translations {
               ...pageFields
@@ -73,6 +72,9 @@ export const PAGE_QUERY = gql`
     title
     uri
     lead
+    seo {
+      ...seoFields
+    }
     language {
       code
       slug
@@ -89,6 +91,16 @@ export const PAGE_QUERY = gql`
         uri
       }
     }
+  }
+
+  fragment seoFields on SEO {
+    title
+    description
+    openGraphTitle
+    openGraphDescription
+    openGraphType
+    twitterTitle
+    twitterDescription
   }
 `;
 

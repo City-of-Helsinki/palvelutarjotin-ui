@@ -113,6 +113,7 @@ exports[`PageLayout matches snapshot 1`] = `
             >
               <a
                 class="Menu-module_item__3yQdE "
+                href="/"
                 lang="fi"
               >
                 <span
@@ -123,6 +124,7 @@ exports[`PageLayout matches snapshot 1`] = `
               </a>
               <a
                 class="Menu-module_item__3yQdE "
+                href="/"
                 lang="sv"
               >
                 <span
@@ -133,6 +135,7 @@ exports[`PageLayout matches snapshot 1`] = `
               </a>
               <a
                 class="Menu-module_item__3yQdE "
+                href="/"
                 lang="en"
               >
                 <span
@@ -280,6 +283,7 @@ exports[`PageLayout matches snapshot 1`] = `
                 >
                   <a
                     class="Menu-module_item__3yQdE "
+                    href="/"
                     lang="fi"
                   >
                     <span
@@ -290,6 +294,7 @@ exports[`PageLayout matches snapshot 1`] = `
                   </a>
                   <a
                     class="Menu-module_item__3yQdE "
+                    href="/"
                     lang="sv"
                   >
                     <span
@@ -300,6 +305,7 @@ exports[`PageLayout matches snapshot 1`] = `
                   </a>
                   <a
                     class="Menu-module_item__3yQdE "
+                    href="/"
                     lang="en"
                   >
                     <span

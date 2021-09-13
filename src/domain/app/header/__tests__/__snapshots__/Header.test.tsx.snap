@@ -110,6 +110,7 @@ exports[`Header matches snapshot 1`] = `
           >
             <a
               class="Menu-module_item__3yQdE "
+              href="/"
               lang="fi"
             >
               <span
@@ -120,6 +121,7 @@ exports[`Header matches snapshot 1`] = `
             </a>
             <a
               class="Menu-module_item__3yQdE "
+              href="/"
               lang="sv"
             >
               <span
@@ -130,6 +132,7 @@ exports[`Header matches snapshot 1`] = `
             </a>
             <a
               class="Menu-module_item__3yQdE "
+              href="/"
               lang="en"
             >
               <span
@@ -277,6 +280,7 @@ exports[`Header matches snapshot 1`] = `
               >
                 <a
                   class="Menu-module_item__3yQdE "
+                  href="/"
                   lang="fi"
                 >
                   <span
@@ -287,6 +291,7 @@ exports[`Header matches snapshot 1`] = `
                 </a>
                 <a
                   class="Menu-module_item__3yQdE "
+                  href="/"
                   lang="sv"
                 >
                   <span
@@ -297,6 +302,7 @@ exports[`Header matches snapshot 1`] = `
                 </a>
                 <a
                   class="Menu-module_item__3yQdE "
+                  href="/"
                   lang="en"
                 >
                   <span
