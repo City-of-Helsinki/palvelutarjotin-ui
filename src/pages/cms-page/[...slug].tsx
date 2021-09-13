@@ -72,7 +72,9 @@ export async function getStaticProps(context: GetStaticPropsContext): Promise<
   // These breadcrumb uris are used to fetch all the parent pages of the current page
   // so that all the childrens of parent page can be figured out and sub page navigations can be formed
   // for rendering
-  const uris = slugsToUriSegments((context.params?.slug ?? []) as string[]);
+  const uriSegments = slugsToUriSegments(
+    (context.params?.slug ?? []) as string[]
+  );
 
   // Fetch menu data to cache for the components so they can be rendered in the server
   await cmsClient.query<MenuQuery, MenuQueryVariables>({
@@ -99,7 +101,7 @@ export async function getStaticProps(context: GetStaticPropsContext): Promise<
 
   // Fetch all parent pages for navigation data
   const apolloPageResponses = await Promise.all(
-    uris.map((uri) => {
+    uriSegments.map((uri) => {
       return cmsClient.query<PageQuery, PageQueryVariables>({
         query: PageDocument,
         variables: {
