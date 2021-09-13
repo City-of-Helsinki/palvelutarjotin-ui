@@ -47,6 +47,7 @@ export const getEventFilterVariables = (
   end: getDateString(query.endDate),
   location: getTextFromDict(query, 'places', undefined),
   organisationId: getTextFromDict(query, 'organisation', undefined),
+  division: getTextFromDict(query, 'divisions', undefined),
   ...options,
 });
 
@@ -85,6 +86,7 @@ export const getInitialValues = (
     targetGroups: queryParameterToArray(query.targetGroups),
     categories: queryParameterToArray(query.categories),
     additionalCriteria: queryParameterToArray(query.additionalCriteria),
+    divisions: queryParameterToArray(query.divisions),
   };
 };
 

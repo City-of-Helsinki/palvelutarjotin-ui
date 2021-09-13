@@ -1,9 +1,10 @@
 import { Field, Formik } from 'formik';
-import { Button, IconSearch, IconPen } from 'hds-react';
+import { Button, IconSearch, IconPen, IconLocation, IconHome } from 'hds-react';
 import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import DateInputField from '../../../common/components/form/fields/DateInputField';
+import DivisionSelectorField from '../../../common/components/form/fields/DivisionSelectorField';
 import MultiDropdownField from '../../../common/components/form/fields/MultiDropdownField';
 import PlaceSelectorField from '../../../common/components/form/fields/PlaceSelectorField';
 import TextInputField from '../../../common/components/form/fields/TextInputField';
@@ -21,6 +22,7 @@ export type EventSearchFormValues = {
   date: Date | null;
   endDate: Date | null;
   places: string[];
+  divisions: string[];
   organisation?: string;
   organisationId?: string;
 };
@@ -34,6 +36,7 @@ const defaultInitialValues: EventSearchFormValues = {
   date: null,
   endDate: null,
   places: [],
+  divisions: [],
   organisation: '',
   organisationId: '',
 };
@@ -81,7 +84,7 @@ const EventSearchForm = ({
                   placeholder={t('events:search.placeholderText')}
                 />
               </div>
-              <div className={styles.filtersRow3}>
+              <div className={styles.filtersRow4}>
                 <Field
                   hideLabel
                   name="targetGroups"
@@ -95,6 +98,14 @@ const EventSearchForm = ({
                     'events:search.accessibility.audienceDropdown.selectedItemRemoveButtonAriaLabel'
                   )}
                   options={targetGroups}
+                />
+                <Field
+                  component={DivisionSelectorField}
+                  icon={<IconLocation aria-hidden />}
+                  name="divisions"
+                  showSearch={true}
+                  title={t('events:search.labelDivisions')}
+                  inputPlaceholder={t('events:search.divisionInputPlaceholder')}
                 />
                 <Field
                   hideLabel
@@ -137,6 +148,7 @@ const EventSearchForm = ({
                 <Field
                   title={t('events:search.labelPlaces')}
                   component={PlaceSelectorField}
+                  icon={<IconHome aria-hidden />}
                   showSearch={true}
                   name="places"
                   inputPlaceholder={t('events:search.placeInputPlaceholder')}

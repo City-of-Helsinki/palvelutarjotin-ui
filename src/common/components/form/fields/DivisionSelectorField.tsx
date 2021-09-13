@@ -2,7 +2,7 @@ import { FieldProps, FormikHelpers } from 'formik';
 import { SelectProps } from 'hds-react';
 import React from 'react';
 
-import PlaceSelector from '../../../../domain/place/placeSelector/PlaceSelector';
+import DivisionSelector from '../../../../domain/neighborhood/divisionSelector/DivisionSelector';
 
 type Option = {
   label: string;
@@ -18,18 +18,18 @@ type Props = SelectProps<Option> &
     checkboxName: string;
   };
 
-const PlaceSelectorField: React.FC<Props> = ({
+const DivisionSelectorField: React.FC<Props> = ({
   field: { name, onBlur, onChange, value, ...field },
   helper,
   multiselect,
   options,
   placeholder,
   setFieldValue,
-  checkboxName = 'placesCheckbox',
+  checkboxName = 'divisionCheckbox',
   ...rest
 }) => {
   const handleChange = (val: Option | Option[]) => {
-    const value = Array.isArray(val) ? val.map((item) => item) : val;
+    const value = !Array.isArray(val) ? [val] : val;
     if (setFieldValue) {
       setFieldValue(name, value);
     } else {
@@ -50,18 +50,17 @@ const PlaceSelectorField: React.FC<Props> = ({
       });
     });
   };
-
   return (
-    <PlaceSelector
+    <DivisionSelector
       {...rest}
       {...field}
       name={name}
       checkboxName={checkboxName}
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       onChange={handleChange as (selectedItems: any) => void}
-      value={value}
+      value={value ?? []}
     />
   );
 };
 
-export default PlaceSelectorField;
+export default DivisionSelectorField;
