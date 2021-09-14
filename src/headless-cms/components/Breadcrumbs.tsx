@@ -29,7 +29,7 @@ const Breadcrumbs: React.FC<{ breadcrumbs: Breadcrumb[] }> = ({
           const to = `/${locale}${getCmsPath(uriWithoutLocale)}`;
           const isLastItem = all.length === index + 1;
           return (
-            <li>
+            <li key={breadcrumb.uri}>
               {isLastItem ? (
                 breadcrumb.title
               ) : (
