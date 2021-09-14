@@ -3,7 +3,7 @@ export enum ROUTES {
   CREATE_ENROLMENT = '/event/:id/enrolment/create',
   HOME = '/',
   PRIVACY_POLICY = '/privacy-policy',
-  CMS_PAGE = '/cms-page/:id',
+  CMS_PAGE = '/cms-page/:slug',
 }
 
 export enum PATHNAMES {

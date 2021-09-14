@@ -17,7 +17,10 @@ import {
   PageFieldsFragment,
 } from '../../generated/graphql-cms';
 import { createCmsApolloClient } from '../../headless-cms/cmsApolloClient';
-import CmsPage from '../../headless-cms/components/CmsPage';
+import { Breadcrumb } from '../../headless-cms/components/Breadcrumbs';
+import CmsPage, {
+  SEARCH_PANEL_TRESHOLD,
+} from '../../headless-cms/components/CmsPage';
 import { MENU_NAME } from '../../headless-cms/constants';
 import {
   getAllMenuPages,
@@ -38,6 +41,7 @@ export type NavigationObject = {
 const NextCmsPage: NextPage<{
   navigation: NavigationObject[][];
   page: PageFieldsFragment;
+  breadcrumbs: Breadcrumb[];
 }> = (props) => <CmsPage {...props} />;
 
 export async function getStaticPaths() {
@@ -65,6 +69,7 @@ export async function getStaticProps(context: GetStaticPropsContext): Promise<
     initialApolloState: NormalizedCacheObject;
     navigation: NavigationObject[][];
     page: PageFieldsFragment;
+    breadcrumbs: Breadcrumb[];
   }>
 > {
   const cmsClient = createCmsApolloClient();
@@ -115,6 +120,11 @@ export async function getStaticProps(context: GetStaticPropsContext): Promise<
   const pages = apolloPageResponses.map((res) => res.data.page);
   const currentPage = pageData.page;
 
+  const breadcrumbs = pages.map((page) => ({
+    uri: page?.uri ?? '',
+    title: page?.title ?? '',
+  }));
+
   // Form array of navigation arrays of all the sub menus of current cms page
   const navigationArrays = pages
     .map((page) => {
@@ -130,7 +140,7 @@ export async function getStaticProps(context: GetStaticPropsContext): Promise<
       });
       return navigationItems;
     })
-    .filter((i) => !!i.length);
+    .filter((i) => !!i.length && i.length < SEARCH_PANEL_TRESHOLD);
 
   if (!currentPage) {
     throw new Error('Page undefined!');
@@ -145,6 +155,7 @@ export async function getStaticProps(context: GetStaticPropsContext): Promise<
       )),
       navigation: navigationArrays,
       page: currentPage,
+      breadcrumbs,
     },
     revalidate: 60,
   };

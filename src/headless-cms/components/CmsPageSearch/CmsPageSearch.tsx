@@ -1,167 +1,64 @@
-import { Button, Card, SearchInput } from 'hds-react';
+import { NetworkStatus } from '@apollo/client';
+import { Button, Card, TextInput } from 'hds-react';
 import Link from 'next/link';
-// import { useRouter } from 'next/router';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 import LoadingSpinner from '../../../common/components/loadingSpinner/LoadingSpinner';
-import { ROUTES } from '../../../domain/app/routes/constants';
+import Container from '../../../domain/app/layout/Container';
+import { getCmsPath } from '../../../domain/app/routes/utils';
 import { getEventPlaceholderImage } from '../../../domain/event/utils';
 import {
   Page,
   PageIdType,
-  usePagesSearchQuery,
   useSubPagesSearchQuery,
 } from '../../../generated/graphql-cms';
+import useDebounce from '../../../hooks/useDebounce';
 import { useCMSClient } from '../../cmsApolloContext';
 import styles from './cmspagesearch.module.scss';
 
-const BLOCK_SIZE = 10;
+const BLOCK_SIZE = 3;
+const SEARCH_DEBOUNCE_TIME = 500;
 
 const CmsPageSearch: React.FC<{
-  page?: Page | undefined | null;
-}> = ({ page }) => {
-  if (page) {
-    return <CmsPageSearchFromSubPages page={page} />;
-  }
-  return <CmsPageSearchFromAllPages />;
-};
-
-/**
- * Search a page from all the pages.
- */
-const CmsPageSearchFromAllPages: React.FC = () => {
-  const [searchTerm, setSearchTerm] = React.useState('');
-  const [isLoadingMore, setIsLoadingMore] = React.useState(false);
-  const cmsClient = useCMSClient();
-
-  // Search from all the pages
-  const {
-    data: pageData,
-    loading,
-    fetchMore,
-  } = usePagesSearchQuery({
-    client: cmsClient,
-    variables: {
-      search: searchTerm ?? '',
-      first: BLOCK_SIZE,
-      after: '',
-    },
-  });
-
-  const pageInfo = pageData?.pages?.pageInfo;
-  const hasMoreToLoad = pageInfo?.hasNextPage ?? false;
-
-  const fetchMorePages = async () => {
-    if (hasMoreToLoad) {
-      try {
-        setIsLoadingMore(true);
-        await fetchMore({
-          variables: {
-            first: BLOCK_SIZE,
-            after: pageInfo?.endCursor,
-          },
-          // TODO: updateQuery seems to be deprecated
-          updateQuery: (prev, { fetchMoreResult }) => {
-            if (!fetchMoreResult) return prev;
-            return Object.assign({}, prev, {
-              ...fetchMoreResult,
-              pages: {
-                ...fetchMoreResult.pages,
-                edges: [
-                  ...(prev?.pages?.edges ?? []),
-                  ...(fetchMoreResult?.pages?.edges ?? []),
-                ].flat(),
-              },
-            });
-          },
-        });
-        setIsLoadingMore(false);
-      } catch (e) {
-        setIsLoadingMore(false);
-      }
-    }
-  };
-
-  const pages =
-    pageData?.pages?.edges
-      ?.map((edge) => edge?.node as Page)
-      .filter((page) => !!page) ?? [];
-
-  return (
-    <div>
-      <CmsPageSearchForm setSearchTerm={setSearchTerm} />
-      <CmsPageSearchList
-        pages={pages}
-        loading={loading}
-        isLoadingMore={isLoadingMore}
-        fetchMore={fetchMorePages}
-        hasMoreToLoad={hasMoreToLoad}
-      />
-    </div>
-  );
-};
-
-/**
- * Search a page from page's sub pages.
- */
-const CmsPageSearchFromSubPages: React.FC<{
-  page: Page | undefined | null;
+  page: Page;
 }> = ({ page }) => {
   const [searchTerm, setSearchTerm] = React.useState('');
-  const [isLoadingMore, setIsLoadingMore] = React.useState(false);
+  const debouncedSearchTerm = useDebounce(searchTerm, SEARCH_DEBOUNCE_TIME);
   const cmsClient = useCMSClient();
 
-  // Search sub pages
   const {
     data: pageData,
-    loading,
     fetchMore,
+    loading,
+    networkStatus,
   } = useSubPagesSearchQuery({
     client: cmsClient,
     skip: !page?.uri,
+    notifyOnNetworkStatusChange: true,
     variables: {
       first: BLOCK_SIZE,
-      after: '',
       id: page?.uri ?? '',
       idType: PageIdType.Uri,
-      search: searchTerm ?? '',
+      search: debouncedSearchTerm ?? '',
     },
   });
 
+  const isLoading = loading && networkStatus !== NetworkStatus.fetchMore;
+  const isLoadingMore = networkStatus === NetworkStatus.fetchMore;
   const pageInfo = pageData?.page?.children?.pageInfo;
   const hasMoreToLoad = pageInfo?.hasNextPage ?? false;
 
   const fetchMorePages = async () => {
     if (hasMoreToLoad) {
       try {
-        setIsLoadingMore(true);
         await fetchMore({
           variables: {
             first: BLOCK_SIZE,
             after: pageInfo?.endCursor,
           },
-          // TODO: updateQuery seems to be deprecated
-          updateQuery: (prev, { fetchMoreResult }) => {
-            if (!fetchMoreResult) return prev;
-            return Object.assign({}, prev, {
-              ...fetchMoreResult,
-              page: {
-                ...fetchMoreResult.page,
-                children: {
-                  ...fetchMoreResult?.page?.children,
-                  edges: [
-                    ...(prev?.page?.children?.edges ?? []),
-                    ...(fetchMoreResult?.page?.children?.edges ?? []),
-                  ].flat(),
-                },
-              },
-            });
-          },
         });
-        setIsLoadingMore(false);
-      } catch (e) {
-        setIsLoadingMore(false);
-      }
+      } catch (e) {}
     }
   };
 
@@ -171,16 +68,20 @@ const CmsPageSearchFromSubPages: React.FC<{
       .filter((page) => !!page) ?? [];
 
   return (
-    <div>
-      <CmsPageSearchForm page={page} setSearchTerm={setSearchTerm} />
+    <Container>
+      <CmsPageSearchForm
+        page={page}
+        setSearchTerm={setSearchTerm}
+        searchTerm={searchTerm}
+      />
       <CmsPageSearchList
         pages={subPages}
-        loading={loading}
+        loading={isLoading}
         isLoadingMore={isLoadingMore}
         fetchMore={fetchMorePages}
         hasMoreToLoad={hasMoreToLoad}
       />
-    </div>
+    </Container>
   );
 };
 
@@ -188,21 +89,19 @@ const CmsPageSearchFromSubPages: React.FC<{
  * Search form to search headless cms pages from all the pages or 1 page's sub pages.
  */
 const CmsPageSearchForm: React.FC<{
-  page?: Page | undefined | null;
+  page: Page;
+  searchTerm: string;
   setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
-}> = ({ page, setSearchTerm }) => {
-  const helperText = page
-    ? `Search from ${page.title} page's subpages...`
-    : 'Search from all the pages...';
-
+}> = ({ page, searchTerm, setSearchTerm }) => {
+  const { t } = useTranslation();
   return (
     <div className={styles.searchForm}>
-      <SearchInput
-        label="Search"
-        helperText={helperText}
-        searchButtonAriaLabel="Search"
-        clearButtonAriaLabel="Clear search field"
-        onSubmit={(submittedValue) => setSearchTerm(submittedValue)}
+      <TextInput
+        id="page-search"
+        label={t('cms:pageSearch.searchLabel')}
+        value={searchTerm}
+        helperText={t('cms:pageSearch.searchHelperText', { title: page.title })}
+        onChange={(e) => setSearchTerm(e.target.value)}
       />
     </div>
   );
@@ -218,31 +117,18 @@ const CmsPageSearchList: React.FC<{
   hasMoreToLoad: boolean;
   fetchMore: () => void;
 }> = ({ pages, loading, isLoadingMore, fetchMore, hasMoreToLoad }) => {
-  // const router = useRouter();
-  // const goToPage =
-  //   (pathname: string) =>
-  //   (event?: React.MouseEvent<HTMLAnchorElement> | Event) => {
-  //     event?.preventDefault();
-  //     router.push(pathname);
-  //   };
-
+  const { t } = useTranslation();
   return (
     <div>
       <LoadingSpinner isLoading={loading}>
         {pages.map((page, index) => {
-          const pageUri = `${ROUTES.CMS_PAGE.replace('/:id', page?.uri ?? '')}`;
+          const pageUri = getCmsPath(page?.uri);
           const pageLead =
             page.lead?.replaceAll('<p>', '')?.replaceAll('</p>', '') ?? '';
-          const pageImage = (
-            <img
-              src={
-                page.featuredImage?.node?.mediaItemUrl ??
-                getEventPlaceholderImage(page.id)
-              }
-              alt={page.featuredImage?.node?.altText ?? ''}
-              className={styles.cardImage}
-            />
-          );
+          const imgSrc =
+            page.featuredImage?.node?.mediaItemUrl ??
+            getEventPlaceholderImage(page.id);
+
           return (
             <Link href={pageUri}>
               <Card
@@ -252,22 +138,23 @@ const CmsPageSearchList: React.FC<{
                 border={false}
                 className={styles.card}
               >
-                {pageImage}
+                <img
+                  src={imgSrc}
+                  alt={page.featuredImage?.node?.altText ?? ''}
+                  className={styles.cardImage}
+                />
               </Card>
             </Link>
           );
         })}
       </LoadingSpinner>
-      {hasMoreToLoad && <Button onClick={fetchMore}>Lataa lisää</Button>}
-      <LoadingSpinner isLoading={isLoadingMore ?? false} />
+      {isLoadingMore ? (
+        <LoadingSpinner isLoading hasPadding={false} />
+      ) : hasMoreToLoad ? (
+        <Button onClick={fetchMore}>{t('cms:pageSearch.loadMore')}</Button>
+      ) : null}
     </div>
   );
 };
 
 export default CmsPageSearch;
-export {
-  CmsPageSearchFromAllPages,
-  CmsPageSearchFromSubPages,
-  CmsPageSearchForm,
-  CmsPageSearchList,
-};

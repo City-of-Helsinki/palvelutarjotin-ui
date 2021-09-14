@@ -1,0 +1,8 @@
+{
+  "linkFrontPage": "Hemsidan",
+  "pageSearch": {
+    "searchLabel": "Sök",
+    "searchHelperText": "Sök från {{title}} sidas undersidor ...",
+    "loadMore": "Ladda mer"
+  }
+}

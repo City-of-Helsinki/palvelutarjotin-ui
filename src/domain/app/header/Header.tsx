@@ -19,6 +19,7 @@ import { OptionType } from '../../../types';
 import { isFeatureEnabled } from '../../../utils/featureFlags';
 import { MAIN_CONTENT_ID } from '../layout/PageLayout';
 import { PATHNAMES, ROUTES } from '../routes/constants';
+import { getCmsPath } from '../routes/utils';
 import styles from './header.module.scss';
 
 const Header: React.FC = () => {
@@ -68,10 +69,7 @@ const Header: React.FC = () => {
       return languageOption.locale?.toLowerCase() === lang;
     });
 
-    return `${ROUTES.CMS_PAGE.replace(
-      '/:id',
-      nav?.uri ? stripLocaleFromUri(nav?.uri) : ''
-    )}`;
+    return getCmsPath(nav?.uri ? stripLocaleFromUri(nav?.uri) : '');
   };
 
   const logoLang = locale === 'sv' ? 'sv' : 'fi';
@@ -93,7 +91,7 @@ const Header: React.FC = () => {
           {menuItems
             ?.map((item, index) => {
               if (!item?.uri) return null;
-              const uri = ROUTES.CMS_PAGE.replace('/:id', item.uri);
+              const uri = getCmsPath(item.uri);
               return (
                 <Navigation.Item
                   key={index}
