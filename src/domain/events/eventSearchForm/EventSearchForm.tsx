@@ -87,6 +87,14 @@ const EventSearchForm = ({
               <div className={styles.filtersRow4}>
                 <Field
                   hideLabel
+                  name="inLanguage"
+                  component={MultiDropdownField}
+                  label={t('events:search.labelLanguage')}
+                  placeholder={t('events:search.labelLanguage')}
+                  options={languageOptions}
+                />
+                <Field
+                  hideLabel
                   name="targetGroups"
                   component={MultiDropdownField}
                   label={t('events:search.labelTargetGroups')}
@@ -98,14 +106,6 @@ const EventSearchForm = ({
                     'events:search.accessibility.audienceDropdown.selectedItemRemoveButtonAriaLabel'
                   )}
                   options={targetGroups}
-                />
-                <Field
-                  component={DivisionSelectorField}
-                  icon={<IconLocation aria-hidden />}
-                  name="divisions"
-                  showSearch={true}
-                  title={t('events:search.labelDivisions')}
-                  inputPlaceholder={t('events:search.divisionInputPlaceholder')}
                 />
                 <Field
                   hideLabel
@@ -138,12 +138,12 @@ const EventSearchForm = ({
               </div>
               <div className={styles.filtersRow4}>
                 <Field
-                  hideLabel
-                  name="inLanguage"
-                  component={MultiDropdownField}
-                  label={t('events:search.labelLanguage')}
-                  placeholder={t('events:search.labelLanguage')}
-                  options={languageOptions}
+                  component={DivisionSelectorField}
+                  icon={<IconLocation aria-hidden />}
+                  name="divisions"
+                  showSearch={true}
+                  title={t('events:search.labelDivisions')}
+                  inputPlaceholder={t('events:search.divisionInputPlaceholder')}
                 />
                 <Field
                   title={t('events:search.labelPlaces')}
