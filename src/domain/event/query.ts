@@ -6,6 +6,7 @@ export const QUERY_EVENT = gql`
     id
     enrolmentEndDays
     enrolmentStart
+    externalEnrolmentUrl
     neededOccurrences
     contactPhoneNumber
     contactEmail

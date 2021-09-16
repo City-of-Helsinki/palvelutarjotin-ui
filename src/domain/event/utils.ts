@@ -15,7 +15,11 @@ import { Language } from '../../types';
 import formatDate from '../../utils/formatDate';
 import getLocalisedString from '../../utils/getLocalisedString';
 import getTimeFormat from '../../utils/getTimeFormat';
-import { EVENT_PLACEHOLDER_IMAGES, EVENT_SOME_IMAGE } from './constants';
+import {
+  EnrolmentType,
+  EVENT_PLACEHOLDER_IMAGES,
+  EVENT_SOME_IMAGE,
+} from './constants';
 
 export const getEventPlaceholderImage = (id: string): string => {
   const numbers = id.match(/\d+/g);
@@ -151,4 +155,14 @@ export const getRealKeywords = (
   return eventData?.event?.keywords.filter(
     (keyword) => !otherKeywords?.find((category) => category.id === keyword.id)
   );
+};
+
+export const getEnrolmentType = (event: EventFieldsFragment): EnrolmentType => {
+  if (event.pEvent.externalEnrolmentUrl) {
+    return EnrolmentType.External;
+  }
+  if (event.pEvent.enrolmentStart) {
+    return EnrolmentType.Internal;
+  }
+  return EnrolmentType.Unenrollable;
 };
