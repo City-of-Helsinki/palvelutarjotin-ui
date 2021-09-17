@@ -58,6 +58,7 @@ export const QUERY_EVENTS = gql`
 
   query Events(
     $division: [String]
+    $allOngoingAnd: [String]
     $end: String
     $include: [String]
     $inLanguage: String
@@ -79,6 +80,7 @@ export const QUERY_EVENTS = gql`
   ) {
     events(
       division: $division
+      allOngoingAnd: $allOngoingAnd
       end: $end
       include: $include
       inLanguage: $inLanguage

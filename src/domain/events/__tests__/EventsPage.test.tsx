@@ -61,7 +61,7 @@ const mocks: MockedResponse[] = [
       variables: {
         include: ['keywords', 'location'],
         keyword: [],
-        text: '',
+        allOngoingAnd: null,
         inLanguage: '',
         location: '',
         start: 'now',
