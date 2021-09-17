@@ -11,6 +11,7 @@
   "eventCard": {
     "ariaLabelOpenEvent": "Go to event: {{eventName}}",
     "free": "Free",
+    "noUpcomingOccurrences": "No upcoming occurrences",
     "startTime": {
       "other": "{{date}} at {{time}}",
       "today": "Today at {{time}}",

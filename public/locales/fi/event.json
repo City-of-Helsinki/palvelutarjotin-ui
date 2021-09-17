@@ -11,6 +11,7 @@
   "eventCard": {
     "ariaLabelOpenEvent": "Siirry tapahtumaan: {{eventName}}",
     "free": "Maksuton",
+    "noUpcomingOccurrences": "Ei tulevia tapahtuma-aikoja",
     "startTime": {
       "other": "{{date}} klo {{time}}",
       "today": "Tänään klo {{time}}",
