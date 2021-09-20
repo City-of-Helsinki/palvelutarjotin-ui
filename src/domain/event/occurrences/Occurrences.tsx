@@ -14,6 +14,7 @@ import { useTranslation } from 'next-i18next';
 import Link from 'next/link';
 import React from 'react';
 
+import ExternalLink from '../../../common/components/externalLink/ExternalLink';
 import ErrorMessage from '../../../common/components/form/ErrorMessage';
 import Table from '../../../common/components/table/Table';
 import {
@@ -37,9 +38,9 @@ import {
 import PlaceInfo, { PlaceInfoLinks } from '../../place/placeInfo/PlaceInfo';
 import PlaceText from '../../place/placeText/PlaceText';
 import CalendarButton from '../calendarButton/CalendarButton';
-import { OCCURRENCE_LIST_PAGE_SIZE } from '../constants';
+import { EnrolmentType, OCCURRENCE_LIST_PAGE_SIZE } from '../constants';
 import DateFilter from '../dateFilter/DateFilter';
-import { getEventFields } from '../utils';
+import { getEnrolmentType, getEventFields } from '../utils';
 import styles from './occurrences.module.scss';
 import { useDateFiltering } from './useDateFiltering';
 
@@ -289,6 +290,8 @@ const EnrolmentButtonCell: React.FC<{
   const locale = useLocale();
   const { t } = useTranslation();
   const { autoAcceptance } = getEventFields(event, locale);
+  const enrolmentType = getEnrolmentType(event.pEvent);
+  const externalEnrolmentUrl = event.pEvent.externalEnrolmentUrl;
 
   const getEnrolmentError = (
     occurrence: OccurrenceFieldsFragment,
@@ -303,6 +306,10 @@ const EnrolmentButtonCell: React.FC<{
     }
     return null;
   };
+
+  if (enrolmentType === EnrolmentType.Unenrollable) {
+    return <span>{t('occurrence:labelNoEnrolment')}</span>;
+  }
 
   if (!isEnrolmentStarted(event)) {
     return t('enrolment:errors.label.enrolmentStartsAt', {
@@ -320,14 +327,17 @@ const EnrolmentButtonCell: React.FC<{
       </ErrorMessage>
     );
   }
-  // if required amount of occurrences already selected, show disabled button for others
-  const selectionDisabled =
-    selectedOccurrences?.length === neededOccurrences &&
-    !selectedOccurrences?.includes(value.id);
-  const isSelectedOccurrence = selectedOccurrences?.includes(value.id);
+
+  if (externalEnrolmentUrl) {
+    return (
+      <ExternalLink href={externalEnrolmentUrl}>
+        {t('occurrence:labelExternalEnrolmentLink')}
+      </ExternalLink>
+    );
+  }
 
   if (neededOccurrences === 1) {
-    const buttonText = t(
+    const enrolButtonText = t(
       `event:occurrenceList.${
         autoAcceptance ? 'enrolOccurrenceButton' : 'reservationEnquiryButton'
       }`
@@ -341,37 +351,44 @@ const EnrolmentButtonCell: React.FC<{
           }
         }}
       >
-        {buttonText}
+        {enrolButtonText}
       </button>
     );
   }
 
-  let buttonText: string;
-  if (selectionDisabled || isSelectedOccurrence) {
-    buttonText = t('occurrence:occurrenceSelection.buttonSelectedOccurrences', {
-      selectedOccurrences: selectedOccurrences?.length,
-      neededOccurrences,
-    });
-  } else {
-    buttonText = t(
-      `occurrence:occurrenceSelection.${
-        autoAcceptance ? 'buttonEnrolOccurrence' : 'reservationEnquiryButton'
-      }`
-    );
-  }
+  const selectionDisabled =
+    selectedOccurrences?.length === neededOccurrences &&
+    !selectedOccurrences?.includes(value.id);
+  const isSelectedOccurrence = selectedOccurrences?.includes(value.id);
+  const variant =
+    selectionDisabled || isSelectedOccurrence ? 'primary' : 'secondary';
+
+  const getButtonText = () => {
+    // if required amount of occurrences already selected, show disabled button for others
+    if (selectionDisabled || isSelectedOccurrence) {
+      return t('occurrence:occurrenceSelection.buttonSelectedOccurrences', {
+        selectedOccurrences: selectedOccurrences?.length,
+        neededOccurrences,
+      });
+    } else {
+      return t(
+        `occurrence:occurrenceSelection.${
+          autoAcceptance ? 'buttonEnrolOccurrence' : 'reservationEnquiryButton'
+        }`
+      );
+    }
+  };
 
   return (
     <Button
-      variant={
-        selectionDisabled || isSelectedOccurrence ? 'primary' : 'secondary'
-      }
+      variant={variant}
       onClick={() =>
         (isSelectedOccurrence ? deselectOccurrence : selectOccurrence)(value.id)
       }
       style={{ width: enrolButtonColumnWidth }}
       disabled={selectionDisabled}
     >
-      {buttonText}
+      {getButtonText()}
     </Button>
   );
 };

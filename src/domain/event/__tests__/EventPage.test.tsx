@@ -556,101 +556,140 @@ describe('refetch of event works correctly', () => {
 
     expect(refetchMock).not.toHaveBeenCalled();
   });
+});
 
-  it('informs when there are no occurrences in future', async () => {
-    render(<EventPage />, {
-      mocks: [
-        createEventQueryMockIncludeLanguageAndAudience({
-          ...eventData,
-          id: data.id,
-          pEvent: fakePEvent({
-            ...eventData.pEvent,
-            occurrences: fakeOccurrences(0),
-          }),
-        }),
-      ],
-      query: { eventId: eventData.id },
-      path: `/fi${ROUTES.EVENT_DETAILS.replace(':id', data.id)}`,
-    });
-
-    await waitFor(() => {
-      expect(
-        screen.queryByText('Tapahtumalla ei ole tapahtuma-aikoja')
-      ).toBeInTheDocument();
-    });
-  });
-
-  it('shows inquire registration button when no autoacceptance', async () => {
-    render(<EventPage />, {
-      mocks: [
-        createEventQueryMockIncludeLanguageAndAudience({
-          ...eventData,
-          id: data.id,
-          pEvent: fakePEvent({
-            ...eventData.pEvent,
-            autoAcceptance: false,
-            neededOccurrences: 1,
-            occurrences: fakeOccurrences(1),
-          }),
-        }),
-      ],
-      query: { eventId: eventData.id },
-      path: `/fi${ROUTES.EVENT_DETAILS.replace(':id', data.id)}`,
-    });
-
-    await waitFor(() => {
-      expect(
-        screen.getByRole('button', {
-          name: /varaustiedustelu/i,
-        })
-      ).toBeInTheDocument();
-    });
-  });
-
-  it('renders a link which leads to all events of the organisation', async () => {
-    renderComponent();
-    await waitForRequestsToComplete();
-    await screen.findByRole('link', { name: /näytä järjestäjän tapahtumat/i });
-    [
-      data.contactPersonName,
-      data.contactPersonEmail,
-      data.contactPersonPhoneNumber,
-    ].forEach((text) => expect(screen.queryByText(text)).toBeInTheDocument());
-  });
-
-  it('does not render organisation section when organisation is not given', async () => {
-    const eventWithoutOrganisationMock =
+it('informs when there are no occurrences in future', async () => {
+  render(<EventPage />, {
+    mocks: [
       createEventQueryMockIncludeLanguageAndAudience({
         ...eventData,
         id: data.id,
         pEvent: fakePEvent({
           ...eventData.pEvent,
-          organisation: fakeOrganisation({
-            ...eventData.pEvent?.organisation,
-            name: '',
-          }),
+          occurrences: fakeOccurrences(0),
         }),
-      });
-    const [, ...mocks] = apolloMocks;
-
-    render(<EventPage />, {
-      mocks: [eventWithoutOrganisationMock, ...mocks],
-      query: { eventId: eventData.id },
-      path: `/fi${ROUTES.EVENT_DETAILS.replace(':id', data.id)}`,
-    });
-    await waitForRequestsToComplete();
-    expect(
-      screen.queryByRole('link', { name: /näytä järjestäjän tapahtumat/i })
-    ).not.toBeInTheDocument();
-
-    [
-      data.contactPersonName,
-      data.contactPersonEmail,
-      data.contactPersonPhoneNumber,
-    ].forEach((text) =>
-      expect(screen.queryByText(text)).not.toBeInTheDocument()
-    );
+      }),
+    ],
+    query: { eventId: eventData.id },
+    path: `/fi${ROUTES.EVENT_DETAILS.replace(':id', data.id)}`,
   });
+
+  await screen.findByText('Tapahtumalla ei ole tapahtuma-aikoja');
+});
+
+it('show no enrolment text when enrolment is not required', async () => {
+  render(<EventPage />, {
+    mocks: [
+      createEventQueryMockIncludeLanguageAndAudience({
+        ...eventData,
+        id: data.id,
+        pEvent: fakePEvent({
+          ...eventData.pEvent,
+          autoAcceptance: false,
+          neededOccurrences: 0,
+          externalEnrolmentUrl: null,
+          enrolmentStart: null,
+          occurrences: fakeOccurrences(1),
+        }),
+      }),
+    ],
+    query: { eventId: eventData.id },
+    path: `/fi${ROUTES.EVENT_DETAILS.replace(':id', data.id)}`,
+  });
+
+  await screen.findByText('Ei ilmoittautumista');
+});
+
+it('shows external enrolment link in occurrence row when event has external enrolment url', async () => {
+  const externalEnrolmentUrl = 'https://test.enrolment.fi/';
+  render(<EventPage />, {
+    mocks: [
+      createEventQueryMockIncludeLanguageAndAudience({
+        ...eventData,
+        id: data.id,
+        pEvent: fakePEvent({
+          ...eventData.pEvent,
+          autoAcceptance: false,
+          neededOccurrences: 0,
+          externalEnrolmentUrl,
+          occurrences: fakeOccurrences(1),
+        }),
+      }),
+    ],
+    query: { eventId: eventData.id },
+    path: `/fi${ROUTES.EVENT_DETAILS.replace(':id', data.id)}`,
+  });
+
+  const enrolmentLink = await screen.findByRole('link', {
+    name: /ilmoittaudu/i,
+  });
+  expect(enrolmentLink).toHaveAttribute('href', externalEnrolmentUrl);
+});
+
+it('shows inquire registration button when no autoacceptance', async () => {
+  render(<EventPage />, {
+    mocks: [
+      createEventQueryMockIncludeLanguageAndAudience({
+        ...eventData,
+        id: data.id,
+        pEvent: fakePEvent({
+          ...eventData.pEvent,
+          autoAcceptance: false,
+          neededOccurrences: 1,
+          occurrences: fakeOccurrences(1),
+        }),
+      }),
+    ],
+    query: { eventId: eventData.id },
+    path: `/fi${ROUTES.EVENT_DETAILS.replace(':id', data.id)}`,
+  });
+
+  await screen.findByRole('button', {
+    name: /varaustiedustelu/i,
+  });
+});
+
+it('renders a link which leads to all events of the organisation', async () => {
+  renderComponent();
+  await waitForRequestsToComplete();
+  await screen.findByRole('link', { name: /näytä järjestäjän tapahtumat/i });
+  [
+    data.contactPersonName,
+    data.contactPersonEmail,
+    data.contactPersonPhoneNumber,
+  ].forEach((text) => expect(screen.queryByText(text)).toBeInTheDocument());
+});
+
+it('does not render organisation section when organisation is not given', async () => {
+  const eventWithoutOrganisationMock =
+    createEventQueryMockIncludeLanguageAndAudience({
+      ...eventData,
+      id: data.id,
+      pEvent: fakePEvent({
+        ...eventData.pEvent,
+        organisation: fakeOrganisation({
+          ...eventData.pEvent?.organisation,
+          name: '',
+        }),
+      }),
+    });
+  const [, ...mocks] = apolloMocks;
+
+  render(<EventPage />, {
+    mocks: [eventWithoutOrganisationMock, ...mocks],
+    query: { eventId: eventData.id },
+    path: `/fi${ROUTES.EVENT_DETAILS.replace(':id', data.id)}`,
+  });
+  await waitForRequestsToComplete();
+  expect(
+    screen.queryByRole('link', { name: /näytä järjestäjän tapahtumat/i })
+  ).not.toBeInTheDocument();
+
+  [
+    data.contactPersonName,
+    data.contactPersonEmail,
+    data.contactPersonPhoneNumber,
+  ].forEach((text) => expect(screen.queryByText(text)).not.toBeInTheDocument());
 });
 
 it('shows enrolment confirmation notification after enrolment is done', async () => {

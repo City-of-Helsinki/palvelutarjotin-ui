@@ -7,6 +7,8 @@
   "labelGroupInfo": "Platser",
   "labelLanguages": "Språk",
   "showOccurrenceDetails": "Visa händelsedetaljer",
+  "labelExternalEnrolmentLink": "Skriva in",
+  "labelNoEnrolment": "Ingen registrering",
   "occurrenceSelection": {
     "buttonSelectOccurrence": "Välj",
     "buttonSelectedOccurrences": "Vald {{selectedOccurrences}} / {{neededOccurrences}}",

@@ -10,6 +10,7 @@ import {
   Keyword,
   EventsFieldsFragment,
   OccurrenceFieldsFragment,
+  PEventFieldsFragment,
 } from '../../generated/graphql';
 import { Language } from '../../types';
 import formatDate from '../../utils/formatDate';
@@ -157,11 +158,13 @@ export const getRealKeywords = (
   );
 };
 
-export const getEnrolmentType = (event: EventFieldsFragment): EnrolmentType => {
-  if (event.pEvent.externalEnrolmentUrl) {
+export const getEnrolmentType = (
+  event: PEventFieldsFragment
+): EnrolmentType => {
+  if (event.externalEnrolmentUrl) {
     return EnrolmentType.External;
   }
-  if (event.pEvent.enrolmentStart) {
+  if (event.enrolmentStart) {
     return EnrolmentType.Internal;
   }
   return EnrolmentType.Unenrollable;
