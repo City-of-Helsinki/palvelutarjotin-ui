@@ -1,6 +1,6 @@
 import { TextEncoder, TextDecoder } from 'util';
 
-import { screen, fireEvent } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import { getPage } from 'next-page-tester';
 
 import {

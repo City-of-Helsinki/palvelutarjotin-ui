@@ -95,7 +95,8 @@ const EventTime: React.FC<{
   const nextOccurrenceTime = event.pEvent.nextOccurrenceDatetime;
   const lastOccurrenceTime =
     event.pEvent.lastOccurrenceDatetime ?? nextOccurrenceTime;
-  const hasMultipleOccurrences = nextOccurrenceTime !== lastOccurrenceTime;
+  const hasMultipleFutureOccurrences =
+    nextOccurrenceTime && nextOccurrenceTime !== lastOccurrenceTime;
 
   const { data: occurrencesData, loading: loadingOccurrencesData } =
     useOccurrencesQuery({
@@ -128,7 +129,7 @@ const EventTime: React.FC<{
         <OccurrenceTime time={time} />
         {showOccurrences && occurrenceTimes}
       </ul>
-      {hasMultipleOccurrences && (
+      {hasMultipleFutureOccurrences && (
         <Button
           variant="secondary"
           className={styles.multipleOccurrenceButton}

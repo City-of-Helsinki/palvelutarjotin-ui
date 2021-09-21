@@ -19,7 +19,6 @@ import {
   getEventFilterVariables,
   getInitialValues,
   getTextFromDict,
-  // getEventsThatHaveUpcomingOccurrence,
   getSearchQueryObject,
 } from './utils';
 
@@ -60,7 +59,6 @@ const EventsPage = (): ReactElement => {
   }, [router.query, organisationName]);
 
   const eventsWithUpcomingOccurrences = eventsData?.events?.data;
-  // getEventsThatHaveUpcomingOccurrence(eventsData);
 
   const search = (values: EventSearchFormValues) => {
     values = { ...values, organisation: values.organisationId };
