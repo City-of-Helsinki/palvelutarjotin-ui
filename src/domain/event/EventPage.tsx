@@ -97,7 +97,7 @@ const EventPage = (): ReactElement => {
 
   const requiredEnrolmentsSelected =
     selectedOccurrences.length === (neededOccurrences || 0);
-  const showEnrolmentButton = neededOccurrences && neededOccurrences > 1;
+  const showEnrolmentButton = !!neededOccurrences && neededOccurrences > 1;
 
   return (
     <PageWrapper title={eventName || t('event:pageTitle')}>
