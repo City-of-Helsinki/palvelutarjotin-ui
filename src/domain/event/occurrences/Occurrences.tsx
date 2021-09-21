@@ -14,6 +14,7 @@ import { useTranslation } from 'next-i18next';
 import Link from 'next/link';
 import React from 'react';
 
+import ExternalLink from '../../../common/components/externalLink/ExternalLink';
 import ErrorMessage from '../../../common/components/form/ErrorMessage';
 import Table from '../../../common/components/table/Table';
 import {
@@ -37,9 +38,10 @@ import {
 import PlaceInfo, { PlaceInfoLinks } from '../../place/placeInfo/PlaceInfo';
 import PlaceText from '../../place/placeText/PlaceText';
 import CalendarButton from '../calendarButton/CalendarButton';
-import { OCCURRENCE_LIST_PAGE_SIZE } from '../constants';
+import { EnrolmentType, OCCURRENCE_LIST_PAGE_SIZE } from '../constants';
 import DateFilter from '../dateFilter/DateFilter';
-import { getEventFields } from '../utils';
+import { getEnrolmentType, getEventFields } from '../utils';
+import EnrolmentButtonCell from './EnrolmentButtonCell';
 import styles from './occurrences.module.scss';
 import { useDateFiltering } from './useDateFiltering';
 
@@ -54,7 +56,7 @@ interface Props {
   selectedOccurrences?: string[];
 }
 
-const enrolButtonColumnWidth = '250px';
+export const enrolButtonColumnWidth = '250px';
 
 const Occurrences: React.FC<Props> = (props) => {
   const { t } = useTranslation();
@@ -266,113 +268,6 @@ const OccurrenceEnrolmentTable: React.FC<{
         />
       )}
     />
-  );
-};
-
-const EnrolmentButtonCell: React.FC<{
-  event: EventFieldsFragment;
-  value: OccurrenceFieldsFragment;
-  selectedOccurrences: string[] | undefined;
-  enrolOccurrence: ((id: string) => void) | null;
-  selectOccurrence: (id: string) => void;
-  deselectOccurrence: (id: string) => void;
-  neededOccurrences?: number;
-}> = ({
-  value,
-  event,
-  selectedOccurrences,
-  neededOccurrences,
-  enrolOccurrence,
-  deselectOccurrence,
-  selectOccurrence,
-}) => {
-  const locale = useLocale();
-  const { t } = useTranslation();
-  const { autoAcceptance } = getEventFields(event, locale);
-
-  const getEnrolmentError = (
-    occurrence: OccurrenceFieldsFragment,
-    event: EventFieldsFragment
-  ) => {
-    if (isEnrolmentClosed(occurrence, event))
-      return ENROLMENT_ERRORS.ENROLMENT_CLOSED_ERROR;
-    if (!hasOccurrenceSpace(occurrence))
-      return ENROLMENT_ERRORS.NOT_ENOUGH_CAPACITY_ERROR;
-    if (isOccurrenceCancelled(occurrence)) {
-      return ENROLMENT_ERRORS.ENROLMENT_CANCDELLED_ERROR;
-    }
-    return null;
-  };
-
-  if (!isEnrolmentStarted(event)) {
-    return t('enrolment:errors.label.enrolmentStartsAt', {
-      date: formatDate(new Date(event.pEvent.enrolmentStart), 'dd.MM.yyyy'),
-      time: formatDate(new Date(event.pEvent.enrolmentStart), 'HH:mm'),
-    });
-  }
-
-  // Show error message if enrolment is not available
-  const error = getEnrolmentError(value, event);
-  if (error) {
-    return (
-      <ErrorMessage>
-        {translateValue('enrolment:errors.label.', error, t)}
-      </ErrorMessage>
-    );
-  }
-  // if required amount of occurrences already selected, show disabled button for others
-  const selectionDisabled =
-    selectedOccurrences?.length === neededOccurrences &&
-    !selectedOccurrences?.includes(value.id);
-  const isSelectedOccurrence = selectedOccurrences?.includes(value.id);
-
-  if (neededOccurrences === 1) {
-    const buttonText = t(
-      `event:occurrenceList.${
-        autoAcceptance ? 'enrolOccurrenceButton' : 'reservationEnquiryButton'
-      }`
-    );
-    return (
-      <button
-        className={styles[autoAcceptance ? 'enrolButton' : 'enquiryButton']}
-        onClick={() => {
-          if (enrolOccurrence) {
-            enrolOccurrence(value.id);
-          }
-        }}
-      >
-        {buttonText}
-      </button>
-    );
-  }
-
-  let buttonText: string;
-  if (selectionDisabled || isSelectedOccurrence) {
-    buttonText = t('occurrence:occurrenceSelection.buttonSelectedOccurrences', {
-      selectedOccurrences: selectedOccurrences?.length,
-      neededOccurrences,
-    });
-  } else {
-    buttonText = t(
-      `occurrence:occurrenceSelection.${
-        autoAcceptance ? 'buttonEnrolOccurrence' : 'reservationEnquiryButton'
-      }`
-    );
-  }
-
-  return (
-    <Button
-      variant={
-        selectionDisabled || isSelectedOccurrence ? 'primary' : 'secondary'
-      }
-      onClick={() =>
-        (isSelectedOccurrence ? deselectOccurrence : selectOccurrence)(value.id)
-      }
-      style={{ width: enrolButtonColumnWidth }}
-      disabled={selectionDisabled}
-    >
-      {buttonText}
-    </Button>
   );
 };
 

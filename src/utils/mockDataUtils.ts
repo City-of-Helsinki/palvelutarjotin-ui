@@ -257,6 +257,7 @@ export const fakePEvent = (
   contactPhoneNumber: '1233211234',
   enrolmentEndDays: 3,
   enrolmentStart: '2020-07-13T06:00:00+00:00',
+  externalEnrolmentUrl: null,
   neededOccurrences: 3,
   organisation: fakeOrganisation(),
   occurrences: fakeOccurrences(),
@@ -427,6 +428,7 @@ export const fakePerson = (overrides?: Partial<PersonNode>): PersonNode => ({
   updatedAt: '' as any,
   isStaff: true,
   organisationproposalSet: fakeOrganisationProposals(0),
+  placeIds: [],
   ...overrides,
 });
 

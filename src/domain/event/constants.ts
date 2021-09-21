@@ -8,3 +8,9 @@ export const EVENT_PLACEHOLDER_IMAGES = [
 ];
 
 export const EVENT_SOME_IMAGE = '/static/images/activities_SoMe-share.jpg';
+
+export enum EnrolmentType {
+  Internal = 'internal',
+  External = 'external',
+  Unenrollable = 'unenrollable',
+}
