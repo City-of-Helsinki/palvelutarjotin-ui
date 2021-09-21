@@ -4,7 +4,6 @@ import React from 'react';
 import { NeighborhoodListDocument } from '../../../../generated/graphql';
 import { fakeNeighborhoods } from '../../../../utils/mockDataUtils';
 import {
-  act,
   render,
   screen,
   userEvent,

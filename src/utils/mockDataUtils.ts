@@ -251,7 +251,7 @@ export const fakeImage = (overrides?: Partial<Image>): Image => ({
 export const fakePEvent = (
   overrides?: Partial<PalvelutarjotinEventNode>
 ): PalvelutarjotinEventNode => ({
-  id: 'UGFsdmVsdXRhcmpvdGluRXZlbnROb2RlOjcw',
+  id: faker.datatype.uuid(),
   contactPerson: fakePerson(),
   contactEmail: 'test@email.com',
   contactPhoneNumber: '1233211234',

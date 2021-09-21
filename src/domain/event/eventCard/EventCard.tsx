@@ -95,7 +95,8 @@ const EventTime: React.FC<{
   const nextOccurrenceTime = event.pEvent.nextOccurrenceDatetime;
   const lastOccurrenceTime =
     event.pEvent.lastOccurrenceDatetime ?? nextOccurrenceTime;
-  const hasMultipleOccurrences = nextOccurrenceTime !== lastOccurrenceTime;
+  const hasMultipleFutureOccurrences =
+    nextOccurrenceTime && nextOccurrenceTime !== lastOccurrenceTime;
 
   const { data: occurrencesData, loading: loadingOccurrencesData } =
     useOccurrencesQuery({
@@ -114,7 +115,7 @@ const EventTime: React.FC<{
         </li>
       ))
     : occurrencesData?.occurrences?.edges
-        ?.slice(1) // First one is alraedy rendered
+        ?.slice(1) // First one is already rendered
         .map((edge) => (
           <OccurrenceTime
             key={`occurrence-${edge?.node?.id}`}
@@ -128,7 +129,7 @@ const EventTime: React.FC<{
         <OccurrenceTime time={time} />
         {showOccurrences && occurrenceTimes}
       </ul>
-      {hasMultipleOccurrences && (
+      {hasMultipleFutureOccurrences && (
         <Button
           variant="secondary"
           className={styles.multipleOccurrenceButton}
@@ -148,13 +149,12 @@ const OccurrenceTime: React.FC<{
 }> = ({ time }) => {
   const { t } = useTranslation();
   const locale = useLocale();
-  if (!time) {
-    return null;
-  }
   return (
     <li className={styles.textWithIcon}>
       <IconClock />
-      {getEventStartTimeStr(time, locale, t)}
+      {time
+        ? getEventStartTimeStr(time, locale, t)
+        : t('event:eventCard.noUpcomingOccurrences')}
     </li>
   );
 };

@@ -9,6 +9,7 @@ import {
   fakePEvent,
   fakeLocalizedObject,
   fakeKeyword,
+  fakeOccurrences,
 } from '../../../utils/mockDataUtils';
 import { render, screen, act, configure } from '../../../utils/testUtils';
 import EventsPage from '../EventsPage';
@@ -52,6 +53,16 @@ const eventMocks: Partial<Event>[] = [
     }),
     keywords: fakeKeywords,
   },
+  {
+    name: fakeLocalizedObject('Testitapahtuma 4'),
+    shortDescription: fakeLocalizedObject('Tapahtuman lyhytkuvaus 4'),
+    pEvent: fakePEvent({
+      nextOccurrenceDatetime: null,
+      lastOccurrenceDatetime: null,
+      occurrences: fakeOccurrences(0),
+    }),
+    keywords: fakeKeywords,
+  },
 ];
 
 const mocks: MockedResponse[] = [
@@ -74,7 +85,7 @@ const mocks: MockedResponse[] = [
     },
     result: {
       data: {
-        events: fakeEvents(3, eventMocks),
+        events: fakeEvents(4, eventMocks),
       },
     },
   },
@@ -113,8 +124,11 @@ test('renders search form and events list with correct information', async () =>
   );
 
   expect(
-    screen.queryByRole('heading', { name: 'Tapahtumat 3 kpl' })
+    screen.queryByRole('heading', { name: 'Tapahtumat 4 kpl' })
   ).toBeInTheDocument();
+
+  // one event has no upcoming occurrences
+  expect(screen.queryByText('Ei tulevia tapahtuma-aikoja')).toBeInTheDocument();
 
   eventMocks.forEach((event) => {
     if (!event?.name?.fi) {
@@ -131,6 +145,6 @@ test('renders search form and events list with correct information', async () =>
     if (!keyword?.name?.fi) {
       throw new Error('keyword name is missing');
     }
-    expect(screen.getAllByText(keyword.name.fi)).toHaveLength(3);
+    expect(screen.getAllByText(keyword.name.fi)).toHaveLength(4);
   });
 });
