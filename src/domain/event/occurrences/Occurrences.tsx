@@ -14,8 +14,6 @@ import { useTranslation } from 'next-i18next';
 import Link from 'next/link';
 import React from 'react';
 
-import ExternalLink from '../../../common/components/externalLink/ExternalLink';
-import ErrorMessage from '../../../common/components/form/ErrorMessage';
 import Table from '../../../common/components/table/Table';
 import {
   EventFieldsFragment,
@@ -24,23 +22,14 @@ import {
 import useLocale from '../../../hooks/useLocale';
 import formatDate from '../../../utils/formatDate';
 import formatTimeRange from '../../../utils/formatTimeRange';
-import { translateValue } from '../../../utils/translateUtils';
-import { ENROLMENT_ERRORS } from '../../enrolment/constants';
 import OccurrenceGroupInfo from '../../occurrence/occurrenceGroupInfo/OccurrenceGroupInfo';
 import OccurrenceGroupLanguageInfo from '../../occurrence/occurrenceGroupInfo/OccurrenceGroupLanguageInfo';
-import {
-  getAmountOfSeatsLeft,
-  hasOccurrenceSpace,
-  isEnrolmentClosed,
-  isEnrolmentStarted,
-  isOccurrenceCancelled,
-} from '../../occurrence/utils';
+import { getAmountOfSeatsLeft } from '../../occurrence/utils';
 import PlaceInfo, { PlaceInfoLinks } from '../../place/placeInfo/PlaceInfo';
 import PlaceText from '../../place/placeText/PlaceText';
 import CalendarButton from '../calendarButton/CalendarButton';
-import { EnrolmentType, OCCURRENCE_LIST_PAGE_SIZE } from '../constants';
+import { OCCURRENCE_LIST_PAGE_SIZE } from '../constants';
 import DateFilter from '../dateFilter/DateFilter';
-import { getEnrolmentType, getEventFields } from '../utils';
 import EnrolmentButtonCell from './EnrolmentButtonCell';
 import styles from './occurrences.module.scss';
 import { useDateFiltering } from './useDateFiltering';
