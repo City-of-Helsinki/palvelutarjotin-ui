@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.3.7](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/v0.3.6...v0.3.7) (2021-09-23)
+
+
+### Bug Fixes
+
+* ignore js errors in testcafe to make it work ([df0d3bc](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/df0d3bc3ccab4858bb31fdc730cae91f1b511bf6))
+* matomo url base and site id ([823f8ae](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/823f8aedca36c810595dddee3c4bdecbbcafb4e2))
+
 ### [0.3.6](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/v0.3.5...v0.3.6) (2021-09-23)
 
 
