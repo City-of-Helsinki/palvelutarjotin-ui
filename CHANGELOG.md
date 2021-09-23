@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.3.6](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/v0.3.5...v0.3.6) (2021-09-23)
+
+
+### Bug Fixes
+
+* occurrences table enrolment button styling ([1f402ce](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/1f402ce9416dc2d645512cdeeae8ef975635fdd5))
+
 ### [0.3.5](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/v0.3.4...v0.3.5) (2021-09-21)
 
 
