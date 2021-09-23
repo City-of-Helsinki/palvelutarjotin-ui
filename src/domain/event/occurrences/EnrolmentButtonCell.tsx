@@ -19,9 +19,9 @@ import {
   isEnrolmentStarted,
 } from '../../occurrence/utils';
 import { EnrolmentType } from '../constants';
-import styles from '../eventPage.module.scss';
 import { getEventFields, getEnrolmentType } from '../utils';
 import { enrolButtonColumnWidth } from './Occurrences';
+import styles from './occurrences.module.scss';
 
 type Props = {
   event: EventFieldsFragment;
