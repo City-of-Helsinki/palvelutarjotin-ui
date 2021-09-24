@@ -154,7 +154,7 @@ jest.setTimeout(30000);
 
 // Notification component has a problem:
 // "svg elements with an img role have an alternative text (svg-img-alt)"
-test.skip('page is accessible', async () => {
+test('page is accessible', async () => {
   const { container } = render(<CreateEnrolmentPage />, {
     mocks: PageMockEnrolTimeNotStarted,
     query: { eventId: eventId, occurrences: occurrenceIds },
