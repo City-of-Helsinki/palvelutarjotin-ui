@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.3.8](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/v0.3.7...v0.3.8) (2021-09-24)
+
+
+### Bug Fixes
+
+* matomo config to work with digiaiiris ([8c0f508](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/8c0f50824556e5688db033a30d0093014de2ab18))
+
 ### [0.3.7](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/v0.3.6...v0.3.7) (2021-09-23)
 
 
