@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.3.10](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/v0.3.9...v0.3.10) (2021-09-29)
+
+
+### Bug Fixes
+
+* remove lookbehind regex operator to fix safari bug ([d2b21ff](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/d2b21ff01dde8638548a4a0b75e1c174c47db41c))
+
 ### [0.3.9](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/v0.3.8...v0.3.9) (2021-09-24)
 
 
