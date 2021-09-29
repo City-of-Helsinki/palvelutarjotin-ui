@@ -41,9 +41,12 @@ export const removeTrailingSlash = (uri: string): string => {
 // current implementation required both leading and trailing slashes
 // to include all breadcrumbs
 export const uriToBreadcrumbs = (uri: string): string[] => {
-  // get url breadcrumbs with positive lookbehind pattern
-  const breadcrums = uri.matchAll(/(?<=(\/(?:[a-z0-9]|-|\/)+\/))/g);
-  return Array.from(breadcrums).map((match) => match[1]);
+  return slugsToUriSegments(
+    stripLocaleFromUri(uri)
+      .split('/')
+      // Filter out empty strings
+      .filter((i) => i)
+  );
 };
 
 export const slugsToUriSegments = (slugs: string[]): string[] => {
