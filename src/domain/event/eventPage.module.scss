@@ -6,6 +6,10 @@
   --enrol-button-width: 250px;
 }
 
+.eventPageNotification {
+  margin: var(--spacing-layout-s) 0;
+}
+
 .sharePart {
   display: grid;
   grid-template-columns: 1fr auto;

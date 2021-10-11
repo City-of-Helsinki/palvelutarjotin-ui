@@ -113,6 +113,7 @@ const EventPage = (): ReactElement => {
                   }`
                 )}
                 type={autoAcceptance ? 'success' : 'alert'}
+                className={styles.eventPageNotification}
               >
                 {notificationType &&
                   translateValue(
