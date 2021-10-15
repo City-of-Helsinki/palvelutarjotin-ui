@@ -15,6 +15,7 @@ const DivisionSelector: React.FC<Props> = ({
   const [internalInputValue, setInternalInputValue] = React.useState('');
   const input = inputValue !== undefined ? inputValue : internalInputValue;
   const divisionOptions = useDivisionOptions();
+
   return (
     <MultiSelectDropdown
       {...props}

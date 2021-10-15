@@ -51,7 +51,13 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 Codegen settings in <b>codegen.yml</b>
 
-Generate static types for GraphQL queries by using the schema from the backend server. Kultus API URL to can be defined to NEXT_PUBLIC_API_BASE_URL variable in .env file and Headless CMS API URL is in same file with the name NEXT_PUBLIC_CMS_BASE_URL.
+Generate static types for GraphQL queries by using the schema from the backend server.
+
+#### in .env file
+
+- Kultus API URL to can be defined to `NEXT_PUBLIC_API_BASE_URL` variable
+- Headless CMS API URL to `NEXT_PUBLIC_CMS_BASE_URL`
+- Unified search API URL to `NEXT_PUBLIC_UNIFIED_SEARCH_BASE_URL`
 
 ### `yarn lint`
 

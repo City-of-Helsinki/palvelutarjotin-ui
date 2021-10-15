@@ -18,7 +18,7 @@ module.exports = {
     },
   },
   coveragePathIgnorePatterns: [
-    '<rootDir>/src/generated/graphql.tsx',
+    '<rootDir>/src/generated/',
     '<rootDir>/src/pages/',
     '<rootDir>/src/server.js',
     '<rootDir>/src/start.js',
