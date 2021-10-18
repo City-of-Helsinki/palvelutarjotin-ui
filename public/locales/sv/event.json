@@ -1,8 +1,8 @@
 {
   "enrolmentConfirmation": {
     "sentBy": {
-      "email": "Vi skickar ett bekräftelsemeddelande.",
-      "emailSms": "Vi skickar ett bekräftelsemail och textmeddelande.",
+      "email": "Vi skickar ett bekräftelsemeddelande. Obs! Tjänsten är fortfarande under utveckling och vi har noterat störningar i kommunikationen. Vänligen kontrollera även din skräppost. Om du inte får svar på din bokning, vänligen kontakta programarrangören.",
+      "emailSms": "Vi skickar ett bekräftelsemail och textmeddelande. Obs! Tjänsten är fortfarande under utveckling och vi har noterat störningar i kommunikationen. Vänligen kontrollera även din skräppost. Om du inte får svar på din bokning, vänligen kontakta programarrangören.",
       "sms": "Vi skickar en bekräftelse via SMS."
     },
     "title": "Registrering skickad",
