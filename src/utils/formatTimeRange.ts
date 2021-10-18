@@ -1,6 +1,5 @@
 import { Language } from '../types';
 import formatDate from './formatDate';
-import getTimeFormat from './getTimeFormat';
 
 /**
  * Format and localize time range
@@ -10,7 +9,7 @@ export default function formatTimeRange(
   end: Date | null | undefined,
   locale: Language
 ): string {
-  const timeFormat = getTimeFormat(locale);
+  const timeFormat = 'HH:mm';
 
   if (!end) {
     return formatDate(start, timeFormat, locale);

@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+import isSameDay from 'date-fns/isSameDay';
 import {
   Notification,
   IconAngleDown,
@@ -10,7 +11,7 @@ import {
 } from 'hds-react';
 import capitalize from 'lodash/capitalize';
 import take from 'lodash/take';
-import { useTranslation } from 'next-i18next';
+import { TFunction, useTranslation } from 'next-i18next';
 import Link from 'next/link';
 import React from 'react';
 
@@ -20,16 +21,22 @@ import {
   OccurrenceFieldsFragment,
 } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
+import { Language } from '../../../types';
 import formatDate from '../../../utils/formatDate';
 import formatTimeRange from '../../../utils/formatTimeRange';
+import { skipFalsyType } from '../../../utils/typescript.utils';
 import OccurrenceGroupInfo from '../../occurrence/occurrenceGroupInfo/OccurrenceGroupInfo';
 import OccurrenceGroupLanguageInfo from '../../occurrence/occurrenceGroupInfo/OccurrenceGroupLanguageInfo';
-import { getAmountOfSeatsLeft } from '../../occurrence/utils';
+import {
+  getAmountOfSeatsLeft,
+  isMultidayOccurrence,
+} from '../../occurrence/utils';
 import PlaceInfo, { PlaceInfoLinks } from '../../place/placeInfo/PlaceInfo';
 import PlaceText from '../../place/placeText/PlaceText';
 import CalendarButton from '../calendarButton/CalendarButton';
-import { OCCURRENCE_LIST_PAGE_SIZE } from '../constants';
+import { EnrolmentType, OCCURRENCE_LIST_PAGE_SIZE } from '../constants';
 import DateFilter from '../dateFilter/DateFilter';
+import { getEnrolmentType } from '../utils';
 import EnrolmentButtonCell from './EnrolmentButtonCell';
 import styles from './occurrences.module.scss';
 import { useDateFiltering } from './useDateFiltering';
@@ -163,6 +170,8 @@ const OccurrenceEnrolmentTable: React.FC<{
   filteredOccurrences,
 }) => {
   const { t } = useTranslation();
+  const enrolmentType = getEnrolmentType(event.pEvent);
+  const hasInternalEnrolment = enrolmentType === EnrolmentType.Internal;
   const locale = useLocale();
   const columns = [
     {
@@ -172,9 +181,15 @@ const OccurrenceEnrolmentTable: React.FC<{
       id: 'date',
     },
     {
-      Header: t('enrolment:occurrenceTable.columnTime'),
-      accessor: (row: OccurrenceFieldsFragment) =>
-        formatTimeRange(new Date(row.startTime), new Date(row.endTime), locale),
+      accessor: (row: OccurrenceFieldsFragment) => {
+        return isMultidayOccurrence(row)
+          ? null
+          : formatTimeRange(
+              new Date(row.startTime),
+              new Date(row.endTime),
+              locale
+            );
+      },
 
       id: 'time',
     },
@@ -186,8 +201,11 @@ const OccurrenceEnrolmentTable: React.FC<{
       },
       id: 'place',
     },
-    {
-      Header: t('enrolment:occurrenceTable.columnSeatsInfo'),
+    hasInternalEnrolment && {
+      // Keep this column empty if enrolment is done outaside of kultus
+      Header: hasInternalEnrolment
+        ? t('enrolment:occurrenceTable.columnSeatsInfo')
+        : '',
       accessor: (row: OccurrenceFieldsFragment) =>
         `${getAmountOfSeatsLeft(row)} / ${row.amountOfSeats}`,
       id: 'seatsInfo',
@@ -243,7 +261,7 @@ const OccurrenceEnrolmentTable: React.FC<{
       },
       id: 'additionalInfo',
     },
-  ];
+  ].filter(skipFalsyType);
 
   return (
     <Table
@@ -268,15 +286,38 @@ const OccurrenceInfo: React.FC<{
   const { placeId, startTime, endTime } = occurrence;
   const { t } = useTranslation();
   const locale = useLocale();
-  const date = formatDate(new Date(startTime), 'EEEE d.M.yyyy', locale);
-  const time =
-    startTime &&
-    formatTimeRange(new Date(startTime), new Date(endTime), locale);
+  const enrolmentType = getEnrolmentType(event.pEvent);
+  const hasInternalEnrolment = enrolmentType === EnrolmentType.Internal;
   const offer = event?.offers?.[0];
   const price = offer?.price?.[locale];
   const priceDescription = offer?.description?.[locale];
   const isFree = offer?.isFree ?? !price;
   const priceInfoUrl = offer?.infoUrl?.[locale];
+
+  const getOccurrenceDateTimeString = (
+    startDateTime: string,
+    endDateTime: string
+  ) => {
+    const startDate = new Date(startDateTime);
+    const endDate = new Date(endDateTime);
+
+    if (!isSameDay(startDate, endDate)) {
+      const startDateTimeString = t('occurrence:textDateAndTime', {
+        date: capitalize(formatDate(startDate, 'd.M.yyyy', locale)),
+        time: formatDate(startDate, 'HH:mm'),
+      });
+      const endDateTimeString = t('occurrence:textDateAndTime', {
+        date: capitalize(formatDate(endDate, 'd.M.yyyy', locale)),
+        time: formatDate(endDate, 'HH:mm'),
+      });
+      return `${startDateTimeString} — ${endDateTimeString}`;
+    }
+
+    return t('occurrence:textDateAndTime', {
+      date: capitalize(formatDate(startDate, 'EEEE d.M.yyyy', locale)),
+      time: formatTimeRange(startDate, endDate, locale),
+    });
+  };
 
   const createLink = (prefix: string, url: string) => (
     <>
@@ -297,10 +338,10 @@ const OccurrenceInfo: React.FC<{
         <div className={styles.infoTitle}>
           {t('occurrence:dateAndTimeTitle')}
         </div>
-        <div>
-          {t('occurrence:textDateAndTime', { date: capitalize(date), time })}
-        </div>
-        <OccurrenceGroupInfo occurrence={occurrence} />
+        <div>{getOccurrenceDateTimeString(startTime, endTime)}</div>
+        {hasInternalEnrolment && (
+          <OccurrenceGroupInfo occurrence={occurrence} />
+        )}
         <OccurrenceGroupLanguageInfo occurrence={occurrence} />
       </div>
     </>

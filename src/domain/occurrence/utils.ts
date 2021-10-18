@@ -1,11 +1,11 @@
-import { isPast, subDays } from 'date-fns';
+import { isPast, isSameDay, subDays } from 'date-fns';
 
 import {
   EventFieldsFragment,
   OccurrenceFieldsFragment,
   OccurrenceSeatType,
 } from '../../generated/graphql';
-import assertUnreachable from '../../utils/assertUnreachable';
+import { assertUnreachable } from '../../utils/typescript.utils';
 
 export const hasOccurrenceSpace = (
   occurrence: OccurrenceFieldsFragment
@@ -17,8 +17,21 @@ export const hasOccurrenceSpace = (
     case OccurrenceSeatType.EnrolmentCount:
       return occurrence.remainingSeats > 0;
     default:
-      assertUnreachable(occurrence.seatType);
+      return assertUnreachable(occurrence.seatType);
   }
+};
+
+export const isMultidayOccurrence = (
+  occurrence: OccurrenceFieldsFragment
+): boolean => {
+  if (occurrence.startTime && occurrence.endTime) {
+    return !isSameDay(
+      new Date(occurrence.startTime),
+      new Date(occurrence.endTime)
+    );
+  }
+
+  return false;
 };
 
 export const isOccurrenceCancelled = (

@@ -54,6 +54,8 @@ const EnrolmentButtonCell: React.FC<Props> = (props) => {
     getEnrolmentError,
   } = useEnrolmentButtonUtils(props);
 
+  if (!event.pEvent.enrolmentStart) return null;
+
   // Show error message if enrolment is not available
   const error = getEnrolmentError(value, event);
   if (error) {
@@ -65,7 +67,7 @@ const EnrolmentButtonCell: React.FC<Props> = (props) => {
   }
 
   if (isNotEnrollable) {
-    return <span>{t('occurrence:labelNoEnrolment')}</span>;
+    return null;
   }
 
   if (enrolmentHasNotStarted) {

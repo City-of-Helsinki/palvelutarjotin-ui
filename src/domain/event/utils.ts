@@ -15,7 +15,6 @@ import {
 import { Language } from '../../types';
 import formatDate from '../../utils/formatDate';
 import getLocalisedString from '../../utils/getLocalisedString';
-import getTimeFormat from '../../utils/getTimeFormat';
 import {
   EnrolmentType,
   EVENT_PLACEHOLDER_IMAGES,
@@ -38,7 +37,7 @@ export const getEventStartTimeStr = (
   t: TFunction
 ): string | null => {
   if (!startTime) return null;
-  const timeFormat = getTimeFormat(locale);
+  const timeFormat = 'HH:mm';
   const dateFormat = 'iiii d.M';
 
   if (isToday(startTime))
