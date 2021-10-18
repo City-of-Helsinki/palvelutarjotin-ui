@@ -11,7 +11,7 @@ import {
 } from 'hds-react';
 import capitalize from 'lodash/capitalize';
 import take from 'lodash/take';
-import { TFunction, useTranslation } from 'next-i18next';
+import { useTranslation } from 'next-i18next';
 import Link from 'next/link';
 import React from 'react';
 
@@ -21,7 +21,6 @@ import {
   OccurrenceFieldsFragment,
 } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
-import { Language } from '../../../types';
 import formatDate from '../../../utils/formatDate';
 import formatTimeRange from '../../../utils/formatTimeRange';
 import { skipFalsyType } from '../../../utils/typescript.utils';
