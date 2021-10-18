@@ -39,7 +39,7 @@ export const getEventStartTimeStr = (
 ): string | null => {
   if (!startTime) return null;
   const timeFormat = getTimeFormat(locale);
-  const dateFormat = 'iiii dd.MM';
+  const dateFormat = 'iiii d.M';
 
   if (isToday(startTime))
     return t('event:eventCard.startTime.today', {

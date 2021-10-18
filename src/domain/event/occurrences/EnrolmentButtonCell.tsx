@@ -70,7 +70,7 @@ const EnrolmentButtonCell: React.FC<Props> = (props) => {
 
   if (enrolmentHasNotStarted) {
     return t('enrolment:errors.label.enrolmentStartsAt', {
-      date: formatDate(new Date(event.pEvent.enrolmentStart), 'dd.MM.yyyy'),
+      date: formatDate(new Date(event.pEvent.enrolmentStart), 'd.M.yyyy'),
       time: formatDate(new Date(event.pEvent.enrolmentStart), 'HH:mm'),
     });
   }

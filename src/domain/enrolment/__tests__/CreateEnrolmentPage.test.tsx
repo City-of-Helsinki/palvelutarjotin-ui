@@ -263,11 +263,11 @@ test('renders form and user can fill it and submit', async () => {
   });
 
   await screen.findByRole('row', {
-    name: '25.09.2020 pe 12:30 – 12:30 Kirjasto 30 / 30',
+    name: '25.9.2020 pe 12:30 – 12:30 Kirjasto 30 / 30',
   });
 
   await screen.findByRole('row', {
-    name: '26.09.2020 la 13:20 – 12:30 Kirjasto 30 / 30',
+    name: '26.9.2020 la 13:20 – 12:30 Kirjasto 30 / 30',
   });
 
   userEvent.type(

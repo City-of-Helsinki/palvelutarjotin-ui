@@ -168,7 +168,7 @@ const OccurrenceEnrolmentTable: React.FC<{
     {
       Header: t('enrolment:occurrenceTable.columnDate'),
       accessor: (row: OccurrenceFieldsFragment) =>
-        formatDate(new Date(row.startTime), 'dd.MM.yyyy eeeeee', locale),
+        formatDate(new Date(row.startTime), 'd.M.yyyy eeeeee', locale),
       id: 'date',
     },
     {
@@ -268,7 +268,7 @@ const OccurrenceInfo: React.FC<{
   const { placeId, startTime, endTime } = occurrence;
   const { t } = useTranslation();
   const locale = useLocale();
-  const date = formatDate(new Date(startTime), 'EEEE dd.MM.yyyy', locale);
+  const date = formatDate(new Date(startTime), 'EEEE d.M.yyyy', locale);
   const time =
     startTime &&
     formatTimeRange(new Date(startTime), new Date(endTime), locale);

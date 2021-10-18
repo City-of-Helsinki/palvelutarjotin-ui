@@ -234,9 +234,9 @@ it('shows full events correctly in occurrences list', async () => {
   await waitForRequestsToComplete();
 
   const fullOccurrenceRowText1 =
-    '23.07.2020 to12:00 – 12:30Soukan kirjasto0 / 1Tapahtuma on täynnä';
+    '23.7.2020 to12:00 – 12:30Soukan kirjasto0 / 1Tapahtuma on täynnä';
   const fullOccurrenceRowText2 =
-    '29.07.2020 ke12:00 – 12:30Soukan kirjasto0 / 30Tapahtuma on täynnä';
+    '29.7.2020 ke12:00 – 12:30Soukan kirjasto0 / 30Tapahtuma on täynnä';
 
   const tableRows = screen.queryAllByRole('row');
   expect(tableRows[7]).toHaveTextContent(fullOccurrenceRowText1);
@@ -248,7 +248,7 @@ it('shows cancelled events correctly in list', async () => {
   await waitForRequestsToComplete();
 
   const cancelledOccurrenceRowText =
-    '20.07.2020 ma12:00 – 12:30Soukan kirjasto30 / 30Tapahtuma on peruttu';
+    '20.7.2020 ma12:00 – 12:30Soukan kirjasto30 / 30Tapahtuma on peruttu';
 
   const tableRows = screen.queryAllByRole('row');
   expect(tableRows[4]).toHaveTextContent(cancelledOccurrenceRowText);
@@ -361,7 +361,7 @@ it('renders occurrences table and related stuff correctly', async () => {
     ).toBeInTheDocument();
   });
 
-  const rowText = `27.07.2020 ma12:00 – 12:30${data.placeName}30 / 30Ilmoittaudu`;
+  const rowText = `27.7.2020 ma12:00 – 12:30${data.placeName}30 / 30Ilmoittaudu`;
 
   const tableRows = screen.getAllByRole('row');
   expect(tableRows[8]).toHaveTextContent(rowText);
@@ -495,11 +495,11 @@ it('filters occurrence list correctly when sate filters are selected', async () 
   userEvent.click(
     screen.getByLabelText(eventMessages.occurrenceList.labelStartDateFilter)
   );
-  userEvent.click(screen.getByRole('button', { name: 'Valitse 28.07.2020' }));
+  userEvent.click(screen.getByRole('button', { name: 'Valitse 28.7.2020' }));
   userEvent.click(
     screen.getByLabelText(eventMessages.occurrenceList.labelEndDateFilter)
   );
-  userEvent.click(screen.getByRole('button', { name: 'Valitse 29.07.2020' }));
+  userEvent.click(screen.getByRole('button', { name: 'Valitse 29.7.2020' }));
 
   const tableRows = screen.getAllByRole('row');
 
