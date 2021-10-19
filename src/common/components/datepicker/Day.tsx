@@ -7,6 +7,7 @@ import { useTranslation } from 'next-i18next';
 import React, { useContext, useRef } from 'react';
 
 import useLocale from '../../../hooks/useLocale';
+import { formatIntoDate } from '../../../utils/time/format';
 import { dateLocales } from './constants';
 import styles from './datepicker.module.scss';
 import DatepickerContext from './datepickerContext';
@@ -76,7 +77,7 @@ const Day: React.FC<{ dayLabel: string; date: Date }> = ({
       type="button"
       ref={dayRef}
       aria-label={t('common:datepicker.accessibility.selectDate', {
-        value: formatDate(date, 'd.M.yyyy', { locale: dateLocales[locale] }),
+        value: formatIntoDate(date),
       })}
     >
       {dayLabel}

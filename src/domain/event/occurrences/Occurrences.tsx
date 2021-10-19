@@ -23,6 +23,11 @@ import {
 import useLocale from '../../../hooks/useLocale';
 import formatDate from '../../../utils/formatDate';
 import formatTimeRange from '../../../utils/formatTimeRange';
+import {
+  DATE_FORMAT,
+  formatIntoDate,
+  formatIntoTime,
+} from '../../../utils/time/format';
 import { skipFalsyType } from '../../../utils/typescript.utils';
 import OccurrenceGroupInfo from '../../occurrence/occurrenceGroupInfo/OccurrenceGroupInfo';
 import OccurrenceGroupLanguageInfo from '../../occurrence/occurrenceGroupInfo/OccurrenceGroupLanguageInfo';
@@ -176,7 +181,7 @@ const OccurrenceEnrolmentTable: React.FC<{
     {
       Header: t('enrolment:occurrenceTable.columnDate'),
       accessor: (row: OccurrenceFieldsFragment) =>
-        formatDate(new Date(row.startTime), 'd.M.yyyy eeeeee', locale),
+        formatDate(new Date(row.startTime), `${DATE_FORMAT} eeeeee`, locale),
       id: 'date',
     },
     {
@@ -299,18 +304,18 @@ const OccurrenceInfo: React.FC<{
 
     if (!isSameDay(startDate, endDate)) {
       const startDateTimeString = t('occurrence:textDateAndTime', {
-        date: capitalize(formatDate(startDate, 'd.M.yyyy', locale)),
-        time: formatDate(startDate, 'HH:mm'),
+        date: capitalize(formatIntoDate(startDate)),
+        time: formatIntoTime(startDate),
       });
       const endDateTimeString = t('occurrence:textDateAndTime', {
-        date: capitalize(formatDate(endDate, 'd.M.yyyy', locale)),
-        time: formatDate(endDate, 'HH:mm'),
+        date: capitalize(formatIntoDate(endDate)),
+        time: formatIntoTime(endDate),
       });
       return `${startDateTimeString} — ${endDateTimeString}`;
     }
 
     return t('occurrence:textDateAndTime', {
-      date: capitalize(formatDate(startDate, 'EEEE d.M.yyyy', locale)),
+      date: capitalize(formatDate(startDate, `EEEE ${DATE_FORMAT}`, locale)),
       time: formatTimeRange(startDate, endDate, locale),
     });
   };

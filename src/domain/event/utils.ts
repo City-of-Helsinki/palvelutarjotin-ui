@@ -15,6 +15,7 @@ import {
 import { Language } from '../../types';
 import formatDate from '../../utils/formatDate';
 import getLocalisedString from '../../utils/getLocalisedString';
+import { formatIntoTime } from '../../utils/time/format';
 import {
   EnrolmentType,
   EVENT_PLACEHOLDER_IMAGES,
@@ -37,22 +38,21 @@ export const getEventStartTimeStr = (
   t: TFunction
 ): string | null => {
   if (!startTime) return null;
-  const timeFormat = 'HH:mm';
-  const dateFormat = 'iiii d.M';
+  const dateFormat = 'iiii d.M.';
 
   if (isToday(startTime))
     return t('event:eventCard.startTime.today', {
-      time: formatDate(startTime, timeFormat, locale),
+      time: formatIntoTime(startTime),
     });
 
   if (isTomorrow(startTime))
     return t('event:eventCard.startTime.tomorrow', {
-      time: formatDate(startTime, timeFormat, locale),
+      time: formatIntoTime(startTime),
     });
 
   return t('event:eventCard.startTime.other', {
     date: formatDate(startTime, dateFormat, locale),
-    time: formatDate(startTime, timeFormat, locale),
+    time: formatIntoTime(startTime),
   });
 };
 

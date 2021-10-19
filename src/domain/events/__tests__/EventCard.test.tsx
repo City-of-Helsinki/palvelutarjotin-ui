@@ -58,7 +58,9 @@ it('renders a button to view multiple occurrences when event has them', async ()
 
   render(<EventCard event={event} link={'#'} />, { mocks: apolloMocks });
   await waitFor(() => {
-    expect(screen.getByText(/sunnuntaina 20.9 klo 10:30/)).toBeInTheDocument();
+    expect(
+      screen.getByText(/sunnuntaina 20\.9\. klo 10:30/)
+    ).toBeInTheDocument();
   });
   expect(screen.queryByText(/21.9 klo 10:20/)).not.toBeInTheDocument();
   expect(screen.queryByText(/22.10 klo 12:40/)).not.toBeInTheDocument();
@@ -77,7 +79,7 @@ it('renders a button to view multiple occurrences when event has them', async ()
     expect(screen.getByText(/klo 10:20/)).toBeInTheDocument();
     expect(screen.getByText(/klo 12:40/)).toBeInTheDocument();
   });
-  expect(screen.getByText(/sunnuntaina 20.9 klo 10:30/)).toBeInTheDocument();
+  expect(screen.getByText(/sunnuntaina 20\.9\. klo 10:30/)).toBeInTheDocument();
 });
 
 it('does not render a button to view multiple occurrences when only 1 occurrence presents', () => {

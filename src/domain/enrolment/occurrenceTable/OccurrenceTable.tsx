@@ -7,6 +7,7 @@ import { OccurrenceFieldsFragment } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
 import formatDate from '../../../utils/formatDate';
 import formatTimeRange from '../../../utils/formatTimeRange';
+import { DATE_FORMAT } from '../../../utils/time/format';
 import { getAmountOfSeatsLeft } from '../../occurrence/utils';
 import PlaceText from '../../place/placeText/PlaceText';
 
@@ -22,7 +23,7 @@ const OccurrenceTable: React.FC<Props> = ({ eventLocationId, occurrences }) => {
     {
       Header: t('enrolment:occurrenceTable.columnDate'),
       accessor: (row: OccurrenceFieldsFragment) =>
-        formatDate(new Date(row.startTime), 'd.M.yyyy eeeeee', locale),
+        formatDate(new Date(row.startTime), `${DATE_FORMAT} eeeeee`, locale),
       id: 'date',
     },
     {

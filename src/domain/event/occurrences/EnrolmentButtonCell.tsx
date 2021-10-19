@@ -10,6 +10,7 @@ import {
 } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
 import formatDate from '../../../utils/formatDate';
+import { formatIntoDate, formatIntoTime } from '../../../utils/time/format';
 import { translateValue } from '../../../utils/translateUtils';
 import { ENROLMENT_ERRORS } from '../../enrolment/constants';
 import {
@@ -70,8 +71,8 @@ const EnrolmentButtonCell: React.FC<Props> = (props) => {
 
   if (event.pEvent.enrolmentStart && enrolmentHasNotStarted) {
     return t('enrolment:errors.label.enrolmentStartsAt', {
-      date: formatDate(new Date(event.pEvent.enrolmentStart), 'd.M.yyyy'),
-      time: formatDate(new Date(event.pEvent.enrolmentStart), 'HH:mm'),
+      date: formatIntoDate(new Date(event.pEvent.enrolmentStart)),
+      time: formatIntoTime(new Date(event.pEvent.enrolmentStart)),
     });
   }
 
