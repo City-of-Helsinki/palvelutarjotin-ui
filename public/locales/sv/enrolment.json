@@ -2,17 +2,17 @@
   "buttonBack": "Tillbaka",
   "enrolmentForm": {
     "buttonSubmit": "Skicka in registrering",
-    "buttonSubmitEnquiry": "Skicka en Bokningsförfrågan",
+    "buttonSubmitEnquiry": "Skicka anmälan",
     "infoText1": "Vi använder inte den information du tillhandahåller för marknadsföringsändamål.",
-    "infoText2": "Vi skickar ett separat bekräftelsemeddelande när organisatören har behandlat och bekräftat din registrering.",
+    "infoText2": "Vi skickar en separat bekräftelse när organisatören har behandlat och bekräftat din registrering.",
     "labelHasEmailNotification": "Via e-post",
     "labelHasSmsNotification": "Via SMS",
     "titleTextHasEmailNotification": "E-postaviseringar krävs",
     "titleTextHasSmsNotification": "SMS-aviseringar är tillgängliga när ett telefonnummer anges",
-    "labelIsSameResponsiblePerson": "Samma som anmälare",
-    "labelIsSharingDataAccepted": "Jag accepterar att dela min information med arrangören",
+    "labelIsSameResponsiblePerson": "Samma som anmälaren",
+    "labelIsSharingDataAccepted": "Jag godkänner att mina uppgifter delas med arrangören",
     "labelLanguage": "Språk",
-    "labelNotificationLanguage": "Språket som används i påminnelser",
+    "labelNotificationLanguage": "Språket för meddelanden",
     "person": {
       "labelEmailAddress": "E-postadress",
       "labelName": "Name",
@@ -21,25 +21,25 @@
     "studyGroup": {
       "person": {
         "labelEmailAddress": "E-postadress",
-        "labelName": "Name",
+        "labelName": "Namn",
         "labelPhoneNumber": "Telefonnummer"
       },
-      "helperExtraNeeds": "Lägg till här om du vill berätta arrangören om något annat som är relevant för din grupp",
-      "helperGroupName": "Unikt namn på gruppen, till exempel: 4a",
+      "helperExtraNeeds": "Ytterligare relevant info till arrangören om din grupp",
+      "helperGroupName": "Unikt gruppnamn",
       "labelAmountOfAdult": "Vuxna",
       "labelExtraNeedsOptional": "Ytterligare information (valfritt)",
       "labelExtraNeeds": "Ytterligare information",
-      "labelGroupName": "Gruppens namn",
+      "labelGroupName": "Grupp",
       "labelGroupSize": "Barn",
       "labelName": "Förskola / skola / högskola",
-      "labelStudyLevel": "Betygsnivå",
-      "titleGroup": "Gruppinformation",
-      "titleNotifier": "Anmälaren informations",
+      "labelStudyLevel": "Kategori",
+      "titleGroup": "Gruppuppgifter",
+      "titleNotifier": "Anmälan till evenemang",
       "notificationLabel": "Fyll i informationen som saknas",
-      "notificationText": "lla obligatoriska fält är markerade med *"
+      "notificationText": "Alla obligatoriska fält är markerade med *"
     },
-    "titleNotifications": "Meddelanden om händelse",
-    "titleResponsiblePerson": "An adult in charge of the group during the event",
+    "titleNotifications": "Meddelanden om evenemanget",
+    "titleResponsiblePerson": "Vuxen ansvarsperson",
     "validation": {
       "isSharingDataAccepted": "Dela information med arrangören måste godkännas",
       "hasEmailNotification": "E-postaviseringar krävs"
@@ -72,7 +72,7 @@
     "columnTime": "Tid",
     "noOccurrences": "Händelse har inga händelser",
     "noSelectedOccurrences": "Inga valda evenemangtider",
-    "title": "Valda evenemangtider"
+    "title": "Valda evenemangstider"
   },
   "pageTitle": "Anmäl dig till evenemanget",
   "studyLevel": {

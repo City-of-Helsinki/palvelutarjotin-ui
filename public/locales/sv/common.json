@@ -5,7 +5,7 @@
   },
   "dropdown": {
     "placeholder": "Välj...",
-    "buttonClear": "Tomma val"
+    "buttonClear": "Radera val"
   },
   "languages": {
     "ar": "Arabiska",
@@ -16,7 +16,7 @@
     "zh_hans": "Kinesisk"
   },
   "accessibilityStatement": {
-    "title": "Tillgänglighets­utlåtande"
+    "title": "Tillgänglighet"
   },
   "errorPage": {
     "title": "Tjänsten stötte på ett fel",
@@ -45,8 +45,8 @@
     },
     "buttonClose": "Stäng"
   },
-  "privacyPolicy": "Integritetspolicy",
-  "providerUI": "Åt evenemangsarrangören",
+  "privacyPolicy": "Vi använder inte de uppgifter som du uppgett för marknadsföring.",
+  "providerUI": "Programarrangör",
   "linkSkipToContent": "Gå till innehållet",
   "feedbackLink": "Ge respons",
   "srOnly": {
