@@ -47,18 +47,6 @@ const defaultProps = {
   value: [],
 };
 
-beforeEach(() => {
-  server.use(
-    graphql.query('AdministrativeDivisions', (req, res, ctx) => {
-      return res(
-        ctx.data({
-          administrativeDivisions: divisions,
-        })
-      );
-    })
-  );
-});
-
 test('should filter division options', async () => {
   render(<DivisionSelector {...defaultProps} />);
 
