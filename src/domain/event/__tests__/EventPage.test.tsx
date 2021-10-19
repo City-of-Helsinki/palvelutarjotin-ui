@@ -661,6 +661,7 @@ it('shows external enrolment link in occurrence row when event has external enro
           neededOccurrences: 0,
           externalEnrolmentUrl,
           occurrences: fakeOccurrences(1),
+          enrolmentStart: null,
         }),
       }),
     ],

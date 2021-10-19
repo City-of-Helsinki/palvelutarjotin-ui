@@ -293,12 +293,9 @@ const OccurrenceInfo: React.FC<{
   const isFree = offer?.isFree ?? !price;
   const priceInfoUrl = offer?.infoUrl?.[locale];
 
-  const getOccurrenceDateTimeString = (
-    startDateTime: string,
-    endDateTime: string
-  ) => {
-    const startDate = new Date(startDateTime);
-    const endDate = new Date(endDateTime);
+  const getOccurrenceDateTimeString = () => {
+    const startDate = new Date(startTime);
+    const endDate = new Date(endTime);
 
     if (!isSameDay(startDate, endDate)) {
       const startDateTimeString = t('occurrence:textDateAndTime', {
@@ -337,7 +334,7 @@ const OccurrenceInfo: React.FC<{
         <div className={styles.infoTitle}>
           {t('occurrence:dateAndTimeTitle')}
         </div>
-        <div>{getOccurrenceDateTimeString(startTime, endTime)}</div>
+        <div>{getOccurrenceDateTimeString()}</div>
         {hasInternalEnrolment && (
           <OccurrenceGroupInfo occurrence={occurrence} />
         )}
