@@ -1,15 +1,15 @@
 import { IconStar } from 'hds-react';
+import { graphql } from 'msw';
 import React from 'react';
 
-import { NeighborhoodListDocument } from '../../../../generated/graphql';
-import { fakeNeighborhoods } from '../../../../utils/mockDataUtils';
+import { server } from '../../../../tests/msw/server';
 import {
   render,
   screen,
   userEvent,
   waitFor,
 } from '../../../../utils/testUtils';
-import { additionalDivisions } from '../../additionalDivisions';
+import { fakeDivisions } from '../../../../utils/usMockDataUtils';
 import DivisionSelector from '../DivisionSelector';
 
 const divisionNames = [
@@ -25,8 +25,16 @@ const divisionNames = [
   'Talosaari',
   'Vartiosaari',
   'Vuosaari',
-  ...additionalDivisions.map((div) => div.name.fi),
 ];
+
+const divisions = fakeDivisions(divisionNames);
+const searchWord = 'saari';
+const divisionId = divisions[0].id ?? '';
+const divisionName = divisions[0].name?.fi ?? '';
+
+const filteredDivisions = divisionNames.filter((name) =>
+  name.includes(searchWord)
+);
 
 const defaultProps = {
   checkboxName: 'divisions_checkbox',
@@ -39,50 +47,8 @@ const defaultProps = {
   value: [],
 };
 
-const searchWord = 'saari';
-
-const filteredDivisions = [
-  'Karhusaari',
-  'Kulosaari',
-  'Lauttasaari',
-  'Mustikkamaa-korkeasaari',
-  'Talosaari',
-  'Vartiosaari',
-  'Vuosaari',
-];
-
-const divisions = fakeNeighborhoods(
-  divisionNames.length,
-  divisionNames.map((division) => ({
-    id: division,
-    name: {
-      fi: division,
-      en: division,
-      sv: division,
-    },
-  }))
-);
-
-const neighborhoodsResponse = {
-  data: { neighborhoodList: divisions },
-};
-
-const mocks = [
-  {
-    request: {
-      query: NeighborhoodListDocument,
-    },
-    result: neighborhoodsResponse,
-  },
-];
-
-const divisionId = divisions.data[0].id;
-const divisionName = divisions.data[0].name?.fi ?? '';
-
 test('should filter division options', async () => {
-  render(<DivisionSelector {...defaultProps} />, {
-    mocks,
-  });
+  render(<DivisionSelector {...defaultProps} />);
 
   userEvent.click(screen.getByRole('button', { name: defaultProps.title }));
 
@@ -116,27 +82,9 @@ test('should filter division options', async () => {
 });
 
 test('should render selected value correctly', async () => {
-  render(<DivisionSelector {...defaultProps} value={[divisionId]} />, {
-    mocks,
-  });
+  render(<DivisionSelector {...defaultProps} value={[divisionId]} />);
 
   await waitFor(() => {
     expect(screen.getByText(divisionName)).toBeInTheDocument();
-  });
-});
-
-test('disivions dropdown has additional divisions', async () => {
-  render(<DivisionSelector {...defaultProps} value={[divisionId]} />, {
-    mocks,
-  });
-
-  userEvent.click(screen.getByRole('button', { name: defaultProps.title }));
-
-  additionalDivisions.forEach((divisionName) => {
-    expect(
-      screen.getByRole('checkbox', {
-        name: divisionName.name.fi,
-      })
-    ).toBeInTheDocument();
   });
 });

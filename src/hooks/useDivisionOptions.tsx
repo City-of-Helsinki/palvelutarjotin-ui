@@ -1,13 +1,18 @@
 import sortBy from 'lodash/sortBy';
 
-import { additionalDivisions } from '../domain/neighborhood/additionalDivisions';
-import { Neighborhood, useNeighborhoodListQuery } from '../generated/graphql';
-import getLocalisedString from '../utils/getLocalisedString';
+import {
+  AdministrativeDivisionsQuery,
+  useAdministrativeDivisionsQuery,
+} from '../generated/graphql-unified-search';
+import { useUnifiedSearchApolloClient } from '../unified-search/unifiedSearchApolloClient';
+import getTranslation from '../unified-search/utils';
 import useLocale from './useLocale';
 
+type AdministrativeDivisions =
+  AdministrativeDivisionsQuery['administrativeDivisions'];
+
 export const DIVISION_BLOCKLIST = [
-  'kaupunginosa:aluemeri',
-  'kaupunginosa:ultuna',
+  'ocd-division/country:fi/kunta:helsinki/kaupunginosa:ultuna',
 ];
 
 type DivisionOption = {
@@ -17,33 +22,28 @@ type DivisionOption = {
 
 const useDivisionOptions = (): DivisionOption[] => {
   const locale = useLocale();
-  const { data: neighborhoodsData } = useNeighborhoodListQuery();
-  const filteredNeighborhoodList = getFilteredNeighborhoodList(
-    neighborhoodsData?.neighborhoodList?.data
+  const unifiedSearchClient = useUnifiedSearchApolloClient();
+  const { data: divisionsData } = useAdministrativeDivisionsQuery({
+    client: unifiedSearchClient,
+  });
+  const filteredDivisionList = getFilteredDivisionList(
+    divisionsData?.administrativeDivisions
   );
-  const neighborhoodList = [
-    ...filteredNeighborhoodList,
-    ...additionalDivisions,
-  ];
-
-  const neighborhoodOptionList =
-    (neighborhoodList
-      ?.map((neighborhood: Neighborhood) => ({
-        text: getLocalisedString(neighborhood.name, locale),
-        value: neighborhood.id,
-      }))
-      .sort((a, b) => (a.text > b.text ? 1 : -1)) ||
-      []) ??
-    [];
-
-  return sortBy(neighborhoodOptionList, 'text');
+  const divisionsOptionList = filteredDivisionList?.map(
+    (neighborhood): DivisionOption => ({
+      text: getTranslation(neighborhood?.name, locale) ?? '',
+      value: neighborhood?.id ?? '',
+    })
+  );
+  return sortBy(divisionsOptionList, 'text');
 };
 
-export const getFilteredNeighborhoodList = (
-  data: Neighborhood[] | undefined
-): Neighborhood[] => {
+export const getFilteredDivisionList = (
+  data?: AdministrativeDivisions
+): AdministrativeDivisions => {
   return (
-    data?.filter((option) => !DIVISION_BLOCKLIST.includes(option.id)) ?? []
+    data?.filter((option) => !DIVISION_BLOCKLIST.includes(option?.id ?? '')) ??
+    []
   );
 };
 
