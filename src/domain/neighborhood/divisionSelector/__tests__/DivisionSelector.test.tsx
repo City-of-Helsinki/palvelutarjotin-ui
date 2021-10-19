@@ -100,9 +100,3 @@ test('should render selected value correctly', async () => {
     expect(screen.getByText(divisionName)).toBeInTheDocument();
   });
 });
-
-test('disivions dropdown has additional divisions', async () => {
-  render(<DivisionSelector {...defaultProps} value={[divisionId]} />);
-
-  userEvent.click(screen.getByRole('button', { name: defaultProps.title }));
-});
