@@ -6,15 +6,15 @@
   "eventList": {
     "buttonLoadMore": "Visa mer",
     "count": "{{count}} st",
-    "labelSort": "Beställa",
+    "labelSort": "Ordning",
     "title": "Evenemang"
   },
   "sortOptions": {
-    "lastModifiedTimeDesc": "Senast modifierad, fallande",
+    "lastModifiedTimeDesc": "Senast ändrad",
     "startTime": "Aktuell"
   },
   "search": {
-    "buttonClear": "Rensa sökkriterier",
+    "buttonClear": "Radera sökkriterier",
     "buttonSearch": "Sök",
     "labelText": "Sök evenemang",
     "placeholderText": "Sök evenemang...",

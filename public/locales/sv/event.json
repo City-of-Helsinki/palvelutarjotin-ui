@@ -23,7 +23,7 @@
     }
   },
   "organisation": {
-    "showAllOrganisationEvents": "Visa arrangörshändelser"
+    "showAllOrganisationEvents": "Visa arrangörens evenemang"
   },
   "occurrenceList": {
     "loadMoreOccurrences": "Visa fler händelser",
@@ -51,14 +51,14 @@
   "pageTitle": "Evenemang",
   "photographerText": "Foto: {{photographer}}",
   "eventImageAltText": "Händelsebild",
-  "contactPerson": "Kontakt person",
+  "contactPerson": "Kontaktperson",
   "occurrencesTitle": "Händelsetider ({{count}} st)",
   "categorisation": {
     "labelAudience": "Målgrupper",
-    "labelKeywords": "Evenemangs nyckelord",
+    "labelKeywords": "Nyckelord",
     "labelCategories": "Kategorier",
     "labelActivities": "Aktiviteter",
-    "labelLanguages": "Evenemangspråk"
+    "labelLanguages": "Evenemangets språk"
   },
   "shareLinks": {
     "title": "Dela händelsen"
