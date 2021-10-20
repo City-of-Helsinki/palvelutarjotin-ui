@@ -13,9 +13,8 @@ import {
   PEventFieldsFragment,
 } from '../../generated/graphql';
 import { Language } from '../../types';
-import formatDate from '../../utils/formatDate';
 import getLocalisedString from '../../utils/getLocalisedString';
-import { formatIntoTime } from '../../utils/time/format';
+import { formatIntoTime, formatLocalizedDate } from '../../utils/time/format';
 import {
   EnrolmentType,
   EVENT_PLACEHOLDER_IMAGES,
@@ -51,7 +50,7 @@ export const getEventStartTimeStr = (
     });
 
   return t('event:eventCard.startTime.other', {
-    date: formatDate(startTime, dateFormat, locale),
+    date: formatLocalizedDate(startTime, dateFormat, locale),
     time: formatIntoTime(startTime),
   });
 };

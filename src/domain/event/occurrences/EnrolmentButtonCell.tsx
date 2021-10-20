@@ -9,7 +9,6 @@ import {
   OccurrenceFieldsFragment,
 } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
-import formatDate from '../../../utils/formatDate';
 import { formatIntoDate, formatIntoTime } from '../../../utils/time/format';
 import { translateValue } from '../../../utils/translateUtils';
 import { ENROLMENT_ERRORS } from '../../enrolment/constants';

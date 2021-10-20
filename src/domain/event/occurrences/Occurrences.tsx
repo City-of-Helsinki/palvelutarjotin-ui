@@ -21,12 +21,12 @@ import {
   OccurrenceFieldsFragment,
 } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
-import formatDate from '../../../utils/formatDate';
 import formatTimeRange from '../../../utils/formatTimeRange';
 import {
   DATE_FORMAT,
   formatIntoDate,
   formatIntoTime,
+  formatLocalizedDate,
 } from '../../../utils/time/format';
 import { skipFalsyType } from '../../../utils/typescript.utils';
 import OccurrenceGroupInfo from '../../occurrence/occurrenceGroupInfo/OccurrenceGroupInfo';
@@ -181,7 +181,11 @@ const OccurrenceEnrolmentTable: React.FC<{
     {
       Header: t('enrolment:occurrenceTable.columnDate'),
       accessor: (row: OccurrenceFieldsFragment) =>
-        formatDate(new Date(row.startTime), `${DATE_FORMAT} eeeeee`, locale),
+        formatLocalizedDate(
+          new Date(row.startTime),
+          `${DATE_FORMAT} eeeeee`,
+          locale
+        ),
       id: 'date',
     },
     {
@@ -315,7 +319,9 @@ const OccurrenceInfo: React.FC<{
     }
 
     return t('occurrence:textDateAndTime', {
-      date: capitalize(formatDate(startDate, `EEEE ${DATE_FORMAT}`, locale)),
+      date: capitalize(
+        formatLocalizedDate(startDate, `EEEE ${DATE_FORMAT}`, locale)
+      ),
       time: formatTimeRange(startDate, endDate, locale),
     });
   };
