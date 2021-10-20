@@ -3,7 +3,7 @@
   "enrolmentForm": {
     "buttonSubmit": "Skicka in registrering",
     "buttonSubmitEnquiry": "Skicka anmälan",
-    "infoText1": "Vi använder inte den information du tillhandahåller för marknadsföringsändamål.",
+    "infoText1": "Vi använder inte de uppgifter som du uppgett för marknadsföring.",
     "infoText2": "Vi skickar en separat bekräftelse när organisatören har behandlat och bekräftat din registrering.",
     "labelHasEmailNotification": "Via e-post",
     "labelHasSmsNotification": "Via SMS",
@@ -15,7 +15,7 @@
     "labelNotificationLanguage": "Språket för meddelanden",
     "person": {
       "labelEmailAddress": "E-postadress",
-      "labelName": "Name",
+      "labelName": "Namn",
       "labelPhoneNumber": "Telefonnummer"
     },
     "studyGroup": {
