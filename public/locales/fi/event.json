@@ -1,8 +1,8 @@
 {
   "enrolmentConfirmation": {
     "sentBy": {
-      "email": "Lähetämme sinulle vahvistuksen sähköpostitse.",
-      "emailSms": "Lähetämme sinulle vahvistuksen sähköpostitse ja tekstiviestillä.",
+      "email": "Lähetämme sinulle vahvistuksen sähköpostitse. HUOM! Palvelu on vielä kehitysvaiheessa ja viestiliikenteessä on havaittu ongelmia. Tarkistathan viestit myös roskapostilaatikostasi. Mikäli et saa ollenkaan ilmoittautumiseen liittyvää postia, ole yhteydessä tapahtuman järjestäjään.",
+      "emailSms": "Lähetämme sinulle vahvistuksen sähköpostitse ja tekstiviestillä. HUOM! Palvelu on vielä kehitysvaiheessa ja viestiliikenteessä on havaittu ongelmia. Tarkistathan viestit myös roskapostilaatikostasi. Mikäli et saa ollenkaan ilmoittautumiseen liittyvää postia, ole yhteydessä tapahtuman järjestäjään.",
       "sms": "Lähetämme sinulle vahvistuksen tekstiviestillä."
     },
     "title": "Ilmoittautuminen lähetetty",
