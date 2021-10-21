@@ -22,3 +22,5 @@ afterAll(() => {
 jest.mock('next/config', () => {
   return () => ({});
 });
+
+jest.setTimeout(10000);
