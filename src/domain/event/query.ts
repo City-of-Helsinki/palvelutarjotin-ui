@@ -26,6 +26,15 @@ export const QUERY_EVENT = gql`
         }
       }
     }
+    nextOccurrence: occurrences(first: 1, upcoming: true) {
+      edges {
+        node {
+          id
+          startTime
+          endTime
+        }
+      }
+    }
     organisation {
       ...organisationFields
     }

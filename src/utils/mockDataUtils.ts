@@ -46,6 +46,10 @@ import {
   Neighborhood,
 } from '../generated/graphql';
 
+type ExtendedPalvelutarjotinEventNode = PalvelutarjotinEventNode & {
+  nextOccurrence?: OccurrenceNodeConnection | null;
+};
+
 const organisationNames = [
   'Kulttuuri- ja vapaa-aikalautakunnan kulttuurijaosto',
   'Kulttuurin ja vapaa-ajan toimiala',
@@ -250,8 +254,8 @@ export const fakeImage = (overrides?: Partial<Image>): Image => ({
 });
 
 export const fakePEvent = (
-  overrides?: Partial<PalvelutarjotinEventNode>
-): PalvelutarjotinEventNode => ({
+  overrides?: Partial<ExtendedPalvelutarjotinEventNode>
+): ExtendedPalvelutarjotinEventNode => ({
   id: faker.datatype.uuid(),
   contactPerson: fakePerson(),
   contactEmail: 'test@email.com',
@@ -269,6 +273,7 @@ export const fakePEvent = (
   nextOccurrenceDatetime: '',
   lastOccurrenceDatetime: '',
   mandatoryAdditionalInformation: false,
+  nextOccurrence: fakeOccurrences(1, [fakeOccurrence()]),
   __typename: 'PalvelutarjotinEventNode',
   ...overrides,
 });

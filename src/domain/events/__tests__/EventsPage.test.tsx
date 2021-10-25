@@ -10,6 +10,7 @@ import {
   fakeLocalizedObject,
   fakeKeyword,
   fakeOccurrences,
+  fakeOccurrence,
 } from '../../../utils/mockDataUtils';
 import { render, screen, act, configure } from '../../../utils/testUtils';
 import EventsPage from '../EventsPage';
@@ -30,8 +31,11 @@ const eventMocks: Partial<Event>[] = [
     name: fakeLocalizedObject('Testitapahtuma 1'),
     shortDescription: fakeLocalizedObject('Tapahtuman lyhytkuvaus 1'),
     pEvent: fakePEvent({
-      nextOccurrenceDatetime: new Date(2020, 8, 20, 10, 30).toISOString(),
-      lastOccurrenceDatetime: '',
+      nextOccurrence: fakeOccurrences(1, [
+        fakeOccurrence({
+          startTime: new Date(2020, 8, 20, 10, 30).toISOString(),
+        }),
+      ]),
     }),
     keywords: fakeKeywords,
   },
@@ -39,8 +43,11 @@ const eventMocks: Partial<Event>[] = [
     name: fakeLocalizedObject('Testitapahtuma 2'),
     shortDescription: fakeLocalizedObject('Tapahtuman lyhytkuvaus 2'),
     pEvent: fakePEvent({
-      nextOccurrenceDatetime: new Date(2020, 9, 21, 10, 20).toISOString(),
-      lastOccurrenceDatetime: '',
+      nextOccurrence: fakeOccurrences(1, [
+        fakeOccurrence({
+          startTime: new Date(2020, 9, 21, 10, 20).toISOString(),
+        }),
+      ]),
     }),
     keywords: fakeKeywords,
   },
@@ -48,8 +55,11 @@ const eventMocks: Partial<Event>[] = [
     name: fakeLocalizedObject('Testitapahtuma 3'),
     shortDescription: fakeLocalizedObject('Tapahtuman lyhytkuvaus 3'),
     pEvent: fakePEvent({
-      nextOccurrenceDatetime: new Date(2020, 10, 22, 12, 40).toISOString(),
-      lastOccurrenceDatetime: '',
+      nextOccurrence: fakeOccurrences(1, [
+        fakeOccurrence({
+          startTime: new Date(2020, 10, 22, 12, 40).toISOString(),
+        }),
+      ]),
     }),
     keywords: fakeKeywords,
   },
@@ -57,8 +67,7 @@ const eventMocks: Partial<Event>[] = [
     name: fakeLocalizedObject('Testitapahtuma 4'),
     shortDescription: fakeLocalizedObject('Tapahtuman lyhytkuvaus 4'),
     pEvent: fakePEvent({
-      nextOccurrenceDatetime: null,
-      lastOccurrenceDatetime: null,
+      nextOccurrence: null,
       occurrences: fakeOccurrences(0),
     }),
     keywords: fakeKeywords,

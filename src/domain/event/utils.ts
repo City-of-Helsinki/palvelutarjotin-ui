@@ -90,7 +90,7 @@ export const getEventFields = (
         isMandatoryAdditionalInformationRequired:
           !!event.pEvent?.mandatoryAdditionalInformation,
         occurrences:
-          event.pEvent?.occurrences.edges.map(
+          event.pEvent?.occurrences?.edges.map(
             (edge) => edge?.node as OccurrenceFieldsFragment
           ) || [],
       }

@@ -32,6 +32,15 @@ export const QUERY_EVENTS = gql`
       id
       nextOccurrenceDatetime
       lastOccurrenceDatetime
+      nextOccurrence: occurrences(first: 1, upcoming: true) {
+        edges {
+          node {
+            id
+            startTime
+            endTime
+          }
+        }
+      }
       organisation {
         id
         name

@@ -4,6 +4,8 @@ import React from 'react';
 import * as graphql from '../../../generated/graphql';
 import {
   fakeEvent,
+  fakeKeyword,
+  fakeLocalizedObject,
   fakeOccurrences,
   fakePEvent,
 } from '../../../utils/mockDataUtils';
@@ -18,9 +20,13 @@ it('renders a button to view multiple occurrences when event has them', async ()
   ]);
   const event = fakeEvent({
     pEvent: fakePEvent({
-      occurrences,
       nextOccurrenceDatetime: occurrences.edges[0]?.node?.startTime,
       lastOccurrenceDatetime: occurrences.edges[2]?.node?.startTime,
+      nextOccurrence: fakeOccurrences(1, [
+        {
+          startTime: new Date(2020, 8, 20, 10, 30).toISOString(),
+        },
+      ]),
     }),
   });
   const apolloMocks: MockedResponse[] = [
@@ -97,4 +103,85 @@ it('does not render a button to view multiple occurrences when only 1 occurrence
       name: /\+ muita tapahtuma-aikoja/i,
     })
   ).not.toBeInTheDocument();
+});
+
+it('renders multiday occurrence time correctly', async () => {
+  const nextOccurrence = {
+    startTime: new Date(2020, 8, 20, 10, 30).toISOString(),
+    endTime: new Date(2020, 8, 22, 10, 30).toISOString(),
+  };
+  const occurrences = fakeOccurrences(3, [
+    nextOccurrence,
+    {
+      startTime: new Date(2020, 9, 21, 10, 20).toISOString(),
+      endTime: new Date(2020, 9, 28, 10, 20).toISOString(),
+    },
+    {
+      startTime: new Date(2020, 10, 22, 12, 40).toISOString(),
+      endTime: new Date(2020, 10, 25, 12, 40).toISOString(),
+    },
+  ]);
+  const event = fakeEvent({
+    name: fakeLocalizedObject('Nimi'),
+    shortDescription: fakeLocalizedObject('Kuvaus'),
+    keywords: [fakeKeyword({ name: fakeLocalizedObject('Avainsana') })],
+    pEvent: fakePEvent({
+      nextOccurrenceDatetime: occurrences.edges[0]?.node?.startTime,
+      lastOccurrenceDatetime: occurrences.edges[2]?.node?.startTime,
+      nextOccurrence: fakeOccurrences(1, [nextOccurrence]),
+    }),
+  });
+  const apolloMocks: MockedResponse[] = [
+    {
+      request: {
+        query: graphql.OccurrencesDocument,
+        variables: {
+          cancelled: false,
+          pEvent: event.pEvent.id,
+          orderBy: 'startTime',
+        },
+      },
+      result: {
+        data: {
+          occurrences: occurrences,
+        },
+      },
+    },
+    {
+      request: {
+        query: graphql.OccurrencesDocument,
+        variables: {
+          cancelled: false,
+          pEvent: event.pEvent.id,
+          orderBy: 'startTime',
+        },
+      },
+      result: {
+        data: {
+          occurrences: occurrences,
+        },
+      },
+    },
+  ];
+
+  const { container } = render(<EventCard event={event} link={'#'} />, {
+    mocks: apolloMocks,
+  });
+
+  await waitFor(() => {
+    expect(screen.getByText('20.9.2020 – 22.9.2020')).toBeInTheDocument();
+  });
+
+  userEvent.click(
+    screen.getByRole('button', {
+      name: /\+ muita tapahtuma-aikoja/i,
+    })
+  );
+  await waitFor(() => {
+    expect(screen.queryByTestId('loading-spinner')).not.toBeInTheDocument();
+  });
+  screen.getByText('21.10.2020 – 28.10.2020');
+  screen.getByText('22.11.2020 – 25.11.2020');
+
+  expect(container).toMatchSnapshot();
 });

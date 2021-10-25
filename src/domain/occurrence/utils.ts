@@ -21,9 +21,10 @@ export const hasOccurrenceSpace = (
   }
 };
 
-export const isMultidayOccurrence = (
-  occurrence: OccurrenceFieldsFragment
-): boolean => {
+export const isMultidayOccurrence = (occurrence: {
+  startTime: string;
+  endTime: string;
+}): boolean => {
   if (occurrence.startTime && occurrence.endTime) {
     return !isSameDay(
       new Date(occurrence.startTime),
