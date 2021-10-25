@@ -26,13 +26,14 @@ const Header: React.FC = () => {
   const { t } = useTranslation();
   const locale = useLocale();
   const router = useRouter();
+  const isCmsPage = router.pathname === PATHNAMES.CMS_PAGE;
 
   const [menuOpen, setMenuOpen] = React.useState(false);
   const toggleMenu = () => setMenuOpen(!menuOpen);
   const closeMenu = () => setMenuOpen(false);
 
   const { navigationData, cmsMenuLoading, menuItems } = useCmsMenuItems();
-  const languageOptions = useCmsLanguageOptions();
+  const languageOptions = useCmsLanguageOptions({ skip: !isCmsPage });
 
   const getLanguageOptions = (): OptionType[] => {
     const createOptions = (languages: string[]) =>
@@ -59,10 +60,6 @@ const Header: React.FC = () => {
       router.push(pathname);
       closeMenu();
     };
-
-  const isCmsPage = () => {
-    return router.pathname === PATHNAMES.CMS_PAGE;
-  };
 
   const getCmsHref = (lang: string) => {
     const nav = languageOptions?.find((languageOption) => {
@@ -116,7 +113,7 @@ const Header: React.FC = () => {
           closeOnItemClick
         >
           {getLanguageOptions().map((option) => {
-            const href = isCmsPage() ? getCmsHref(option.value) : router.asPath;
+            const href = isCmsPage ? getCmsHref(option.value) : router.asPath;
             return (
               <Navigation.Item
                 key={option.value}
@@ -134,7 +131,7 @@ const Header: React.FC = () => {
   );
 };
 
-const useCmsLanguageOptions = () => {
+const useCmsLanguageOptions = ({ skip = false }: { skip?: boolean } = {}) => {
   const router = useRouter();
   const cmsClient = useCMSClient();
 
@@ -144,18 +141,21 @@ const useCmsLanguageOptions = () => {
       id: `${router.asPath.replace('/cms-page', '')}/`,
       idType: PageIdType.Uri,
     },
+    skip,
   });
 
-  return [
-    {
-      uri: pageData?.page?.uri,
-      locale: pageData?.page?.language?.code?.toLowerCase(),
-    },
-    ...(pageData?.page?.translations?.map((translation) => ({
-      uri: translation?.uri,
-      locale: translation?.language?.code?.toLowerCase(),
-    })) ?? []),
-  ];
+  return !skip
+    ? [
+        {
+          uri: pageData?.page?.uri,
+          locale: pageData?.page?.language?.code?.toLowerCase(),
+        },
+        ...(pageData?.page?.translations?.map((translation) => ({
+          uri: translation?.uri,
+          locale: translation?.language?.code?.toLowerCase(),
+        })) ?? []),
+      ]
+    : [];
 };
 
 const Link: React.FC<LinkProps & { lang: string }> = ({
