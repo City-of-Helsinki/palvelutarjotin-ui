@@ -42,8 +42,6 @@ import {
   OrganisationProposalNode,
   OrganisationProposalNodeConnection,
   OrganisationProposalNodeEdge,
-  NeighborhoodListResponse,
-  Neighborhood,
 } from '../generated/graphql';
 
 type ExtendedPalvelutarjotinEventNode = PalvelutarjotinEventNode & {
@@ -536,27 +534,4 @@ export const fakeStudyLevelNodeEdge = (
   cursor: '',
   node: fakeStudyLevel(overrides),
   __typename: 'StudyLevelNodeEdge',
-});
-
-export const fakeNeighborhoods = (
-  count = 1,
-  neighborhoods?: Partial<Neighborhood>[]
-): NeighborhoodListResponse => ({
-  data: generateNodeArray((i) => fakeNeighborhood(neighborhoods?.[i]), count),
-  meta: {
-    count: count,
-    next: '',
-    previous: '',
-    __typename: 'Meta',
-  },
-  __typename: 'NeighborhoodListResponse',
-});
-
-export const fakeNeighborhood = (
-  overrides?: Partial<Neighborhood>
-): Neighborhood => ({
-  id: 'kunta:helsinki',
-  name: fakeLocalizedObject(),
-  __typename: 'Neighborhood',
-  ...overrides,
 });
