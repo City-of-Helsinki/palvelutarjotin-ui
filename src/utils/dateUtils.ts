@@ -8,6 +8,7 @@ import parse from 'date-fns/parse';
 import get from 'lodash/get';
 
 import sv from './date-fns/locale/sv';
+import { DATE_FORMAT } from './time/format';
 
 const locales = { en, fi, sv };
 /**
@@ -18,7 +19,7 @@ const locales = { en, fi, sv };
  */
 export const formatDate = (
   date: Date | null | number,
-  format = 'dd.MM.yyyy',
+  format = DATE_FORMAT,
   locale = 'fi'
 ): string => {
   if (!date) {
@@ -60,7 +61,7 @@ const getShortDateStr = (str: string): string =>
  * @returns {object}
  */
 const getParsedDate = (value: string): Date =>
-  parse(value, 'dd.MM.yyyy', new Date(), { locale: fi });
+  parse(value, DATE_FORMAT, new Date(), { locale: fi });
 
 /**
  * Convert string in Finnish date format (e.g. 31.12.2019) or in format without dots (e.g. 31122019) to Date object

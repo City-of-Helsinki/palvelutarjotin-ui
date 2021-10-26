@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import { Button, IconLocation } from 'hds-react';
 import times from 'lodash/times';
-import { useTranslation } from 'next-i18next';
+import { TFunction, useTranslation } from 'next-i18next';
 import Link from 'next/link';
 import React from 'react';
 
@@ -12,7 +12,10 @@ import {
 } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
 import IconClock from '../../../icons/IconClock';
+import { Language } from '../../../types';
 import getLocalisedString from '../../../utils/getLocalisedString';
+import { formatDateRange } from '../../../utils/time/format';
+import { isMultidayOccurrence } from '../../occurrence/utils';
 import PlaceText from '../../place/placeText/PlaceText';
 import EventKeywords from '../eventKeywords/EventKeywords';
 import { getEventPlaceholderImage, getEventStartTimeStr } from '../utils';
@@ -81,9 +84,6 @@ const EventTime: React.FC<{
   event: EventsFieldsFragment;
 }> = ({ event }) => {
   const { t } = useTranslation();
-  const time = event.pEvent?.nextOccurrenceDatetime
-    ? new Date(event.pEvent.nextOccurrenceDatetime)
-    : undefined;
   const [showOccurrences, setShowOccurrences] = React.useState(false);
 
   const toggleShowOccurrences = (
@@ -92,6 +92,7 @@ const EventTime: React.FC<{
     e.preventDefault(); // Prevent event card opening
     setShowOccurrences((showOccurrences) => !showOccurrences); // Toggle occurrences view
   };
+  const nextOccurrence = event.pEvent.nextOccurrence?.edges[0]?.node;
   const nextOccurrenceTime = event.pEvent.nextOccurrenceDatetime;
   const lastOccurrenceTime =
     event.pEvent.lastOccurrenceDatetime ?? nextOccurrenceTime;
@@ -116,17 +117,23 @@ const EventTime: React.FC<{
       ))
     : occurrencesData?.occurrences?.edges
         ?.slice(1) // First one is already rendered
-        .map((edge) => (
-          <OccurrenceTime
-            key={`occurrence-${edge?.node?.id}`}
-            time={new Date(edge?.node?.startTime)}
-          />
-        ));
+        .map((edge) =>
+          edge?.node ? (
+            <OccurrenceTime
+              key={`occurrence-${edge?.node?.id}`}
+              occurrence={edge?.node}
+            />
+          ) : null
+        );
 
   return (
     <div className={styles.eventTimes}>
       <ul className={styles.occurrenceTimes}>
-        <OccurrenceTime time={time} />
+        {nextOccurrence ? (
+          <OccurrenceTime occurrence={nextOccurrence} />
+        ) : (
+          t('event:eventCard.noUpcomingOccurrences')
+        )}
         {showOccurrences && occurrenceTimes}
       </ul>
       {hasMultipleFutureOccurrences && (
@@ -145,18 +152,31 @@ const EventTime: React.FC<{
 };
 
 const OccurrenceTime: React.FC<{
-  time: Date | undefined;
-}> = ({ time }) => {
+  occurrence: { startTime: string; endTime: string };
+}> = ({ occurrence }) => {
   const { t } = useTranslation();
   const locale = useLocale();
   return (
     <li className={styles.textWithIcon}>
       <IconClock />
-      {time
-        ? getEventStartTimeStr(time, locale, t)
-        : t('event:eventCard.noUpcomingOccurrences')}
+      {getOccurrenceDateStr(occurrence, locale, t)}
     </li>
   );
+};
+
+export const getOccurrenceDateStr = (
+  occurrence: { startTime: string; endTime: string },
+  locale: Language,
+  t: TFunction
+): string | null => {
+  if (isMultidayOccurrence(occurrence)) {
+    return formatDateRange(
+      new Date(occurrence.startTime),
+      new Date(occurrence.endTime)
+    );
+  }
+
+  return getEventStartTimeStr(new Date(occurrence.startTime), locale, t);
 };
 
 export default EventCard;

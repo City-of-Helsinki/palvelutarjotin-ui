@@ -9,7 +9,7 @@ import {
   OccurrenceFieldsFragment,
 } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
-import formatDate from '../../../utils/formatDate';
+import { formatIntoDate, formatIntoTime } from '../../../utils/time/format';
 import { translateValue } from '../../../utils/translateUtils';
 import { ENROLMENT_ERRORS } from '../../enrolment/constants';
 import {
@@ -54,6 +54,10 @@ const EnrolmentButtonCell: React.FC<Props> = (props) => {
     getEnrolmentError,
   } = useEnrolmentButtonUtils(props);
 
+  if (isNotEnrollable) {
+    return null;
+  }
+
   // Show error message if enrolment is not available
   const error = getEnrolmentError(value, event);
   if (error) {
@@ -64,14 +68,10 @@ const EnrolmentButtonCell: React.FC<Props> = (props) => {
     );
   }
 
-  if (isNotEnrollable) {
-    return <span>{t('occurrence:labelNoEnrolment')}</span>;
-  }
-
-  if (enrolmentHasNotStarted) {
+  if (event.pEvent.enrolmentStart && enrolmentHasNotStarted) {
     return t('enrolment:errors.label.enrolmentStartsAt', {
-      date: formatDate(new Date(event.pEvent.enrolmentStart), 'dd.MM.yyyy'),
-      time: formatDate(new Date(event.pEvent.enrolmentStart), 'HH:mm'),
+      date: formatIntoDate(new Date(event.pEvent.enrolmentStart)),
+      time: formatIntoTime(new Date(event.pEvent.enrolmentStart)),
     });
   }
 

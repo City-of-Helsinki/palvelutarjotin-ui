@@ -1,13 +1,11 @@
 import { useDay } from '@datepicker-react/hooks';
 import classNames from 'classnames';
-import formatDate from 'date-fns/format';
 import isSameDay from 'date-fns/isSameDay';
 import isToday from 'date-fns/isToday';
 import { useTranslation } from 'next-i18next';
 import React, { useContext, useRef } from 'react';
 
-import useLocale from '../../../hooks/useLocale';
-import { dateLocales } from './constants';
+import { formatIntoDate } from '../../../utils/time/format';
 import styles from './datepicker.module.scss';
 import DatepickerContext from './datepickerContext';
 
@@ -17,7 +15,6 @@ const Day: React.FC<{ dayLabel: string; date: Date }> = ({
 }) => {
   const dayRef = useRef(null);
   const { t } = useTranslation();
-  const locale = useLocale();
 
   const {
     focusedDate,
@@ -76,7 +73,7 @@ const Day: React.FC<{ dayLabel: string; date: Date }> = ({
       type="button"
       ref={dayRef}
       aria-label={t('common:datepicker.accessibility.selectDate', {
-        value: formatDate(date, 'dd.MM.yyyy', { locale: dateLocales[locale] }),
+        value: formatIntoDate(date),
       })}
     >
       {dayLabel}

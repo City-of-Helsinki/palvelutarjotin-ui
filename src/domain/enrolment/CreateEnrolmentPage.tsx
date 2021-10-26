@@ -12,8 +12,8 @@ import {
   OccurrenceSeatType,
 } from '../../generated/graphql';
 import useLocale from '../../hooks/useLocale';
-import assertUnreachable from '../../utils/assertUnreachable';
 import { translateValue } from '../../utils/translateUtils';
+import { assertUnreachable } from '../../utils/typescript.utils';
 import Container from '../app/layout/Container';
 import PageWrapper from '../app/layout/PageWrapper';
 import { ROUTES } from '../app/routes/constants';

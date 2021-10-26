@@ -2,6 +2,8 @@
 import userEvent from '@testing-library/user-event';
 import { advanceTo } from 'jest-date-mock';
 import React from 'react';
+import { act } from 'react-dom/test-utils';
+import wait from 'waait';
 
 import enrolmentMessages from '../../../../public/locales/fi/enrolment.json';
 import eventMessages from '../../../../public/locales/fi/event.json';
@@ -69,6 +71,78 @@ const data = {
 const createFakeKeyword = (k: string) =>
   fakeKeyword({ name: fakeLocalizedObject(k), id: k });
 
+const occurrences = [
+  {
+    startTime: '2020-07-15T09:00:00+00:00',
+    placeId: data.placeId,
+    id: data.placeId1,
+    amountOfSeats: 30,
+    seatsApproved: 10,
+    remainingSeats: 20,
+  },
+  {
+    startTime: '2020-07-16T09:00:00+00:00',
+    placeId: data.placeId,
+    id: data.placeId2,
+  },
+  {
+    startTime: '2020-07-19T09:00:00+00:00',
+    placeId: data.placeId,
+    id: data.placeId3,
+  },
+  // cancelled event
+  {
+    startTime: '2020-07-20T09:00:00+00:00',
+    placeId: data.placeId,
+    cancelled: true,
+  },
+  { startTime: '2020-07-21T09:00:00+00:00', placeId: data.placeId },
+  { startTime: '2020-07-22T09:00:00+00:00', placeId: data.placeId },
+  // full event
+  {
+    startTime: '2020-07-23T09:00:00+00:00',
+    placeId: data.placeId,
+    amountOfSeats: 1,
+    remainingSeats: 0,
+    seatsTaken: 1,
+    seatType: OccurrenceSeatType.EnrolmentCount,
+  },
+  {
+    startTime: '2020-07-27T09:00:00+00:00',
+    placeId: data.placeId,
+  },
+  {
+    startTime: '2020-07-28T09:00:00+00:00',
+    placeId: data.placeId,
+  },
+  // full event
+  {
+    startTime: '2020-07-29T09:00:00+00:00',
+    placeId: data.placeId,
+    amountOfSeats: 30,
+    seatsApproved: 10,
+    remainingSeats: 20,
+    seatsTaken: 30,
+  },
+  {
+    startTime: '2020-07-30T09:30:00+00:00',
+    placeId: data.placeId,
+  },
+];
+
+const pEventData = fakePEvent({
+  enrolmentEndDays: 1,
+  enrolmentStart: '2020-07-13T06:00:00+00:00',
+  organisation: fakeOrganisation({ name: data.organisationName }),
+  contactPhoneNumber: data.contactPersonPhoneNumber,
+  contactEmail: data.contactPersonEmail,
+  contactPerson: fakePerson({
+    name: data.contactPersonName,
+  }),
+  occurrences: fakeOccurrences(11, occurrences),
+  neededOccurrences: data.neededOccurrences,
+});
+
 const eventData: Partial<Event> = {
   id: data.id,
   name: fakeLocalizedObject(data.name),
@@ -78,75 +152,7 @@ const eventData: Partial<Event> = {
     id: data.placeId,
     name: fakeLocalizedObject(data.placeName),
   }),
-  pEvent: fakePEvent({
-    enrolmentEndDays: 1,
-    enrolmentStart: '2020-07-13T06:00:00+00:00',
-    organisation: fakeOrganisation({ name: data.organisationName }),
-    contactPhoneNumber: data.contactPersonPhoneNumber,
-    contactEmail: data.contactPersonEmail,
-    contactPerson: fakePerson({
-      name: data.contactPersonName,
-    }),
-    occurrences: fakeOccurrences(11, [
-      {
-        startTime: '2020-07-15T09:00:00+00:00',
-        placeId: data.placeId,
-        id: data.placeId1,
-        amountOfSeats: 30,
-        seatsApproved: 10,
-        remainingSeats: 20,
-      },
-      {
-        startTime: '2020-07-16T09:00:00+00:00',
-        placeId: data.placeId,
-        id: data.placeId2,
-      },
-      {
-        startTime: '2020-07-19T09:00:00+00:00',
-        placeId: data.placeId,
-        id: data.placeId3,
-      },
-      // cancelled event
-      {
-        startTime: '2020-07-20T09:00:00+00:00',
-        placeId: data.placeId,
-        cancelled: true,
-      },
-      { startTime: '2020-07-21T09:00:00+00:00', placeId: data.placeId },
-      { startTime: '2020-07-22T09:00:00+00:00', placeId: data.placeId },
-      // full event
-      {
-        startTime: '2020-07-23T09:00:00+00:00',
-        placeId: data.placeId,
-        amountOfSeats: 1,
-        remainingSeats: 0,
-        seatsTaken: 1,
-        seatType: OccurrenceSeatType.EnrolmentCount,
-      },
-      {
-        startTime: '2020-07-27T09:00:00+00:00',
-        placeId: data.placeId,
-      },
-      {
-        startTime: '2020-07-28T09:00:00+00:00',
-        placeId: data.placeId,
-      },
-      // full event
-      {
-        startTime: '2020-07-29T09:00:00+00:00',
-        placeId: data.placeId,
-        amountOfSeats: 30,
-        seatsApproved: 10,
-        remainingSeats: 20,
-        seatsTaken: 30,
-      },
-      {
-        startTime: '2020-07-30T09:30:00+00:00',
-        placeId: data.placeId,
-      },
-    ]),
-    neededOccurrences: data.neededOccurrences,
-  }),
+  pEvent: pEventData,
   images: [
     fakeImage({
       photographerName: data.imagePhotographerName,
@@ -234,9 +240,9 @@ it('shows full events correctly in occurrences list', async () => {
   await waitForRequestsToComplete();
 
   const fullOccurrenceRowText1 =
-    '23.07.2020 to12:00 – 12:30Soukan kirjasto0 / 1Tapahtuma on täynnä';
+    '23.7.2020 to12:00 – 13:00Soukan kirjasto0 / 1Tapahtuma on täynnä';
   const fullOccurrenceRowText2 =
-    '29.07.2020 ke12:00 – 12:30Soukan kirjasto0 / 30Tapahtuma on täynnä';
+    '29.7.2020 ke12:00 – 13:00Soukan kirjasto0 / 30Tapahtuma on täynnä';
 
   const tableRows = screen.queryAllByRole('row');
   expect(tableRows[7]).toHaveTextContent(fullOccurrenceRowText1);
@@ -248,7 +254,7 @@ it('shows cancelled events correctly in list', async () => {
   await waitForRequestsToComplete();
 
   const cancelledOccurrenceRowText =
-    '20.07.2020 ma12:00 – 12:30Soukan kirjasto30 / 30Tapahtuma on peruttu';
+    '20.7.2020 ma12:00 – 13:00Soukan kirjasto30 / 30Tapahtuma on peruttu';
 
   const tableRows = screen.queryAllByRole('row');
   expect(tableRows[4]).toHaveTextContent(cancelledOccurrenceRowText);
@@ -361,10 +367,48 @@ it('renders occurrences table and related stuff correctly', async () => {
     ).toBeInTheDocument();
   });
 
-  const rowText = `27.07.2020 ma12:00 – 12:30${data.placeName}30 / 30Ilmoittaudu`;
+  const rowText = `27.7.2020 ma12:00 – 13:00${data.placeName}30 / 30Ilmoittaudu`;
 
   const tableRows = screen.getAllByRole('row');
   expect(tableRows[8]).toHaveTextContent(rowText);
+});
+
+it('hides seats left column header when event has external enrolment', async () => {
+  renderComponent({
+    mocks: [
+      createEventQueryMockIncludeLanguageAndAudience({
+        id: data.id,
+        ...eventData,
+        pEvent: {
+          ...pEventData,
+          externalEnrolmentUrl: 'https://external-enrolment.com',
+          occurrences: fakeOccurrences(1, [occurrences[0]]),
+        },
+      }),
+      createPlaceQueryMock({
+        id: data.placeId,
+        name: fakeLocalizedObject(data.placeName),
+      }),
+      createVenueQueryMock({ id: data.placeId, ...venueData }),
+    ],
+  });
+
+  await waitFor(() => {
+    expect(screen.queryAllByText(data.placeName)).toHaveLength(1);
+  });
+
+  // seats column should be hidden when event has external enrolment
+  expect(
+    screen.queryByRole('columnheader', { name: /paikkoja jäljellä/i })
+  ).not.toBeInTheDocument();
+  screen.getByRole('link', {
+    name: /ilmoittaudu avautuu uudessa välilehdessä/i,
+  });
+
+  const tableRows = screen.getAllByRole('row');
+  expect(tableRows[1]).toHaveTextContent(
+    '15.7.2020 ke12:00 – 13:00Soukan kirjastoIlmoittauduAvautuu uudessa välilehdessä'
+  );
 });
 
 it('selecting enrolments works and buttons have correct texts', async () => {
@@ -495,11 +539,11 @@ it('filters occurrence list correctly when sate filters are selected', async () 
   userEvent.click(
     screen.getByLabelText(eventMessages.occurrenceList.labelStartDateFilter)
   );
-  userEvent.click(screen.getByRole('button', { name: 'Valitse 28.07.2020' }));
+  userEvent.click(screen.getByRole('button', { name: 'Valitse 28.7.2020' }));
   userEvent.click(
     screen.getByLabelText(eventMessages.occurrenceList.labelEndDateFilter)
   );
-  userEvent.click(screen.getByRole('button', { name: 'Valitse 29.07.2020' }));
+  userEvent.click(screen.getByRole('button', { name: 'Valitse 29.7.2020' }));
 
   const tableRows = screen.getAllByRole('row');
 
@@ -577,7 +621,7 @@ it('informs when there are no occurrences in future', async () => {
   await screen.findByText('Tapahtumalla ei ole tapahtuma-aikoja');
 });
 
-it('show no enrolment text when enrolment is not required', async () => {
+it('hides enrolment button when enrolment is not required', async () => {
   render(<EventPage />, {
     mocks: [
       createEventQueryMockIncludeLanguageAndAudience({
@@ -597,7 +641,11 @@ it('show no enrolment text when enrolment is not required', async () => {
     path: `/fi${ROUTES.EVENT_DETAILS.replace(':id', data.id)}`,
   });
 
-  await screen.findByText('Ei ilmoittautumista');
+  await act(wait);
+
+  expect(
+    screen.queryByRole('button', { name: 'Ilmoittaudu' })
+  ).not.toBeInTheDocument();
 });
 
 it('shows external enrolment link in occurrence row when event has external enrolment url', async () => {
@@ -613,6 +661,7 @@ it('shows external enrolment link in occurrence row when event has external enro
           neededOccurrences: 0,
           externalEnrolmentUrl,
           occurrences: fakeOccurrences(1),
+          enrolmentStart: null,
         }),
       }),
     ],

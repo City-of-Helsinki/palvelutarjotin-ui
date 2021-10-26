@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import addTime from 'date-fns/add';
 import faker from 'faker';
 
 import {
@@ -41,9 +42,11 @@ import {
   OrganisationProposalNode,
   OrganisationProposalNodeConnection,
   OrganisationProposalNodeEdge,
-  NeighborhoodListResponse,
-  Neighborhood,
 } from '../generated/graphql';
+
+type ExtendedPalvelutarjotinEventNode = PalvelutarjotinEventNode & {
+  nextOccurrence?: OccurrenceNodeConnection | null;
+};
 
 const organisationNames = [
   'Kulttuuri- ja vapaa-aikalautakunnan kulttuurijaosto',
@@ -249,8 +252,8 @@ export const fakeImage = (overrides?: Partial<Image>): Image => ({
 });
 
 export const fakePEvent = (
-  overrides?: Partial<PalvelutarjotinEventNode>
-): PalvelutarjotinEventNode => ({
+  overrides?: Partial<ExtendedPalvelutarjotinEventNode>
+): ExtendedPalvelutarjotinEventNode => ({
   id: faker.datatype.uuid(),
   contactPerson: fakePerson(),
   contactEmail: 'test@email.com',
@@ -268,6 +271,7 @@ export const fakePEvent = (
   nextOccurrenceDatetime: '',
   lastOccurrenceDatetime: '',
   mandatoryAdditionalInformation: false,
+  nextOccurrence: fakeOccurrences(1, [fakeOccurrence()]),
   __typename: 'PalvelutarjotinEventNode',
   ...overrides,
 });
@@ -340,7 +344,9 @@ export const fakeOccurrence = (
     { id: 'fi', name: 'Finnish' },
   ]),
   startTime: '2020-08-03T09:00:00+00:00',
-  endTime: '2020-08-03T09:30:00+00:00',
+  endTime: overrides?.startTime
+    ? addTime(new Date(overrides?.startTime), { hours: 1 })
+    : '2020-08-03T09:30:00+00:00',
   placeId: '',
   seatType: OccurrenceSeatType.ChildrenCount,
   seatsTaken: 0,
@@ -528,27 +534,4 @@ export const fakeStudyLevelNodeEdge = (
   cursor: '',
   node: fakeStudyLevel(overrides),
   __typename: 'StudyLevelNodeEdge',
-});
-
-export const fakeNeighborhoods = (
-  count = 1,
-  neighborhoods?: Partial<Neighborhood>[]
-): NeighborhoodListResponse => ({
-  data: generateNodeArray((i) => fakeNeighborhood(neighborhoods?.[i]), count),
-  meta: {
-    count: count,
-    next: '',
-    previous: '',
-    __typename: 'Meta',
-  },
-  __typename: 'NeighborhoodListResponse',
-});
-
-export const fakeNeighborhood = (
-  overrides?: Partial<Neighborhood>
-): Neighborhood => ({
-  id: 'kunta:helsinki',
-  name: fakeLocalizedObject(),
-  __typename: 'Neighborhood',
-  ...overrides,
 });
