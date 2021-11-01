@@ -3,8 +3,10 @@
 .imageContainer {
   --photographer-background-color: rgba(255, 255, 255, 0.4);
 
-  position: relative;
-  height: 550px;
+  position: absolute;
+  width: 100%;
+  height: var(--hero-height, 500px);
+  top: 0;
 
   .photographerText {
     position: absolute;

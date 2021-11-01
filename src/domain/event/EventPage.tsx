@@ -1,5 +1,7 @@
-import { Notification } from 'hds-react';
+/* eslint-disable jsx-a11y/anchor-is-valid */
+import { Notification, IconArrowLeft } from 'hds-react';
 import { useTranslation } from 'next-i18next';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { ReactElement } from 'react';
 
@@ -103,65 +105,92 @@ const EventPage = (): ReactElement => {
     <PageWrapper title={eventName || t('event:pageTitle')}>
       <LoadingSpinner isLoading={loading}>
         {eventData?.event ? (
-          <Container className={styles.eventPage}>
-            <EventPageMeta event={eventData?.event} />
-            {enrolmentCreated && (
-              <Notification
-                label={t(
-                  `event:enrolmentConfirmation.${
-                    autoAcceptance ? 'title' : 'titleEnquiry'
-                  }`
-                )}
-                type={autoAcceptance ? 'success' : 'alert'}
-                className={styles.eventPageNotification}
-              >
-                {notificationType &&
-                  translateValue(
-                    'event:enrolmentConfirmation.sentBy.',
-                    notificationType as string,
-                    t
-                  )}
-              </Notification>
-            )}
-            <EventImage
+          <div>
+            <EventHero
               imageUrl={imageUrl}
               imageAltText={imageAltText || t('event:eventImageAltText')}
               photographerName={photographerName}
             />
-            <EventBasicInfo event={eventData.event} />
-            {showEnrolmentButton && (
-              <EnrolmentButton
-                enrolOccurrences={enrolOccurrences}
-                neededOccurrences={neededOccurrences}
-                requiredEnrolmentsSelected={requiredEnrolmentsSelected}
-              />
-            )}
-            {occurrences && (
-              <div data-testid="occurrences-section">
-                <Occurrences
-                  selectOccurrence={selectOccurrence}
-                  deselectOccurrence={deselectOccurrence}
-                  selectedOccurrences={selectedOccurrences}
-                  enrolOccurrence={enrolOccurrence}
-                  event={eventData.event}
-                  eventLocationId={locationId || ''}
-                  occurrences={occurrences}
+            <Container className={styles.eventPage}>
+              <EventPageMeta event={eventData?.event} />
+              {enrolmentCreated && (
+                <Notification
+                  label={t(
+                    `event:enrolmentConfirmation.${
+                      autoAcceptance ? 'title' : 'titleEnquiry'
+                    }`
+                  )}
+                  type={autoAcceptance ? 'success' : 'alert'}
+                  className={styles.eventPageNotification}
+                >
+                  {notificationType &&
+                    translateValue(
+                      'event:enrolmentConfirmation.sentBy.',
+                      notificationType as string,
+                      t
+                    )}
+                </Notification>
+              )}
+              <EventBasicInfo event={eventData.event} />
+              {showEnrolmentButton && (
+                <EnrolmentButton
+                  enrolOccurrences={enrolOccurrences}
                   neededOccurrences={neededOccurrences}
+                  requiredEnrolmentsSelected={requiredEnrolmentsSelected}
                 />
+              )}
+              {occurrences && (
+                <div data-testid="occurrences-section">
+                  <Occurrences
+                    selectOccurrence={selectOccurrence}
+                    deselectOccurrence={deselectOccurrence}
+                    selectedOccurrences={selectedOccurrences}
+                    enrolOccurrence={enrolOccurrence}
+                    event={eventData.event}
+                    eventLocationId={locationId || ''}
+                    occurrences={occurrences}
+                    neededOccurrences={neededOccurrences}
+                  />
+                </div>
+              )}
+              <div className={styles.sharePart}>
+                <div></div>
+                <div>
+                  <ShareLinks title={t('event:shareLinks.title')} />
+                </div>
               </div>
-            )}
-            <div className={styles.sharePart}>
-              <div></div>
-              <div>
-                <ShareLinks title={t('event:shareLinks.title')} />
-              </div>
-            </div>
-          </Container>
+            </Container>
+          </div>
         ) : (
           <NotFoundPage />
         )}
       </LoadingSpinner>
     </PageWrapper>
+  );
+};
+
+const EventHero: React.FC<{
+  imageUrl?: string;
+  imageAltText?: string | null;
+  photographerName?: string | null;
+}> = ({ imageAltText, imageUrl, photographerName }) => {
+  const { t } = useTranslation();
+
+  return (
+    <div className={styles.eventHero}>
+      <Container className={styles.backButtonContainer}>
+        <Link href="/">
+          <a>
+            <IconArrowLeft size="m" />
+          </a>
+        </Link>
+      </Container>
+      <EventImage
+        imageUrl={imageUrl}
+        imageAltText={imageAltText || t('event:eventImageAltText')}
+        photographerName={photographerName}
+      />
+    </div>
   );
 };
 
