@@ -84,8 +84,8 @@ RUN yarn install --production --frozen-lockfile && yarn cache clean --force
 # Copy public folder
 COPY --chown=appuser:appuser public /app/public
 
-# Copy i18.ts, start.js and server.js files
-COPY --chown=appuser:appuser src/start.js src/server.js /app/src/
+# Copy i18.ts, start.mjs and server.mjs files
+COPY --chown=appuser:appuser src/start.mjs src/server.mjs /app/src/
 
 # Expose port
 EXPOSE $PORT
