@@ -5,6 +5,7 @@ import { TFunction, useTranslation } from 'next-i18next';
 import Link from 'next/link';
 import React from 'react';
 
+import KeywordsList from '../../../common/components/keyword/KeywordsList';
 import SkeletonLoader from '../../../common/components/skeletonLoader/SkeletonLoader';
 import {
   EventsFieldsFragment,
@@ -17,7 +18,6 @@ import getLocalisedString from '../../../utils/getLocalisedString';
 import { formatDateRange } from '../../../utils/time/format';
 import { isMultidayOccurrence } from '../../occurrence/utils';
 import PlaceText from '../../place/placeText/PlaceText';
-import EventKeywords from '../eventKeywords/EventKeywords';
 import { getEventPlaceholderImage, getEventStartTimeStr } from '../utils';
 import styles from './eventCard.module.scss';
 
@@ -35,6 +35,7 @@ const EventCard: React.FC<Props> = ({ event, link }) => {
     locale
   );
   const image = event.images[0]?.url;
+  const keywords = [...event.keywords, ...event.audience];
 
   return (
     <Link href={link}>
@@ -62,7 +63,7 @@ const EventCard: React.FC<Props> = ({ event, link }) => {
             <EventTime event={event} />
             <EventPlaceInfo event={event} />
           </div>
-          <EventKeywords event={event} />
+          <KeywordsList keywords={keywords} />
         </div>
       </a>
     </Link>

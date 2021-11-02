@@ -19,6 +19,9 @@ it('renders a button to view multiple occurrences when event has them', async ()
     { startTime: new Date(2020, 10, 22, 12, 40).toISOString() },
   ]);
   const event = fakeEvent({
+    keywords: [
+      fakeKeyword({ name: fakeLocalizedObject('Avainsana'), id: 'kultus:1' }),
+    ],
     pEvent: fakePEvent({
       nextOccurrenceDatetime: occurrences.edges[0]?.node?.startTime,
       lastOccurrenceDatetime: occurrences.edges[2]?.node?.startTime,
@@ -124,7 +127,9 @@ it('renders multiday occurrence time correctly', async () => {
   const event = fakeEvent({
     name: fakeLocalizedObject('Nimi'),
     shortDescription: fakeLocalizedObject('Kuvaus'),
-    keywords: [fakeKeyword({ name: fakeLocalizedObject('Avainsana') })],
+    keywords: [
+      fakeKeyword({ name: fakeLocalizedObject('Avainsana'), id: 'kultus: 1' }),
+    ],
     pEvent: fakePEvent({
       nextOccurrenceDatetime: occurrences.edges[0]?.node?.startTime,
       lastOccurrenceDatetime: occurrences.edges[2]?.node?.startTime,

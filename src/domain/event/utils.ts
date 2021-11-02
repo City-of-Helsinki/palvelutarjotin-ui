@@ -70,6 +70,7 @@ export const getEventFields = (
         eventName: getLocalisedString(event.name, locale),
         shortDescription: getLocalisedString(event.shortDescription, locale),
         description: getLocalisedString(event.description, locale),
+        keywords: [...event.keywords, ...event.audience],
         infoUrl: getLocalisedString(event.infoUrl, locale),
         imageUrl:
           event.images?.[0]?.url || getEventPlaceholderImage(event.id || ''),

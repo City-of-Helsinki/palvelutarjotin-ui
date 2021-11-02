@@ -68,5 +68,8 @@
   },
   "filters": {
     "deleteDateFilter": "Ta bort filter"
+  },
+  "keywords": {
+    "labelKeywordLink": "SV: Seach events with keyword {{keyword}}"
   }
 }

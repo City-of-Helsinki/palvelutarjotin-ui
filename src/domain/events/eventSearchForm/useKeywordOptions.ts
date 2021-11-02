@@ -12,13 +12,13 @@ import { EVENT_TOP_CATEGORIES } from '../constants';
 
 type Option = { label: string; value?: string | null };
 
-type KeyWordOptions = {
+export type KeywordOptions = {
   targetGroups: Option[];
   categoryKeywords: Option[];
   additionalCriteriaKeywords: Option[];
 };
 
-export const useKeywordOptions = (): KeyWordOptions => {
+export const useKeywordOptions = (): KeywordOptions => {
   const locale = useLocale();
 
   const { data: additionalCriteriaData } = useKeywordSetQuery({

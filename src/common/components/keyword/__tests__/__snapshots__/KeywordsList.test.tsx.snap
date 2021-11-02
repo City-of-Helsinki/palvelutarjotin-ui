@@ -1,0 +1,145 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders list of keywords as links with correct hrefs 1`] = `
+<div>
+  <ul
+    class="keywordsList"
+  >
+    <li>
+      <a
+        aria-label="Hae tapahtumia avainsanalla Vaikuttaminen ja osallisuus"
+        class="keyword"
+        href="/?categories=kultus%3A1"
+      >
+        Vaikuttaminen ja osallisuus
+      </a>
+    </li>
+    <li>
+      <a
+        aria-label="Hae tapahtumia avainsanalla Teatteri, tanssi ja sirkus"
+        class="keyword"
+        href="/?categories=kultus%3A2"
+      >
+        Teatteri, tanssi ja sirkus
+      </a>
+    </li>
+    <li>
+      <a
+        aria-label="Hae tapahtumia avainsanalla Musiikki"
+        class="keyword"
+        href="/?categories=kultus%3A3"
+      >
+        Musiikki
+      </a>
+    </li>
+    <li>
+      <a
+        aria-label="Hae tapahtumia avainsanalla Sanataide ja kirjallisuus"
+        class="keyword"
+        href="/?categories=kultus%3A4"
+      >
+        Sanataide ja kirjallisuus
+      </a>
+    </li>
+    <li>
+      <a
+        aria-label="Hae tapahtumia avainsanalla Tiede"
+        class="keyword"
+        href="/?categories=kultus%3A5"
+      >
+        Tiede
+      </a>
+    </li>
+    <li>
+      <a
+        aria-label="Hae tapahtumia avainsanalla Valmistava opetus"
+        class="keyword"
+        href="/?targetGroups=kultus%3A11"
+      >
+        Valmistava opetus
+      </a>
+    </li>
+    <li>
+      <a
+        aria-label="Hae tapahtumia avainsanalla 1.–2. luokat"
+        class="keyword"
+        href="/?targetGroups=kultus%3A12"
+      >
+        1.–2. luokat
+      </a>
+    </li>
+    <li>
+      <a
+        aria-label="Hae tapahtumia avainsanalla 3.–6. luokat"
+        class="keyword"
+        href="/?targetGroups=kultus%3A13"
+      >
+        3.–6. luokat
+      </a>
+    </li>
+    <li>
+      <a
+        aria-label="Hae tapahtumia avainsanalla 7.–9. luokat"
+        class="keyword"
+        href="/?targetGroups=kultus%3A14"
+      >
+        7.–9. luokat
+      </a>
+    </li>
+    <li>
+      <a
+        aria-label="Hae tapahtumia avainsanalla lukio ja ammatillinen opetus"
+        class="keyword"
+        href="/?targetGroups=kultus%3A15"
+      >
+        lukio ja ammatillinen opetus
+      </a>
+    </li>
+    <li>
+      <a
+        aria-label="Hae tapahtumia avainsanalla Työpaja"
+        class="keyword"
+        href="/?additionalCriteria=kultus%3A6"
+      >
+        Työpaja
+      </a>
+    </li>
+    <li>
+      <a
+        aria-label="Hae tapahtumia avainsanalla Luento"
+        class="keyword"
+        href="/?additionalCriteria=kultus%3A7"
+      >
+        Luento
+      </a>
+    </li>
+    <li>
+      <a
+        aria-label="Hae tapahtumia avainsanalla Luontokoulu"
+        class="keyword"
+        href="/?additionalCriteria=kultus%3A8"
+      >
+        Luontokoulu
+      </a>
+    </li>
+    <li>
+      <a
+        aria-label="Hae tapahtumia avainsanalla Kirjastovierailu"
+        class="keyword"
+        href="/?additionalCriteria=kultus%3A9"
+      >
+        Kirjastovierailu
+      </a>
+    </li>
+    <li>
+      <a
+        aria-label="Hae tapahtumia avainsanalla Konsertti"
+        class="keyword"
+        href="/?additionalCriteria=kultus%3A10"
+      >
+        Konsertti
+      </a>
+    </li>
+  </ul>
+</div>
+`;

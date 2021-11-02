@@ -9,6 +9,7 @@ import MultiDropdownField from '../../../common/components/form/fields/MultiDrop
 import PlaceSelectorField from '../../../common/components/form/fields/PlaceSelectorField';
 import TextInputField from '../../../common/components/form/fields/TextInputField';
 import { EVENT_LANGUAGES } from '../../../constants';
+import { KEYWORD_QUERY_PARAMS } from '../constants';
 import FilterSummary from '../filterSummary/FilterSummary';
 import styles from './eventSearchForm.module.scss';
 import { useKeywordOptions } from './useKeywordOptions';
@@ -16,23 +17,23 @@ import { useKeywordOptions } from './useKeywordOptions';
 export type EventSearchFormValues = {
   text: string;
   inLanguage: EVENT_LANGUAGES[];
-  targetGroups: string[];
-  categories: string[];
-  additionalCriteria: string[];
   date: Date | null;
   endDate: Date | null;
   places: string[];
   divisions: string[];
   organisation?: string;
   organisationId?: string;
+  [KEYWORD_QUERY_PARAMS.TARGET_GROUPS]: string[];
+  [KEYWORD_QUERY_PARAMS.CATEGORIES]: string[];
+  [KEYWORD_QUERY_PARAMS.ADDITIONAL_CRITERIA]: string[];
 };
 
 const defaultInitialValues: EventSearchFormValues = {
   text: '',
   inLanguage: [],
-  targetGroups: [],
-  categories: [],
-  additionalCriteria: [],
+  [KEYWORD_QUERY_PARAMS.TARGET_GROUPS]: [],
+  [KEYWORD_QUERY_PARAMS.CATEGORIES]: [],
+  [KEYWORD_QUERY_PARAMS.ADDITIONAL_CRITERIA]: [],
   date: null,
   endDate: null,
   places: [],
@@ -95,7 +96,7 @@ const EventSearchForm = ({
                 />
                 <Field
                   hideLabel
-                  name="targetGroups"
+                  name={KEYWORD_QUERY_PARAMS.TARGET_GROUPS}
                   component={MultiDropdownField}
                   label={t('events:search.labelTargetGroups')}
                   placeholder={t('events:search.labelTargetGroups')}
@@ -109,7 +110,7 @@ const EventSearchForm = ({
                 />
                 <Field
                   hideLabel
-                  name="categories"
+                  name={KEYWORD_QUERY_PARAMS.CATEGORIES}
                   component={MultiDropdownField}
                   label={t('events:search.labelCategories')}
                   placeholder={t('events:search.labelCategories')}
@@ -123,7 +124,7 @@ const EventSearchForm = ({
                 />
                 <Field
                   hideLabel
-                  name="additionalCriteria"
+                  name={KEYWORD_QUERY_PARAMS.ADDITIONAL_CRITERIA}
                   component={MultiDropdownField}
                   label={t('events:search.labelActivities')}
                   placeholder={t('events:search.labelActivities')}

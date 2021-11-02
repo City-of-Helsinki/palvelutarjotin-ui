@@ -40,6 +40,7 @@ const EventsPage = (): ReactElement => {
     data: eventsData,
     fetchMore,
     loading,
+    error,
   } = useEventsQuery({
     ssr: false,
     variables: { ...variables, sort },
