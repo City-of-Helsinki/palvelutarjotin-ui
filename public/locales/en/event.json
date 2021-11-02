@@ -70,6 +70,6 @@
     "deleteDateFilter": "Poista rajaus"
   },
   "keywords": {
-    "labelKeywordLink": "Seach events with keyword {{keyword}}"
+    "labelKeywordLink": "Search events with keyword {{keyword}}"
   }
 }
