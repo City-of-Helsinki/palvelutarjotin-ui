@@ -18,6 +18,7 @@ import {
   act,
   configure,
   userEvent,
+  fireEvent,
 } from '../../../utils/testUtils';
 import EventsSearchPage from '../EventsSearchPage';
 
@@ -167,3 +168,89 @@ test('renders search form and events list with correct information', async () =>
     expect(screen.getAllByText(keyword.name.fi)).toHaveLength(4);
   });
 });
+
+test('search form is compact state when only text parameter is used', async () => {
+  advanceTo(testDate);
+  const searchText = 'hakusana';
+  render(<EventsSearchPage />, { mocks, query: { text: searchText } });
+
+  const textInput = await screen.findByRole('textbox', {
+    name: /hae tapahtumia/i,
+  });
+  expect(textInput).toHaveValue(searchText);
+
+  testAdvancedSearchNotVisible();
+});
+
+test('search form expands when text input is focused', async () => {
+  advanceTo(testDate);
+  const searchText = 'hakusana';
+  render(<EventsSearchPage />, { mocks, query: { text: searchText } });
+
+  const textInput = await screen.findByRole('textbox', {
+    name: /hae tapahtumia/i,
+  });
+  expect(textInput).toHaveValue(searchText);
+
+  testAdvancedSearchNotVisible();
+
+  fireEvent.focus(textInput);
+
+  testAdvancedSearchIsVisible();
+});
+
+test('search form is in advanced state if advanced search parameters are used', async () => {
+  advanceTo(testDate);
+  const searchText = 'hakusana';
+  render(<EventsSearchPage />, {
+    mocks,
+    query: { text: searchText, categories: 'categories=kultus%3A13' },
+  });
+
+  const textInput = await screen.findByRole('textbox', {
+    name: /hae tapahtumia/i,
+  });
+  expect(textInput).toHaveValue(searchText);
+
+  testAdvancedSearchIsVisible();
+
+  // hides advanced search
+  userEvent.click(
+    screen.getByRole('button', {
+      name: /piilota lisäkentät/i,
+    })
+  );
+
+  testAdvancedSearchNotVisible();
+});
+
+const advancedSearchInputLabels = [
+  'Kohderyhmät',
+  'Paikat',
+  'Alkaen',
+  'Päättyen',
+  'Kategoriat',
+  'Aktiviteetit',
+  'Alueet',
+  'Kielet',
+];
+
+function testAdvancedSearchNotVisible() {
+  for (const label in advancedSearchInputLabels) {
+    expect(screen.queryByLabelText(label)).not.toBeInTheDocument();
+  }
+
+  expect(
+    screen.queryByRole('button', { name: 'Hae tapahtumia' })
+  ).not.toBeInTheDocument();
+}
+
+function testAdvancedSearchIsVisible() {
+  for (const label of advancedSearchInputLabels) {
+    expect(screen.queryAllByLabelText(label)[0]).toBeInTheDocument();
+  }
+
+  expect(
+    screen.queryByRole('button', { name: 'Hae tapahtumia' })
+  ).toBeInTheDocument();
+}
