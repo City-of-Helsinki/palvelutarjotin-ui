@@ -85,7 +85,7 @@ const mocks: MockedResponse[] = [
     request: {
       query: EventsDocument,
       variables: {
-        include: ['keywords', 'location'],
+        include: ['keywords', 'location', 'audience'],
         keyword: [],
         allOngoingAnd: null,
         inLanguage: '',

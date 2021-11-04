@@ -112,12 +112,10 @@ export const useEventsSearch = () => {
     data: eventsData,
     fetchMore,
     loading,
-    error,
   } = useEventsQuery({
     ssr: false,
     variables: { ...variables, sort },
   });
-  console.log(error);
   const eventsCount = eventsData?.events?.meta.count;
 
   const organisationName =
