@@ -70,6 +70,6 @@
     "deleteDateFilter": "Ta bort filter"
   },
   "keywords": {
-    "labelKeywordLink": "SV: Seach events with keyword {{keyword}}"
+    "labelKeywordLink": "Sök evenemang med nyckelord {{keyword}}"
   }
 }
