@@ -1,8 +1,3 @@
-.eventKeywords {
-  display: inline-flex;
-  flex-wrap: wrap;
-}
-
 .keyword {
   display: flex;
   align-items: center;
@@ -13,4 +8,16 @@
   height: 1.5rem;
   margin: var(--spacing-s) var(--spacing-s) 0 0;
   padding: 0 var(--spacing-s);
+  text-decoration: none;
+}
+
+.keywordsList {
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+
+  li {
+    list-style-type: none;
+  }
 }

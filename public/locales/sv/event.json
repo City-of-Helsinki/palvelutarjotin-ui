@@ -68,5 +68,8 @@
   },
   "filters": {
     "deleteDateFilter": "Ta bort filter"
+  },
+  "keywords": {
+    "labelKeywordLink": "Sök evenemang med nyckelord {{keyword}}"
   }
 }

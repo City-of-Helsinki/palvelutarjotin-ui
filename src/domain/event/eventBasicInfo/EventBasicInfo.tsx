@@ -3,12 +3,12 @@ import { useTranslation } from 'next-i18next';
 import Link from 'next/link';
 import React from 'react';
 
+import KeywordsList from '../../../common/components/keyword/KeywordsList';
 import TextWithHTMLOrLineBreaks from '../../../common/components/textWithHTMLOrLineBreaks/TextWithHTMLOrLineBreaks';
 import { EventFieldsFragment } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
 import IconTicket from '../../../icons/IconTicket';
 import addUrlSlashes from '../../../utils/addUrlSlashes';
-import EventKeywords from '../eventKeywords/EventKeywords';
 import { getEventFields } from '../utils';
 import styles from './eventBasicInfo.module.scss';
 import EventCategorisation from './EventCategorisation';
@@ -32,6 +32,7 @@ const EventBasicInfo: React.FC<EventBasicInfoProps> = ({ event }) => {
     contactPerson,
     contactPhoneNumber,
     infoUrl,
+    keywords,
   } = getEventFields(event, locale);
 
   return (
@@ -43,7 +44,7 @@ const EventBasicInfo: React.FC<EventBasicInfoProps> = ({ event }) => {
           text={description}
           className={styles.description}
         />
-        <EventKeywords event={event} />
+        {keywords && <KeywordsList keywords={keywords} />}
         <EventCategorisation event={event} />
       </div>
       <div className={styles.infoRight}>

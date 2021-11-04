@@ -68,5 +68,8 @@
   },
   "filters": {
     "deleteDateFilter": "Poista rajaus"
+  },
+  "keywords": {
+    "labelKeywordLink": "Hae tapahtumia avainsanalla {{keyword}}"
   }
 }

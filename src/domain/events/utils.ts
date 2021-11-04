@@ -8,6 +8,7 @@ import {
 } from '../../generated/graphql';
 import deleteEmptyPropertiesFromObject from '../../utils/deleteEmptyPropertiesFromObject';
 import { queryParameterToArray } from '../../utils/queryParameterToArray';
+import { KEYWORD_QUERY_PARAMS } from './constants';
 import { EventSearchFormValues } from './eventSearchForm/EventSearchForm';
 
 export const getSearchQueryObject = (
@@ -41,7 +42,7 @@ export const getEventFilterVariables = (
 ): EventsQueryVariables => {
   const search = getTextFromDict(query, 'text', undefined);
   return {
-    include: ['keywords', 'location'],
+    include: ['keywords', 'location', 'audience'],
     allOngoingAnd: search ? [search] : null,
     inLanguage: getTextFromDict(query, 'inLanguage', undefined),
     keyword: getKeywordsToQuery(query),
@@ -54,21 +55,24 @@ export const getEventFilterVariables = (
   };
 };
 
-const getKeywordsToQuery = ({
-  categories,
-  targetGroups,
-  additionalCriteria,
-}: {
-  categories?: string | string[];
-  targetGroups?: string | string[];
-  additionalCriteria?: string | string[];
+const getKeywordsToQuery = (keywords: {
+  [KEYWORD_QUERY_PARAMS.CATEGORIES]?: string | string[];
+  [KEYWORD_QUERY_PARAMS.TARGET_GROUPS]?: string | string[];
+  [KEYWORD_QUERY_PARAMS.ADDITIONAL_CRITERIA]?: string | string[];
 }): string[] => {
-  return [categories, targetGroups, additionalCriteria].reduce<string[]>(
-    (prev, next) => {
-      return [...prev, ...(Array.isArray(next) ? next : next ? [next] : [])];
-    },
-    []
-  );
+  return [
+    keywords[KEYWORD_QUERY_PARAMS.CATEGORIES],
+    keywords[KEYWORD_QUERY_PARAMS.TARGET_GROUPS],
+    keywords[KEYWORD_QUERY_PARAMS.ADDITIONAL_CRITERIA],
+  ].reduce<string[]>((prev, next) => {
+    if (Array.isArray(next)) {
+      return [...prev, ...next];
+    }
+    if (next) {
+      return [...prev, next];
+    }
+    return prev;
+  }, []);
 };
 
 const getDateString = (date?: string | string[]): string | null => {
@@ -86,10 +90,16 @@ export const getInitialValues = (
     endDate: getInitialDate(query.endDate),
     inLanguage: queryParameterToArray(query.inLanguage as EVENT_LANGUAGES),
     places: queryParameterToArray(query.places),
-    targetGroups: queryParameterToArray(query.targetGroups),
-    categories: queryParameterToArray(query.categories),
-    additionalCriteria: queryParameterToArray(query.additionalCriteria),
     divisions: queryParameterToArray(query.divisions),
+    [KEYWORD_QUERY_PARAMS.TARGET_GROUPS]: queryParameterToArray(
+      query[KEYWORD_QUERY_PARAMS.TARGET_GROUPS]
+    ),
+    [KEYWORD_QUERY_PARAMS.CATEGORIES]: queryParameterToArray(
+      query[KEYWORD_QUERY_PARAMS.CATEGORIES]
+    ),
+    [KEYWORD_QUERY_PARAMS.ADDITIONAL_CRITERIA]: queryParameterToArray(
+      query[KEYWORD_QUERY_PARAMS.ADDITIONAL_CRITERIA]
+    ),
   };
 };
 

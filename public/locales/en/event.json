@@ -68,5 +68,8 @@
   },
   "filters": {
     "deleteDateFilter": "Poista rajaus"
+  },
+  "keywords": {
+    "labelKeywordLink": "Search events with keyword {{keyword}}"
   }
 }
