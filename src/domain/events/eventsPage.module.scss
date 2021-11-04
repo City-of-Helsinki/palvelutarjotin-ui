@@ -1,0 +1,12 @@
+@import 'layout';
+
+.eventsSearchForm {
+  background-color: var(--color-black-70);
+  padding: var(--spacing-layout-xs);
+  margin: var(--spacing-layout-s) 0;
+
+  @include respond_above(md) {
+    padding: var(--spacing-layout-l);
+    margin: var(--spacing-layout-l) 0;
+  }
+}

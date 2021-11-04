@@ -40,9 +40,24 @@
 }
 
 .eventSearchForm {
-  background-color: var(--color-black-70);
-  padding: var(--spacing-layout-l);
-  margin: var(--spacing-layout-l) 0;
+  padding: 0;
+  background-color: transparent;
+}
+
+.selectInput {
+  & > div {
+    border: none;
+  }
+
+  & > button {
+    border: none !important;
+  }
+}
+
+.datePicker {
+  & > div > input {
+    border: none !important;
+  }
 }
 
 .contentWrapper {
@@ -55,23 +70,55 @@
   }
 }
 
+.searchInput {
+  input {
+    border: none !important;
+  }
+
+  &Compact {
+    input {
+      padding-right: 150px !important;
+    }
+  }
+}
+
+.editSearchButton {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  text-decoration: underline;
+  right: 1rem;
+}
+
+.textRow {
+  position: relative;
+}
+
 .buttonRow {
   display: grid;
+  grid-gap: 1rem;
   color: var(--color-white);
 
   @include respond_above(md) {
-    grid-template-columns: 180px 1fr auto;
+    grid-template-columns: auto 1fr auto;
   }
 
-  .clearButtonWrapper {
+  .buttonsContainer {
     text-align: center;
     align-self: center;
+
     button {
-      color: var(--color-white);
       &:hover {
-        color: var(--color-black);
+        text-decoration: underline;
       }
     }
+
+    // button {
+    //   color: var(--color-white);
+    //   &:hover {
+    //     color: var(--color-black);
+    //   }
+    // }
 
     @include respond_above(md) {
       text-align: right;

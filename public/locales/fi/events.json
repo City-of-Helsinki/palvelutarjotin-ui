@@ -13,9 +13,12 @@
     "lastModifiedTimeDesc": "Viimeksi muokattu",
     "startTime": "Ajankohtaista"
   },
+  "eventsSearchPage": {
+    "title": "Tapahtumahaku"
+  },
   "search": {
     "buttonClear": "Tyhjennä hakuehdot",
-    "buttonSearch": "Hae",
+    "buttonSearch": "Hae tapahtumia",
     "labelText": "Hae tapahtumia",
     "placeholderText": "Hae tapahtumia...",
     "title": "Hae tapahtumia",
@@ -30,6 +33,9 @@
     "labelTargetGroups": "Kohderyhmät",
     "labelActivities": "Aktiviteetit",
     "placeInputPlaceholder": "Kirjoita hakusana",
+    "buttonEditSearch": "Muokkaa hakua",
+    "buttonAdvancedSearch": "Tarkennettu haku",
+    "buttonHideAdditionalFields": "Piilota lisäkentät",
     "accessibility": {
       "audienceDropdown": {
         "clearButtonAriaLabel": "Poista kohderyhmävalinnat",

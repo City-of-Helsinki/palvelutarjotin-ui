@@ -19,7 +19,7 @@ import {
   configure,
   userEvent,
 } from '../../../utils/testUtils';
-import EventsPage from '../EventsPage';
+import EventsSearchPage from '../EventsSearchPage';
 
 configure({ defaultHidden: true });
 
@@ -85,7 +85,7 @@ const mocks: MockedResponse[] = [
     request: {
       query: EventsDocument,
       variables: {
-        include: ['keywords', 'location', 'audience'],
+        include: ['keywords', 'location'],
         keyword: [],
         allOngoingAnd: null,
         inLanguage: '',
@@ -112,21 +112,23 @@ afterEach(() => {
 
 test('renders search form and events list with correct information', async () => {
   advanceTo(testDate);
-  render(<EventsPage />, { mocks });
+  render(<EventsSearchPage />, { mocks });
 
   await act(wait);
 
-  expect(
-    screen.queryByRole('heading', {
-      name: 'Oppimisen elämyksiä koko kaupungissa',
-    })
-  ).toBeInTheDocument();
   expect(screen.queryByLabelText('Hae tapahtumia')).toBeInTheDocument();
+
+  // compact search panel has languages hidden
   expect(
     screen.queryByLabelText('Kielet', { selector: 'button' })
   ).not.toBeInTheDocument();
 
-  userEvent.click(screen.getByRole('button', { name: /tarkennettu haku/i }));
+  // expand search panel
+  userEvent.click(screen.getByRole('button', { name: /muokkaa hakua/i }));
+
+  expect(
+    screen.queryByRole('button', { name: /piilota lisäkentät/i })
+  ).toBeInTheDocument();
 
   expect(screen.queryByLabelText('Alueet')).toBeInTheDocument();
   expect(screen.queryByLabelText('Paikat')).toBeInTheDocument();

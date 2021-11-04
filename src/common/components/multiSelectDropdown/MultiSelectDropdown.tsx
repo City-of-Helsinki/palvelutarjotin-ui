@@ -31,6 +31,7 @@ export interface MultiselectDropdownProps {
   showSelectAll?: boolean;
   title: string;
   value: string[];
+  className?: string;
 }
 
 const MultiSelectDropdown: React.FC<MultiselectDropdownProps> = ({
@@ -48,6 +49,7 @@ const MultiSelectDropdown: React.FC<MultiselectDropdownProps> = ({
   showSelectAll,
   title,
   value,
+  className,
 }) => {
   const { t } = useTranslation();
   const inputPlaceholderText =
@@ -245,7 +247,7 @@ const MultiSelectDropdown: React.FC<MultiselectDropdownProps> = ({
   }, [handleInputValueChange, isMenuOpen]);
 
   return (
-    <div className={styles.dropdown} ref={dropdown}>
+    <div className={classNames(styles.dropdown, className)} ref={dropdown}>
       <button
         type="button"
         aria-label={title}

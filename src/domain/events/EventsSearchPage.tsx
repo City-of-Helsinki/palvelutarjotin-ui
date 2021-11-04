@@ -1,0 +1,183 @@
+import { ParsedUrlQuery } from 'querystring';
+
+import { useRouter } from 'next/router';
+import * as React from 'react';
+import { useTranslation } from 'react-i18next';
+
+import LoadingSpinner from '../../common/components/loadingSpinner/LoadingSpinner';
+import { useEventsQuery } from '../../generated/graphql';
+import getPageNumberFromUrl from '../../utils/getPageNumberFromUrl';
+import Container from '../app/layout/Container';
+import PageWrapper from '../app/layout/PageWrapper';
+import { ROUTES } from '../app/routes/constants';
+import { EVENT_LIST_PAGE_SIZE, EVENT_SORT_OPTIONS } from './constants';
+import EventList from './eventList/EventList';
+import EventSearchForm, {
+  EventSearchFormValues,
+  PanelState,
+} from './eventSearchForm/EventSearchForm';
+import styles from './eventsSearchPage.module.scss';
+import {
+  getEventFilterVariables,
+  getInitialValues,
+  getSearchQueryObject,
+  getTextFromDict,
+} from './utils';
+
+const panelStates = {
+  closed: PanelState.Compact,
+  open: PanelState.Advanced,
+};
+
+// Search panels shoud be expanded if sarch parameters are used (other than text)
+const getInitialPanelState = (query: ParsedUrlQuery) => {
+  const filteredKeys = Object.keys(query).filter((k) => k !== 'text');
+  return filteredKeys.length > 0 ? panelStates.open : panelStates.closed;
+};
+
+const EventsSearchPage: React.FC = () => {
+  const { t } = useTranslation();
+  const router = useRouter();
+  const [searchPanelState, setSearchPanelState] = React.useState<PanelState>(
+    () => getInitialPanelState(router.query)
+  );
+  const {
+    initialValues,
+    search,
+    loading,
+    events,
+    eventsCount,
+    fetchMoreEvents,
+    isLoadingMore,
+    nextPage,
+    setSort,
+    sort,
+  } = useEventsSearch();
+
+  const handleToggleAdvancedSearch = () => {
+    setSearchPanelState(
+      searchPanelState === panelStates.closed
+        ? panelStates.open
+        : panelStates.closed
+    );
+  };
+
+  return (
+    <PageWrapper title={t('events:eventsSearchPage.title')}>
+      <div className={styles.searchFormContainer}>
+        <Container>
+          <EventSearchForm
+            initialValues={initialValues}
+            onSubmit={search}
+            onToggleAdvancedSearch={handleToggleAdvancedSearch}
+            panelState={searchPanelState}
+          />
+        </Container>
+      </div>
+      <Container>
+        <LoadingSpinner isLoading={loading}>
+          {events && (
+            <EventList
+              events={events}
+              eventsCount={eventsCount}
+              fetchMore={fetchMoreEvents}
+              isLoading={isLoadingMore}
+              shouldShowLoadMore={Boolean(nextPage)}
+              sort={sort}
+              setSort={setSort}
+            />
+          )}
+        </LoadingSpinner>
+      </Container>
+    </PageWrapper>
+  );
+};
+
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export const useEventsSearch = () => {
+  const router = useRouter();
+  const [isLoadingMore, setIsLoadingMore] = React.useState(false);
+
+  const variables = React.useMemo(
+    () =>
+      getEventFilterVariables(router.query, { pageSize: EVENT_LIST_PAGE_SIZE }),
+    [router.query]
+  );
+  const [sort, setSort] = React.useState<EVENT_SORT_OPTIONS>(
+    (getTextFromDict(router.query, 'sort') ||
+      EVENT_SORT_OPTIONS.START_TIME) as EVENT_SORT_OPTIONS
+  );
+
+  const {
+    data: eventsData,
+    fetchMore,
+    loading,
+    error,
+  } = useEventsQuery({
+    ssr: false,
+    variables: { ...variables, sort },
+  });
+  console.log(error);
+  const eventsCount = eventsData?.events?.meta.count;
+
+  const organisationName =
+    eventsData?.events?.data?.filter(
+      (event) => event.pEvent.organisation?.id === router.query?.organisation
+    )[0]?.pEvent.organisation?.name || '';
+
+  const initialValues = React.useMemo(() => {
+    return {
+      ...getInitialValues(router.query),
+      organisation: organisationName,
+      organisationId: router.query?.organisation as string,
+    };
+  }, [router.query, organisationName]);
+
+  const events = eventsData?.events?.data;
+
+  const search = (values: EventSearchFormValues) => {
+    values = { ...values, organisation: values.organisationId };
+    delete values.organisationId;
+
+    router.push({
+      pathname: ROUTES.EVENTS_SEARCH,
+      query: getSearchQueryObject(values),
+    });
+  };
+
+  const nextPage = React.useMemo(() => {
+    const nextUrl = eventsData?.events?.meta.next;
+    return nextUrl ? getPageNumberFromUrl(nextUrl) : null;
+  }, [eventsData?.events?.meta?.next]);
+
+  const fetchMoreEvents = async () => {
+    if (nextPage) {
+      try {
+        setIsLoadingMore(true);
+        await fetchMore({
+          variables: {
+            page: nextPage,
+          },
+        });
+        setIsLoadingMore(false);
+      } catch (e) {
+        setIsLoadingMore(false);
+      }
+    }
+  };
+
+  return {
+    nextPage,
+    events,
+    initialValues,
+    loading,
+    sort,
+    isLoadingMore,
+    eventsCount,
+    setSort,
+    search,
+    fetchMoreEvents,
+  };
+};
+
+export default EventsSearchPage;

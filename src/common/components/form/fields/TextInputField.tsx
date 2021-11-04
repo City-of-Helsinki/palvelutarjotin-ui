@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import { FieldProps } from 'formik';
 import { TextInput, TextInputProps } from 'hds-react';
 import { useTranslation } from 'next-i18next';
@@ -26,7 +27,12 @@ const InputField: React.FC<Props> = (props) => {
       helperText={helperText}
       errorText={errorText}
       invalid={!!errorText}
-      className={errorText ? invalidFieldClass : undefined}
+      className={classNames(
+        {
+          [invalidFieldClass]: errorText,
+        },
+        props.className
+      )}
     />
   );
 };
