@@ -137,10 +137,14 @@ export const useEventsSearch = () => {
     values = { ...values, organisation: values.organisationId };
     delete values.organisationId;
 
-    router.push({
-      pathname: ROUTES.EVENTS_SEARCH,
-      query: getSearchQueryObject(values),
-    });
+    router.push(
+      {
+        pathname: ROUTES.EVENTS_SEARCH,
+        query: getSearchQueryObject(values),
+      },
+      undefined,
+      { scroll: false }
+    );
   };
 
   const nextPage = React.useMemo(() => {
