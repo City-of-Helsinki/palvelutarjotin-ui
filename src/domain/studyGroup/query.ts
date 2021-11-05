@@ -3,7 +3,22 @@ import { gql } from 'graphql-tag';
 export const QUERY_PERSON = gql`
   fragment studyGroupFields on StudyGroupNode {
     id
-    name
+    unitId
+    unitName
+    unit {
+      ... on ExternalPlace {
+        name {
+          ...localisedFields
+        }
+      }
+      ... on Place {
+        internalId
+        id
+        name {
+          ...localisedFields
+        }
+      }
+    }
     groupSize
     amountOfAdult
     groupName

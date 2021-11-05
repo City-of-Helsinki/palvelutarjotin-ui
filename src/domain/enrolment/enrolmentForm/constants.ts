@@ -18,7 +18,7 @@ export type EnrolmentFormFields = {
       phoneNumber: string;
       emailAddress: string;
     };
-    name: string;
+    unitName: string;
     groupName: string;
     groupSize: string;
     amountOfAdult: string;
@@ -47,7 +47,7 @@ export const defaultInitialValues: EnrolmentFormFields = {
       phoneNumber: '',
       emailAddress: '',
     },
-    name: '',
+    unitName: '',
     groupName: '',
     groupSize: '',
     amountOfAdult: '',
@@ -62,7 +62,7 @@ export const nameToLabelPath: Record<string, string> = {
     'enrolment:enrolmentForm.person.labelPhoneNumber',
   'studyGroup.person.emailAddress':
     'enrolment:enrolmentForm.person.labelEmailAddress',
-  'studyGroup.name': 'enrolment:enrolmentForm.studyGroup.labelName',
+  'studyGroup.unitName': 'enrolment:enrolmentForm.studyGroup.labelName',
   'studyGroup.groupName': 'enrolment:enrolmentForm.studyGroup.labelGroupName',
   'studyGroup.groupSize': 'enrolment:enrolmentForm.studyGroup.labelGroupSize',
   'studyGroup.amountOfAdult':
