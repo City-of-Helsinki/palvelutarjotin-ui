@@ -367,7 +367,7 @@ test('renders form and user can fill it and submit and form is saved to local st
             extraNeeds: 'Lisätietoja ilmoittautumiseen',
             groupName: '4a',
             groupSize: 10,
-            name: 'Testikoulu',
+            unitName: 'Testikoulu',
             person: {
               emailAddress: 'testi@testi.fi',
               language: 'FI',

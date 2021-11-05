@@ -92,7 +92,9 @@ export default Yup.object().shape({
               .required(VALIDATION_MESSAGE_KEYS.STRING_REQUIRED)
               .email(VALIDATION_MESSAGE_KEYS.EMAIL),
           }),
-          name: Yup.string().required(VALIDATION_MESSAGE_KEYS.STRING_REQUIRED),
+          unitName: Yup.string().required(
+            VALIDATION_MESSAGE_KEYS.STRING_REQUIRED
+          ),
           groupName: Yup.string().required(
             VALIDATION_MESSAGE_KEYS.STRING_REQUIRED
           ),

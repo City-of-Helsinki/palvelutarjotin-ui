@@ -135,11 +135,11 @@ const EnrolmentForm: React.FC<Props> = ({
               </FormGroup>
               <FormGroup>
                 <Field
-                  label={t(nameToLabelPath['studyGroup.name'])}
+                  label={t(nameToLabelPath['studyGroup.unitName'])}
                   required
                   aria-required
                   component={TextInputField}
-                  name="studyGroup.name"
+                  name="studyGroup.unitName"
                 />
               </FormGroup>
               <div className={styles.rowWith2Columns}>
