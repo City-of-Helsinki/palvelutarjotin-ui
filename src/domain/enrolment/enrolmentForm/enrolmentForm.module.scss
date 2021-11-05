@@ -30,6 +30,17 @@
     margin-top: 18px;
   }
 
+  .resetFormButton {
+    margin-top: -var(--spacing-s);
+    margin-bottom: var(--spacing-m);
+    visibility: hidden;
+    text-decoration: underline;
+
+    &Visible {
+      visibility: visible;
+    }
+  }
+
   .divider {
     margin: var(--spacing-layout-s) 0 var(--spacing-layout-xs);
     width: 100%;
@@ -50,7 +61,7 @@
   }
 
   .enrolButton {
-    color: var(--color-bus) ;
+    color: var(--color-bus);
     background-color: rgb(0, 215, 167);
   }
 

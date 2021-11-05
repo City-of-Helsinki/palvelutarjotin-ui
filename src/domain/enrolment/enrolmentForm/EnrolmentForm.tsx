@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import { Formik, Field, useFormikContext } from 'formik';
 import { Button, Notification } from 'hds-react';
 import isEmpty from 'lodash/isEmpty';
@@ -12,7 +13,8 @@ import TextAreaField from '../../../common/components/form/fields/TextAreaField'
 import TextInputField from '../../../common/components/form/fields/TextInputField';
 import FormErrorNotification from '../../../common/components/form/FormErrorNotification';
 import FormGroup from '../../../common/components/form/FormGroup';
-import { PRIVACY_POLICY_LINKS } from '../../../constants';
+import FormikPersist from '../../../common/components/formikPersist/FormikPersist';
+import { FORM_NAMES, PRIVACY_POLICY_LINKS } from '../../../constants';
 import { Language } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
 import keyify from '../../../utils/keyify';
@@ -54,7 +56,15 @@ const EnrolmentForm: React.FC<Props> = ({
       onSubmit={onSubmit}
       validationSchema={ValidationSchema}
     >
-      {({ errors, handleSubmit, touched, submitCount, values }) => {
+      {({
+        errors,
+        handleSubmit,
+        touched,
+        submitCount,
+        values,
+        dirty,
+        resetForm,
+      }) => {
         const {
           isSameResponsiblePerson,
           isMandatoryAdditionalInformationRequired,
@@ -70,6 +80,10 @@ const EnrolmentForm: React.FC<Props> = ({
             onSubmit={handleSubmit}
             noValidate
           >
+            <FormikPersist
+              name={FORM_NAMES.ENROLMENT_FORM}
+              initialValues={initialValues}
+            />
             <Container size="small">
               <h2>{t('enrolment:enrolmentForm.studyGroup.titleNotifier')}</h2>
               <FormErrorNotification
@@ -84,6 +98,16 @@ const EnrolmentForm: React.FC<Props> = ({
               >
                 {t('enrolment:enrolmentForm.studyGroup.notificationText')}
               </Notification>
+              <button
+                onClick={() => resetForm()}
+                type="button"
+                aria-hidden={!dirty}
+                className={classNames(styles.resetFormButton, {
+                  [styles.resetFormButtonVisible]: dirty,
+                })}
+              >
+                {t('enrolment:enrolmentForm.buttonResetForm')}
+              </button>
               <FormGroup>
                 <Field
                   label={t(nameToLabelPath['studyGroup.person.name'])}

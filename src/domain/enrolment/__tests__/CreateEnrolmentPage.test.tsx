@@ -4,6 +4,7 @@ import { advanceTo } from 'jest-date-mock';
 import React from 'react';
 import wait from 'waait';
 
+import { FORM_NAMES } from '../../../constants';
 import {
   OccurrenceNode,
   PalvelutarjotinEventNode,
@@ -17,6 +18,7 @@ import {
   fakeLocalizedObject,
   fakeOccurrences,
   fakePlace,
+  StudyLevel,
 } from '../../../utils/mockDataUtils';
 import {
   render,
@@ -28,7 +30,23 @@ import {
   within,
 } from '../../../utils/testUtils';
 import CreateEnrolmentPage from '../CreateEnrolmentPage';
+import { defaultInitialValues } from '../enrolmentForm/constants';
 import * as utils from '../utils';
+
+// couldn't get FormikPersist lodash debounce function work without this.
+jest.mock('lodash/debounce', () =>
+  jest.fn((func, wait) => {
+    let timeout: any;
+    return function executedFunction(...args: any) {
+      const later = () => {
+        timeout = null;
+        func(...args);
+      };
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait);
+    };
+  })
+);
 
 const eventId = '123321';
 const occurrenceId1 = '123321';
@@ -242,7 +260,7 @@ test('renders enrolment has not started yet text', async () => {
   ).not.toBeInTheDocument();
 });
 
-test('renders form and user can fill it and submit', async () => {
+test('renders form and user can fill it and submit and form is saved to local storage', async () => {
   // eslint-disable-next-line import/namespace
   const enrolOccurrenceMock = jest.fn();
   jest
@@ -342,6 +360,14 @@ test('renders form and user can fill it and submit', async () => {
   userEvent.click(
     screen.getByRole('button', { name: /lähetä ilmoittautuminen/i })
   );
+
+  // wait for debounce to trigger and populate localStorage
+  await act(() => wait(500));
+
+  expect(
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    JSON.parse(localStorage.getItem(FORM_NAMES.ENROLMENT_FORM)!)
+  ).toMatchSnapshot();
 
   await waitFor(() => {
     expect(enrolOccurrenceMock).toHaveBeenCalledWith({
@@ -574,5 +600,128 @@ test('Allow sms notifications if any of the phone numbers are given', async () =
   phoneFields.forEach((f) => userEvent.clear(f));
   await waitFor(() => {
     expect(screen.getByLabelText(/Tekstiviestillä/i)).toBeDisabled();
+  });
+});
+
+describe('form local storage', () => {
+  const testValues = {
+    hasEmailNotification: true,
+    hasSmsNotification: false,
+    isSameResponsiblePerson: true,
+    isSharingDataAccepted: false,
+    isMandatoryAdditionalInformationRequired: false,
+    language: '',
+    maxGroupSize: 0,
+    minGroupSize: 0,
+    studyGroup: {
+      person: {
+        name: 'Test person',
+        phoneNumber: '12312343657',
+        emailAddress: 'test@test.com',
+      },
+      name: 'study group name',
+      groupName: 'group name',
+      groupSize: '10',
+      amountOfAdult: '1',
+      studyLevels: [StudyLevel.Grade_1],
+      extraNeeds: 'extra needs',
+    },
+    person: {
+      name: '',
+      phoneNumber: '',
+      emailAddress: '',
+    },
+  };
+
+  const formikDefaultState = {
+    values: testValues,
+    errors: {},
+    touched: {},
+    isSubmitting: false,
+    isValidating: false,
+    submitCount: 0,
+    initialValues: defaultInitialValues,
+    initialErrors: {},
+    initialTouched: {},
+    isValid: true,
+    dirty: true,
+    validateOnBlur: true,
+    validateOnChange: true,
+    validateOnMount: false,
+  };
+
+  test("form doesn't break if localstorage data is deprecated", async () => {
+    localStorage.setItem(
+      FORM_NAMES.ENROLMENT_FORM,
+      // change studygroup in localstorage to differ from form values
+      JSON.stringify({
+        ...formikDefaultState,
+        values: { ...testValues, studyGroup: { name: 'name' } },
+      })
+    );
+
+    render(<CreateEnrolmentPage />, {
+      mocks: pageMockWithLocation,
+      query: { eventId: eventId, occurrences: occurrenceIds },
+    });
+
+    await screen.findByRole('heading', { name: /ilmoittajan tiedot/i });
+
+    const nameInput = (
+      await screen.findAllByRole('textbox', { name: /nimi \*/i })
+    )[0];
+    // shoud not initialize from local storage
+    expect(nameInput).toHaveValue('');
+  });
+
+  test('form is prefilled from local storage', async () => {
+    localStorage.setItem(
+      FORM_NAMES.ENROLMENT_FORM,
+      JSON.stringify(formikDefaultState)
+    );
+
+    render(<CreateEnrolmentPage />, {
+      mocks: pageMockWithLocation,
+      query: { eventId: eventId, occurrences: occurrenceIds },
+    });
+
+    await screen.findByRole('heading', { name: /ilmoittajan tiedot/i });
+
+    const nameInput = (
+      await screen.findAllByRole('textbox', { name: /nimi \*/i })
+    )[0];
+    expect(nameInput).toHaveValue(testValues.studyGroup.person.name);
+
+    const emailInput = screen.getAllByLabelText(/sähköpostiosoite \*/i)[0];
+    expect(emailInput).toHaveValue(testValues.studyGroup.person.emailAddress);
+
+    const phoneInput = screen.getAllByLabelText(/puhelinnumero/i)[0];
+    expect(phoneInput).toHaveValue(testValues.studyGroup.person.phoneNumber);
+
+    const studyGroupGroupName = screen.getByLabelText(
+      /päiväkoti \/ koulu \/ oppilaitos \*/i
+    );
+    expect(studyGroupGroupName).toHaveValue(testValues.studyGroup.name);
+
+    const studyGroupNameInput = screen.getByLabelText(/ryhmä/i);
+    expect(studyGroupNameInput).toHaveValue(testValues.studyGroup.groupName);
+
+    // grade level should be selected
+    screen.getByText(/1\. luokka/i);
+
+    const childrenCountInput = screen.getByLabelText(/lapsia \*/i);
+    expect(childrenCountInput).toHaveValue(10);
+
+    const adultsCountInput = screen.getByLabelText(/aikuisia \*/i);
+    expect(adultsCountInput).toHaveValue(1);
+
+    const extraNeedsInput = screen.getByLabelText(
+      /lisätiedot \(valinnainen\)/i
+    );
+    expect(extraNeedsInput).toHaveValue(testValues.studyGroup.extraNeeds);
+
+    const chargeOfTheGroupCheckbox =
+      screen.getByLabelText(/sama kuin ilmoittaja/i);
+    expect(chargeOfTheGroupCheckbox).toBeChecked();
   });
 });
