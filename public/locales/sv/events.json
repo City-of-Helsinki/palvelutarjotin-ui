@@ -13,9 +13,12 @@
     "lastModifiedTimeDesc": "Senast ändrad",
     "startTime": "Aktuell"
   },
+  "eventsSearchPage": {
+    "title": "Evenemangansökan"
+  },
   "search": {
     "buttonClear": "Radera sökkriterier",
-    "buttonSearch": "Sök",
+    "buttonSearch": "Sök evenemang",
     "labelText": "Sök evenemang",
     "placeholderText": "Sök evenemang...",
     "title": "Sök evenemang",
@@ -30,6 +33,9 @@
     "labelTargetGroups": "Målgrupper",
     "labelActivities": "Aktiviteter",
     "placeInputPlaceholder": "Skriv sökord",
+    "buttonEditSearch": "Redigera sökning",
+    "buttonAdvancedSearch": "Specifik sökning",
+    "buttonHideAdditionalFields": "Dölj tilläggsfälten",
     "accessibility": {
       "audienceDropdown": {
         "clearButtonAriaLabel": "Ta bort målgruppsfilter",

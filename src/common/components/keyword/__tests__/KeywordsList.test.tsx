@@ -122,14 +122,14 @@ it('renders list of keywords as links with correct hrefs', async () => {
   const categoryLink = screen.getByRole('link', {
     name: /vaikuttaminen ja osallisuus/i,
   });
-  expect(categoryLink).toHaveAttribute('href', '/?categories=kultus%3A1');
+  expect(categoryLink).toHaveAttribute('href', '/search?categories=kultus%3A1');
 
   const targetGroupKeyword = screen.getByRole('link', {
     name: /valmistava opetus/i,
   });
   expect(targetGroupKeyword).toHaveAttribute(
     'href',
-    '/?targetGroups=kultus%3A11'
+    '/search?targetGroups=kultus%3A11'
   );
 
   const additionalCriteriaKeyword = screen.getByRole('link', {
@@ -137,7 +137,7 @@ it('renders list of keywords as links with correct hrefs', async () => {
   });
   expect(additionalCriteriaKeyword).toHaveAttribute(
     'href',
-    '/?additionalCriteria=kultus%3A6'
+    '/search?additionalCriteria=kultus%3A6'
   );
 
   expect(container).toMatchSnapshot();

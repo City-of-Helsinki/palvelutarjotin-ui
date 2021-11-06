@@ -1,104 +1,45 @@
 import { useTranslation } from 'next-i18next';
 import Head from 'next/head';
-import { useRouter } from 'next/router';
 import React, { ReactElement } from 'react';
 
 import LoadingSpinner from '../../common/components/loadingSpinner/LoadingSpinner';
-import { useEventsQuery } from '../../generated/graphql';
-import getPageNumberFromUrl from '../../utils/getPageNumberFromUrl';
 import Container from '../app/layout/Container';
 import PageWrapper from '../app/layout/PageWrapper';
-import { ROUTES } from '../app/routes/constants';
 import BannerHero from '../bannerHero/BannerHero';
-import { EVENT_LIST_PAGE_SIZE, EVENT_SORT_OPTIONS } from './constants';
 import EventList from './eventList/EventList';
-import EventSearchForm, {
-  EventSearchFormValues,
-} from './eventSearchForm/EventSearchForm';
-import {
-  getEventFilterVariables,
-  getInitialValues,
-  getTextFromDict,
-  getSearchQueryObject,
-} from './utils';
+import EventSearchForm, { PanelState } from './eventSearchForm/EventSearchForm';
+import styles from './eventsPage.module.scss';
+import { useEventsSearch } from './EventsSearchPage';
+
+const panelStates = {
+  closed: PanelState.Condensed,
+  open: PanelState.Advanced,
+};
 
 const EventsPage = (): ReactElement => {
-  const router = useRouter();
-  const [isLoadingMore, setIsLoadingMore] = React.useState(false);
-
-  const variables = React.useMemo(
-    () =>
-      getEventFilterVariables(router.query, { pageSize: EVENT_LIST_PAGE_SIZE }),
-    [router.query]
-  );
-  const [sort, setSort] = React.useState<EVENT_SORT_OPTIONS>(
-    (getTextFromDict(router.query, 'sort') ||
-      EVENT_SORT_OPTIONS.START_TIME) as EVENT_SORT_OPTIONS
+  const [searchPanelState, setSearchPanelState] = React.useState<PanelState>(
+    panelStates.closed
   );
 
   const {
-    data: eventsData,
-    fetchMore,
+    initialValues,
     loading,
-    error,
-  } = useEventsQuery({
-    ssr: false,
-    variables: { ...variables, sort },
-  });
+    events,
+    eventsCount,
+    isLoadingMore,
+    nextPage,
+    sort,
+    fetchMoreEvents,
+    search,
+    setSort,
+  } = useEventsSearch();
 
-  const organisationName =
-    eventsData?.events?.data?.filter(
-      (event) => event.pEvent.organisation?.id === router.query?.organisation
-    )[0]?.pEvent.organisation?.name || '';
-
-  const initialValues = React.useMemo(() => {
-    return {
-      ...getInitialValues(router.query),
-      organisation: organisationName,
-      organisationId: router.query?.organisation as string,
-    };
-  }, [router.query, organisationName]);
-
-  const eventsWithUpcomingOccurrences = eventsData?.events?.data;
-
-  const search = (values: EventSearchFormValues) => {
-    values = { ...values, organisation: values.organisationId };
-    delete values.organisationId;
-
-    router.push({
-      pathname: ROUTES.HOME,
-      query: getSearchQueryObject(values),
-    });
-  };
-
-  const clearForm = () => {
-    router.push({
-      pathname: ROUTES.HOME,
-      query: {},
-    });
-  };
-
-  const nextPage = React.useMemo(() => {
-    const nextUrl = eventsData?.events?.meta.next;
-    return nextUrl ? getPageNumberFromUrl(nextUrl) : null;
-  }, [eventsData?.events?.meta?.next]);
-
-  const shouldShowLoadMore = Boolean(nextPage);
-
-  const fetchMoreEvents = async () => {
-    if (nextPage) {
-      try {
-        setIsLoadingMore(true);
-        await fetchMore({
-          variables: {
-            page: nextPage,
-          },
-        });
-        setIsLoadingMore(false);
-      } catch (e) {
-        setIsLoadingMore(false);
-      }
-    }
+  const handleToggleAdvancedSearch = () => {
+    setSearchPanelState(
+      searchPanelState === panelStates.closed
+        ? panelStates.open
+        : panelStates.closed
+    );
   };
 
   return (
@@ -106,23 +47,26 @@ const EventsPage = (): ReactElement => {
       <EventsPageMeta />
       <BannerHero>
         <Container>
-          <EventSearchForm
-            initialValues={initialValues}
-            onClear={clearForm}
-            onSubmit={search}
-          />
+          <div className={styles.eventsSearchForm}>
+            <EventSearchForm
+              initialValues={initialValues}
+              onSubmit={search}
+              onToggleAdvancedSearch={handleToggleAdvancedSearch}
+              panelState={searchPanelState}
+            />
+          </div>
         </Container>
       </BannerHero>
 
       <Container>
         <LoadingSpinner isLoading={loading}>
-          {eventsWithUpcomingOccurrences && (
+          {events && (
             <EventList
-              events={eventsWithUpcomingOccurrences}
-              eventsCount={eventsData?.events?.meta.count}
+              events={events}
+              eventsCount={eventsCount}
               fetchMore={fetchMoreEvents}
               isLoading={isLoadingMore}
-              shouldShowLoadMore={shouldShowLoadMore}
+              shouldShowLoadMore={Boolean(nextPage)}
               sort={sort}
               setSort={setSort}
             />

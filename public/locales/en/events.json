@@ -13,9 +13,12 @@
     "lastModifiedTimeDesc": "Last modified",
     "startTime": "Topical"
   },
+  "eventsSearchPage": {
+    "title": "Events search"
+  },
   "search": {
     "buttonClear": "Clear search criteria",
-    "buttonSearch": "Search",
+    "buttonSearch": "Search events",
     "labelText": "Search events",
     "placeholderText": "Search events...",
     "title": "Search events",
@@ -30,6 +33,9 @@
     "labelTargetGroups": "Target groups",
     "labelActivities": "Activities",
     "placeInputPlaceholder": "Write search word",
+    "buttonEditSearch": "Edit search",
+    "buttonAdvancedSearch": "Advanced search",
+    "buttonHideAdditionalFields": "Hide additional fields",
     "accessibility": {
       "audienceDropdown": {
         "clearButtonAriaLabel": "Delete audience filters",

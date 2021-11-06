@@ -7,6 +7,6 @@ import getLocalizationProps from '../utils/getLocalizationProps';
 const Error: NextPage = () => <NotFoundPage />;
 
 Error.getInitialProps = async ({ locale }: NextPageContext) =>
-  getLocalizationProps(locale);
+  getLocalizationProps(locale ?? 'fi');
 
 export default Error;
