@@ -33,7 +33,8 @@ import CreateEnrolmentPage from '../CreateEnrolmentPage';
 import { defaultInitialValues } from '../enrolmentForm/constants';
 import * as utils from '../utils';
 
-// couldn't get FormikPersist lodash debounce function work without this.
+// couldn't get FormikPersist lodash debounce to work in tests
+// it was never being caled no matter how long you waited.
 jest.mock('lodash/debounce', () =>
   jest.fn((func, wait) => {
     let timeout: any;
