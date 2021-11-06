@@ -14,7 +14,7 @@
     "startTime": "Aktuell"
   },
   "eventsSearchPage": {
-    "title": "SV: Tapahtumahaku"
+    "title": "Evenemangansökan"
   },
   "search": {
     "buttonClear": "Radera sökkriterier",
@@ -33,9 +33,9 @@
     "labelTargetGroups": "Målgrupper",
     "labelActivities": "Aktiviteter",
     "placeInputPlaceholder": "Skriv sökord",
-    "buttonEditSearch": "SV: Edit search",
-    "buttonAdvancedSearch": "SV: Advanced search",
-    "buttonHideAdditionalFields": "SV: Hide additional fields",
+    "buttonEditSearch": "Redigera sökning",
+    "buttonAdvancedSearch": "Specifik sökning",
+    "buttonHideAdditionalFields": "Dölj tilläggsfälten",
     "accessibility": {
       "audienceDropdown": {
         "clearButtonAriaLabel": "Ta bort målgruppsfilter",
