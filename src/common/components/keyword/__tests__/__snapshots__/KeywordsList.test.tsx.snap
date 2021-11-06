@@ -9,7 +9,7 @@ exports[`renders list of keywords as links with correct hrefs 1`] = `
       <a
         aria-label="Hae tapahtumia avainsanalla Vaikuttaminen ja osallisuus"
         class="keyword"
-        href="/?categories=kultus%3A1"
+        href="/search?categories=kultus%3A1"
       >
         Vaikuttaminen ja osallisuus
       </a>
@@ -18,7 +18,7 @@ exports[`renders list of keywords as links with correct hrefs 1`] = `
       <a
         aria-label="Hae tapahtumia avainsanalla Teatteri, tanssi ja sirkus"
         class="keyword"
-        href="/?categories=kultus%3A2"
+        href="/search?categories=kultus%3A2"
       >
         Teatteri, tanssi ja sirkus
       </a>
@@ -27,7 +27,7 @@ exports[`renders list of keywords as links with correct hrefs 1`] = `
       <a
         aria-label="Hae tapahtumia avainsanalla Musiikki"
         class="keyword"
-        href="/?categories=kultus%3A3"
+        href="/search?categories=kultus%3A3"
       >
         Musiikki
       </a>
@@ -36,7 +36,7 @@ exports[`renders list of keywords as links with correct hrefs 1`] = `
       <a
         aria-label="Hae tapahtumia avainsanalla Sanataide ja kirjallisuus"
         class="keyword"
-        href="/?categories=kultus%3A4"
+        href="/search?categories=kultus%3A4"
       >
         Sanataide ja kirjallisuus
       </a>
@@ -45,7 +45,7 @@ exports[`renders list of keywords as links with correct hrefs 1`] = `
       <a
         aria-label="Hae tapahtumia avainsanalla Tiede"
         class="keyword"
-        href="/?categories=kultus%3A5"
+        href="/search?categories=kultus%3A5"
       >
         Tiede
       </a>
@@ -54,7 +54,7 @@ exports[`renders list of keywords as links with correct hrefs 1`] = `
       <a
         aria-label="Hae tapahtumia avainsanalla Valmistava opetus"
         class="keyword"
-        href="/?targetGroups=kultus%3A11"
+        href="/search?targetGroups=kultus%3A11"
       >
         Valmistava opetus
       </a>
@@ -63,7 +63,7 @@ exports[`renders list of keywords as links with correct hrefs 1`] = `
       <a
         aria-label="Hae tapahtumia avainsanalla 1.–2. luokat"
         class="keyword"
-        href="/?targetGroups=kultus%3A12"
+        href="/search?targetGroups=kultus%3A12"
       >
         1.–2. luokat
       </a>
@@ -72,7 +72,7 @@ exports[`renders list of keywords as links with correct hrefs 1`] = `
       <a
         aria-label="Hae tapahtumia avainsanalla 3.–6. luokat"
         class="keyword"
-        href="/?targetGroups=kultus%3A13"
+        href="/search?targetGroups=kultus%3A13"
       >
         3.–6. luokat
       </a>
@@ -81,7 +81,7 @@ exports[`renders list of keywords as links with correct hrefs 1`] = `
       <a
         aria-label="Hae tapahtumia avainsanalla 7.–9. luokat"
         class="keyword"
-        href="/?targetGroups=kultus%3A14"
+        href="/search?targetGroups=kultus%3A14"
       >
         7.–9. luokat
       </a>
@@ -90,7 +90,7 @@ exports[`renders list of keywords as links with correct hrefs 1`] = `
       <a
         aria-label="Hae tapahtumia avainsanalla lukio ja ammatillinen opetus"
         class="keyword"
-        href="/?targetGroups=kultus%3A15"
+        href="/search?targetGroups=kultus%3A15"
       >
         lukio ja ammatillinen opetus
       </a>
@@ -99,7 +99,7 @@ exports[`renders list of keywords as links with correct hrefs 1`] = `
       <a
         aria-label="Hae tapahtumia avainsanalla Työpaja"
         class="keyword"
-        href="/?additionalCriteria=kultus%3A6"
+        href="/search?additionalCriteria=kultus%3A6"
       >
         Työpaja
       </a>
@@ -108,7 +108,7 @@ exports[`renders list of keywords as links with correct hrefs 1`] = `
       <a
         aria-label="Hae tapahtumia avainsanalla Luento"
         class="keyword"
-        href="/?additionalCriteria=kultus%3A7"
+        href="/search?additionalCriteria=kultus%3A7"
       >
         Luento
       </a>
@@ -117,7 +117,7 @@ exports[`renders list of keywords as links with correct hrefs 1`] = `
       <a
         aria-label="Hae tapahtumia avainsanalla Luontokoulu"
         class="keyword"
-        href="/?additionalCriteria=kultus%3A8"
+        href="/search?additionalCriteria=kultus%3A8"
       >
         Luontokoulu
       </a>
@@ -126,7 +126,7 @@ exports[`renders list of keywords as links with correct hrefs 1`] = `
       <a
         aria-label="Hae tapahtumia avainsanalla Kirjastovierailu"
         class="keyword"
-        href="/?additionalCriteria=kultus%3A9"
+        href="/search?additionalCriteria=kultus%3A9"
       >
         Kirjastovierailu
       </a>
@@ -135,7 +135,7 @@ exports[`renders list of keywords as links with correct hrefs 1`] = `
       <a
         aria-label="Hae tapahtumia avainsanalla Konsertti"
         class="keyword"
-        href="/?additionalCriteria=kultus%3A10"
+        href="/search?additionalCriteria=kultus%3A10"
       >
         Konsertti
       </a>

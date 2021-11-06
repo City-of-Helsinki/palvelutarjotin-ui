@@ -30,7 +30,7 @@ const panelStates = {
 };
 
 // Search panels shoud be expanded if sarch parameters are used (other than text)
-const getInitialPanelState = (query: ParsedUrlQuery) => {
+const getPanelStateFromQuery = (query: ParsedUrlQuery) => {
   const filteredKeys = Object.keys(query).filter((k) => k !== 'text');
   return filteredKeys.length > 0 ? panelStates.open : panelStates.closed;
 };
@@ -39,7 +39,7 @@ const EventsSearchPage: React.FC = () => {
   const { t } = useTranslation();
   const router = useRouter();
   const [searchPanelState, setSearchPanelState] = React.useState<PanelState>(
-    () => getInitialPanelState(router.query)
+    () => getPanelStateFromQuery(router.query)
   );
   const {
     initialValues,
@@ -61,6 +61,10 @@ const EventsSearchPage: React.FC = () => {
         : panelStates.closed
     );
   };
+
+  React.useEffect(() => {
+    setSearchPanelState(getPanelStateFromQuery(router.query));
+  }, [router.query]);
 
   return (
     <PageWrapper title={t('events:eventsSearchPage.title')}>

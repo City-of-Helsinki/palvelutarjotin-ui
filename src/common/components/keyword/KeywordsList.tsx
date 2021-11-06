@@ -31,7 +31,7 @@ const KeywordsList: React.FC<KeywordsListProps> = ({ keywords }) => {
       {keywordsPropArr.map((k) => (
         <li key={k.id}>
           <Keyword
-            href={{ pathname: ROUTES.HOME, query: k.query }}
+            href={{ pathname: ROUTES.EVENTS_SEARCH, query: k.query }}
             keyword={k.label}
             aria-label={t('event:keywords.labelKeywordLink', {
               keyword: k.label,
