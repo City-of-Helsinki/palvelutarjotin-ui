@@ -51,5 +51,16 @@
   "feedbackLink": "Ge respons",
   "srOnly": {
     "opensInANewTab": "Öppnas i en ny flik"
+  },
+  "autoSuggest": {
+    "accessibility": {
+      "clearValueButtonAriaMessage": "Klart värde",
+      "deselectOptionAriaMessage": "Alternativet {{value}}, avmarkerat.",
+      "deselectOptionButtonAriaMessage": "Avmarkera alternativet: {{value}}",
+      "focusAriaMessage": "{{value}}, {{index}} av {{n}}.",
+      "selectOptionAriaMessage": "Alternativet {{value}}, valt."
+    },
+    "loading": "Laddning ...",
+    "noResults": "Inga resultat"
   }
 }

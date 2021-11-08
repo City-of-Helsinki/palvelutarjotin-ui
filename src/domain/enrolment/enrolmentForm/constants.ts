@@ -18,6 +18,7 @@ export type EnrolmentFormFields = {
       phoneNumber: string;
       emailAddress: string;
     };
+    unitId: string;
     unitName: string;
     groupName: string;
     groupSize: string;
@@ -47,6 +48,7 @@ export const defaultInitialValues: EnrolmentFormFields = {
       phoneNumber: '',
       emailAddress: '',
     },
+    unitId: '',
     unitName: '',
     groupName: '',
     groupSize: '',

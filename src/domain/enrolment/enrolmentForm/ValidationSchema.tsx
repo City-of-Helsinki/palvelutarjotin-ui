@@ -92,8 +92,25 @@ export default Yup.object().shape({
               .required(VALIDATION_MESSAGE_KEYS.STRING_REQUIRED)
               .email(VALIDATION_MESSAGE_KEYS.EMAIL),
           }),
-          unitName: Yup.string().required(
-            VALIDATION_MESSAGE_KEYS.STRING_REQUIRED
+          unitName: Yup.string().when(
+            ['unitId'],
+            (unitId: string, schema: Yup.StringSchema) => {
+              console.log('unitId', unitId);
+              if (!unitId) {
+                return schema.required(VALIDATION_MESSAGE_KEYS.STRING_REQUIRED);
+              }
+              return schema.nullable();
+            }
+          ),
+          unitId: Yup.string().when(
+            ['unitName'],
+            (unitName: string, schema: Yup.StringSchema) => {
+              console.log('unitName', unitName);
+              if (!unitName) {
+                return schema.required(VALIDATION_MESSAGE_KEYS.STRING_REQUIRED);
+              }
+              return schema.nullable();
+            }
           ),
           groupName: Yup.string().required(
             VALIDATION_MESSAGE_KEYS.STRING_REQUIRED
@@ -130,7 +147,10 @@ export default Yup.object().shape({
             .required(VALIDATION_MESSAGE_KEYS.STRING_REQUIRED)
             .min(1, VALIDATION_MESSAGE_KEYS.STRING_REQUIRED),
         },
-        [['groupSize', 'amountOfAdult']]
+        [
+          ['groupSize', 'amountOfAdult'],
+          ['unitId', 'unitName'],
+        ]
       );
       // For some reason typescript complains event though it is correct
       // eslint-disable-next-line @typescript-eslint/no-explicit-any

@@ -290,6 +290,13 @@ test('renders form and user can fill it and submit and form is saved to local st
     screen.getByRole('textbox', { name: /puhelinnumero/i }),
     '123321123'
   );
+
+  userEvent.click(
+    screen.getByRole('checkbox', {
+      name: /paikka helsingin ulkopuolelta/i,
+    })
+  );
+
   userEvent.type(
     screen.getByRole('textbox', { name: /päiväkoti \/ koulu \/ oppilaitos/i }),
     'Testikoulu'
@@ -367,6 +374,7 @@ test('renders form and user can fill it and submit and form is saved to local st
             extraNeeds: 'Lisätietoja ilmoittautumiseen',
             groupName: '4a',
             groupSize: 10,
+            unitId: null,
             unitName: 'Testikoulu',
             person: {
               emailAddress: 'testi@testi.fi',

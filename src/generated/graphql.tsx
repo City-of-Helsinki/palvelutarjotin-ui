@@ -120,7 +120,8 @@ export type AddOrganisationMutationPayload = {
 export type AddStudyGroupMutationInput = {
   /** If person input doesn't include person id, a new person object will be created */
   person: PersonNodeInput;
-  name?: Maybe<Scalars['String']>;
+  unitId?: Maybe<Scalars['String']>;
+  unitName?: Maybe<Scalars['String']>;
   groupSize: Scalars['Int'];
   groupName?: Maybe<Scalars['String']>;
   extraNeeds?: Maybe<Scalars['String']>;
@@ -411,6 +412,11 @@ export type ExternalLink = {
   name?: Maybe<Scalars['String']>;
   link?: Maybe<Scalars['String']>;
   language?: Maybe<Scalars['String']>;
+};
+
+export type ExternalPlace = {
+  __typename?: 'ExternalPlace';
+  name?: Maybe<LocalisedObject>;
 };
 
 export type IdObject = {
@@ -1339,6 +1345,7 @@ export type Query = {
   /** The ID of the object */
   organisation?: Maybe<OrganisationNode>;
   organisations?: Maybe<OrganisationNodeConnection>;
+  schoolsAndKindergartensList?: Maybe<ServiceUnitNameListResponse>;
   events?: Maybe<EventListResponse>;
   event?: Maybe<Event>;
   places?: Maybe<PlaceListResponse>;
@@ -1489,6 +1496,12 @@ export type QueryOrganisationsArgs = {
 };
 
 
+export type QuerySchoolsAndKindergartensListArgs = {
+  page?: Maybe<Scalars['Int']>;
+  pageSize?: Maybe<Scalars['Int']>;
+};
+
+
 export type QueryEventsArgs = {
   division?: Maybe<Array<Maybe<Scalars['String']>>>;
   end?: Maybe<Scalars['String']>;
@@ -1588,10 +1601,23 @@ export enum SeatType {
   EnrolmentCount = 'ENROLMENT_COUNT'
 }
 
+export type ServiceUnitNameListResponse = {
+  __typename?: 'ServiceUnitNameListResponse';
+  meta: Meta;
+  data: Array<ServiceUnitNode>;
+};
+
+export type ServiceUnitNode = {
+  __typename?: 'ServiceUnitNode';
+  id: Scalars['ID'];
+  name?: Maybe<LocalisedObject>;
+};
+
 export type StudyGroupInput = {
   /** If person input doesn't include person id, a new person object will be created */
   person: PersonNodeInput;
-  name?: Maybe<Scalars['String']>;
+  unitId?: Maybe<Scalars['String']>;
+  unitName?: Maybe<Scalars['String']>;
   groupSize: Scalars['Int'];
   groupName?: Maybe<Scalars['String']>;
   extraNeeds?: Maybe<Scalars['String']>;
@@ -1606,7 +1632,8 @@ export type StudyGroupNode = Node & {
   createdAt: Scalars['DateTime'];
   updatedAt: Scalars['DateTime'];
   person: PersonNode;
-  name: Scalars['String'];
+  unitId?: Maybe<Scalars['String']>;
+  unitName: Scalars['String'];
   groupSize: Scalars['Int'];
   amountOfAdult: Scalars['Int'];
   groupName: Scalars['String'];
@@ -1614,6 +1641,7 @@ export type StudyGroupNode = Node & {
   extraNeeds: Scalars['String'];
   occurrences: OccurrenceNodeConnection;
   enrolments: EnrolmentNodeConnection;
+  unit?: Maybe<UnitNode>;
 };
 
 
@@ -1714,6 +1742,8 @@ export type UnenrolOccurrenceMutationPayload = {
   studyGroup?: Maybe<StudyGroupNode>;
   clientMutationId?: Maybe<Scalars['String']>;
 };
+
+export type UnitNode = ExternalPlace | Place;
 
 export type UnpublishEventMutation = {
   __typename?: 'UnpublishEventMutation';
@@ -1864,7 +1894,8 @@ export type UpdatePersonMutationPayload = {
 export type UpdateStudyGroupMutationInput = {
   id: Scalars['ID'];
   person?: Maybe<PersonNodeInput>;
-  name?: Maybe<Scalars['String']>;
+  unitId?: Maybe<Scalars['String']>;
+  unitName?: Maybe<Scalars['String']>;
   groupSize?: Maybe<Scalars['Int']>;
   groupName?: Maybe<Scalars['String']>;
   extraNeeds?: Maybe<Scalars['String']>;
@@ -1964,9 +1995,9 @@ export type EnrolOccurrenceMutationVariables = Exact<{
 }>;
 
 
-export type EnrolOccurrenceMutation = { __typename?: 'Mutation', enrolOccurrence?: Maybe<{ __typename?: 'EnrolOccurrenceMutationPayload', enrolments?: Maybe<Array<Maybe<{ __typename?: 'EnrolmentNode', id: string, notificationType?: Maybe<NotificationType>, enrolmentTime: any, status?: Maybe<EnrolmentStatus>, person?: Maybe<{ __typename?: 'PersonNode', id: string, emailAddress: string, name: string, phoneNumber: string, language: Language }>, studyGroup: { __typename?: 'StudyGroupNode', id: string, name: string, groupSize: number, amountOfAdult: number, groupName: string, extraNeeds: string, studyLevels: { __typename?: 'StudyLevelNodeConnection', edges: Array<Maybe<{ __typename?: 'StudyLevelNodeEdge', node?: Maybe<{ __typename?: 'StudyLevelNode', id: string, label?: Maybe<string>, level: number, translations: Array<{ __typename?: 'StudyLevelTranslationType', languageCode: Language, label: string }> }> }>> }, person: { __typename?: 'PersonNode', id: string, emailAddress: string, name: string, phoneNumber: string, language: Language } } }>>> }> };
+export type EnrolOccurrenceMutation = { __typename?: 'Mutation', enrolOccurrence?: Maybe<{ __typename?: 'EnrolOccurrenceMutationPayload', enrolments?: Maybe<Array<Maybe<{ __typename?: 'EnrolmentNode', id: string, notificationType?: Maybe<NotificationType>, enrolmentTime: any, status?: Maybe<EnrolmentStatus>, person?: Maybe<{ __typename?: 'PersonNode', id: string, emailAddress: string, name: string, phoneNumber: string, language: Language }>, studyGroup: { __typename?: 'StudyGroupNode', id: string, unitId?: Maybe<string>, unitName: string, groupSize: number, amountOfAdult: number, groupName: string, extraNeeds: string, unit?: Maybe<{ __typename?: 'ExternalPlace', name?: Maybe<{ __typename?: 'LocalisedObject', en?: Maybe<string>, fi?: Maybe<string>, sv?: Maybe<string> }> } | { __typename?: 'Place', internalId: string, id?: Maybe<string>, name?: Maybe<{ __typename?: 'LocalisedObject', en?: Maybe<string>, fi?: Maybe<string>, sv?: Maybe<string> }> }>, studyLevels: { __typename?: 'StudyLevelNodeConnection', edges: Array<Maybe<{ __typename?: 'StudyLevelNodeEdge', node?: Maybe<{ __typename?: 'StudyLevelNode', id: string, label?: Maybe<string>, level: number, translations: Array<{ __typename?: 'StudyLevelTranslationType', languageCode: Language, label: string }> }> }>> }, person: { __typename?: 'PersonNode', id: string, emailAddress: string, name: string, phoneNumber: string, language: Language } } }>>> }> };
 
-export type EnrolmentFieldsFragment = { __typename?: 'EnrolmentNode', id: string, notificationType?: Maybe<NotificationType>, enrolmentTime: any, status?: Maybe<EnrolmentStatus>, person?: Maybe<{ __typename?: 'PersonNode', id: string, emailAddress: string, name: string, phoneNumber: string, language: Language }>, studyGroup: { __typename?: 'StudyGroupNode', id: string, name: string, groupSize: number, amountOfAdult: number, groupName: string, extraNeeds: string, studyLevels: { __typename?: 'StudyLevelNodeConnection', edges: Array<Maybe<{ __typename?: 'StudyLevelNodeEdge', node?: Maybe<{ __typename?: 'StudyLevelNode', id: string, label?: Maybe<string>, level: number, translations: Array<{ __typename?: 'StudyLevelTranslationType', languageCode: Language, label: string }> }> }>> }, person: { __typename?: 'PersonNode', id: string, emailAddress: string, name: string, phoneNumber: string, language: Language } } };
+export type EnrolmentFieldsFragment = { __typename?: 'EnrolmentNode', id: string, notificationType?: Maybe<NotificationType>, enrolmentTime: any, status?: Maybe<EnrolmentStatus>, person?: Maybe<{ __typename?: 'PersonNode', id: string, emailAddress: string, name: string, phoneNumber: string, language: Language }>, studyGroup: { __typename?: 'StudyGroupNode', id: string, unitId?: Maybe<string>, unitName: string, groupSize: number, amountOfAdult: number, groupName: string, extraNeeds: string, unit?: Maybe<{ __typename?: 'ExternalPlace', name?: Maybe<{ __typename?: 'LocalisedObject', en?: Maybe<string>, fi?: Maybe<string>, sv?: Maybe<string> }> } | { __typename?: 'Place', internalId: string, id?: Maybe<string>, name?: Maybe<{ __typename?: 'LocalisedObject', en?: Maybe<string>, fi?: Maybe<string>, sv?: Maybe<string> }> }>, studyLevels: { __typename?: 'StudyLevelNodeConnection', edges: Array<Maybe<{ __typename?: 'StudyLevelNodeEdge', node?: Maybe<{ __typename?: 'StudyLevelNode', id: string, label?: Maybe<string>, level: number, translations: Array<{ __typename?: 'StudyLevelTranslationType', languageCode: Language, label: string }> }> }>> }, person: { __typename?: 'PersonNode', id: string, emailAddress: string, name: string, phoneNumber: string, language: Language } } };
 
 export type PEventFieldsFragment = { __typename?: 'PalvelutarjotinEventNode', autoAcceptance: boolean, id: string, enrolmentEndDays?: Maybe<number>, enrolmentStart?: Maybe<any>, externalEnrolmentUrl?: Maybe<string>, neededOccurrences: number, contactPhoneNumber: string, contactEmail: string, mandatoryAdditionalInformation: boolean, nextOccurrenceDatetime?: Maybe<any>, lastOccurrenceDatetime?: Maybe<any>, organisation?: Maybe<{ __typename?: 'OrganisationNode', id: string, name: string }>, contactPerson?: Maybe<{ __typename?: 'PersonNode', id: string, name: string }>, occurrences?: Maybe<{ __typename?: 'OccurrenceNodeConnection', edges: Array<Maybe<{ __typename?: 'OccurrenceNodeEdge', node?: Maybe<{ __typename?: 'OccurrenceNode', id: string, amountOfSeats: number, seatsTaken: number, seatType: OccurrenceSeatType, remainingSeats: number, minGroupSize?: Maybe<number>, maxGroupSize?: Maybe<number>, cancelled: boolean, startTime: any, endTime: any, placeId: string, pEvent?: Maybe<{ __typename?: 'PalvelutarjotinEventNode', id: string }>, languages: { __typename?: 'LanguageNodeConnection', edges: Array<Maybe<{ __typename?: 'LanguageNodeEdge', node?: Maybe<{ __typename?: 'LanguageNode', id: string, name: string }> }>> } }> }>> }>, nextOccurrence?: Maybe<{ __typename?: 'OccurrenceNodeConnection', edges: Array<Maybe<{ __typename?: 'OccurrenceNodeEdge', node?: Maybe<{ __typename?: 'OccurrenceNode', id: string, startTime: any, endTime: any }> }>> }> };
 
@@ -2102,7 +2133,7 @@ export type PlacesQueryVariables = Exact<{
 
 export type PlacesQuery = { __typename?: 'Query', places?: Maybe<{ __typename?: 'PlaceListResponse', meta: { __typename?: 'Meta', count?: Maybe<number>, next?: Maybe<string>, previous?: Maybe<string> }, data: Array<{ __typename?: 'Place', id?: Maybe<string>, internalId: string, name?: Maybe<{ __typename?: 'LocalisedObject', en?: Maybe<string>, fi?: Maybe<string>, sv?: Maybe<string> }>, streetAddress?: Maybe<{ __typename?: 'LocalisedObject', en?: Maybe<string>, fi?: Maybe<string>, sv?: Maybe<string> }>, addressLocality?: Maybe<{ __typename?: 'LocalisedObject', en?: Maybe<string>, fi?: Maybe<string>, sv?: Maybe<string> }>, telephone?: Maybe<{ __typename?: 'LocalisedObject', en?: Maybe<string>, fi?: Maybe<string>, sv?: Maybe<string> }> }> }> };
 
-export type StudyGroupFieldsFragment = { __typename?: 'StudyGroupNode', id: string, name: string, groupSize: number, amountOfAdult: number, groupName: string, extraNeeds: string, studyLevels: { __typename?: 'StudyLevelNodeConnection', edges: Array<Maybe<{ __typename?: 'StudyLevelNodeEdge', node?: Maybe<{ __typename?: 'StudyLevelNode', id: string, label?: Maybe<string>, level: number, translations: Array<{ __typename?: 'StudyLevelTranslationType', languageCode: Language, label: string }> }> }>> }, person: { __typename?: 'PersonNode', id: string, emailAddress: string, name: string, phoneNumber: string, language: Language } };
+export type StudyGroupFieldsFragment = { __typename?: 'StudyGroupNode', id: string, unitId?: Maybe<string>, unitName: string, groupSize: number, amountOfAdult: number, groupName: string, extraNeeds: string, unit?: Maybe<{ __typename?: 'ExternalPlace', name?: Maybe<{ __typename?: 'LocalisedObject', en?: Maybe<string>, fi?: Maybe<string>, sv?: Maybe<string> }> } | { __typename?: 'Place', internalId: string, id?: Maybe<string>, name?: Maybe<{ __typename?: 'LocalisedObject', en?: Maybe<string>, fi?: Maybe<string>, sv?: Maybe<string> }> }>, studyLevels: { __typename?: 'StudyLevelNodeConnection', edges: Array<Maybe<{ __typename?: 'StudyLevelNodeEdge', node?: Maybe<{ __typename?: 'StudyLevelNode', id: string, label?: Maybe<string>, level: number, translations: Array<{ __typename?: 'StudyLevelTranslationType', languageCode: Language, label: string }> }> }>> }, person: { __typename?: 'PersonNode', id: string, emailAddress: string, name: string, phoneNumber: string, language: Language } };
 
 export type StudyLevelFieldsFragment = { __typename?: 'StudyLevelNode', id: string, label?: Maybe<string>, level: number, translations: Array<{ __typename?: 'StudyLevelTranslationType', languageCode: Language, label: string }> };
 
@@ -2136,6 +2167,13 @@ export const PersonFieldsFragmentDoc = gql`
   language
 }
     `;
+export const LocalisedFieldsFragmentDoc = gql`
+    fragment localisedFields on LocalisedObject {
+  en
+  fi
+  sv
+}
+    `;
 export const StudyLevelFieldsFragmentDoc = gql`
     fragment studyLevelFields on StudyLevelNode {
   id
@@ -2150,7 +2188,22 @@ export const StudyLevelFieldsFragmentDoc = gql`
 export const StudyGroupFieldsFragmentDoc = gql`
     fragment studyGroupFields on StudyGroupNode {
   id
-  name
+  unitId
+  unitName
+  unit {
+    ... on ExternalPlace {
+      name {
+        ...localisedFields
+      }
+    }
+    ... on Place {
+      internalId
+      id
+      name {
+        ...localisedFields
+      }
+    }
+  }
   groupSize
   amountOfAdult
   groupName
@@ -2166,7 +2219,8 @@ export const StudyGroupFieldsFragmentDoc = gql`
     ...personFields
   }
 }
-    ${StudyLevelFieldsFragmentDoc}
+    ${LocalisedFieldsFragmentDoc}
+${StudyLevelFieldsFragmentDoc}
 ${PersonFieldsFragmentDoc}`;
 export const EnrolmentFieldsFragmentDoc = gql`
     fragment enrolmentFields on EnrolmentNode {
@@ -2183,13 +2237,6 @@ export const EnrolmentFieldsFragmentDoc = gql`
 }
     ${PersonFieldsFragmentDoc}
 ${StudyGroupFieldsFragmentDoc}`;
-export const LocalisedFieldsFragmentDoc = gql`
-    fragment localisedFields on LocalisedObject {
-  en
-  fi
-  sv
-}
-    `;
 export const ImageFieldsFragmentDoc = gql`
     fragment imageFields on Image {
   id

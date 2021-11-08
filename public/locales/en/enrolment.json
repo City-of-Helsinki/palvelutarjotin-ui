@@ -37,7 +37,12 @@
       "titleGroup": "Group information",
       "titleNotifier": "Notifier information",
       "notificationLabel": "Please fill the required information",
-      "notificationText": "All the required fields are marked with *"
+      "notificationText": "All the required fields are marked with *",
+      "helperUnitId": "Search for a place in city of Helsinki",
+      "placeholderUnitId": "Name of the unit",
+      "helperUnitName": "Write the name of the unit",
+      "placeholderUnitName": "Name of the unit",
+      "showUnitNameLabel": "A place outside Helsinki"
     },
     "titleNotifications": "Event notifications",
     "titleResponsiblePerson": "An adult in charge of the group during the event",
