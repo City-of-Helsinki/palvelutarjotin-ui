@@ -555,14 +555,14 @@ test('Do not allow sms notifications if no phone number is given', async () => {
   expect(phoneField).not.toHaveValue();
   expect(smsField).toBeDisabled();
   userEvent.type(phoneField, '123');
-  userEvent.tab();
+  act(() => userEvent.tab());
   await waitFor(() => {
     expect(screen.getByLabelText(/Tekstiviestillä/i)).not.toBeDisabled();
   });
-  userEvent.click(smsField);
+  act(() => userEvent.click(smsField));
   expect(smsField).toBeChecked();
   userEvent.clear(phoneField);
-  userEvent.tab();
+  act(() => userEvent.tab());
   await waitFor(() => {
     expect(screen.getByLabelText(/Tekstiviestillä/i)).toBeDisabled();
   });
@@ -723,5 +723,7 @@ describe('form local storage', () => {
     const chargeOfTheGroupCheckbox =
       screen.getByLabelText(/sama kuin ilmoittaja/i);
     expect(chargeOfTheGroupCheckbox).toBeChecked();
+
+    await act(wait);
   });
 });
