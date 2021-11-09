@@ -1,10 +1,22 @@
 import { FormikProps, useFormikContext } from 'formik';
-import debounce from 'lodash/debounce';
 import isEqual from 'lodash/isEqual';
 import * as React from 'react';
 
 import useIsMounted from '../../../hooks/useIsMounted';
 import keyify from '../../../utils/keyify';
+
+// lodash/debounce was problematic in tests so we use our own simple implementation
+const debounce = (cb: (...params: any[]) => void, wait: number) => {
+  let timeout: any;
+  return function executedFunction(...args: unknown[]) {
+    const later = () => {
+      timeout = null;
+      cb(...args);
+    };
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+  };
+};
 
 export interface PersistProps {
   name: string;
