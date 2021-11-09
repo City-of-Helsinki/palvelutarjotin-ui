@@ -1,6 +1,7 @@
 {
   "buttonBack": "Takaisin",
   "enrolmentForm": {
+    "buttonResetForm": "Tyhjennä lomake",
     "buttonSubmit": "Lähetä ilmoittautuminen",
     "buttonSubmitEnquiry": "Lähetä varaustiedustelu",
     "infoText1": "Emme käytä antamiasi tietoja markkinointiin.",

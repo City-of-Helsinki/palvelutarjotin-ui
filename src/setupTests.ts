@@ -2,6 +2,7 @@ import '@testing-library/jest-dom';
 import dotenv from 'dotenv';
 import { toHaveNoViolations } from 'jest-axe';
 import './tests/initI18n';
+import 'jest-localstorage-mock';
 
 import { server } from './tests/msw/server';
 
@@ -17,6 +18,10 @@ afterEach(() => {
 });
 afterAll(() => {
   server.close();
+});
+
+beforeEach(() => {
+  localStorage.clear();
 });
 
 jest.mock('next/config', () => {

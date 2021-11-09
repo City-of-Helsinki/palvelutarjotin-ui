@@ -1,6 +1,7 @@
 {
   "buttonBack": "Back",
   "enrolmentForm": {
+    "buttonResetForm": "Reset form",
     "buttonSubmit": "Submit registration",
     "buttonSubmitEnquiry": "Submit Enquiry",
     "infoText1": "We do not use the information you provide for marketing purposes.",

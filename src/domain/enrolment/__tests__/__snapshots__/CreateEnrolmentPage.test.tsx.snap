@@ -1,0 +1,107 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders form and user can fill it and submit and form is saved to local storage 1`] = `
+Object {
+  "dirty": true,
+  "errors": Object {},
+  "initialErrors": Object {},
+  "initialTouched": Object {},
+  "initialValues": Object {
+    "hasEmailNotification": true,
+    "hasSmsNotification": false,
+    "isMandatoryAdditionalInformationRequired": false,
+    "isSameResponsiblePerson": true,
+    "isSharingDataAccepted": false,
+    "language": "FI",
+    "maxGroupSize": 20,
+    "minGroupSize": 10,
+    "person": Object {
+      "emailAddress": "",
+      "name": "",
+      "phoneNumber": "",
+    },
+    "studyGroup": Object {
+      "amountOfAdult": "",
+      "extraNeeds": "",
+      "groupName": "",
+      "groupSize": "",
+      "name": "",
+      "person": Object {
+        "emailAddress": "",
+        "name": "",
+        "phoneNumber": "",
+      },
+      "studyLevels": Array [],
+    },
+  },
+  "isSubmitting": false,
+  "isValid": true,
+  "isValidating": false,
+  "submitCount": 2,
+  "touched": Object {
+    "hasEmailNotification": true,
+    "hasSmsNotification": true,
+    "isMandatoryAdditionalInformationRequired": true,
+    "isSameResponsiblePerson": true,
+    "isSharingDataAccepted": true,
+    "language": true,
+    "maxGroupSize": true,
+    "minGroupSize": true,
+    "person": Object {
+      "emailAddress": true,
+      "name": true,
+      "phoneNumber": true,
+    },
+    "studyGroup": Object {
+      "amountOfAdult": true,
+      "extraNeeds": true,
+      "groupName": true,
+      "groupSize": true,
+      "name": true,
+      "person": Object {
+        "emailAddress": true,
+        "name": true,
+        "phoneNumber": true,
+      },
+      "studyLevels": Array [
+        true,
+        true,
+      ],
+    },
+  },
+  "validateOnBlur": true,
+  "validateOnChange": true,
+  "validateOnMount": false,
+  "values": Object {
+    "hasEmailNotification": true,
+    "hasSmsNotification": true,
+    "isMandatoryAdditionalInformationRequired": false,
+    "isSameResponsiblePerson": true,
+    "isSharingDataAccepted": true,
+    "language": "FI",
+    "maxGroupSize": 20,
+    "minGroupSize": 10,
+    "person": Object {
+      "emailAddress": "",
+      "name": "",
+      "phoneNumber": "",
+    },
+    "studyGroup": Object {
+      "amountOfAdult": 2,
+      "extraNeeds": "Lisätietoja ilmoittautumiseen",
+      "groupName": "4a",
+      "groupSize": 10,
+      "name": "Testikoulu",
+      "person": Object {
+        "emailAddress": "testi@testi.fi",
+        "name": "Nimi Niminen",
+        "phoneNumber": "123321123123321123",
+      },
+      "studyLevels": Array [
+        "GRADE_4",
+        "GRADE_2",
+      ],
+    },
+  },
+}
+`;
