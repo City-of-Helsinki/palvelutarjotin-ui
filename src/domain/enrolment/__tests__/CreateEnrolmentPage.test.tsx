@@ -612,7 +612,8 @@ describe('form local storage', () => {
         phoneNumber: '12312343657',
         emailAddress: 'test@test.com',
       },
-      name: 'study group name',
+      unitName: 'study group name',
+      unitId: null,
       groupName: 'group name',
       groupSize: '10',
       amountOfAdult: '1',
@@ -691,10 +692,16 @@ describe('form local storage', () => {
     const phoneInput = screen.getAllByLabelText(/puhelinnumero/i)[0];
     expect(phoneInput).toHaveValue(testValues.studyGroup.person.phoneNumber);
 
-    const studyGroupGroupName = screen.getByLabelText(
+    userEvent.click(
+      screen.getByRole('checkbox', {
+        name: /paikka helsingin ulkopuolelta/i,
+      })
+    );
+
+    const studyGroupUnitName = screen.getByLabelText(
       /päiväkoti \/ koulu \/ oppilaitos \*/i
     );
-    expect(studyGroupGroupName).toHaveValue(testValues.studyGroup.name);
+    expect(studyGroupUnitName).toHaveValue(testValues.studyGroup.unitName);
 
     const studyGroupNameInput = screen.getByLabelText(/ryhmä/i);
     expect(studyGroupNameInput).toHaveValue(testValues.studyGroup.groupName);

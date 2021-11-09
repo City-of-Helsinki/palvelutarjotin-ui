@@ -95,19 +95,19 @@ export default Yup.object().shape({
           unitName: Yup.string().when(
             ['unitId'],
             (unitId: string, schema: Yup.StringSchema) => {
-              console.log('unitId', unitId);
               if (!unitId) {
                 return schema.required(VALIDATION_MESSAGE_KEYS.STRING_REQUIRED);
               }
-              return schema.nullable();
+              return schema;
             }
           ),
           unitId: Yup.string().when(
             ['unitName'],
             (unitName: string, schema: Yup.StringSchema) => {
-              console.log('unitName', unitName);
               if (!unitName) {
-                return schema.required(VALIDATION_MESSAGE_KEYS.STRING_REQUIRED);
+                return schema
+                  .nullable()
+                  .required(VALIDATION_MESSAGE_KEYS.STRING_REQUIRED);
               }
               return schema.nullable();
             }

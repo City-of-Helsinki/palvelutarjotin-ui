@@ -414,9 +414,10 @@ const UnitField: React.FC<{
     studyGroup: { unitId: unitIdValue, unitName: unitNameValue },
   } = values as EnrolmentFormFields;
 
-  const isUnitGiven = Boolean(!unitIdValue && unitNameValue);
+  const isUnitNameGiven = Boolean(!unitIdValue && unitNameValue);
 
-  const [showUnitNameField, setShowUnitNameField] = React.useState(isUnitGiven);
+  const [showUnitNameField, setShowUnitNameField] =
+    React.useState(isUnitNameGiven);
 
   const handleShowUnitNameField = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -426,6 +427,7 @@ const UnitField: React.FC<{
       setFieldValue(unitId, null);
     } else {
       setShowUnitNameField(false);
+      setFieldValue(unitName, '');
     }
   };
 
