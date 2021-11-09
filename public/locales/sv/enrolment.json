@@ -37,7 +37,12 @@
       "titleGroup": "Gruppuppgifter",
       "titleNotifier": "Anmälan till evenemang",
       "notificationLabel": "Fyll i informationen som saknas",
-      "notificationText": "Alla obligatoriska fält är markerade med *"
+      "notificationText": "Alla obligatoriska fält är markerade med *",
+      "helperUnitId": "Sök efter en plats i staden Helsingfors",
+      "placeholderUnitId": "Enhetens namn",
+      "helperUnitName": "Skriv namnet på enheten",
+      "placeholderUnitName": "Enhetens namn",
+      "showUnitNameLabel": "En plats utanför Helsingfors"
     },
     "titleNotifications": "Meddelanden om evenemanget",
     "titleResponsiblePerson": "Vuxen ansvarsperson",

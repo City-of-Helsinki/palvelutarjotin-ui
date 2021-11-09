@@ -52,5 +52,16 @@
   "feedbackLink": "Give feedback",
   "srOnly": {
     "opensInANewTab": "Opens in a new tab"
+  },
+  "autoSuggest": {
+    "accessibility": {
+      "clearValueButtonAriaMessage": "Clear value",
+      "deselectOptionAriaMessage": "Option {{value}}, deselected.",
+      "deselectOptionButtonAriaMessage": "Deselect option: {{value}}",
+      "focusAriaMessage": "{{value}}, {{index}} of {{n}}.",
+      "selectOptionAriaMessage": "Option {{value}}, selected."
+    },
+    "loading": "Loading ...",
+    "noResults": "No results"
   }
 }

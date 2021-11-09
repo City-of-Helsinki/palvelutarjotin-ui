@@ -83,4 +83,10 @@
     margin-left: var(--spacing-2-xs);
     transform: translateY(var(--spacing-3-xs));
   }
+
+  .unitField {
+    display: grid;
+    grid-template-columns: 7fr 1fr;
+    grid-gap: var(--spacing-layout-s);
+  }
 }

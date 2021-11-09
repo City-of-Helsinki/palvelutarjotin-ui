@@ -1,0 +1,131 @@
+@import 'fonts';
+
+.a11yText {
+  z-index: 9999;
+  border: 0;
+  clip: rect(1px, 1px, 1px, 1px);
+  height: 1;
+  width: 1;
+  position: absolute;
+  overflow: hidden;
+  padding: 0;
+  white-space: nowrap;
+}
+
+.autoSuggest {
+  --fontsize-single-value: var(--fontsize-body-l);
+}
+
+.autoSuggest {
+  .singleValue {
+    position: absolute;
+    top: 3px;
+    left: 2px;
+    padding: var(--spacing-xs);
+    font-size: var(--fontsize-single-value);
+    background-color: white;
+    width: calc(100% - 30px);
+    box-sizing: border-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .multiValueWrapper {
+    margin-top: 1rem;
+
+    div {
+      margin-right: 0.5rem;
+      margin-bottom: 0.5rem;
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+
+  .multiValue {
+    display: inline-flex;
+    color: var(--color-black-90);
+    font-size: 1rem;
+    background-color: #d8d8d8;
+    padding: 0.625rem 1rem;
+    border-radius: 1.25rem;
+
+    .deselectValueButton {
+      margin-left: 0.5rem;
+
+      svg {
+        width: 0.75rem;
+        height: 0.75rem;
+        fill: var(--color-black-50);
+      }
+    }
+  }
+
+  .removeButton {
+    position: absolute;
+    right: 1rem;
+    top: 1.25rem;
+    display: flex;
+
+    svg {
+      height: 1rem;
+      width: 1rem;
+    }
+  }
+}
+
+.autoSuggestMenu {
+  position: absolute;
+  background-color: var(--color-white);
+  z-index: 2;
+  top: 100%;
+  left: 0;
+  right: 0;
+  border: 2px solid var(--color-black-20);
+  border-top: none;
+
+  .infoMessage {
+    padding: 1rem;
+    font-size: var(--fontsize-body-l);
+    text-align: center;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 260px;
+    overflow: auto;
+  }
+
+  .listItem {
+    padding: 1rem;
+    font-size: var(--fontsize-body-l);
+    display: grid;
+    cursor: pointer;
+    grid-template-columns: 1fr auto;
+
+    svg {
+      display: none;
+      height: 1rem;
+      width: 1rem;
+      fill: var(--color-white);
+    }
+
+    &:hover,
+    &.isFocused {
+      background-color: var(--color-black-10);
+    }
+
+    &.isSelected {
+      color: var(--color-white);
+      background-color: var(--color-bus);
+
+      svg {
+        display: block;
+      }
+    }
+  }
+}

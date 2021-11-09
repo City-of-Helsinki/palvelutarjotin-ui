@@ -52,5 +52,16 @@
   "feedbackLink": "Anna palautetta",
   "srOnly": {
     "opensInANewTab": "Avautuu uudessa välilehdessä"
+  },
+  "autoSuggest": {
+    "accessibility": {
+      "clearValueButtonAriaMessage": "Poista arvo",
+      "deselectOptionAriaMessage": "Vaihtoehto {{value}}, poistettu.",
+      "deselectOptionButtonAriaMessage": "Poista vaihtoehto: {{value}}",
+      "focusAriaMessage": "{{value}}, {{index}}/{{n}}.",
+      "selectOptionAriaMessage": "Vaihtoehto {{value}}, valittu."
+    },
+    "loading": "Ladataan ...",
+    "noResults": "Ei tuloksia"
   }
 }

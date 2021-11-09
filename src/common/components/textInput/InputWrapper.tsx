@@ -2,11 +2,13 @@ import classNames from 'classnames';
 import { Tooltip } from 'hds-react';
 import React, { CSSProperties, FC, ReactNode } from 'react';
 
+import { RequiredIndicator } from '../requiredIndicator/RequiredIndicator';
 import styles from './inputWrapper.module.scss';
 
 type InputWrapperProps = {
   children?: ReactNode;
   className?: string;
+  errorText?: string;
   hasIcon?: boolean;
   helperText?: string;
   hideLabel?: boolean;
@@ -19,6 +21,7 @@ type InputWrapperProps = {
   tooltipText?: string;
   tooltipOpenButtonLabelText?: string;
   tooltipCloseButtonLabelText?: string;
+  required?: boolean;
 };
 
 const InputWrapper: FC<InputWrapperProps> = React.forwardRef<
@@ -29,6 +32,7 @@ const InputWrapper: FC<InputWrapperProps> = React.forwardRef<
     {
       children,
       className = '',
+      errorText,
       hasIcon = false,
       helperText,
       hideLabel = false,
@@ -41,6 +45,7 @@ const InputWrapper: FC<InputWrapperProps> = React.forwardRef<
       tooltipText,
       tooltipOpenButtonLabelText,
       tooltipCloseButtonLabelText,
+      required,
     },
     ref
   ) => (
@@ -61,6 +66,7 @@ const InputWrapper: FC<InputWrapperProps> = React.forwardRef<
           className={`${styles.label} ${hideLabel ? styles.hiddenLabel : ''}`}
         >
           {labelText}
+          {required && <RequiredIndicator />}
         </label>
       )}
       {tooltipText && (
@@ -72,6 +78,11 @@ const InputWrapper: FC<InputWrapperProps> = React.forwardRef<
         </Tooltip>
       )}
       <div className={classNames(styles.inputWrapper)}>{children}</div>
+      {errorText && (
+        <div className={styles.errorText} id={`${id}-error`}>
+          {errorText}
+        </div>
+      )}
       {helperText && <div className={styles.helperText}>{helperText}</div>}
     </div>
   )

@@ -62,7 +62,7 @@
     "yup": "^0.32.9"
   },
   "devDependencies": {
-    "@commitlint/cli": "^13.1.0",
+    "@commitlint/cli": "^14.1.0",
     "@commitlint/config-conventional": "^13.1.0",
     "@ffmpeg-installer/ffmpeg": "^1.0.20",
     "@graphql-codegen/cli": "^2.0.1",
