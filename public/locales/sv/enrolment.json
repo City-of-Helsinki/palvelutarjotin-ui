@@ -1,7 +1,7 @@
 {
   "buttonBack": "Tillbaka",
   "enrolmentForm": {
-    "buttonResetForm": "SV: Tyhjennä lomake",
+    "buttonResetForm": "Töm formuläret",
     "buttonSubmit": "Skicka in registrering",
     "buttonSubmitEnquiry": "Skicka anmälan",
     "infoText1": "Vi använder inte de uppgifter som du uppgett för marknadsföring.",
