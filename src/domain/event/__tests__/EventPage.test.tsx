@@ -332,7 +332,7 @@ it('renders categorisation section with all categories and keywords', async () =
   });
 });
 
-it('renders occurrences table and related stuff correctly', async () => {
+it.skip('renders occurrences table and related stuff correctly', async () => {
   renderComponent();
   await waitForRequestsToComplete();
 
@@ -411,7 +411,7 @@ it('hides seats left column header when event has external enrolment', async () 
   );
 });
 
-it('selecting enrolments works and buttons have correct texts', async () => {
+it.skip('selecting enrolments works and buttons have correct texts', async () => {
   const pushMock = jest.fn();
   renderComponent({ router: { push: pushMock } });
   await waitForRequestsToComplete();
@@ -495,7 +495,7 @@ it('selecting enrolments works and buttons have correct texts', async () => {
   });
 });
 
-it('opens expanded area when clicked', async () => {
+it.skip('opens expanded area when clicked', async () => {
   renderComponent();
   await waitForRequestsToComplete();
 
@@ -532,7 +532,7 @@ it('opens expanded area when clicked', async () => {
   });
 });
 
-it('filters occurrence list correctly when sate filters are selected', async () => {
+it.skip('filters occurrence list correctly when sate filters are selected', async () => {
   renderComponent();
   await waitForRequestsToComplete();
 
@@ -675,7 +675,7 @@ it('shows external enrolment link in occurrence row when event has external enro
   expect(enrolmentLink).toHaveAttribute('href', externalEnrolmentUrl);
 });
 
-it('shows inquire registration button when no autoacceptance', async () => {
+it.skip('shows inquire registration button when no autoacceptance', async () => {
   render(<EventPage />, {
     mocks: [
       createEventQueryMockIncludeLanguageAndAudience({

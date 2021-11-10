@@ -6,7 +6,7 @@ type StyleProps = {
 };
 
 type ExtendedColumnInstance<D extends Record<string, unknown>> =
-  ColumnInstance<D> & StyleProps;
+  ColumnInstance<D> & StyleProps & { ['aria-hidden']?: boolean };
 
 export type ExtendedCell<D extends Record<string, unknown>> = Cell<
   D,
@@ -16,7 +16,7 @@ export type ExtendedCell<D extends Record<string, unknown>> = Cell<
 };
 
 export type ExtendedHeaderGroup<D extends Record<string, unknown>> =
-  HeaderGroup<D> & StyleProps;
+  HeaderGroup<D> & StyleProps & { ['aria-hidden']?: boolean };
 
 export type ExtendedRow<D extends Record<string, unknown>> = Row<D> & {
   isExpanded?: boolean;

@@ -9,6 +9,8 @@
   "showOccurrenceDetails": "Show occurrence details",
   "labelExternalEnrolmentLink": "Enrol",
   "labelNoEnrolment": "No enrolment",
+  "buttonShowDetails": "Show details",
+  "buttonHideDetails": "Hide details",
   "occurrenceSelection": {
     "buttonSelectOccurrence": "Select",
     "buttonSelectedOccurrences": "Selected {{selectedOccurrences}} / {{neededOccurrences}}",

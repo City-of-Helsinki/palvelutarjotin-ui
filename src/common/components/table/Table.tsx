@@ -37,7 +37,14 @@ export default function Table<D extends Record<string, unknown>>({
               {headerGroup.headers.map((column: ExtendedHeaderGroup<D>) => {
                 const { style, className } = column;
                 return (
-                  <th {...column.getHeaderProps()} {...{ style, className }}>
+                  <th
+                    {...column.getHeaderProps()}
+                    {...{
+                      style,
+                      className,
+                      'aria-hidden': column['aria-hidden'],
+                    }}
+                  >
                     {column.render('Header')}
                   </th>
                 );
@@ -87,7 +94,14 @@ export default function Table<D extends Record<string, unknown>>({
                   {row.cells.map((cell: ExtendedCell<D>) => {
                     const { className, style } = cell.column;
                     return (
-                      <td {...cell.getCellProps()} {...{ className, style }}>
+                      <td
+                        {...cell.getCellProps()}
+                        {...{
+                          className,
+                          style,
+                          'aria-hidden': cell.column['aria-hidden'],
+                        }}
+                      >
                         {cell.render('Cell')}
                       </td>
                     );

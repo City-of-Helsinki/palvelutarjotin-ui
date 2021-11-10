@@ -1,7 +1,7 @@
 @import 'variables';
 
 .enrolmentButtonWrapper {
-  text-align: right;
+  margin-top: var(--spacing-m);
 
   button {
     min-width: var(--enrol-button-width);

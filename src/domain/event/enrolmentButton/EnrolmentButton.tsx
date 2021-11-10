@@ -5,7 +5,7 @@ import React from 'react';
 import styles from './enrolmentButton.module.scss';
 
 interface EnrolmentButtonProps {
-  neededOccurrences: number | undefined;
+  neededOccurrences?: number;
   requiredEnrolmentsSelected: boolean;
   enrolOccurrences: () => void;
 }

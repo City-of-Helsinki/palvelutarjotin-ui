@@ -1,6 +1,9 @@
 {
   "buttonBack": "Takaisin",
   "enrolmentForm": {
+    "labelChooseRequiredOccurrences": "Valitse {{amount}} tapahtumaa",
+    "descriptionChooseRequiredOccurrences": "Valitse tarvittava määrä tapahtuma-aikoja jatkaaksesi lomakkeen täyttämistä",
+    "buttonCancelAndCloseForm": "Peruuta ja sulje lomake",
     "buttonResetForm": "Tyhjennä lomake",
     "buttonSubmit": "Lähetä ilmoittautuminen",
     "buttonSubmitEnquiry": "Lähetä varaustiedustelu",

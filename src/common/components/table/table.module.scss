@@ -1,3 +1,5 @@
+@import 'layout';
+
 .tableWrapper {
   max-width: 100%;
 }
@@ -5,6 +7,7 @@
 .table {
   --background-color-cell: var(--color-white);
   --background-color-cell-header: var(--color-black-10);
+  --background-color-active-row: var(--enrolmentFormBackgroundColor);
 
   --border-color-cell: var(--color-black-10);
 
@@ -15,23 +18,39 @@
   --fontsize-cell-header: var(--fontsize-body-l);
 
   --margin-bottom-table: var(--spacing-m);
-  --spacing-cell: var(--spacing-m);
+  --spacing-cell: var(--spacing-m) var(--spacing-xs);
 
   --expanded-row-border-color: var(--color-black-30);
 
   width: 100%;
   border-collapse: collapse;
-  margin-bottom: var(--margin-bottom-table);
 
   thead {
     tr {
       th {
-        background-color: var(--background-color-cell-header);
         color: var(--color-cell-header);
         font-size: var(--fontsize-cell-header);
         font-weight: normal;
         text-align: left;
         padding: var(--spacing-cell);
+        border-bottom: 1px solid var(--border-color-cell);
+
+        @include respond-above(md) {
+          &:nth-child(2) {
+            padding-left: 0;
+          }
+
+          &:nth-last-child(2) {
+            padding-right: 0;
+          }
+        }
+
+        &:first-child,
+        &:last-child {
+          padding: 0;
+          width: var(--spacing-2-xl);
+          border-bottom: none;
+        }
       }
     }
   }
@@ -47,11 +66,28 @@
         font-weight: normal;
         text-align: left;
         padding: var(--spacing-cell);
+
+        @include respond-above(md) {
+          &:nth-child(2) {
+            padding-left: 0;
+          }
+
+          &:nth-last-child(2) {
+            padding-right: 0;
+          }
+        }
+
+        &:first-child,
+        &:last-child {
+          padding: 0;
+          width: var(--spacing-2-xl);
+          border-bottom: none;
+        }
       }
 
-      &:not(:first-child) {
+      & {
         td {
-          border-top: 1px solid var(--border-color-cell);
+          border-bottom: 1px solid var(--border-color-cell);
         }
       }
     }
@@ -62,23 +98,20 @@
 
     tr.expandedArea {
       td {
-        border: 1px solid var(--expanded-row-border-color);
-        border-top: none;
+        padding: var(--spacing-cell);
+        background-color: var(--background-color-active-row);
+        border-bottom: 1px solid var(--border-color-cell);
+
+        @include respond-above(md) {
+          padding: var(--spacing-m) var(--spacing-2-xl) !important;
+        }
       }
     }
 
     tr.expandedRow {
       td {
-        border-bottom: none;
-        border-top: 1px solid var(--expanded-row-border-color);
-
-        &:last-child {
-          border-right: 1px solid var(--expanded-row-border-color);
-        }
-
-        &:first-child {
-          border-left: 1px solid var(--expanded-row-border-color);
-        }
+        background-color: var(--background-color-active-row);
+        border-top: 1px solid var(--border-color-cell);
       }
     }
   }

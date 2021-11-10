@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { Notification, IconArrowLeft } from 'hds-react';
+import classNames from 'classnames';
+import { Notification, IconArrowLeft, Button, IconAngleUp } from 'hds-react';
 import { useTranslation } from 'next-i18next';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -7,12 +8,15 @@ import React, { ReactElement } from 'react';
 
 import LoadingSpinner from '../../common/components/loadingSpinner/LoadingSpinner';
 import ShareLinks from '../../common/components/shareLinks/ShareLinks';
-import { useEventQuery } from '../../generated/graphql';
+import {
+  EventFieldsFragment,
+  OccurrenceFieldsFragment,
+  useEventQuery,
+} from '../../generated/graphql';
 import useLocale from '../../hooks/useLocale';
 import { translateValue } from '../../utils/translateUtils';
 import Container from '../app/layout/Container';
 import PageWrapper from '../app/layout/PageWrapper';
-import { ROUTES } from '../app/routes/constants';
 import { ENROLMENT_URL_PARAMS } from '../enrolment/constants';
 import NotFoundPage from '../notFoundPage/NotFoundPage';
 import EnrolmentButton from './enrolmentButton/EnrolmentButton';
@@ -20,13 +24,13 @@ import EventBasicInfo from './eventBasicInfo/EventBasicInfo';
 import EventImage from './eventImage/EventImage';
 import styles from './eventPage.module.scss';
 import EventPageMeta from './eventPageMeta/EventPageMeta';
-import Occurrences from './occurrences/Occurrences';
+import EnrolmentFormSection from './occurrences/EnrolmentFormSection';
+import Occurrences from './occurrences/OccurrencesTable';
 import { getEventFields } from './utils';
 
 const EventPage = (): ReactElement => {
   const { t } = useTranslation();
   const locale = useLocale();
-  const router = useRouter();
   const {
     query: { eventId, ...query },
   } = useRouter();
@@ -35,6 +39,8 @@ const EventPage = (): ReactElement => {
   const [selectedOccurrences, setSelectedOccurrences] = React.useState<
     string[]
   >([]);
+
+  const [showEnrolmentForm, setShowEnrolmentForm] = React.useState(false);
 
   const {
     data: eventData,
@@ -55,22 +61,8 @@ const EventPage = (): ReactElement => {
     }
   }, [enrolmentCreated, refetchEvent]);
 
-  const enrolOccurrence = (occurrenceId: string) => {
-    router.push({
-      pathname: ROUTES.CREATE_ENROLMENT.replace(':id', eventId as string),
-      query: {
-        occurrences: occurrenceId,
-      },
-    });
-  };
-
   const enrolOccurrences = () => {
-    router.push({
-      pathname: ROUTES.CREATE_ENROLMENT.replace(':id', eventId as string),
-      query: {
-        occurrences: selectedOccurrences,
-      },
-    });
+    setShowEnrolmentForm(() => true);
   };
 
   const selectOccurrence = (occurrenceId: string) => {
@@ -84,6 +76,12 @@ const EventPage = (): ReactElement => {
     setSelectedOccurrences((selectedOccurrences) =>
       selectedOccurrences.filter((id) => id !== occurrenceId)
     );
+  };
+
+  const handleOnEnrol = () => {
+    setSelectedOccurrences([]);
+    setShowEnrolmentForm(false);
+    refetchEvent();
   };
 
   const {
@@ -132,26 +130,40 @@ const EventPage = (): ReactElement => {
                 </Notification>
               )}
               <EventBasicInfo event={eventData.event} />
-              {showEnrolmentButton && (
+              {occurrences && (
+                <div
+                  className={styles.occurrencesContainer}
+                  data-testid="occurrences-section"
+                >
+                  <Occurrences
+                    selectOccurrence={selectOccurrence}
+                    deselectOccurrence={deselectOccurrence}
+                    selectedOccurrences={selectedOccurrences}
+                    event={eventData.event}
+                    eventLocationId={locationId || ''}
+                    occurrences={occurrences}
+                    neededOccurrences={neededOccurrences}
+                    hideLoadMoreButton={showEnrolmentForm}
+                  />
+                </div>
+              )}
+              {showEnrolmentButton && !showEnrolmentForm && (
                 <EnrolmentButton
                   enrolOccurrences={enrolOccurrences}
                   neededOccurrences={neededOccurrences}
                   requiredEnrolmentsSelected={requiredEnrolmentsSelected}
                 />
               )}
-              {occurrences && (
-                <div data-testid="occurrences-section">
-                  <Occurrences
-                    selectOccurrence={selectOccurrence}
-                    deselectOccurrence={deselectOccurrence}
-                    selectedOccurrences={selectedOccurrences}
-                    enrolOccurrence={enrolOccurrence}
-                    event={eventData.event}
-                    eventLocationId={locationId || ''}
-                    occurrences={occurrences}
-                    neededOccurrences={neededOccurrences}
-                  />
-                </div>
+              {showEnrolmentForm && (
+                <EnrolmentFormContainer
+                  event={eventData.event}
+                  handleOnEnrol={handleOnEnrol}
+                  neededOccurrences={neededOccurrences}
+                  occurrences={occurrences}
+                  selectedOccurrences={selectedOccurrences}
+                  setShowEnrolmentForm={setShowEnrolmentForm}
+                  showEnrolmentForm={showEnrolmentButton}
+                />
               )}
               <div className={styles.sharePart}>
                 <div></div>
@@ -190,6 +202,71 @@ const EventHero: React.FC<{
         imageAltText={imageAltText || t('event:eventImageAltText')}
         photographerName={photographerName}
       />
+    </div>
+  );
+};
+
+const EnrolmentFormContainer: React.FC<{
+  neededOccurrences?: number;
+  showEnrolmentForm: boolean;
+  selectedOccurrences: string[];
+  setShowEnrolmentForm: (a: boolean) => void;
+  event: EventFieldsFragment;
+  occurrences?: OccurrenceFieldsFragment[];
+  handleOnEnrol: () => void;
+}> = ({
+  neededOccurrences,
+  showEnrolmentForm,
+  selectedOccurrences,
+  setShowEnrolmentForm,
+  event,
+  occurrences,
+  handleOnEnrol,
+}) => {
+  const { t } = useTranslation();
+  const enrolmentFormRef = React.useRef<HTMLDivElement>(null);
+
+  React.useEffect(() => {
+    enrolmentFormRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [showEnrolmentForm]);
+
+  return (
+    <div className={styles.enrolmentFormContainer}>
+      {showEnrolmentForm && selectedOccurrences.length !== neededOccurrences && (
+        <Notification
+          style={{ marginTop: 'var(--spacing-xl)' }}
+          label={t('enrolment:enrolmentForm.labelChooseRequiredOccurrences', {
+            amount: neededOccurrences,
+          })}
+          type="alert"
+        >
+          {t('enrolment:enrolmentForm.descriptionChooseRequiredOccurrences')}
+        </Notification>
+      )}
+      <div
+        className={classNames(styles.enrolmentFormSection, {
+          [styles.hideEnrolmentForm]:
+            selectedOccurrences.length !== neededOccurrences,
+        })}
+        ref={enrolmentFormRef}
+      >
+        <Button
+          className={styles.cancelEnrolmentButton}
+          variant="supplementary"
+          iconRight={<IconAngleUp />}
+          onClick={() => setShowEnrolmentForm(false)}
+        >
+          {t('enrolment:enrolmentForm.buttonCancelAndCloseForm')}
+        </Button>
+        <EnrolmentFormSection
+          event={event}
+          occurrences={
+            occurrences?.filter((o) => selectedOccurrences.includes(o.id)) ?? []
+          }
+          onCloseForm={() => setShowEnrolmentForm(false)}
+          onEnrol={handleOnEnrol}
+        />
+      </div>
     </div>
   );
 };

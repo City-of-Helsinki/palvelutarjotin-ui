@@ -1,6 +1,9 @@
 {
   "buttonBack": "Tillbaka",
   "enrolmentForm": {
+    "labelChooseRequiredOccurrences": "Välj {{amount}} evenemang",
+    "descriptionChooseRequiredOccurrences": "Välj behövlig mängd evenemangstider för att fortsätta ifyllandet av blanketten",
+    "buttonCancelAndCloseForm": "Annullera och stäng bilagan",
     "buttonResetForm": "Töm formuläret",
     "buttonSubmit": "Skicka in registrering",
     "buttonSubmitEnquiry": "Skicka anmälan",

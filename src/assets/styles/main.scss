@@ -2,6 +2,10 @@
 @import 'variables';
 @import '~react-toastify/dist/ReactToastify.min.css';
 
+body {
+  --enrolmentFormBackgroundColor: #f7fafc;
+}
+
 * {
   font-family: $font-family-base;
 }

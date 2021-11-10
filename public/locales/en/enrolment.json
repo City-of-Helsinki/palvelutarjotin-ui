@@ -1,6 +1,9 @@
 {
   "buttonBack": "Back",
   "enrolmentForm": {
+    "labelChooseRequiredOccurrences": "Choose {{amount}} occurrences",
+    "descriptionChooseRequiredOccurrences": "Choose required amount of occurrences to continue filling the enrolment form",
+    "buttonCancelAndCloseForm": "Cancel and close form",
     "buttonResetForm": "Reset form",
     "buttonSubmit": "Submit registration",
     "buttonSubmitEnquiry": "Submit Enquiry",
