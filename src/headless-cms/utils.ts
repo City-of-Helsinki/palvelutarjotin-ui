@@ -73,6 +73,7 @@ export const getAllMenuPages = async (): Promise<PageInfo[]> => {
     },
   });
 
+  console.log(navigationData.menu?.menuItems?.nodes);
   const menuItemPromises = navigationData.menu?.menuItems?.nodes?.map(
     (menuItem) => getPageChildren(menuItem?.connectedNode?.node as Page)
   );
@@ -83,9 +84,9 @@ export const getAllMenuPages = async (): Promise<PageInfo[]> => {
 
   return pageInfos;
 
-  async function getPageChildren(node: Page): Promise<unknown> {
-    addPageToPageInfosArray(node);
-    if (node.children?.nodes) {
+  async function getPageChildren(node?: Page): Promise<unknown> {
+    if (node) addPageToPageInfosArray(node);
+    if (node?.children?.nodes) {
       return Promise.all(
         node.children.nodes.map(async (page) => {
           if (page?.id) {
