@@ -3,6 +3,7 @@ import isEqual from 'lodash/isEqual';
 import * as React from 'react';
 
 import useIsMounted from '../../../hooks/useIsMounted';
+import { getFeatureFlags, isFeatureEnabled } from '../../../utils/featureFlags';
 import keyify from '../../../utils/keyify';
 
 // lodash/debounce was problematic in tests so we use our own simple implementation
@@ -58,7 +59,9 @@ const FormikPersist = ({
   );
 
   React.useEffect(() => {
-    saveForm(formik);
+    if (isFeatureEnabled('FORMIK_PERSIST')) {
+      saveForm(formik);
+    }
   }, [formik, saveForm]);
 
   React.useEffect(() => {
