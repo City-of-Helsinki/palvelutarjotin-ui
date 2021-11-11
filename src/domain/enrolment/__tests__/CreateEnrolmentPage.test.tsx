@@ -13,6 +13,7 @@ import * as graphqlFns from '../../../generated/graphql';
 import { createEventQueryMock } from '../../../tests/apollo-mocks/eventMocks';
 import { createPlaceQueryMock } from '../../../tests/apollo-mocks/placeMocks';
 import { createStudyLevelsQueryMock } from '../../../tests/apollo-mocks/studyLevelsMocks';
+import { isFeatureEnabled } from '../../../utils/featureFlags';
 import {
   fakePEvent,
   fakeLocalizedObject,
@@ -353,13 +354,15 @@ test('renders form and user can fill it and submit and form is saved to local st
     screen.getByRole('button', { name: /lähetä ilmoittautuminen/i })
   );
 
-  // wait for debounce to trigger and populate localStorage
-  await act(() => wait(500));
+  if (isFeatureEnabled('FORMIK_PERSIST')) {
+    // wait for debounce to trigger and populate localStorage
+    await act(() => wait(500));
 
-  expect(
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    JSON.parse(localStorage.getItem(FORM_NAMES.ENROLMENT_FORM)!)
-  ).toMatchSnapshot();
+    expect(
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      JSON.parse(localStorage.getItem(FORM_NAMES.ENROLMENT_FORM)!)
+    ).toMatchSnapshot();
+  }
 
   await waitFor(() => {
     expect(enrolOccurrenceMock).toHaveBeenCalledWith({
@@ -596,134 +599,136 @@ test('Allow sms notifications if any of the phone numbers are given', async () =
   });
 });
 
-describe('form local storage', () => {
-  const testValues = {
-    hasEmailNotification: true,
-    hasSmsNotification: false,
-    isSameResponsiblePerson: true,
-    isSharingDataAccepted: false,
-    isMandatoryAdditionalInformationRequired: false,
-    language: '',
-    maxGroupSize: 0,
-    minGroupSize: 0,
-    studyGroup: {
-      person: {
-        name: 'Test person',
-        phoneNumber: '12312343657',
-        emailAddress: 'test@test.com',
+if (isFeatureEnabled('FORMIK_PERSIST')) {
+  describe('form local storage', () => {
+    const testValues = {
+      hasEmailNotification: true,
+      hasSmsNotification: false,
+      isSameResponsiblePerson: true,
+      isSharingDataAccepted: false,
+      isMandatoryAdditionalInformationRequired: false,
+      language: '',
+      maxGroupSize: 0,
+      minGroupSize: 0,
+      studyGroup: {
+        person: {
+          name: 'Test person',
+          phoneNumber: '12312343657',
+          emailAddress: 'test@test.com',
+        },
+        unitName: 'study group name',
+        unitId: null,
+        groupName: 'group name',
+        groupSize: '10',
+        amountOfAdult: '1',
+        studyLevels: [StudyLevel.Grade_1],
+        extraNeeds: 'extra needs',
       },
-      unitName: 'study group name',
-      unitId: null,
-      groupName: 'group name',
-      groupSize: '10',
-      amountOfAdult: '1',
-      studyLevels: [StudyLevel.Grade_1],
-      extraNeeds: 'extra needs',
-    },
-    person: {
-      name: '',
-      phoneNumber: '',
-      emailAddress: '',
-    },
-  };
+      person: {
+        name: '',
+        phoneNumber: '',
+        emailAddress: '',
+      },
+    };
 
-  const formikDefaultState = {
-    values: testValues,
-    errors: {},
-    touched: {},
-    isSubmitting: false,
-    isValidating: false,
-    submitCount: 0,
-    initialValues: defaultInitialValues,
-    initialErrors: {},
-    initialTouched: {},
-    isValid: true,
-    dirty: true,
-    validateOnBlur: true,
-    validateOnChange: true,
-    validateOnMount: false,
-  };
+    const formikDefaultState = {
+      values: testValues,
+      errors: {},
+      touched: {},
+      isSubmitting: false,
+      isValidating: false,
+      submitCount: 0,
+      initialValues: defaultInitialValues,
+      initialErrors: {},
+      initialTouched: {},
+      isValid: true,
+      dirty: true,
+      validateOnBlur: true,
+      validateOnChange: true,
+      validateOnMount: false,
+    };
 
-  test("form doesn't break if localstorage data is deprecated", async () => {
-    localStorage.setItem(
-      FORM_NAMES.ENROLMENT_FORM,
-      // change studygroup in localstorage to differ from form values
-      JSON.stringify({
-        ...formikDefaultState,
-        values: { ...testValues, studyGroup: { name: 'name' } },
-      })
-    );
+    test("form doesn't break if localstorage data is deprecated", async () => {
+      localStorage.setItem(
+        FORM_NAMES.ENROLMENT_FORM,
+        // change studygroup in localstorage to differ from form values
+        JSON.stringify({
+          ...formikDefaultState,
+          values: { ...testValues, studyGroup: { name: 'name' } },
+        })
+      );
 
-    render(<CreateEnrolmentPage />, {
-      mocks: pageMockWithLocation,
-      query: { eventId: eventId, occurrences: occurrenceIds },
+      render(<CreateEnrolmentPage />, {
+        mocks: pageMockWithLocation,
+        query: { eventId: eventId, occurrences: occurrenceIds },
+      });
+
+      await screen.findByRole('heading', { name: /ilmoittajan tiedot/i });
+
+      const nameInput = (
+        await screen.findAllByRole('textbox', { name: /nimi \*/i })
+      )[0];
+      // shoud not initialize from local storage
+      expect(nameInput).toHaveValue('');
     });
 
-    await screen.findByRole('heading', { name: /ilmoittajan tiedot/i });
+    test('form is prefilled from local storage', async () => {
+      localStorage.setItem(
+        FORM_NAMES.ENROLMENT_FORM,
+        JSON.stringify(formikDefaultState)
+      );
 
-    const nameInput = (
-      await screen.findAllByRole('textbox', { name: /nimi \*/i })
-    )[0];
-    // shoud not initialize from local storage
-    expect(nameInput).toHaveValue('');
-  });
+      render(<CreateEnrolmentPage />, {
+        mocks: pageMockWithLocation,
+        query: { eventId: eventId, occurrences: occurrenceIds },
+      });
 
-  test('form is prefilled from local storage', async () => {
-    localStorage.setItem(
-      FORM_NAMES.ENROLMENT_FORM,
-      JSON.stringify(formikDefaultState)
-    );
+      await screen.findByRole('heading', { name: /ilmoittajan tiedot/i });
 
-    render(<CreateEnrolmentPage />, {
-      mocks: pageMockWithLocation,
-      query: { eventId: eventId, occurrences: occurrenceIds },
+      const nameInput = (
+        await screen.findAllByRole('textbox', { name: /nimi \*/i })
+      )[0];
+      expect(nameInput).toHaveValue(testValues.studyGroup.person.name);
+
+      const emailInput = screen.getAllByLabelText(/sähköpostiosoite \*/i)[0];
+      expect(emailInput).toHaveValue(testValues.studyGroup.person.emailAddress);
+
+      const phoneInput = screen.getAllByLabelText(/puhelinnumero/i)[0];
+      expect(phoneInput).toHaveValue(testValues.studyGroup.person.phoneNumber);
+
+      userEvent.click(
+        screen.getByRole('checkbox', {
+          name: /paikka helsingin ulkopuolelta/i,
+        })
+      );
+
+      const studyGroupUnitName = screen.getByLabelText(
+        /päiväkoti \/ koulu \/ oppilaitos \*/i
+      );
+      expect(studyGroupUnitName).toHaveValue(testValues.studyGroup.unitName);
+
+      const studyGroupNameInput = screen.getByLabelText(/ryhmä/i);
+      expect(studyGroupNameInput).toHaveValue(testValues.studyGroup.groupName);
+
+      // grade level should be selected
+      screen.getByText(/1\. luokka/i);
+
+      const childrenCountInput = screen.getByLabelText(/lapsia \*/i);
+      expect(childrenCountInput).toHaveValue(10);
+
+      const adultsCountInput = screen.getByLabelText(/aikuisia \*/i);
+      expect(adultsCountInput).toHaveValue(1);
+
+      const extraNeedsInput = screen.getByLabelText(
+        /lisätiedot \(valinnainen\)/i
+      );
+      expect(extraNeedsInput).toHaveValue(testValues.studyGroup.extraNeeds);
+
+      const chargeOfTheGroupCheckbox =
+        screen.getByLabelText(/sama kuin ilmoittaja/i);
+      expect(chargeOfTheGroupCheckbox).toBeChecked();
+
+      await act(wait);
     });
-
-    await screen.findByRole('heading', { name: /ilmoittajan tiedot/i });
-
-    const nameInput = (
-      await screen.findAllByRole('textbox', { name: /nimi \*/i })
-    )[0];
-    expect(nameInput).toHaveValue(testValues.studyGroup.person.name);
-
-    const emailInput = screen.getAllByLabelText(/sähköpostiosoite \*/i)[0];
-    expect(emailInput).toHaveValue(testValues.studyGroup.person.emailAddress);
-
-    const phoneInput = screen.getAllByLabelText(/puhelinnumero/i)[0];
-    expect(phoneInput).toHaveValue(testValues.studyGroup.person.phoneNumber);
-
-    userEvent.click(
-      screen.getByRole('checkbox', {
-        name: /paikka helsingin ulkopuolelta/i,
-      })
-    );
-
-    const studyGroupUnitName = screen.getByLabelText(
-      /päiväkoti \/ koulu \/ oppilaitos \*/i
-    );
-    expect(studyGroupUnitName).toHaveValue(testValues.studyGroup.unitName);
-
-    const studyGroupNameInput = screen.getByLabelText(/ryhmä/i);
-    expect(studyGroupNameInput).toHaveValue(testValues.studyGroup.groupName);
-
-    // grade level should be selected
-    screen.getByText(/1\. luokka/i);
-
-    const childrenCountInput = screen.getByLabelText(/lapsia \*/i);
-    expect(childrenCountInput).toHaveValue(10);
-
-    const adultsCountInput = screen.getByLabelText(/aikuisia \*/i);
-    expect(adultsCountInput).toHaveValue(1);
-
-    const extraNeedsInput = screen.getByLabelText(
-      /lisätiedot \(valinnainen\)/i
-    );
-    expect(extraNeedsInput).toHaveValue(testValues.studyGroup.extraNeeds);
-
-    const chargeOfTheGroupCheckbox =
-      screen.getByLabelText(/sama kuin ilmoittaja/i);
-    expect(chargeOfTheGroupCheckbox).toBeChecked();
-
-    await act(wait);
   });
-});
+}
