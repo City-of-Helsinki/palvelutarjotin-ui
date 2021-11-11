@@ -63,5 +63,8 @@
     },
     "loading": "Loading ...",
     "noResults": "No results"
+  },
+  "unitPlaceSelector": {
+    "noPlaceFoundError": "Unit is selected, but there was a problem loading the name"
   }
 }
