@@ -294,7 +294,7 @@ test('renders form and user can fill it and submit and form is saved to local st
 
   userEvent.click(
     screen.getByRole('checkbox', {
-      name: /paikka helsingin ulkopuolelta/i,
+      name: /paikka ei ole listalla/i,
     })
   );
 
@@ -696,11 +696,11 @@ if (isFeatureEnabled('FORMIK_PERSIST')) {
       const phoneInput = screen.getAllByLabelText(/puhelinnumero/i)[0];
       expect(phoneInput).toHaveValue(testValues.studyGroup.person.phoneNumber);
 
-      userEvent.click(
-        screen.getByRole('checkbox', {
-          name: /paikka helsingin ulkopuolelta/i,
-        })
-      );
+    userEvent.click(
+      screen.getByRole('checkbox', {
+        name: /paikka ei ole listalla/i,
+      })
+    );
 
       const studyGroupUnitName = screen.getByLabelText(
         /päiväkoti \/ koulu \/ oppilaitos \*/i
