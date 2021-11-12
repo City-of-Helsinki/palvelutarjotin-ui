@@ -696,11 +696,11 @@ if (isFeatureEnabled('FORMIK_PERSIST')) {
       const phoneInput = screen.getAllByLabelText(/puhelinnumero/i)[0];
       expect(phoneInput).toHaveValue(testValues.studyGroup.person.phoneNumber);
 
-    userEvent.click(
-      screen.getByRole('checkbox', {
-        name: /paikka ei ole listalla/i,
-      })
-    );
+      userEvent.click(
+        screen.getByRole('checkbox', {
+          name: /paikka ei ole listalla/i,
+        })
+      );
 
       const studyGroupUnitName = screen.getByLabelText(
         /päiväkoti \/ koulu \/ oppilaitos \*/i

@@ -1,8 +1,6 @@
 import { IconStar } from 'hds-react';
-import { graphql } from 'msw';
 import React from 'react';
 
-import { server } from '../../../../tests/msw/server';
 import {
   render,
   screen,
