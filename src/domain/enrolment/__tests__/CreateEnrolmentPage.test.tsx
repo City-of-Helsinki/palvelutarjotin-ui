@@ -294,7 +294,7 @@ test('renders form and user can fill it and submit and form is saved to local st
 
   userEvent.click(
     screen.getByRole('checkbox', {
-      name: /paikka helsingin ulkopuolelta/i,
+      name: /paikka ei ole listalla/i,
     })
   );
 
@@ -698,7 +698,7 @@ if (isFeatureEnabled('FORMIK_PERSIST')) {
 
       userEvent.click(
         screen.getByRole('checkbox', {
-          name: /paikka helsingin ulkopuolelta/i,
+          name: /paikka ei ole listalla/i,
         })
       );
 

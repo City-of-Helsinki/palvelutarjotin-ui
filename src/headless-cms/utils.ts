@@ -73,7 +73,6 @@ export const getAllMenuPages = async (): Promise<PageInfo[]> => {
     },
   });
 
-  console.log(navigationData.menu?.menuItems?.nodes);
   const menuItemPromises = navigationData.menu?.menuItems?.nodes?.map(
     (menuItem) => getPageChildren(menuItem?.connectedNode?.node as Page)
   );
