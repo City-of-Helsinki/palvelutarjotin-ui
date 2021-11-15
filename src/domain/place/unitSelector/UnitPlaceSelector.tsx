@@ -44,6 +44,8 @@ const UnitPlaceSelector: React.FC<Props> = ({
   required,
   disabled,
 }) => {
+  const locale = useLocale();
+  const { t } = useTranslation();
   const [inputValue, setInputValue] = React.useState('');
   const searchValue = useDebounce(inputValue, 100);
 
@@ -52,9 +54,6 @@ const UnitPlaceSelector: React.FC<Props> = ({
   const { data: unitsData, loading } = useSchoolsAndKindergartensListQuery({
     skip: !searchValue,
   });
-
-  const locale = useLocale();
-  const { t } = useTranslation();
 
   const optionLabelToString = (option: AutoSuggestOption, locale: Language) => {
     const data = apolloClient.readQuery<PlaceQuery>({
