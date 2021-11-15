@@ -12,6 +12,7 @@ import {
 import * as graphqlFns from '../../../generated/graphql';
 import { createEventQueryMock } from '../../../tests/apollo-mocks/eventMocks';
 import { createPlaceQueryMock } from '../../../tests/apollo-mocks/placeMocks';
+import { createSchoolsAndKindergartensListQueryMock } from '../../../tests/apollo-mocks/schoolsAndKindergartensListMock';
 import { createStudyLevelsQueryMock } from '../../../tests/apollo-mocks/studyLevelsMocks';
 import { isFeatureEnabled } from '../../../utils/featureFlags';
 import {
@@ -61,6 +62,12 @@ const createPageMock = (
     pEvent: fakePEvent(pEventOverrides),
   }),
   createStudyLevelsQueryMock(),
+  createSchoolsAndKindergartensListQueryMock(10, [
+    { id: 'test:place1', name: fakeLocalizedObject('place1') },
+    { id: 'test:place2', name: fakeLocalizedObject('place2') },
+    { id: 'test:place12', name: fakeLocalizedObject('place12') },
+    { id: 'test:place123', name: fakeLocalizedObject('place123') },
+  ]),
 ];
 
 // mock that has enrol time ended
@@ -596,6 +603,210 @@ test('Allow sms notifications if any of the phone numbers are given', async () =
   phoneFields.forEach((f) => userEvent.clear(f));
   await waitFor(() => {
     expect(screen.getByLabelText(/Tekstiviestillä/i)).toBeDisabled();
+  });
+});
+
+describe('UnitField', () => {
+  let enrolOccurrenceMock = jest.fn();
+
+  const setupUnitFieldTest = async (testMocks: MockedResponse[] = []) => {
+    enrolOccurrenceMock = jest.fn();
+    // eslint-disable-next-line import/namespace
+    jest
+      .spyOn(graphqlFns, 'useEnrolOccurrenceMutation')
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      .mockReturnValue([enrolOccurrenceMock] as any);
+
+    const mocks = [
+      ...testMocks,
+      ...createPageMock(
+        {
+          enrolmentStart: new Date(2020, 8, 7).toISOString(),
+          enrolmentEndDays: 3,
+          occurrences: fakeOccurrences(3, occurrenceEnrolDifferentTimes),
+          neededOccurrences: 2,
+        },
+        locationId
+      ),
+    ];
+
+    render(<CreateEnrolmentPage />, {
+      mocks,
+      query: { eventId: eventId, occurrences: occurrenceIds },
+    });
+
+    await screen.findByRole('heading', { name: /ilmoittajan tiedot/i });
+  };
+
+  it('renders properly', async () => {
+    await setupUnitFieldTest();
+
+    // First it renders the autosuggest field
+    expect(
+      screen.getByRole('textbox', {
+        name: /päiväkoti \/ koulu \/ oppilaitos/i,
+      })
+    ).toBeInTheDocument();
+
+    expect(
+      screen.getByText(/etsi helsinkiläistä toimipistettä/i)
+    ).toBeInTheDocument();
+
+    expect(
+      screen.queryByText(/kirjoita toimipaikan nimi/i)
+    ).not.toBeInTheDocument();
+
+    // When checkbox is checked
+    act(() => {
+      userEvent.click(
+        screen.getByRole('checkbox', {
+          name: /paikka ei ole listalla/i,
+        })
+      );
+    });
+
+    // It renders the freetext input field
+    expect(
+      screen.queryByText(/etsi helsinkiläistä toimipistettä/i)
+    ).not.toBeInTheDocument();
+
+    expect(screen.getByText(/kirjoita toimipaikan nimi/i)).toBeInTheDocument();
+
+    userEvent.type(
+      screen.getByRole('textbox', {
+        name: /päiväkoti \/ koulu \/ oppilaitos/i,
+      }),
+      'Testikoulu'
+    );
+
+    userEvent.tab();
+
+    expect(
+      screen.getByRole('textbox', {
+        name: /päiväkoti \/ koulu \/ oppilaitos/i,
+      })
+    ).toHaveValue('Testikoulu');
+  });
+
+  it('renders a list of schools and kindergartens in unit id field', async () => {
+    await setupUnitFieldTest();
+
+    // Type to unit id field
+    userEvent.type(
+      screen.getByRole('textbox', {
+        name: /päiväkoti \/ koulu \/ oppilaitos/i,
+      }),
+      'place'
+    );
+
+    // wait for debounce to trigger and populate localStorage
+    await act(() => wait(500));
+
+    // The inserted text should filter autosuggest field options
+    expect(screen.getByText('place12')).toBeInTheDocument();
+    expect(screen.getByText('place123')).toBeInTheDocument();
+    expect(screen.queryByText('place1')).toBeInTheDocument();
+    expect(screen.queryByText('place2')).toBeInTheDocument();
+
+    // Type to unit id field
+    userEvent.clear(
+      screen.getByRole('textbox', {
+        name: /päiväkoti \/ koulu \/ oppilaitos/i,
+      })
+    );
+    userEvent.type(
+      screen.getByRole('textbox', {
+        name: /päiväkoti \/ koulu \/ oppilaitos/i,
+      }),
+      'place12'
+    );
+
+    // wait for debounce to trigger and populate localStorage
+    await act(() => wait(500));
+
+    // The inserted text should filter autosuggest field options
+    expect(screen.getByText('place12')).toBeInTheDocument();
+    expect(screen.getByText('place123')).toBeInTheDocument();
+    expect(screen.queryByText('place1')).not.toBeInTheDocument();
+    expect(screen.queryByText('place2')).not.toBeInTheDocument();
+  });
+
+  it.each<MockedResponse[] | undefined>([
+    [
+      createPlaceQueryMock({
+        id: 'test:place12',
+        name: fakeLocalizedObject('place12'),
+      }),
+    ],
+    undefined,
+  ])(
+    'shows the unit text in a autosuggest div next to the input (%p)',
+    async (placeMocks) => {
+      await setupUnitFieldTest(placeMocks);
+
+      userEvent.type(
+        screen.getByRole('textbox', {
+          name: /päiväkoti \/ koulu \/ oppilaitos/i,
+        }),
+        'place12'
+      );
+
+      // wait for debounce to trigger and populate localStorage
+      await act(() => wait(500));
+
+      expect(screen.getByText('place12')).toBeInTheDocument();
+
+      // Select an unit
+      userEvent.click(screen.getByText('place12'));
+
+      await act(() => wait(500));
+
+      expect(
+        screen.getByRole('textbox', {
+          name: /päiväkoti \/ koulu \/ oppilaitos/i,
+        }).nextElementSibling
+      ).toHaveTextContent(
+        placeMocks ? 'place12' : 'unitPlaceSelector.noPlaceFoundError'
+      );
+    }
+  );
+
+  it('clears the unit id value when a clear button is clicked', async () => {
+    await setupUnitFieldTest();
+
+    userEvent.type(
+      screen.getByRole('textbox', {
+        name: /päiväkoti \/ koulu \/ oppilaitos/i,
+      }),
+      'place12'
+    );
+
+    // wait for debounce to trigger and populate localStorage
+    await act(() => wait(500));
+
+    expect(screen.getByText('place12')).toBeInTheDocument();
+
+    // Select an unit
+    userEvent.click(screen.getByText('place12'));
+
+    expect(
+      screen.getByRole('textbox', {
+        name: /päiväkoti \/ koulu \/ oppilaitos/i,
+      }).nextElementSibling
+    ).not.toBe(null);
+
+    // clear the selection
+    userEvent.click(
+      screen.getByRole('button', {
+        name: /poista arvo/i,
+      })
+    );
+    // No sibling anymore when the value is cleared
+    expect(
+      screen.getByRole('textbox', {
+        name: /päiväkoti \/ koulu \/ oppilaitos/i,
+      }).nextElementSibling
+    ).toBe(null);
   });
 });
 
