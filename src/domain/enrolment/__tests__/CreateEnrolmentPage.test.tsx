@@ -607,21 +607,12 @@ test('Allow sms notifications if any of the phone numbers are given', async () =
 });
 
 describe('UnitField', () => {
-  let enrolOccurrenceMock = jest.fn();
-
   const getUnitFieldInput = () =>
     screen.getByRole('textbox', {
       name: /päiväkoti \/ koulu \/ oppilaitos/i,
     });
 
   const setupUnitFieldTest = async (testMocks: MockedResponse[] = []) => {
-    enrolOccurrenceMock = jest.fn();
-    // eslint-disable-next-line import/namespace
-    jest
-      .spyOn(graphqlFns, 'useEnrolOccurrenceMutation')
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      .mockReturnValue([enrolOccurrenceMock] as any);
-
     const mocks = [
       ...testMocks,
       ...createPageMock(
