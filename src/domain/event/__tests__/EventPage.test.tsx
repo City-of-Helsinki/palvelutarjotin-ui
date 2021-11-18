@@ -18,6 +18,7 @@ import {
 import * as graphqlFuncs from '../../../generated/graphql';
 import { createEventQueryMockIncludeLanguageAndAudience } from '../../../tests/apollo-mocks/eventMocks';
 import { createPlaceQueryMock } from '../../../tests/apollo-mocks/placeMocks';
+// eslint-disable-next-line max-len
 import { createSchoolsAndKindergartensListQueryMock } from '../../../tests/apollo-mocks/schoolsAndKindergartensListMock';
 import { createVenueQueryMock } from '../../../tests/apollo-mocks/venueMocks';
 import {

@@ -10,7 +10,6 @@ import { createStudyLevelsQueryMock } from '../../../../tests/apollo-mocks/study
 import { isFeatureEnabled } from '../../../../utils/featureFlags';
 import {
   fakeLocalizedObject,
-  fakeOccurrences,
   StudyLevel,
 } from '../../../../utils/mockDataUtils';
 import {

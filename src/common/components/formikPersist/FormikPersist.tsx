@@ -3,11 +3,13 @@ import isEqual from 'lodash/isEqual';
 import * as React from 'react';
 
 import useIsMounted from '../../../hooks/useIsMounted';
-import { getFeatureFlags, isFeatureEnabled } from '../../../utils/featureFlags';
+import { isFeatureEnabled } from '../../../utils/featureFlags';
 import keyify from '../../../utils/keyify';
 
 // lodash/debounce was problematic in tests so we use our own simple implementation
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const debounce = (cb: (...params: any[]) => void, wait: number) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let timeout: any;
   return function executedFunction(...args: unknown[]) {
     const later = () => {
@@ -65,6 +67,7 @@ const FormikPersist = ({
   }, [formik, saveForm]);
 
   React.useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let timeout: any;
 
     const storedFormikState = isSessionStorage

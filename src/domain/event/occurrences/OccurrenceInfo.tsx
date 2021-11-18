@@ -196,6 +196,7 @@ const OccurrenceInfo: React.FC<{
           })}
           style={{ width: enrolButtonColumnWidth }}
           size="small"
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           variant={showEnrolmentForm ? ('supplementary' as any) : 'primary'}
           iconRight={showEnrolmentForm ? <IconAngleUp /> : null}
           onClick={() => toggleForm()}

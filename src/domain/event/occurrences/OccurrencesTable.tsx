@@ -9,7 +9,6 @@ import take from 'lodash/take';
 import { useTranslation } from 'next-i18next';
 import React from 'react';
 
-import ExternalLink from '../../../common/components/externalLink/ExternalLink';
 import ErrorMessage from '../../../common/components/form/ErrorMessage';
 import Table from '../../../common/components/table/Table';
 import {
@@ -319,6 +318,7 @@ const OccurrenceExpandButton: React.FC<
       {...props}
       style={{ width: '100%' }}
       size="small"
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       variant={isExpanded ? 'supplementary' : ('primary' as any)}
       iconRight={isExpanded ? <IconAngleUp /> : null}
       aria-expanded={isExpanded ? true : false}
