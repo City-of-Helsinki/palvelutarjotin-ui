@@ -1,0 +1,162 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders form and user can fill it and submit and form is saved to local storage 1`] = `
+Object {
+  "dirty": true,
+  "errors": Object {},
+  "initialErrors": Object {},
+  "initialTouched": Object {},
+  "initialValues": Object {
+    "hasEmailNotification": true,
+    "hasSmsNotification": false,
+    "isMandatoryAdditionalInformationRequired": false,
+    "isSameResponsiblePerson": true,
+    "isSharingDataAccepted": false,
+    "language": "",
+    "maxGroupSize": 20,
+    "minGroupSize": 10,
+    "person": Object {
+      "emailAddress": "",
+      "name": "",
+      "phoneNumber": "",
+    },
+    "studyGroup": Object {
+      "amountOfAdult": "",
+      "extraNeeds": "",
+      "groupName": "",
+      "groupSize": "",
+      "person": Object {
+        "emailAddress": "",
+        "name": "",
+        "phoneNumber": "",
+      },
+      "studyLevels": Array [],
+      "unitId": "",
+      "unitName": "",
+    },
+  },
+  "isSubmitting": true,
+  "isValid": true,
+  "isValidating": false,
+  "submitCount": 2,
+  "touched": Object {
+    "hasEmailNotification": true,
+    "hasSmsNotification": true,
+    "isMandatoryAdditionalInformationRequired": true,
+    "isSameResponsiblePerson": true,
+    "isSharingDataAccepted": true,
+    "language": true,
+    "maxGroupSize": true,
+    "minGroupSize": true,
+    "person": Object {
+      "emailAddress": true,
+      "name": true,
+      "phoneNumber": true,
+    },
+    "studyGroup": Object {
+      "amountOfAdult": true,
+      "extraNeeds": true,
+      "groupName": true,
+      "groupSize": true,
+      "person": Object {
+        "emailAddress": true,
+        "name": true,
+        "phoneNumber": true,
+      },
+      "studyLevels": Array [
+        true,
+        true,
+      ],
+      "unitId": true,
+      "unitName": true,
+    },
+  },
+  "validateOnBlur": true,
+  "validateOnChange": true,
+  "validateOnMount": false,
+  "values": Object {
+    "hasEmailNotification": true,
+    "hasSmsNotification": true,
+    "isMandatoryAdditionalInformationRequired": false,
+    "isSameResponsiblePerson": true,
+    "isSharingDataAccepted": true,
+    "language": "FI",
+    "maxGroupSize": 20,
+    "minGroupSize": 10,
+    "person": Object {
+      "emailAddress": "",
+      "name": "",
+      "phoneNumber": "",
+    },
+    "studyGroup": Object {
+      "amountOfAdult": 2,
+      "extraNeeds": "Lisätietoja ilmoittautumiseen",
+      "groupName": "4a",
+      "groupSize": 10,
+      "person": Object {
+        "emailAddress": "testi@testi.fi",
+        "name": "Nimi Niminen",
+        "phoneNumber": "123321123123321123",
+      },
+      "studyLevels": Array [
+        "GRADE_4",
+        "GRADE_2",
+      ],
+      "unitId": null,
+      "unitName": "Testikoulu",
+    },
+  },
+}
+`;
+
+exports[`renders form and user can fill it and submit and form is saved to local storage 2`] = `
+Array [
+  Object {
+    "hasEmailNotification": true,
+    "hasSmsNotification": true,
+    "isMandatoryAdditionalInformationRequired": false,
+    "isSameResponsiblePerson": true,
+    "isSharingDataAccepted": true,
+    "language": "FI",
+    "maxGroupSize": 20,
+    "minGroupSize": 10,
+    "person": Object {
+      "emailAddress": "",
+      "name": "",
+      "phoneNumber": "",
+    },
+    "studyGroup": Object {
+      "amountOfAdult": 2,
+      "extraNeeds": "Lisätietoja ilmoittautumiseen",
+      "groupName": "4a",
+      "groupSize": 10,
+      "person": Object {
+        "emailAddress": "testi@testi.fi",
+        "name": "Nimi Niminen",
+        "phoneNumber": "123321123123321123",
+      },
+      "studyLevels": Array [
+        "GRADE_4",
+        "GRADE_2",
+      ],
+      "unitId": null,
+      "unitName": "Testikoulu",
+    },
+  },
+  Object {
+    "resetForm": [Function],
+    "setErrors": [Function],
+    "setFieldError": [Function],
+    "setFieldTouched": [Function],
+    "setFieldValue": [Function],
+    "setFormikState": [Function],
+    "setStatus": [Function],
+    "setSubmitting": [Function],
+    "setTouched": [Function],
+    "setValues": [Function],
+    "submitForm": [Function],
+    "validateField": [Function],
+    "validateForm": [Function],
+  },
+]
+`;

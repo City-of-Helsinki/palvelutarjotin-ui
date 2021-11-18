@@ -227,7 +227,7 @@ const EnrolmentFormContainer: React.FC<{
   const enrolmentFormRef = React.useRef<HTMLDivElement>(null);
 
   React.useEffect(() => {
-    enrolmentFormRef.current?.scrollIntoView({ behavior: 'smooth' });
+    enrolmentFormRef.current?.scrollIntoView?.({ behavior: 'smooth' });
   }, [showEnrolmentForm]);
 
   return (

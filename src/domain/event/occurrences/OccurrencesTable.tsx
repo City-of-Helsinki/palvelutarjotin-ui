@@ -187,8 +187,9 @@ const OccurrenceEnrolmentTable: React.FC<{
             <Checkbox
               id={row.id}
               disabled={isDisabledOccurrenceCheckbox(row)}
-              onClick={() => handleOccurrenceCheckboxClick(row)}
+              onChange={() => handleOccurrenceCheckboxClick(row)}
               checked={isSelectedOccurrence(row)}
+              aria-label="Valitse tapahtuma-aika"
             />
           )}
           {formatLocalizedDate(

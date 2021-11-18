@@ -29,7 +29,7 @@ import {
 import styles from './enrolmentForm.module.scss';
 import ValidationSchema from './ValidationSchema';
 
-interface Props {
+export interface Props {
   initialValues?: EnrolmentFormFields;
   enquiry: boolean;
   onSubmit: (values: EnrolmentFormFields) => void;

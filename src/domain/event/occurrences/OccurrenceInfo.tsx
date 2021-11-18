@@ -57,7 +57,7 @@ const OccurrenceInfo: React.FC<{
 
   React.useEffect(() => {
     if (showEnrolmentForm) {
-      enrolmentFormRef.current?.scrollIntoView({
+      enrolmentFormRef.current?.scrollIntoView?.({
         behavior: 'smooth',
       });
     }

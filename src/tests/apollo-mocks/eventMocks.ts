@@ -3,7 +3,7 @@ import { MockedResponse } from '@apollo/client/testing';
 import { Event, EventDocument } from '../../generated/graphql';
 import { fakeEvent } from '../../utils/mockDataUtils';
 
-const createDefaultEventQueryMock = ({
+export const createDefaultEventQueryMock = ({
   include = [],
   result,
 }: {

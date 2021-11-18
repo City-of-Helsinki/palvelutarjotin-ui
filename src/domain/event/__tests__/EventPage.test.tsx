@@ -332,7 +332,7 @@ it('renders categorisation section with all categories and keywords', async () =
   });
 });
 
-it.skip('renders occurrences table and related stuff correctly', async () => {
+it('renders occurrences table and related stuff correctly', async () => {
   renderComponent();
   await waitForRequestsToComplete();
 
@@ -358,7 +358,6 @@ it.skip('renders occurrences table and related stuff correctly', async () => {
     enrolmentMessages.occurrenceTable.columnDate,
     enrolmentMessages.occurrenceTable.columnPlace,
     enrolmentMessages.occurrenceTable.columnSeatsInfo,
-    enrolmentMessages.occurrenceTable.columnAdditionalInfo,
   ];
 
   columnHeaders.forEach((headerText) => {
@@ -367,7 +366,7 @@ it.skip('renders occurrences table and related stuff correctly', async () => {
     ).toBeInTheDocument();
   });
 
-  const rowText = `27.7.2020 ma12:00 – 13:00${data.placeName}30 / 30Ilmoittaudu`;
+  const rowText = `27.7.2020 ma12:00 – 13:00Soukan kirjasto30 / 30Näytä tiedot`;
 
   const tableRows = screen.getAllByRole('row');
   expect(tableRows[8]).toHaveTextContent(rowText);
@@ -411,55 +410,40 @@ it('hides seats left column header when event has external enrolment', async () 
   );
 });
 
-it.skip('selecting enrolments works and buttons have correct texts', async () => {
+it('selecting enrolments works and buttons have correct texts', async () => {
   const pushMock = jest.fn();
   renderComponent({ router: { push: pushMock } });
   await waitForRequestsToComplete();
 
-  let occurrenceEnrolmentButtons = screen.getAllByRole('button', {
-    name: occurrenceMessages.occurrenceSelection.buttonEnrolOccurrence,
-  });
+  const getOccurrenceCheckboxes = () =>
+    screen.queryAllByRole('checkbox', {
+      name: 'Valitse tapahtuma-aika',
+    });
+
+  let occurrenceEnrolmentButtons = getOccurrenceCheckboxes();
+
+  // 3 events should have disabled checkbox because they are either cancelled, in the past or full
+  expect(
+    occurrenceEnrolmentButtons.filter(
+      (checkbox) => (checkbox as HTMLInputElement).disabled
+    )
+  ).toHaveLength(3);
 
   userEvent.click(occurrenceEnrolmentButtons[0]);
 
-  const getSelectedOccurrencesButtonText = (
-    selectedOccurrences: number,
-    neededOccurrences: number
-  ) =>
-    occurrenceMessages.occurrenceSelection.buttonSelectedOccurrences
-      .replace('{{selectedOccurrences}}', selectedOccurrences.toString())
-      .replace('{{neededOccurrences}}', neededOccurrences.toString());
-
-  expect(
-    screen.queryByRole('button', {
-      name: getSelectedOccurrencesButtonText(1, 3),
-    })
-  ).toBeInTheDocument();
-  expect(
-    screen.queryByRole('button', {
-      name: getSelectedOccurrencesButtonText(2, 3),
-    })
-  ).not.toBeInTheDocument();
+  expect(occurrenceEnrolmentButtons[0]).toBeChecked();
 
   // buttons from previous query are stale because of rerender
   // -> new query is needed
-  occurrenceEnrolmentButtons = screen.getAllByRole('button', {
-    name: occurrenceMessages.occurrenceSelection.buttonEnrolOccurrence,
-  });
+  occurrenceEnrolmentButtons = getOccurrenceCheckboxes();
 
-  userEvent.click(occurrenceEnrolmentButtons[0]);
+  userEvent.click(occurrenceEnrolmentButtons[1]);
 
-  expect(
-    screen.queryAllByRole('button', {
-      name: getSelectedOccurrencesButtonText(2, 3),
-    })
-  ).toHaveLength(2);
+  expect(occurrenceEnrolmentButtons[1]).toBeChecked();
 
-  occurrenceEnrolmentButtons = screen.getAllByRole('button', {
-    name: occurrenceMessages.occurrenceSelection.buttonEnrolOccurrence,
-  });
+  occurrenceEnrolmentButtons = getOccurrenceCheckboxes();
 
-  userEvent.click(occurrenceEnrolmentButtons[0]);
+  userEvent.click(occurrenceEnrolmentButtons[2]);
 
   userEvent.click(
     screen.getByRole('button', {
@@ -469,40 +453,39 @@ it.skip('selecting enrolments works and buttons have correct texts', async () =>
 
   // should be 3 buttons with valittu text and not disabled
   expect(
-    screen
-      .queryAllByRole('button', {
-        name: getSelectedOccurrencesButtonText(3, data.neededOccurrences),
-      })
-      .filter((button) => !button.hasAttribute('disabled'))
+    getOccurrenceCheckboxes().filter(
+      (checkbox) => (checkbox as HTMLInputElement).checked
+    )
   ).toHaveLength(3);
 
-  // should be 6 disabled buttons with 'valittu' text
+  // should be 8 disabled buttons with 'valittu' text
   expect(
-    screen
-      .queryAllByRole('button', {
-        name: getSelectedOccurrencesButtonText(3, data.neededOccurrences),
-      })
-      .filter((button) => button.hasAttribute('disabled'))
-  ).toHaveLength(5);
+    getOccurrenceCheckboxes().filter(
+      (checkbox) =>
+        !(checkbox as HTMLInputElement).checked &&
+        (checkbox as HTMLInputElement).disabled
+    )
+  ).toHaveLength(8);
 
   userEvent.click(screen.getByRole('button', { name: 'Ilmoittaudu' }));
 
-  expect(pushMock).toHaveBeenCalledWith({
-    pathname: ROUTES.CREATE_ENROLMENT.replace(':id', eventData.id as string),
-    query: {
-      occurrences: [data.placeId1, data.placeId2, data.placeId3],
-    },
+  // should render form when user has clicked "Ilmoittaudu"
+  await screen.findByRole('heading', {
+    name: /ilmoittajan tiedot/i,
   });
+  expect(
+    screen.getAllByRole('button', { name: /peruuta ja sulje lomake/i })
+  ).toHaveLength(2);
 });
 
-it.skip('opens expanded area when clicked', async () => {
+it('opens expanded area with enrolment button when clicked', async () => {
   renderComponent();
   await waitForRequestsToComplete();
 
   const occurrenceRow = within(screen.getAllByRole('row')[8]);
 
   const expandButton = occurrenceRow.getByRole('button', {
-    name: occurrenceMessages.showOccurrenceDetails,
+    name: occurrenceMessages.buttonShowDetails,
   });
 
   expect(
@@ -532,7 +515,7 @@ it.skip('opens expanded area when clicked', async () => {
   });
 });
 
-it.skip('filters occurrence list correctly when sate filters are selected', async () => {
+it('filters occurrence list correctly when sate filters are selected', async () => {
   renderComponent();
   await waitForRequestsToComplete();
 
@@ -551,7 +534,7 @@ it.skip('filters occurrence list correctly when sate filters are selected', asyn
   expect(tableRows).toHaveLength(3);
 
   const occurrenceEnrolButtons = screen.getAllByRole('button', {
-    name: eventMessages.occurrenceList.enrolOccurrenceButton,
+    name: 'Näytä tiedot',
   });
   expect(occurrenceEnrolButtons).toHaveLength(1);
 });
@@ -675,7 +658,7 @@ it('shows external enrolment link in occurrence row when event has external enro
   expect(enrolmentLink).toHaveAttribute('href', externalEnrolmentUrl);
 });
 
-it.skip('shows inquire registration button when no autoacceptance', async () => {
+it('shows inquire registration button when no autoacceptance', async () => {
   render(<EventPage />, {
     mocks: [
       createEventQueryMockIncludeLanguageAndAudience({
@@ -693,8 +676,41 @@ it.skip('shows inquire registration button when no autoacceptance', async () => 
     path: `/fi${ROUTES.EVENT_DETAILS.replace(':id', data.id)}`,
   });
 
+  const showDetailsButton = await screen.findByRole('button', {
+    name: /näytä tiedot/i,
+  });
+  userEvent.click(showDetailsButton);
+
   await screen.findByRole('button', {
     name: /varaustiedustelu/i,
+  });
+});
+
+it('shows normal enrolment button when autoacceptance is on', async () => {
+  render(<EventPage />, {
+    mocks: [
+      createEventQueryMockIncludeLanguageAndAudience({
+        ...eventData,
+        id: data.id,
+        pEvent: fakePEvent({
+          ...eventData.pEvent,
+          autoAcceptance: true,
+          neededOccurrences: 1,
+          occurrences: fakeOccurrences(1),
+        }),
+      }),
+    ],
+    query: { eventId: eventData.id },
+    path: `/fi${ROUTES.EVENT_DETAILS.replace(':id', data.id)}`,
+  });
+
+  const showDetailsButton = await screen.findByRole('button', {
+    name: /näytä tiedot/i,
+  });
+  userEvent.click(showDetailsButton);
+
+  await screen.findByRole('button', {
+    name: /ilmoittaudu/i,
   });
 });
 

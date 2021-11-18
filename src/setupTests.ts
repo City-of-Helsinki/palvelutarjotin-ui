@@ -28,4 +28,4 @@ jest.mock('next/config', () => {
   return () => ({});
 });
 
-jest.setTimeout(10000);
+jest.setTimeout(50000);
