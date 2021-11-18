@@ -96,7 +96,7 @@ Object {
       "person": Object {
         "emailAddress": "testi@testi.fi",
         "name": "Nimi Niminen",
-        "phoneNumber": "123321123123321123",
+        "phoneNumber": "123321123",
       },
       "studyLevels": Array [
         "GRADE_2",
@@ -205,7 +205,7 @@ Object {
       "person": Object {
         "emailAddress": "testi@testi.fi",
         "name": "Nimi Niminen",
-        "phoneNumber": "123321123123321123",
+        "phoneNumber": "123321123",
       },
       "studyLevels": Array [
         "GRADE_2",

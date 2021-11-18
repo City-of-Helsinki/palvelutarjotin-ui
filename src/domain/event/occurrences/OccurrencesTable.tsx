@@ -183,7 +183,7 @@ const OccurrenceEnrolmentTable: React.FC<{
       Header: t('enrolment:occurrenceTable.columnDate'),
       accessor: (row: OccurrenceFieldsFragment) => (
         <div style={{ display: 'flex', alignItems: 'center' }}>
-          {neededOccurrences && neededOccurrences > 1 && (
+          {!!neededOccurrences && neededOccurrences > 1 && (
             <Checkbox
               id={row.id}
               disabled={isDisabledOccurrenceCheckbox(row)}
@@ -289,8 +289,6 @@ const OccurrenceExpandButton: React.FC<
   }
 > = ({ isExpanded, event, occurrence, ...props }) => {
   const { t } = useTranslation();
-  const externalEnrolmentUrl = event.pEvent.externalEnrolmentUrl ?? '';
-  const hasExternalEnrolment = !!event.pEvent.externalEnrolmentUrl;
 
   const getEnrolmentError = (
     occurrence: OccurrenceFieldsFragment,
@@ -313,14 +311,6 @@ const OccurrenceExpandButton: React.FC<
       <ErrorMessage>
         {translateValue('enrolment:errors.label.', error, t)}
       </ErrorMessage>
-    );
-  }
-
-  if (hasExternalEnrolment) {
-    return (
-      <ExternalLink href={externalEnrolmentUrl}>
-        {t('occurrence:labelExternalEnrolmentLink')}
-      </ExternalLink>
     );
   }
 

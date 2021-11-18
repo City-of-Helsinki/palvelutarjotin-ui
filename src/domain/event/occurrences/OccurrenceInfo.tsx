@@ -12,6 +12,7 @@ import { useTranslation } from 'next-i18next';
 import Link from 'next/link';
 import React from 'react';
 
+import ExternalLink from '../../../common/components/externalLink/ExternalLink';
 import {
   OccurrenceFieldsFragment,
   EventFieldsFragment,
@@ -54,6 +55,8 @@ const OccurrenceInfo: React.FC<{
   const priceInfoUrl = offer?.infoUrl?.[locale];
   const neededOccurrences = event.pEvent.neededOccurrences;
   const autoAcceptance = event.pEvent?.autoAcceptance;
+  const externalEnrolmentUrl = event.pEvent.externalEnrolmentUrl ?? '';
+  const hasExternalEnrolment = !!event.pEvent.externalEnrolmentUrl;
 
   React.useEffect(() => {
     if (showEnrolmentForm) {
@@ -178,7 +181,14 @@ const OccurrenceInfo: React.FC<{
         language={locale}
         variant="button"
       />
-      {neededOccurrences === 1 && (
+      {hasExternalEnrolment ? (
+        <ExternalLink
+          href={externalEnrolmentUrl}
+          className={styles.externalEnrolmentLink}
+        >
+          {t('occurrence:labelExternalEnrolmentLink')}
+        </ExternalLink>
+      ) : neededOccurrences === 1 ? (
         <Button
           className={classNames(styles.expandEnrolButton, {
             [styles.enquiryButton]: !showEnrolmentForm && !autoAcceptance,
@@ -202,7 +212,7 @@ const OccurrenceInfo: React.FC<{
                 }`
               )}
         </Button>
-      )}
+      ) : null}
     </>
   );
 

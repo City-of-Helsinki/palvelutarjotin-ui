@@ -400,14 +400,18 @@ it('hides seats left column header when event has external enrolment', async () 
   expect(
     screen.queryByRole('columnheader', { name: /paikkoja jäljellä/i })
   ).not.toBeInTheDocument();
-  screen.getByRole('link', {
-    name: /ilmoittaudu avautuu uudessa välilehdessä/i,
-  });
 
   const tableRows = screen.getAllByRole('row');
   expect(tableRows[1]).toHaveTextContent(
-    '15.7.2020 ke12:00 – 13:00Soukan kirjastoIlmoittauduAvautuu uudessa välilehdessä'
+    '15.7.2020 ke12:00 – 13:00Soukan kirjastoNäytä tiedot'
   );
+
+  userEvent.click(
+    within(tableRows[1]).getByRole('button', { name: /näytä tiedot/i })
+  );
+  screen.getByRole('link', {
+    name: /ilmoittaudu avautuu uudessa välilehdessä/i,
+  });
 });
 
 it('selecting enrolments works and buttons have correct texts', async () => {
@@ -651,6 +655,11 @@ it('shows external enrolment link in occurrence row when event has external enro
     query: { eventId: eventData.id },
     path: `/fi${ROUTES.EVENT_DETAILS.replace(':id', data.id)}`,
   });
+
+  const detailsButton = await screen.findByRole('button', {
+    name: /Näytä tiedot/i,
+  });
+  userEvent.click(detailsButton);
 
   const enrolmentLink = await screen.findByRole('link', {
     name: /ilmoittaudu/i,

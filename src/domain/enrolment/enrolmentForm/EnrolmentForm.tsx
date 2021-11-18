@@ -82,6 +82,7 @@ const EnrolmentForm: React.FC<Props> = ({
           <form
             className={styles.enrolmentForm}
             onSubmit={handleSubmit}
+            data-testid="enrolment-form"
             noValidate
           >
             <FormikPersist
