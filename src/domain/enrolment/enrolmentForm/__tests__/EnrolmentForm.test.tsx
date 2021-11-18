@@ -3,9 +3,16 @@ import * as React from 'react';
 import wait from 'waait';
 
 import { FORM_NAMES } from '../../../../constants';
+import { createPlaceQueryMock } from '../../../../tests/apollo-mocks/placeMocks';
+// eslint-disable-next-line max-len
+import { createSchoolsAndKindergartensListQueryMock } from '../../../../tests/apollo-mocks/schoolsAndKindergartensListMock';
 import { createStudyLevelsQueryMock } from '../../../../tests/apollo-mocks/studyLevelsMocks';
 import { isFeatureEnabled } from '../../../../utils/featureFlags';
-import { StudyLevel } from '../../../../utils/mockDataUtils';
+import {
+  fakeLocalizedObject,
+  fakeOccurrences,
+  StudyLevel,
+} from '../../../../utils/mockDataUtils';
 import {
   render,
   screen,
@@ -20,11 +27,19 @@ import EnrolmentForm, { Props } from '../EnrolmentForm';
 
 configure({ defaultHidden: true });
 
-const defaultMocks: MockedResponse[] = [createStudyLevelsQueryMock()];
+const defaultMocks: MockedResponse[] = [
+  createStudyLevelsQueryMock(),
+  createSchoolsAndKindergartensListQueryMock(10, [
+    { id: 'test:place1', name: fakeLocalizedObject('place1') },
+    { id: 'test:place2', name: fakeLocalizedObject('place2') },
+    { id: 'test:place12', name: fakeLocalizedObject('place12') },
+    { id: 'test:place123', name: fakeLocalizedObject('place123') },
+  ]),
+];
 
 const renderComponent = ({
   props: { initialValues, ...restProps } = {},
-  mocks,
+  mocks = [],
 }: {
   props?: Partial<
     Omit<Props, 'initialValues'> & {
@@ -44,7 +59,7 @@ const renderComponent = ({
       initialValues={{ ...defaultInitialValues, ...initialValues }}
       {...restProps}
     />,
-    { mocks: defaultMocks }
+    { mocks: [...defaultMocks, ...mocks] }
   );
 
   return { ...renderResult, onCloseFormMock, onSubmitMock };
@@ -77,7 +92,7 @@ test('renders form and user can fill it and submit and form is saved to local st
   );
   userEvent.click(
     screen.getByRole('checkbox', {
-      name: /paikka helsingin ulkopuolelta/i,
+      name: /Paikka ei ole listalla/i,
     })
   );
   userEvent.type(
@@ -431,7 +446,7 @@ if (isFeatureEnabled('FORMIK_PERSIST')) {
       expect(phoneInput).toHaveValue(testValues.studyGroup.person.phoneNumber);
       userEvent.click(
         screen.getByRole('checkbox', {
-          name: /paikka helsingin ulkopuolelta/i,
+          name: /Paikka ei ole listalla/i,
         })
       );
       const studyGroupUnitName = screen.getByLabelText(
@@ -457,3 +472,147 @@ if (isFeatureEnabled('FORMIK_PERSIST')) {
     });
   });
 }
+
+describe('UnitField', () => {
+  const getUnitFieldInput = () =>
+    screen.getByRole('textbox', {
+      name: /päiväkoti \/ koulu \/ oppilaitos/i,
+    });
+
+  const setupUnitFieldTest = async (testMocks: MockedResponse[] = []) => {
+    renderComponent({
+      mocks: testMocks,
+      props: {
+        initialValues: {
+          minGroupSize: 10,
+          maxGroupSize: 20,
+        },
+      },
+    });
+
+    await screen.findByRole('heading', { name: /ilmoittajan tiedot/i });
+  };
+
+  it('renders properly', async () => {
+    await setupUnitFieldTest();
+
+    expect(
+      screen.getByText(/etsi helsinkiläistä toimipistettä/i)
+    ).toBeInTheDocument();
+
+    expect(
+      screen.queryByText(/kirjoita toimipaikan nimi/i)
+    ).not.toBeInTheDocument();
+
+    // When checkbox is checked
+    userEvent.click(
+      screen.getByRole('checkbox', {
+        name: /paikka ei ole listalla/i,
+      })
+    );
+
+    // It renders the freetext input field
+    expect(
+      screen.queryByText(/etsi helsinkiläistä toimipistettä/i)
+    ).not.toBeInTheDocument();
+
+    expect(screen.getByText(/kirjoita toimipaikan nimi/i)).toBeInTheDocument();
+
+    userEvent.type(getUnitFieldInput(), 'Testikoulu');
+
+    userEvent.tab();
+
+    expect(getUnitFieldInput()).toHaveValue('Testikoulu');
+
+    // wait for network requests and state updates
+    await act(wait);
+  });
+
+  it('renders a list of schools and kindergartens in unit id field', async () => {
+    await setupUnitFieldTest();
+
+    const unitFieldInput = screen.getByRole('textbox', {
+      name: /päiväkoti \/ koulu \/ oppilaitos/i,
+    });
+
+    // avoid act warning by clicking the input first
+    act(() => userEvent.click(unitFieldInput));
+    userEvent.type(unitFieldInput, 'place');
+
+    // The inserted text should filter autosuggest field options
+    await screen.findByText('place12');
+    expect(screen.getByText('place123')).toBeInTheDocument();
+    expect(screen.queryByText('place1')).toBeInTheDocument();
+    expect(screen.queryByText('place2')).toBeInTheDocument();
+
+    // Type to unit id field
+    act(() => userEvent.clear(unitFieldInput));
+
+    // avoid act warning by clicking the input first
+    act(() => userEvent.click(unitFieldInput));
+    userEvent.type(unitFieldInput, 'place12');
+
+    // The inserted text should filter autosuggest field options
+    await screen.findByText('place12');
+    expect(screen.getByText('place123')).toBeInTheDocument();
+
+    await waitFor(() => {
+      expect(screen.queryByText('place1')).not.toBeInTheDocument();
+      expect(screen.queryByText('place2')).not.toBeInTheDocument();
+    });
+  });
+
+  it.each<MockedResponse[] | undefined>([
+    [
+      createPlaceQueryMock({
+        id: 'test:place12',
+        name: fakeLocalizedObject('place12'),
+      }),
+    ],
+    undefined,
+  ])(
+    'shows the unit text in a autosuggest div next to the input (%p)',
+    async (placeMocks) => {
+      await setupUnitFieldTest(placeMocks);
+
+      // avoid act warning by clicking the input first
+      act(() => userEvent.click(getUnitFieldInput()));
+      userEvent.type(getUnitFieldInput(), 'place12');
+      await screen.findByText('place12');
+
+      // Select an unit
+      userEvent.click(screen.getByText('place12'));
+
+      await waitFor(() => {
+        expect(getUnitFieldInput().nextElementSibling).toHaveTextContent(
+          placeMocks ? 'place12' : 'unitPlaceSelector.noPlaceFoundError'
+        );
+      });
+    }
+  );
+
+  it('clears the unit id value when a clear button is clicked', async () => {
+    await setupUnitFieldTest();
+
+    act(() => userEvent.click(getUnitFieldInput()));
+    userEvent.type(getUnitFieldInput(), 'place12');
+
+    await screen.findByText('place12');
+
+    // Select an unit
+    userEvent.click(screen.getByText('place12'));
+
+    expect(getUnitFieldInput().nextElementSibling).toBeDefined();
+
+    // clear the selection
+    userEvent.click(
+      screen.getByRole('button', {
+        name: /poista arvo/i,
+      })
+    );
+    // No sibling anymore when the value is cleared
+    await waitFor(() => {
+      expect(getUnitFieldInput().nextElementSibling).toBe(null);
+    });
+  });
+});

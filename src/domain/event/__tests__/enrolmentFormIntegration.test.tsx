@@ -274,9 +274,7 @@ const fillForm = async ({
 
   userEvent.type(enrolmentForm.getByLabelText(/puhelinnumero/i), '123321123');
 
-  userEvent.click(
-    enrolmentForm.getByLabelText(/paikka helsingin ulkopuolelta/i)
-  );
+  userEvent.click(enrolmentForm.getByLabelText(/paikka ei ole listalla/i));
 
   userEvent.type(
     enrolmentForm.getByLabelText(/päiväkoti \/ koulu \/ oppilaitos/i),

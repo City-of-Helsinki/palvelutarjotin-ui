@@ -18,6 +18,7 @@ import {
 import * as graphqlFuncs from '../../../generated/graphql';
 import { createEventQueryMockIncludeLanguageAndAudience } from '../../../tests/apollo-mocks/eventMocks';
 import { createPlaceQueryMock } from '../../../tests/apollo-mocks/placeMocks';
+import { createSchoolsAndKindergartensListQueryMock } from '../../../tests/apollo-mocks/schoolsAndKindergartensListMock';
 import { createVenueQueryMock } from '../../../tests/apollo-mocks/venueMocks';
 import {
   fakeImage,
@@ -205,6 +206,12 @@ const apolloMocks = [
     name: fakeLocalizedObject(data.placeName),
   }),
   createVenueQueryMock({ id: data.placeId, ...venueData }),
+  createSchoolsAndKindergartensListQueryMock(10, [
+    { id: 'test:place1', name: fakeLocalizedObject('place1') },
+    { id: 'test:place2', name: fakeLocalizedObject('place2') },
+    { id: 'test:place12', name: fakeLocalizedObject('place12') },
+    { id: 'test:place123', name: fakeLocalizedObject('place123') },
+  ]),
 ];
 
 advanceTo(new Date(2020, 6, 14));
