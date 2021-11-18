@@ -63,5 +63,8 @@
     },
     "loading": "Ladataan ...",
     "noResults": "Ei tuloksia"
+  },
+  "unitPlaceSelector": {
+    "noPlaceFoundError": "Paikka on valittu, mutta nimen latauksessa esiintyi ongelma"
   }
 }
