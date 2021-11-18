@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { TextEncoder, TextDecoder } from 'util';
 
 import { screen } from '@testing-library/react';
@@ -23,7 +24,7 @@ global.TextDecoder = TextDecoder as any;
 const originalError = console.error.bind(console.error);
 
 beforeAll(() => {
-  // eslint-disable-next-line no-console
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   console.error = (msg: any, ...optionalParams: any[]) => {
     !msg.includes(
       'Warning: Prop `%s` did not match. Server: %s Client: %s%s'
