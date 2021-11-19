@@ -1,16 +1,14 @@
 @import 'layout';
 
 .enrolmentForm {
-  background-color: var(--color-black-10);
   padding: var(--spacing-layout-s) var(--spacing-layout-xs);
-  margin-top: var(--spacing-layout-m);
 
   .rowWith2Columns {
     display: grid;
-    grid-gap: var(--spacing-layout-s);
 
     @include respond_above(sm) {
       grid-template-columns: 1fr 1fr;
+      grid-gap: var(--spacing-layout-s);
     }
   }
 
@@ -57,12 +55,9 @@
   }
 
   .submitButtonWrapper {
-    text-align: right;
-  }
-
-  .enrolButton {
-    color: var(--color-bus);
-    background-color: rgb(0, 215, 167);
+    display: flex;
+    justify-content: space-between;
+    margin-top: var(--spacing-2-xl);
   }
 
   .enquiryButton {
@@ -86,7 +81,6 @@
 
   .unitField {
     display: grid;
-    grid-template-columns: 7fr 1fr;
-    grid-gap: var(--spacing-layout-s);
+    align-items: center;
   }
 }

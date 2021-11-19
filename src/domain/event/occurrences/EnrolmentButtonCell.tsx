@@ -20,8 +20,8 @@ import {
 } from '../../occurrence/utils';
 import { EnrolmentType } from '../constants';
 import { getEventFields, getEnrolmentType } from '../utils';
-import { enrolButtonColumnWidth } from './Occurrences';
 import styles from './occurrences.module.scss';
+import { enrolButtonColumnWidth } from './OccurrencesTable';
 
 type Props = {
   event: EventFieldsFragment;

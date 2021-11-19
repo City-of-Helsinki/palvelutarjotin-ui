@@ -1,4 +1,5 @@
 @import 'variables';
+@import 'layout';
 
 .occurrenceTable {
   --date-filter-width: 160px;
@@ -15,12 +16,16 @@
     display: grid;
     grid-template-columns: auto 1fr;
     align-items: center;
+
+    @include respond-above(sm) {
+      margin: 0 var(--spacing-2-xl);
+    }
   }
 
   .dateFilters {
     display: flex;
     justify-self: flex-end;
-    padding: var(--spacing-s);
+    padding: var(--spacing-s) 0;
     align-items: center;
   }
 
@@ -29,38 +34,59 @@
     margin-top: var(--spacing-m);
   }
 
-  .enrolButton {
-    background-color: rgb(0, 215, 167);
-    width: 100%;
-    padding: 1rem;
-    font-size: 1rem;
-  }
-
-  .enquiryButton {
-    background-color: var(--color-engel-medium-light);
-    width: 100%;
-    padding: 1rem;
-    font-size: 1rem;
-  }
-
   .iconAngleUp {
     transform: rotate(180deg);
   }
 
   .occurrenceDetails {
     display: grid;
-    grid-template-columns: 5fr 2fr;
+    grid-template-columns: 3fr 2fr;
+
+    @include respond-above(md) {
+      grid-template-columns: 4fr 2fr;
+    }
+  }
+
+  .closePreviewButton {
+    float: right;
+    display: flex;
+    align-items: center;
   }
 
   .occurrenceActions {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+
     button {
-      display: flex;
       font-size: 1rem;
+      display: flex;
 
       span {
         text-align: left;
       }
     }
+  }
+
+  .enrolmentExpandButton {
+    font-size: 1rem;
+  }
+
+  .expandEnrolButton {
+    align-self: flex-end;
+    margin-top: auto;
+    width: 100%;
+    font-size: 1rem;
+  }
+
+  .enrolButton {
+  }
+
+  .enquiryButton {
+    color: var(--color-black-90) !important;
+    border-color: var(--color-black-90) !important;
+    background-color: var(--color-engel-medium-light) !important;
   }
 
   .infoSection {
@@ -85,4 +111,14 @@
       padding-right: var(--spacing-xs);
     }
   }
+}
+
+.enrolmentFormSection {
+  margin-top: var(--spacing-xl);
+  border-top: 1px solid var(--color-black-10);
+}
+
+.externalEnrolmentLink {
+  margin-top: auto;
+  align-self: flex-end;
 }

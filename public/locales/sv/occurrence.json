@@ -9,6 +9,8 @@
   "showOccurrenceDetails": "Visa händelsedetaljer",
   "labelExternalEnrolmentLink": "Skriva in",
   "labelNoEnrolment": "Ingen registrering",
+  "buttonShowDetails": "Visa information",
+  "buttonHideDetails": "Göm information",
   "occurrenceSelection": {
     "buttonSelectOccurrence": "Välj",
     "buttonSelectedOccurrences": "Vald {{selectedOccurrences}} / {{neededOccurrences}}",

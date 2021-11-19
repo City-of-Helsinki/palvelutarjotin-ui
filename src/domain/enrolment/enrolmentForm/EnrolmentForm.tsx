@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { Formik, Field, useFormikContext } from 'formik';
-import { Button, Checkbox, Notification } from 'hds-react';
+import { Button, Checkbox, Notification, IconAngleUp } from 'hds-react';
 import isEmpty from 'lodash/isEmpty';
 import { useTranslation } from 'next-i18next';
 import React, { useEffect } from 'react';
@@ -20,7 +20,6 @@ import { Language } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
 import keyify from '../../../utils/keyify';
 import { translateValue } from '../../../utils/translateUtils';
-import Container from '../../app/layout/Container';
 import useStudyLevels from '../../studyLevel/useStudyLevels';
 import {
   defaultInitialValues,
@@ -30,16 +29,20 @@ import {
 import styles from './enrolmentForm.module.scss';
 import ValidationSchema from './ValidationSchema';
 
-interface Props {
+export interface Props {
   initialValues?: EnrolmentFormFields;
   enquiry: boolean;
   onSubmit: (values: EnrolmentFormFields) => void;
+  submitting: boolean;
+  onCloseForm: () => void;
 }
 
 const EnrolmentForm: React.FC<Props> = ({
   initialValues = defaultInitialValues,
   enquiry,
   onSubmit,
+  submitting,
+  onCloseForm,
 }) => {
   const { t } = useTranslation();
   const locale = useLocale();
@@ -79,36 +82,35 @@ const EnrolmentForm: React.FC<Props> = ({
           <form
             className={styles.enrolmentForm}
             onSubmit={handleSubmit}
+            data-testid="enrolment-form"
             noValidate
           >
             <FormikPersist
               name={FORM_NAMES.ENROLMENT_FORM}
               initialValues={initialValues}
             />
-            <Container size="small">
-              <h2>{t('enrolment:enrolmentForm.studyGroup.titleNotifier')}</h2>
-              <FormErrorNotification
-                errors={errorLabelKeys}
-                visible={showErrorNotification}
-              />
-              <Notification
-                className={styles.notification}
-                label={t(
-                  'enrolment:enrolmentForm.studyGroup.notificationLabel'
-                )}
-              >
-                {t('enrolment:enrolmentForm.studyGroup.notificationText')}
-              </Notification>
-              <button
-                onClick={() => resetForm()}
-                type="button"
-                aria-hidden={!dirty}
-                className={classNames(styles.resetFormButton, {
-                  [styles.resetFormButtonVisible]: dirty,
-                })}
-              >
-                {t('enrolment:enrolmentForm.buttonResetForm')}
-              </button>
+            <h2>{t('enrolment:enrolmentForm.studyGroup.titleNotifier')}</h2>
+            <FormErrorNotification
+              errors={errorLabelKeys}
+              visible={showErrorNotification}
+            />
+            <Notification
+              className={styles.notification}
+              label={t('enrolment:enrolmentForm.studyGroup.notificationLabel')}
+            >
+              {t('enrolment:enrolmentForm.studyGroup.notificationText')}
+            </Notification>
+            <button
+              onClick={() => resetForm()}
+              type="button"
+              aria-hidden={!dirty}
+              className={classNames(styles.resetFormButton, {
+                [styles.resetFormButtonVisible]: dirty,
+              })}
+            >
+              {t('enrolment:enrolmentForm.buttonResetForm')}
+            </button>
+            <div className={styles.rowWith2Columns}>
               <FormGroup>
                 <Field
                   label={t(nameToLabelPath['studyGroup.person.name'])}
@@ -127,6 +129,9 @@ const EnrolmentForm: React.FC<Props> = ({
                   name="studyGroup.person.emailAddress"
                 />
               </FormGroup>
+            </div>
+
+            <div className={styles.rowWith2Columns}>
               <FormGroup>
                 <Field
                   label={t(nameToLabelPath['studyGroup.person.phoneNumber'])}
@@ -134,7 +139,6 @@ const EnrolmentForm: React.FC<Props> = ({
                   name="studyGroup.person.phoneNumber"
                 />
               </FormGroup>
-
               <FormGroup>
                 <UnitField
                   label={t(nameToLabelPath['studyGroup.unitName'])}
@@ -157,195 +161,206 @@ const EnrolmentForm: React.FC<Props> = ({
                   )}
                 />
               </FormGroup>
+            </div>
 
-              <div className={styles.rowWith2Columns}>
-                <FormGroup>
-                  <Field
-                    required
-                    aria-required
-                    helperText={t(
-                      'enrolment:enrolmentForm.studyGroup.helperGroupName'
-                    )}
-                    label={t(nameToLabelPath['studyGroup.groupName'])}
-                    component={TextInputField}
-                    name="studyGroup.groupName"
-                  />
-                </FormGroup>
-
-                <FormGroup>
-                  <Field
-                    label={t(nameToLabelPath['studyGroup.studyLevels'])}
-                    component={MultiDropdownField}
-                    required
-                    aria-required
-                    name="studyGroup.studyLevels"
-                    options={studyLevelOptions?.length ? studyLevelOptions : []}
-                  />
-                </FormGroup>
-              </div>
-
-              <h2>{t('enrolment:enrolmentForm.studyGroup.titleGroup')}</h2>
-              <div className={styles.rowWith2Columns}>
-                <FormGroup>
-                  <Field
-                    label={t(nameToLabelPath['studyGroup.groupSize'])}
-                    required
-                    aria-required
-                    component={TextInputField}
-                    min={0}
-                    name="studyGroup.groupSize"
-                    type="number"
-                  />
-                </FormGroup>
-                <FormGroup>
-                  <Field
-                    label={t(nameToLabelPath['studyGroup.amountOfAdult'])}
-                    required
-                    aria-required
-                    component={TextInputField}
-                    min={0}
-                    name="studyGroup.amountOfAdult"
-                    type="number"
-                  />
-                </FormGroup>
-              </div>
+            <div className={styles.rowWith2Columns}>
               <FormGroup>
                 <Field
+                  required
+                  aria-required
                   helperText={t(
-                    'enrolment:enrolmentForm.studyGroup.helperExtraNeeds'
+                    'enrolment:enrolmentForm.studyGroup.helperGroupName'
                   )}
-                  label={
-                    isMandatoryAdditionalInformationRequired
-                      ? t(nameToLabelPath['studyGroup.extraNeeds'])
-                      : t(nameToLabelPath['studyGroup.extraNeedsOptional'])
-                  }
-                  component={TextAreaField}
-                  name="studyGroup.extraNeeds"
-                  required={isMandatoryAdditionalInformationRequired}
+                  label={t(nameToLabelPath['studyGroup.groupName'])}
+                  component={TextInputField}
+                  name="studyGroup.groupName"
                 />
               </FormGroup>
 
-              <h2>{t('enrolment:enrolmentForm.titleResponsiblePerson')}</h2>
               <FormGroup>
-                <div className={styles.checkboxWrapper}>
-                  <Field
-                    label={t(nameToLabelPath['isSameResponsiblePerson'])}
-                    component={CheckboxField}
-                    name="isSameResponsiblePerson"
-                  />
-                </div>
+                <Field
+                  label={t(nameToLabelPath['studyGroup.studyLevels'])}
+                  component={MultiDropdownField}
+                  required
+                  aria-required
+                  name="studyGroup.studyLevels"
+                  options={studyLevelOptions?.length ? studyLevelOptions : []}
+                />
               </FormGroup>
-              {!isSameResponsiblePerson && (
-                <>
+            </div>
+
+            <div className={styles.rowWith2Columns}>
+              <div>
+                <h2>{t('enrolment:enrolmentForm.studyGroup.titleGroup')}</h2>
+                <div className={styles.rowWith2Columns}>
                   <FormGroup>
                     <Field
+                      label={t(nameToLabelPath['studyGroup.groupSize'])}
                       required
                       aria-required
-                      label={t(nameToLabelPath['person.name'])}
                       component={TextInputField}
-                      name="person.name"
+                      min={0}
+                      name="studyGroup.groupSize"
+                      type="number"
                     />
                   </FormGroup>
                   <FormGroup>
                     <Field
+                      label={t(nameToLabelPath['studyGroup.amountOfAdult'])}
                       required
                       aria-required
-                      label={t(nameToLabelPath['person.emailAddress'])}
                       component={TextInputField}
-                      name="person.emailAddress"
+                      min={0}
+                      name="studyGroup.amountOfAdult"
+                      type="number"
                     />
                   </FormGroup>
-                  <FormGroup>
-                    <Field
-                      label={t(nameToLabelPath['person.phoneNumber'])}
-                      component={TextInputField}
-                      name="person.phoneNumber"
-                    />
-                  </FormGroup>
-                </>
-              )}
+                </div>
+              </div>
 
-              <div className={styles.divider} />
-
-              <h2>{t('enrolment:enrolmentForm.titleNotifications')}</h2>
-              <div className={styles.rowWith3Columns}>
+              <div>
+                <h2>{t('enrolment:enrolmentForm.titleResponsiblePerson')}</h2>
                 <FormGroup>
                   <div className={styles.checkboxWrapper}>
                     <Field
-                      disabled
-                      title={t(
-                        'enrolment:enrolmentForm.titleTextHasEmailNotification'
-                      )}
-                      label={t(nameToLabelPath['hasEmailNotification'])}
+                      label={t(nameToLabelPath['isSameResponsiblePerson'])}
                       component={CheckboxField}
-                      name="hasEmailNotification"
+                      name="isSameResponsiblePerson"
                     />
                   </div>
                 </FormGroup>
-                <FormGroup>
-                  <div className={styles.checkboxWrapper}>
-                    <SmsNotificationField
-                      name="hasSmsNotification"
-                      label={t(nameToLabelPath['hasSmsNotification'])}
-                    />
-                  </div>
-                </FormGroup>
-                <FormGroup>
-                  <Field
-                    label={t(nameToLabelPath['language'])}
-                    component={DropdownField}
-                    name="language"
-                    options={languageOptions}
-                  />
-                </FormGroup>
+                {!isSameResponsiblePerson && (
+                  <>
+                    <FormGroup>
+                      <Field
+                        required
+                        aria-required
+                        label={t(nameToLabelPath['person.name'])}
+                        component={TextInputField}
+                        name="person.name"
+                      />
+                    </FormGroup>
+                    <FormGroup>
+                      <Field
+                        required
+                        aria-required
+                        label={t(nameToLabelPath['person.emailAddress'])}
+                        component={TextInputField}
+                        name="person.emailAddress"
+                      />
+                    </FormGroup>
+                    <FormGroup>
+                      <Field
+                        label={t(nameToLabelPath['person.phoneNumber'])}
+                        component={TextInputField}
+                        name="person.phoneNumber"
+                      />
+                    </FormGroup>
+                  </>
+                )}
               </div>
-              <FormGroup>
-                <p>
-                  {t('enrolment:enrolmentForm.infoText1')}{' '}
-                  <a
-                    href={PRIVACY_POLICY_LINKS[locale]}
-                    target="_blank"
-                    rel="noreferrer"
-                    className={styles.privacyPolicyLink}
-                  >
-                    {t('common:privacyPolicy')}
-                  </a>
-                </p>
-              </FormGroup>
+            </div>
+            <FormGroup>
+              <Field
+                helperText={t(
+                  'enrolment:enrolmentForm.studyGroup.helperExtraNeeds'
+                )}
+                label={
+                  isMandatoryAdditionalInformationRequired
+                    ? t(nameToLabelPath['studyGroup.extraNeeds'])
+                    : t(nameToLabelPath['studyGroup.extraNeedsOptional'])
+                }
+                component={TextAreaField}
+                name="studyGroup.extraNeeds"
+                required={isMandatoryAdditionalInformationRequired}
+              />
+            </FormGroup>
+
+            <div className={styles.divider} />
+
+            <h2>{t('enrolment:enrolmentForm.titleNotifications')}</h2>
+            <div className={styles.rowWith3Columns}>
               <FormGroup>
                 <div className={styles.checkboxWrapper}>
                   <Field
-                    label={t(nameToLabelPath['isSharingDataAccepted'])}
-                    required
-                    aria-required
+                    disabled
+                    title={t(
+                      'enrolment:enrolmentForm.titleTextHasEmailNotification'
+                    )}
+                    label={t(nameToLabelPath['hasEmailNotification'])}
                     component={CheckboxField}
-                    name="isSharingDataAccepted"
+                    name="hasEmailNotification"
                   />
-                  <span className={styles.requiredIndicator}>*</span>
                 </div>
               </FormGroup>
-
-              {errors.isSharingDataAccepted &&
-                touched.isSharingDataAccepted && (
-                  <ErrorMessage>{t(errors.isSharingDataAccepted)}</ErrorMessage>
-                )}
               <FormGroup>
-                <p>{t('enrolment:enrolmentForm.infoText2')}</p>
+                <div className={styles.checkboxWrapper}>
+                  <SmsNotificationField
+                    name="hasSmsNotification"
+                    label={t(nameToLabelPath['hasSmsNotification'])}
+                  />
+                </div>
               </FormGroup>
-
-              <div className={styles.submitButtonWrapper}>
-                <Button
-                  type="submit"
-                  className={
-                    enquiry ? styles.enquiryButton : styles.enrolButton
-                  }
+              <FormGroup>
+                <Field
+                  label={t(nameToLabelPath['language'])}
+                  component={DropdownField}
+                  name="language"
+                  options={languageOptions}
+                />
+              </FormGroup>
+            </div>
+            <FormGroup>
+              <p>
+                {t('enrolment:enrolmentForm.infoText1')}{' '}
+                <a
+                  href={PRIVACY_POLICY_LINKS[locale]}
+                  target="_blank"
+                  rel="noreferrer"
+                  className={styles.privacyPolicyLink}
                 >
-                  {enquiry
-                    ? t('enrolment:enrolmentForm.buttonSubmitEnquiry')
-                    : t('enrolment:enrolmentForm.buttonSubmit')}
-                </Button>
+                  {t('common:privacyPolicy')}
+                </a>
+              </p>
+            </FormGroup>
+            <FormGroup>
+              <div className={styles.checkboxWrapper}>
+                <Field
+                  label={t(nameToLabelPath['isSharingDataAccepted'])}
+                  required
+                  aria-required
+                  component={CheckboxField}
+                  name="isSharingDataAccepted"
+                />
+                <span className={styles.requiredIndicator}>*</span>
               </div>
-            </Container>
+            </FormGroup>
+
+            {errors.isSharingDataAccepted && touched.isSharingDataAccepted && (
+              <ErrorMessage>{t(errors.isSharingDataAccepted)}</ErrorMessage>
+            )}
+            <FormGroup>
+              <p>{t('enrolment:enrolmentForm.infoText2')}</p>
+            </FormGroup>
+
+            <div className={styles.submitButtonWrapper}>
+              <Button
+                type="submit"
+                disabled={submitting}
+                className={enquiry ? styles.enquiryButton : styles.enrolButton}
+              >
+                {enquiry
+                  ? t('enrolment:enrolmentForm.buttonSubmitEnquiry')
+                  : t('enrolment:enrolmentForm.buttonSubmit')}
+              </Button>
+              <Button
+                onClick={onCloseForm}
+                variant="supplementary"
+                iconRight={<IconAngleUp />}
+              >
+                {t('enrolment:enrolmentForm.buttonCancelAndCloseForm')}
+              </Button>
+            </div>
           </form>
         );
       }}
@@ -353,10 +368,10 @@ const EnrolmentForm: React.FC<Props> = ({
   );
 };
 
-const SmsNotificationField: React.FC<{ name: string; label: string }> = ({
-  name,
-  label,
-}) => {
+const SmsNotificationField: React.FC<{
+  name: string;
+  label: string;
+}> = ({ name, label }) => {
   const { t } = useTranslation();
 
   const { values, setFieldValue } = useFormikContext();

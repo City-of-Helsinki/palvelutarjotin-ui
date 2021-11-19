@@ -9,6 +9,8 @@
   "showOccurrenceDetails": "Näytä tapahtuma-ajan lisätiedot",
   "labelExternalEnrolmentLink": "Ilmoittaudu",
   "labelNoEnrolment": "Ei ilmoittautumista",
+  "buttonShowDetails": "Näytä tiedot",
+  "buttonHideDetails": "Piilota tiedot",
   "occurrenceSelection": {
     "buttonSelectOccurrence": "Valitse",
     "buttonSelectedOccurrences": "Valittu {{selectedOccurrences}} / {{neededOccurrences}}",
