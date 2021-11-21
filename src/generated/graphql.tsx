@@ -1540,6 +1540,7 @@ export type QueryEventArgs = {
 export type QueryUpcomingEventsArgs = {
   page?: Maybe<Scalars['Int']>;
   pageSize?: Maybe<Scalars['Int']>;
+  include?: Maybe<Array<Maybe<Scalars['String']>>>;
 };
 
 
@@ -2062,6 +2063,15 @@ export type EventsQueryVariables = Exact<{
 
 
 export type EventsQuery = { __typename?: 'Query', events?: Maybe<{ __typename?: 'EventListResponse', meta: { __typename?: 'Meta', count?: Maybe<number>, next?: Maybe<string>, previous?: Maybe<string> }, data: Array<{ __typename?: 'Event', id: string, internalId: string, startTime?: Maybe<string>, name: { __typename?: 'LocalisedObject', en?: Maybe<string>, fi?: Maybe<string>, sv?: Maybe<string> }, shortDescription: { __typename?: 'LocalisedObject', en?: Maybe<string>, fi?: Maybe<string>, sv?: Maybe<string> }, description: { __typename?: 'LocalisedObject', en?: Maybe<string>, fi?: Maybe<string>, sv?: Maybe<string> }, images: Array<{ __typename?: 'Image', id?: Maybe<string>, internalId: string, license?: Maybe<string>, name: string, url: string, cropping?: Maybe<string>, photographerName?: Maybe<string>, altText?: Maybe<string> }>, infoUrl?: Maybe<{ __typename?: 'LocalisedObject', en?: Maybe<string>, fi?: Maybe<string>, sv?: Maybe<string> }>, offers: Array<{ __typename?: 'Offer', isFree?: Maybe<boolean>, description?: Maybe<{ __typename?: 'LocalisedObject', en?: Maybe<string>, fi?: Maybe<string>, sv?: Maybe<string> }>, price?: Maybe<{ __typename?: 'LocalisedObject', en?: Maybe<string>, fi?: Maybe<string>, sv?: Maybe<string> }>, infoUrl?: Maybe<{ __typename?: 'LocalisedObject', en?: Maybe<string>, fi?: Maybe<string>, sv?: Maybe<string> }> }>, pEvent: { __typename?: 'PalvelutarjotinEventNode', id: string, nextOccurrenceDatetime?: Maybe<any>, lastOccurrenceDatetime?: Maybe<any>, nextOccurrence?: Maybe<{ __typename?: 'OccurrenceNodeConnection', edges: Array<Maybe<{ __typename?: 'OccurrenceNodeEdge', node?: Maybe<{ __typename?: 'OccurrenceNode', id: string, startTime: any, endTime: any }> }>> }>, organisation?: Maybe<{ __typename?: 'OrganisationNode', id: string, name: string }> }, inLanguage: Array<{ __typename?: 'InLanguage', id?: Maybe<string>, internalId: string, name?: Maybe<{ __typename?: 'LocalisedObject', en?: Maybe<string>, fi?: Maybe<string>, sv?: Maybe<string> }> }>, audience: Array<{ __typename?: 'Keyword', id?: Maybe<string>, internalId: string, name?: Maybe<{ __typename?: 'LocalisedObject', en?: Maybe<string>, fi?: Maybe<string>, sv?: Maybe<string> }> }>, keywords: Array<{ __typename?: 'Keyword', id?: Maybe<string>, internalId: string, name?: Maybe<{ __typename?: 'LocalisedObject', en?: Maybe<string>, fi?: Maybe<string>, sv?: Maybe<string> }> }>, location?: Maybe<{ __typename?: 'Place', id?: Maybe<string>, internalId: string, name?: Maybe<{ __typename?: 'LocalisedObject', en?: Maybe<string>, fi?: Maybe<string>, sv?: Maybe<string> }>, streetAddress?: Maybe<{ __typename?: 'LocalisedObject', en?: Maybe<string>, fi?: Maybe<string>, sv?: Maybe<string> }>, addressLocality?: Maybe<{ __typename?: 'LocalisedObject', en?: Maybe<string>, fi?: Maybe<string>, sv?: Maybe<string> }>, telephone?: Maybe<{ __typename?: 'LocalisedObject', en?: Maybe<string>, fi?: Maybe<string>, sv?: Maybe<string> }> }> }> }> };
+
+export type UpcomingEventsQueryVariables = Exact<{
+  page?: Maybe<Scalars['Int']>;
+  pageSize?: Maybe<Scalars['Int']>;
+  include?: Maybe<Array<Maybe<Scalars['String']>> | Maybe<Scalars['String']>>;
+}>;
+
+
+export type UpcomingEventsQuery = { __typename?: 'Query', upcomingEvents?: Maybe<{ __typename?: 'EventListResponse', meta: { __typename?: 'Meta', count?: Maybe<number>, next?: Maybe<string>, previous?: Maybe<string> }, data: Array<{ __typename?: 'Event', id: string, internalId: string, startTime?: Maybe<string>, name: { __typename?: 'LocalisedObject', en?: Maybe<string>, fi?: Maybe<string>, sv?: Maybe<string> }, shortDescription: { __typename?: 'LocalisedObject', en?: Maybe<string>, fi?: Maybe<string>, sv?: Maybe<string> }, description: { __typename?: 'LocalisedObject', en?: Maybe<string>, fi?: Maybe<string>, sv?: Maybe<string> }, images: Array<{ __typename?: 'Image', id?: Maybe<string>, internalId: string, license?: Maybe<string>, name: string, url: string, cropping?: Maybe<string>, photographerName?: Maybe<string>, altText?: Maybe<string> }>, infoUrl?: Maybe<{ __typename?: 'LocalisedObject', en?: Maybe<string>, fi?: Maybe<string>, sv?: Maybe<string> }>, offers: Array<{ __typename?: 'Offer', isFree?: Maybe<boolean>, description?: Maybe<{ __typename?: 'LocalisedObject', en?: Maybe<string>, fi?: Maybe<string>, sv?: Maybe<string> }>, price?: Maybe<{ __typename?: 'LocalisedObject', en?: Maybe<string>, fi?: Maybe<string>, sv?: Maybe<string> }>, infoUrl?: Maybe<{ __typename?: 'LocalisedObject', en?: Maybe<string>, fi?: Maybe<string>, sv?: Maybe<string> }> }>, pEvent: { __typename?: 'PalvelutarjotinEventNode', id: string, nextOccurrenceDatetime?: Maybe<any>, lastOccurrenceDatetime?: Maybe<any>, nextOccurrence?: Maybe<{ __typename?: 'OccurrenceNodeConnection', edges: Array<Maybe<{ __typename?: 'OccurrenceNodeEdge', node?: Maybe<{ __typename?: 'OccurrenceNode', id: string, startTime: any, endTime: any }> }>> }>, organisation?: Maybe<{ __typename?: 'OrganisationNode', id: string, name: string }> }, inLanguage: Array<{ __typename?: 'InLanguage', id?: Maybe<string>, internalId: string, name?: Maybe<{ __typename?: 'LocalisedObject', en?: Maybe<string>, fi?: Maybe<string>, sv?: Maybe<string> }> }>, audience: Array<{ __typename?: 'Keyword', id?: Maybe<string>, internalId: string, name?: Maybe<{ __typename?: 'LocalisedObject', en?: Maybe<string>, fi?: Maybe<string>, sv?: Maybe<string> }> }>, keywords: Array<{ __typename?: 'Keyword', id?: Maybe<string>, internalId: string, name?: Maybe<{ __typename?: 'LocalisedObject', en?: Maybe<string>, fi?: Maybe<string>, sv?: Maybe<string> }> }>, location?: Maybe<{ __typename?: 'Place', id?: Maybe<string>, internalId: string, name?: Maybe<{ __typename?: 'LocalisedObject', en?: Maybe<string>, fi?: Maybe<string>, sv?: Maybe<string> }>, streetAddress?: Maybe<{ __typename?: 'LocalisedObject', en?: Maybe<string>, fi?: Maybe<string>, sv?: Maybe<string> }>, addressLocality?: Maybe<{ __typename?: 'LocalisedObject', en?: Maybe<string>, fi?: Maybe<string>, sv?: Maybe<string> }>, telephone?: Maybe<{ __typename?: 'LocalisedObject', en?: Maybe<string>, fi?: Maybe<string>, sv?: Maybe<string> }> }> }> }> };
 
 export type ImageFieldsFragment = { __typename?: 'Image', id?: Maybe<string>, internalId: string, license?: Maybe<string>, name: string, url: string, cropping?: Maybe<string>, photographerName?: Maybe<string>, altText?: Maybe<string> };
 
@@ -2698,6 +2708,49 @@ export function useEventsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Eve
 export type EventsQueryHookResult = ReturnType<typeof useEventsQuery>;
 export type EventsLazyQueryHookResult = ReturnType<typeof useEventsLazyQuery>;
 export type EventsQueryResult = Apollo.QueryResult<EventsQuery, EventsQueryVariables>;
+export const UpcomingEventsDocument = gql`
+    query UpcomingEvents($page: Int, $pageSize: Int, $include: [String]) {
+  upcomingEvents(page: $page, pageSize: $pageSize, include: $include) {
+    meta {
+      ...metaFields
+    }
+    data {
+      ...eventsFields
+    }
+  }
+}
+    ${MetaFieldsFragmentDoc}
+${EventsFieldsFragmentDoc}`;
+
+/**
+ * __useUpcomingEventsQuery__
+ *
+ * To run a query within a React component, call `useUpcomingEventsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useUpcomingEventsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useUpcomingEventsQuery({
+ *   variables: {
+ *      page: // value for 'page'
+ *      pageSize: // value for 'pageSize'
+ *      include: // value for 'include'
+ *   },
+ * });
+ */
+export function useUpcomingEventsQuery(baseOptions?: Apollo.QueryHookOptions<UpcomingEventsQuery, UpcomingEventsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<UpcomingEventsQuery, UpcomingEventsQueryVariables>(UpcomingEventsDocument, options);
+      }
+export function useUpcomingEventsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<UpcomingEventsQuery, UpcomingEventsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<UpcomingEventsQuery, UpcomingEventsQueryVariables>(UpcomingEventsDocument, options);
+        }
+export type UpcomingEventsQueryHookResult = ReturnType<typeof useUpcomingEventsQuery>;
+export type UpcomingEventsLazyQueryHookResult = ReturnType<typeof useUpcomingEventsLazyQuery>;
+export type UpcomingEventsQueryResult = Apollo.QueryResult<UpcomingEventsQuery, UpcomingEventsQueryVariables>;
 export const ImageDocument = gql`
     query Image($id: ID!) {
   image(id: $id) {

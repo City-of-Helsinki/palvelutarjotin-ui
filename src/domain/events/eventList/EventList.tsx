@@ -18,8 +18,8 @@ interface Props {
   isLoading: boolean;
   shouldShowLoadMore: boolean;
   eventsCount?: number | null;
-  sort: EVENT_SORT_OPTIONS;
-  setSort: (val: EVENT_SORT_OPTIONS) => void;
+  sort?: EVENT_SORT_OPTIONS;
+  setSort?: (val: EVENT_SORT_OPTIONS) => void;
 }
 
 const EventList = ({
@@ -49,7 +49,7 @@ const EventList = ({
   }, [t]);
   // eslint-disable-next-line  @typescript-eslint/no-explicit-any
   const handleSort = (option: { [key: string]: any }) => {
-    setSort(option.value);
+    setSort?.(option.value);
   };
 
   return (
@@ -61,20 +61,22 @@ const EventList = ({
             {t('events:eventList.count', { count: eventsCount || 0 })}
           </span>
         </h2>
-        <div className={styles.sortSelectorWrapper}>
-          <Select
-            className={styles.orderDropdown}
-            label={t('events:eventList.labelSort')}
-            onChange={handleSort}
-            options={sortOptions}
-            value={
-              sortOptions.find((option) => option.value === sort) || {
-                label: '',
-                value: '',
+        {sort && (
+          <div className={styles.sortSelectorWrapper}>
+            <Select
+              className={styles.orderDropdown}
+              label={t('events:eventList.labelSort')}
+              onChange={handleSort}
+              options={sortOptions}
+              value={
+                sortOptions.find((option) => option.value === sort) || {
+                  label: '',
+                  value: '',
+                }
               }
-            }
-          />
-        </div>
+            />
+          </div>
+        )}
       </div>
       <div className={styles.eventCardsContainer}>
         {events.map((event, index) => {

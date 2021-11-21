@@ -30,6 +30,8 @@ export const fakePage = (
       pageId: faker.datatype.number(),
       language: fakeLanguage({ code: LanguageCodeEnum.Fi }),
       seo: fakeSEO(),
+      isContentNode: false,
+      isTermNode: false,
       // to avoid infinite recursion loop :D
       translations: isTranslation
         ? null

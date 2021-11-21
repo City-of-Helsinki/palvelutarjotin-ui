@@ -2,20 +2,28 @@ import { Koros } from 'hds-react';
 import { useTranslation } from 'next-i18next';
 import Head from 'next/head';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import React, { ReactElement } from 'react';
 
 import LoadingSpinner from '../../common/components/loadingSpinner/LoadingSpinner';
-import { usePopularKeywordsQuery } from '../../generated/graphql';
+import {
+  usePopularKeywordsQuery,
+  useUpcomingEventsQuery,
+} from '../../generated/graphql';
 import useLocale from '../../hooks/useLocale';
 import localizedString from '../../utils/getLocalisedString';
+import getPageNumberFromUrl from '../../utils/getPageNumberFromUrl';
 import Container from '../app/layout/Container';
 import PageWrapper from '../app/layout/PageWrapper';
 import { ROUTES } from '../app/routes/constants';
 import BannerHero from '../bannerHero/BannerHero';
 import EventList from './eventList/EventList';
-import EventSearchForm, { PanelState } from './eventSearchForm/EventSearchForm';
+import EventSearchForm, {
+  EventSearchFormValues,
+  PanelState,
+} from './eventSearchForm/EventSearchForm';
 import styles from './eventsPage.module.scss';
-import { useEventsSearch } from './EventsSearchPage';
+import { getSearchQueryObject } from './utils';
 
 const panelStates = {
   closed: PanelState.Condensed,
@@ -23,22 +31,58 @@ const panelStates = {
 };
 
 const EventsPage = (): ReactElement => {
+  const router = useRouter();
+  const [isLoadingMore, setIsLoadingMore] = React.useState(false);
   const [searchPanelState, setSearchPanelState] = React.useState<PanelState>(
     panelStates.closed
   );
 
   const {
-    initialValues,
+    data: eventsData,
     loading,
-    events,
-    eventsCount,
-    isLoadingMore,
-    nextPage,
-    sort,
-    fetchMoreEvents,
-    search,
-    setSort,
-  } = useEventsSearch();
+    fetchMore,
+  } = useUpcomingEventsQuery({
+    variables: {
+      include: ['keywords', 'location', 'audience'],
+    },
+  });
+  const events = eventsData?.upcomingEvents?.data;
+  const eventsCount = eventsData?.upcomingEvents?.meta.count;
+
+  const search = (values: EventSearchFormValues) => {
+    values = { ...values, organisation: values.organisationId };
+    delete values.organisationId;
+
+    router.push(
+      {
+        pathname: ROUTES.EVENTS_SEARCH,
+        query: getSearchQueryObject(values),
+      },
+      undefined,
+      { scroll: false }
+    );
+  };
+
+  const nextPage = React.useMemo(() => {
+    const nextUrl = eventsData?.upcomingEvents?.meta.next;
+    return nextUrl ? getPageNumberFromUrl(nextUrl) : null;
+  }, [eventsData?.upcomingEvents?.meta?.next]);
+
+  const fetchMoreEvents = async () => {
+    if (nextPage) {
+      try {
+        setIsLoadingMore(true);
+        await fetchMore({
+          variables: {
+            page: nextPage,
+          },
+        });
+        setIsLoadingMore(false);
+      } catch (e) {
+        setIsLoadingMore(false);
+      }
+    }
+  };
 
   const handleToggleAdvancedSearch = () => {
     setSearchPanelState(
@@ -55,7 +99,6 @@ const EventsPage = (): ReactElement => {
         <Container>
           <div className={styles.eventsSearchForm}>
             <EventSearchForm
-              initialValues={initialValues}
               onSubmit={search}
               onToggleAdvancedSearch={handleToggleAdvancedSearch}
               panelState={searchPanelState}
@@ -73,8 +116,6 @@ const EventsPage = (): ReactElement => {
               fetchMore={fetchMoreEvents}
               isLoading={isLoadingMore}
               shouldShowLoadMore={Boolean(nextPage)}
-              sort={sort}
-              setSort={setSort}
             />
           )}
         </LoadingSpinner>

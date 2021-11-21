@@ -590,7 +590,7 @@ export enum CollectionIdType {
   Uri = 'URI'
 }
 
-export type CollectionModulesUnionType = EventSearch | EventSelected;
+export type CollectionModulesUnionType = EventSearch | EventSelected | LocationsSelected;
 
 /** Connection between the collection type and the collection type */
 export type CollectionToPreviewConnectionEdge = {
@@ -3277,6 +3277,19 @@ export type LayoutPages = {
   title?: Maybe<Scalars['String']>;
 };
 
+/** Collection Module: LocationsSelected */
+export type LocationsSelected = {
+  __typename?: 'LocationsSelected';
+  /** List of location IDs */
+  locations?: Maybe<Array<Maybe<Scalars['Int']>>>;
+  /** Module type */
+  module?: Maybe<Scalars['String']>;
+  /** List of modules */
+  modules?: Maybe<Array<Maybe<CollectionModulesUnionType>>>;
+  /** Module title */
+  title?: Maybe<Scalars['String']>;
+};
+
 /** File details for a Media Item */
 export type MediaDetails = {
   __typename?: 'MediaDetails';
@@ -4344,7 +4357,7 @@ export enum PageIdType {
   Uri = 'URI'
 }
 
-export type PageModulesUnionType = EventSearch | EventSelected | LayoutCollection | LayoutContact | LayoutArticles | LayoutPages;
+export type PageModulesUnionType = EventSearch | EventSelected | LocationsSelected | LayoutCollection | LayoutContact | LayoutArticles | LayoutPages;
 
 /** Connection between the page type and the page type */
 export type PageToPreviewConnectionEdge = {
@@ -4987,7 +5000,7 @@ export enum PostIdType {
   Uri = 'URI'
 }
 
-export type PostModulesUnionType = EventSearch | EventSelected | LayoutCollection | LayoutContact | LayoutArticles | LayoutPages;
+export type PostModulesUnionType = EventSearch | EventSelected | LocationsSelected | LayoutCollection | LayoutContact | LayoutArticles | LayoutPages;
 
 /** The format of post field data. */
 export enum PostObjectFieldFormatEnum {
