@@ -20,7 +20,6 @@ const BannerHero: React.FC = ({ children }) => {
         <h1>{t('common:bannerHero.title')}</h1>
       </Container>
       {children}
-      <Koros className={styles.koros} />
     </div>
   );
 };

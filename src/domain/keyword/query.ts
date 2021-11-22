@@ -54,3 +54,18 @@ export const QUERY_KEYWORD = gql`
     }
   }
 `;
+
+export const QUERY_POPULAR_KEYWORDS = gql`
+  query PopularKeywords($amount: Int, $showAllKeywords: Boolean) {
+    popularKultusKeywords(amount: $amount, showAllKeywords: $showAllKeywords) {
+      meta {
+        count
+        next
+        previous
+      }
+      data {
+        ...keywordFields
+      }
+    }
+  }
+`;

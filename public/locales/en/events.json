@@ -50,5 +50,6 @@
         "selectedItemRemoveButtonAriaLabel": "Delete activity filter"
       }
     }
-  }
+  },
+  "titlePopularEventCategories": "Popular event categories"
 }

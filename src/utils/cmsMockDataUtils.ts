@@ -53,6 +53,8 @@ export const fakePage = (
         __typename: 'HierarchicalContentNodeToContentNodeChildrenConnection',
       },
       parent: null,
+      isContentNode: false,
+      isTermNode: false,
       __typename: 'Page',
     },
     overrides
@@ -71,6 +73,8 @@ export const fakeMediaItem = (overrides?: Partial<MediaItem>): MediaItem => {
       altText: faker.random.words(),
       mimeType: faker.random.word(),
       uri: faker.internet.url(),
+      isContentNode: false,
+      isTermNode: false,
       __typename: 'MediaItem',
     },
     overrides

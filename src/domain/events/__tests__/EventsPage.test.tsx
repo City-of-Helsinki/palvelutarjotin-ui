@@ -3,7 +3,11 @@ import { advanceTo, clear } from 'jest-date-mock';
 import React from 'react';
 import wait from 'waait';
 
-import { EventsDocument, Event } from '../../../generated/graphql';
+import {
+  EventsDocument,
+  Event,
+  PopularKeywordsDocument,
+} from '../../../generated/graphql';
 import {
   fakeEvents,
   fakePEvent,
@@ -11,6 +15,7 @@ import {
   fakeKeyword,
   fakeOccurrences,
   fakeOccurrence,
+  fakeKeywords,
 } from '../../../utils/mockDataUtils';
 import {
   render,
@@ -19,13 +24,22 @@ import {
   configure,
   userEvent,
 } from '../../../utils/testUtils';
+import { ROUTES } from '../../app/routes/constants';
 import EventsPage from '../EventsPage';
 
 configure({ defaultHidden: true });
 
 const testDate = new Date(2020, 5, 20);
 
-const fakeKeywords = [
+const popularKultusKeywords = [
+  { name: 'Vaikuttaminen ja osallisuus', id: 'asfdghg1435' },
+  { name: 'Teatteri, tanssi ja sirkus', id: 'asdgfh64hjfg' },
+  { name: 'Musiikki', id: 'dfgh78' },
+  { name: 'Sanataide ja kirjallisuus', id: 'dfghjgj679' },
+  { name: 'Tiede', id: 'sdgfhghm567' },
+];
+
+const keywords = [
   fakeKeyword({ name: fakeLocalizedObject('vanhukset') }),
   fakeKeyword({ name: fakeLocalizedObject('nuoret') }),
   fakeKeyword({ name: fakeLocalizedObject('lapset') }),
@@ -43,7 +57,7 @@ const eventMocks: Partial<Event>[] = [
         }),
       ]),
     }),
-    keywords: fakeKeywords,
+    keywords: keywords,
   },
   {
     name: fakeLocalizedObject('Testitapahtuma 2'),
@@ -55,7 +69,7 @@ const eventMocks: Partial<Event>[] = [
         }),
       ]),
     }),
-    keywords: fakeKeywords,
+    keywords: keywords,
   },
   {
     name: fakeLocalizedObject('Testitapahtuma 3'),
@@ -67,7 +81,7 @@ const eventMocks: Partial<Event>[] = [
         }),
       ]),
     }),
-    keywords: fakeKeywords,
+    keywords: keywords,
   },
   {
     name: fakeLocalizedObject('Testitapahtuma 4'),
@@ -76,7 +90,7 @@ const eventMocks: Partial<Event>[] = [
       nextOccurrence: null,
       occurrences: fakeOccurrences(0),
     }),
-    keywords: fakeKeywords,
+    keywords: keywords,
   },
 ];
 
@@ -101,6 +115,26 @@ const mocks: MockedResponse[] = [
     result: {
       data: {
         events: fakeEvents(4, eventMocks),
+      },
+    },
+  },
+  {
+    request: {
+      query: PopularKeywordsDocument,
+      variables: {
+        amount: 10,
+        showAllKeywords: true,
+      },
+    },
+    result: {
+      data: {
+        popularKultusKeywords: fakeKeywords(
+          5,
+          popularKultusKeywords.map((k) => ({
+            name: fakeLocalizedObject(k.name),
+            id: k.id,
+          }))
+        ),
       },
     },
   },
@@ -158,7 +192,17 @@ test('renders search form and events list with correct information', async () =>
     expect(screen.queryByText(event.shortDescription.fi)).toBeInTheDocument();
   });
 
-  fakeKeywords.forEach((keyword) => {
+  for (const keyword of popularKultusKeywords) {
+    const popularKeywordLink = await screen.findByRole('link', {
+      name: keyword.name,
+    });
+    expect(popularKeywordLink).toHaveAttribute(
+      'href',
+      `${ROUTES.EVENTS_SEARCH}?categories=${keyword.id}`
+    );
+  }
+
+  keywords.forEach((keyword) => {
     if (!keyword?.name?.fi) {
       throw new Error('keyword name is missing');
     }

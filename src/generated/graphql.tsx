@@ -1351,6 +1351,8 @@ export type Query = {
   schoolsAndKindergartensList?: Maybe<ServiceUnitNameListResponse>;
   events?: Maybe<EventListResponse>;
   event?: Maybe<Event>;
+  /** Get upcoming events sorted by the next occurrence. */
+  upcomingEvents?: Maybe<EventListResponse>;
   places?: Maybe<PlaceListResponse>;
   place?: Maybe<Place>;
   images?: Maybe<ImageListResponse>;
@@ -1532,6 +1534,12 @@ export type QueryEventsArgs = {
 export type QueryEventArgs = {
   id: Scalars['ID'];
   include?: Maybe<Array<Maybe<Scalars['String']>>>;
+};
+
+
+export type QueryUpcomingEventsArgs = {
+  page?: Maybe<Scalars['Int']>;
+  pageSize?: Maybe<Scalars['Int']>;
 };
 
 
@@ -2091,6 +2099,14 @@ export type KeywordSetQueryVariables = Exact<{
 
 
 export type KeywordSetQuery = { __typename?: 'Query', keywordSet?: Maybe<{ __typename?: 'KeywordSet', internalId: string, keywords: Array<{ __typename?: 'Keyword', id?: Maybe<string>, internalId: string, name?: Maybe<{ __typename?: 'LocalisedObject', en?: Maybe<string>, fi?: Maybe<string>, sv?: Maybe<string> }> }>, name?: Maybe<{ __typename?: 'LocalisedObject', en?: Maybe<string>, fi?: Maybe<string>, sv?: Maybe<string> }> }> };
+
+export type PopularKeywordsQueryVariables = Exact<{
+  amount?: Maybe<Scalars['Int']>;
+  showAllKeywords?: Maybe<Scalars['Boolean']>;
+}>;
+
+
+export type PopularKeywordsQuery = { __typename?: 'Query', popularKultusKeywords?: Maybe<{ __typename?: 'KeywordListResponse', meta: { __typename?: 'Meta', count?: Maybe<number>, next?: Maybe<string>, previous?: Maybe<string> }, data: Array<{ __typename?: 'Keyword', id?: Maybe<string>, internalId: string, name?: Maybe<{ __typename?: 'LocalisedObject', en?: Maybe<string>, fi?: Maybe<string>, sv?: Maybe<string> }> }> }> };
 
 export type LanguageFieldsFragment = { __typename?: 'LanguageNode', id: string, name: string };
 
@@ -2848,6 +2864,49 @@ export function useKeywordSetLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions
 export type KeywordSetQueryHookResult = ReturnType<typeof useKeywordSetQuery>;
 export type KeywordSetLazyQueryHookResult = ReturnType<typeof useKeywordSetLazyQuery>;
 export type KeywordSetQueryResult = Apollo.QueryResult<KeywordSetQuery, KeywordSetQueryVariables>;
+export const PopularKeywordsDocument = gql`
+    query PopularKeywords($amount: Int, $showAllKeywords: Boolean) {
+  popularKultusKeywords(amount: $amount, showAllKeywords: $showAllKeywords) {
+    meta {
+      count
+      next
+      previous
+    }
+    data {
+      ...keywordFields
+    }
+  }
+}
+    ${KeywordFieldsFragmentDoc}`;
+
+/**
+ * __usePopularKeywordsQuery__
+ *
+ * To run a query within a React component, call `usePopularKeywordsQuery` and pass it any options that fit your needs.
+ * When your component renders, `usePopularKeywordsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = usePopularKeywordsQuery({
+ *   variables: {
+ *      amount: // value for 'amount'
+ *      showAllKeywords: // value for 'showAllKeywords'
+ *   },
+ * });
+ */
+export function usePopularKeywordsQuery(baseOptions?: Apollo.QueryHookOptions<PopularKeywordsQuery, PopularKeywordsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<PopularKeywordsQuery, PopularKeywordsQueryVariables>(PopularKeywordsDocument, options);
+      }
+export function usePopularKeywordsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<PopularKeywordsQuery, PopularKeywordsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<PopularKeywordsQuery, PopularKeywordsQueryVariables>(PopularKeywordsDocument, options);
+        }
+export type PopularKeywordsQueryHookResult = ReturnType<typeof usePopularKeywordsQuery>;
+export type PopularKeywordsLazyQueryHookResult = ReturnType<typeof usePopularKeywordsLazyQuery>;
+export type PopularKeywordsQueryResult = Apollo.QueryResult<PopularKeywordsQuery, PopularKeywordsQueryVariables>;
 export const OccurrenceDocument = gql`
     query Occurrence($id: ID!) {
   occurrence(id: $id) {

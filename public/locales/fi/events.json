@@ -50,5 +50,6 @@
         "selectedItemRemoveButtonAriaLabel": "Poista aktiviteetit"
       }
     }
-  }
+  },
+  "titlePopularEventCategories": "Suosittuja tapahtumatyyppejä"
 }
