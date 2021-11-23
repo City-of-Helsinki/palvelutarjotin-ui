@@ -12,6 +12,7 @@
   "buttonShowDetails": "Show details",
   "buttonHideDetails": "Hide details",
   "occurrenceSelection": {
+    "checkboxSelectOccurrence": "Select occurrence",
     "buttonSelectOccurrence": "Select",
     "buttonSelectedOccurrences": "Selected {{selectedOccurrences}} / {{neededOccurrences}}",
     "buttonSelectOccurrences": "Select {{neededOccurrences}} occurrences",

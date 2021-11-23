@@ -12,6 +12,7 @@
   "buttonShowDetails": "Näytä tiedot",
   "buttonHideDetails": "Piilota tiedot",
   "occurrenceSelection": {
+    "checkboxSelectOccurrence": "Valitse tapahtuma-aika",
     "buttonSelectOccurrence": "Valitse",
     "buttonSelectedOccurrences": "Valittu {{selectedOccurrences}} / {{neededOccurrences}}",
     "buttonSelectOccurrences": "Valitse {{neededOccurrences}} tapahtuma-aikaa",

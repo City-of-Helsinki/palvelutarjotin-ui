@@ -12,6 +12,7 @@
   "buttonShowDetails": "Visa information",
   "buttonHideDetails": "Göm information",
   "occurrenceSelection": {
+    "checkboxSelectOccurrence": "Välj tidpunkt för evenemang",
     "buttonSelectOccurrence": "Välj",
     "buttonSelectedOccurrences": "Vald {{selectedOccurrences}} / {{neededOccurrences}}",
     "buttonSelectOccurrences": "Välj {{neededOccurrences}} förekomster",
