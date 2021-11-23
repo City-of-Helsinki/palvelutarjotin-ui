@@ -14,6 +14,7 @@ import {
   useEventQuery,
 } from '../../generated/graphql';
 import useLocale from '../../hooks/useLocale';
+import { extractLatestReturnPath } from '../../utils/extractLatestReturnPath';
 import { translateValue } from '../../utils/translateUtils';
 import Container from '../app/layout/Container';
 import PageWrapper from '../app/layout/PageWrapper';
@@ -187,12 +188,15 @@ const EventHero: React.FC<{
   photographerName?: string | null;
 }> = ({ imageAltText, imageUrl, photographerName }) => {
   const { t } = useTranslation();
+  const { asPath } = useRouter();
+  const [, search] = asPath.split('?');
+  const { returnPath, remainingQueryString } = extractLatestReturnPath(search);
 
   return (
     <div className={styles.eventHero}>
       <Container className={styles.backButtonContainer}>
-        <Link href="/">
-          <a>
+        <Link href={{ pathname: returnPath, search: remainingQueryString }}>
+          <a aria-label={t('common:buttonBack')}>
             <IconArrowLeft size="m" />
           </a>
         </Link>

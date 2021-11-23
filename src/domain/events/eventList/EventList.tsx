@@ -1,9 +1,11 @@
 import { Button, Select, IconArrowDown } from 'hds-react';
 import { useTranslation } from 'next-i18next';
+import { useRouter } from 'next/router';
 import React, { ReactElement } from 'react';
 
 import LoadingSpinner from '../../../common/components/loadingSpinner/LoadingSpinner';
 import { EventsFieldsFragment } from '../../../generated/graphql';
+import { addParamsToQueryString } from '../../../utils/queryString';
 import { translateValue } from '../../../utils/translateUtils';
 import { ROUTES } from '../../app/routes/constants';
 import EventCard from '../../event/eventCard/EventCard';
@@ -29,6 +31,13 @@ const EventList = ({
   eventsCount = 0,
   setSort,
 }: Props): ReactElement => {
+  const { asPath } = useRouter();
+
+  const [pathname, search] = asPath.split('?');
+  const queryString = addParamsToQueryString(search, {
+    returnPath: pathname,
+  });
+
   const { t } = useTranslation();
   const sortOptions = React.useMemo(() => {
     return Object.keys(EVENT_SORT_OPTIONS).map((key) => {
@@ -69,13 +78,11 @@ const EventList = ({
       </div>
       <div className={styles.eventCardsContainer}>
         {events.map((event, index) => {
-          return (
-            <EventCard
-              key={index}
-              event={event}
-              link={ROUTES.EVENT_DETAILS.replace(':id', event.id)}
-            />
-          );
+          const eventUrl = `${ROUTES.EVENT_DETAILS.replace(
+            ':id',
+            event.id
+          )}${queryString}`;
+          return <EventCard key={index} event={event} link={eventUrl} />;
         })}
       </div>
       {shouldShowLoadMore && (

@@ -825,3 +825,36 @@ it('shows inquire registration notification after enrolment is done', async () =
     /lähetämme sinulle vahvistuksen sähköpostitse ja tekstiviestillä\./i
   );
 });
+
+describe('back button', () => {
+  it('back button renders href correctly based on returnPath query param', async () => {
+    render(<EventPage />, {
+      mocks: apolloMocks,
+      query: { eventId: eventData.id },
+      path: `/fi${ROUTES.EVENT_DETAILS.replace(
+        ':id',
+        data.id
+      )}?returnPath=%2Fsearch&text=rock`,
+    });
+    await waitForRequestsToComplete();
+
+    const backLink = screen.getByRole('link', {
+      name: /takaisin/i,
+    });
+    expect(backLink).toHaveAttribute('href', '/search?text=rock');
+  });
+
+  it('back button renders href correctly returnPath to front page', async () => {
+    render(<EventPage />, {
+      mocks: apolloMocks,
+      query: { eventId: eventData.id },
+      path: `/fi${ROUTES.EVENT_DETAILS.replace(':id', data.id)}?returnPath=%2F`,
+    });
+    await waitForRequestsToComplete();
+
+    const backLink = screen.getByRole('link', {
+      name: /takaisin/i,
+    });
+    expect(backLink).toHaveAttribute('href', '/');
+  });
+});
