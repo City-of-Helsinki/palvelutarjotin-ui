@@ -55,8 +55,6 @@ export const fakePage = (
         __typename: 'HierarchicalContentNodeToContentNodeChildrenConnection',
       },
       parent: null,
-      isContentNode: false,
-      isTermNode: false,
       __typename: 'Page',
     },
     overrides
