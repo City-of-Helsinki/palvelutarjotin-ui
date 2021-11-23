@@ -4,9 +4,52 @@
   background-color: var(--color-black-70);
   padding: var(--spacing-layout-xs);
   margin: var(--spacing-layout-s) 0;
+  margin-bottom: var(--spacing-layout-xl) !important;
 
   @include respond_above(md) {
     padding: var(--spacing-layout-l);
     margin: var(--spacing-layout-l) 0;
   }
+}
+
+.popularKeywords {
+  h2 {
+    font-size: var(--fontsize-heading-s);
+    margin-top: 0;
+    margin-bottom: var(--spacing-s);
+  }
+}
+
+.keywordsList {
+  display: flex;
+  padding-bottom: 1rem;
+  flex-wrap: wrap;
+
+  a {
+    outline-offset: 3px;
+    font-weight: 500;
+    font-size: var(--fontsize-body-s);
+    white-space: nowrap;
+    margin: var(--spacing-s) var(--spacing-s) 0 0;
+    padding: var(--spacing-2-xs) var(--spacing-s);
+    border: 2px solid var(--color-coat-of-arms);
+    text-decoration: none;
+    color: var(--color-coat-of-arms);
+  }
+}
+
+.popularKeywordsSection {
+  background-color: var(--color-white);
+  margin-top: -20px;
+  padding-bottom: 65px;
+}
+
+.korosTop {
+  fill: var(--color-white); // var(--background-color-body);
+  margin-top: -1rem;
+}
+
+.korosBottom {
+  fill: var(--background-color-body);
+  margin-top: -1rem;
 }

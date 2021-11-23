@@ -54,7 +54,7 @@ export enum AvatarRatingEnum {
 }
 
 /** The category type */
-export type Category = Node & TermNode & DatabaseIdentifier & UniformResourceIdentifiable & HierarchicalTermNode & MenuItemLinkable & {
+export type Category = Node & TermNode & UniformResourceIdentifiable & DatabaseIdentifier & HierarchicalTermNode & MenuItemLinkable & {
   __typename?: 'Category';
   /** The ancestors of the node. Default ordered as lowest (closest to the child) to highest (closest to the root). */
   ancestors?: Maybe<CategoryToAncestorsCategoryConnection>;
@@ -79,8 +79,12 @@ export type Category = Node & TermNode & DatabaseIdentifier & UniformResourceIde
   enqueuedStylesheets?: Maybe<TermNodeToEnqueuedStylesheetConnection>;
   /** The unique resource identifier path */
   id: Scalars['ID'];
+  /** Whether the node is a Content Node */
+  isContentNode: Scalars['Boolean'];
   /** Whether the object is restricted from the current viewer */
   isRestricted?: Maybe<Scalars['Boolean']>;
+  /** Whether the node is a Term */
+  isTermNode: Scalars['Boolean'];
   /** List available translations for this post */
   language?: Maybe<Language>;
   /** The link to the term */
@@ -294,6 +298,8 @@ export type CategoryToContentNodeConnectionEdge = {
 
 /** Arguments for filtering the CategoryToContentNodeConnection connection */
 export type CategoryToContentNodeConnectionWhereArgs = {
+  /** The Types of content to filter */
+  contentTypes?: Maybe<Array<Maybe<ContentTypesOfCategoryEnum>>>;
   /** Filter the connection based on dates */
   dateQuery?: Maybe<DateQueryInput>;
   /** True for objects with passwords; False for objects without passwords; null for all objects with or without passwords */
@@ -333,7 +339,7 @@ export type CategoryToContentNodeConnectionWhereArgs = {
 /** Connection between the category type and the category type */
 export type CategoryToParentCategoryConnectionEdge = {
   __typename?: 'CategoryToParentCategoryConnectionEdge';
-  /** The nodes of the connection, without the edges */
+  /** The node of the connection, without the edges */
   node?: Maybe<Category>;
 };
 
@@ -426,12 +432,12 @@ export type CategoryToPostConnectionWhereArgs = {
 /** Connection between the category type and the Taxonomy type */
 export type CategoryToTaxonomyConnectionEdge = {
   __typename?: 'CategoryToTaxonomyConnectionEdge';
-  /** The nodes of the connection, without the edges */
+  /** The node of the connection, without the edges */
   node?: Maybe<Taxonomy>;
 };
 
 /** The collection type */
-export type Collection = Node & ContentNode & DatabaseIdentifier & NodeWithTemplate & UniformResourceIdentifiable & NodeWithTitle & NodeWithRevisions & {
+export type Collection = Node & ContentNode & UniformResourceIdentifiable & DatabaseIdentifier & NodeWithTemplate & NodeWithTitle & NodeWithRevisions & {
   __typename?: 'Collection';
   /** Background Color */
   backgroundColor?: Maybe<Scalars['String']>;
@@ -468,12 +474,16 @@ export type Collection = Node & ContentNode & DatabaseIdentifier & NodeWithTempl
   id: Scalars['ID'];
   /** Image */
   image?: Maybe<Scalars['String']>;
+  /** Whether the node is a Content Node */
+  isContentNode: Scalars['Boolean'];
   /** Whether the object is a node in the preview state */
   isPreview?: Maybe<Scalars['Boolean']>;
   /** Whether the object is restricted from the current viewer */
   isRestricted?: Maybe<Scalars['Boolean']>;
   /** True if the node is a revision of another node */
   isRevision?: Maybe<Scalars['Boolean']>;
+  /** Whether the node is a Term */
+  isTermNode: Scalars['Boolean'];
   /** Polylang language */
   language?: Maybe<Language>;
   /** The user that most recently edited the node */
@@ -585,7 +595,7 @@ export type CollectionModulesUnionType = EventSearch | EventSelected;
 /** Connection between the collection type and the collection type */
 export type CollectionToPreviewConnectionEdge = {
   __typename?: 'CollectionToPreviewConnectionEdge';
-  /** The nodes of the connection, without the edges */
+  /** The node of the connection, without the edges */
   node?: Maybe<Collection>;
 };
 
@@ -881,21 +891,21 @@ export type CommentToCommentConnectionWhereArgs = {
 /** Connection between the Comment type and the Commenter type */
 export type CommentToCommenterConnectionEdge = {
   __typename?: 'CommentToCommenterConnectionEdge';
-  /** The nodes of the connection, without the edges */
+  /** The node of the connection, without the edges */
   node?: Maybe<Commenter>;
 };
 
 /** Connection between the Comment type and the ContentNode type */
 export type CommentToContentNodeConnectionEdge = {
   __typename?: 'CommentToContentNodeConnectionEdge';
-  /** The nodes of the connection, without the edges */
+  /** The node of the connection, without the edges */
   node?: Maybe<ContentNode>;
 };
 
 /** Connection between the Comment type and the Comment type */
 export type CommentToParentCommentConnectionEdge = {
   __typename?: 'CommentToParentCommentConnectionEdge';
-  /** The nodes of the connection, without the edges */
+  /** The node of the connection, without the edges */
   node?: Maybe<Comment>;
 };
 
@@ -1014,7 +1024,7 @@ export enum CommentsConnectionOrderbyEnum {
 }
 
 /** The contact type */
-export type Contact = Node & ContentNode & DatabaseIdentifier & NodeWithTemplate & UniformResourceIdentifiable & NodeWithTitle & NodeWithFeaturedImage & NodeWithRevisions & {
+export type Contact = Node & ContentNode & UniformResourceIdentifiable & DatabaseIdentifier & NodeWithTemplate & NodeWithTitle & NodeWithFeaturedImage & NodeWithRevisions & {
   __typename?: 'Contact';
   /**
    * The id field matches the WP_Post-&gt;ID field.
@@ -1053,12 +1063,16 @@ export type Contact = Node & ContentNode & DatabaseIdentifier & NodeWithTemplate
   guid?: Maybe<Scalars['String']>;
   /** The globally unique identifier of the contact-cpt object. */
   id: Scalars['ID'];
+  /** Whether the node is a Content Node */
+  isContentNode: Scalars['Boolean'];
   /** Whether the object is a node in the preview state */
   isPreview?: Maybe<Scalars['Boolean']>;
   /** Whether the object is restricted from the current viewer */
   isRestricted?: Maybe<Scalars['Boolean']>;
   /** True if the node is a revision of another node */
   isRevision?: Maybe<Scalars['Boolean']>;
+  /** Whether the node is a Term */
+  isTermNode: Scalars['Boolean'];
   /** Job Title */
   jobTitle?: Maybe<Scalars['String']>;
   /** Polylang language */
@@ -1089,7 +1103,7 @@ export type Contact = Node & ContentNode & DatabaseIdentifier & NodeWithTemplate
   slug?: Maybe<Scalars['String']>;
   /** The current status of the object */
   status?: Maybe<Scalars['String']>;
-  /** The template assigned to the node */
+  /** The template assigned to a node of content */
   template?: Maybe<ContentTemplate>;
   /** Connection between the contact type and the TermNode type */
   terms?: Maybe<ContactToTermNodeConnection>;
@@ -1168,7 +1182,7 @@ export enum ContactIdType {
 /** Connection between the contact type and the contact type */
 export type ContactToPreviewConnectionEdge = {
   __typename?: 'ContactToPreviewConnectionEdge';
-  /** The nodes of the connection, without the edges */
+  /** The node of the connection, without the edges */
   node?: Maybe<Contact>;
 };
 
@@ -1318,12 +1332,16 @@ export type ContentNode = {
   enqueuedStylesheets?: Maybe<ContentNodeToEnqueuedStylesheetConnection>;
   /** The global unique identifier for this post. This currently matches the value stored in WP_Post-&gt;guid and the guid column in the &quot;post_objects&quot; database table. */
   guid?: Maybe<Scalars['String']>;
-  /** The globally unique identifier of the node. */
+  /** The unique resource identifier path */
   id: Scalars['ID'];
+  /** Whether the node is a Content Node */
+  isContentNode: Scalars['Boolean'];
   /** Whether the object is a node in the preview state */
   isPreview?: Maybe<Scalars['Boolean']>;
   /** Whether the object is restricted from the current viewer */
   isRestricted?: Maybe<Scalars['Boolean']>;
+  /** Whether the node is a Term */
+  isTermNode: Scalars['Boolean'];
   /** The user that most recently edited the node */
   lastEditedBy?: Maybe<ContentNodeToEditLastConnectionEdge>;
   /** The permalink of the post */
@@ -1342,7 +1360,7 @@ export type ContentNode = {
   status?: Maybe<Scalars['String']>;
   /** The template assigned to a node of content */
   template?: Maybe<ContentTemplate>;
-  /** URI path for the resource */
+  /** The unique resource identifier path */
   uri?: Maybe<Scalars['String']>;
 };
 
@@ -1377,14 +1395,14 @@ export enum ContentNodeIdTypeEnum {
 /** Connection between the ContentNode type and the ContentType type */
 export type ContentNodeToContentTypeConnectionEdge = {
   __typename?: 'ContentNodeToContentTypeConnectionEdge';
-  /** The nodes of the connection, without the edges */
+  /** The node of the connection, without the edges */
   node?: Maybe<ContentType>;
 };
 
 /** Connection between the ContentNode type and the User type */
 export type ContentNodeToEditLastConnectionEdge = {
   __typename?: 'ContentNodeToEditLastConnectionEdge';
-  /** The nodes of the connection, without the edges */
+  /** The node of the connection, without the edges */
   node?: Maybe<User>;
 };
 
@@ -1393,7 +1411,7 @@ export type ContentNodeToEditLockConnectionEdge = {
   __typename?: 'ContentNodeToEditLockConnectionEdge';
   /** The timestamp for when the node was last edited */
   lockTimestamp?: Maybe<Scalars['String']>;
-  /** The nodes of the connection, without the edges */
+  /** The node of the connection, without the edges */
   node?: Maybe<User>;
 };
 
@@ -1471,12 +1489,16 @@ export type ContentType = Node & UniformResourceIdentifiable & {
   hierarchical?: Maybe<Scalars['Boolean']>;
   /** The globally unique identifier of the post-type object. */
   id: Scalars['ID'];
+  /** Whether the node is a Content Node */
+  isContentNode: Scalars['Boolean'];
   /** Whether this page is set to the static front page. */
   isFrontPage: Scalars['Boolean'];
   /** Whether this page is set to the blog posts page. */
   isPostsPage: Scalars['Boolean'];
   /** Whether the object is restricted from the current viewer */
   isRestricted?: Maybe<Scalars['Boolean']>;
+  /** Whether the node is a Term */
+  isTermNode: Scalars['Boolean'];
   /** Display name of the content type. */
   label?: Maybe<Scalars['String']>;
   /** Details about the content type labels. */
@@ -1580,6 +1602,8 @@ export type ContentTypeToContentNodeConnectionEdge = {
 
 /** Arguments for filtering the ContentTypeToContentNodeConnection connection */
 export type ContentTypeToContentNodeConnectionWhereArgs = {
+  /** The Types of content to filter */
+  contentTypes?: Maybe<Array<Maybe<ContentTypeEnum>>>;
   /** Filter the connection based on dates */
   dateQuery?: Maybe<DateQueryInput>;
   /** True for objects with passwords; False for objects without passwords; null for all objects with or without passwords */
@@ -1635,6 +1659,24 @@ export type ContentTypeToTaxonomyConnectionEdge = {
   /** The item at the end of the edge */
   node?: Maybe<Taxonomy>;
 };
+
+/** Allowed Content Types of the Category taxonomy. */
+export enum ContentTypesOfCategoryEnum {
+  /** The Type of Content object */
+  Post = 'POST'
+}
+
+/** Allowed Content Types of the PostFormat taxonomy. */
+export enum ContentTypesOfPostFormatEnum {
+  /** The Type of Content object */
+  Post = 'POST'
+}
+
+/** Allowed Content Types of the Tag taxonomy. */
+export enum ContentTypesOfTagEnum {
+  /** The Type of Content object */
+  Post = 'POST'
+}
 
 /** Input for the createCategory mutation */
 export type CreateCategoryInput = {
@@ -2538,6 +2580,8 @@ export type HierarchicalContentNodeToContentNodeAncestorsConnectionEdge = {
 
 /** Arguments for filtering the HierarchicalContentNodeToContentNodeAncestorsConnection connection */
 export type HierarchicalContentNodeToContentNodeAncestorsConnectionWhereArgs = {
+  /** The Types of content to filter */
+  contentTypes?: Maybe<Array<Maybe<ContentTypeEnum>>>;
   /** Filter the connection based on dates */
   dateQuery?: Maybe<DateQueryInput>;
   /** True for objects with passwords; False for objects without passwords; null for all objects with or without passwords */
@@ -2596,6 +2640,8 @@ export type HierarchicalContentNodeToContentNodeChildrenConnectionEdge = {
 
 /** Arguments for filtering the HierarchicalContentNodeToContentNodeChildrenConnection connection */
 export type HierarchicalContentNodeToContentNodeChildrenConnectionWhereArgs = {
+  /** The Types of content to filter */
+  contentTypes?: Maybe<Array<Maybe<ContentTypeEnum>>>;
   /** Filter the connection based on dates */
   dateQuery?: Maybe<DateQueryInput>;
   /** True for objects with passwords; False for objects without passwords; null for all objects with or without passwords */
@@ -2635,7 +2681,7 @@ export type HierarchicalContentNodeToContentNodeChildrenConnectionWhereArgs = {
 /** Connection between the HierarchicalContentNode type and the ContentNode type */
 export type HierarchicalContentNodeToParentContentNodeConnectionEdge = {
   __typename?: 'HierarchicalContentNodeToParentContentNodeConnectionEdge';
-  /** The nodes of the connection, without the edges */
+  /** The node of the connection, without the edges */
   node?: Maybe<ContentNode>;
 };
 
@@ -2648,7 +2694,7 @@ export type HierarchicalTermNode = {
 };
 
 /** The landingPage type */
-export type LandingPage = Node & ContentNode & DatabaseIdentifier & NodeWithTemplate & UniformResourceIdentifiable & NodeWithTitle & NodeWithRevisions & {
+export type LandingPage = Node & ContentNode & UniformResourceIdentifiable & DatabaseIdentifier & NodeWithTemplate & NodeWithTitle & NodeWithRevisions & {
   __typename?: 'LandingPage';
   /** Background Color */
   backgroundColor?: Maybe<Scalars['String']>;
@@ -2684,12 +2730,16 @@ export type LandingPage = Node & ContentNode & DatabaseIdentifier & NodeWithTemp
   heroLink?: Maybe<Array<Maybe<Scalars['String']>>>;
   /** The globally unique identifier of the landing-page-cpt object. */
   id: Scalars['ID'];
+  /** Whether the node is a Content Node */
+  isContentNode: Scalars['Boolean'];
   /** Whether the object is a node in the preview state */
   isPreview?: Maybe<Scalars['Boolean']>;
   /** Whether the object is restricted from the current viewer */
   isRestricted?: Maybe<Scalars['Boolean']>;
   /** True if the node is a revision of another node */
   isRevision?: Maybe<Scalars['Boolean']>;
+  /** Whether the node is a Term */
+  isTermNode: Scalars['Boolean'];
   /**
    * The id field matches the WP_Post-&gt;ID field.
    * @deprecated Deprecated in favor of the databaseId field
@@ -2853,6 +2903,8 @@ export type LandingPageToFloatImageConnectionEdge = {
 
 /** Arguments for filtering the LandingPageToFloatImageConnection connection */
 export type LandingPageToFloatImageConnectionWhereArgs = {
+  /** The Types of content to filter */
+  contentTypes?: Maybe<Array<Maybe<ContentTypeEnum>>>;
   /** Filter the connection based on dates */
   dateQuery?: Maybe<DateQueryInput>;
   /** True for objects with passwords; False for objects without passwords; null for all objects with or without passwords */
@@ -2911,6 +2963,8 @@ export type LandingPageToMediaItemConnectionEdge = {
 
 /** Arguments for filtering the LandingPageToMediaItemConnection connection */
 export type LandingPageToMediaItemConnectionWhereArgs = {
+  /** The Types of content to filter */
+  contentTypes?: Maybe<Array<Maybe<ContentTypeEnum>>>;
   /** Filter the connection based on dates */
   dateQuery?: Maybe<DateQueryInput>;
   /** True for objects with passwords; False for objects without passwords; null for all objects with or without passwords */
@@ -2969,6 +3023,8 @@ export type LandingPageToMobileImageConnectionEdge = {
 
 /** Arguments for filtering the LandingPageToMobileImageConnection connection */
 export type LandingPageToMobileImageConnectionWhereArgs = {
+  /** The Types of content to filter */
+  contentTypes?: Maybe<Array<Maybe<ContentTypeEnum>>>;
   /** Filter the connection based on dates */
   dateQuery?: Maybe<DateQueryInput>;
   /** True for objects with passwords; False for objects without passwords; null for all objects with or without passwords */
@@ -3008,7 +3064,7 @@ export type LandingPageToMobileImageConnectionWhereArgs = {
 /** Connection between the landingPage type and the landingPage type */
 export type LandingPageToPreviewConnectionEdge = {
   __typename?: 'LandingPageToPreviewConnectionEdge';
-  /** The nodes of the connection, without the edges */
+  /** The node of the connection, without the edges */
   node?: Maybe<LandingPage>;
 };
 
@@ -3237,7 +3293,7 @@ export type MediaDetails = {
 };
 
 /** The mediaItem type */
-export type MediaItem = Node & ContentNode & DatabaseIdentifier & NodeWithTemplate & UniformResourceIdentifiable & NodeWithTitle & NodeWithAuthor & HierarchicalContentNode & {
+export type MediaItem = Node & ContentNode & UniformResourceIdentifiable & DatabaseIdentifier & NodeWithTemplate & NodeWithTitle & NodeWithAuthor & HierarchicalContentNode & {
   __typename?: 'MediaItem';
   /** Alternative text to display when resource is not displayed */
   altText?: Maybe<Scalars['String']>;
@@ -3279,10 +3335,14 @@ export type MediaItem = Node & ContentNode & DatabaseIdentifier & NodeWithTempla
   guid?: Maybe<Scalars['String']>;
   /** The globally unique identifier of the attachment object. */
   id: Scalars['ID'];
+  /** Whether the node is a Content Node */
+  isContentNode: Scalars['Boolean'];
   /** Whether the object is a node in the preview state */
   isPreview?: Maybe<Scalars['Boolean']>;
   /** Whether the object is restricted from the current viewer */
   isRestricted?: Maybe<Scalars['Boolean']>;
+  /** Whether the node is a Term */
+  isTermNode: Scalars['Boolean'];
   /** Polylang language */
   language?: Maybe<Language>;
   /** The user that most recently edited the node */
@@ -3674,7 +3734,7 @@ export type MenuItem = Node & DatabaseIdentifier & {
   /** The globally unique identifier of the parent nav menu item object. */
   parentId?: Maybe<Scalars['ID']>;
   /** Path for the resource. Relative path for internal resources. Absolute path for external resources. */
-  path: Scalars['String'];
+  path?: Maybe<Scalars['String']>;
   /** Target attribute for the menu item link. */
   target?: Maybe<Scalars['String']>;
   /** Title attribute for the menu item link */
@@ -3717,7 +3777,7 @@ export type MenuItemObjectUnion = Post | Page | Category | Tag;
 /** Connection between the MenuItem type and the Menu type */
 export type MenuItemToMenuConnectionEdge = {
   __typename?: 'MenuItemToMenuConnectionEdge';
-  /** The nodes of the connection, without the edges */
+  /** The node of the connection, without the edges */
   node?: Maybe<Menu>;
 };
 
@@ -3756,16 +3816,8 @@ export type MenuItemToMenuItemConnectionWhereArgs = {
 /** Connection between the MenuItem type and the MenuItemLinkable type */
 export type MenuItemToMenuItemLinkableConnectionEdge = {
   __typename?: 'MenuItemToMenuItemLinkableConnectionEdge';
-  /** The nodes of the connection, without the edges */
+  /** The node of the connection, without the edges */
   node?: Maybe<MenuItemLinkable>;
-};
-
-/** Options for filtering the connection */
-export type MenuItemsWhereArgs = {
-  /** The ID of the object */
-  id?: Maybe<Scalars['Int']>;
-  /** The menu location for the menu being queried */
-  location?: Maybe<MenuLocationEnum>;
 };
 
 /** Registered menu locations */
@@ -3919,16 +3971,8 @@ export type NodeWithAuthor = {
 /** Connection between the NodeWithAuthor type and the User type */
 export type NodeWithAuthorToUserConnectionEdge = {
   __typename?: 'NodeWithAuthorToUserConnectionEdge';
-  /** The nodes of the connection, without the edges */
+  /** The node of the connection, without the edges */
   node?: Maybe<User>;
-};
-
-/** A node that can have comments associated with it */
-export type NodeWithComments = {
-  /** The number of comments. Even though WPGraphQL denotes this field as an integer, in WordPress this field should be saved as a numeric string for compatibility. */
-  commentCount?: Maybe<Scalars['Int']>;
-  /** Whether the comments are open or closed for this particular post. */
-  commentStatus?: Maybe<Scalars['String']>;
 };
 
 /** A node that supports the content editor */
@@ -3943,32 +3987,88 @@ export type NodeWithContentEditorContentArgs = {
   format?: Maybe<PostObjectFieldFormatEnum>;
 };
 
-/** A node that can have an excerpt */
-export type NodeWithExcerpt = {
-  /** The excerpt of the post. */
-  excerpt?: Maybe<Scalars['String']>;
-};
-
-
-/** A node that can have an excerpt */
-export type NodeWithExcerptExcerptArgs = {
-  format?: Maybe<PostObjectFieldFormatEnum>;
-};
-
 /** A node that can have a featured image set */
 export type NodeWithFeaturedImage = {
+  /** Connection between the ContentNode type and the ContentType type */
+  contentType?: Maybe<ContentNodeToContentTypeConnectionEdge>;
+  /** The unique identifier stored in the database */
+  databaseId: Scalars['Int'];
+  /** Post publishing date. */
+  date?: Maybe<Scalars['String']>;
+  /** The publishing date set in GMT. */
+  dateGmt?: Maybe<Scalars['String']>;
+  /** The desired slug of the post */
+  desiredSlug?: Maybe<Scalars['String']>;
+  /** If a user has edited the node within the past 15 seconds, this will return the user that last edited. Null if the edit lock doesn&#039;t exist or is greater than 15 seconds */
+  editingLockedBy?: Maybe<ContentNodeToEditLockConnectionEdge>;
+  /** The RSS enclosure for the object */
+  enclosure?: Maybe<Scalars['String']>;
+  /** Connection between the ContentNode type and the EnqueuedScript type */
+  enqueuedScripts?: Maybe<ContentNodeToEnqueuedScriptConnection>;
+  /** Connection between the ContentNode type and the EnqueuedStylesheet type */
+  enqueuedStylesheets?: Maybe<ContentNodeToEnqueuedStylesheetConnection>;
   /** Connection between the NodeWithFeaturedImage type and the MediaItem type */
   featuredImage?: Maybe<NodeWithFeaturedImageToMediaItemConnectionEdge>;
   /** The database identifier for the featured image node assigned to the content node */
   featuredImageDatabaseId?: Maybe<Scalars['Int']>;
   /** Globally unique ID of the featured image assigned to the node */
   featuredImageId?: Maybe<Scalars['ID']>;
+  /** The global unique identifier for this post. This currently matches the value stored in WP_Post-&gt;guid and the guid column in the &quot;post_objects&quot; database table. */
+  guid?: Maybe<Scalars['String']>;
+  /** The unique resource identifier path */
+  id: Scalars['ID'];
+  /** Whether the node is a Content Node */
+  isContentNode: Scalars['Boolean'];
+  /** Whether the object is a node in the preview state */
+  isPreview?: Maybe<Scalars['Boolean']>;
+  /** Whether the object is restricted from the current viewer */
+  isRestricted?: Maybe<Scalars['Boolean']>;
+  /** Whether the node is a Term */
+  isTermNode: Scalars['Boolean'];
+  /** The user that most recently edited the node */
+  lastEditedBy?: Maybe<ContentNodeToEditLastConnectionEdge>;
+  /** The permalink of the post */
+  link?: Maybe<Scalars['String']>;
+  /** The local modified time for a post. If a post was recently updated the modified field will change to match the corresponding time. */
+  modified?: Maybe<Scalars['String']>;
+  /** The GMT modified time for a post. If a post was recently updated the modified field will change to match the corresponding time in GMT. */
+  modifiedGmt?: Maybe<Scalars['String']>;
+  /** The database id of the preview node */
+  previewRevisionDatabaseId?: Maybe<Scalars['Int']>;
+  /** Whether the object is a node in the preview state */
+  previewRevisionId?: Maybe<Scalars['ID']>;
+  /** The uri slug for the post. This is equivalent to the WP_Post-&gt;post_name field and the post_name column in the database for the &quot;post_objects&quot; table. */
+  slug?: Maybe<Scalars['String']>;
+  /** The current status of the object */
+  status?: Maybe<Scalars['String']>;
+  /** The template assigned to a node of content */
+  template?: Maybe<ContentTemplate>;
+  /** The unique resource identifier path */
+  uri?: Maybe<Scalars['String']>;
+};
+
+
+/** A node that can have a featured image set */
+export type NodeWithFeaturedImageEnqueuedScriptsArgs = {
+  first?: Maybe<Scalars['Int']>;
+  last?: Maybe<Scalars['Int']>;
+  after?: Maybe<Scalars['String']>;
+  before?: Maybe<Scalars['String']>;
+};
+
+
+/** A node that can have a featured image set */
+export type NodeWithFeaturedImageEnqueuedStylesheetsArgs = {
+  first?: Maybe<Scalars['Int']>;
+  last?: Maybe<Scalars['Int']>;
+  after?: Maybe<Scalars['String']>;
+  before?: Maybe<Scalars['String']>;
 };
 
 /** Connection between the NodeWithFeaturedImage type and the MediaItem type */
 export type NodeWithFeaturedImageToMediaItemConnectionEdge = {
   __typename?: 'NodeWithFeaturedImageToMediaItemConnectionEdge';
-  /** The nodes of the connection, without the edges */
+  /** The node of the connection, without the edges */
   node?: Maybe<MediaItem>;
 };
 
@@ -3989,7 +4089,7 @@ export type NodeWithRevisions = {
 /** Connection between the NodeWithRevisions type and the ContentNode type */
 export type NodeWithRevisionsToContentNodeConnectionEdge = {
   __typename?: 'NodeWithRevisionsToContentNodeConnectionEdge';
-  /** The nodes of the connection, without the edges */
+  /** The node of the connection, without the edges */
   node?: Maybe<ContentNode>;
 };
 
@@ -4009,16 +4109,6 @@ export type NodeWithTitle = {
 /** A node that NodeWith a title */
 export type NodeWithTitleTitleArgs = {
   format?: Maybe<PostObjectFieldFormatEnum>;
-};
-
-/** A node that can have trackbacks and pingbacks */
-export type NodeWithTrackbacks = {
-  /** Whether the pings are open or closed for this particular post. */
-  pingStatus?: Maybe<Scalars['String']>;
-  /** URLs that have been pinged. */
-  pinged?: Maybe<Array<Maybe<Scalars['String']>>>;
-  /** URLs queued to be pinged. */
-  toPing?: Maybe<Array<Maybe<Scalars['String']>>>;
 };
 
 /** Describe what a CustomType is */
@@ -4049,7 +4139,7 @@ export enum OrderEnum {
 }
 
 /** The page type */
-export type Page = Node & ContentNode & DatabaseIdentifier & NodeWithTemplate & UniformResourceIdentifiable & NodeWithTitle & NodeWithContentEditor & NodeWithAuthor & NodeWithFeaturedImage & NodeWithRevisions & NodeWithPageAttributes & HierarchicalContentNode & MenuItemLinkable & {
+export type Page = Node & ContentNode & UniformResourceIdentifiable & DatabaseIdentifier & NodeWithTemplate & NodeWithTitle & NodeWithContentEditor & NodeWithAuthor & NodeWithFeaturedImage & NodeWithRevisions & NodeWithPageAttributes & HierarchicalContentNode & MenuItemLinkable & {
   __typename?: 'Page';
   /** Returns ancestors of the node. Default ordered as lowest (closest to the child) to highest (closest to the root). */
   ancestors?: Maybe<HierarchicalContentNodeToContentNodeAncestorsConnection>;
@@ -4093,6 +4183,8 @@ export type Page = Node & ContentNode & DatabaseIdentifier & NodeWithTemplate & 
   guid?: Maybe<Scalars['String']>;
   /** The globally unique identifier of the page object. */
   id: Scalars['ID'];
+  /** Whether the node is a Content Node */
+  isContentNode: Scalars['Boolean'];
   /** Whether this page is set to the static front page. */
   isFrontPage: Scalars['Boolean'];
   /** Whether this page is set to the blog posts page. */
@@ -4105,6 +4197,8 @@ export type Page = Node & ContentNode & DatabaseIdentifier & NodeWithTemplate & 
   isRestricted?: Maybe<Scalars['Boolean']>;
   /** True if the node is a revision of another node */
   isRevision?: Maybe<Scalars['Boolean']>;
+  /** Whether the node is a Term */
+  isTermNode: Scalars['Boolean'];
   /** Polylang language */
   language?: Maybe<Language>;
   /** The user that most recently edited the node */
@@ -4150,7 +4244,7 @@ export type Page = Node & ContentNode & DatabaseIdentifier & NodeWithTemplate & 
   slug?: Maybe<Scalars['String']>;
   /** The current status of the object */
   status?: Maybe<Scalars['String']>;
-  /** The template assigned to the node */
+  /** The template assigned to a node of content */
   template?: Maybe<ContentTemplate>;
   /** Connection between the page type and the TermNode type */
   terms?: Maybe<PageToTermNodeConnection>;
@@ -4255,7 +4349,7 @@ export type PageModulesUnionType = EventSearch | EventSelected | LayoutCollectio
 /** Connection between the page type and the page type */
 export type PageToPreviewConnectionEdge = {
   __typename?: 'PageToPreviewConnectionEdge';
-  /** The nodes of the connection, without the edges */
+  /** The node of the connection, without the edges */
   node?: Maybe<Page>;
 };
 
@@ -4415,7 +4509,7 @@ export type Plugin = Node & {
 };
 
 /** The post type */
-export type Post = Node & ContentNode & DatabaseIdentifier & NodeWithTemplate & UniformResourceIdentifiable & NodeWithTitle & NodeWithContentEditor & NodeWithAuthor & NodeWithFeaturedImage & NodeWithRevisions & MenuItemLinkable & {
+export type Post = Node & ContentNode & UniformResourceIdentifiable & DatabaseIdentifier & NodeWithTemplate & NodeWithTitle & NodeWithContentEditor & NodeWithAuthor & NodeWithFeaturedImage & NodeWithRevisions & MenuItemLinkable & {
   __typename?: 'Post';
   /** Connection between the NodeWithAuthor type and the User type */
   author?: Maybe<NodeWithAuthorToUserConnectionEdge>;
@@ -4459,6 +4553,8 @@ export type Post = Node & ContentNode & DatabaseIdentifier & NodeWithTemplate & 
   hidePublishedDate?: Maybe<Scalars['Boolean']>;
   /** The globally unique identifier of the post object. */
   id: Scalars['ID'];
+  /** Whether the node is a Content Node */
+  isContentNode: Scalars['Boolean'];
   /** Whether the object is a node in the preview state */
   isPreview?: Maybe<Scalars['Boolean']>;
   /** Whether the object is restricted from the current viewer */
@@ -4467,6 +4563,8 @@ export type Post = Node & ContentNode & DatabaseIdentifier & NodeWithTemplate & 
   isRevision?: Maybe<Scalars['Boolean']>;
   /** Whether this page is sticky */
   isSticky: Scalars['Boolean'];
+  /** Whether the node is a Term */
+  isTermNode: Scalars['Boolean'];
   /** Polylang language */
   language?: Maybe<Language>;
   /** The user that most recently edited the node */
@@ -4506,7 +4604,7 @@ export type Post = Node & ContentNode & DatabaseIdentifier & NodeWithTemplate & 
   status?: Maybe<Scalars['String']>;
   /** Connection between the post type and the tag type */
   tags?: Maybe<PostToTagConnection>;
-  /** The template assigned to the node */
+  /** The template assigned to a node of content */
   template?: Maybe<ContentTemplate>;
   /** Connection between the post type and the TermNode type */
   terms?: Maybe<PostToTermNodeConnection>;
@@ -4627,7 +4725,7 @@ export type PostCategoriesNodeInput = {
 };
 
 /** The postFormat type */
-export type PostFormat = Node & TermNode & DatabaseIdentifier & UniformResourceIdentifiable & {
+export type PostFormat = Node & TermNode & UniformResourceIdentifiable & DatabaseIdentifier & {
   __typename?: 'PostFormat';
   /** Connection between the postFormat type and the ContentNode type */
   contentNodes?: Maybe<PostFormatToContentNodeConnection>;
@@ -4643,8 +4741,12 @@ export type PostFormat = Node & TermNode & DatabaseIdentifier & UniformResourceI
   enqueuedStylesheets?: Maybe<TermNodeToEnqueuedStylesheetConnection>;
   /** The unique resource identifier path */
   id: Scalars['ID'];
+  /** Whether the node is a Content Node */
+  isContentNode: Scalars['Boolean'];
   /** Whether the object is restricted from the current viewer */
   isRestricted?: Maybe<Scalars['Boolean']>;
+  /** Whether the node is a Term */
+  isTermNode: Scalars['Boolean'];
   /** The link to the term */
   link?: Maybe<Scalars['String']>;
   /** The human friendly name of the object. */
@@ -4742,6 +4844,8 @@ export type PostFormatToContentNodeConnectionEdge = {
 
 /** Arguments for filtering the PostFormatToContentNodeConnection connection */
 export type PostFormatToContentNodeConnectionWhereArgs = {
+  /** The Types of content to filter */
+  contentTypes?: Maybe<Array<Maybe<ContentTypesOfPostFormatEnum>>>;
   /** Filter the connection based on dates */
   dateQuery?: Maybe<DateQueryInput>;
   /** True for objects with passwords; False for objects without passwords; null for all objects with or without passwords */
@@ -4867,7 +4971,7 @@ export type PostFormatToPostConnectionWhereArgs = {
 /** Connection between the postFormat type and the Taxonomy type */
 export type PostFormatToTaxonomyConnectionEdge = {
   __typename?: 'PostFormatToTaxonomyConnectionEdge';
-  /** The nodes of the connection, without the edges */
+  /** The node of the connection, without the edges */
   node?: Maybe<Taxonomy>;
 };
 
@@ -4892,9 +4996,6 @@ export enum PostObjectFieldFormatEnum {
   /** Apply the default WordPress rendering */
   Rendered = 'RENDERED'
 }
-
-/** Union between the post, page and media item types */
-export type PostObjectUnion = Post | Page | MediaItem | Collection | Contact | LandingPage | Release | Translation;
 
 /** The column to use when filtering by date */
 export enum PostObjectsConnectionDateColumnEnum {
@@ -5141,7 +5242,7 @@ export type PostToPostFormatConnectionWhereArgs = {
 /** Connection between the post type and the post type */
 export type PostToPreviewConnectionEdge = {
   __typename?: 'PostToPreviewConnectionEdge';
-  /** The nodes of the connection, without the edges */
+  /** The node of the connection, without the edges */
   node?: Maybe<Post>;
 };
 
@@ -5479,7 +5580,7 @@ export enum RelationEnum {
 }
 
 /** The release type */
-export type Release = Node & ContentNode & DatabaseIdentifier & NodeWithTemplate & UniformResourceIdentifiable & NodeWithTitle & NodeWithContentEditor & NodeWithRevisions & {
+export type Release = Node & ContentNode & UniformResourceIdentifiable & DatabaseIdentifier & NodeWithTemplate & NodeWithTitle & NodeWithContentEditor & NodeWithRevisions & {
   __typename?: 'Release';
   /** The content of the post. */
   content?: Maybe<Scalars['String']>;
@@ -5507,12 +5608,16 @@ export type Release = Node & ContentNode & DatabaseIdentifier & NodeWithTemplate
   guid?: Maybe<Scalars['String']>;
   /** The globally unique identifier of the release-cpt object. */
   id: Scalars['ID'];
+  /** Whether the node is a Content Node */
+  isContentNode: Scalars['Boolean'];
   /** Whether the object is a node in the preview state */
   isPreview?: Maybe<Scalars['Boolean']>;
   /** Whether the object is restricted from the current viewer */
   isRestricted?: Maybe<Scalars['Boolean']>;
   /** True if the node is a revision of another node */
   isRevision?: Maybe<Scalars['Boolean']>;
+  /** Whether the node is a Term */
+  isTermNode: Scalars['Boolean'];
   /** Polylang language */
   language?: Maybe<Language>;
   /** The user that most recently edited the node */
@@ -5629,7 +5734,7 @@ export enum ReleaseIdType {
 /** Connection between the release type and the release type */
 export type ReleaseToPreviewConnectionEdge = {
   __typename?: 'ReleaseToPreviewConnectionEdge';
-  /** The nodes of the connection, without the edges */
+  /** The node of the connection, without the edges */
   node?: Maybe<Release>;
 };
 
@@ -7186,6 +7291,8 @@ export type RootQueryToContentRevisionUnionConnectionEdge = {
 
 /** Arguments for filtering the RootQueryToContentRevisionUnionConnection connection */
 export type RootQueryToContentRevisionUnionConnectionWhereArgs = {
+  /** The Types of content to filter */
+  contentTypes?: Maybe<Array<Maybe<ContentTypeEnum>>>;
   /** Filter the connection based on dates */
   dateQuery?: Maybe<DateQueryInput>;
   /** True for objects with passwords; False for objects without passwords; null for all objects with or without passwords */
@@ -8175,7 +8282,7 @@ export type SiteSettings = {
 };
 
 /** The tag type */
-export type Tag = Node & TermNode & DatabaseIdentifier & UniformResourceIdentifiable & MenuItemLinkable & {
+export type Tag = Node & TermNode & UniformResourceIdentifiable & DatabaseIdentifier & MenuItemLinkable & {
   __typename?: 'Tag';
   /** Connection between the tag type and the ContentNode type */
   contentNodes?: Maybe<TagToContentNodeConnection>;
@@ -8191,8 +8298,12 @@ export type Tag = Node & TermNode & DatabaseIdentifier & UniformResourceIdentifi
   enqueuedStylesheets?: Maybe<TermNodeToEnqueuedStylesheetConnection>;
   /** The unique resource identifier path */
   id: Scalars['ID'];
+  /** Whether the node is a Content Node */
+  isContentNode: Scalars['Boolean'];
   /** Whether the object is restricted from the current viewer */
   isRestricted?: Maybe<Scalars['Boolean']>;
+  /** Whether the node is a Term */
+  isTermNode: Scalars['Boolean'];
   /** List available translations for this post */
   language?: Maybe<Language>;
   /** The link to the term */
@@ -8302,6 +8413,8 @@ export type TagToContentNodeConnectionEdge = {
 
 /** Arguments for filtering the TagToContentNodeConnection connection */
 export type TagToContentNodeConnectionWhereArgs = {
+  /** The Types of content to filter */
+  contentTypes?: Maybe<Array<Maybe<ContentTypesOfTagEnum>>>;
   /** Filter the connection based on dates */
   dateQuery?: Maybe<DateQueryInput>;
   /** True for objects with passwords; False for objects without passwords; null for all objects with or without passwords */
@@ -8427,7 +8540,7 @@ export type TagToPostConnectionWhereArgs = {
 /** Connection between the tag type and the Taxonomy type */
 export type TagToTaxonomyConnectionEdge = {
   __typename?: 'TagToTaxonomyConnectionEdge';
-  /** The nodes of the connection, without the edges */
+  /** The node of the connection, without the edges */
   node?: Maybe<Taxonomy>;
 };
 
@@ -8535,10 +8648,14 @@ export type TermNode = {
   enqueuedScripts?: Maybe<TermNodeToEnqueuedScriptConnection>;
   /** Connection between the TermNode type and the EnqueuedStylesheet type */
   enqueuedStylesheets?: Maybe<TermNodeToEnqueuedStylesheetConnection>;
-  /** Unique identifier for the term */
+  /** The unique resource identifier path */
   id: Scalars['ID'];
+  /** Whether the node is a Content Node */
+  isContentNode: Scalars['Boolean'];
   /** Whether the object is restricted from the current viewer */
   isRestricted?: Maybe<Scalars['Boolean']>;
+  /** Whether the node is a Term */
+  isTermNode: Scalars['Boolean'];
   /** The link to the term */
   link?: Maybe<Scalars['String']>;
   /** The human friendly name of the object. */
@@ -8625,9 +8742,6 @@ export type TermNodeToEnqueuedStylesheetConnectionEdge = {
   node?: Maybe<EnqueuedStylesheet>;
 };
 
-/** Union between the Category, Tag and PostFormatPost types */
-export type TermObjectUnion = Category | Tag | PostFormat;
-
 /** Options for ordering the connection by */
 export enum TermObjectsConnectionOrderbyEnum {
   /** Order the connection by item count. */
@@ -8673,924 +8787,8 @@ export type Theme = Node & {
   version?: Maybe<Scalars['String']>;
 };
 
-/** Available timezones */
-export enum TimezoneEnum {
-  /** Abidjan */
-  AfricaAbidjan = 'AFRICA_ABIDJAN',
-  /** Accra */
-  AfricaAccra = 'AFRICA_ACCRA',
-  /** Addis Abeba */
-  AfricaAddisAbaba = 'AFRICA_ADDIS_ABABA',
-  /** Alger */
-  AfricaAlgiers = 'AFRICA_ALGIERS',
-  /** Asmara */
-  AfricaAsmara = 'AFRICA_ASMARA',
-  /** Bamako */
-  AfricaBamako = 'AFRICA_BAMAKO',
-  /** Bangui */
-  AfricaBangui = 'AFRICA_BANGUI',
-  /** Banjul */
-  AfricaBanjul = 'AFRICA_BANJUL',
-  /** Bissau */
-  AfricaBissau = 'AFRICA_BISSAU',
-  /** Blantyre */
-  AfricaBlantyre = 'AFRICA_BLANTYRE',
-  /** Brazzaville */
-  AfricaBrazzaville = 'AFRICA_BRAZZAVILLE',
-  /** Bujumbura */
-  AfricaBujumbura = 'AFRICA_BUJUMBURA',
-  /** Kairo */
-  AfricaCairo = 'AFRICA_CAIRO',
-  /** Casablanca */
-  AfricaCasablanca = 'AFRICA_CASABLANCA',
-  /** Ceuta */
-  AfricaCeuta = 'AFRICA_CEUTA',
-  /** Conakry */
-  AfricaConakry = 'AFRICA_CONAKRY',
-  /** Dakar */
-  AfricaDakar = 'AFRICA_DAKAR',
-  /** Dar es Salaam */
-  AfricaDarEsSalaam = 'AFRICA_DAR_ES_SALAAM',
-  /** Djibouti */
-  AfricaDjibouti = 'AFRICA_DJIBOUTI',
-  /** Douala */
-  AfricaDouala = 'AFRICA_DOUALA',
-  /** El Aaiún */
-  AfricaElAaiun = 'AFRICA_EL_AAIUN',
-  /** Freetown */
-  AfricaFreetown = 'AFRICA_FREETOWN',
-  /** Gaborone */
-  AfricaGaborone = 'AFRICA_GABORONE',
-  /** Harare */
-  AfricaHarare = 'AFRICA_HARARE',
-  /** Johannesburg */
-  AfricaJohannesburg = 'AFRICA_JOHANNESBURG',
-  /** Juba */
-  AfricaJuba = 'AFRICA_JUBA',
-  /** Kampala */
-  AfricaKampala = 'AFRICA_KAMPALA',
-  /** Khartum */
-  AfricaKhartoum = 'AFRICA_KHARTOUM',
-  /** Kigali */
-  AfricaKigali = 'AFRICA_KIGALI',
-  /** Kinshasa */
-  AfricaKinshasa = 'AFRICA_KINSHASA',
-  /** Lagos */
-  AfricaLagos = 'AFRICA_LAGOS',
-  /** Libreville */
-  AfricaLibreville = 'AFRICA_LIBREVILLE',
-  /** Lomé */
-  AfricaLome = 'AFRICA_LOME',
-  /** Luanda */
-  AfricaLuanda = 'AFRICA_LUANDA',
-  /** Lubumbashi */
-  AfricaLubumbashi = 'AFRICA_LUBUMBASHI',
-  /** Lusaka */
-  AfricaLusaka = 'AFRICA_LUSAKA',
-  /** Malabo */
-  AfricaMalabo = 'AFRICA_MALABO',
-  /** Maputo */
-  AfricaMaputo = 'AFRICA_MAPUTO',
-  /** Maseru */
-  AfricaMaseru = 'AFRICA_MASERU',
-  /** Mbabane */
-  AfricaMbabane = 'AFRICA_MBABANE',
-  /** Mogadishu */
-  AfricaMogadishu = 'AFRICA_MOGADISHU',
-  /** Monrovia */
-  AfricaMonrovia = 'AFRICA_MONROVIA',
-  /** Nairobi */
-  AfricaNairobi = 'AFRICA_NAIROBI',
-  /** N’Djamena */
-  AfricaNdjamena = 'AFRICA_NDJAMENA',
-  /** Niamey */
-  AfricaNiamey = 'AFRICA_NIAMEY',
-  /** Nouakchott */
-  AfricaNouakchott = 'AFRICA_NOUAKCHOTT',
-  /** Ouagadougou */
-  AfricaOuagadougou = 'AFRICA_OUAGADOUGOU',
-  /** Porto-Novo */
-  AfricaPortoNovo = 'AFRICA_PORTO_NOVO',
-  /** São Tomé */
-  AfricaSaoTome = 'AFRICA_SAO_TOME',
-  /** Tripoli */
-  AfricaTripoli = 'AFRICA_TRIPOLI',
-  /** Tunis */
-  AfricaTunis = 'AFRICA_TUNIS',
-  /** Windhoek */
-  AfricaWindhoek = 'AFRICA_WINDHOEK',
-  /** Adak */
-  AmericaAdak = 'AMERICA_ADAK',
-  /** Anchorage */
-  AmericaAnchorage = 'AMERICA_ANCHORAGE',
-  /** Anguilla */
-  AmericaAnguilla = 'AMERICA_ANGUILLA',
-  /** Antigua */
-  AmericaAntigua = 'AMERICA_ANTIGUA',
-  /** Araguaína */
-  AmericaAraguaina = 'AMERICA_ARAGUAINA',
-  /** Argentiina - Buenos Aires */
-  AmericaArgentinaBuenosAires = 'AMERICA_ARGENTINA_BUENOS_AIRES',
-  /** Argentiina - Catamarca */
-  AmericaArgentinaCatamarca = 'AMERICA_ARGENTINA_CATAMARCA',
-  /** Argentiina - Cordoba */
-  AmericaArgentinaCordoba = 'AMERICA_ARGENTINA_CORDOBA',
-  /** Argentiina - Jujuy */
-  AmericaArgentinaJujuy = 'AMERICA_ARGENTINA_JUJUY',
-  /** Argentiina - La Rioja */
-  AmericaArgentinaLaRioja = 'AMERICA_ARGENTINA_LA_RIOJA',
-  /** Argentiina - Mendoza */
-  AmericaArgentinaMendoza = 'AMERICA_ARGENTINA_MENDOZA',
-  /** Argentiina - Río Gallegos */
-  AmericaArgentinaRioGallegos = 'AMERICA_ARGENTINA_RIO_GALLEGOS',
-  /** Argentiina - Salta */
-  AmericaArgentinaSalta = 'AMERICA_ARGENTINA_SALTA',
-  /** Argentiina - San Juan */
-  AmericaArgentinaSanJuan = 'AMERICA_ARGENTINA_SAN_JUAN',
-  /** Argentiina - San Luis */
-  AmericaArgentinaSanLuis = 'AMERICA_ARGENTINA_SAN_LUIS',
-  /** Argentiina - Tucuman */
-  AmericaArgentinaTucuman = 'AMERICA_ARGENTINA_TUCUMAN',
-  /** Argentiina - Ushuaia */
-  AmericaArgentinaUshuaia = 'AMERICA_ARGENTINA_USHUAIA',
-  /** Aruba */
-  AmericaAruba = 'AMERICA_ARUBA',
-  /** Asunción */
-  AmericaAsuncion = 'AMERICA_ASUNCION',
-  /** Atikokan */
-  AmericaAtikokan = 'AMERICA_ATIKOKAN',
-  /** Bahia */
-  AmericaBahia = 'AMERICA_BAHIA',
-  /** Bahia Banderas */
-  AmericaBahiaBanderas = 'AMERICA_BAHIA_BANDERAS',
-  /** Barbados */
-  AmericaBarbados = 'AMERICA_BARBADOS',
-  /** Belém */
-  AmericaBelem = 'AMERICA_BELEM',
-  /** Belize */
-  AmericaBelize = 'AMERICA_BELIZE',
-  /** Blanc-Sablon */
-  AmericaBlancSablon = 'AMERICA_BLANC_SABLON',
-  /** Boa Vista */
-  AmericaBoaVista = 'AMERICA_BOA_VISTA',
-  /** Bogotá */
-  AmericaBogota = 'AMERICA_BOGOTA',
-  /** Boise */
-  AmericaBoise = 'AMERICA_BOISE',
-  /** Cambridge Bay */
-  AmericaCambridgeBay = 'AMERICA_CAMBRIDGE_BAY',
-  /** Campo Grande */
-  AmericaCampoGrande = 'AMERICA_CAMPO_GRANDE',
-  /** Cancún */
-  AmericaCancun = 'AMERICA_CANCUN',
-  /** Caracas */
-  AmericaCaracas = 'AMERICA_CARACAS',
-  /** Cayenne */
-  AmericaCayenne = 'AMERICA_CAYENNE',
-  /** Cayman */
-  AmericaCayman = 'AMERICA_CAYMAN',
-  /** Chicago */
-  AmericaChicago = 'AMERICA_CHICAGO',
-  /** Chihuahua */
-  AmericaChihuahua = 'AMERICA_CHIHUAHUA',
-  /** Costa Rica */
-  AmericaCostaRica = 'AMERICA_COSTA_RICA',
-  /** Creston */
-  AmericaCreston = 'AMERICA_CRESTON',
-  /** Cuiaba */
-  AmericaCuiaba = 'AMERICA_CUIABA',
-  /** Curacao */
-  AmericaCuracao = 'AMERICA_CURACAO',
-  /** Danmarkshavn */
-  AmericaDanmarkshavn = 'AMERICA_DANMARKSHAVN',
-  /** Dawson */
-  AmericaDawson = 'AMERICA_DAWSON',
-  /** Dawson Creek */
-  AmericaDawsonCreek = 'AMERICA_DAWSON_CREEK',
-  /** Denver */
-  AmericaDenver = 'AMERICA_DENVER',
-  /** Detroit */
-  AmericaDetroit = 'AMERICA_DETROIT',
-  /** Dominica */
-  AmericaDominica = 'AMERICA_DOMINICA',
-  /** Edmonton */
-  AmericaEdmonton = 'AMERICA_EDMONTON',
-  /** Eirunepe */
-  AmericaEirunepe = 'AMERICA_EIRUNEPE',
-  /** El Salvador */
-  AmericaElSalvador = 'AMERICA_EL_SALVADOR',
-  /** Fortaleza */
-  AmericaFortaleza = 'AMERICA_FORTALEZA',
-  /** Fort Nelson */
-  AmericaFortNelson = 'AMERICA_FORT_NELSON',
-  /** Glace Bay */
-  AmericaGlaceBay = 'AMERICA_GLACE_BAY',
-  /** Goose Bay */
-  AmericaGooseBay = 'AMERICA_GOOSE_BAY',
-  /** Grand Turk */
-  AmericaGrandTurk = 'AMERICA_GRAND_TURK',
-  /** Grenada */
-  AmericaGrenada = 'AMERICA_GRENADA',
-  /** Guadeloupe */
-  AmericaGuadeloupe = 'AMERICA_GUADELOUPE',
-  /** Guatemala */
-  AmericaGuatemala = 'AMERICA_GUATEMALA',
-  /** Guayaquil */
-  AmericaGuayaquil = 'AMERICA_GUAYAQUIL',
-  /** Guyana */
-  AmericaGuyana = 'AMERICA_GUYANA',
-  /** Halifax */
-  AmericaHalifax = 'AMERICA_HALIFAX',
-  /** Havanna */
-  AmericaHavana = 'AMERICA_HAVANA',
-  /** Hermosillo */
-  AmericaHermosillo = 'AMERICA_HERMOSILLO',
-  /** Indiana - Indianapolis */
-  AmericaIndianaIndianapolis = 'AMERICA_INDIANA_INDIANAPOLIS',
-  /** Indiana - Knox */
-  AmericaIndianaKnox = 'AMERICA_INDIANA_KNOX',
-  /** Indiana - Marengo */
-  AmericaIndianaMarengo = 'AMERICA_INDIANA_MARENGO',
-  /** Indiana - Petersburg */
-  AmericaIndianaPetersburg = 'AMERICA_INDIANA_PETERSBURG',
-  /** Indiana - Tell City */
-  AmericaIndianaTellCity = 'AMERICA_INDIANA_TELL_CITY',
-  /** Indiana - Vevay */
-  AmericaIndianaVevay = 'AMERICA_INDIANA_VEVAY',
-  /** Indiana - Vincennes */
-  AmericaIndianaVincennes = 'AMERICA_INDIANA_VINCENNES',
-  /** Indiana - Winamac */
-  AmericaIndianaWinamac = 'AMERICA_INDIANA_WINAMAC',
-  /** Inuvik */
-  AmericaInuvik = 'AMERICA_INUVIK',
-  /** Iqaluit */
-  AmericaIqaluit = 'AMERICA_IQALUIT',
-  /** Jamaica */
-  AmericaJamaica = 'AMERICA_JAMAICA',
-  /** Juneau */
-  AmericaJuneau = 'AMERICA_JUNEAU',
-  /** Kentucky - Louisville */
-  AmericaKentuckyLouisville = 'AMERICA_KENTUCKY_LOUISVILLE',
-  /** Kentucky - Monticello */
-  AmericaKentuckyMonticello = 'AMERICA_KENTUCKY_MONTICELLO',
-  /** Kralendijk */
-  AmericaKralendijk = 'AMERICA_KRALENDIJK',
-  /** La Paz */
-  AmericaLaPaz = 'AMERICA_LA_PAZ',
-  /** Lima */
-  AmericaLima = 'AMERICA_LIMA',
-  /** Los Angeles */
-  AmericaLosAngeles = 'AMERICA_LOS_ANGELES',
-  /** Lower Princes */
-  AmericaLowerPrinces = 'AMERICA_LOWER_PRINCES',
-  /** Maceio */
-  AmericaMaceio = 'AMERICA_MACEIO',
-  /** Managua */
-  AmericaManagua = 'AMERICA_MANAGUA',
-  /** Manaus */
-  AmericaManaus = 'AMERICA_MANAUS',
-  /** Marigot */
-  AmericaMarigot = 'AMERICA_MARIGOT',
-  /** Martinique */
-  AmericaMartinique = 'AMERICA_MARTINIQUE',
-  /** Matamoros */
-  AmericaMatamoros = 'AMERICA_MATAMOROS',
-  /** Mazatlan */
-  AmericaMazatlan = 'AMERICA_MAZATLAN',
-  /** Menominee */
-  AmericaMenominee = 'AMERICA_MENOMINEE',
-  /** Merida */
-  AmericaMerida = 'AMERICA_MERIDA',
-  /** Metlakatla */
-  AmericaMetlakatla = 'AMERICA_METLAKATLA',
-  /** Mexico City */
-  AmericaMexicoCity = 'AMERICA_MEXICO_CITY',
-  /** Miquelon */
-  AmericaMiquelon = 'AMERICA_MIQUELON',
-  /** Moncton */
-  AmericaMoncton = 'AMERICA_MONCTON',
-  /** Monterrey */
-  AmericaMonterrey = 'AMERICA_MONTERREY',
-  /** Montevideo */
-  AmericaMontevideo = 'AMERICA_MONTEVIDEO',
-  /** Montserrat */
-  AmericaMontserrat = 'AMERICA_MONTSERRAT',
-  /** Nassau */
-  AmericaNassau = 'AMERICA_NASSAU',
-  /** New York */
-  AmericaNewYork = 'AMERICA_NEW_YORK',
-  /** Nipigon */
-  AmericaNipigon = 'AMERICA_NIPIGON',
-  /** Nome */
-  AmericaNome = 'AMERICA_NOME',
-  /** Noronha */
-  AmericaNoronha = 'AMERICA_NORONHA',
-  /** North Dakota - Beulah */
-  AmericaNorthDakotaBeulah = 'AMERICA_NORTH_DAKOTA_BEULAH',
-  /** North Dakota - Center */
-  AmericaNorthDakotaCenter = 'AMERICA_NORTH_DAKOTA_CENTER',
-  /** North Dakota - New Salem */
-  AmericaNorthDakotaNewSalem = 'AMERICA_NORTH_DAKOTA_NEW_SALEM',
-  /** Nuuk */
-  AmericaNuuk = 'AMERICA_NUUK',
-  /** Ojinaga */
-  AmericaOjinaga = 'AMERICA_OJINAGA',
-  /** Panama */
-  AmericaPanama = 'AMERICA_PANAMA',
-  /** Pangnirtung */
-  AmericaPangnirtung = 'AMERICA_PANGNIRTUNG',
-  /** Paramaribo */
-  AmericaParamaribo = 'AMERICA_PARAMARIBO',
-  /** Phoenix */
-  AmericaPhoenix = 'AMERICA_PHOENIX',
-  /** Porto Velho */
-  AmericaPortoVelho = 'AMERICA_PORTO_VELHO',
-  /** Port-au-Prince */
-  AmericaPortAuPrince = 'AMERICA_PORT_AU_PRINCE',
-  /** Port of Spain */
-  AmericaPortOfSpain = 'AMERICA_PORT_OF_SPAIN',
-  /** Puerto Rico */
-  AmericaPuertoRico = 'AMERICA_PUERTO_RICO',
-  /** Punta Arenas */
-  AmericaPuntaArenas = 'AMERICA_PUNTA_ARENAS',
-  /** Rainy River */
-  AmericaRainyRiver = 'AMERICA_RAINY_RIVER',
-  /** Rankin Inlet */
-  AmericaRankinInlet = 'AMERICA_RANKIN_INLET',
-  /** Recife */
-  AmericaRecife = 'AMERICA_RECIFE',
-  /** Regina */
-  AmericaRegina = 'AMERICA_REGINA',
-  /** Resolute */
-  AmericaResolute = 'AMERICA_RESOLUTE',
-  /** Rio Branco */
-  AmericaRioBranco = 'AMERICA_RIO_BRANCO',
-  /** Santarém */
-  AmericaSantarem = 'AMERICA_SANTAREM',
-  /** Santiago */
-  AmericaSantiago = 'AMERICA_SANTIAGO',
-  /** Santo Domingo */
-  AmericaSantoDomingo = 'AMERICA_SANTO_DOMINGO',
-  /** Sao Paulo */
-  AmericaSaoPaulo = 'AMERICA_SAO_PAULO',
-  /** Scoresbysund */
-  AmericaScoresbysund = 'AMERICA_SCORESBYSUND',
-  /** Sitka */
-  AmericaSitka = 'AMERICA_SITKA',
-  /** St Barthelemy */
-  AmericaStBarthelemy = 'AMERICA_ST_BARTHELEMY',
-  /** St Johns */
-  AmericaStJohns = 'AMERICA_ST_JOHNS',
-  /** St Kitts */
-  AmericaStKitts = 'AMERICA_ST_KITTS',
-  /** St Lucia */
-  AmericaStLucia = 'AMERICA_ST_LUCIA',
-  /** St Thomas */
-  AmericaStThomas = 'AMERICA_ST_THOMAS',
-  /** St Vincent */
-  AmericaStVincent = 'AMERICA_ST_VINCENT',
-  /** Swift Current */
-  AmericaSwiftCurrent = 'AMERICA_SWIFT_CURRENT',
-  /** Tegucigalpa */
-  AmericaTegucigalpa = 'AMERICA_TEGUCIGALPA',
-  /** Thule */
-  AmericaThule = 'AMERICA_THULE',
-  /** Thunder Bay */
-  AmericaThunderBay = 'AMERICA_THUNDER_BAY',
-  /** Tijuana */
-  AmericaTijuana = 'AMERICA_TIJUANA',
-  /** Toronto */
-  AmericaToronto = 'AMERICA_TORONTO',
-  /** Tortola */
-  AmericaTortola = 'AMERICA_TORTOLA',
-  /** Vancouver */
-  AmericaVancouver = 'AMERICA_VANCOUVER',
-  /** Whitehorse */
-  AmericaWhitehorse = 'AMERICA_WHITEHORSE',
-  /** Winnipeg */
-  AmericaWinnipeg = 'AMERICA_WINNIPEG',
-  /** Yakutat */
-  AmericaYakutat = 'AMERICA_YAKUTAT',
-  /** Yellowknife */
-  AmericaYellowknife = 'AMERICA_YELLOWKNIFE',
-  /** Casey */
-  AntarcticaCasey = 'ANTARCTICA_CASEY',
-  /** Davis */
-  AntarcticaDavis = 'ANTARCTICA_DAVIS',
-  /** Dumont d'Urville */
-  AntarcticaDumontdurville = 'ANTARCTICA_DUMONTDURVILLE',
-  /** Macquarie */
-  AntarcticaMacquarie = 'ANTARCTICA_MACQUARIE',
-  /** Mawson */
-  AntarcticaMawson = 'ANTARCTICA_MAWSON',
-  /** McMurdo */
-  AntarcticaMcmurdo = 'ANTARCTICA_MCMURDO',
-  /** Palmer */
-  AntarcticaPalmer = 'ANTARCTICA_PALMER',
-  /** Rothera */
-  AntarcticaRothera = 'ANTARCTICA_ROTHERA',
-  /** Showa */
-  AntarcticaSyowa = 'ANTARCTICA_SYOWA',
-  /** Troll */
-  AntarcticaTroll = 'ANTARCTICA_TROLL',
-  /** Vostok */
-  AntarcticaVostok = 'ANTARCTICA_VOSTOK',
-  /** Longyearbyen */
-  ArcticLongyearbyen = 'ARCTIC_LONGYEARBYEN',
-  /** Aden */
-  AsiaAden = 'ASIA_ADEN',
-  /** Almaty */
-  AsiaAlmaty = 'ASIA_ALMATY',
-  /** Amman */
-  AsiaAmman = 'ASIA_AMMAN',
-  /** Anadyr */
-  AsiaAnadyr = 'ASIA_ANADYR',
-  /** Aqtau */
-  AsiaAqtau = 'ASIA_AQTAU',
-  /** Aqtobe */
-  AsiaAqtobe = 'ASIA_AQTOBE',
-  /** Ashgabat */
-  AsiaAshgabat = 'ASIA_ASHGABAT',
-  /** Atyrau */
-  AsiaAtyrau = 'ASIA_ATYRAU',
-  /** Bagdad */
-  AsiaBaghdad = 'ASIA_BAGHDAD',
-  /** Bahrain */
-  AsiaBahrain = 'ASIA_BAHRAIN',
-  /** Baku */
-  AsiaBaku = 'ASIA_BAKU',
-  /** Bangkok */
-  AsiaBangkok = 'ASIA_BANGKOK',
-  /** Barnaul */
-  AsiaBarnaul = 'ASIA_BARNAUL',
-  /** Beirut */
-  AsiaBeirut = 'ASIA_BEIRUT',
-  /** Bishkek */
-  AsiaBishkek = 'ASIA_BISHKEK',
-  /** Brunei */
-  AsiaBrunei = 'ASIA_BRUNEI',
-  /** Tšita */
-  AsiaChita = 'ASIA_CHITA',
-  /** Choibalsan */
-  AsiaChoibalsan = 'ASIA_CHOIBALSAN',
-  /** Colombo */
-  AsiaColombo = 'ASIA_COLOMBO',
-  /** Damaskos */
-  AsiaDamascus = 'ASIA_DAMASCUS',
-  /** Dhaka */
-  AsiaDhaka = 'ASIA_DHAKA',
-  /** Dili */
-  AsiaDili = 'ASIA_DILI',
-  /** Dubai */
-  AsiaDubai = 'ASIA_DUBAI',
-  /** Dušanbe */
-  AsiaDushanbe = 'ASIA_DUSHANBE',
-  /** Famagusta */
-  AsiaFamagusta = 'ASIA_FAMAGUSTA',
-  /** Gaza */
-  AsiaGaza = 'ASIA_GAZA',
-  /** Hebron */
-  AsiaHebron = 'ASIA_HEBRON',
-  /** Hongkong */
-  AsiaHongKong = 'ASIA_HONG_KONG',
-  /** Hovd */
-  AsiaHovd = 'ASIA_HOVD',
-  /** Hồ Chí Minh */
-  AsiaHoChiMinh = 'ASIA_HO_CHI_MINH',
-  /** Irkutsk */
-  AsiaIrkutsk = 'ASIA_IRKUTSK',
-  /** Jakarta */
-  AsiaJakarta = 'ASIA_JAKARTA',
-  /** Jayapura */
-  AsiaJayapura = 'ASIA_JAYAPURA',
-  /** Jerusalem */
-  AsiaJerusalem = 'ASIA_JERUSALEM',
-  /** Kabul */
-  AsiaKabul = 'ASIA_KABUL',
-  /** Kamtšatka */
-  AsiaKamchatka = 'ASIA_KAMCHATKA',
-  /** Karachi */
-  AsiaKarachi = 'ASIA_KARACHI',
-  /** Kathmandu */
-  AsiaKathmandu = 'ASIA_KATHMANDU',
-  /** Handyga */
-  AsiaKhandyga = 'ASIA_KHANDYGA',
-  /** Kalkutta */
-  AsiaKolkata = 'ASIA_KOLKATA',
-  /** Krasnojarsk */
-  AsiaKrasnoyarsk = 'ASIA_KRASNOYARSK',
-  /** Kuala Lumpur */
-  AsiaKualaLumpur = 'ASIA_KUALA_LUMPUR',
-  /** Kuching */
-  AsiaKuching = 'ASIA_KUCHING',
-  /** Kuwait */
-  AsiaKuwait = 'ASIA_KUWAIT',
-  /** Macao */
-  AsiaMacau = 'ASIA_MACAU',
-  /** Magadan */
-  AsiaMagadan = 'ASIA_MAGADAN',
-  /** Makassar */
-  AsiaMakassar = 'ASIA_MAKASSAR',
-  /** Manila */
-  AsiaManila = 'ASIA_MANILA',
-  /** Masqat */
-  AsiaMuscat = 'ASIA_MUSCAT',
-  /** Nikosia */
-  AsiaNicosia = 'ASIA_NICOSIA',
-  /** Novokuznetsk */
-  AsiaNovokuznetsk = 'ASIA_NOVOKUZNETSK',
-  /** Novosibirsk */
-  AsiaNovosibirsk = 'ASIA_NOVOSIBIRSK',
-  /** Omsk */
-  AsiaOmsk = 'ASIA_OMSK',
-  /** Uralsk */
-  AsiaOral = 'ASIA_ORAL',
-  /** Phnom Penh */
-  AsiaPhnomPenh = 'ASIA_PHNOM_PENH',
-  /** Pontianak */
-  AsiaPontianak = 'ASIA_PONTIANAK',
-  /** Pjongjang */
-  AsiaPyongyang = 'ASIA_PYONGYANG',
-  /** Qatar */
-  AsiaQatar = 'ASIA_QATAR',
-  /** Qostanay */
-  AsiaQostanay = 'ASIA_QOSTANAY',
-  /** Qızılorda */
-  AsiaQyzylorda = 'ASIA_QYZYLORDA',
-  /** Riad */
-  AsiaRiyadh = 'ASIA_RIYADH',
-  /** Sahalin */
-  AsiaSakhalin = 'ASIA_SAKHALIN',
-  /** Samarkand */
-  AsiaSamarkand = 'ASIA_SAMARKAND',
-  /** Soul */
-  AsiaSeoul = 'ASIA_SEOUL',
-  /** Shanghai */
-  AsiaShanghai = 'ASIA_SHANGHAI',
-  /** Singapore */
-  AsiaSingapore = 'ASIA_SINGAPORE',
-  /** Srednekolymsk */
-  AsiaSrednekolymsk = 'ASIA_SREDNEKOLYMSK',
-  /** Taipei */
-  AsiaTaipei = 'ASIA_TAIPEI',
-  /** Taškent */
-  AsiaTashkent = 'ASIA_TASHKENT',
-  /** Tbilisi */
-  AsiaTbilisi = 'ASIA_TBILISI',
-  /** Teheran */
-  AsiaTehran = 'ASIA_TEHRAN',
-  /** Thimphu */
-  AsiaThimphu = 'ASIA_THIMPHU',
-  /** Tokio */
-  AsiaTokyo = 'ASIA_TOKYO',
-  /** Tomsk */
-  AsiaTomsk = 'ASIA_TOMSK',
-  /** Ulan Bator */
-  AsiaUlaanbaatar = 'ASIA_ULAANBAATAR',
-  /** Ürümqi */
-  AsiaUrumqi = 'ASIA_URUMQI',
-  /** Ust-Nera */
-  AsiaUstNera = 'ASIA_UST_NERA',
-  /** Vientiane */
-  AsiaVientiane = 'ASIA_VIENTIANE',
-  /** Vladivostok */
-  AsiaVladivostok = 'ASIA_VLADIVOSTOK',
-  /** Jakutsk */
-  AsiaYakutsk = 'ASIA_YAKUTSK',
-  /** Rangoon */
-  AsiaYangon = 'ASIA_YANGON',
-  /** Jekaterinburg */
-  AsiaYekaterinburg = 'ASIA_YEKATERINBURG',
-  /** Jerevan */
-  AsiaYerevan = 'ASIA_YEREVAN',
-  /** Azorit */
-  AtlanticAzores = 'ATLANTIC_AZORES',
-  /** Bermuda */
-  AtlanticBermuda = 'ATLANTIC_BERMUDA',
-  /** Kanaria */
-  AtlanticCanary = 'ATLANTIC_CANARY',
-  /** Kap Verde */
-  AtlanticCapeVerde = 'ATLANTIC_CAPE_VERDE',
-  /** Färsaaret */
-  AtlanticFaroe = 'ATLANTIC_FAROE',
-  /** Madeira */
-  AtlanticMadeira = 'ATLANTIC_MADEIRA',
-  /** Reykjavik */
-  AtlanticReykjavik = 'ATLANTIC_REYKJAVIK',
-  /** Etelä-Georgia */
-  AtlanticSouthGeorgia = 'ATLANTIC_SOUTH_GEORGIA',
-  /** Stanley */
-  AtlanticStanley = 'ATLANTIC_STANLEY',
-  /** Saint Helena */
-  AtlanticStHelena = 'ATLANTIC_ST_HELENA',
-  /** Adelaide */
-  AustraliaAdelaide = 'AUSTRALIA_ADELAIDE',
-  /** Brisbane */
-  AustraliaBrisbane = 'AUSTRALIA_BRISBANE',
-  /** Broken Hill */
-  AustraliaBrokenHill = 'AUSTRALIA_BROKEN_HILL',
-  /** Currie */
-  AustraliaCurrie = 'AUSTRALIA_CURRIE',
-  /** Darwin */
-  AustraliaDarwin = 'AUSTRALIA_DARWIN',
-  /** Eucla */
-  AustraliaEucla = 'AUSTRALIA_EUCLA',
-  /** Hobart */
-  AustraliaHobart = 'AUSTRALIA_HOBART',
-  /** Lindeman */
-  AustraliaLindeman = 'AUSTRALIA_LINDEMAN',
-  /** Lord Howe */
-  AustraliaLordHowe = 'AUSTRALIA_LORD_HOWE',
-  /** Melbourne */
-  AustraliaMelbourne = 'AUSTRALIA_MELBOURNE',
-  /** Perth */
-  AustraliaPerth = 'AUSTRALIA_PERTH',
-  /** Sydney */
-  AustraliaSydney = 'AUSTRALIA_SYDNEY',
-  /** Amsterdam */
-  EuropeAmsterdam = 'EUROPE_AMSTERDAM',
-  /** Andorra */
-  EuropeAndorra = 'EUROPE_ANDORRA',
-  /** Astrahan */
-  EuropeAstrakhan = 'EUROPE_ASTRAKHAN',
-  /** Ateena */
-  EuropeAthens = 'EUROPE_ATHENS',
-  /** Belgrad */
-  EuropeBelgrade = 'EUROPE_BELGRADE',
-  /** Berliini */
-  EuropeBerlin = 'EUROPE_BERLIN',
-  /** Bratislava */
-  EuropeBratislava = 'EUROPE_BRATISLAVA',
-  /** Bryssel */
-  EuropeBrussels = 'EUROPE_BRUSSELS',
-  /** Bukarest */
-  EuropeBucharest = 'EUROPE_BUCHAREST',
-  /** Budapest */
-  EuropeBudapest = 'EUROPE_BUDAPEST',
-  /** Büsingen */
-  EuropeBusingen = 'EUROPE_BUSINGEN',
-  /** Chișinău */
-  EuropeChisinau = 'EUROPE_CHISINAU',
-  /** Kööpenhamina */
-  EuropeCopenhagen = 'EUROPE_COPENHAGEN',
-  /** Dublin */
-  EuropeDublin = 'EUROPE_DUBLIN',
-  /** Gibraltar */
-  EuropeGibraltar = 'EUROPE_GIBRALTAR',
-  /** Guernsey */
-  EuropeGuernsey = 'EUROPE_GUERNSEY',
-  /** Helsinki */
-  EuropeHelsinki = 'EUROPE_HELSINKI',
-  /** Mansaari */
-  EuropeIsleOfMan = 'EUROPE_ISLE_OF_MAN',
-  /** Istanbul */
-  EuropeIstanbul = 'EUROPE_ISTANBUL',
-  /** Jersey */
-  EuropeJersey = 'EUROPE_JERSEY',
-  /** Kaliningrad */
-  EuropeKaliningrad = 'EUROPE_KALININGRAD',
-  /** Kiova */
-  EuropeKiev = 'EUROPE_KIEV',
-  /** Kirov */
-  EuropeKirov = 'EUROPE_KIROV',
-  /** Lissabon */
-  EuropeLisbon = 'EUROPE_LISBON',
-  /** Ljubljana */
-  EuropeLjubljana = 'EUROPE_LJUBLJANA',
-  /** Lontoo */
-  EuropeLondon = 'EUROPE_LONDON',
-  /** Luxemburg */
-  EuropeLuxembourg = 'EUROPE_LUXEMBOURG',
-  /** Madrid */
-  EuropeMadrid = 'EUROPE_MADRID',
-  /** Malta */
-  EuropeMalta = 'EUROPE_MALTA',
-  /** Maarianhamina */
-  EuropeMariehamn = 'EUROPE_MARIEHAMN',
-  /** Minsk */
-  EuropeMinsk = 'EUROPE_MINSK',
-  /** Monaco */
-  EuropeMonaco = 'EUROPE_MONACO',
-  /** Moskova */
-  EuropeMoscow = 'EUROPE_MOSCOW',
-  /** Oslo */
-  EuropeOslo = 'EUROPE_OSLO',
-  /** Pariisi */
-  EuropeParis = 'EUROPE_PARIS',
-  /** Podgorica */
-  EuropePodgorica = 'EUROPE_PODGORICA',
-  /** Praha */
-  EuropePrague = 'EUROPE_PRAGUE',
-  /** Riika */
-  EuropeRiga = 'EUROPE_RIGA',
-  /** Rooma */
-  EuropeRome = 'EUROPE_ROME',
-  /** Samara */
-  EuropeSamara = 'EUROPE_SAMARA',
-  /** San Marino */
-  EuropeSanMarino = 'EUROPE_SAN_MARINO',
-  /** Sarajevo */
-  EuropeSarajevo = 'EUROPE_SARAJEVO',
-  /** Saratov */
-  EuropeSaratov = 'EUROPE_SARATOV',
-  /** Simferopol */
-  EuropeSimferopol = 'EUROPE_SIMFEROPOL',
-  /** Skopje */
-  EuropeSkopje = 'EUROPE_SKOPJE',
-  /** Sofia */
-  EuropeSofia = 'EUROPE_SOFIA',
-  /** Tukholma */
-  EuropeStockholm = 'EUROPE_STOCKHOLM',
-  /** Tallinna */
-  EuropeTallinn = 'EUROPE_TALLINN',
-  /** Tirana */
-  EuropeTirane = 'EUROPE_TIRANE',
-  /** Uljanovsk */
-  EuropeUlyanovsk = 'EUROPE_ULYANOVSK',
-  /** Užhorod */
-  EuropeUzhgorod = 'EUROPE_UZHGOROD',
-  /** Vaduz */
-  EuropeVaduz = 'EUROPE_VADUZ',
-  /** Vatikaani */
-  EuropeVatican = 'EUROPE_VATICAN',
-  /** Wien */
-  EuropeVienna = 'EUROPE_VIENNA',
-  /** Vilna */
-  EuropeVilnius = 'EUROPE_VILNIUS',
-  /** Volgograd */
-  EuropeVolgograd = 'EUROPE_VOLGOGRAD',
-  /** Varsova */
-  EuropeWarsaw = 'EUROPE_WARSAW',
-  /** Zagreb */
-  EuropeZagreb = 'EUROPE_ZAGREB',
-  /** Zaporižžja */
-  EuropeZaporozhye = 'EUROPE_ZAPOROZHYE',
-  /** Zürich */
-  EuropeZurich = 'EUROPE_ZURICH',
-  /** Antananarivo */
-  IndianAntananarivo = 'INDIAN_ANTANANARIVO',
-  /** Chagos */
-  IndianChagos = 'INDIAN_CHAGOS',
-  /** Joulu */
-  IndianChristmas = 'INDIAN_CHRISTMAS',
-  /** Kookos */
-  IndianCocos = 'INDIAN_COCOS',
-  /** Komori */
-  IndianComoro = 'INDIAN_COMORO',
-  /** Kerguelen */
-  IndianKerguelen = 'INDIAN_KERGUELEN',
-  /** Mahé */
-  IndianMahe = 'INDIAN_MAHE',
-  /** Malediivit */
-  IndianMaldives = 'INDIAN_MALDIVES',
-  /** Mauritius */
-  IndianMauritius = 'INDIAN_MAURITIUS',
-  /** Mayotte */
-  IndianMayotte = 'INDIAN_MAYOTTE',
-  /** Réunion */
-  IndianReunion = 'INDIAN_REUNION',
-  /** Apia */
-  PacificApia = 'PACIFIC_APIA',
-  /** Auckland */
-  PacificAuckland = 'PACIFIC_AUCKLAND',
-  /** Bougainville */
-  PacificBougainville = 'PACIFIC_BOUGAINVILLE',
-  /** Chatham */
-  PacificChatham = 'PACIFIC_CHATHAM',
-  /** Chuuk */
-  PacificChuuk = 'PACIFIC_CHUUK',
-  /** Pääsiäis */
-  PacificEaster = 'PACIFIC_EASTER',
-  /** Efate */
-  PacificEfate = 'PACIFIC_EFATE',
-  /** Enderbury */
-  PacificEnderbury = 'PACIFIC_ENDERBURY',
-  /** Fakaofo */
-  PacificFakaofo = 'PACIFIC_FAKAOFO',
-  /** Fidži */
-  PacificFiji = 'PACIFIC_FIJI',
-  /** Funafuti */
-  PacificFunafuti = 'PACIFIC_FUNAFUTI',
-  /** Galápagos */
-  PacificGalapagos = 'PACIFIC_GALAPAGOS',
-  /** Gambier */
-  PacificGambier = 'PACIFIC_GAMBIER',
-  /** Guadalcanal */
-  PacificGuadalcanal = 'PACIFIC_GUADALCANAL',
-  /** Guam */
-  PacificGuam = 'PACIFIC_GUAM',
-  /** Honolulu */
-  PacificHonolulu = 'PACIFIC_HONOLULU',
-  /** Kiritimati */
-  PacificKiritimati = 'PACIFIC_KIRITIMATI',
-  /** Kosrae */
-  PacificKosrae = 'PACIFIC_KOSRAE',
-  /** Kwajalein */
-  PacificKwajalein = 'PACIFIC_KWAJALEIN',
-  /** Majuro */
-  PacificMajuro = 'PACIFIC_MAJURO',
-  /** Marquesas */
-  PacificMarquesas = 'PACIFIC_MARQUESAS',
-  /** Midway */
-  PacificMidway = 'PACIFIC_MIDWAY',
-  /** Nauru */
-  PacificNauru = 'PACIFIC_NAURU',
-  /** Niue */
-  PacificNiue = 'PACIFIC_NIUE',
-  /** Norfolk */
-  PacificNorfolk = 'PACIFIC_NORFOLK',
-  /** Nouméa */
-  PacificNoumea = 'PACIFIC_NOUMEA',
-  /** Pago Pago */
-  PacificPagoPago = 'PACIFIC_PAGO_PAGO',
-  /** Palau */
-  PacificPalau = 'PACIFIC_PALAU',
-  /** Pitcairn */
-  PacificPitcairn = 'PACIFIC_PITCAIRN',
-  /** Pohnpei */
-  PacificPohnpei = 'PACIFIC_POHNPEI',
-  /** Port Moresby */
-  PacificPortMoresby = 'PACIFIC_PORT_MORESBY',
-  /** Rarotonga */
-  PacificRarotonga = 'PACIFIC_RAROTONGA',
-  /** Saipan */
-  PacificSaipan = 'PACIFIC_SAIPAN',
-  /** Tahiti */
-  PacificTahiti = 'PACIFIC_TAHITI',
-  /** Tarawa */
-  PacificTarawa = 'PACIFIC_TARAWA',
-  /** Tongatapu */
-  PacificTongatapu = 'PACIFIC_TONGATAPU',
-  /** Wake */
-  PacificWake = 'PACIFIC_WAKE',
-  /** Wallis */
-  PacificWallis = 'PACIFIC_WALLIS',
-  /** UTC offset: UTC+0 */
-  Utc_0 = 'UTC_0',
-  /** UTC offset: UTC+0:30 */
-  Utc_0_30 = 'UTC_0_30',
-  /** UTC offset: UTC+1 */
-  Utc_1 = 'UTC_1',
-  /** UTC offset: UTC+10 */
-  Utc_10 = 'UTC_10',
-  /** UTC offset: UTC+10:30 */
-  Utc_10_30 = 'UTC_10_30',
-  /** UTC offset: UTC+11 */
-  Utc_11 = 'UTC_11',
-  /** UTC offset: UTC+11:30 */
-  Utc_11_30 = 'UTC_11_30',
-  /** UTC offset: UTC+12 */
-  Utc_12 = 'UTC_12',
-  /** UTC offset: UTC+12:45 */
-  Utc_12_45 = 'UTC_12_45',
-  /** UTC offset: UTC+13 */
-  Utc_13 = 'UTC_13',
-  /** UTC offset: UTC+13:45 */
-  Utc_13_45 = 'UTC_13_45',
-  /** UTC offset: UTC+14 */
-  Utc_14 = 'UTC_14',
-  /** UTC offset: UTC+1:30 */
-  Utc_1_30 = 'UTC_1_30',
-  /** UTC offset: UTC+2 */
-  Utc_2 = 'UTC_2',
-  /** UTC offset: UTC+2:30 */
-  Utc_2_30 = 'UTC_2_30',
-  /** UTC offset: UTC+3 */
-  Utc_3 = 'UTC_3',
-  /** UTC offset: UTC+3:30 */
-  Utc_3_30 = 'UTC_3_30',
-  /** UTC offset: UTC+4 */
-  Utc_4 = 'UTC_4',
-  /** UTC offset: UTC+4:30 */
-  Utc_4_30 = 'UTC_4_30',
-  /** UTC offset: UTC+5 */
-  Utc_5 = 'UTC_5',
-  /** UTC offset: UTC+5:30 */
-  Utc_5_30 = 'UTC_5_30',
-  /** UTC offset: UTC+5:45 */
-  Utc_5_45 = 'UTC_5_45',
-  /** UTC offset: UTC+6 */
-  Utc_6 = 'UTC_6',
-  /** UTC offset: UTC+6:30 */
-  Utc_6_30 = 'UTC_6_30',
-  /** UTC offset: UTC+7 */
-  Utc_7 = 'UTC_7',
-  /** UTC offset: UTC+7:30 */
-  Utc_7_30 = 'UTC_7_30',
-  /** UTC offset: UTC+8 */
-  Utc_8 = 'UTC_8',
-  /** UTC offset: UTC+8:30 */
-  Utc_8_30 = 'UTC_8_30',
-  /** UTC offset: UTC+8:45 */
-  Utc_8_45 = 'UTC_8_45',
-  /** UTC offset: UTC+9 */
-  Utc_9 = 'UTC_9',
-  /** UTC offset: UTC+9:30 */
-  Utc_9_30 = 'UTC_9_30'
-}
-
 /** The translation type */
-export type Translation = Node & ContentNode & DatabaseIdentifier & NodeWithTemplate & UniformResourceIdentifiable & NodeWithTitle & NodeWithRevisions & {
+export type Translation = Node & ContentNode & UniformResourceIdentifiable & DatabaseIdentifier & NodeWithTemplate & NodeWithTitle & NodeWithRevisions & {
   __typename?: 'Translation';
   /** Connection between the ContentNode type and the ContentType type */
   contentType?: Maybe<ContentNodeToContentTypeConnectionEdge>;
@@ -9614,12 +8812,16 @@ export type Translation = Node & ContentNode & DatabaseIdentifier & NodeWithTemp
   guid?: Maybe<Scalars['String']>;
   /** The globally unique identifier of the translation-cpt object. */
   id: Scalars['ID'];
+  /** Whether the node is a Content Node */
+  isContentNode: Scalars['Boolean'];
   /** Whether the object is a node in the preview state */
   isPreview?: Maybe<Scalars['Boolean']>;
   /** Whether the object is restricted from the current viewer */
   isRestricted?: Maybe<Scalars['Boolean']>;
   /** True if the node is a revision of another node */
   isRevision?: Maybe<Scalars['Boolean']>;
+  /** Whether the node is a Term */
+  isTermNode: Scalars['Boolean'];
   /** The user that most recently edited the node */
   lastEditedBy?: Maybe<ContentNodeToEditLastConnectionEdge>;
   /** The permalink of the post */
@@ -9728,7 +8930,7 @@ export type TranslationResponse = {
 /** Connection between the translation type and the translation type */
 export type TranslationToPreviewConnectionEdge = {
   __typename?: 'TranslationToPreviewConnectionEdge';
-  /** The nodes of the connection, without the edges */
+  /** The node of the connection, without the edges */
   node?: Maybe<Translation>;
 };
 
@@ -9794,6 +8996,10 @@ export type TranslationToRevisionConnectionWhereArgs = {
 export type UniformResourceIdentifiable = {
   /** The unique resource identifier path */
   id: Scalars['ID'];
+  /** Whether the node is a Content Node */
+  isContentNode: Scalars['Boolean'];
+  /** Whether the node is a Term */
+  isTermNode: Scalars['Boolean'];
   /** The unique resource identifier path */
   uri?: Maybe<Scalars['String']>;
 };
@@ -10312,8 +9518,12 @@ export type User = Node & UniformResourceIdentifiable & Commenter & DatabaseIden
   firstName?: Maybe<Scalars['String']>;
   /** The globally unique identifier for the user object. */
   id: Scalars['ID'];
+  /** Whether the node is a Content Node */
+  isContentNode: Scalars['Boolean'];
   /** Whether the object is restricted from the current viewer */
   isRestricted?: Maybe<Scalars['Boolean']>;
+  /** Whether the node is a Term */
+  isTermNode: Scalars['Boolean'];
   /** Last name of the user. This is equivalent to the WP_User-&gt;user_last_name property. */
   lastName?: Maybe<Scalars['String']>;
   /** The preferred language locale set for the user. Value derived from get_user_locale(). */
@@ -10593,6 +9803,8 @@ export type UserToContentRevisionUnionConnectionEdge = {
 
 /** Arguments for filtering the UserToContentRevisionUnionConnection connection */
 export type UserToContentRevisionUnionConnectionWhereArgs = {
+  /** The Types of content to filter */
+  contentTypes?: Maybe<Array<Maybe<ContentTypeEnum>>>;
   /** Filter the connection based on dates */
   dateQuery?: Maybe<DateQueryInput>;
   /** True for objects with passwords; False for objects without passwords; null for all objects with or without passwords */

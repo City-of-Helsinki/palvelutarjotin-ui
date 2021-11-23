@@ -42,6 +42,7 @@ import {
   OrganisationProposalNode,
   OrganisationProposalNodeConnection,
   OrganisationProposalNodeEdge,
+  KeywordListResponse,
 } from '../generated/graphql';
 
 type ExtendedPalvelutarjotinEventNode = PalvelutarjotinEventNode & {
@@ -209,6 +210,20 @@ export const fakePlaces = (
   },
   data: generateNodeArray((i) => fakePlace(places?.[i]), count),
   __typename: 'PlaceListResponse',
+});
+
+export const fakeKeywords = (
+  count = 1,
+  keywords?: Partial<Keyword>[]
+): KeywordListResponse => ({
+  meta: {
+    __typename: 'Meta',
+    count: count,
+    next: '',
+    previous: '',
+  },
+  data: generateNodeArray((i) => fakeKeyword(keywords?.[i]), count),
+  __typename: 'KeywordListResponse',
 });
 
 export const fakeKeyword = (overrides?: Partial<Keyword>): Keyword => ({
