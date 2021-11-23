@@ -17,7 +17,7 @@ import { ROUTES } from '../../app/routes/constants';
 import { ENROLMENT_URL_PARAMS } from '../../enrolment/constants';
 import {
   EnrolmentFormFields,
-  defaultInitialValues,
+  defaultEnrolmentInitialValues,
 } from '../../enrolment/enrolmentForm/constants';
 import EnrolmentForm from '../../enrolment/enrolmentForm/EnrolmentForm';
 import { getCAPTCHAToken, getEnrolmentPayload } from '../../enrolment/utils';
@@ -76,7 +76,7 @@ const EnrolmentFormSection: React.FC<{
 
   const initialValues = React.useMemo(
     () => ({
-      ...defaultInitialValues,
+      ...defaultEnrolmentInitialValues,
       language: locale.toUpperCase(),
       // some of the values used only for validation purposes
       minGroupSize: Math.max(

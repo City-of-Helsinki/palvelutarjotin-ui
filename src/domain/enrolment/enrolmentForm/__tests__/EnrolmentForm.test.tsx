@@ -21,7 +21,7 @@ import {
   configure,
   within,
 } from '../../../../utils/testUtils';
-import { defaultInitialValues } from '../constants';
+import { defaultEnrolmentInitialValues } from '../constants';
 import EnrolmentForm, { Props } from '../EnrolmentForm';
 
 configure({ defaultHidden: true });
@@ -55,7 +55,7 @@ const renderComponent = ({
       onCloseForm={onCloseFormMock}
       onSubmit={onSubmitMock}
       submitting={false}
-      initialValues={{ ...defaultInitialValues, ...initialValues }}
+      initialValues={{ ...defaultEnrolmentInitialValues, ...initialValues }}
       {...restProps}
     />,
     { mocks: [...defaultMocks, ...mocks] }
@@ -401,7 +401,7 @@ if (isFeatureEnabled('FORMIK_PERSIST')) {
       isSubmitting: false,
       isValidating: false,
       submitCount: 0,
-      initialValues: defaultInitialValues,
+      initialValues: defaultEnrolmentInitialValues,
       initialErrors: {},
       initialTouched: {},
       isValid: true,
