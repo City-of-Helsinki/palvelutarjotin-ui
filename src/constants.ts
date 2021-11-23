@@ -4,6 +4,10 @@ export enum FORM_NAMES {
   ENROLMENT_FORM = 'enrolment-form',
 }
 
+export enum LOCAL_STORAGE {
+  RECOMMENDED_EVENTS_VARIABLES = 'recommended-events-variables',
+}
+
 export enum SUPPORTED_LANGUAGES {
   FI = 'fi',
   SV = 'sv',

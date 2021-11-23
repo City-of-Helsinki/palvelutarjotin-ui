@@ -29,7 +29,7 @@ export type EventSearchFormValues = {
   [KEYWORD_QUERY_PARAMS.ADDITIONAL_CRITERIA]: string[];
 };
 
-const defaultInitialValues: EventSearchFormValues = {
+const defaultEnrolmentInitialValues: EventSearchFormValues = {
   text: '',
   inLanguage: [],
   [KEYWORD_QUERY_PARAMS.TARGET_GROUPS]: [],
@@ -57,7 +57,7 @@ interface Props {
 }
 
 const EventSearchForm = ({
-  initialValues = defaultInitialValues,
+  initialValues = defaultEnrolmentInitialValues,
   onSubmit,
   onToggleAdvancedSearch,
   panelState,

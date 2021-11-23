@@ -11,12 +11,13 @@ import {
   OccurrenceSeatType,
 } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
+import { saveDataForRecommendedEventsQuery } from '../../../utils/recommendedEventsUtils';
 import { assertUnreachable } from '../../../utils/typescript.utils';
 import { ROUTES } from '../../app/routes/constants';
 import { ENROLMENT_URL_PARAMS } from '../../enrolment/constants';
 import {
   EnrolmentFormFields,
-  defaultInitialValues,
+  defaultEnrolmentInitialValues,
 } from '../../enrolment/enrolmentForm/constants';
 import EnrolmentForm from '../../enrolment/enrolmentForm/EnrolmentForm';
 import { getCAPTCHAToken, getEnrolmentPayload } from '../../enrolment/utils';
@@ -52,6 +53,7 @@ const EnrolmentFormSection: React.FC<{
           },
         },
       });
+      saveDataForRecommendedEventsQuery(values);
       router.push({
         pathname: ROUTES.EVENT_DETAILS.replace(':id', event.id as string),
         query: {
@@ -74,7 +76,7 @@ const EnrolmentFormSection: React.FC<{
 
   const initialValues = React.useMemo(
     () => ({
-      ...defaultInitialValues,
+      ...defaultEnrolmentInitialValues,
       language: locale.toUpperCase(),
       // some of the values used only for validation purposes
       minGroupSize: Math.max(

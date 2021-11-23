@@ -1,0 +1,16 @@
+export const STUDY_LEVEL_TO_KEYWORD_MAP = {
+  AGE_0_2: 'helsinki:af4prk7e5y',
+  AGE_3_4: 'kultus:44',
+  PRESCHOOL: 'kultus:52',
+  GRADE_1: 'kultus:55',
+  GRADE_2: 'kultus:55',
+  GRADE_3: 'kultus:56',
+  GRADE_4: 'kultus:56',
+  GRADE_5: 'kultus:56',
+  GRADE_6: 'kultus:56',
+  GRADE_7: 'kultus:57',
+  GRADE_8: 'kultus:57',
+  GRADE_9: 'kultus:57',
+  GRADE_10: 'kultus:57',
+  SECONDARY: 'kultus:58',
+};

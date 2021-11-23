@@ -22,7 +22,7 @@ import keyify from '../../../utils/keyify';
 import { translateValue } from '../../../utils/translateUtils';
 import useStudyLevels from '../../studyLevel/useStudyLevels';
 import {
-  defaultInitialValues,
+  defaultEnrolmentInitialValues,
   EnrolmentFormFields,
   nameToLabelPath,
 } from './constants';
@@ -38,7 +38,7 @@ export interface Props {
 }
 
 const EnrolmentForm: React.FC<Props> = ({
-  initialValues = defaultInitialValues,
+  initialValues = defaultEnrolmentInitialValues,
   enquiry,
   onSubmit,
   submitting,
