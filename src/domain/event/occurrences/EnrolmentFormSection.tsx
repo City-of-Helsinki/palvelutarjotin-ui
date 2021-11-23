@@ -11,6 +11,7 @@ import {
   OccurrenceSeatType,
 } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
+import { saveDataForRecommendedEventsQuery } from '../../../utils/recommendedEventsUtils';
 import { assertUnreachable } from '../../../utils/typescript.utils';
 import { ROUTES } from '../../app/routes/constants';
 import { ENROLMENT_URL_PARAMS } from '../../enrolment/constants';
@@ -52,6 +53,7 @@ const EnrolmentFormSection: React.FC<{
           },
         },
       });
+      saveDataForRecommendedEventsQuery(values);
       router.push({
         pathname: ROUTES.EVENT_DETAILS.replace(':id', event.id as string),
         query: {

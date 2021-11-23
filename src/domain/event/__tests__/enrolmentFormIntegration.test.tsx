@@ -18,6 +18,7 @@ import {
   fakePEvent,
   fakePlace,
 } from '../../../utils/mockDataUtils';
+import { getRecommendedEventsQueryVariables } from '../../../utils/recommendedEventsUtils';
 import {
   render,
   configure,
@@ -151,6 +152,13 @@ test('user can select single occurrences and enrol to it with enrolment form', a
       JSON.parse(localStorage.getItem(FORM_NAMES.ENROLMENT_FORM)!)
     ).toMatchSnapshot();
   }
+
+  await waitFor(() => {
+    expect(getRecommendedEventsQueryVariables()).toEqual({
+      unitIds: [null],
+      studyLevels: ['kultus:55', 'kultus:56'],
+    });
+  });
 
   await waitFor(() => {
     expect(enrolOccurrenceMock).toHaveBeenCalledWith({
