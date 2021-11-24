@@ -14,12 +14,14 @@ import styles from './eventList.module.scss';
 
 interface Props {
   events: EventsFieldsFragment[];
-  fetchMore: () => void;
+  fetchMore?: () => void;
   isLoading: boolean;
-  shouldShowLoadMore: boolean;
+  shouldShowLoadMore?: boolean;
   eventsCount?: number | null;
-  sort: EVENT_SORT_OPTIONS;
-  setSort: (val: EVENT_SORT_OPTIONS) => void;
+  sort?: EVENT_SORT_OPTIONS;
+  title?: string;
+  showCount?: boolean;
+  setSort?: (val: EVENT_SORT_OPTIONS) => void;
 }
 
 const EventList = ({
@@ -30,6 +32,8 @@ const EventList = ({
   sort,
   eventsCount = 0,
   setSort,
+  title,
+  showCount = true,
 }: Props): ReactElement => {
   const { asPath } = useRouter();
 
@@ -49,32 +53,36 @@ const EventList = ({
   }, [t]);
   // eslint-disable-next-line  @typescript-eslint/no-explicit-any
   const handleSort = (option: { [key: string]: any }) => {
-    setSort(option.value);
+    setSort?.(option.value);
   };
 
   return (
     <div className={styles.eventList}>
       <div className={styles.headingRow}>
         <h2>
-          {t('events:eventList.title')}{' '}
-          <span className={styles.count}>
-            {t('events:eventList.count', { count: eventsCount || 0 })}
-          </span>
+          {title ?? t('events:eventList.title')}{' '}
+          {showCount && (
+            <span className={styles.count}>
+              {t('events:eventList.count', { count: eventsCount || 0 })}
+            </span>
+          )}
         </h2>
-        <div className={styles.sortSelectorWrapper}>
-          <Select
-            className={styles.orderDropdown}
-            label={t('events:eventList.labelSort')}
-            onChange={handleSort}
-            options={sortOptions}
-            value={
-              sortOptions.find((option) => option.value === sort) || {
-                label: '',
-                value: '',
+        {sort && (
+          <div className={styles.sortSelectorWrapper}>
+            <Select
+              className={styles.orderDropdown}
+              label={t('events:eventList.labelSort')}
+              onChange={handleSort}
+              options={sortOptions}
+              value={
+                sortOptions.find((option) => option.value === sort) || {
+                  label: '',
+                  value: '',
+                }
               }
-            }
-          />
-        </div>
+            />
+          </div>
+        )}
       </div>
       <div className={styles.eventCardsContainer}>
         {events.map((event, index) => {
@@ -86,7 +94,7 @@ const EventList = ({
         })}
       </div>
       {shouldShowLoadMore && (
-        <LoadingSpinner isLoading={isLoading}>
+        <LoadingSpinner isLoading={isLoading ?? false}>
           <div className={styles.loadMoreButtonWrapper}>
             <Button
               onClick={fetchMore}

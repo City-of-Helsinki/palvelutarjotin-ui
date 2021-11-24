@@ -30,6 +30,8 @@ export const fakePage = (
       pageId: faker.datatype.number(),
       language: fakeLanguage({ code: LanguageCodeEnum.Fi }),
       seo: fakeSEO(),
+      isContentNode: false,
+      isTermNode: false,
       // to avoid infinite recursion loop :D
       translations: isTranslation
         ? null
@@ -53,8 +55,6 @@ export const fakePage = (
         __typename: 'HierarchicalContentNodeToContentNodeChildrenConnection',
       },
       parent: null,
-      isContentNode: false,
-      isTermNode: false,
       __typename: 'Page',
     },
     overrides

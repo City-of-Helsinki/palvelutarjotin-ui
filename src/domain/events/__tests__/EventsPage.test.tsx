@@ -4,9 +4,9 @@ import React from 'react';
 import wait from 'waait';
 
 import {
-  EventsDocument,
   Event,
   PopularKeywordsDocument,
+  UpcomingEventsDocument,
 } from '../../../generated/graphql';
 import {
   fakeEvents,
@@ -97,24 +97,14 @@ const eventMocks: Partial<Event>[] = [
 const mocks: MockedResponse[] = [
   {
     request: {
-      query: EventsDocument,
+      query: UpcomingEventsDocument,
       variables: {
         include: ['keywords', 'location', 'audience'],
-        keyword: [],
-        allOngoingAnd: null,
-        inLanguage: '',
-        location: '',
-        start: 'now',
-        pageSize: 10,
-        sort: 'start_time',
-        end: null,
-        organisationId: '',
-        division: '',
       },
     },
     result: {
       data: {
-        events: fakeEvents(4, eventMocks),
+        upcomingEvents: fakeEvents(4, eventMocks),
       },
     },
   },
@@ -170,12 +160,8 @@ test('renders search form and events list with correct information', async () =>
     screen.queryByRole('button', { name: 'Hae tapahtumia' })
   ).toBeInTheDocument();
 
-  expect(screen.getByRole('button', { name: /järjestys/i })).toHaveTextContent(
-    'Ajankohtaista'
-  );
-
   expect(
-    screen.queryByRole('heading', { name: 'Tapahtumat 4 kpl' })
+    screen.queryByRole('heading', { name: 'Tulevat tapahtumat' })
   ).toBeInTheDocument();
 
   // one event has no upcoming occurrences

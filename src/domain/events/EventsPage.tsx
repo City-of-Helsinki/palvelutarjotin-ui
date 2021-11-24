@@ -2,10 +2,14 @@ import { Koros } from 'hds-react';
 import { useTranslation } from 'next-i18next';
 import Head from 'next/head';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import React, { ReactElement } from 'react';
 
 import LoadingSpinner from '../../common/components/loadingSpinner/LoadingSpinner';
-import { usePopularKeywordsQuery } from '../../generated/graphql';
+import {
+  usePopularKeywordsQuery,
+  useUpcomingEventsQuery,
+} from '../../generated/graphql';
 import useLocale from '../../hooks/useLocale';
 import localizedString from '../../utils/getLocalisedString';
 import Container from '../app/layout/Container';
@@ -13,9 +17,12 @@ import PageWrapper from '../app/layout/PageWrapper';
 import { ROUTES } from '../app/routes/constants';
 import BannerHero from '../bannerHero/BannerHero';
 import EventList from './eventList/EventList';
-import EventSearchForm, { PanelState } from './eventSearchForm/EventSearchForm';
+import EventSearchForm, {
+  EventSearchFormValues,
+  PanelState,
+} from './eventSearchForm/EventSearchForm';
 import styles from './eventsPage.module.scss';
-import { useEventsSearch } from './EventsSearchPage';
+import { getSearchQueryObject } from './utils';
 
 const panelStates = {
   closed: PanelState.Condensed,
@@ -23,22 +30,33 @@ const panelStates = {
 };
 
 const EventsPage = (): ReactElement => {
+  const { t } = useTranslation();
+  const router = useRouter();
   const [searchPanelState, setSearchPanelState] = React.useState<PanelState>(
     panelStates.closed
   );
 
-  const {
-    initialValues,
-    loading,
-    events,
-    eventsCount,
-    isLoadingMore,
-    nextPage,
-    sort,
-    fetchMoreEvents,
-    search,
-    setSort,
-  } = useEventsSearch();
+  const { data: eventsData, loading } = useUpcomingEventsQuery({
+    variables: {
+      include: ['keywords', 'location', 'audience'],
+    },
+  });
+  const events = eventsData?.upcomingEvents?.data;
+  const eventsCount = eventsData?.upcomingEvents?.meta.count;
+
+  const search = (values: EventSearchFormValues) => {
+    values = { ...values, organisation: values.organisationId };
+    delete values.organisationId;
+
+    router.push(
+      {
+        pathname: ROUTES.EVENTS_SEARCH,
+        query: getSearchQueryObject(values),
+      },
+      undefined,
+      { scroll: false }
+    );
+  };
 
   const handleToggleAdvancedSearch = () => {
     setSearchPanelState(
@@ -55,7 +73,6 @@ const EventsPage = (): ReactElement => {
         <Container>
           <div className={styles.eventsSearchForm}>
             <EventSearchForm
-              initialValues={initialValues}
               onSubmit={search}
               onToggleAdvancedSearch={handleToggleAdvancedSearch}
               panelState={searchPanelState}
@@ -68,13 +85,11 @@ const EventsPage = (): ReactElement => {
         <LoadingSpinner isLoading={loading}>
           {events && (
             <EventList
+              title={t('events:eventList.titleUpcomingEvents')}
+              showCount={false}
               events={events}
+              isLoading={loading}
               eventsCount={eventsCount}
-              fetchMore={fetchMoreEvents}
-              isLoading={isLoadingMore}
-              shouldShowLoadMore={Boolean(nextPage)}
-              sort={sort}
-              setSort={setSort}
             />
           )}
         </LoadingSpinner>

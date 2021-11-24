@@ -7,7 +7,8 @@
     "buttonLoadMore": "Visa mer",
     "count": "{{count}} st",
     "labelSort": "Ordning",
-    "title": "Evenemang"
+    "title": "Evenemang",
+    "titleUpcomingEvents": "Uppkommande händelser"
   },
   "sortOptions": {
     "lastModifiedTimeDesc": "Senast ändrad",
