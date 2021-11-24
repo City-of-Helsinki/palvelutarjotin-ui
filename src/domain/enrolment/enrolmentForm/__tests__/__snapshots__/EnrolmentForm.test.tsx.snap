@@ -1,7 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`UnitField shows the unit text in a autosuggest div next to the input ([[Object]]) 1`] = `null`;
-
 exports[`renders form and user can fill it and submit and form is saved to local storage 1`] = `
 Object {
   "dirty": true,
