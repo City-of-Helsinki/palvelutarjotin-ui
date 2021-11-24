@@ -161,7 +161,7 @@ test('renders search form and events list with correct information', async () =>
   ).toBeInTheDocument();
 
   expect(
-    screen.queryByRole('heading', { name: 'Tapahtumat 4 kpl' })
+    screen.queryByRole('heading', { name: 'Tulevat tapahtumat' })
   ).toBeInTheDocument();
 
   // one event has no upcoming occurrences

@@ -14,11 +14,13 @@ import styles from './eventList.module.scss';
 
 interface Props {
   events: EventsFieldsFragment[];
-  fetchMore: () => void;
+  fetchMore?: () => void;
   isLoading: boolean;
-  shouldShowLoadMore: boolean;
+  shouldShowLoadMore?: boolean;
   eventsCount?: number | null;
   sort?: EVENT_SORT_OPTIONS;
+  title?: string;
+  showCount?: boolean;
   setSort?: (val: EVENT_SORT_OPTIONS) => void;
 }
 
@@ -30,6 +32,8 @@ const EventList = ({
   sort,
   eventsCount = 0,
   setSort,
+  title,
+  showCount = true,
 }: Props): ReactElement => {
   const { asPath } = useRouter();
 
@@ -56,10 +60,12 @@ const EventList = ({
     <div className={styles.eventList}>
       <div className={styles.headingRow}>
         <h2>
-          {t('events:eventList.title')}{' '}
-          <span className={styles.count}>
-            {t('events:eventList.count', { count: eventsCount || 0 })}
-          </span>
+          {title ?? t('events:eventList.title')}{' '}
+          {showCount && (
+            <span className={styles.count}>
+              {t('events:eventList.count', { count: eventsCount || 0 })}
+            </span>
+          )}
         </h2>
         {sort && (
           <div className={styles.sortSelectorWrapper}>
@@ -88,7 +94,7 @@ const EventList = ({
         })}
       </div>
       {shouldShowLoadMore && (
-        <LoadingSpinner isLoading={isLoading}>
+        <LoadingSpinner isLoading={isLoading ?? false}>
           <div className={styles.loadMoreButtonWrapper}>
             <Button
               onClick={fetchMore}

@@ -12,7 +12,6 @@ import {
 } from '../../generated/graphql';
 import useLocale from '../../hooks/useLocale';
 import localizedString from '../../utils/getLocalisedString';
-import getPageNumberFromUrl from '../../utils/getPageNumberFromUrl';
 import Container from '../app/layout/Container';
 import PageWrapper from '../app/layout/PageWrapper';
 import { ROUTES } from '../app/routes/constants';
@@ -31,17 +30,13 @@ const panelStates = {
 };
 
 const EventsPage = (): ReactElement => {
+  const { t } = useTranslation();
   const router = useRouter();
-  const [isLoadingMore, setIsLoadingMore] = React.useState(false);
   const [searchPanelState, setSearchPanelState] = React.useState<PanelState>(
     panelStates.closed
   );
 
-  const {
-    data: eventsData,
-    loading,
-    fetchMore,
-  } = useUpcomingEventsQuery({
+  const { data: eventsData, loading } = useUpcomingEventsQuery({
     variables: {
       include: ['keywords', 'location', 'audience'],
     },
@@ -61,27 +56,6 @@ const EventsPage = (): ReactElement => {
       undefined,
       { scroll: false }
     );
-  };
-
-  const nextPage = React.useMemo(() => {
-    const nextUrl = eventsData?.upcomingEvents?.meta.next;
-    return nextUrl ? getPageNumberFromUrl(nextUrl) : null;
-  }, [eventsData?.upcomingEvents?.meta?.next]);
-
-  const fetchMoreEvents = async () => {
-    if (nextPage) {
-      try {
-        setIsLoadingMore(true);
-        await fetchMore({
-          variables: {
-            page: nextPage,
-          },
-        });
-        setIsLoadingMore(false);
-      } catch (e) {
-        setIsLoadingMore(false);
-      }
-    }
   };
 
   const handleToggleAdvancedSearch = () => {
@@ -111,11 +85,11 @@ const EventsPage = (): ReactElement => {
         <LoadingSpinner isLoading={loading}>
           {events && (
             <EventList
+              title={t('events:eventList.titleUpcomingEvents')}
+              showCount={false}
               events={events}
+              isLoading={loading}
               eventsCount={eventsCount}
-              fetchMore={fetchMoreEvents}
-              isLoading={isLoadingMore}
-              shouldShowLoadMore={Boolean(nextPage)}
             />
           )}
         </LoadingSpinner>
