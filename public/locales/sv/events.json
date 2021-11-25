@@ -37,6 +37,7 @@
     "buttonEditSearch": "Redigera sökning",
     "buttonAdvancedSearch": "Specifik sökning",
     "buttonHideAdditionalFields": "Dölj tilläggsfälten",
+    "labelRemoveFilter": "SV: Poista suodatin {{filter}}",
     "accessibility": {
       "audienceDropdown": {
         "clearButtonAriaLabel": "Ta bort målgruppsfilter",

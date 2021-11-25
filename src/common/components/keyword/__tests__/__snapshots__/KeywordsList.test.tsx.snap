@@ -92,7 +92,7 @@ exports[`renders list of keywords as links with correct hrefs 1`] = `
         class="keyword"
         href="/search?targetGroups=kultus%3A15"
       >
-        lukio ja ammatillinen opetus
+        Lukio ja ammatillinen opetus
       </a>
     </li>
     <li>

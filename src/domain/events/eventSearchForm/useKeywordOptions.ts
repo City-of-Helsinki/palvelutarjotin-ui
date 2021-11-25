@@ -26,6 +26,7 @@ export const useKeywordOptions = (): KeywordOptions => {
   });
   const { data: categoriesData } = useKeywordSetQuery({
     variables: { setType: KeywordSetType.Category },
+    ssr: false,
   });
   const { data: targetGroupsData } = useKeywordSetQuery({
     variables: { setType: KeywordSetType.TargetGroup },

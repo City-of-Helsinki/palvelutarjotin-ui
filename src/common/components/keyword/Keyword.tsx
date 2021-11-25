@@ -1,5 +1,6 @@
 import { UrlObject } from 'url';
 
+import capitalize from 'lodash/capitalize';
 import Link from 'next/link';
 import * as React from 'react';
 
@@ -16,7 +17,7 @@ const Keyword: React.FC<KeywordProps> = ({ href, keyword, ...rest }) => {
     <Link href={href}>
       {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
       <a className={styles.keyword} {...rest}>
-        {keyword}
+        {typeof keyword === 'string' ? capitalize(keyword) : keyword}
       </a>
     </Link>
   );

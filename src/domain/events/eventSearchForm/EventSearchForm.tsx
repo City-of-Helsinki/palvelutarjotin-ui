@@ -54,6 +54,8 @@ interface Props {
   onSubmit: (values: EventSearchFormValues) => void;
   onToggleAdvancedSearch: () => void;
   panelState: PanelState;
+  onReset?: () => void;
+  filterActive?: boolean;
 }
 
 const EventSearchForm = ({
@@ -61,6 +63,8 @@ const EventSearchForm = ({
   onSubmit,
   onToggleAdvancedSearch,
   panelState,
+  onReset,
+  filterActive,
 }: Props): React.ReactElement => {
   const { t } = useTranslation();
   const languageOptions = React.useMemo(
@@ -90,7 +94,7 @@ const EventSearchForm = ({
       onSubmit={onSubmit}
       enableReinitialize={true}
     >
-      {({ handleSubmit, values }) => {
+      {({ handleSubmit, values, dirty, resetForm }) => {
         return (
           <form
             className={classNames(styles.eventSearchForm)}
@@ -218,17 +222,36 @@ const EventSearchForm = ({
                   />
                 </div>
               )}
+              <div>
+                <FilterSummary filters={initialValues} />
+              </div>
               {!isCompactSearch && (
                 <div className={styles.buttonRow}>
-                  <Button
-                    variant="success"
-                    fullWidth={true}
-                    iconLeft={<IconSearch />}
-                    type="submit"
-                  >
-                    {t('events:search.buttonSearch')}
-                  </Button>
-                  <FilterSummary filters={initialValues} />
+                  <div className={styles.submitButtonPart}>
+                    <Button
+                      variant="success"
+                      fullWidth={true}
+                      iconLeft={<IconSearch />}
+                      type="submit"
+                    >
+                      {t('events:search.buttonSearch')}
+                    </Button>
+                    {(dirty || filterActive) && (
+                      <button
+                        className={styles.resetButton}
+                        onClick={() => {
+                          resetForm();
+                          if (onReset) {
+                            onReset();
+                          }
+                        }}
+                        type="button"
+                      >
+                        {t('events:search.buttonClear')}
+                      </button>
+                    )}
+                  </div>
+
                   <div className={styles.buttonsContainer}>
                     <button
                       aria-expanded={isAdvancedSearch}

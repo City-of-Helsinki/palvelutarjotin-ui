@@ -1,9 +1,16 @@
 import { MockedResponse } from '@apollo/client/testing';
 import { advanceTo, clear } from 'jest-date-mock';
+import capitalize from 'lodash/capitalize';
 import React from 'react';
 import wait from 'waait';
 
-import { EventsDocument, Event } from '../../../generated/graphql';
+import {
+  EventsDocument,
+  Event,
+  KeywordSetType,
+  KeywordSetDocument,
+  KeywordDocument,
+} from '../../../generated/graphql';
 import {
   fakeEvents,
   fakePEvent,
@@ -25,6 +32,8 @@ import EventsSearchPage from '../EventsSearchPage';
 configure({ defaultHidden: true });
 
 const testDate = new Date(2020, 5, 20);
+const categoryId = 'asdasdasd';
+const keywordName = 'Elokuvataide';
 
 const fakeKeywords = [
   fakeKeyword({ name: fakeLocalizedObject('vanhukset') }),
@@ -165,7 +174,7 @@ test('renders search form and events list with correct information', async () =>
     if (!keyword?.name?.fi) {
       throw new Error('keyword name is missing');
     }
-    expect(screen.getAllByText(keyword.name.fi)).toHaveLength(4);
+    expect(screen.getAllByText(capitalize(keyword.name.fi))).toHaveLength(4);
   });
 });
 
@@ -222,6 +231,54 @@ test('search form is in advanced state if advanced search parameters are used', 
   );
 
   testAdvancedSearchNotVisible();
+});
+
+test('renders filter tag when category not found in pre defined list', async () => {
+  advanceTo(testDate);
+  render(<EventsSearchPage />, {
+    mocks: [
+      ...mocks,
+      {
+        request: {
+          query: KeywordSetDocument,
+          variables: {
+            setType: KeywordSetType.Category,
+          },
+        },
+        result: {
+          data: {
+            keywordSet: {
+              internalId: 'moi',
+              name: fakeLocalizedObject('Kultukset avainsanat'),
+              keywords: fakeKeywords,
+            },
+            __typename: 'KeywordSet',
+          },
+        },
+      },
+      {
+        request: {
+          query: KeywordDocument,
+          variables: {
+            id: categoryId,
+          },
+        },
+        result: {
+          data: {
+            keyword: fakeKeyword({
+              id: categoryId,
+              name: fakeLocalizedObject(keywordName),
+            }),
+          },
+        },
+      },
+    ],
+    query: {
+      categories: [categoryId],
+    },
+  });
+
+  await screen.findByRole('button', { name: `Poista suodatin ${keywordName}` });
 });
 
 const advancedSearchInputLabels = [

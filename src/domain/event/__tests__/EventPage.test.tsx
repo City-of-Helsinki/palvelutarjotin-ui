@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import userEvent from '@testing-library/user-event';
 import { advanceTo } from 'jest-date-mock';
+import capitalize from 'lodash/capitalize';
 import React from 'react';
 import { act } from 'react-dom/test-utils';
 import wait from 'waait';
@@ -314,7 +315,7 @@ it('renders page and event information correctly', async () => {
   // All keywords should be found in the document
   data.keywords.forEach((keyword) => {
     expect(
-      screen.queryAllByText(keyword, { exact: true }).length
+      screen.queryAllByText(capitalize(keyword), { exact: true }).length
     ).toBeGreaterThanOrEqual(1);
   });
 });
