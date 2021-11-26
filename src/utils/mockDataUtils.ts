@@ -149,6 +149,7 @@ export const fakeEnrolment = (
   __typename: 'EnrolmentNode',
   person: fakePerson(),
   status: EnrolmentStatus.Approved,
+  updatedAt: '',
   ...overrides,
 });
 

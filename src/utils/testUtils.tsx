@@ -10,6 +10,8 @@ import { Provider } from 'react-redux';
 
 import { createApolloCache } from '../domain/app/apollo/configureApollo';
 import { store as reduxStore } from '../domain/app/store';
+import { createCmsApolloClient } from '../headless-cms/cmsApolloClient';
+import CMSApolloProvider from '../headless-cms/cmsApolloContext';
 
 export const arrowUpKeyPressHelper = (): boolean =>
   fireEvent.keyDown(document, { code: 38, key: 'ArrowUp' });
@@ -37,9 +39,11 @@ const customRender: CustomRender = (
       }}
     >
       <Provider store={store}>
+        {/* <CMSApolloProvider value={createCmsApolloClient()}> */}
         <MockedProvider mocks={mocks} cache={createApolloCache()}>
           {children as React.ReactElement}
         </MockedProvider>
+        {/* </CMSApolloProvider> */}
       </Provider>
     </RouterContext.Provider>
   );

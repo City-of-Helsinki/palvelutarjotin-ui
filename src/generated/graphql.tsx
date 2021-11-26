@@ -306,6 +306,7 @@ export type EnrolmentNode = Node & {
   studyGroup: StudyGroupNode;
   occurrence: OccurrenceNode;
   enrolmentTime: Scalars['DateTime'];
+  updatedAt: Scalars['DateTime'];
   person?: Maybe<PersonNode>;
   notificationType?: Maybe<NotificationType>;
   status?: Maybe<EnrolmentStatus>;

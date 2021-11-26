@@ -1,6 +1,7 @@
 import { graphql } from 'msw';
 import { setupServer } from 'msw/node';
 
+import { Notification } from '../../generated/graphql-cms';
 import { fakeDivisions } from '../../utils/usMockDataUtils';
 
 const divisionNames = [
@@ -23,6 +24,18 @@ const handlers: Parameters<typeof setupServer> = [
     return res(
       ctx.data({
         administrativeDivisions: fakeDivisions(divisionNames),
+      })
+    );
+  }),
+  graphql.query('Notification', (req, res, ctx) => {
+    return res(
+      ctx.data({
+        notification: {
+          __typename: 'Notification',
+          title: 'moi',
+          content: 'm0i',
+          level: 'info',
+        } as Notification,
       })
     );
   }),

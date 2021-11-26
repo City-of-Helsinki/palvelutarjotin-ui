@@ -5,6 +5,7 @@ import {
   Language,
   LanguageCodeEnum,
   MediaItem,
+  Notification,
   Page,
   Seo,
 } from '../generated/graphql-cms';
@@ -117,6 +118,24 @@ export const fakeLanguage = (overrides?: Partial<Language>): Language => {
         [LanguageCodeEnum.Fi]: 'Suomi',
         [LanguageCodeEnum.Sv]: 'Ruotsi',
       }[languageCode],
+    },
+    overrides
+  );
+};
+
+export const fakeNotification = (
+  overrides?: Partial<Notification>
+): Notification => {
+  return merge<Notification, typeof overrides>(
+    {
+      title: faker.random.words(),
+      content: `<p>${faker.random.words()}</p>`,
+      level: 'info',
+      endDate: '',
+      linkText: '',
+      linkUrl: '',
+      startDate: '',
+      __typename: 'Notification',
     },
     overrides
   );

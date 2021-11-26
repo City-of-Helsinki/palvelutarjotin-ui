@@ -16,5 +16,8 @@
     "helsinkiMoving": "Helsinki liikkuu",
     "forOrganizer": "Toiminnan järjestäjälle",
     "now": "Ajassa NYT"
+  },
+  "notification": {
+    "labelCloseNotification": "Close notification"
   }
 }
