@@ -79,6 +79,7 @@
     "columnPlace": "Tapahtumapaikka",
     "columnSeatsInfo": "Paikkoja jäljellä",
     "columnTime": "Kellonaika",
+    "columnLanguage": "Kieli",
     "noOccurrences": "Tapahtumalla ei ole tapahtuma-aikoja",
     "noSelectedOccurrences": "Ei valittuja tapahtuma-aikoja",
     "title": "Valitut tapahtuma-ajat"

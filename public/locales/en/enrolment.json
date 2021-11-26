@@ -79,6 +79,7 @@
     "columnPlace": "Event location",
     "columnSeatsInfo": "Seats left",
     "columnTime": "Time",
+    "columnLanguage": "Language",
     "noOccurrences": "Event doesn't have occurrences",
     "noSelectedOccurrences": "No selected event times",
     "title": "Selected event times"

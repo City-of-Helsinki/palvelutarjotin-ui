@@ -216,6 +216,12 @@ const OccurrenceEnrolmentTable: React.FC<{
       id: 'time',
     },
     {
+      Header: t('enrolment:occurrenceTable.columnLanguage'),
+      accessor: (row: OccurrenceFieldsFragment) =>
+        row.languages.edges.map((lang) => lang?.node?.id).join(', ') ?? '-',
+      id: 'languages',
+    },
+    {
       Header: t('enrolment:occurrenceTable.columnPlace'),
       accessor: (row: OccurrenceFieldsFragment) => {
         const placeId = row.placeId || eventLocationId;
