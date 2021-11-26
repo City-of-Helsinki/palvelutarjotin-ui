@@ -78,6 +78,7 @@ const createFakeKeyword = (k: string) =>
 const occurrences = [
   {
     startTime: '2020-07-15T09:00:00+00:00',
+    endTime: '2020-07-17T09:00:00+00:00',
     placeId: data.placeId,
     id: data.placeId1,
     amountOfSeats: 30,
@@ -276,6 +277,25 @@ it('shows cancelled events correctly in list', async () => {
   expect(tableRows[4]).toHaveTextContent(cancelledOccurrenceRowText);
 });
 
+it('renders upcoming occurrencec correctly', async () => {
+  renderComponent();
+  await waitForRequestsToComplete();
+
+  const tableRows = screen.queryAllByRole('row');
+  expect(tableRows[1]).toHaveTextContent(
+    '15.7.2020 – 17.7.2020englanti, suomi, ruotsien, fi, svSoukan kirjasto30 / 30Näytä tiedot'
+  );
+  expect(tableRows[2]).toHaveTextContent(
+    '16.7.2020 to12:00 – 13:00suomifiSoukan kirjasto30 / 30Näytä tiedot'
+  );
+  expect(tableRows[3]).toHaveTextContent(
+    '19.7.2020 su12:00 – 13:00englanti, suomien, fiSoukan kirjasto30 / 30Näytä tiedot'
+  );
+  expect(tableRows[5]).toHaveTextContent(
+    '21.7.2020 ti12:00 – 13:00englanti, suomien, fiSoukan kirjasto30 / 30Näytä tiedot'
+  );
+});
+
 it('renders page and event information correctly', async () => {
   renderComponent();
   await waitForRequestsToComplete();
@@ -418,8 +438,10 @@ it('hides seats left column header when event has external enrolment', async () 
   ).not.toBeInTheDocument();
 
   const tableRows = screen.getAllByRole('row');
+
+  // shows multi day occurrence correctly
   expect(tableRows[1]).toHaveTextContent(
-    '15.7.2020 ke12:00 – 13:00englanti, suomi, ruotsien, fi, svSoukan kirjastoNäytä tiedot'
+    '15.7.2020 – 17.7.2020englanti, suomi, ruotsien, fi, svSoukan kirjastoNäytä tiedot'
   );
 
   userEvent.click(

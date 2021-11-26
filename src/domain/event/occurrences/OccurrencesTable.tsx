@@ -18,7 +18,11 @@ import {
 } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
 import formatTimeRange from '../../../utils/formatTimeRange';
-import { DATE_FORMAT, formatLocalizedDate } from '../../../utils/time/format';
+import {
+  DATE_FORMAT,
+  formatDateRange,
+  formatLocalizedDate,
+} from '../../../utils/time/format';
 import { translateValue } from '../../../utils/translateUtils';
 import { skipFalsyType } from '../../../utils/typescript.utils';
 import { ENROLMENT_ERRORS } from '../../enrolment/constants';
@@ -194,11 +198,13 @@ const OccurrenceEnrolmentTable: React.FC<{
               )}
             />
           )}
-          {formatLocalizedDate(
-            new Date(row.startTime),
-            `${DATE_FORMAT} eeeeee`,
-            locale
-          )}
+          {isMultidayOccurrence(row)
+            ? formatDateRange(new Date(row.startTime), new Date(row.endTime))
+            : formatLocalizedDate(
+                new Date(row.startTime),
+                `${DATE_FORMAT} eeeeee`,
+                locale
+              )}
         </div>
       ),
       id: 'date',
