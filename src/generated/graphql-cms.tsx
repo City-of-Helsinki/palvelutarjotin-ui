@@ -10246,7 +10246,7 @@ export type PagesSearchQuery = { __typename?: 'RootQuery', pages?: Maybe<{ __typ
 export type NotificationQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type NotificationQuery = { __typename?: 'RootQuery', notification?: Maybe<{ __typename?: 'Notification', content?: Maybe<string>, title?: Maybe<string>, level?: Maybe<string> }> };
+export type NotificationQuery = { __typename?: 'RootQuery', notification?: Maybe<{ __typename?: 'Notification', content?: Maybe<string>, title?: Maybe<string>, level?: Maybe<string>, startDate?: Maybe<string>, endDate?: Maybe<string>, linkText?: Maybe<string>, linkUrl?: Maybe<string> }> };
 
 export const SeoFieldsFragmentDoc = gql`
     fragment seoFields on SEO {
@@ -10561,6 +10561,10 @@ export const NotificationDocument = gql`
     content
     title
     level
+    startDate
+    endDate
+    linkText
+    linkUrl
   }
 }
     `;

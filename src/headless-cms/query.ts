@@ -175,6 +175,10 @@ export const NOTIFICATION_QUERY = gql`
       content
       title
       level
+      startDate
+      endDate
+      linkText
+      linkUrl
     }
   }
 `;
