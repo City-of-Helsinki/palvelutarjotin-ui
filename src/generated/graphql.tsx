@@ -1093,12 +1093,14 @@ export type PalvelutarjotinEventNode = Node & {
 
 
 export type PalvelutarjotinEventNodeOccurrencesArgs = {
+  orderBy?: Maybe<Array<Maybe<Scalars['String']>>>;
   offset?: Maybe<Scalars['Int']>;
   before?: Maybe<Scalars['String']>;
   after?: Maybe<Scalars['String']>;
   first?: Maybe<Scalars['Int']>;
   last?: Maybe<Scalars['Int']>;
   upcoming?: Maybe<Scalars['Boolean']>;
+  enrollable?: Maybe<Scalars['Boolean']>;
   date?: Maybe<Scalars['Date']>;
   time?: Maybe<Scalars['Time']>;
   pEvent?: Maybe<Scalars['ID']>;
@@ -1178,6 +1180,7 @@ export type PersonNodeOccurrencesArgs = {
   first?: Maybe<Scalars['Int']>;
   last?: Maybe<Scalars['Int']>;
   upcoming?: Maybe<Scalars['Boolean']>;
+  enrollable?: Maybe<Scalars['Boolean']>;
   date?: Maybe<Scalars['Date']>;
   time?: Maybe<Scalars['Time']>;
   pEvent?: Maybe<Scalars['ID']>;
@@ -1377,6 +1380,7 @@ export type QueryOccurrencesArgs = {
   first?: Maybe<Scalars['Int']>;
   last?: Maybe<Scalars['Int']>;
   upcoming?: Maybe<Scalars['Boolean']>;
+  enrollable?: Maybe<Scalars['Boolean']>;
   date?: Maybe<Scalars['Date']>;
   time?: Maybe<Scalars['Time']>;
   pEvent?: Maybe<Scalars['ID']>;
@@ -1676,6 +1680,7 @@ export type StudyGroupNodeOccurrencesArgs = {
   first?: Maybe<Scalars['Int']>;
   last?: Maybe<Scalars['Int']>;
   upcoming?: Maybe<Scalars['Boolean']>;
+  enrollable?: Maybe<Scalars['Boolean']>;
   date?: Maybe<Scalars['Date']>;
   time?: Maybe<Scalars['Time']>;
   pEvent?: Maybe<Scalars['ID']>;
@@ -2138,6 +2143,7 @@ export type OccurrencesQueryVariables = Exact<{
   cancelled?: Maybe<Scalars['Boolean']>;
   pEvent?: Maybe<Scalars['ID']>;
   orderBy?: Maybe<Array<Maybe<Scalars['String']>> | Maybe<Scalars['String']>>;
+  upcoming?: Maybe<Scalars['Boolean']>;
 }>;
 
 
@@ -2997,7 +3003,7 @@ export type OccurrenceQueryHookResult = ReturnType<typeof useOccurrenceQuery>;
 export type OccurrenceLazyQueryHookResult = ReturnType<typeof useOccurrenceLazyQuery>;
 export type OccurrenceQueryResult = Apollo.QueryResult<OccurrenceQuery, OccurrenceQueryVariables>;
 export const OccurrencesDocument = gql`
-    query Occurrences($after: String, $before: String, $first: Int, $last: Int, $cancelled: Boolean, $pEvent: ID, $orderBy: [String]) {
+    query Occurrences($after: String, $before: String, $first: Int, $last: Int, $cancelled: Boolean, $pEvent: ID, $orderBy: [String], $upcoming: Boolean) {
   occurrences(
     after: $after
     before: $before
@@ -3006,6 +3012,7 @@ export const OccurrencesDocument = gql`
     cancelled: $cancelled
     pEvent: $pEvent
     orderBy: $orderBy
+    upcoming: $upcoming
   ) {
     pageInfo {
       hasNextPage
@@ -3042,6 +3049,7 @@ export const OccurrencesDocument = gql`
  *      cancelled: // value for 'cancelled'
  *      pEvent: // value for 'pEvent'
  *      orderBy: // value for 'orderBy'
+ *      upcoming: // value for 'upcoming'
  *   },
  * });
  */

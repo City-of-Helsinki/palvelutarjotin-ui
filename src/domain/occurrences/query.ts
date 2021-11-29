@@ -9,6 +9,8 @@ export const QUERY_OCCURRENCES = gql`
     $cancelled: Boolean
     $pEvent: ID
     $orderBy: [String]
+    $upcoming: Boolean
+    $enrollable: Boolean
   ) {
     occurrences(
       after: $after
@@ -18,6 +20,8 @@ export const QUERY_OCCURRENCES = gql`
       cancelled: $cancelled
       pEvent: $pEvent
       orderBy: $orderBy
+      upcoming: $upcoming
+      enrollable: $enrollable
     ) {
       pageInfo {
         hasNextPage
