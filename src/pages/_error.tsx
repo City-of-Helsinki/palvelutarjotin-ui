@@ -1,12 +1,17 @@
-import { NextPage, NextPageContext } from 'next';
+import { NextPage, GetStaticPropsResult, GetStaticPropsContext } from 'next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import React from 'react';
 
 import NotFoundPage from '../domain/notFoundPage/NotFoundPage';
-import getLocalizationProps from '../utils/getLocalizationProps';
 
 const Error: NextPage = () => <NotFoundPage />;
 
-Error.getInitialProps = async ({ locale }: NextPageContext) =>
-  getLocalizationProps(locale ?? 'fi');
+export async function getStaticProps({
+  locale,
+}: GetStaticPropsContext): Promise<GetStaticPropsResult<unknown>> {
+  return {
+    props: await serverSideTranslations(locale ?? 'fi', ['common']),
+  };
+}
 
 export default Error;
