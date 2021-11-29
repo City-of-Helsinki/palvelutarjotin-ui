@@ -108,7 +108,7 @@ it('renders error-level notification if level is high', async () => {
   expect(notification.className).toContain('Notification-module_error');
 });
 
-it('renders error-level notification if level is high', async () => {
+it('renders default notification if level is low', async () => {
   renderComponent({
     level: 'low',
   });
@@ -121,7 +121,7 @@ it('renders error-level notification if level is high', async () => {
   expect(notification.className).not.toContain('Notification-module_alert');
 });
 
-it('renders error-level notification if level is high', async () => {
+it('renders aler-level notification if level is info', async () => {
   renderComponent({
     level: 'info',
   });

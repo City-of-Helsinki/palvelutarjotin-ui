@@ -1,7 +1,5 @@
 import React from 'react';
-import { act } from 'react-dom/test-utils';
 import { Provider } from 'react-redux';
-import wait from 'waait';
 
 import { render, screen } from '../../../../utils/testUtils';
 import { store } from '../../store';

@@ -1,4 +1,4 @@
-import { Navigation, IconGlobe, Notification } from 'hds-react';
+import { Navigation, IconGlobe } from 'hds-react';
 import { useTranslation } from 'next-i18next';
 import NextLink, { LinkProps } from 'next/link';
 import { useRouter } from 'next/router';
