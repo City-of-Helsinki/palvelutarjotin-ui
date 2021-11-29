@@ -25,7 +25,8 @@
     "returnToHome": "Återgå till hemsidan"
   },
   "notFound": {
-    "textNotFound": "Sidan du sökte hittades inte"
+    "textNotFound": "Tyvärr hittades inte sidan du sökte.",
+    "textNotFoundDescription": "Välkommen och bekanta dig med utbudet på den förnyade <a>Kultus</a>!"
   },
   "shareLink": {
     "shareOnFacebook": "Dela på Facebook",

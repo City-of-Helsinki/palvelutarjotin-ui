@@ -25,7 +25,8 @@
     "returnToHome": "Return to homepage"
   },
   "notFound": {
-    "textNotFound": "The page you were looking for was not found"
+    "textNotFound": "The page you're looking for was not found.",
+    "textNotFoundDescription": "A warm welcome to explore the new <a>Kultus</a>!"
   },
   "shareLink": {
     "shareOnFacebook": "Share on Facebook",
