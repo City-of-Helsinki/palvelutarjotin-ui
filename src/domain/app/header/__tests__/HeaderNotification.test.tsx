@@ -79,7 +79,7 @@ it('renders notification data correctly', async () => {
 
   userEvent.click(
     screen.getByRole('button', {
-      name: 'Sulje ilmoitus',
+      name: 'Sulje huomiotiedote',
     })
   );
 

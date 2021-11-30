@@ -77,9 +77,9 @@ exports[`matches snapshot 1`] = `
       </div>
     </div>
     <button
-      aria-label="Sulje ilmoitus"
+      aria-label="Sulje huomiotiedote"
       class="Notification-module_close__JWYav notification_hds-notification__close-button__1yGIj Notification-module_alert__1Erry notification_hds-notification--alert__1MV7H"
-      title="Sulje ilmoitus"
+      title="Sulje huomiotiedote"
       type="button"
     >
       <svg
