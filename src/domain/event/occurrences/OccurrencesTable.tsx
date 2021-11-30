@@ -10,6 +10,7 @@ import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import ErrorMessage from '../../../common/components/form/ErrorMessage';
+import SrOnly from '../../../common/components/SrOnly/SrOnly';
 import Table from '../../../common/components/table/Table';
 import {
   EventFieldsFragment,
@@ -212,13 +213,23 @@ const OccurrenceEnrolmentTable: React.FC<{
               locale
             );
       },
-
       id: 'time',
     },
     {
       Header: t('enrolment:occurrenceTable.columnLanguage'),
-      accessor: (row: OccurrenceFieldsFragment) =>
-        row.languages.edges.map((lang) => lang?.node?.id).join(', ') ?? '-',
+      accessor: (row: OccurrenceFieldsFragment) => (
+        <div>
+          <SrOnly>
+            {row.languages.edges
+              .map((lang) => t(`common:languages.${lang?.node?.id}`))
+              .join(', ') ?? '-'}
+          </SrOnly>
+          <span aria-hidden="true">
+            {row.languages.edges.map((lang) => lang?.node?.id).join(', ') ??
+              '-'}
+          </span>
+        </div>
+      ),
       id: 'languages',
     },
     {

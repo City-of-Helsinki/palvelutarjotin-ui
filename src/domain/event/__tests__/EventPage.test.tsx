@@ -255,9 +255,9 @@ it('shows full events correctly in occurrences list', async () => {
   await waitForRequestsToComplete();
 
   const fullOccurrenceRowText1 =
-    '23.7.2020 to12:00 – 13:00en, fiSoukan kirjasto0 / 1Tapahtuma on täynnä';
+    '23.7.2020 to12:00 – 13:00englanti, suomien, fiSoukan kirjasto0 / 1Tapahtuma on täynnä';
   const fullOccurrenceRowText2 =
-    '29.7.2020 ke12:00 – 13:00en, fiSoukan kirjasto0 / 30Tapahtuma on täynnä';
+    '29.7.2020 ke12:00 – 13:00englanti, suomien, fiSoukan kirjasto0 / 30Tapahtuma on täynnä';
 
   const tableRows = screen.queryAllByRole('row');
   expect(tableRows[7]).toHaveTextContent(fullOccurrenceRowText1);
@@ -269,7 +269,7 @@ it('shows cancelled events correctly in list', async () => {
   await waitForRequestsToComplete();
 
   const cancelledOccurrenceRowText =
-    '20.7.2020 ma12:00 – 13:00en, fiSoukan kirjasto30 / 30Tapahtuma on peruttu';
+    '20.7.2020 ma12:00 – 13:00englanti, suomien, fiSoukan kirjasto30 / 30Tapahtuma on peruttu';
 
   const tableRows = screen.queryAllByRole('row');
   expect(tableRows[4]).toHaveTextContent(cancelledOccurrenceRowText);
@@ -381,7 +381,7 @@ it('renders occurrences table and related stuff correctly', async () => {
     ).toBeInTheDocument();
   });
 
-  const rowText = `27.7.2020 ma12:00 – 13:00en, fiSoukan kirjasto30 / 30Näytä tiedot`;
+  const rowText = `27.7.2020 ma12:00 – 13:00englanti, suomien, fiSoukan kirjasto30 / 30Näytä tiedot`;
 
   const tableRows = screen.getAllByRole('row');
   expect(tableRows[8]).toHaveTextContent(rowText);
@@ -418,7 +418,7 @@ it('hides seats left column header when event has external enrolment', async () 
 
   const tableRows = screen.getAllByRole('row');
   expect(tableRows[1]).toHaveTextContent(
-    '15.7.2020 ke12:00 – 13:00en, fi, svSoukan kirjastoNäytä tiedot'
+    '15.7.2020 ke12:00 – 13:00englanti, suomi, ruotsien, fi, svSoukan kirjastoNäytä tiedot'
   );
 
   userEvent.click(
