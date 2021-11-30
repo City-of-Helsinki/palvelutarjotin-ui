@@ -78,7 +78,8 @@
     "columnDate": "Datum",
     "columnPlace": "Evenemangplats",
     "columnSeatsInfo": "Platser kvar",
-    "columnTime": "Tid",
+    "columnTime": "Tid", 
+    "columnLanguage": "Språk",
     "noOccurrences": "Händelse har inga händelser",
     "noSelectedOccurrences": "Inga valda evenemangtider",
     "title": "Valda evenemangstider"
