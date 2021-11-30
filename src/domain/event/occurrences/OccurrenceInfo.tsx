@@ -1,6 +1,6 @@
 import { useApolloClient } from '@apollo/client';
 import classNames from 'classnames';
-import { isSameDay } from 'date-fns';
+import { isSameDay, isAfter } from 'date-fns';
 import {
   IconAngleUp,
   Button,
@@ -26,6 +26,7 @@ import {
   formatIntoTime,
   formatLocalizedDate,
   DATE_FORMAT,
+  formatIntoDateTime,
 } from '../../../utils/time/format';
 import OccurrenceGroupInfo from '../../occurrence/occurrenceGroupInfo/OccurrenceGroupInfo';
 import OccurrenceGroupLanguageInfo from '../../occurrence/occurrenceGroupInfo/OccurrenceGroupLanguageInfo';
@@ -60,6 +61,8 @@ const OccurrenceInfo: React.FC<{
   const autoAcceptance = event.pEvent?.autoAcceptance;
   const externalEnrolmentUrl = event.pEvent.externalEnrolmentUrl ?? '';
   const hasExternalEnrolment = !!event.pEvent.externalEnrolmentUrl;
+  const enrolmentStart = event.pEvent.enrolmentStart;
+  const isEnrollmentOpen = isAfter(new Date(enrolmentStart), new Date());
 
   React.useEffect(() => {
     if (showEnrolmentForm) {
@@ -191,14 +194,15 @@ const OccurrenceInfo: React.FC<{
         language={locale}
         variant="button"
       />
-      {hasExternalEnrolment ? (
+      {hasExternalEnrolment && (
         <ExternalLink
           href={externalEnrolmentUrl}
           className={styles.externalEnrolmentLink}
         >
           {t('occurrence:labelExternalEnrolmentLink')}
         </ExternalLink>
-      ) : neededOccurrences === 1 ? (
+      )}
+      {!hasExternalEnrolment && neededOccurrences === 1 && !isEnrollmentOpen ? (
         <Button
           className={classNames(styles.expandEnrolButton, {
             [styles.enquiryButton]: !showEnrolmentForm && !autoAcceptance,
@@ -223,7 +227,13 @@ const OccurrenceInfo: React.FC<{
                 }`
               )}
         </Button>
-      ) : null}
+      ) : (
+        <div className={styles.enrolmentStartNotice}>
+          {t('event:occurrenceList.enrolmentStartText', {
+            date: formatIntoDateTime(new Date(enrolmentStart)),
+          })}
+        </div>
+      )}
     </>
   );
 

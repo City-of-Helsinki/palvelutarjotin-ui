@@ -34,7 +34,8 @@
     "showAllLocationEvents": "Visa alla händelser på den här platsen",
     "labelStartDateFilter": "Startdatum för händelsefilter",
     "labelEndDateFilter": "Slutdatum för händelsefilter",
-    "eventIsFree": "Fri"
+    "eventIsFree": "Fri",
+    "enrolmentStartText": "SV: Ilmoittautuminen aukeaa {{date}}"
   },
   "location": {
     "labelLocation": "Standard venue",
