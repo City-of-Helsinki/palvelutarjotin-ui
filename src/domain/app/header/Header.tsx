@@ -21,6 +21,7 @@ import { MAIN_CONTENT_ID } from '../layout/PageLayout';
 import { PATHNAMES, ROUTES } from '../routes/constants';
 import { getCmsPath } from '../routes/utils';
 import styles from './header.module.scss';
+import HeaderNotification from './HeaderNotification';
 
 const Header: React.FC = () => {
   const { t } = useTranslation();
@@ -72,62 +73,65 @@ const Header: React.FC = () => {
   const logoLang = locale === 'sv' ? 'sv' : 'fi';
 
   return (
-    <Navigation
-      menuOpen={menuOpen}
-      onMenuToggle={toggleMenu}
-      menuToggleAriaLabel={t('header:menuToggleAriaLabel')}
-      skipTo={`#${MAIN_CONTENT_ID}`}
-      skipToContentLabel={t('common:linkSkipToContent')}
-      className={styles.navigation}
-      onTitleClick={goToPage(`/${locale}${ROUTES.HOME}`)}
-      logoLanguage={logoLang}
-      title={t('common:appName')}
-    >
-      {!cmsMenuLoading && navigationData && (
-        <Navigation.Row variant="inline">
-          {menuItems
-            ?.map((item, index) => {
-              if (!item?.uri) return null;
-              const uri = getCmsPath(item.uri);
+    <div>
+      <Navigation
+        menuOpen={menuOpen}
+        onMenuToggle={toggleMenu}
+        menuToggleAriaLabel={t('header:menuToggleAriaLabel')}
+        skipTo={`#${MAIN_CONTENT_ID}`}
+        skipToContentLabel={t('common:linkSkipToContent')}
+        className={styles.navigation}
+        onTitleClick={goToPage(`/${locale}${ROUTES.HOME}`)}
+        logoLanguage={logoLang}
+        title={t('common:appName')}
+      >
+        {!cmsMenuLoading && navigationData && (
+          <Navigation.Row variant="inline">
+            {menuItems
+              ?.map((item, index) => {
+                if (!item?.uri) return null;
+                const uri = getCmsPath(item.uri);
+                return (
+                  <Navigation.Item
+                    key={index}
+                    as={Link}
+                    href={uri}
+                    active={isTabActive(uri)}
+                    label={item.title}
+                    lang={locale}
+                    locale={locale}
+                  />
+                );
+              })
+              .filter((item) => item != null)}
+          </Navigation.Row>
+        )}
+        <Navigation.Actions>
+          <Navigation.LanguageSelector
+            buttonAriaLabel={t('header:changeLanguage')}
+            className={styles.languageSelector}
+            label={t(`header:languages:${locale}`)}
+            icon={<IconGlobe />}
+            closeOnItemClick
+          >
+            {getLanguageOptions().map((option) => {
+              const href = isCmsPage ? getCmsHref(option.value) : router.asPath;
               return (
                 <Navigation.Item
-                  key={index}
+                  key={option.value}
                   as={Link}
-                  href={uri}
-                  active={isTabActive(uri)}
-                  label={item.title}
-                  lang={locale}
-                  locale={locale}
+                  href={href}
+                  lang={option.value}
+                  locale={option.value}
+                  label={option.label}
                 />
               );
-            })
-            .filter((item) => item != null)}
-        </Navigation.Row>
-      )}
-      <Navigation.Actions>
-        <Navigation.LanguageSelector
-          buttonAriaLabel={t('header:changeLanguage')}
-          className={styles.languageSelector}
-          label={t(`header:languages:${locale}`)}
-          icon={<IconGlobe />}
-          closeOnItemClick
-        >
-          {getLanguageOptions().map((option) => {
-            const href = isCmsPage ? getCmsHref(option.value) : router.asPath;
-            return (
-              <Navigation.Item
-                key={option.value}
-                as={Link}
-                href={href}
-                lang={option.value}
-                locale={option.value}
-                label={option.label}
-              />
-            );
-          })}
-        </Navigation.LanguageSelector>
-      </Navigation.Actions>
-    </Navigation>
+            })}
+          </Navigation.LanguageSelector>
+        </Navigation.Actions>
+      </Navigation>
+      <HeaderNotification />
+    </div>
   );
 };
 

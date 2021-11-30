@@ -168,3 +168,17 @@ export const PAGES_SEARCH_QUERY = gql`
     }
   }
 `;
+
+export const NOTIFICATION_QUERY = gql`
+  query Notification {
+    notification(language: "") {
+      content
+      title
+      level
+      startDate
+      endDate
+      linkText
+      linkUrl
+    }
+  }
+`;

@@ -10243,6 +10243,11 @@ export type PagesSearchQueryVariables = Exact<{
 
 export type PagesSearchQuery = { __typename?: 'RootQuery', pages?: Maybe<{ __typename?: 'RootQueryToPageConnection', pageInfo?: Maybe<{ __typename?: 'WPPageInfo', endCursor?: Maybe<string>, hasNextPage: boolean }>, edges?: Maybe<Array<Maybe<{ __typename?: 'RootQueryToPageConnectionEdge', cursor?: Maybe<string>, node?: Maybe<{ __typename?: 'Page', id: string, content?: Maybe<string>, slug?: Maybe<string>, title?: Maybe<string>, uri?: Maybe<string>, lead?: Maybe<string>, translations?: Maybe<Array<Maybe<{ __typename?: 'Page', id: string, content?: Maybe<string>, slug?: Maybe<string>, title?: Maybe<string>, uri?: Maybe<string>, lead?: Maybe<string>, seo?: Maybe<{ __typename?: 'SEO', title?: Maybe<string>, description?: Maybe<string>, openGraphTitle?: Maybe<string>, openGraphDescription?: Maybe<string>, openGraphType?: Maybe<string>, twitterTitle?: Maybe<string>, twitterDescription?: Maybe<string> }>, language?: Maybe<{ __typename?: 'Language', code?: Maybe<LanguageCodeEnum>, slug?: Maybe<string>, locale?: Maybe<string>, name?: Maybe<string> }>, featuredImage?: Maybe<{ __typename?: 'NodeWithFeaturedImageToMediaItemConnectionEdge', node?: Maybe<{ __typename?: 'MediaItem', mediaItemUrl?: Maybe<string>, link?: Maybe<string>, altText?: Maybe<string>, mimeType?: Maybe<string>, title?: Maybe<string>, uri?: Maybe<string> }> }> }>>>, seo?: Maybe<{ __typename?: 'SEO', title?: Maybe<string>, description?: Maybe<string>, openGraphTitle?: Maybe<string>, openGraphDescription?: Maybe<string>, openGraphType?: Maybe<string>, twitterTitle?: Maybe<string>, twitterDescription?: Maybe<string> }>, language?: Maybe<{ __typename?: 'Language', code?: Maybe<LanguageCodeEnum>, slug?: Maybe<string>, locale?: Maybe<string>, name?: Maybe<string> }>, featuredImage?: Maybe<{ __typename?: 'NodeWithFeaturedImageToMediaItemConnectionEdge', node?: Maybe<{ __typename?: 'MediaItem', mediaItemUrl?: Maybe<string>, link?: Maybe<string>, altText?: Maybe<string>, mimeType?: Maybe<string>, title?: Maybe<string>, uri?: Maybe<string> }> }> }> }>>> }> };
 
+export type NotificationQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type NotificationQuery = { __typename?: 'RootQuery', notification?: Maybe<{ __typename?: 'Notification', content?: Maybe<string>, title?: Maybe<string>, level?: Maybe<string>, startDate?: Maybe<string>, endDate?: Maybe<string>, linkText?: Maybe<string>, linkUrl?: Maybe<string> }> };
+
 export const SeoFieldsFragmentDoc = gql`
     fragment seoFields on SEO {
   title
@@ -10550,3 +10555,43 @@ export function usePagesSearchLazyQuery(baseOptions?: Apollo.LazyQueryHookOption
 export type PagesSearchQueryHookResult = ReturnType<typeof usePagesSearchQuery>;
 export type PagesSearchLazyQueryHookResult = ReturnType<typeof usePagesSearchLazyQuery>;
 export type PagesSearchQueryResult = Apollo.QueryResult<PagesSearchQuery, PagesSearchQueryVariables>;
+export const NotificationDocument = gql`
+    query Notification {
+  notification(language: "") {
+    content
+    title
+    level
+    startDate
+    endDate
+    linkText
+    linkUrl
+  }
+}
+    `;
+
+/**
+ * __useNotificationQuery__
+ *
+ * To run a query within a React component, call `useNotificationQuery` and pass it any options that fit your needs.
+ * When your component renders, `useNotificationQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useNotificationQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useNotificationQuery(baseOptions?: Apollo.QueryHookOptions<NotificationQuery, NotificationQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<NotificationQuery, NotificationQueryVariables>(NotificationDocument, options);
+      }
+export function useNotificationLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<NotificationQuery, NotificationQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<NotificationQuery, NotificationQueryVariables>(NotificationDocument, options);
+        }
+export type NotificationQueryHookResult = ReturnType<typeof useNotificationQuery>;
+export type NotificationLazyQueryHookResult = ReturnType<typeof useNotificationLazyQuery>;
+export type NotificationQueryResult = Apollo.QueryResult<NotificationQuery, NotificationQueryVariables>;
