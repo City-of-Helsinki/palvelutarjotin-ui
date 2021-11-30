@@ -1,8 +1,6 @@
 @import 'layout';
 
 .filterSummary {
-  margin: var(--spacing-xs);
-
   &:last-child {
     margin-bottom: 0;
   }

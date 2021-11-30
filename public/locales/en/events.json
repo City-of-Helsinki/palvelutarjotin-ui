@@ -37,6 +37,7 @@
     "buttonEditSearch": "Edit search",
     "buttonAdvancedSearch": "Advanced search",
     "buttonHideAdditionalFields": "Hide additional fields",
+    "labelRemoveFilter": "Remove filter {{filter}}",
     "accessibility": {
       "audienceDropdown": {
         "clearButtonAriaLabel": "Delete audience filters",

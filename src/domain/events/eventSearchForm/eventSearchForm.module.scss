@@ -44,6 +44,16 @@
   background-color: transparent;
 }
 
+.resetButton {
+  margin-left: var(--spacing-m);
+  text-decoration: underline;
+  white-space: nowrap;
+}
+
+.submitButtonPart {
+  display: flex;
+}
+
 .selectInput {
   & > div {
     border: none;

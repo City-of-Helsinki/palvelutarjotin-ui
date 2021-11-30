@@ -52,7 +52,14 @@ const EventsSearchPage: React.FC = () => {
     nextPage,
     setSort,
     sort,
+    filterActive,
   } = useEventsSearch();
+
+  const handleFormReset = () => {
+    router.push(ROUTES.EVENTS_SEARCH, undefined, {
+      scroll: false,
+    });
+  };
 
   const handleToggleAdvancedSearch = () => {
     setSearchPanelState(
@@ -75,6 +82,8 @@ const EventsSearchPage: React.FC = () => {
             onSubmit={search}
             onToggleAdvancedSearch={handleToggleAdvancedSearch}
             panelState={searchPanelState}
+            filterActive={filterActive}
+            onReset={handleFormReset}
           />
         </Container>
       </div>
@@ -107,6 +116,19 @@ export const useEventsSearch = () => {
       getEventFilterVariables(router.query, { pageSize: EVENT_LIST_PAGE_SIZE }),
     [router.query]
   );
+
+  const { allOngoingAnd, division, end, inLanguage, start, keyword, location } =
+    variables;
+
+  const filterActive =
+    !!allOngoingAnd?.length ||
+    !!division?.length ||
+    !!inLanguage?.length ||
+    !!keyword?.length ||
+    !!location ||
+    !!end ||
+    start !== 'now';
+
   const [sort, setSort] = React.useState<EVENT_SORT_OPTIONS>(
     (getTextFromDict(router.query, 'sort') ||
       EVENT_SORT_OPTIONS.START_TIME) as EVENT_SORT_OPTIONS
@@ -183,6 +205,7 @@ export const useEventsSearch = () => {
     setSort,
     search,
     fetchMoreEvents,
+    filterActive,
   };
 };
 

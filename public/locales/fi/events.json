@@ -37,6 +37,7 @@
     "buttonEditSearch": "Muokkaa hakua",
     "buttonAdvancedSearch": "Tarkennettu haku",
     "buttonHideAdditionalFields": "Piilota lisäkentät",
+    "labelRemoveFilter": "Poista suodatin {{filter}}",
     "accessibility": {
       "audienceDropdown": {
         "clearButtonAriaLabel": "Poista kohderyhmävalinnat",

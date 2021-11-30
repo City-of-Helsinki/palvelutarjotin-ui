@@ -1,5 +1,6 @@
 import { MockedResponse } from '@apollo/client/testing';
 import { advanceTo, clear } from 'jest-date-mock';
+import capitalize from 'lodash/capitalize';
 import React from 'react';
 import wait from 'waait';
 
@@ -40,10 +41,10 @@ const popularKultusKeywords = [
 ];
 
 const keywords = [
-  fakeKeyword({ name: fakeLocalizedObject('vanhukset') }),
-  fakeKeyword({ name: fakeLocalizedObject('nuoret') }),
-  fakeKeyword({ name: fakeLocalizedObject('lapset') }),
-  fakeKeyword({ name: fakeLocalizedObject('ilmainen') }),
+  fakeKeyword({ name: fakeLocalizedObject('Vanhukset') }),
+  fakeKeyword({ name: fakeLocalizedObject('Nuoret') }),
+  fakeKeyword({ name: fakeLocalizedObject('Lapset') }),
+  fakeKeyword({ name: fakeLocalizedObject('Ilmainen') }),
 ];
 
 const eventMocks: Partial<Event>[] = [
@@ -192,6 +193,6 @@ test('renders search form and events list with correct information', async () =>
     if (!keyword?.name?.fi) {
       throw new Error('keyword name is missing');
     }
-    expect(screen.getAllByText(keyword.name.fi)).toHaveLength(4);
+    expect(screen.getAllByText(capitalize(keyword.name.fi))).toHaveLength(4);
   });
 });

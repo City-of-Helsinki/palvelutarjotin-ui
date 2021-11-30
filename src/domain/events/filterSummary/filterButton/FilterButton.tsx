@@ -1,30 +1,33 @@
 import classNames from 'classnames';
 import { IconCross } from 'hds-react';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 import styles from './filterButton.module.scss';
 
-export type FilterType = 'organisation';
+export type FilterType = 'organisation' | 'categories';
 
-interface Props {
+export interface FilterButtonProps {
   onRemove: (value: string, type: FilterType) => void;
   text: string;
   type: FilterType;
   value: string;
 }
 
-const FilterButton: React.FC<Props> = ({ onRemove, text, type, value }) => {
-  const handleRemove = () => {
-    onRemove(value, type);
-  };
-
+const FilterButton: React.FC<FilterButtonProps> = ({
+  onRemove,
+  text,
+  type,
+  value,
+}) => {
+  const { t } = useTranslation();
   return (
     <div className={classNames(styles.filter, styles[type])}>
       <button
         type="button"
         className={styles.closeButton}
-        onClick={handleRemove}
-        aria-label={value}
+        onClick={() => onRemove(value, type)}
+        aria-label={t('events:search.labelRemoveFilter', { filter: text })}
       >
         <IconCross size="s" aria-hidden />
       </button>

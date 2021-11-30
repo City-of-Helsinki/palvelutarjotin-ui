@@ -2,7 +2,9 @@ import { useRouter } from 'next/router';
 import React from 'react';
 
 import { EventSearchFormValues } from '../eventSearchForm/EventSearchForm';
-import FilterButton from './filterButton/FilterButton';
+import { useKeywordOptions } from '../eventSearchForm/useKeywordOptions';
+import FilterButton, { FilterType } from './filterButton/FilterButton';
+import KeywordFilterButton from './filterButton/KeywordFilterButton';
 import styles from './filterSummary.module.scss';
 
 export const filterSummaryContainerTestId = 'filter-summary';
@@ -13,36 +15,63 @@ interface Props {
 
 const FilterSummary: React.FC<Props> = ({ filters }) => {
   const router = useRouter();
+  const categories = filters.categories;
+  const organisation = filters.organisation;
+  const { categoryKeywords } = useKeywordOptions();
 
-  const organisation = filters?.organisation || '';
+  const keywordsNotInCategories = categories.filter(
+    (category) =>
+      !categoryKeywords.find(
+        (categoryKeyword) => categoryKeyword.value === category
+      )
+  );
 
-  const handleFilterRemove = () => {
-    //note params value: string, type: FilterType are not in use
-    //might be implemented to add more filters of different types
-    const params = new URLSearchParams(window.location.search);
-    params.delete('organisation');
+  const handleFilterRemove = (value: string, type: FilterType) => {
+    const query = { ...router.query };
+    const searchParam = query[type];
+
+    if (Array.isArray(searchParam)) {
+      query[type] = searchParam.filter((v) => v !== value);
+    } else {
+      delete query[type];
+    }
+
     router.push(
-      `${router.pathname}${params.values.length > 0 ? '?' : ''}${params}`
+      {
+        pathname: window.location.pathname,
+        query,
+      },
+      undefined,
+      { scroll: false }
     );
   };
 
-  const hasFilters = !!organisation;
+  const hasFilters = !!organisation || !!keywordsNotInCategories.length;
 
-  if (!hasFilters) return null;
-
-  return (
+  return hasFilters ? (
     <div
       className={styles.filterSummary}
       data-testid={filterSummaryContainerTestId}
     >
-      <FilterButton
-        key={organisation}
-        onRemove={handleFilterRemove}
-        text={organisation}
-        type="organisation"
-        value={organisation}
-      />
+      {organisation && (
+        <FilterButton
+          key={organisation}
+          onRemove={handleFilterRemove}
+          text={organisation}
+          type="organisation"
+          value={organisation}
+        />
+      )}
+      {keywordsNotInCategories.map((categoryId) => (
+        <KeywordFilterButton
+          key={categoryId}
+          onRemove={handleFilterRemove}
+          type="categories"
+          value={categoryId}
+        />
+      ))}
     </div>
-  );
+  ) : null;
 };
+
 export default FilterSummary;
