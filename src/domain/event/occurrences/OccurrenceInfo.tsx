@@ -1,6 +1,6 @@
 import { useApolloClient } from '@apollo/client';
 import classNames from 'classnames';
-import { isSameDay } from 'date-fns';
+import isSameDay from 'date-fns/isSameDay';
 import {
   IconAngleUp,
   Button,

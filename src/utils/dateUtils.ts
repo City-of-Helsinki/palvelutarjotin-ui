@@ -1,4 +1,4 @@
-import { format as formatDateStr } from 'date-fns';
+import formatDateStr from 'date-fns/format';
 import isAfter from 'date-fns/isAfter';
 import isBefore from 'date-fns/isBefore';
 import isSameDay from 'date-fns/isSameDay';
