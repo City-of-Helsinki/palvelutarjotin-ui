@@ -40,7 +40,11 @@ const OccurrenceEnrolmentButton: React.FC<Props> = ({
   const enrolmentError = getEnrolmentError(occurrence, event);
 
   if (enrolmentError) {
-    return <EnrolmentError error={enrolmentError} />;
+    return (
+      <div className={styles.enrolmentNotice}>
+        <EnrolmentError error={enrolmentError} />
+      </div>
+    );
   }
 
   if (externalEnrolmentUrl) {
@@ -56,7 +60,7 @@ const OccurrenceEnrolmentButton: React.FC<Props> = ({
 
   if (neededOccurrences === 1 && !isEnrolmentOpen) {
     return (
-      <div className={styles.enrolmentStartNotice}>
+      <div className={styles.enrolmentNotice}>
         {t('event:occurrenceList.enrolmentStartsAt', {
           date: formatIntoDate(new Date(enrolmentStart)),
           time: formatIntoTime(new Date(enrolmentStart)),
