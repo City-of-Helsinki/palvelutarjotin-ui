@@ -40,11 +40,9 @@ const renderComponent = ({
   props: { initialValues, ...restProps } = {},
   mocks = [],
 }: {
-  props?: Partial<
-    Omit<Props, 'initialValues'> & {
-      initialValues: Partial<Props['initialValues']>;
-    }
-  >;
+  props?: Partial<Omit<Props, 'initialValues'>> & {
+    initialValues?: Partial<Props['initialValues']>;
+  };
   mocks?: MockedResponse[];
 } = {}) => {
   const onCloseFormMock = jest.fn();
@@ -68,7 +66,7 @@ jest.setTimeout(30000);
 
 test('renders form and user can fill it and submit and form is saved to local storage', async () => {
   const { onSubmitMock } = renderComponent({
-    props: { initialValues: { minGroupSize: 10, maxGroupSize: 20 } },
+    props: { minGroupSize: 10, maxGroupSize: 20 },
   });
 
   await screen.findByRole('heading', { name: /ilmoittajan tiedot/i });
@@ -208,7 +206,7 @@ describe('max group size validation of the Children and Adults -fields', () => {
     adultsCount: string
   ) => {
     renderComponent({
-      props: { initialValues: { minGroupSize: 10, maxGroupSize: 20 } },
+      props: { minGroupSize: 10, maxGroupSize: 20 },
     });
     await screen.findByLabelText(/lapsia/i);
     childrenCount
@@ -372,8 +370,6 @@ if (isFeatureEnabled('FORMIK_PERSIST')) {
       isSharingDataAccepted: false,
       isMandatoryAdditionalInformationRequired: false,
       language: '',
-      maxGroupSize: 0,
-      minGroupSize: 0,
       studyGroup: {
         person: {
           name: 'Test person',
@@ -482,10 +478,8 @@ describe('UnitField', () => {
     renderComponent({
       mocks: testMocks,
       props: {
-        initialValues: {
-          minGroupSize: 10,
-          maxGroupSize: 20,
-        },
+        minGroupSize: 10,
+        maxGroupSize: 20,
       },
     });
 

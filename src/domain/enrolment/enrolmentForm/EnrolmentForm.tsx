@@ -27,7 +27,7 @@ import {
   nameToLabelPath,
 } from './constants';
 import styles from './enrolmentForm.module.scss';
-import ValidationSchema from './ValidationSchema';
+import getValidationSchema from './ValidationSchema';
 
 export interface Props {
   initialValues?: EnrolmentFormFields;
@@ -35,6 +35,8 @@ export interface Props {
   onSubmit: (values: EnrolmentFormFields) => void;
   submitting: boolean;
   onCloseForm: () => void;
+  minGroupSize?: number;
+  maxGroupSize?: number;
 }
 
 const EnrolmentForm: React.FC<Props> = ({
@@ -43,6 +45,8 @@ const EnrolmentForm: React.FC<Props> = ({
   onSubmit,
   submitting,
   onCloseForm,
+  minGroupSize = 10,
+  maxGroupSize = 20,
 }) => {
   const { t } = useTranslation();
   const locale = useLocale();
@@ -58,7 +62,10 @@ const EnrolmentForm: React.FC<Props> = ({
     <Formik
       initialValues={initialValues}
       onSubmit={onSubmit}
-      validationSchema={ValidationSchema}
+      validationSchema={getValidationSchema({
+        minGroupSize,
+        maxGroupSize,
+      })}
     >
       {({
         errors,

@@ -13,8 +13,6 @@ Object {
     "isSameResponsiblePerson": true,
     "isSharingDataAccepted": false,
     "language": "",
-    "maxGroupSize": 20,
-    "minGroupSize": 10,
     "person": Object {
       "emailAddress": "",
       "name": "",
@@ -46,8 +44,6 @@ Object {
     "isSameResponsiblePerson": true,
     "isSharingDataAccepted": true,
     "language": true,
-    "maxGroupSize": true,
-    "minGroupSize": true,
     "person": Object {
       "emailAddress": true,
       "name": true,
@@ -81,8 +77,6 @@ Object {
     "isSameResponsiblePerson": true,
     "isSharingDataAccepted": true,
     "language": "FI",
-    "maxGroupSize": 20,
-    "minGroupSize": 10,
     "person": Object {
       "emailAddress": "",
       "name": "",
@@ -118,8 +112,6 @@ Array [
     "isSameResponsiblePerson": true,
     "isSharingDataAccepted": true,
     "language": "FI",
-    "maxGroupSize": 20,
-    "minGroupSize": 10,
     "person": Object {
       "emailAddress": "",
       "name": "",
