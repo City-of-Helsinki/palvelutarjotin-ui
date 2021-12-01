@@ -4,7 +4,7 @@ import React from 'react';
 
 import NotFoundPage from '../domain/notFoundPage/NotFoundPage';
 
-const Error: NextPage = () => <NotFoundPage />;
+const Error404: NextPage = () => <NotFoundPage />;
 
 export async function getStaticProps({
   locale,
@@ -14,4 +14,4 @@ export async function getStaticProps({
   };
 }
 
-export default Error;
+export default Error404;

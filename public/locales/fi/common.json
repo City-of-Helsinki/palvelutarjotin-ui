@@ -25,7 +25,8 @@
     "returnToHome": "Palaa etusivulle"
   },
   "notFound": {
-    "textNotFound": "Etsimääsi sivua ei löytynyt"
+    "textNotFound": "Valitettavasti hakemaanne sivua ei löytynyt.",
+    "textNotFoundDescription": "Tervetuloa tutustumaan uudistuneen <a>Kultuksen</a> monipuoliseen tarjontaan!"
   },
   "shareLink": {
     "shareOnFacebook": "Jaa Facebookissa",
