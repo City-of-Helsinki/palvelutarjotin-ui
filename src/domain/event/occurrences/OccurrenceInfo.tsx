@@ -1,6 +1,6 @@
 import { useApolloClient } from '@apollo/client';
 import classNames from 'classnames';
-import { isSameDay, isAfter } from 'date-fns';
+import { isSameDay } from 'date-fns';
 import {
   IconAngleUp,
   Button,
@@ -29,6 +29,7 @@ import {
 } from '../../../utils/time/format';
 import OccurrenceGroupInfo from '../../occurrence/occurrenceGroupInfo/OccurrenceGroupInfo';
 import OccurrenceGroupLanguageInfo from '../../occurrence/occurrenceGroupInfo/OccurrenceGroupLanguageInfo';
+import { isEnrolmentStarted } from '../../occurrence/utils';
 import PlaceInfo, { PlaceInfoLinks } from '../../place/placeInfo/PlaceInfo';
 import CalendarButton from '../calendarButton/CalendarButton';
 import { EnrolmentType } from '../constants';
@@ -61,7 +62,7 @@ const OccurrenceInfo: React.FC<{
   const externalEnrolmentUrl = event.pEvent.externalEnrolmentUrl ?? '';
   const hasExternalEnrolment = !!event.pEvent.externalEnrolmentUrl;
   const enrolmentStart = event.pEvent.enrolmentStart;
-  const isEnrolmentOpen = isAfter(new Date(enrolmentStart), new Date());
+  const isEnrolmentOpen = isEnrolmentStarted(event);
 
   React.useEffect(() => {
     if (showEnrolmentForm) {
