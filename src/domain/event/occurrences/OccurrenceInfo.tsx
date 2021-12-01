@@ -61,7 +61,7 @@ const OccurrenceInfo: React.FC<{
   const externalEnrolmentUrl = event.pEvent.externalEnrolmentUrl ?? '';
   const hasExternalEnrolment = !!event.pEvent.externalEnrolmentUrl;
   const enrolmentStart = event.pEvent.enrolmentStart;
-  const isEnrollmentOpen = isAfter(new Date(enrolmentStart), new Date());
+  const isEnrolmentOpen = isAfter(new Date(enrolmentStart), new Date());
 
   React.useEffect(() => {
     if (showEnrolmentForm) {
@@ -201,7 +201,7 @@ const OccurrenceInfo: React.FC<{
           {t('occurrence:labelExternalEnrolmentLink')}
         </ExternalLink>
       )}
-      {!hasExternalEnrolment && neededOccurrences === 1 && !isEnrollmentOpen ? (
+      {!hasExternalEnrolment && neededOccurrences === 1 && !isEnrolmentOpen ? (
         <Button
           className={classNames(styles.expandEnrolButton, {
             [styles.enquiryButton]: !showEnrolmentForm && !autoAcceptance,
