@@ -1,19 +1,11 @@
 import { useApolloClient } from '@apollo/client';
-import classNames from 'classnames';
 import isSameDay from 'date-fns/isSameDay';
-import {
-  IconAngleUp,
-  Button,
-  IconLocation,
-  IconClock,
-  IconGlyphEuro,
-} from 'hds-react';
+import { Button, IconLocation, IconClock, IconGlyphEuro } from 'hds-react';
 import { capitalize } from 'lodash';
 import { useTranslation } from 'next-i18next';
 import Link from 'next/link';
 import React from 'react';
 
-import ExternalLink from '../../../common/components/externalLink/ExternalLink';
 import {
   OccurrenceFieldsFragment,
   EventFieldsFragment,
@@ -29,14 +21,13 @@ import {
 } from '../../../utils/time/format';
 import OccurrenceGroupInfo from '../../occurrence/occurrenceGroupInfo/OccurrenceGroupInfo';
 import OccurrenceGroupLanguageInfo from '../../occurrence/occurrenceGroupInfo/OccurrenceGroupLanguageInfo';
-import { isEnrolmentStarted } from '../../occurrence/utils';
 import PlaceInfo, { PlaceInfoLinks } from '../../place/placeInfo/PlaceInfo';
 import CalendarButton from '../calendarButton/CalendarButton';
 import { EnrolmentType } from '../constants';
 import { getEnrolmentType } from '../utils';
 import EnrolmentFormSection from './EnrolmentFormSection';
+import OccurrenceEnrolmentButton from './OccurrenceEnrolmentButton';
 import styles from './occurrences.module.scss';
-import { enrolButtonColumnWidth } from './OccurrencesTable';
 
 const OccurrenceInfo: React.FC<{
   occurrence: OccurrenceFieldsFragment;
@@ -57,12 +48,6 @@ const OccurrenceInfo: React.FC<{
   const priceDescription = offer?.description?.[locale];
   const isFree = offer?.isFree ?? !price;
   const priceInfoUrl = offer?.infoUrl?.[locale];
-  const neededOccurrences = event.pEvent.neededOccurrences;
-  const autoAcceptance = event.pEvent?.autoAcceptance;
-  const externalEnrolmentUrl = event.pEvent.externalEnrolmentUrl ?? '';
-  const hasExternalEnrolment = !!event.pEvent.externalEnrolmentUrl;
-  const enrolmentStart = event.pEvent.enrolmentStart;
-  const isEnrolmentOpen = isEnrolmentStarted(event);
 
   React.useEffect(() => {
     if (showEnrolmentForm) {
@@ -194,47 +179,13 @@ const OccurrenceInfo: React.FC<{
         language={locale}
         variant="button"
       />
-      {hasExternalEnrolment && (
-        <ExternalLink
-          href={externalEnrolmentUrl}
-          className={styles.externalEnrolmentLink}
-        >
-          {t('occurrence:labelExternalEnrolmentLink')}
-        </ExternalLink>
-      )}
-      {!hasExternalEnrolment && neededOccurrences === 1 && !isEnrolmentOpen ? (
-        <Button
-          className={classNames(styles.expandEnrolButton, {
-            [styles.enquiryButton]: !showEnrolmentForm && !autoAcceptance,
-            [styles.enrolButton]: autoAcceptance,
-          })}
-          style={{ width: enrolButtonColumnWidth }}
-          size="small"
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          variant={showEnrolmentForm ? ('supplementary' as any) : 'primary'}
-          iconRight={showEnrolmentForm ? <IconAngleUp /> : null}
-          onClick={() => toggleForm()}
-          aria-expanded={showEnrolmentForm}
-          ref={enrolButtonRef}
-        >
-          {showEnrolmentForm
-            ? t('enrolment:enrolmentForm.buttonCancelAndCloseForm')
-            : t(
-                `event:occurrenceList.${
-                  autoAcceptance
-                    ? 'enrolOccurrenceButton'
-                    : 'reservationEnquiryButton'
-                }`
-              )}
-        </Button>
-      ) : (
-        <div className={styles.enrolmentStartNotice}>
-          {t('event:occurrenceList.enrolmentStartsAt', {
-            date: formatIntoDate(new Date(enrolmentStart)),
-            time: formatIntoTime(new Date(enrolmentStart)),
-          })}
-        </div>
-      )}
+      <OccurrenceEnrolmentButton
+        event={event}
+        occurrence={occurrence}
+        showEnrolmentForm={showEnrolmentForm}
+        enrolButtonRef={enrolButtonRef}
+        toggleForm={toggleForm}
+      />
     </>
   );
 

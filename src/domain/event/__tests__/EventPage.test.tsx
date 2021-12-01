@@ -560,8 +560,20 @@ it('opens expanded area with enrolment button when clicked', async () => {
 });
 
 it('expanded area does not have an enrolment button if enrollment has not yet begun', async () => {
-  advanceTo(new Date(2020, 6, 12)); // Before enrolmentStart (2020-07-13T06:00:00+00:00)
-  renderComponent();
+  advanceTo(new Date(2020, 6, 10)); // Before enrolmentStart (2020-07-13T06:00:00+00:00)
+  renderComponent({
+    mocks: [
+      createEventQueryMockIncludeLanguageAndAudience({
+        ...eventData,
+        id: eventData.id as string,
+        pEvent: fakePEvent({
+          ...eventData.pEvent,
+          neededOccurrences: 1,
+        }),
+      }),
+      ...apolloMocks.slice(1),
+    ],
+  });
   await waitForRequestsToComplete();
 
   const occurrenceRow = within(screen.getAllByRole('row')[8]);

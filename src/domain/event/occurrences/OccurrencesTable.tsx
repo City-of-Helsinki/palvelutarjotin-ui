@@ -9,7 +9,6 @@ import take from 'lodash/take';
 import { useTranslation } from 'next-i18next';
 import React from 'react';
 
-import ErrorMessage from '../../../common/components/form/ErrorMessage';
 import SrOnly from '../../../common/components/SrOnly/SrOnly';
 import Table from '../../../common/components/table/Table';
 import {
@@ -23,24 +22,21 @@ import {
   formatDateRange,
   formatLocalizedDate,
 } from '../../../utils/time/format';
-import { translateValue } from '../../../utils/translateUtils';
 import { skipFalsyType } from '../../../utils/typescript.utils';
-import { ENROLMENT_ERRORS } from '../../enrolment/constants';
 import {
   getAmountOfSeatsLeft,
-  hasOccurrenceSpace,
-  isEnrolmentClosed,
   isMultidayOccurrence,
-  isOccurrenceCancelled,
   isUnenrollableOccurrence,
 } from '../../occurrence/utils';
 import PlaceText from '../../place/placeText/PlaceText';
 import { EnrolmentType, OCCURRENCE_LIST_PAGE_SIZE } from '../constants';
 import DateFilter from '../dateFilter/DateFilter';
 import { getEnrolmentType } from '../utils';
+import EnrolmentError from './EnrolmentError';
 import OccurrenceInfo from './OccurrenceInfo';
 import styles from './occurrences.module.scss';
 import { useDateFiltering } from './useDateFiltering';
+import { getEnrolmentError } from './utils';
 
 interface Props {
   event: EventFieldsFragment;
@@ -314,28 +310,10 @@ const OccurrenceExpandButton: React.FC<
 > = ({ isExpanded, event, occurrence, ...props }) => {
   const { t } = useTranslation();
 
-  const getEnrolmentError = (
-    occurrence: OccurrenceFieldsFragment,
-    event: EventFieldsFragment
-  ) => {
-    if (isEnrolmentClosed(occurrence, event))
-      return ENROLMENT_ERRORS.ENROLMENT_CLOSED_ERROR;
-    if (!hasOccurrenceSpace(occurrence))
-      return ENROLMENT_ERRORS.NOT_ENOUGH_CAPACITY_ERROR;
-    if (isOccurrenceCancelled(occurrence)) {
-      return ENROLMENT_ERRORS.ENROLMENT_CANCDELLED_ERROR;
-    }
-    return null;
-  };
-
   // Show error message if enrolment is not available
   const error = getEnrolmentError(occurrence, event);
   if (error) {
-    return (
-      <ErrorMessage>
-        {translateValue('enrolment:errors.label.', error, t)}
-      </ErrorMessage>
-    );
+    return <EnrolmentError error={error} />;
   }
 
   return (
