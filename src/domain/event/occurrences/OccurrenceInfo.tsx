@@ -26,7 +26,6 @@ import {
   formatIntoTime,
   formatLocalizedDate,
   DATE_FORMAT,
-  formatIntoDateTime,
 } from '../../../utils/time/format';
 import OccurrenceGroupInfo from '../../occurrence/occurrenceGroupInfo/OccurrenceGroupInfo';
 import OccurrenceGroupLanguageInfo from '../../occurrence/occurrenceGroupInfo/OccurrenceGroupLanguageInfo';
@@ -229,8 +228,9 @@ const OccurrenceInfo: React.FC<{
         </Button>
       ) : (
         <div className={styles.enrolmentStartNotice}>
-          {t('event:occurrenceList.enrolmentStartText', {
-            date: formatIntoDateTime(new Date(enrolmentStart)),
+          {t('event:occurrenceList.enrolmentStartsAt', {
+            date: formatIntoDate(new Date(enrolmentStart)),
+            time: formatIntoTime(new Date(enrolmentStart)),
           })}
         </div>
       )}

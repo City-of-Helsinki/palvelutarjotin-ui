@@ -35,7 +35,7 @@
     "labelStartDateFilter": "Startdatum för händelsefilter",
     "labelEndDateFilter": "Slutdatum för händelsefilter",
     "eventIsFree": "Fri",
-    "enrolmentStartText": "SV: Ilmoittautuminen aukeaa {{date}}"
+    "enrolmentStartsAt": "Registreringen börjar {{date}} kl. {{time}}"
   },
   "location": {
     "labelLocation": "Standard venue",

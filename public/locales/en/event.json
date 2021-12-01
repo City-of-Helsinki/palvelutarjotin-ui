@@ -35,7 +35,7 @@
     "labelStartDateFilter": "Start date of occurrences filter",
     "labelEndDateFilter": "End date of occurrences filter",
     "eventIsFree": "Free",
-    "enrolmentStartText": "EN: Ilmoittautuminen aukeaa {{date}}"
+    "enrolmentStartsAt": "Enrolments start {{date}} at {{time}}"
   },
   "location": {
     "labelLocation": "Default venue",

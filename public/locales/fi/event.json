@@ -35,7 +35,7 @@
     "labelStartDateFilter": "Tapahtuma-aikojen rajauksen alkupäivä",
     "labelEndDateFilter": "Tapahtuma-aikojen rajauksen loppupäivä",
     "eventIsFree": "Maksuton",
-    "enrolmentStartText": "Ilmoittautuminen aukeaa {{date}}"
+    "enrolmentStartsAt": "Ilmoittautuminen alkaa {{date}} klo {{time}}"
   },
   "location": {
     "labelLocation": "Oletustapahtumapaikka",

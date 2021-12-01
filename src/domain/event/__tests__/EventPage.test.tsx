@@ -581,7 +581,7 @@ it('expanded area does not have an enrolment button if enrollment has not yet be
       name: 'Ilmoittaudu',
     })
   ).toEqual(null);
-  expect(screen.queryByText(/Ilmoittautuminen aukeaa/)).toBeInTheDocument();
+  expect(screen.queryByText(/Ilmoittautuminen alkaa/)).toBeInTheDocument();
 });
 
 it('filters occurrence list correctly when sate filters are selected', async () => {
