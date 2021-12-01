@@ -142,6 +142,7 @@ export const fakeEnrolment = (
   overrides?: Partial<EnrolmentNode>
 ): EnrolmentNode => ({
   enrolmentTime: '2020-08-18T06:37:40.755109+00:00',
+  updatedAt: '2020-08-18T06:37:40.755109+00:00',
   id: faker.datatype.uuid(),
   occurrence: fakeOccurrence(),
   studyGroup: fakeStudyGroup(),
@@ -149,7 +150,6 @@ export const fakeEnrolment = (
   __typename: 'EnrolmentNode',
   person: fakePerson(),
   status: EnrolmentStatus.Approved,
-  updatedAt: '',
   ...overrides,
 });
 

@@ -107,6 +107,7 @@ const EventTime: React.FC<{
         cancelled: false,
         pEvent: event.pEvent.id,
         orderBy: 'startTime',
+        upcoming: true,
       },
     });
 

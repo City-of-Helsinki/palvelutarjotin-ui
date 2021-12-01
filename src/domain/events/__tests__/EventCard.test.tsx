@@ -1,4 +1,5 @@
 import { MockedResponse } from '@apollo/client/testing';
+import { advanceTo } from 'jest-date-mock';
 import React from 'react';
 
 import * as graphql from '../../../generated/graphql';
@@ -55,6 +56,7 @@ it('renders a button to view multiple occurrences when event has them', async ()
           cancelled: false,
           pEvent: event.pEvent.id,
           orderBy: 'startTime',
+          upcoming: true,
         },
       },
       result: {
@@ -159,6 +161,7 @@ it('renders multiday occurrence time correctly', async () => {
           cancelled: false,
           pEvent: event.pEvent.id,
           orderBy: 'startTime',
+          upcoming: true,
         },
       },
       result: {
@@ -189,4 +192,21 @@ it('renders multiday occurrence time correctly', async () => {
   screen.getByText('22.11.2020 – 25.11.2020');
 
   expect(container).toMatchSnapshot();
+});
+
+it('renders date as tomorrow and ignores enrolment days', async () => {
+  advanceTo(new Date(2020, 8, 19));
+  const occurrences = fakeOccurrences(3, [
+    { startTime: new Date(2020, 8, 20, 10, 30).toISOString() },
+  ]);
+  const event = fakeEvent({
+    pEvent: fakePEvent({
+      nextOccurrence: occurrences,
+      enrolmentEndDays: 10,
+    }),
+  });
+  render(<EventCard event={event} link={'#'} />);
+  await waitFor(() => {
+    expect(screen.getByText(/huomenna klo 10:30/i)).toBeInTheDocument();
+  });
 });
