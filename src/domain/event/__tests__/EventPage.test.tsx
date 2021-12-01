@@ -580,7 +580,7 @@ it('expanded area does not have an enrolment button if enrollment has not yet be
     screen.queryByRole('button', {
       name: 'Ilmoittaudu',
     })
-  ).toEqual(null);
+  ).not.toBeInTheDocument();
   expect(screen.queryByText(/Ilmoittautuminen alkaa/)).toBeInTheDocument();
 });
 
