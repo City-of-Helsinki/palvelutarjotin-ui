@@ -5,8 +5,6 @@ export type EnrolmentFormFields = {
   isSharingDataAccepted: boolean;
   isMandatoryAdditionalInformationRequired: boolean;
   language: string;
-  maxGroupSize: number;
-  minGroupSize: number;
   person: {
     name: string;
     phoneNumber: string;
@@ -35,8 +33,6 @@ export const defaultEnrolmentInitialValues: EnrolmentFormFields = {
   isSharingDataAccepted: false,
   isMandatoryAdditionalInformationRequired: false,
   language: '',
-  maxGroupSize: 0,
-  minGroupSize: 0,
   person: {
     name: '',
     phoneNumber: '',

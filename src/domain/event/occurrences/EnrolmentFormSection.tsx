@@ -78,6 +78,14 @@ const EnrolmentFormSection: React.FC<{
     () => ({
       ...defaultEnrolmentInitialValues,
       language: locale.toUpperCase(),
+      isMandatoryAdditionalInformationRequired:
+        !!isMandatoryAdditionalInformationRequired,
+    }),
+    [locale, isMandatoryAdditionalInformationRequired]
+  );
+
+  const { minGroupSize, maxGroupSize } = React.useMemo(
+    () => ({
       // some of the values used only for validation purposes
       minGroupSize: Math.max(
         ...occurrences.map((item) => item?.minGroupSize || 0)
@@ -89,7 +97,10 @@ const EnrolmentFormSection: React.FC<{
           switch (item.seatType) {
             case OccurrenceSeatType.ChildrenCount:
               return Math.min(
-                item?.maxGroupSize || item.amountOfSeats,
+                Math.min(
+                  item?.maxGroupSize ?? item.amountOfSeats,
+                  item.remainingSeats
+                ),
                 getAmountOfSeatsLeft(item)
               );
             case OccurrenceSeatType.EnrolmentCount:
@@ -99,10 +110,8 @@ const EnrolmentFormSection: React.FC<{
           }
         })
       ),
-      isMandatoryAdditionalInformationRequired:
-        !!isMandatoryAdditionalInformationRequired,
     }),
-    [locale, isMandatoryAdditionalInformationRequired, occurrences]
+    [occurrences]
   );
 
   return (
@@ -112,6 +121,8 @@ const EnrolmentFormSection: React.FC<{
       onSubmit={submit}
       submitting={enrolmentLoading}
       onCloseForm={onCloseForm}
+      minGroupSize={minGroupSize}
+      maxGroupSize={maxGroupSize}
     />
   );
 };

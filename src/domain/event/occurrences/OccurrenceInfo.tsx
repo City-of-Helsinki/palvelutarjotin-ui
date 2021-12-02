@@ -1,3 +1,4 @@
+import { useApolloClient } from '@apollo/client';
 import classNames from 'classnames';
 import { isSameDay } from 'date-fns';
 import {
@@ -16,6 +17,7 @@ import ExternalLink from '../../../common/components/externalLink/ExternalLink';
 import {
   OccurrenceFieldsFragment,
   EventFieldsFragment,
+  EventDocument,
 } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
 import formatTimeRange from '../../../utils/formatTimeRange';
@@ -40,6 +42,7 @@ const OccurrenceInfo: React.FC<{
   event: EventFieldsFragment;
   eventLocationId: string;
 }> = ({ occurrence, event, eventLocationId }) => {
+  const apolloClient = useApolloClient();
   const [showEnrolmentForm, setShowEnrolmentForm] = React.useState(false);
   const enrolmentFormRef = React.useRef<HTMLDivElement>(null);
   const enrolButtonRef = React.useRef<HTMLButtonElement>(null);
@@ -73,6 +76,13 @@ const OccurrenceInfo: React.FC<{
   const handleCloseForm = () => {
     setShowEnrolmentForm(false);
     enrolButtonRef.current?.focus();
+  };
+
+  const handleOnEnrol = async () => {
+    // refetch event query for the page to get updated occurrences
+    await apolloClient.refetchQueries({
+      include: [EventDocument],
+    });
   };
 
   const getOccurrenceDateTimeString = () => {
@@ -239,6 +249,7 @@ const OccurrenceInfo: React.FC<{
             event={event}
             occurrences={[occurrence]}
             onCloseForm={handleCloseForm}
+            onEnrol={handleOnEnrol}
           />
         </div>
       )}
