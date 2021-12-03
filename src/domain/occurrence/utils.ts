@@ -1,4 +1,6 @@
-import { isPast, isSameDay, subDays } from 'date-fns';
+import isPast from 'date-fns/isPast';
+import isSameDay from 'date-fns/isSameDay';
+import subDays from 'date-fns/subDays';
 
 import {
   EventFieldsFragment,

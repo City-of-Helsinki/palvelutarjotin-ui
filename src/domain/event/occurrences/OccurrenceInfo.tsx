@@ -1,19 +1,11 @@
 import { useApolloClient } from '@apollo/client';
-import classNames from 'classnames';
-import { isSameDay } from 'date-fns';
-import {
-  IconAngleUp,
-  Button,
-  IconLocation,
-  IconClock,
-  IconGlyphEuro,
-} from 'hds-react';
+import isSameDay from 'date-fns/isSameDay';
+import { Button, IconLocation, IconClock, IconGlyphEuro } from 'hds-react';
 import { capitalize } from 'lodash';
 import { useTranslation } from 'next-i18next';
 import Link from 'next/link';
 import React from 'react';
 
-import ExternalLink from '../../../common/components/externalLink/ExternalLink';
 import {
   OccurrenceFieldsFragment,
   EventFieldsFragment,
@@ -34,8 +26,8 @@ import CalendarButton from '../calendarButton/CalendarButton';
 import { EnrolmentType } from '../constants';
 import { getEnrolmentType } from '../utils';
 import EnrolmentFormSection from './EnrolmentFormSection';
+import OccurrenceEnrolmentButton from './OccurrenceEnrolmentButton';
 import styles from './occurrences.module.scss';
-import { enrolButtonColumnWidth } from './OccurrencesTable';
 
 const OccurrenceInfo: React.FC<{
   occurrence: OccurrenceFieldsFragment;
@@ -56,10 +48,6 @@ const OccurrenceInfo: React.FC<{
   const priceDescription = offer?.description?.[locale];
   const isFree = offer?.isFree ?? !price;
   const priceInfoUrl = offer?.infoUrl?.[locale];
-  const neededOccurrences = event.pEvent.neededOccurrences;
-  const autoAcceptance = event.pEvent?.autoAcceptance;
-  const externalEnrolmentUrl = event.pEvent.externalEnrolmentUrl ?? '';
-  const hasExternalEnrolment = !!event.pEvent.externalEnrolmentUrl;
 
   React.useEffect(() => {
     if (showEnrolmentForm) {
@@ -191,39 +179,13 @@ const OccurrenceInfo: React.FC<{
         language={locale}
         variant="button"
       />
-      {hasExternalEnrolment ? (
-        <ExternalLink
-          href={externalEnrolmentUrl}
-          className={styles.externalEnrolmentLink}
-        >
-          {t('occurrence:labelExternalEnrolmentLink')}
-        </ExternalLink>
-      ) : neededOccurrences === 1 ? (
-        <Button
-          className={classNames(styles.expandEnrolButton, {
-            [styles.enquiryButton]: !showEnrolmentForm && !autoAcceptance,
-            [styles.enrolButton]: autoAcceptance,
-          })}
-          style={{ width: enrolButtonColumnWidth }}
-          size="small"
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          variant={showEnrolmentForm ? ('supplementary' as any) : 'primary'}
-          iconRight={showEnrolmentForm ? <IconAngleUp /> : null}
-          onClick={() => toggleForm()}
-          aria-expanded={showEnrolmentForm}
-          ref={enrolButtonRef}
-        >
-          {showEnrolmentForm
-            ? t('enrolment:enrolmentForm.buttonCancelAndCloseForm')
-            : t(
-                `event:occurrenceList.${
-                  autoAcceptance
-                    ? 'enrolOccurrenceButton'
-                    : 'reservationEnquiryButton'
-                }`
-              )}
-        </Button>
-      ) : null}
+      <OccurrenceEnrolmentButton
+        event={event}
+        occurrence={occurrence}
+        showEnrolmentForm={showEnrolmentForm}
+        enrolButtonRef={enrolButtonRef}
+        toggleForm={toggleForm}
+      />
     </>
   );
 

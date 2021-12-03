@@ -122,3 +122,9 @@
   margin-top: auto;
   align-self: flex-end;
 }
+
+.enrolmentNotice {
+  margin-top: var(--spacing-m);
+  padding-left: var(--spacing-m);
+  line-height: var(--lineheight-l);
+}

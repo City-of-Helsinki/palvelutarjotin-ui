@@ -1,5 +1,6 @@
-import { isToday, isTomorrow } from 'date-fns';
 import isBefore from 'date-fns/isBefore';
+import isToday from 'date-fns/isToday';
+import isTomorrow from 'date-fns/isTomorrow';
 import parseISO from 'date-fns/parseISO';
 import startOfDay from 'date-fns/startOfDay';
 import { TFunction } from 'next-i18next';

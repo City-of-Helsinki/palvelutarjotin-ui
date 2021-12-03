@@ -224,8 +224,6 @@ const apolloMocks = [
   ]),
 ];
 
-advanceTo(new Date(2020, 6, 14));
-
 const renderComponent = (options?: CustomRenderOptions) => {
   return render(<EventPage />, {
     mocks: apolloMocks,
@@ -250,6 +248,10 @@ beforeAll(() => {
 
 afterAll(() => {
   jest.setTimeout(5000);
+});
+
+beforeEach(() => {
+  advanceTo(new Date(2020, 6, 14));
 });
 
 it('shows full events correctly in occurrences list', async () => {
@@ -555,6 +557,43 @@ it('opens expanded area with enrolment button when clicked', async () => {
   ].forEach((amenity) => {
     expect(screen.queryByText(amenity)).toBeInTheDocument();
   });
+});
+
+it('expanded area does not have an enrolment button if enrollment has not yet begun', async () => {
+  advanceTo(new Date(2020, 6, 10)); // Before enrolmentStart (2020-07-13T06:00:00+00:00)
+  renderComponent({
+    mocks: [
+      createEventQueryMockIncludeLanguageAndAudience({
+        ...eventData,
+        id: eventData.id as string,
+        pEvent: fakePEvent({
+          ...eventData.pEvent,
+          neededOccurrences: 1,
+        }),
+      }),
+      ...apolloMocks.slice(1),
+    ],
+  });
+  await waitForRequestsToComplete();
+
+  const occurrenceRow = within(screen.getAllByRole('row')[8]);
+
+  userEvent.click(
+    occurrenceRow.getByRole('button', {
+      name: occurrenceMessages.buttonShowDetails,
+    })
+  );
+
+  await waitFor(() => {
+    expect(screen.queryByText(data.venueDescription)).toBeInTheDocument();
+  });
+
+  expect(
+    screen.queryByRole('button', {
+      name: 'Ilmoittaudu',
+    })
+  ).not.toBeInTheDocument();
+  expect(screen.queryByText(/Ilmoittautuminen alkaa/)).toBeInTheDocument();
 });
 
 it('filters occurrence list correctly when sate filters are selected', async () => {

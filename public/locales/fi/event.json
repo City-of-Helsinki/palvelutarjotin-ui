@@ -34,7 +34,8 @@
     "showAllLocationEvents": "Näytä paikan kaikki tapahtumat",
     "labelStartDateFilter": "Tapahtuma-aikojen rajauksen alkupäivä",
     "labelEndDateFilter": "Tapahtuma-aikojen rajauksen loppupäivä",
-    "eventIsFree": "Maksuton"
+    "eventIsFree": "Maksuton",
+    "enrolmentStartsAt": "Ilmoittautuminen alkaa {{date}} klo {{time}}"
   },
   "location": {
     "labelLocation": "Oletustapahtumapaikka",

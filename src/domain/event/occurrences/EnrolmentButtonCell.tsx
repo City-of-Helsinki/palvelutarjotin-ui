@@ -3,25 +3,19 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import ExternalLink from '../../../common/components/externalLink/ExternalLink';
-import ErrorMessage from '../../../common/components/form/ErrorMessage';
 import {
   EventFieldsFragment,
   OccurrenceFieldsFragment,
 } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
 import { formatIntoDate, formatIntoTime } from '../../../utils/time/format';
-import { translateValue } from '../../../utils/translateUtils';
-import { ENROLMENT_ERRORS } from '../../enrolment/constants';
-import {
-  isEnrolmentClosed,
-  hasOccurrenceSpace,
-  isOccurrenceCancelled,
-  isEnrolmentStarted,
-} from '../../occurrence/utils';
+import { isEnrolmentStarted } from '../../occurrence/utils';
 import { EnrolmentType } from '../constants';
 import { getEventFields, getEnrolmentType } from '../utils';
+import EnrolmentError from './EnrolmentError';
 import styles from './occurrences.module.scss';
 import { enrolButtonColumnWidth } from './OccurrencesTable';
+import { getEnrolmentError } from './utils';
 
 type Props = {
   event: EventFieldsFragment;
@@ -51,7 +45,6 @@ const EnrolmentButtonCell: React.FC<Props> = (props) => {
     deselectOccurrence,
     selectOccurrence,
     getMultipleOccurrencesButtonText,
-    getEnrolmentError,
   } = useEnrolmentButtonUtils(props);
 
   if (isNotEnrollable) {
@@ -61,11 +54,7 @@ const EnrolmentButtonCell: React.FC<Props> = (props) => {
   // Show error message if enrolment is not available
   const error = getEnrolmentError(value, event);
   if (error) {
-    return (
-      <ErrorMessage>
-        {translateValue('enrolment:errors.label.', error, t)}
-      </ErrorMessage>
-    );
+    return <EnrolmentError error={error} />;
   }
 
   if (event.pEvent.enrolmentStart && enrolmentHasNotStarted) {
@@ -132,20 +121,6 @@ const useEnrolmentButtonUtils = ({
   const enrolmentHasNotStarted = !isEnrolmentStarted(event);
   const externalEnrolmentUrl = event.pEvent.externalEnrolmentUrl ?? '';
   const hasExternalEnrolment = !!event.pEvent.externalEnrolmentUrl;
-
-  const getEnrolmentError = (
-    occurrence: OccurrenceFieldsFragment,
-    event: EventFieldsFragment
-  ) => {
-    if (isEnrolmentClosed(occurrence, event))
-      return ENROLMENT_ERRORS.ENROLMENT_CLOSED_ERROR;
-    if (!hasOccurrenceSpace(occurrence))
-      return ENROLMENT_ERRORS.NOT_ENOUGH_CAPACITY_ERROR;
-    if (isOccurrenceCancelled(occurrence)) {
-      return ENROLMENT_ERRORS.ENROLMENT_CANCDELLED_ERROR;
-    }
-    return null;
-  };
 
   const selectionDisabled =
     selectedOccurrences?.length === neededOccurrences &&
