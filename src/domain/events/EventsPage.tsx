@@ -42,7 +42,7 @@ const EventsPage = (): ReactElement => {
     },
   });
   const events = eventsData?.upcomingEvents?.data;
-  const eventsCount = eventsData?.upcomingEvents?.meta.count;
+  const eventsCount = eventsData?.upcomingEvents?.pageInfo.totalCount;
 
   const search = (values: EventSearchFormValues) => {
     values = { ...values, organisation: values.organisationId };

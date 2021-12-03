@@ -388,6 +388,12 @@ export type Event = {
   activities: Array<Keyword>;
 };
 
+export type EventListPaginatedTypeResponse = {
+  __typename?: 'EventListPaginatedTypeResponse';
+  pageInfo: PaginatedType;
+  data: Array<Event>;
+};
+
 export type EventListResponse = {
   __typename?: 'EventListResponse';
   meta: Meta;
@@ -1057,6 +1063,16 @@ export type PageInfo = {
   endCursor?: Maybe<Scalars['String']>;
 };
 
+export type PaginatedType = {
+  __typename?: 'PaginatedType';
+  totalCount?: Maybe<Scalars['Int']>;
+  pageSize?: Maybe<Scalars['Int']>;
+  page?: Maybe<Scalars['Int']>;
+  pages?: Maybe<Scalars['Int']>;
+  hasNextPage?: Maybe<Scalars['Boolean']>;
+  hasPreviousPage?: Maybe<Scalars['Boolean']>;
+};
+
 export type PalvelutarjotinEventInput = {
   enrolmentStart?: Maybe<Scalars['DateTime']>;
   enrolmentEndDays?: Maybe<Scalars['Int']>;
@@ -1356,7 +1372,7 @@ export type Query = {
   events?: Maybe<EventListResponse>;
   event?: Maybe<Event>;
   /** Get upcoming events sorted by the next occurrence. */
-  upcomingEvents?: Maybe<EventListResponse>;
+  upcomingEvents?: Maybe<EventListPaginatedTypeResponse>;
   places?: Maybe<PlaceListResponse>;
   place?: Maybe<Place>;
   images?: Maybe<ImageListResponse>;
@@ -2077,7 +2093,7 @@ export type UpcomingEventsQueryVariables = Exact<{
 }>;
 
 
-export type UpcomingEventsQuery = { __typename?: 'Query', upcomingEvents?: Maybe<{ __typename?: 'EventListResponse', meta: { __typename?: 'Meta', count?: Maybe<number>, next?: Maybe<string>, previous?: Maybe<string> }, data: Array<{ __typename?: 'Event', id: string, internalId: string, startTime?: Maybe<string>, name: { __typename?: 'LocalisedObject', en?: Maybe<string>, fi?: Maybe<string>, sv?: Maybe<string> }, shortDescription: { __typename?: 'LocalisedObject', en?: Maybe<string>, fi?: Maybe<string>, sv?: Maybe<string> }, description: { __typename?: 'LocalisedObject', en?: Maybe<string>, fi?: Maybe<string>, sv?: Maybe<string> }, images: Array<{ __typename?: 'Image', id?: Maybe<string>, internalId: string, license?: Maybe<string>, name: string, url: string, cropping?: Maybe<string>, photographerName?: Maybe<string>, altText?: Maybe<string> }>, infoUrl?: Maybe<{ __typename?: 'LocalisedObject', en?: Maybe<string>, fi?: Maybe<string>, sv?: Maybe<string> }>, offers: Array<{ __typename?: 'Offer', isFree?: Maybe<boolean>, description?: Maybe<{ __typename?: 'LocalisedObject', en?: Maybe<string>, fi?: Maybe<string>, sv?: Maybe<string> }>, price?: Maybe<{ __typename?: 'LocalisedObject', en?: Maybe<string>, fi?: Maybe<string>, sv?: Maybe<string> }>, infoUrl?: Maybe<{ __typename?: 'LocalisedObject', en?: Maybe<string>, fi?: Maybe<string>, sv?: Maybe<string> }> }>, pEvent: { __typename?: 'PalvelutarjotinEventNode', id: string, nextOccurrenceDatetime?: Maybe<any>, lastOccurrenceDatetime?: Maybe<any>, nextOccurrence?: Maybe<{ __typename?: 'OccurrenceNodeConnection', edges: Array<Maybe<{ __typename?: 'OccurrenceNodeEdge', node?: Maybe<{ __typename?: 'OccurrenceNode', id: string, startTime: any, endTime: any }> }>> }>, organisation?: Maybe<{ __typename?: 'OrganisationNode', id: string, name: string }> }, inLanguage: Array<{ __typename?: 'InLanguage', id?: Maybe<string>, internalId: string, name?: Maybe<{ __typename?: 'LocalisedObject', en?: Maybe<string>, fi?: Maybe<string>, sv?: Maybe<string> }> }>, audience: Array<{ __typename?: 'Keyword', id?: Maybe<string>, internalId: string, name?: Maybe<{ __typename?: 'LocalisedObject', en?: Maybe<string>, fi?: Maybe<string>, sv?: Maybe<string> }> }>, keywords: Array<{ __typename?: 'Keyword', id?: Maybe<string>, internalId: string, name?: Maybe<{ __typename?: 'LocalisedObject', en?: Maybe<string>, fi?: Maybe<string>, sv?: Maybe<string> }> }>, location?: Maybe<{ __typename?: 'Place', id?: Maybe<string>, internalId: string, name?: Maybe<{ __typename?: 'LocalisedObject', en?: Maybe<string>, fi?: Maybe<string>, sv?: Maybe<string> }>, streetAddress?: Maybe<{ __typename?: 'LocalisedObject', en?: Maybe<string>, fi?: Maybe<string>, sv?: Maybe<string> }>, addressLocality?: Maybe<{ __typename?: 'LocalisedObject', en?: Maybe<string>, fi?: Maybe<string>, sv?: Maybe<string> }>, telephone?: Maybe<{ __typename?: 'LocalisedObject', en?: Maybe<string>, fi?: Maybe<string>, sv?: Maybe<string> }> }> }> }> };
+export type UpcomingEventsQuery = { __typename?: 'Query', upcomingEvents?: Maybe<{ __typename?: 'EventListPaginatedTypeResponse', pageInfo: { __typename?: 'PaginatedType', totalCount?: Maybe<number> }, data: Array<{ __typename?: 'Event', id: string, internalId: string, startTime?: Maybe<string>, name: { __typename?: 'LocalisedObject', en?: Maybe<string>, fi?: Maybe<string>, sv?: Maybe<string> }, shortDescription: { __typename?: 'LocalisedObject', en?: Maybe<string>, fi?: Maybe<string>, sv?: Maybe<string> }, description: { __typename?: 'LocalisedObject', en?: Maybe<string>, fi?: Maybe<string>, sv?: Maybe<string> }, images: Array<{ __typename?: 'Image', id?: Maybe<string>, internalId: string, license?: Maybe<string>, name: string, url: string, cropping?: Maybe<string>, photographerName?: Maybe<string>, altText?: Maybe<string> }>, infoUrl?: Maybe<{ __typename?: 'LocalisedObject', en?: Maybe<string>, fi?: Maybe<string>, sv?: Maybe<string> }>, offers: Array<{ __typename?: 'Offer', isFree?: Maybe<boolean>, description?: Maybe<{ __typename?: 'LocalisedObject', en?: Maybe<string>, fi?: Maybe<string>, sv?: Maybe<string> }>, price?: Maybe<{ __typename?: 'LocalisedObject', en?: Maybe<string>, fi?: Maybe<string>, sv?: Maybe<string> }>, infoUrl?: Maybe<{ __typename?: 'LocalisedObject', en?: Maybe<string>, fi?: Maybe<string>, sv?: Maybe<string> }> }>, pEvent: { __typename?: 'PalvelutarjotinEventNode', id: string, nextOccurrenceDatetime?: Maybe<any>, lastOccurrenceDatetime?: Maybe<any>, nextOccurrence?: Maybe<{ __typename?: 'OccurrenceNodeConnection', edges: Array<Maybe<{ __typename?: 'OccurrenceNodeEdge', node?: Maybe<{ __typename?: 'OccurrenceNode', id: string, startTime: any, endTime: any }> }>> }>, organisation?: Maybe<{ __typename?: 'OrganisationNode', id: string, name: string }> }, inLanguage: Array<{ __typename?: 'InLanguage', id?: Maybe<string>, internalId: string, name?: Maybe<{ __typename?: 'LocalisedObject', en?: Maybe<string>, fi?: Maybe<string>, sv?: Maybe<string> }> }>, audience: Array<{ __typename?: 'Keyword', id?: Maybe<string>, internalId: string, name?: Maybe<{ __typename?: 'LocalisedObject', en?: Maybe<string>, fi?: Maybe<string>, sv?: Maybe<string> }> }>, keywords: Array<{ __typename?: 'Keyword', id?: Maybe<string>, internalId: string, name?: Maybe<{ __typename?: 'LocalisedObject', en?: Maybe<string>, fi?: Maybe<string>, sv?: Maybe<string> }> }>, location?: Maybe<{ __typename?: 'Place', id?: Maybe<string>, internalId: string, name?: Maybe<{ __typename?: 'LocalisedObject', en?: Maybe<string>, fi?: Maybe<string>, sv?: Maybe<string> }>, streetAddress?: Maybe<{ __typename?: 'LocalisedObject', en?: Maybe<string>, fi?: Maybe<string>, sv?: Maybe<string> }>, addressLocality?: Maybe<{ __typename?: 'LocalisedObject', en?: Maybe<string>, fi?: Maybe<string>, sv?: Maybe<string> }>, telephone?: Maybe<{ __typename?: 'LocalisedObject', en?: Maybe<string>, fi?: Maybe<string>, sv?: Maybe<string> }> }> }> }> };
 
 export type ImageFieldsFragment = { __typename?: 'Image', id?: Maybe<string>, internalId: string, license?: Maybe<string>, name: string, url: string, cropping?: Maybe<string>, photographerName?: Maybe<string>, altText?: Maybe<string> };
 
@@ -2144,6 +2160,7 @@ export type OccurrencesQueryVariables = Exact<{
   pEvent?: Maybe<Scalars['ID']>;
   orderBy?: Maybe<Array<Maybe<Scalars['String']>> | Maybe<Scalars['String']>>;
   upcoming?: Maybe<Scalars['Boolean']>;
+  enrollable?: Maybe<Scalars['Boolean']>;
 }>;
 
 
@@ -2718,16 +2735,15 @@ export type EventsQueryResult = Apollo.QueryResult<EventsQuery, EventsQueryVaria
 export const UpcomingEventsDocument = gql`
     query UpcomingEvents($page: Int, $pageSize: Int, $include: [String]) {
   upcomingEvents(page: $page, pageSize: $pageSize, include: $include) {
-    meta {
-      ...metaFields
+    pageInfo {
+      totalCount
     }
     data {
       ...eventsFields
     }
   }
 }
-    ${MetaFieldsFragmentDoc}
-${EventsFieldsFragmentDoc}`;
+    ${EventsFieldsFragmentDoc}`;
 
 /**
  * __useUpcomingEventsQuery__
@@ -3003,7 +3019,7 @@ export type OccurrenceQueryHookResult = ReturnType<typeof useOccurrenceQuery>;
 export type OccurrenceLazyQueryHookResult = ReturnType<typeof useOccurrenceLazyQuery>;
 export type OccurrenceQueryResult = Apollo.QueryResult<OccurrenceQuery, OccurrenceQueryVariables>;
 export const OccurrencesDocument = gql`
-    query Occurrences($after: String, $before: String, $first: Int, $last: Int, $cancelled: Boolean, $pEvent: ID, $orderBy: [String], $upcoming: Boolean) {
+    query Occurrences($after: String, $before: String, $first: Int, $last: Int, $cancelled: Boolean, $pEvent: ID, $orderBy: [String], $upcoming: Boolean, $enrollable: Boolean) {
   occurrences(
     after: $after
     before: $before
@@ -3013,6 +3029,7 @@ export const OccurrencesDocument = gql`
     pEvent: $pEvent
     orderBy: $orderBy
     upcoming: $upcoming
+    enrollable: $enrollable
   ) {
     pageInfo {
       hasNextPage
@@ -3050,6 +3067,7 @@ export const OccurrencesDocument = gql`
  *      pEvent: // value for 'pEvent'
  *      orderBy: // value for 'orderBy'
  *      upcoming: // value for 'upcoming'
+ *      enrollable: // value for 'enrollable'
  *   },
  * });
  */

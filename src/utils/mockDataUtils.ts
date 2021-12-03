@@ -43,6 +43,7 @@ import {
   OrganisationProposalNodeConnection,
   OrganisationProposalNodeEdge,
   KeywordListResponse,
+  EventListPaginatedTypeResponse,
 } from '../generated/graphql';
 
 type ExtendedPalvelutarjotinEventNode = PalvelutarjotinEventNode & {
@@ -61,6 +62,17 @@ const PageInfoMock: PageInfo = {
   startCursor: '',
   endCursor: '',
 };
+
+export const fakeUpcomingEvents = (
+  count = 1,
+  events?: Partial<Event>[]
+): EventListPaginatedTypeResponse => ({
+  data: generateNodeArray((i) => fakeEvent(events?.[i]), count),
+  pageInfo: {
+    totalCount: count,
+  },
+  __typename: 'EventListPaginatedTypeResponse',
+});
 
 export const fakeEvents = (
   count = 1,

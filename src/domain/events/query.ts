@@ -122,8 +122,8 @@ export const QUERY_EVENTS = gql`
 export const UPCOMING_EVENTS_QUERY = gql`
   query UpcomingEvents($page: Int, $pageSize: Int, $include: [String]) {
     upcomingEvents(page: $page, pageSize: $pageSize, include: $include) {
-      meta {
-        ...metaFields
+      pageInfo {
+        totalCount
       }
       data {
         ...eventsFields
