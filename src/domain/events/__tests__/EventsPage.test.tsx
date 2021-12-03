@@ -10,13 +10,13 @@ import {
   UpcomingEventsDocument,
 } from '../../../generated/graphql';
 import {
-  fakeEvents,
   fakePEvent,
   fakeLocalizedObject,
   fakeKeyword,
   fakeOccurrences,
   fakeOccurrence,
   fakeKeywords,
+  fakeUpcomingEvents,
 } from '../../../utils/mockDataUtils';
 import {
   render,
@@ -105,7 +105,7 @@ const mocks: MockedResponse[] = [
     },
     result: {
       data: {
-        upcomingEvents: fakeEvents(4, eventMocks),
+        upcomingEvents: fakeUpcomingEvents(4, eventMocks),
       },
     },
   },
