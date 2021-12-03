@@ -36,7 +36,7 @@ import EnrolmentError from './EnrolmentError';
 import OccurrenceInfo from './OccurrenceInfo';
 import styles from './occurrences.module.scss';
 import { useDateFiltering } from './useDateFiltering';
-import { getEnrolmentError } from './utils';
+import { getEnrolmentError, getOrderedLanguages } from './utils';
 
 interface Props {
   event: EventFieldsFragment;
@@ -219,19 +219,29 @@ const OccurrenceEnrolmentTable: React.FC<{
     },
     {
       Header: t('enrolment:occurrenceTable.columnLanguage'),
-      accessor: (row: OccurrenceFieldsFragment) => (
-        <div>
-          <SrOnly>
-            {row.languages.edges
-              .map((lang) => t(`common:languages.${lang?.node?.id}`))
-              .join(', ') ?? '-'}
-          </SrOnly>
-          <span aria-hidden="true">
-            {row.languages.edges.map((lang) => lang?.node?.id).join(', ') ??
-              '-'}
-          </span>
-        </div>
-      ),
+      accessor: (row: OccurrenceFieldsFragment) => {
+        const languages = row.languages.edges
+          .map((lang) => lang?.node)
+          .filter(skipFalsyType);
+
+        if (!languages) {
+          return '–';
+        }
+
+        const orderedLanguages = getOrderedLanguages(languages);
+        return (
+          <div>
+            <SrOnly>
+              {orderedLanguages
+                .map((lang) => t(`common:languages.${lang}`))
+                .join(', ') ?? '-'}
+            </SrOnly>
+            <span aria-hidden="true">
+              {orderedLanguages.map((lang) => lang).join(', ') ?? '-'}
+            </span>
+          </div>
+        );
+      },
       id: 'languages',
     },
     {

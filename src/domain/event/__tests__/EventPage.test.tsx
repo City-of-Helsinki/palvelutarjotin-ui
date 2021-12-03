@@ -258,25 +258,23 @@ it('shows full events correctly in occurrences list', async () => {
   renderComponent();
   await waitForRequestsToComplete();
 
-  const fullOccurrenceRowText1 =
-    '23.7.2020 to12:00 – 13:00englanti, suomien, fiSoukan kirjasto0 / 1Tapahtuma on täynnä';
-  const fullOccurrenceRowText2 =
-    '29.7.2020 ke12:00 – 13:00englanti, suomien, fiSoukan kirjasto0 / 30Tapahtuma on täynnä';
-
   const tableRows = screen.queryAllByRole('row');
-  expect(tableRows[7]).toHaveTextContent(fullOccurrenceRowText1);
-  expect(tableRows[10]).toHaveTextContent(fullOccurrenceRowText2);
+  expect(tableRows[7].textContent).toMatchInlineSnapshot(
+    `"23.7.2020 to12:00 – 13:00suomi, englantifi, enSoukan kirjasto0 / 1Tapahtuma on täynnä"`
+  );
+  expect(tableRows[10].textContent).toMatchInlineSnapshot(
+    `"29.7.2020 ke12:00 – 13:00suomi, englantifi, enSoukan kirjasto0 / 30Tapahtuma on täynnä"`
+  );
 });
 
 it('shows cancelled events correctly in list', async () => {
   renderComponent();
   await waitForRequestsToComplete();
 
-  const cancelledOccurrenceRowText =
-    '20.7.2020 ma12:00 – 13:00englanti, suomien, fiSoukan kirjasto30 / 30Tapahtuma on peruttu';
-
   const tableRows = screen.queryAllByRole('row');
-  expect(tableRows[4]).toHaveTextContent(cancelledOccurrenceRowText);
+  expect(tableRows[4].textContent).toMatchInlineSnapshot(
+    `"20.7.2020 ma12:00 – 13:00suomi, englantifi, enSoukan kirjasto30 / 30Tapahtuma on peruttu"`
+  );
 });
 
 it('renders upcoming occurrencec correctly', async () => {
@@ -284,17 +282,17 @@ it('renders upcoming occurrencec correctly', async () => {
   await waitForRequestsToComplete();
 
   const tableRows = screen.queryAllByRole('row');
-  expect(tableRows[1]).toHaveTextContent(
-    '15.7.2020 – 17.7.2020englanti, suomi, ruotsien, fi, svSoukan kirjasto30 / 30Näytä tiedot'
+  expect(tableRows[1].textContent).toMatchInlineSnapshot(
+    `"15.7.2020 – 17.7.2020suomi, ruotsi, englantifi, sv, enSoukan kirjasto30 / 30Näytä tiedot"`
   );
-  expect(tableRows[2]).toHaveTextContent(
-    '16.7.2020 to12:00 – 13:00suomifiSoukan kirjasto30 / 30Näytä tiedot'
+  expect(tableRows[2].textContent).toMatchInlineSnapshot(
+    `"16.7.2020 to12:00 – 13:00suomifiSoukan kirjasto30 / 30Näytä tiedot"`
   );
-  expect(tableRows[3]).toHaveTextContent(
-    '19.7.2020 su12:00 – 13:00englanti, suomien, fiSoukan kirjasto30 / 30Näytä tiedot'
+  expect(tableRows[3].textContent).toMatchInlineSnapshot(
+    `"19.7.2020 su12:00 – 13:00suomi, englantifi, enSoukan kirjasto30 / 30Näytä tiedot"`
   );
-  expect(tableRows[5]).toHaveTextContent(
-    '21.7.2020 ti12:00 – 13:00englanti, suomien, fiSoukan kirjasto30 / 30Näytä tiedot'
+  expect(tableRows[5].textContent).toMatchInlineSnapshot(
+    `"21.7.2020 ti12:00 – 13:00suomi, englantifi, enSoukan kirjasto30 / 30Näytä tiedot"`
   );
 });
 
@@ -404,10 +402,10 @@ it('renders occurrences table and related stuff correctly', async () => {
     ).toBeInTheDocument();
   });
 
-  const rowText = `27.7.2020 ma12:00 – 13:00englanti, suomien, fiSoukan kirjasto30 / 30Näytä tiedot`;
-
   const tableRows = screen.getAllByRole('row');
-  expect(tableRows[8]).toHaveTextContent(rowText);
+  expect(tableRows[8].textContent).toMatchInlineSnapshot(
+    `"27.7.2020 ma12:00 – 13:00suomi, englantifi, enSoukan kirjasto30 / 30Näytä tiedot"`
+  );
 });
 
 it('hides seats left column header when event has external enrolment', async () => {
@@ -442,8 +440,8 @@ it('hides seats left column header when event has external enrolment', async () 
   const tableRows = screen.getAllByRole('row');
 
   // shows multi day occurrence correctly
-  expect(tableRows[1]).toHaveTextContent(
-    '15.7.2020 – 17.7.2020englanti, suomi, ruotsien, fi, svSoukan kirjastoNäytä tiedot'
+  expect(tableRows[1].textContent).toMatchInlineSnapshot(
+    `"15.7.2020 – 17.7.2020suomi, ruotsi, englantifi, sv, enSoukan kirjastoNäytä tiedot"`
   );
 
   userEvent.click(

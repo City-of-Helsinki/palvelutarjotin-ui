@@ -23,3 +23,31 @@ export function getEnrolmentError(
 
   return null;
 }
+
+export function getOrderedLanguages(
+  languages: { id: string; name: string }[]
+): string[] {
+  const languageOrder = ['fi', 'sv', 'en'];
+  const languageStrings = languages.map((l) => l.id.split('_')[0]);
+
+  // order languages based on languageOrder, other languages go
+  // to the end of the array
+  return languageStrings.sort((a, b) => {
+    const aIndex = languageOrder.indexOf(a);
+    const bIndex = languageOrder.indexOf(b);
+
+    if (aIndex > -1 && bIndex > -1) {
+      return aIndex - bIndex;
+    }
+
+    if (aIndex > -1 && bIndex === -1) {
+      return -1;
+    }
+
+    if (bIndex > -1 && aIndex === -1) {
+      return 1;
+    }
+
+    return 0;
+  });
+}
