@@ -14,7 +14,9 @@ import {
   userEvent,
   waitFor,
 } from '../../../../utils/testUtils';
-import HeaderNotification from '../HeaderNotification';
+import HeaderNotification, {
+  NOTIFICATION_STORAGE_KEY,
+} from '../HeaderNotification';
 
 const notificationTitle = 'Notification title';
 const notificationContent = 'Notification content';
@@ -94,7 +96,7 @@ it('saves notification state to local storage', async () => {
   await screen.findByText(notificationContent);
 
   const localStorageObject = JSON.parse(
-    localStorage.getItem('header-notification') as string
+    localStorage.getItem(NOTIFICATION_STORAGE_KEY) as string
   );
 
   expect(localStorageObject).toEqual({
@@ -111,7 +113,7 @@ it('saves notification state to local storage', async () => {
   await act(() => wait(100));
 
   const localStorageObjectAfterClosing = JSON.parse(
-    localStorage.getItem('header-notification') as string
+    localStorage.getItem(NOTIFICATION_STORAGE_KEY) as string
   );
 
   expect(localStorageObjectAfterClosing).toMatchInlineSnapshot(`

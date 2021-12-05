@@ -14,6 +14,8 @@ import {
 import { useCMSClient } from '../../../headless-cms/cmsApolloContext';
 import hash from '../../../utils/hash';
 
+export const NOTIFICATION_STORAGE_KEY = 'header-notification';
+
 type CmsNotificationTypes = 'info' | 'high' | 'low';
 
 // used to get content from inside p-tag (wordpress returns content as html)
@@ -33,7 +35,7 @@ const notificationTypeMap: Record<CmsNotificationTypes, NotificationType> = {
 const HeaderNotification: React.FC = () => {
   const { t } = useTranslation();
   const [notificationState, setNotificationState] =
-    useLocalStorage<NotificationState>('header-notification', {
+    useLocalStorage<NotificationState>(NOTIFICATION_STORAGE_KEY, {
       isVisible: true,
       closedNotificationHash: null,
     });
