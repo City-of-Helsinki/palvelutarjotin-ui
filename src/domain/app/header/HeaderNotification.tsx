@@ -4,6 +4,7 @@ import isSameDay from 'date-fns/isSameDay';
 import { Notification, NotificationType } from 'hds-react';
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
+import useLocalStorage from 'react-use/lib/useLocalStorage';
 
 import ExternalLink from '../../../common/components/externalLink/ExternalLink';
 import {
@@ -11,11 +12,17 @@ import {
   useNotificationQuery,
 } from '../../../generated/graphql-cms';
 import { useCMSClient } from '../../../headless-cms/cmsApolloContext';
+import hash from '../../../utils/hash';
 
 type CmsNotificationTypes = 'info' | 'high' | 'low';
 
 // used to get content from inside p-tag (wordpress returns content as html)
 const contentRegex = /<p>(.*)<\/p>/i;
+
+type NotificationState = {
+  isVisible: boolean;
+  closedNotificationHash: string | null | undefined;
+};
 
 const notificationTypeMap: Record<CmsNotificationTypes, NotificationType> = {
   info: 'alert',
@@ -25,13 +32,42 @@ const notificationTypeMap: Record<CmsNotificationTypes, NotificationType> = {
 
 const HeaderNotification: React.FC = () => {
   const { t } = useTranslation();
-  const [isVisible, setIsVisible] = React.useState(true);
+  const [notificationState, setNotificationState] =
+    useLocalStorage<NotificationState>('header-notification', {
+      isVisible: true,
+      closedNotificationHash: null,
+    });
+
+  const { isVisible, closedNotificationHash } = notificationState ?? {};
+
   const { data } = useNotificationQuery({
     client: useCMSClient(),
+    onCompleted: (data) => {
+      const notification = data.notification;
+      if (notification) {
+        const notificationHash = getNotificationHash(notification).toString();
+        if (closedNotificationHash !== notificationHash) {
+          setNotificationState({
+            isVisible: true,
+            closedNotificationHash: null,
+          });
+        }
+      }
+    },
   });
+
   const notification = data?.notification;
   const parsedContent = contentRegex.exec(notification?.content ?? '')?.[1];
   const { title, level, linkText, linkUrl } = notification ?? {};
+
+  const handleCloseNotification = () => {
+    setNotificationState({
+      isVisible: false,
+      closedNotificationHash: notification
+        ? getNotificationHash(notification).toString()
+        : null,
+    });
+  };
 
   return isNotificationActive(notification) && isVisible ? (
     <Notification
@@ -41,7 +77,7 @@ const HeaderNotification: React.FC = () => {
       closeButtonLabelText={
         t('header:notification:labelCloseNotification') as string
       }
-      onClose={() => setIsVisible(false)}
+      onClose={handleCloseNotification}
     >
       {parsedContent}
       {linkUrl && (
@@ -56,6 +92,24 @@ const HeaderNotification: React.FC = () => {
       )}
     </Notification>
   ) : null;
+};
+
+const getNotificationHash = (notification: NotificationNode) => {
+  // notification fields used to build string for unique hash
+  const stringKeys = [
+    'title',
+    'content',
+    'linkText',
+    'linkUrl',
+    'level',
+    'endDate',
+    'startDate',
+  ] as const;
+  const combinedString = stringKeys.reduce(
+    (combinedString, current) => combinedString + notification[current] ?? '',
+    ''
+  );
+  return hash(combinedString);
 };
 
 const isNotificationActive = (notification?: NotificationNode | null) => {

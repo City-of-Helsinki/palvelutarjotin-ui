@@ -88,6 +88,42 @@ it('renders notification data correctly', async () => {
   });
 });
 
+it('saves notification state to local storage', async () => {
+  renderComponent();
+
+  await screen.findByText(notificationContent);
+
+  const localStorageObject = JSON.parse(
+    localStorage.getItem('header-notification') as string
+  );
+
+  expect(localStorageObject).toEqual({
+    isVisible: true,
+    closedNotificationHash: null,
+  });
+
+  userEvent.click(
+    screen.getByRole('button', {
+      name: 'Sulje huomiotiedote',
+    })
+  );
+
+  await act(() => wait(100));
+
+  const localStorageObjectAfterClosing = JSON.parse(
+    localStorage.getItem('header-notification') as string
+  );
+
+  expect(localStorageObjectAfterClosing).toMatchInlineSnapshot(`
+Object {
+  "closedNotificationHash": "6176514228182135",
+  "isVisible": false,
+}
+`);
+
+  expect(screen.queryByText(notificationContent)).not.toBeInTheDocument();
+});
+
 it('render notification even if title is missing', async () => {
   renderComponent({
     title: '',
