@@ -195,4 +195,8 @@ test('renders search form and events list with correct information', async () =>
     }
     expect(screen.getAllByText(capitalize(keyword.name.fi))).toHaveLength(4);
   });
+
+  expect(
+    screen.queryByRole('button', { name: 'Näytä lisää' })
+  ).toBeInTheDocument();
 });
