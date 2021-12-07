@@ -11,6 +11,7 @@
   "labelNoEnrolment": "No enrolment",
   "buttonShowDetails": "Show details",
   "buttonHideDetails": "Hide details",
+  "ariaLabelShowDetails": "Show occurrence details",
   "occurrenceSelection": {
     "checkboxSelectOccurrence": "Select occurrence",
     "buttonSelectOccurrence": "Select",

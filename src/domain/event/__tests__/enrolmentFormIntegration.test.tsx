@@ -127,11 +127,13 @@ test('user can select single occurrences and enrol to it with enrolment form', a
   const rows = await screen.findAllByRole('row');
 
   expect(rows[1].textContent).toMatchInlineSnapshot(
-    `"25.9.2020 pe12:30 – 13:30suomi, englantifi, enKirjasto30 / 30Näytä tiedot"`
+    `"25.9.2020 pe12:30 – 13:30suomi, englantifi, enKirjasto30 / 30Näytä lisätiedot"`
   );
 
   userEvent.click(
-    within(rows[1]).getByRole('button', { name: /näytä tiedot/i })
+    within(rows[1]).getByRole('button', {
+      name: /näytä tapahtuma-ajan lisätiedot/i,
+    })
   );
 
   userEvent.click(screen.getByText(/varaustiedustelu/i));
@@ -201,18 +203,20 @@ test('user can select multiple occurrences and enrol to them with enrolment form
     mocks: pageMockWithSelectedPlace,
   });
 
-  await screen.findAllByRole('button', { name: /näytä tiedot/i });
+  await screen.findAllByRole('button', {
+    name: /näytä tapahtuma-ajan lisätiedot/i,
+  });
 
   const rows = await screen.findAllByRole('row');
 
   expect(rows[1].textContent).toMatchInlineSnapshot(
-    `"25.9.2020 pe12:30 – 13:30suomi, englantifi, enKirjasto30 / 30Näytä tiedot"`
+    `"25.9.2020 pe12:30 – 13:30suomi, englantifi, enKirjasto30 / 30Näytä lisätiedot"`
   );
   expect(rows[2].textContent).toMatchInlineSnapshot(
-    `"26.9.2020 la13:20 – 14:20suomi, englantifi, enKirjasto30 / 30Näytä tiedot"`
+    `"26.9.2020 la13:20 – 14:20suomi, englantifi, enKirjasto30 / 30Näytä lisätiedot"`
   );
   expect(rows[3].textContent).toMatchInlineSnapshot(
-    `"26.9.2020 la14:20 – 15:20suomi, englantifi, enKirjasto30 / 30Näytä tiedot"`
+    `"26.9.2020 la14:20 – 15:20suomi, englantifi, enKirjasto30 / 30Näytä lisätiedot"`
   );
 
   userEvent.click(
