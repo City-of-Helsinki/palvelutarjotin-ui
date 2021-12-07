@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`user can select multiple occurrences and enrol to them with enrolment form 1`] = `
+exports[`user can select multiple occurrences and enrol to them with enrolment form 4`] = `
 Object {
   "dirty": true,
   "errors": Object {},
@@ -103,7 +103,7 @@ Object {
 }
 `;
 
-exports[`user can select single occurrences and enrol to it with enrolment form 1`] = `
+exports[`user can select single occurrences and enrol to it with enrolment form 2`] = `
 Object {
   "dirty": true,
   "errors": Object {},
