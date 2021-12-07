@@ -188,10 +188,7 @@ export const useUpcomingEvents = ({ variables }: UseUpcomingEventsOptions) => {
   const hasNextPage = eventsData?.upcomingEvents?.pageInfo.hasNextPage;
   const page = eventsData?.upcomingEvents?.pageInfo.page ?? 0;
 
-  const nextPage = React.useMemo(
-    () => (hasNextPage ? page + 1 : null),
-    [hasNextPage, page]
-  );
+  const nextPage = hasNextPage ? page + 1 : null;
 
   const fetchMoreEvents = async () => {
     if (nextPage) {
