@@ -14,7 +14,9 @@ import {
   userEvent,
   waitFor,
 } from '../../../../utils/testUtils';
-import HeaderNotification from '../HeaderNotification';
+import HeaderNotification, {
+  NOTIFICATION_STORAGE_KEY,
+} from '../HeaderNotification';
 
 const notificationTitle = 'Notification title';
 const notificationContent = 'Notification content';
@@ -86,6 +88,42 @@ it('renders notification data correctly', async () => {
   await waitFor(() => {
     expect(screen.queryByText(content)).not.toBeInTheDocument();
   });
+});
+
+it('saves notification state to local storage', async () => {
+  renderComponent();
+
+  await screen.findByText(notificationContent);
+
+  const localStorageObject = JSON.parse(
+    localStorage.getItem(NOTIFICATION_STORAGE_KEY) as string
+  );
+
+  expect(localStorageObject).toEqual({
+    isVisible: true,
+    closedNotificationHash: null,
+  });
+
+  userEvent.click(
+    screen.getByRole('button', {
+      name: 'Sulje huomiotiedote',
+    })
+  );
+
+  await act(() => wait(100));
+
+  const localStorageObjectAfterClosing = JSON.parse(
+    localStorage.getItem(NOTIFICATION_STORAGE_KEY) as string
+  );
+
+  expect(localStorageObjectAfterClosing).toMatchInlineSnapshot(`
+Object {
+  "closedNotificationHash": "6176514228182135",
+  "isVisible": false,
+}
+`);
+
+  expect(screen.queryByText(notificationContent)).not.toBeInTheDocument();
 });
 
 it('render notification even if title is missing', async () => {
