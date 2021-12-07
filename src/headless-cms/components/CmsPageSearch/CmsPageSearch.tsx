@@ -121,37 +121,40 @@ const CmsPageSearchList: React.FC<{
   return (
     <div>
       <LoadingSpinner isLoading={loading}>
-        {pages.map((page, index) => {
-          const pageUri = getCmsPath(page?.uri);
-          const pageLead =
-            page.lead?.replaceAll('<p>', '')?.replaceAll('</p>', '') ?? '';
-          const imgSrc =
-            page.featuredImage?.node?.mediaItemUrl ??
-            getEventPlaceholderImage(page.id);
+        <div className={styles.cmsCardList}>
+          {pages.map((page) => {
+            const pageUri = getCmsPath(page?.uri);
+            const pageLead =
+              page.lead?.replaceAll('<p>', '')?.replaceAll('</p>', '') ?? '';
+            const imgSrc =
+              page.featuredImage?.node?.mediaItemUrl ??
+              getEventPlaceholderImage(page.id);
 
-          return (
-            <Link href={pageUri}>
-              <Card
-                key={`page-${page.id}`}
-                heading={page.title ?? ''}
-                text={pageLead}
-                border={false}
-                className={styles.card}
-              >
-                <img
-                  src={imgSrc}
-                  alt={page.featuredImage?.node?.altText ?? ''}
-                  className={styles.cardImage}
-                />
-              </Card>
-            </Link>
-          );
-        })}
+            return (
+              <Link href={pageUri}>
+                {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+                <a className={styles.cmsCard}>
+                  <img
+                    src={imgSrc}
+                    alt={page.featuredImage?.node?.altText ?? ''}
+                    className={styles.cardImage}
+                  />
+                  <div className={styles.cardContent}>
+                    {page.title && <h2>{page.title}</h2>}
+                    <p>{pageLead}</p>
+                  </div>
+                </a>
+              </Link>
+            );
+          })}
+        </div>
       </LoadingSpinner>
       {isLoadingMore ? (
         <LoadingSpinner isLoading hasPadding={false} />
       ) : hasMoreToLoad ? (
-        <Button onClick={fetchMore}>{t('cms:pageSearch.loadMore')}</Button>
+        <Button style={{ marginTop: '2rem' }} onClick={fetchMore}>
+          {t('cms:pageSearch.loadMore')}
+        </Button>
       ) : null}
     </div>
   );
