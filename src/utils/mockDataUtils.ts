@@ -70,6 +70,8 @@ export const fakeUpcomingEvents = (
   data: generateNodeArray((i) => fakeEvent(events?.[i]), count),
   pageInfo: {
     totalCount: count,
+    hasNextPage: true,
+    page: 0,
   },
   __typename: 'EventListPaginatedTypeResponse',
 });

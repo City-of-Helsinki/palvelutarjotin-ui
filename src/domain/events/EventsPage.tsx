@@ -1,3 +1,4 @@
+import { NetworkStatus } from '@apollo/client';
 import { Koros } from 'hds-react';
 import { useTranslation } from 'next-i18next';
 import Head from 'next/head';
@@ -9,6 +10,7 @@ import LoadingSpinner from '../../common/components/loadingSpinner/LoadingSpinne
 import {
   usePopularKeywordsQuery,
   useUpcomingEventsQuery,
+  UpcomingEventsQueryVariables,
 } from '../../generated/graphql';
 import useLocale from '../../hooks/useLocale';
 import localizedString from '../../utils/getLocalisedString';
@@ -36,13 +38,18 @@ const EventsPage = (): ReactElement => {
     panelStates.closed
   );
 
-  const { data: eventsData, loading } = useUpcomingEventsQuery({
+  const {
+    events,
+    eventsCount,
+    fetchMoreEvents,
+    nextPage,
+    loading,
+    isLoadingMore,
+  } = useUpcomingEvents({
     variables: {
       include: ['keywords', 'location', 'audience'],
     },
   });
-  const events = eventsData?.upcomingEvents?.data;
-  const eventsCount = eventsData?.upcomingEvents?.pageInfo.totalCount;
 
   const search = (values: EventSearchFormValues) => {
     values = { ...values, organisation: values.organisationId };
@@ -88,8 +95,10 @@ const EventsPage = (): ReactElement => {
               title={t('events:eventList.titleUpcomingEvents')}
               showCount={false}
               events={events}
-              isLoading={loading}
+              isLoading={isLoadingMore}
               eventsCount={eventsCount}
+              shouldShowLoadMore={Boolean(nextPage)}
+              fetchMore={fetchMoreEvents}
             />
           )}
         </LoadingSpinner>
@@ -159,6 +168,46 @@ const EventsPageMeta: React.FC = () => {
       ))}
     </Head>
   );
+};
+type UseUpcomingEventsOptions = {
+  variables: UpcomingEventsQueryVariables;
+};
+
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export const useUpcomingEvents = ({ variables }: UseUpcomingEventsOptions) => {
+  const {
+    data: eventsData,
+    fetchMore,
+    networkStatus,
+  } = useUpcomingEventsQuery({
+    variables,
+    notifyOnNetworkStatusChange: true,
+  });
+  const events = eventsData?.upcomingEvents?.data;
+  const eventsCount = eventsData?.upcomingEvents?.pageInfo.totalCount;
+  const hasNextPage = eventsData?.upcomingEvents?.pageInfo.hasNextPage;
+  const page = eventsData?.upcomingEvents?.pageInfo.page ?? 0;
+
+  const nextPage = hasNextPage ? page + 1 : null;
+
+  const fetchMoreEvents = async () => {
+    if (nextPage) {
+      await fetchMore({
+        variables: {
+          page: nextPage,
+        },
+      });
+    }
+  };
+
+  return {
+    nextPage,
+    events,
+    loading: networkStatus === NetworkStatus.loading,
+    isLoadingMore: networkStatus === NetworkStatus.fetchMore,
+    eventsCount,
+    fetchMoreEvents,
+  };
 };
 
 export default EventsPage;
