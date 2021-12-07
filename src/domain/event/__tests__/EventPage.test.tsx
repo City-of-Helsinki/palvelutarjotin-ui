@@ -283,16 +283,16 @@ it('renders upcoming occurrencec correctly', async () => {
 
   const tableRows = screen.queryAllByRole('row');
   expect(tableRows[1].textContent).toMatchInlineSnapshot(
-    `"15.7.2020 – 17.7.2020suomi, ruotsi, englantifi, sv, enSoukan kirjasto30 / 30Näytä tiedot"`
+    `"15.7.2020 – 17.7.2020suomi, ruotsi, englantifi, sv, enSoukan kirjasto30 / 30Näytä lisätiedot"`
   );
   expect(tableRows[2].textContent).toMatchInlineSnapshot(
-    `"16.7.2020 to12:00 – 13:00suomifiSoukan kirjasto30 / 30Näytä tiedot"`
+    `"16.7.2020 to12:00 – 13:00suomifiSoukan kirjasto30 / 30Näytä lisätiedot"`
   );
   expect(tableRows[3].textContent).toMatchInlineSnapshot(
-    `"19.7.2020 su12:00 – 13:00suomi, englantifi, enSoukan kirjasto30 / 30Näytä tiedot"`
+    `"19.7.2020 su12:00 – 13:00suomi, englantifi, enSoukan kirjasto30 / 30Näytä lisätiedot"`
   );
   expect(tableRows[5].textContent).toMatchInlineSnapshot(
-    `"21.7.2020 ti12:00 – 13:00suomi, englantifi, enSoukan kirjasto30 / 30Näytä tiedot"`
+    `"21.7.2020 ti12:00 – 13:00suomi, englantifi, enSoukan kirjasto30 / 30Näytä lisätiedot"`
   );
 });
 
@@ -404,7 +404,7 @@ it('renders occurrences table and related stuff correctly', async () => {
 
   const tableRows = screen.getAllByRole('row');
   expect(tableRows[8].textContent).toMatchInlineSnapshot(
-    `"27.7.2020 ma12:00 – 13:00suomi, englantifi, enSoukan kirjasto30 / 30Näytä tiedot"`
+    `"27.7.2020 ma12:00 – 13:00suomi, englantifi, enSoukan kirjasto30 / 30Näytä lisätiedot"`
   );
 });
 
@@ -441,11 +441,13 @@ it('hides seats left column header when event has external enrolment', async () 
 
   // shows multi day occurrence correctly
   expect(tableRows[1].textContent).toMatchInlineSnapshot(
-    `"15.7.2020 – 17.7.2020suomi, ruotsi, englantifi, sv, enSoukan kirjastoNäytä tiedot"`
+    `"15.7.2020 – 17.7.2020suomi, ruotsi, englantifi, sv, enSoukan kirjastoNäytä lisätiedot"`
   );
 
   userEvent.click(
-    within(tableRows[1]).getByRole('button', { name: /näytä tiedot/i })
+    within(tableRows[1]).getByRole('button', {
+      name: /näytä tapahtuma-ajan lisätiedot/i,
+    })
   );
   screen.getByRole('link', {
     name: /ilmoittaudu avautuu uudessa välilehdessä/i,
@@ -527,7 +529,7 @@ it('opens expanded area with enrolment button when clicked', async () => {
   const occurrenceRow = within(screen.getAllByRole('row')[8]);
 
   const expandButton = occurrenceRow.getByRole('button', {
-    name: occurrenceMessages.buttonShowDetails,
+    name: occurrenceMessages.ariaLabelShowDetails,
   });
 
   expect(
@@ -578,7 +580,7 @@ it('expanded area does not have an enrolment button if enrollment has not yet be
 
   userEvent.click(
     occurrenceRow.getByRole('button', {
-      name: occurrenceMessages.buttonShowDetails,
+      name: occurrenceMessages.ariaLabelShowDetails,
     })
   );
 
@@ -613,7 +615,7 @@ it('filters occurrence list correctly when sate filters are selected', async () 
   expect(tableRows).toHaveLength(3);
 
   const occurrenceEnrolButtons = screen.getAllByRole('button', {
-    name: 'Näytä tiedot',
+    name: 'Näytä tapahtuma-ajan lisätiedot',
   });
   expect(occurrenceEnrolButtons).toHaveLength(1);
 });
@@ -732,7 +734,7 @@ it('shows external enrolment link in occurrence row when event has external enro
   });
 
   const detailsButton = await screen.findByRole('button', {
-    name: /Näytä tiedot/i,
+    name: /Näytä tapahtuma-ajan lisätiedot/i,
   });
   userEvent.click(detailsButton);
 
@@ -761,7 +763,7 @@ it('shows inquire registration button when no autoacceptance', async () => {
   });
 
   const showDetailsButton = await screen.findByRole('button', {
-    name: /näytä tiedot/i,
+    name: /näytä tapahtuma-ajan lisätiedot/i,
   });
   userEvent.click(showDetailsButton);
 
@@ -789,7 +791,7 @@ it('shows normal enrolment button when autoacceptance is on', async () => {
   });
 
   const showDetailsButton = await screen.findByRole('button', {
-    name: /näytä tiedot/i,
+    name: /näytä tapahtuma-ajan lisätiedot/i,
   });
   userEvent.click(showDetailsButton);
 

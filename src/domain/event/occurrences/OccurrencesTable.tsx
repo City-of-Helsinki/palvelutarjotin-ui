@@ -336,6 +336,7 @@ const OccurrenceExpandButton: React.FC<
       iconRight={isExpanded ? <IconAngleUp /> : null}
       aria-expanded={isExpanded ? true : false}
       className={styles.enrolmentExpandButton}
+      aria-label={t('occurrence:ariaLabelShowDetails')}
     >
       {isExpanded
         ? t('occurrence:buttonHideDetails')

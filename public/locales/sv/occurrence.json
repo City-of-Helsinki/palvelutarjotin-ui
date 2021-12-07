@@ -11,6 +11,7 @@
   "labelNoEnrolment": "Ingen registrering",
   "buttonShowDetails": "Visa information",
   "buttonHideDetails": "Göm information",
+  "ariaLabelShowDetails": "Visa tidpunkten för evenemanget",
   "occurrenceSelection": {
     "checkboxSelectOccurrence": "Välj tidpunkt för evenemang",
     "buttonSelectOccurrence": "Välj",

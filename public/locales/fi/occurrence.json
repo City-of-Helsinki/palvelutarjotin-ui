@@ -9,8 +9,9 @@
   "showOccurrenceDetails": "Näytä tapahtuma-ajan lisätiedot",
   "labelExternalEnrolmentLink": "Ilmoittaudu",
   "labelNoEnrolment": "Ei ilmoittautumista",
-  "buttonShowDetails": "Näytä tiedot",
+  "buttonShowDetails": "Näytä lisätiedot",
   "buttonHideDetails": "Piilota tiedot",
+  "ariaLabelShowDetails": "Näytä tapahtuma-ajan lisätiedot",
   "occurrenceSelection": {
     "checkboxSelectOccurrence": "Valitse tapahtuma-aika",
     "buttonSelectOccurrence": "Valitse",
