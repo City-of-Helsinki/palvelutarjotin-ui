@@ -2,6 +2,47 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.0.0](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/v0.3.11...v1.0.0) (2021-12-08)
+
+
+### Features
+
+* add language column to occurrences table in event page ([ec6c5cd](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/ec6c5cd3e67f1fff03483f31f31f3f7f242854a0))
+* add popular keywords section to front page ([37c4216](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/37c421603be9d09577be2cbe622e541b2d7044bf))
+* event back button navigates to correct page ([10f5d7d](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/10f5d7db777e8ab85d9ca446b0fa79320f821196))
+* filter tags + clear filter button ([201538e](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/201538e6ef6000239d1c4c3a2ab6bce3f00aa7a3))
+* new event page enrolment forms ([8983ebb](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/8983ebbb9656a96bae7fc7feffea96a1a84500b5))
+* save recommended events variables from enrolment form ([755a471](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/755a4714becb0a1f85019d36f316c684cbdfc4ec))
+* show date span in occurrence table for multi day occurrences ([428d794](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/428d7948e558bdef9ad8344fc6bd55fcc5624aa5))
+* support for cms notification ([2247325](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/2247325ff63251261b0e62b65a11a6cab4f295cd))
+* unit place selector uses schoolsAndKindergartens query ([ecb489c](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/ecb489ce7d200d4510b36b63b60f6dda61e53d3d))
+* use local storage to remember if user close notification ([83dc7c2](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/83dc7c26f76b6143581d0c862f4ffd8a3861e9d0))
+* use new upcoming events query in front page ([2171057](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/2171057b4776726e7f5f0e56b47f9d70b32a2cf0))
+
+
+### Bug Fixes
+
+* add better abel for show mroe details button in occurrence table ([17593b7](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/17593b74c33061574ab141bf5b484a4b5893f104))
+* add missing sv translations ([0926980](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/092698038f534bbdb4c7c48b6e1512019bb7ff41))
+* add translation to select occurrence checkbox ([a4a54b4](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/a4a54b46128b876fdd10a5cc76ed930b2ba6e89c))
+* change language order in occurrence table to be fi, sv first ([ae2ba2e](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/ae2ba2ec68fe57ef28cce8a1ef10aed34559dbb8))
+* cms card image aspect ratio ([17e4232](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/17e4232c10e53b3981b20839608efc5d7e3597bc))
+* cms card layout ([3ce5064](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/3ce50642e6d7ed660fe8199b7af30928c87b534c))
+* delete duplicate properties from mock data ([d542b86](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/d542b869f5489d503e25b3c61d64d0df7a5e5524))
+* delete redundant enrolOccurrenceMock from UnitField tests ([18efe57](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/18efe574a19f80dc501619ec72778faa45459916))
+* delete unused create enrolment page ([108b4b5](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/108b4b51eea41cd0e5fad78b2bb5617619e70afe))
+* enrolment form group size validation bug that was caused by formik persist ([0830cca](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/0830ccaa43f44c75b2816155b1c3173635b8bb5c))
+* event card should show upcoming occurrences only, no matter the enrolment time ([bc57ca8](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/bc57ca82f034bb51479222183513da94db2a321b))
+* external enrolment link fixed for occurrences ([745d6d2](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/745d6d26422eee057a3f8d2903e836984c3153d4))
+* fixes based on comments ([e8afef8](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/e8afef8c4370f261563a19dd1fb0d7023af46911))
+* languages in occurrences table so that screen reader reads whole language ([09b280a](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/09b280afe4d0c39e9ab4dab7e9513a8ca1a992eb))
+* small fixes for linting warnings ([4d52e2c](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/4d52e2cfbe4bf65a887e4937e6dce33e151f973d))
+* unit id fields entries are filtered in lowercase format ([09adf5d](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/09adf5d6789c4c24f84b7b8de3176daec2f4a286))
+* upcoming events query ([508909c](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/508909c4db811aa07da68c57c69b3d223a8cd721))
+* update event list title and delete pagination logic ([81f88cf](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/81f88cf75eb2362967211669907e621c41189cd3))
+* update snapshot ([4ccd4aa](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/4ccd4aaf63dff7eb4dad74d55e233a7291d07d94))
+* update unit field tests for new EventPage ([52d65b3](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/52d65b3f2ee33668d22cf13863ed4e381481b9f3))
+
 ### [0.3.11](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/v0.3.10...v0.3.11) (2021-11-12)
 
 
