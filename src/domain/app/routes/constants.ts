@@ -5,6 +5,7 @@ export enum ROUTES {
   HOME = '/',
   PRIVACY_POLICY = '/privacy-policy',
   CMS_PAGE = '/cms-page/:slug',
+  NEWSLETTER_SUBSCRIBE = '/newsletter/subscribe',
 }
 
 export enum PATHNAMES {

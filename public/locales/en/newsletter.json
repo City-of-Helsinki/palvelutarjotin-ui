@@ -1,0 +1,20 @@
+{
+  "newsletterSubscribeForm": {
+    "newsletterGroups": {
+      "elementarySchool": "Elementary school",
+      "earlyChildhoodEducation": "Daycare",
+      "highAndSecondarySchools": "High school & Secondary education"
+    },
+    "labelGroups": "Choose which of our newsletters to receive",
+    "labelFirstName": "First Name",
+    "labelLastName": "Last Name",
+    "labelEmail": "E-mail address",
+    "buttonSubmit": "Subscribe",
+    "subscribeSuccess": "Thank you for your subscription! Hope you enjoy reading our newsletters!",
+    "subscribeFailed": "An error occured. Subscription failed!"
+  },
+  "subscribeNewsletterPage": {
+    "pageTitle": "Subscribe to our newsletters!",
+    "leadText": "Subscribe to Kultus newsletters here! We will send you information about our current topics via email approximately once a month.\n\nBy subscribing to the Kultus newsletter, I agree that the information I send will be stored in the subscriber register. You can unsubscribe from the newsletter at any time."
+  }
+}
