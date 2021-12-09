@@ -20,6 +20,7 @@ import Container from '../app/layout/Container';
 import PageWrapper from '../app/layout/PageWrapper';
 import { ENROLMENT_URL_PARAMS } from '../enrolment/constants';
 import NotFoundPage from '../notFoundPage/NotFoundPage';
+import { isEnrolmentStarted } from '../occurrence/utils';
 import EnrolmentButton from './enrolmentButton/EnrolmentButton';
 import EventBasicInfo from './eventBasicInfo/EventBasicInfo';
 import EventImage from './eventImage/EventImage';
@@ -54,6 +55,7 @@ const EventPage = (): ReactElement => {
       upcomingOccurrencesOnly: true,
     },
   });
+  const event = eventData?.event;
 
   // refetch event data (to get updated occurrences) if enrolment was created
   React.useEffect(() => {
@@ -98,7 +100,11 @@ const EventPage = (): ReactElement => {
 
   const requiredEnrolmentsSelected =
     selectedOccurrences.length === (neededOccurrences || 0);
-  const showEnrolmentButton = !!neededOccurrences && neededOccurrences > 1;
+  const showEnrolmentButton =
+    !!event &&
+    !!neededOccurrences &&
+    neededOccurrences > 1 &&
+    isEnrolmentStarted(event);
 
   return (
     <PageWrapper title={eventName || t('event:pageTitle')}>

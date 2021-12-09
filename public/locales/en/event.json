@@ -35,6 +35,7 @@
     "labelStartDateFilter": "Start date of occurrences filter",
     "labelEndDateFilter": "End date of occurrences filter",
     "eventIsFree": "Free",
+    "enrolmentStartsLabel": "Enrolment",
     "enrolmentStartsAt": "Enrolments start {{date}} at {{time}}"
   },
   "location": {
