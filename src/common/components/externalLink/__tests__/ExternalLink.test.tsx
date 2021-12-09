@@ -21,3 +21,15 @@ it('contains link and sr texts + srOnly className', () => {
     'srOnly'
   );
 });
+
+it('renders email link with mailto: prefix', () => {
+  const email = 'test_email@email.com';
+  render(
+    <ExternalLink href={email} isEmail>
+      {linkText}
+    </ExternalLink>
+  );
+
+  const link = screen.queryByText(linkText);
+  expect(link).toHaveAttribute('href', `mailto:${email}`);
+});

@@ -4,14 +4,17 @@ import * as React from 'react';
 
 import SrOnly from '../SrOnly/SrOnly';
 
-type Props = React.AnchorHTMLAttributes<HTMLAnchorElement> & { href: string };
+type Props = React.AnchorHTMLAttributes<HTMLAnchorElement> & {
+  href: string;
+  isEmail?: boolean;
+};
 
-const ExternalLink: React.FC<Props> = ({ children, ...props }) => {
+const ExternalLink: React.FC<Props> = ({ children, isEmail, ...props }) => {
   const { t } = useTranslation();
   return (
     <a
       {...props}
-      href={getExternalUrl(props.href)}
+      href={isEmail ? `mailto:${props.href}` : getExternalUrl(props.href)}
       target="_blank"
       rel="noreferrer"
     >

@@ -8,6 +8,7 @@ import {
   EventFieldsFragment,
   OccurrenceFieldsFragment,
 } from '../../../generated/graphql';
+import isEmail from '../../../utils/isEmail';
 import { formatIntoDate, formatIntoTime } from '../../../utils/time/format';
 import { isEnrolmentStarted } from '../../occurrence/utils';
 import EnrolmentError from './EnrolmentError';
@@ -52,6 +53,7 @@ const OccurrenceEnrolmentButton: React.FC<Props> = ({
       <ExternalLink
         href={externalEnrolmentUrl}
         className={styles.externalEnrolmentLink}
+        isEmail={isEmail(externalEnrolmentUrl)}
       >
         {t('occurrence:labelExternalEnrolmentLink')}
       </ExternalLink>
