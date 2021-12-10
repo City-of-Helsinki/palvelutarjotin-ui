@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.1.0](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/v1.0.0...v1.1.0) (2021-12-10)
+
+
+### Features
+
+* add notification on top of occurrences table if enrolment hasnt started ([f88147c](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/f88147c8987ccb9d89b3efa5d8ba263f4922ea4c))
+* add support for email link in enrolment ([24694df](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/24694dfd3ee7353753eedfcd7f0c484e0a4f663d))
+
+
+### Bug Fixes
+
+* isEnrolmentStarted now takes null in account ([67d4f14](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/67d4f14e13560932f47f53cb159a82e648c98d77))
+
 ## [1.0.0](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/v0.3.11...v1.0.0) (2021-12-08)
 
 
