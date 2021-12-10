@@ -4,17 +4,14 @@ import * as React from 'react';
 
 import SrOnly from '../SrOnly/SrOnly';
 
-type Props = React.AnchorHTMLAttributes<HTMLAnchorElement> & { href: string };
+type Props = React.AnchorHTMLAttributes<HTMLAnchorElement> & {
+  href: string;
+};
 
 const ExternalLink: React.FC<Props> = ({ children, ...props }) => {
   const { t } = useTranslation();
   return (
-    <a
-      {...props}
-      href={getExternalUrl(props.href)}
-      target="_blank"
-      rel="noreferrer"
-    >
+    <a {...props} href={props.href} target="_blank" rel="noreferrer">
       {children}
       <IconLinkExternal
         style={{ verticalAlign: 'middle', marginLeft: '0.5rem' }}
@@ -24,7 +21,7 @@ const ExternalLink: React.FC<Props> = ({ children, ...props }) => {
   );
 };
 
-const getExternalUrl = (url: string) => {
+export const getExternalUrl = (url: string): string => {
   if (url.match(/^https?:\/\//)) {
     return url;
   }

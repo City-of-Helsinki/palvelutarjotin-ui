@@ -1,5 +1,6 @@
 import * as React from 'react';
 
+import isEmail from '../../../../utils/isEmail';
 import { render, screen } from '../../../../utils/testUtils';
 import ExternalLink from '../ExternalLink';
 
@@ -20,4 +21,17 @@ it('contains link and sr texts + srOnly className', () => {
   expect(screen.getByText('Avautuu uudessa välilehdessä')).toHaveClass(
     'srOnly'
   );
+});
+
+// basically testing that isEmail function works
+it('renders email link with mailto: prefix', () => {
+  const email = 'test_email@email.com';
+  render(
+    <ExternalLink href={isEmail(email) ? `mailto:${email}` : email}>
+      {linkText}
+    </ExternalLink>
+  );
+
+  const link = screen.queryByText(linkText);
+  expect(link).toHaveAttribute('href', `mailto:${email}`);
 });
