@@ -1,5 +1,5 @@
 import { NetworkStatus } from '@apollo/client';
-import { Button, Card, TextInput } from 'hds-react';
+import { Button, TextInput } from 'hds-react';
 import Link from 'next/link';
 import React from 'react';
 import { useTranslation } from 'react-i18next';

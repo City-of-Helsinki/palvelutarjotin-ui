@@ -54,10 +54,10 @@ export const getAmountOfSeatsLeft = (
 export const isEnrolmentStarted = (
   event?: EventFieldsFragment | null
 ): boolean => {
-  return (
-    event?.pEvent?.enrolmentStart &&
-    isPast(new Date(event?.pEvent?.enrolmentStart))
-  );
+  if (!event?.pEvent.enrolmentStart) {
+    return true;
+  }
+  return isPast(new Date(event?.pEvent?.enrolmentStart));
 };
 
 export const isEnrolmentClosed = (

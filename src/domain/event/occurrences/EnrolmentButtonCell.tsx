@@ -8,7 +8,6 @@ import {
   OccurrenceFieldsFragment,
 } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
-import isEmail from '../../../utils/isEmail';
 import { formatIntoDate, formatIntoTime } from '../../../utils/time/format';
 import { isEnrolmentStarted } from '../../occurrence/utils';
 import { EnrolmentType } from '../constants';

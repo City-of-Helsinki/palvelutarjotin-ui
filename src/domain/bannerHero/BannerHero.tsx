@@ -1,4 +1,3 @@
-import { Koros } from 'hds-react';
 import { useTranslation } from 'next-i18next';
 import React from 'react';
 
