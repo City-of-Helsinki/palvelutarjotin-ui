@@ -372,6 +372,13 @@ it('renders occurrences table and related stuff correctly', async () => {
   renderComponent();
   await waitForRequestsToComplete();
 
+  // Notification about enrolment starting time shouldn't be rendered
+  expect(
+    screen.queryByRole('region', {
+      name: /notification/i,
+    })
+  ).not.toBeInTheDocument();
+
   const occurrencesTitle = screen.queryByText(
     eventMessages.occurrencesTitle.replace('{{count}}', '11')
   );
@@ -559,7 +566,8 @@ it('opens expanded area with enrolment button when clicked', async () => {
   });
 });
 
-it('expanded area does not have an enrolment button if enrollment has not yet begun', async () => {
+// eslint-disable-next-line max-len
+it('renders enrolment notification and expanded area does not have an enrolment button if enrollment has not yet begun', async () => {
   advanceTo(new Date(2020, 6, 10)); // Before enrolmentStart (2020-07-13T06:00:00+00:00)
   renderComponent({
     mocks: [
@@ -575,6 +583,12 @@ it('expanded area does not have an enrolment button if enrollment has not yet be
     ],
   });
   await waitForRequestsToComplete();
+
+  // Enrolment notification
+  const region = screen.getByRole('region', {
+    name: /notification/i,
+  });
+  within(region).getByText(/ilmoittautuminen alkaa 13\.7\.2020 klo 09:00/i);
 
   const occurrenceRow = within(screen.getAllByRole('row')[8]);
 
@@ -593,7 +607,9 @@ it('expanded area does not have an enrolment button if enrollment has not yet be
       name: 'Ilmoittaudu',
     })
   ).not.toBeInTheDocument();
-  expect(screen.queryByText(/Ilmoittautuminen alkaa/)).toBeInTheDocument();
+
+  // expanded info and notification on top of table has this text
+  expect(screen.queryAllByText(/Ilmoittautuminen alkaa/i)).toHaveLength(2);
 });
 
 it('filters occurrence list correctly when sate filters are selected', async () => {

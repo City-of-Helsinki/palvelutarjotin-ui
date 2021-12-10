@@ -35,6 +35,7 @@
     "labelStartDateFilter": "Startdatum för händelsefilter",
     "labelEndDateFilter": "Slutdatum för händelsefilter",
     "eventIsFree": "Fri",
+    "enrolmentStartsLabel": "Registrering",
     "enrolmentStartsAt": "Registreringen börjar {{date}} kl. {{time}}"
   },
   "location": {

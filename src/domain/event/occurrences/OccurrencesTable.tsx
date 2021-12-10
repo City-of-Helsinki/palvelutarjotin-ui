@@ -20,11 +20,14 @@ import formatTimeRange from '../../../utils/formatTimeRange';
 import {
   DATE_FORMAT,
   formatDateRange,
+  formatIntoDate,
+  formatIntoTime,
   formatLocalizedDate,
 } from '../../../utils/time/format';
 import { skipFalsyType } from '../../../utils/typescript.utils';
 import {
   getAmountOfSeatsLeft,
+  isEnrolmentStarted,
   isMultidayOccurrence,
   isUnenrollableOccurrence,
 } from '../../occurrence/utils';
@@ -88,9 +91,21 @@ const OccurrencesTable: React.FC<Props> = ({
   const visibleOccurrences = take(filteredOccurrences, occurrencesVisible);
   const showMoreButtonVisible =
     filteredOccurrences.length > occurrencesVisible && !hideLoadMoreButton;
+  const enrolmentStart = event.pEvent.enrolmentStart;
 
   return (
     <section className={styles.occurrenceTable}>
+      {!isEnrolmentStarted(event) && (
+        <Notification
+          className={styles.enrolmentNotification}
+          label={t('event:occurrenceList.enrolmentStartsLabel')}
+        >
+          {t('event:occurrenceList.enrolmentStartsAt', {
+            date: formatIntoDate(new Date(enrolmentStart)),
+            time: formatIntoTime(new Date(enrolmentStart)),
+          })}
+        </Notification>
+      )}
       <div className={styles.titleAndFilters}>
         <p className={styles.occurrencesTitle}>
           {t('event:occurrencesTitle', { count: occurrences.length })}{' '}
@@ -171,6 +186,7 @@ const OccurrenceEnrolmentTable: React.FC<{
 
   const isDisabledOccurrenceCheckbox = (occurrence: OccurrenceFieldsFragment) =>
     isUnenrollableOccurrence(occurrence, event) ||
+    !isEnrolmentStarted(event) ||
     (requiredOccurrencesSelected && !isSelectedOccurrence(occurrence));
 
   const columns = [

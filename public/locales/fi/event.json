@@ -35,6 +35,7 @@
     "labelStartDateFilter": "Tapahtuma-aikojen rajauksen alkupäivä",
     "labelEndDateFilter": "Tapahtuma-aikojen rajauksen loppupäivä",
     "eventIsFree": "Maksuton",
+    "enrolmentStartsLabel": "Ilmoittautuminen",
     "enrolmentStartsAt": "Ilmoittautuminen alkaa {{date}} klo {{time}}"
   },
   "location": {
