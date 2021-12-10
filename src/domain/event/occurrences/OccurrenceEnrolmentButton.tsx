@@ -3,7 +3,9 @@ import { IconAngleUp, Button } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import ExternalLink from '../../../common/components/externalLink/ExternalLink';
+import ExternalLink, {
+  getExternalUrl,
+} from '../../../common/components/externalLink/ExternalLink';
 import {
   EventFieldsFragment,
   OccurrenceFieldsFragment,
@@ -51,9 +53,13 @@ const OccurrenceEnrolmentButton: React.FC<Props> = ({
   if (externalEnrolmentUrl) {
     return (
       <ExternalLink
-        href={externalEnrolmentUrl}
+        href={
+          // users can also enter email as enrolment link
+          isEmail(externalEnrolmentUrl)
+            ? `mailto:${externalEnrolmentUrl}`
+            : getExternalUrl(externalEnrolmentUrl)
+        }
         className={styles.externalEnrolmentLink}
-        isEmail={isEmail(externalEnrolmentUrl)}
       >
         {t('occurrence:labelExternalEnrolmentLink')}
       </ExternalLink>
