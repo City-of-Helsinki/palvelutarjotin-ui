@@ -8,7 +8,6 @@ import TextInputField from '../../../common/components/form/fields/TextInputFiel
 import FocusToFirstError from '../../../common/components/form/FocusToFirstError';
 import FormGroup from '../../../common/components/form/FormGroup';
 import { translateValue } from '../../../utils/translateUtils';
-import Container from '../../app/layout/Container';
 import { NewsletterGroupId } from './constants';
 import styles from './newsletterSubscribeForm.module.scss';
 import getValidationSchema from './ValidationSchema';
