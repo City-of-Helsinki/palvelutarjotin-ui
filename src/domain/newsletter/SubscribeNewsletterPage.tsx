@@ -2,6 +2,10 @@ import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 
+import {
+  addSubscriber,
+  convertSubscribeFormData,
+} from '../../clients/gruppo/lib/subscribers';
 import TextWithLineBreaks from '../../common/components/textWithLineBreaks/TextWithLineBreaks';
 import Container from '../app/layout/Container';
 import PageWrapper from '../app/layout/PageWrapper';
@@ -15,15 +19,21 @@ const SubscribeNewsletterPage: React.FC = () => {
   const { t } = useTranslation();
 
   const handleSubmit = async (values: NewsletterSubscribeFormFields) => {
-    try {
-      toast(t('newsletter:newsletterSubscribeForm.subscribeSuccess'), {
-        type: toast.TYPE.SUCCESS,
+    Promise.all(
+      values.groups.map((group) =>
+        addSubscriber(group, convertSubscribeFormData(values))
+      )
+    )
+      .then(() => {
+        toast(t('newsletter:newsletterSubscribeForm.subscribeSuccess'), {
+          type: toast.TYPE.SUCCESS,
+        });
+      })
+      .catch((e) => {
+        toast(t('newsletter:newsletterSubscribeForm.subscribeFailed'), {
+          type: toast.TYPE.ERROR,
+        });
       });
-    } catch (error) {
-      toast(t('newsletter:newsletterSubscribeForm.subscribeFailed'), {
-        type: toast.TYPE.ERROR,
-      });
-    }
   };
 
   return (

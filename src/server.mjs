@@ -41,6 +41,9 @@ const checkIsServerReady = (response) => {
   });
 
   server.get('*', (req, res) => handle(req, res));
+  server.all('/api/newsletter/subscribe/:groupId', (req, res) =>
+    handle(req, res)
+  );
 
   await server.listen(port);
   signalReady();

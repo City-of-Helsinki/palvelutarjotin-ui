@@ -32,8 +32,8 @@ jobs:
           DOCKER_BUILD_ARG_NEXT_PUBLIC_API_BASE_URL: 'https://palvelutarjotin-api.test.kuva.hel.ninja/graphql'
           DOCKER_BUILD_ARG_NEXT_PUBLIC_UNIFIED_SEARCH_BASE_URL: 'https://unified-search.test.kuva.hel.ninja/search'
           DOCKER_BUILD_ARG_NEXT_PUBLIC_CMS_BASE_URL: 'https://kultus.content.api.hel.fi/graphql'
-          DOCKER_BUILD_ARG_NEXT_PUBLIC_NEWSLETTER_BASE_URL: 'https://api.createsend.com/api/v3.2'
-          DOCKER_BUILD_ARG_NEXT_PUBLIC_NEWSLETTER_APIKEY: ${{ secrets.GH_QA_NEWSLETTER_APIKEY }}
+          DOCKER_BUILD_ARG_NEWSLETTER_BASE_URL: 'https://api.createsend.com/api/v3.2'
+          DOCKER_BUILD_ARG_NEWSLETTER_APIKEY: ${{ secrets.GH_QA_NEWSLETTER_APIKEY }}
           DOCKER_BUILD_ARG_NEXT_PUBLIC_MATOMO_URL_BASE: '//webanalytics.digiaiiris.com/js/'
           DOCKER_BUILD_ARG_NEXT_PUBLIC_MATOMO_SITE_ID: 327
           DOCKER_BUILD_ARG_NEXT_PUBLIC_MATOMO_SRC_URL: 'piwik.min.js'

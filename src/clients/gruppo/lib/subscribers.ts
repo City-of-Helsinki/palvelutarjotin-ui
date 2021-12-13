@@ -1,3 +1,5 @@
+import { AxiosResponse } from 'axios';
+
 // eslint-disable-next-line max-len
 import { NewsletterSubscribeFormFields } from '../../../domain/newsletter/newsletterSubscribeForm/NewsletterSubscribeForm';
 import axiosClient, { SUBSCRIBERS_ROUTES } from '../gruppoClient';
@@ -28,17 +30,23 @@ export type SubscriberDetails = {
   ConsentToTrack: string;
 };
 
-export async function getDetails(groupId: string): Promise<SubscriberDetails> {
-  const url = SUBSCRIBERS_ROUTES.DETAILS.replace(':groupId', groupId);
-  return await axiosClient.get(url);
+export function getDetails(
+  groupId: string,
+  email: string
+): Promise<AxiosResponse<SubscriberDetails>> {
+  const url = SUBSCRIBERS_ROUTES.DETAILS.replace(':groupId', groupId).replace(
+    ':email',
+    email
+  );
+  return axiosClient.get(url);
 }
 
-export async function addSubscriber(
+export function addSubscriber(
   groupId: string,
   data: SubscriberFormFields
-): Promise<string> {
+): Promise<AxiosResponse<string>> {
   const url = SUBSCRIBERS_ROUTES.CREATE.replace(':groupId', groupId);
-  return await axiosClient.post(url, JSON.stringify(data));
+  return axiosClient.post(url, JSON.stringify(data));
 }
 
 export async function unsubscribe(
@@ -46,18 +54,18 @@ export async function unsubscribe(
   data: SubscriberBaseFields
 ): Promise<void> {
   const url = SUBSCRIBERS_ROUTES.UNSUBSCRIBE.replace(':groupId', groupId);
-  await axiosClient.post(url, JSON.stringify(data));
+  axiosClient.post(url, JSON.stringify(data));
 }
 
 export async function deleteSubscriber(
   groupId: string,
   email: string
-): Promise<void> {
+): Promise<AxiosResponse> {
   const url = SUBSCRIBERS_ROUTES.DELETE.replace(':groupId', groupId).replace(
     ':email',
     email
   );
-  await axiosClient.delete(url);
+  return axiosClient.delete(url);
 }
 
 export function convertSubscribeFormData(

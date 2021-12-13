@@ -11,7 +11,7 @@
     "labelEmail": "Sähköposti",
     "buttonSubmit": "Tilaa uutiskirje",
     "subscribeSuccess": "Tilaus lähetetty. Kiitos tilauksesta!",
-    "subscribeFailed": "subscribeFailed"
+    "subscribeFailed": "Valitettavasti tilauksen lähettäminen epäonnistui! Yritäthän myöhemmin uudelleen."
   },
   "subscribeNewsletterPage": {
     "pageTitle": "Tilaa uutiskirje",

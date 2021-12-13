@@ -1,16 +1,22 @@
 import axios from 'axios';
 
 const axiosClient = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_NEWSLETTER_BASE_URL,
+  baseURL: process.env.NEWSLETTER_BASE_URL,
   timeout: 30000,
+  headers: {
+    'Content-Type': 'application/json',
+  },
 });
 
-const apiKey = process.env.NEXT_PUBLIC_NEWSLETTER_APIKEY;
+const apiKey = process.env.NEWSLETTER_APIKEY;
 
 axiosClient.interceptors.request.use(
   (config) => {
     if (apiKey && config?.headers) {
-      config.headers.authorization = `Basic ${apiKey}`;
+      config.auth = {
+        username: apiKey,
+        password: 'x',
+      };
     }
     return config;
   },
