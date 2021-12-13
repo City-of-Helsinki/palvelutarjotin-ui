@@ -42,7 +42,7 @@ export const getEventFilterVariables = (
 ): EventsQueryVariables => {
   const search = getTextFromDict(query, 'text', undefined);
   return {
-    include: ['keywords', 'location', 'audience'],
+    include: ['keywords', 'location', 'audience', 'in_language'],
     allOngoingAnd: search ? [search] : null,
     inLanguage: getTextFromDict(query, 'inLanguage', undefined),
     keyword: getKeywordsToQuery(query),
