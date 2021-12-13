@@ -1,14 +1,13 @@
+import axios from 'axios';
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 
-import {
-  addSubscriber,
-  convertSubscribeFormData,
-} from '../../clients/gruppo/lib/subscribers';
+import { convertSubscribeFormData } from '../../clients/gruppo/lib/subscribers';
 import TextWithLineBreaks from '../../common/components/textWithLineBreaks/TextWithLineBreaks';
 import Container from '../app/layout/Container';
 import PageWrapper from '../app/layout/PageWrapper';
+import { ROUTES } from '../app/routes/constants';
 import NewsletterSubscribeForm, {
   defaultInitialValues,
   NewsletterSubscribeFormFields,
@@ -21,7 +20,10 @@ const SubscribeNewsletterPage: React.FC = () => {
   const handleSubmit = async (values: NewsletterSubscribeFormFields) => {
     Promise.all(
       values.groups.map((group) =>
-        addSubscriber(group, convertSubscribeFormData(values))
+        axios.post(
+          ROUTES.NEWSLETTER_SUBSCRIBE.replace(':group', group),
+          convertSubscribeFormData(values)
+        )
       )
     )
       .then(() => {

@@ -17,7 +17,7 @@ export type SubscriberFormFields = SubscriberBaseFields & {
   CustomFields?: SubscriberFormCustomField[];
   Resubscribe: boolean;
   RestartSubscriptionBasedAutoresponders: boolean;
-  ConsentToTrack: boolean;
+  ConsentToTrack: string;
 };
 
 export type SubscriberDetails = {
@@ -76,6 +76,6 @@ export function convertSubscribeFormData(
     Name: `${data.firstName} ${data.lastName}`,
     Resubscribe: true,
     RestartSubscriptionBasedAutoresponders: true,
-    ConsentToTrack: true,
+    ConsentToTrack: 'No', // TODO: COOKIE CONSENT
   };
 }
