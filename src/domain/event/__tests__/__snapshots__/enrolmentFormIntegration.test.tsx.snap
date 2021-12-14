@@ -103,6 +103,106 @@ Object {
 }
 `;
 
+exports[`user can select multiple occurrences and enrol to them with enrolment form 5`] = `
+Object {
+  "dirty": true,
+  "errors": Object {},
+  "initialErrors": Object {},
+  "initialTouched": Object {},
+  "initialValues": Object {
+    "hasEmailNotification": true,
+    "hasSmsNotification": false,
+    "isMandatoryAdditionalInformationRequired": false,
+    "isSameResponsiblePerson": true,
+    "isSharingDataAccepted": false,
+    "language": "FI",
+    "person": Object {
+      "emailAddress": "",
+      "name": "",
+      "phoneNumber": "",
+    },
+    "studyGroup": Object {
+      "amountOfAdult": "",
+      "extraNeeds": "",
+      "groupName": "",
+      "groupSize": "",
+      "person": Object {
+        "emailAddress": "",
+        "name": "",
+        "phoneNumber": "",
+      },
+      "studyLevels": Array [],
+      "unitId": "",
+      "unitName": "",
+    },
+  },
+  "isSubmitting": false,
+  "isValid": true,
+  "isValidating": false,
+  "submitCount": 2,
+  "touched": Object {
+    "hasEmailNotification": true,
+    "hasSmsNotification": true,
+    "isMandatoryAdditionalInformationRequired": true,
+    "isSameResponsiblePerson": true,
+    "isSharingDataAccepted": true,
+    "language": true,
+    "person": Object {
+      "emailAddress": true,
+      "name": true,
+      "phoneNumber": true,
+    },
+    "studyGroup": Object {
+      "amountOfAdult": true,
+      "extraNeeds": true,
+      "groupName": true,
+      "groupSize": true,
+      "person": Object {
+        "emailAddress": true,
+        "name": true,
+        "phoneNumber": true,
+      },
+      "studyLevels": true,
+      "unitId": true,
+      "unitName": true,
+    },
+  },
+  "validateOnBlur": true,
+  "validateOnChange": true,
+  "validateOnMount": false,
+  "values": Object {
+    "hasEmailNotification": true,
+    "hasSmsNotification": true,
+    "isMandatoryAdditionalInformationRequired": false,
+    "isSameResponsiblePerson": true,
+    "isSharingDataAccepted": true,
+    "language": "FI",
+    "person": Object {
+      "emailAddress": "",
+      "name": "",
+      "phoneNumber": "",
+    },
+    "studyGroup": Object {
+      "amountOfAdult": 2,
+      "extraNeeds": "Lisätietoja ilmoittautumiseen",
+      "groupName": "4a",
+      "groupSize": 10,
+      "person": Object {
+        "emailAddress": "testi@testi.fi",
+        "name": "Nimi Niminen",
+        "phoneNumber": "123321123",
+      },
+      "studyLevels": Array [
+        "GRADE_2",
+        "GRADE_4",
+      ],
+      "unitId": null,
+      "unitName": "Testikoulu",
+    },
+  },
+}
+`;
+
 exports[`user can select single occurrences and enrol to it with enrolment form 2`] = `
 Object {
   "dirty": true,

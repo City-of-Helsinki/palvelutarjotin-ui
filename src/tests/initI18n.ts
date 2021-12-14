@@ -9,6 +9,7 @@ import events from '../../public/locales/fi/events.json';
 import footer from '../../public/locales/fi/footer.json';
 import form from '../../public/locales/fi/form.json';
 import header from '../../public/locales/fi/header.json';
+import newsletter from '../../public/locales/fi/newsletter.json';
 import occurrence from '../../public/locales/fi/occurrence.json';
 
 const translations = {
@@ -20,6 +21,7 @@ const translations = {
   enrolment,
   occurrence,
   form,
+  newsletter,
 };
 
 i18n.use(intervalPlural);

@@ -8,9 +8,9 @@ import TextWithLineBreaks from '../../common/components/textWithLineBreaks/TextW
 import Container from '../app/layout/Container';
 import PageWrapper from '../app/layout/PageWrapper';
 import { ROUTES } from '../app/routes/constants';
+import { NewsletterSubscribeFormFields } from './newsletterSubscribeForm/constants';
 import NewsletterSubscribeForm, {
   defaultInitialValues,
-  NewsletterSubscribeFormFields,
 } from './newsletterSubscribeForm/NewsletterSubscribeForm';
 import styles from './subscribeNewsletterPage.module.scss';
 

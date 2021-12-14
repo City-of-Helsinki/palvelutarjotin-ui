@@ -8,16 +8,9 @@ import TextInputField from '../../../common/components/form/fields/TextInputFiel
 import FocusToFirstError from '../../../common/components/form/FocusToFirstError';
 import FormGroup from '../../../common/components/form/FormGroup';
 import { translateValue } from '../../../utils/translateUtils';
-import { NewsletterGroupId } from './constants';
+import { NewsletterGroupId, NewsletterSubscribeFormFields } from './constants';
 import styles from './newsletterSubscribeForm.module.scss';
 import getValidationSchema from './ValidationSchema';
-
-export type NewsletterSubscribeFormFields = {
-  groups: NewsletterGroupId[];
-  firstName: string;
-  lastName: string;
-  email: string;
-};
 
 export const defaultInitialValues: NewsletterSubscribeFormFields = {
   groups: Object.values(NewsletterGroupId),

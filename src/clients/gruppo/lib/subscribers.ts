@@ -1,7 +1,6 @@
 import { AxiosResponse } from 'axios';
 
-// eslint-disable-next-line max-len
-import { NewsletterSubscribeFormFields } from '../../../domain/newsletter/newsletterSubscribeForm/NewsletterSubscribeForm';
+import { NewsletterSubscribeFormFields } from '../../../domain/newsletter/newsletterSubscribeForm/constants';
 import axiosClient, { SUBSCRIBERS_ROUTES } from '../gruppoClient';
 export type SubscriberFormCustomField = {
   Key: string;
