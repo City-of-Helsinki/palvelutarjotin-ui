@@ -150,7 +150,7 @@ const PopularKeywords: React.FC = () => {
 
 const EventsPageMeta: React.FC = () => {
   const { t } = useTranslation();
-  const title = 'Kultus beta';
+  const title = 'Kultus';
   const description = t('events:pageMeta.description');
 
   const openGraphProperties: { [key: string]: string } = {

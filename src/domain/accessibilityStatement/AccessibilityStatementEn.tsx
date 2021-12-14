@@ -5,8 +5,8 @@ const AccessibilityStatementEn: FunctionComponent = () => {
     <>
       <h1>Accessibility Statement</h1>
       <p>
-        This accessibility statement applies to the website ‘Kultus beta‘ of the
-        City of Helsinki. The site address is https://beta.kultus.fi
+        This accessibility statement applies to the website ‘Kultus‘ of the City
+        of Helsinki. The site address is https://beta.kultus.fi
       </p>
 
       <h2>Statutory provisions applicable to the website</h2>

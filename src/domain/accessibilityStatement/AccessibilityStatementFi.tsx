@@ -5,7 +5,7 @@ const AccessibilityStatementFi: FunctionComponent = () => {
     <>
       <h1>Saavutettavuus&shy;seloste</h1>
       <p>
-        Tämä saavutettavuusseloste koskee Helsingin kaupungin ‘Kultus beta‘
+        Tämä saavutettavuusseloste koskee Helsingin kaupungin ‘Kultus‘
         -verkkosivustoa. Sivuston osoite on https://beta.kultus.fi.
       </p>
       <h2>Sivustoa koskevat lain säädökset</h2>

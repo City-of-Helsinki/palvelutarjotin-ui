@@ -45,7 +45,7 @@ exports[`PageLayout matches snapshot 1`] = `
                 />
               </svg>
               <span>
-                Kultus beta
+                Kultus
               </span>
             </a>
             <div
@@ -209,7 +209,7 @@ exports[`PageLayout matches snapshot 1`] = `
                 />
               </svg>
               <span>
-                Kultus beta
+                Kultus
               </span>
             </a>
             <div
