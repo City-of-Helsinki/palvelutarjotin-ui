@@ -24,7 +24,13 @@ Project is automatically deployed to testing environment when pushing to develop
 
 ### Google reCAPTCHA
 
-Google reCAPTCHA admin account login information can be found [here](https://gitlab.com/City-of-Helsinki/secrets/-/blob/palvelutarjotin/palvelutarjotin-google-recaptcha-credentials.txt)
+Palvelutarjotin-ui uses googles reCAPTCHA v3.
+
+About reCAPTCHA: [https://www.google.com/recaptcha/about/](https://www.google.com/recaptcha/about/)
+
+reCAPTCHA documentation: [https://developers.google.com/recaptcha/docs/v3](https://developers.google.com/recaptcha/docs/v3)
+
+Google reCAPTCHA admin account login information can be found [here](https://vault.kuva.hel.ninja/ui/vault/secrets/share/show/palvelutarjotin-google-recaptcha)
 
 ## Available Scripts
 
