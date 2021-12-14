@@ -21,7 +21,7 @@ const SubscribeNewsletterPage: React.FC = () => {
     Promise.all(
       values.groups.map((group) =>
         axios.post(
-          ROUTES.NEWSLETTER_SUBSCRIBE.replace(':group', group),
+          ROUTES.NEWSLETTER_SUBSCRIBE_API.replace(':group', group),
           convertSubscribeFormData(values)
         )
       )

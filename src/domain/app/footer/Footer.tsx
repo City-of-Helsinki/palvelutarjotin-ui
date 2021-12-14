@@ -8,6 +8,7 @@ import {
   PROVIDER_UI_LINKS,
 } from '../../../constants';
 import useLocale from '../../../hooks/useLocale';
+import { ROUTES } from '../routes/constants';
 import styles from './footer.module.scss';
 
 const FooterSection = (): React.ReactElement => {
@@ -22,6 +23,11 @@ const FooterSection = (): React.ReactElement => {
         copyrightHolder={t('footer:copyrightText')}
         copyrightText={t('footer:allRightsReservedText')}
       >
+        <Footer.Item
+          as={'a'}
+          href={ROUTES.NEWSLETTER}
+          label={t('common:subscribeNewsletter.title')}
+        />
         <Footer.Item
           as={'a'}
           href={PROVIDER_UI_LINKS[locale]}
