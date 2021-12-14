@@ -47,7 +47,7 @@ const EventsPage = (): ReactElement => {
     isLoadingMore,
   } = useUpcomingEvents({
     variables: {
-      include: ['keywords', 'location', 'audience'],
+      include: ['keywords', 'location', 'audience', 'in_language'],
     },
   });
 

@@ -100,7 +100,7 @@ const mocks: MockedResponse[] = [
     request: {
       query: UpcomingEventsDocument,
       variables: {
-        include: ['keywords', 'location', 'audience'],
+        include: ['keywords', 'location', 'audience', 'in_language'],
       },
     },
     result: {
