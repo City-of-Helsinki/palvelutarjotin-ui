@@ -42,7 +42,7 @@ exports[`Header matches snapshot 1`] = `
               />
             </svg>
             <span>
-              Kultus beta
+              Kultus
             </span>
           </a>
           <div
@@ -206,7 +206,7 @@ exports[`Header matches snapshot 1`] = `
               />
             </svg>
             <span>
-              Kultus beta
+              Kultus
             </span>
           </a>
           <div

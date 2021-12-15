@@ -6,7 +6,7 @@ const AccessibilityStatementSv: FunctionComponent = () => {
       <h1>Tillgänglighets&shy;utlåtande</h1>
       <p>
         Detta tillgänglighetsutlåtande gäller Helsingfors stads webbplats
-        ‘Kultus beta‘. Webbplatsens adress är https://beta.kultus.fi
+        ‘Kultus‘. Webbplatsens adress är https://kultus.fi
       </p>
       <h2>Lagbestämmelser som gäller webbplatsen</h2>
       <p>
