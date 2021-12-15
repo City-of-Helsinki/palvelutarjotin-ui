@@ -38,6 +38,9 @@ it('renders notification and it can be closed', async () => {
         {
           request: {
             query: NotificationDocument,
+            variables: {
+              language: 'fi',
+            },
           },
           result: {
             data: {
