@@ -140,13 +140,12 @@ exports[`renders multiday occurrence time correctly 1`] = `
         class="keywordsList"
       >
         <li>
-          <a
+          <button
             aria-label="Hae tapahtumia avainsanalla Avainsana"
             class="keyword"
-            href="/search?categories=kultus%3A+1"
           >
             Avainsana
-          </a>
+          </button>
         </li>
       </ul>
     </div>
