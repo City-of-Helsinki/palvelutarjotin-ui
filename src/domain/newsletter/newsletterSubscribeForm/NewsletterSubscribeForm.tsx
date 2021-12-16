@@ -62,7 +62,7 @@ const NewsletterSubscribeForm: React.FC<Props> = ({
                 label={t('newsletter:newsletterSubscribeForm.labelGroups')}
                 component={MultiDropdownField}
                 name="groups"
-                options={groupsOptions || []}
+                options={groupsOptions}
                 required
               />
             </FormGroup>
