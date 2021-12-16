@@ -8,11 +8,15 @@ import {
   PROVIDER_UI_LINKS,
 } from '../../../constants';
 import useLocale from '../../../hooks/useLocale';
+import { isFeatureEnabled } from '../../../utils/featureFlags';
+import { ROUTES } from '../routes/constants';
 import styles from './footer.module.scss';
 
 const FooterSection = (): React.ReactElement => {
   const { t } = useTranslation();
   const locale = useLocale();
+
+  const isNewsletterEnabled = isFeatureEnabled('NEWSLETTER');
 
   // override Footer component default behaviour which focuses skip-link
 
@@ -22,6 +26,13 @@ const FooterSection = (): React.ReactElement => {
         copyrightHolder={t('footer:copyrightText')}
         copyrightText={t('footer:allRightsReservedText')}
       >
+        {isNewsletterEnabled && (
+          <Footer.Item
+            as={'a'}
+            href={ROUTES.NEWSLETTER}
+            label={t('common:subscribeNewsletter.title')}
+          />
+        )}
         <Footer.Item
           as={'a'}
           href={PROVIDER_UI_LINKS[locale]}

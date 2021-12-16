@@ -40,6 +40,15 @@ const checkIsServerReady = (response) => {
     checkIsServerReady(res);
   });
 
+  // NOTE: Allow only POST for newsletter, because of security conserns.
+  // (Other options are GET and DELETE).
+  // We don't want that people can unsubsribe other people from the newsletters.
+  server
+    .route('/api/newsletter/subscribe/:groupId')
+    .post((req, res) => handle(req, res))
+    .get((req, res) => res.status(403).end());
+
+  // Allow all GETs to everywhere, except to the ones reject before this
   server.get('*', (req, res) => handle(req, res));
 
   await server.listen(port);

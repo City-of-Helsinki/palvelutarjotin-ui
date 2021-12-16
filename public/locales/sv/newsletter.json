@@ -1,0 +1,21 @@
+{
+  "newsletterSubscribeForm": {
+    "newsletterGroups": {
+      "elementarySchool": "Lågklasserna",
+      "earlyChildhoodEducation": "Småbarnspedagogik",
+      "highAndSecondarySchools": "Högklasserna och gymnasiet"
+    },
+    "labelGroups": "Jag vill prenumerera på nyhetsbrev gällande ",
+    "labelFirstName": "Förnamn",
+    "labelLastName": "Efternamn",
+    "labelEmail": "E-postadress",
+    "buttonSubmit": "Beställ",
+    "subscribeSuccessLabel": "Du har nu beställt nyhetsbrevet Kultus.",
+    "subscribeSuccess": "Tack!",
+    "subscribeFailedLabel": "Ett fel uppstod"
+  },
+  "subscribeNewsletterPage": {
+    "pageTitle": "Beställ vårt nyhetsbrev!",
+    "leadText": "Beställ Kultus-nyhetsbrevet och få aktuell information en gång i månaden om huvudstadsregionens kulturutbud riktat till barn och unga till din e-post. I nyhetsbrevet informerar vi även om seminarier och fortbildningar, som riktar sig till lärare.\n\nJag godkänner att mina uppgifter sparas i stamkundregistret. Jag kan när som helst annullera nyhetsbrevet."
+  }
+}

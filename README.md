@@ -64,6 +64,8 @@ Generate static types for GraphQL queries by using the schema from the backend s
 - Kultus API URL to can be defined to `NEXT_PUBLIC_API_BASE_URL` variable
 - Headless CMS API URL to `NEXT_PUBLIC_CMS_BASE_URL`
 - Unified search API URL to `NEXT_PUBLIC_UNIFIED_SEARCH_BASE_URL`
+- Newsletter API URL to `NEWSLETTER_BASE_URL`
+- Newsletter APIKEY to `NEWSLETTER_APIKEY`
 
 ### `yarn lint`
 

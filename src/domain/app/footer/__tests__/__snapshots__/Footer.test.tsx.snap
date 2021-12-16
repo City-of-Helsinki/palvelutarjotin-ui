@@ -98,6 +98,14 @@ exports[`Footer matches snapshot 1`] = `
       >
         <a
           class="FooterItem-module_item__1i8Z8"
+          href="/newsletter"
+        >
+          <span>
+            Tilaa uutiskirje
+          </span>
+        </a>
+        <a
+          class="FooterItem-module_item__1i8Z8"
           href="https://provider.kultus.fi"
           rel="noopener noreferrer"
           target="_blank"

@@ -1,0 +1,21 @@
+{
+  "newsletterSubscribeForm": {
+    "newsletterGroups": {
+      "elementarySchool": "Alakouluille",
+      "earlyChildhoodEducation": "Varhaiskasvatukselle",
+      "highAndSecondarySchools": "Yläkouluille ja toisen asteen oppilaitoksille"
+    },
+    "labelGroups": "Tilaan uutiskirjeen",
+    "labelFirstName": "Etunimi",
+    "labelLastName": "Sukunimi",
+    "labelEmail": "Sähköposti",
+    "buttonSubmit": "Tilaa uutiskirje",
+    "subscribeSuccessLabel": "Tilaus lähetetty",
+    "subscribeSuccess": "Kiitos tilauksesta!",
+    "subscribeFailedLabel": "Valitettavasti tilauksen lähettäminen epäonnistui! Yritäthän myöhemmin uudelleen."
+  },
+  "subscribeNewsletterPage": {
+    "pageTitle": "Tilaa uutiskirje",
+    "leadText": "Tilaamalla Kultus.fi -uutiskirjeen saat suoraan sähköpostiisi uusimmat tiedot ajankohtaisesta, lapsille ja nuorille suunnatusta kulttuuritarjonnasta kerran kuukaudessa. Kerromme uutiskirjeessä myös opettajille suunnatuista seminaareista ja koulutuksista.\n\nTilaamalla Kultus.fi -uutiskirjeen hyväksyn, että lähettämäni tiedot tallennetaan tilaajarekisteriin. Uutiskirjeen tilauksen voi perua milloin tahansa."
+  }
+}

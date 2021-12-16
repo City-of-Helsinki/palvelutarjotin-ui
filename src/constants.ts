@@ -35,6 +35,7 @@ export const ALL_I18N_NAMESPACES = [
   'form',
   'occurrence',
   'cms',
+  'newsletter',
 ];
 
 export const PRIVACY_POLICY_LINKS = {
