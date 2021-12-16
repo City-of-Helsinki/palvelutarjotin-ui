@@ -11,7 +11,6 @@ type KeywordProps = {
   keyword: string | JSX.Element;
   href: string | UrlObject;
   itemType: 'button' | 'link';
-  // onClick?: (event: React.MouseEvent<HTMLAnchorElement>) => void;
 };
 
 const Keyword: React.FC<KeywordProps> = ({
