@@ -2,6 +2,7 @@ import axios, { AxiosError } from 'axios';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 import { addSubscriber } from '../../../../clients/gruppo/lib/subscribers';
+import { isFeatureEnabled } from '../../../../utils/featureFlags';
 
 const axiosErrorHandler = (res: NextApiResponse, err: AxiosError | Error) => {
   if (axios.isAxiosError(err) && err.response) {
@@ -15,6 +16,11 @@ const NewsletterEndpoint = async (
   req: NextApiRequest,
   res: NextApiResponse
 ): Promise<void> => {
+  if (!isFeatureEnabled('NEWSLETTER')) {
+    res.status(404).end();
+    return;
+  }
+
   const { query, method, body } = req;
   const groupId = Array.isArray(query.groupId)
     ? query.groupId[0]

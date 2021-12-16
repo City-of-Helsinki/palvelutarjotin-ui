@@ -46,6 +46,7 @@ jobs:
           DOCKER_BUILD_ARG_NEXT_PUBLIC_LANGUAGE_CIMODE_VISIBLE: 'false'
           DOCKER_BUILD_ARG_NEXT_PUBLIC_HEADLESS_CMS_ENABLED: 'true'
           DOCKER_BUILD_ARG_NEXT_PUBLIC_FORMIK_PERSIST: 'false'
+          DOCKER_BUILD_ARG_NEXT_PUBLIC_NEWSLETTER_ENABLED: 'false'
 
   production:
     runs-on: ubuntu-latest
