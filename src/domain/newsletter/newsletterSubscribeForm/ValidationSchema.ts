@@ -10,6 +10,8 @@ export default function getValidationSchema() {
       .min(1, VALIDATION_MESSAGE_KEYS.STRING_REQUIRED),
     firstName: Yup.string().required(VALIDATION_MESSAGE_KEYS.STRING_REQUIRED),
     lastName: Yup.string().required(VALIDATION_MESSAGE_KEYS.STRING_REQUIRED),
-    email: Yup.string().required(VALIDATION_MESSAGE_KEYS.STRING_REQUIRED),
+    email: Yup.string()
+      .required(VALIDATION_MESSAGE_KEYS.STRING_REQUIRED)
+      .email(VALIDATION_MESSAGE_KEYS.EMAIL),
   });
 }

@@ -3,7 +3,6 @@ import { FormikHelpers } from 'formik';
 import { Notification } from 'hds-react';
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { toast } from 'react-toastify';
 
 import { convertSubscribeFormData } from '../../clients/gruppo/lib/subscribers';
 import TextWithLineBreaks from '../../common/components/textWithLineBreaks/TextWithLineBreaks';
@@ -18,38 +17,13 @@ import styles from './subscribeNewsletterPage.module.scss';
 
 const SubscribeNewsletterPage: React.FC = () => {
   const { t } = useTranslation();
-  const [notification, setNotification] = React.useState<JSX.Element | null>(
-    null
-  );
-  const [notificationAutoCloseOpen, setNotificationAutoCloseOpen] =
-    React.useState(false);
+  const [notificationType, setNotificationType] = React.useState<
+    'success' | 'error' | null
+  >(null);
 
   const notificationOnClose = () => {
-    setNotificationAutoCloseOpen(false);
-    setNotification(null);
+    setNotificationType(null);
   };
-
-  const successfulNotification = (
-    <Notification
-      type="success"
-      label={t('newsletter:newsletterSubscribeForm.subscribeSuccessLabel')}
-      position="top-right"
-      autoClose
-      onClose={notificationOnClose}
-    >
-      {t('newsletter:newsletterSubscribeForm.subscribeSuccess')}
-    </Notification>
-  );
-
-  const errorNotification = (
-    <Notification
-      type="error"
-      label={t('newsletter:newsletterSubscribeForm.subscribeFailedLabel')}
-      position="top-right"
-      autoClose
-      onClose={notificationOnClose}
-    />
-  );
 
   const handleSubmit = async (
     values: NewsletterSubscribeFormFields,
@@ -65,12 +39,10 @@ const SubscribeNewsletterPage: React.FC = () => {
     )
       .then(() => {
         actions.resetForm();
-        setNotification(successfulNotification);
-        setNotificationAutoCloseOpen(true);
+        setNotificationType('success');
       })
       .catch((e) => {
-        setNotification(errorNotification);
-        setNotificationAutoCloseOpen(true);
+        setNotificationType('error');
       });
   };
 
@@ -79,7 +51,30 @@ const SubscribeNewsletterPage: React.FC = () => {
       <div className={styles.subscribeNewsletter}>
         <Container>
           <h2>{t('newsletter:subscribeNewsletterPage.pageTitle')}</h2>
-          {notificationAutoCloseOpen && notification}
+          {notificationType === 'success' && (
+            <Notification
+              type="success"
+              label={t(
+                'newsletter:newsletterSubscribeForm.subscribeSuccessLabel'
+              )}
+              position="top-right"
+              autoClose
+              onClose={notificationOnClose}
+            >
+              {t('newsletter:newsletterSubscribeForm.subscribeSuccess')}
+            </Notification>
+          )}
+          {notificationType === 'error' && (
+            <Notification
+              type="error"
+              label={t(
+                'newsletter:newsletterSubscribeForm.subscribeFailedLabel'
+              )}
+              position="top-right"
+              autoClose
+              onClose={notificationOnClose}
+            />
+          )}
           <TextWithLineBreaks
             as="p"
             text={t('newsletter:subscribeNewsletterPage.leadText')}
