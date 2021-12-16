@@ -27,6 +27,9 @@ const renderComponent = (notification: Partial<Notification> = {}) => {
       {
         request: {
           query: NotificationDocument,
+          variables: {
+            language: 'fi',
+          },
         },
         result: {
           data: {

@@ -10243,7 +10243,9 @@ export type PagesSearchQueryVariables = Exact<{
 
 export type PagesSearchQuery = { __typename?: 'RootQuery', pages?: Maybe<{ __typename?: 'RootQueryToPageConnection', pageInfo?: Maybe<{ __typename?: 'WPPageInfo', endCursor?: Maybe<string>, hasNextPage: boolean }>, edges?: Maybe<Array<Maybe<{ __typename?: 'RootQueryToPageConnectionEdge', cursor?: Maybe<string>, node?: Maybe<{ __typename?: 'Page', id: string, content?: Maybe<string>, slug?: Maybe<string>, title?: Maybe<string>, uri?: Maybe<string>, lead?: Maybe<string>, translations?: Maybe<Array<Maybe<{ __typename?: 'Page', id: string, content?: Maybe<string>, slug?: Maybe<string>, title?: Maybe<string>, uri?: Maybe<string>, lead?: Maybe<string>, seo?: Maybe<{ __typename?: 'SEO', title?: Maybe<string>, description?: Maybe<string>, openGraphTitle?: Maybe<string>, openGraphDescription?: Maybe<string>, openGraphType?: Maybe<string>, twitterTitle?: Maybe<string>, twitterDescription?: Maybe<string> }>, language?: Maybe<{ __typename?: 'Language', code?: Maybe<LanguageCodeEnum>, slug?: Maybe<string>, locale?: Maybe<string>, name?: Maybe<string> }>, featuredImage?: Maybe<{ __typename?: 'NodeWithFeaturedImageToMediaItemConnectionEdge', node?: Maybe<{ __typename?: 'MediaItem', mediaItemUrl?: Maybe<string>, link?: Maybe<string>, altText?: Maybe<string>, mimeType?: Maybe<string>, title?: Maybe<string>, uri?: Maybe<string> }> }> }>>>, seo?: Maybe<{ __typename?: 'SEO', title?: Maybe<string>, description?: Maybe<string>, openGraphTitle?: Maybe<string>, openGraphDescription?: Maybe<string>, openGraphType?: Maybe<string>, twitterTitle?: Maybe<string>, twitterDescription?: Maybe<string> }>, language?: Maybe<{ __typename?: 'Language', code?: Maybe<LanguageCodeEnum>, slug?: Maybe<string>, locale?: Maybe<string>, name?: Maybe<string> }>, featuredImage?: Maybe<{ __typename?: 'NodeWithFeaturedImageToMediaItemConnectionEdge', node?: Maybe<{ __typename?: 'MediaItem', mediaItemUrl?: Maybe<string>, link?: Maybe<string>, altText?: Maybe<string>, mimeType?: Maybe<string>, title?: Maybe<string>, uri?: Maybe<string> }> }> }> }>>> }> };
 
-export type NotificationQueryVariables = Exact<{ [key: string]: never; }>;
+export type NotificationQueryVariables = Exact<{
+  language?: Scalars['String'];
+}>;
 
 
 export type NotificationQuery = { __typename?: 'RootQuery', notification?: Maybe<{ __typename?: 'Notification', content?: Maybe<string>, title?: Maybe<string>, level?: Maybe<string>, startDate?: Maybe<string>, endDate?: Maybe<string>, linkText?: Maybe<string>, linkUrl?: Maybe<string> }> };
@@ -10556,8 +10558,8 @@ export type PagesSearchQueryHookResult = ReturnType<typeof usePagesSearchQuery>;
 export type PagesSearchLazyQueryHookResult = ReturnType<typeof usePagesSearchLazyQuery>;
 export type PagesSearchQueryResult = Apollo.QueryResult<PagesSearchQuery, PagesSearchQueryVariables>;
 export const NotificationDocument = gql`
-    query Notification {
-  notification(language: "") {
+    query Notification($language: String! = "fi") {
+  notification(language: $language) {
     content
     title
     level
@@ -10581,6 +10583,7 @@ export const NotificationDocument = gql`
  * @example
  * const { data, loading, error } = useNotificationQuery({
  *   variables: {
+ *      language: // value for 'language'
  *   },
  * });
  */

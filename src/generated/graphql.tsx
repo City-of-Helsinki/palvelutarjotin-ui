@@ -1549,6 +1549,8 @@ export type QueryEventsArgs = {
   organisationId?: Maybe<Scalars['String']>;
   showAll?: Maybe<Scalars['Boolean']>;
   publicationStatus?: Maybe<Scalars['String']>;
+  nearbyPlaceId?: Maybe<Scalars['ID']>;
+  nearbyDistance?: Maybe<Scalars['Float']>;
 };
 
 
