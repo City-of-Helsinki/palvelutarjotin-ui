@@ -18,9 +18,13 @@ import styles from './keyword.module.scss';
 
 type KeywordsListProps = {
   keywords: KeywordFieldsFragment[];
+  itemType?: 'button' | 'link';
 };
 
-const KeywordsList: React.FC<KeywordsListProps> = ({ keywords }) => {
+const KeywordsList: React.FC<KeywordsListProps> = ({
+  keywords,
+  itemType = 'link',
+}) => {
   const locale = useLocale();
   const { t } = useTranslation();
   const keywordOptions = useKeywordOptions();
@@ -36,6 +40,7 @@ const KeywordsList: React.FC<KeywordsListProps> = ({ keywords }) => {
             aria-label={t('event:keywords.labelKeywordLink', {
               keyword: k.label,
             })}
+            itemType={itemType}
           />
         </li>
       ))}
