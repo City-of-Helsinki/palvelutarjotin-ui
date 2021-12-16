@@ -10,8 +10,9 @@
     "labelLastName": "Sukunimi",
     "labelEmail": "Sähköposti",
     "buttonSubmit": "Tilaa uutiskirje",
-    "subscribeSuccess": "Tilaus lähetetty. Kiitos tilauksesta!",
-    "subscribeFailed": "Valitettavasti tilauksen lähettäminen epäonnistui! Yritäthän myöhemmin uudelleen."
+    "subscribeSuccessLabel": "Tilaus lähetetty",
+    "subscribeSuccess": "Kiitos tilauksesta!",
+    "subscribeFailedLabel": "Valitettavasti tilauksen lähettäminen epäonnistui! Yritäthän myöhemmin uudelleen."
   },
   "subscribeNewsletterPage": {
     "pageTitle": "Tilaa uutiskirje",

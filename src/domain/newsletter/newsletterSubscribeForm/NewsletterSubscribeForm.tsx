@@ -1,4 +1,4 @@
-import { Field, Formik } from 'formik';
+import { Field, Formik, FormikHelpers } from 'formik';
 import { Button } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -21,7 +21,10 @@ export const defaultInitialValues: NewsletterSubscribeFormFields = {
 
 type Props = {
   initialValues: NewsletterSubscribeFormFields;
-  onSubmit: (values: NewsletterSubscribeFormFields) => void;
+  onSubmit: (
+    values: NewsletterSubscribeFormFields,
+    actions: FormikHelpers<NewsletterSubscribeFormFields>
+  ) => void;
 };
 
 const NewsletterSubscribeForm: React.FC<Props> = ({

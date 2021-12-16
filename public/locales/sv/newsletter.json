@@ -10,8 +10,9 @@
     "labelLastName": "Efternamn",
     "labelEmail": "E-postadress",
     "buttonSubmit": "Beställ",
-    "subscribeSuccess": "Tack! Du har nu beställt nyhetsbrevet Kultus.",
-    "subscribeFailed": "Ett fel uppstod"
+    "subscribeSuccessLabel": "Du har nu beställt nyhetsbrevet Kultus.",
+    "subscribeSuccess": "Tack!",
+    "subscribeFailedLabel": "Ett fel uppstod"
   },
   "subscribeNewsletterPage": {
     "pageTitle": "Beställ vårt nyhetsbrev!",
