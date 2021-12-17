@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.2.0](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/v1.1.0...v1.2.0) (2021-12-17)
+
+
+### Features
+
+* add support for localization in notification ([7dfea80](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/7dfea800a7081025f41b02302e1b38813b67ff8c))
+* **newsletter:** added feature flag for newsletter ([2aabbec](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/2aabbec2fa7d30c0e6ba573aad515d4be2ccd386))
+* **newsletter:** api implementation for subscribing ([c53f854](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/c53f8549cc4e31324d3e432fac48cf54b0bdd9e2))
+* **newsletter:** client uses internal api to hide api key ([83d4ccb](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/83d4ccbcf14c03630f812b325e2aabf2595bac2a))
+* **newsletter:** gruppo-client ([13a0bfa](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/13a0bfa0cc50422c283957021d051ba6887824b2))
+* **newsletter:** link added to the footer ([693df77](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/693df7718f69e9305af9a1ccccee8d813f0819d4))
+* **newsletter:** subscription page ([d778fe1](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/d778fe1f615f9ba02a12b3c1a498f8538263013a))
+
+
+### Bug Fixes
+
+* add event language to the include list in evets and events search pages ([11f04a6](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/11f04a62c7cebb8600031afae7d962c384ca4554))
+* **newsletter:** using HDS notifications ([2aec8d0](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/2aec8d052b3e2cab1cff8cd58054d4f1fcf1e90d))
+* resolve validate dom nesting issue by changing link to button ([1a224f6](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/1a224f67990d5a87c2e9bb62df8aad1495eaca83))
+* update next to fix typing issues in _document.tsx ([95b3872](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/95b38721770651f3b3d4c4865a5bcf5a06316e61))
+
 ## [1.1.0](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/v1.0.0...v1.1.0) (2021-12-10)
 
 
