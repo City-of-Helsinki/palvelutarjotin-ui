@@ -8,7 +8,9 @@ const axiosErrorHandler = (res: NextApiResponse, err: AxiosError | Error) => {
   if (axios.isAxiosError(err) && err.response) {
     res.status(err.response.status).json(err.response.data);
   } else {
-    res.status(500).json({ error: 'An error occured' });
+    res
+      .status(500)
+      .json({ name: 'SubscribeNewsletterError', message: err.message });
   }
 };
 
