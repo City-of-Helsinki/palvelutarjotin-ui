@@ -29,7 +29,7 @@ const FooterSection = (): React.ReactElement => {
         {isNewsletterEnabled && (
           <Footer.Item
             as={'a'}
-            href={ROUTES.NEWSLETTER}
+            href={`/${locale}${ROUTES.NEWSLETTER}`}
             label={t('common:subscribeNewsletter.title')}
           />
         )}
