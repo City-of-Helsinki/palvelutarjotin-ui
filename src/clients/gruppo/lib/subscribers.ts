@@ -45,6 +45,7 @@ export function addSubscriber(
   data: SubscriberFormFields
 ): Promise<AxiosResponse<string>> {
   const url = SUBSCRIBERS_ROUTES.CREATE.replace(':groupId', groupId);
+  console.log('GruppoClient', 'addSubscriber', 'group:', groupId);
   return axiosClient.post(url, JSON.stringify(data));
 }
 

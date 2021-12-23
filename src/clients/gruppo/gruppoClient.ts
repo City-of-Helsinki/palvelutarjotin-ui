@@ -1,14 +1,18 @@
 import axios from 'axios';
 
+const baseUrl = process.env.NEWSLETTER_BASE_URL;
+const apiKey = process.env.NEWSLETTER_APIKEY;
+
+console.log('baseUrl', baseUrl);
+console.log('apiKey', apiKey);
+
 const axiosClient = axios.create({
-  baseURL: process.env.NEWSLETTER_BASE_URL,
+  baseURL: baseUrl,
   timeout: 30000,
   headers: {
     'Content-Type': 'application/json',
   },
 });
-
-const apiKey = process.env.NEWSLETTER_APIKEY;
 
 axiosClient.interceptors.request.use(
   (config) => {
