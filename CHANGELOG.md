@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.2.1](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/v1.2.0...v1.2.1) (2022-01-05)
+
+
+### Bug Fixes
+
+* make learning materials to link corretly in english and swedish ([b917541](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/b917541ffcad287569c5379fbbae87d0d50226d7))
+* **newsletter:** added env next to arg defines in dockerfile ([535c401](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/535c401f8b6711b459b7415498a40c881bdeb8a3))
+* **newsletter:** added error message to generic newsletter api error ([ba10dde](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/ba10dde08b7509e2902772005ef6350df67669d9))
+* **newsletter:** language specific link to newsletter ([73c453d](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/73c453dce300596c38aad9bc30b02ed0be8c2874))
+* **newsletter:** moved api docker env variables under prod settings ([d902073](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/d902073c7cf469482d19c446e3867eae04a11146))
+
 ## [1.2.0](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/v1.1.0...v1.2.0) (2021-12-17)
 
 
