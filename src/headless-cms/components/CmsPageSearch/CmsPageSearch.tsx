@@ -15,9 +15,10 @@ import {
 } from '../../../generated/graphql-cms';
 import useDebounce from '../../../hooks/useDebounce';
 import { useCMSClient } from '../../cmsApolloContext';
+import { stripLocaleFromUri } from '../../utils';
 import styles from './cmspagesearch.module.scss';
 
-const BLOCK_SIZE = 3;
+const BLOCK_SIZE = 10;
 const SEARCH_DEBOUNCE_TIME = 500;
 
 const CmsPageSearch: React.FC<{
@@ -123,7 +124,9 @@ const CmsPageSearchList: React.FC<{
       <LoadingSpinner isLoading={loading}>
         <div className={styles.cmsCardList}>
           {pages.map((page) => {
-            const pageUri = getCmsPath(page?.uri);
+            if (!page?.uri) return null;
+
+            const pageUri = getCmsPath(stripLocaleFromUri(page?.uri));
             const pageLead =
               page.lead?.replaceAll('<p>', '')?.replaceAll('</p>', '') ?? '';
             const imgSrc =
@@ -131,7 +134,7 @@ const CmsPageSearchList: React.FC<{
               getEventPlaceholderImage(page.id);
 
             return (
-              <Link href={pageUri}>
+              <Link href={stripLocaleFromUri(pageUri)}>
                 {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
                 <a className={styles.cmsCard}>
                   <img
