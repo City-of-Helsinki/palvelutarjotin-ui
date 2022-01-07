@@ -16,6 +16,6 @@
   },
   "subscribeNewsletterPage": {
     "pageTitle": "Beställ vårt nyhetsbrev!",
-    "leadText": "Beställ Kultus-nyhetsbrevet och få aktuell information en gång i månaden om huvudstadsregionens kulturutbud riktat till barn och unga till din e-post. I nyhetsbrevet informerar vi även om seminarier och fortbildningar, som riktar sig till lärare.\n\nJag godkänner att mina uppgifter sparas i stamkundregistret. Jag kan när som helst annullera nyhetsbrevet."
+    "leadText": "Genom att prenumerera på nyhetsbrevet Kultus godkänner jag att mina uppgifter sparas i Gruppo-registret, som upprätthålls av Kultur och Fritid. Nyhetsbrevet kan avbeställas när som helst. Se närmare info om registren: <a href=\"{{url}}\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"Se registerbeskrivningen. {{openInNewTab}}\">Registerbeskrivning</a>"
   }
 }

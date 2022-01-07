@@ -16,6 +16,6 @@
   },
   "subscribeNewsletterPage": {
     "pageTitle": "Subscribe to our newsletters!",
-    "leadText": "Subscribe to Kultus newsletters here! We will send you information about our current topics via email approximately once a month.\n\nBy subscribing to the Kultus newsletter, I agree that the information I send will be stored in the subscriber register. You can unsubscribe from the newsletter at any time."
+    "leadText": "By subscribing to the Kultus newsletter, I agree that the information I send will be stored in the Gruppo subscriber register. You can unsubscribe from the newsletter at any time. <a href=\"{{url}}\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"Show the privacy statement. {{openInNewTab}}\">Privacy statement</a>"
   }
 }

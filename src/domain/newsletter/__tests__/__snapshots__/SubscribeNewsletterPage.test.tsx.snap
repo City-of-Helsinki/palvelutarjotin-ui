@@ -14,11 +14,15 @@ exports[`SubscribeNewsletterPage renders correctly 1`] = `
             Tilaa uutiskirje
           </h2>
           <p>
-            Tilaamalla Kultus.fi -uutiskirjeen saat suoraan sähköpostiisi uusimmat tiedot ajankohtaisesta, lapsille ja nuorille suunnatusta kulttuuritarjonnasta kerran kuukaudessa. Kerromme uutiskirjeessä myös opettajille suunnatuista seminaareista ja koulutuksista.
-            <br />
-            
-            <br />
-            Tilaamalla Kultus.fi -uutiskirjeen hyväksyn, että lähettämäni tiedot tallennetaan tilaajarekisteriin. Uutiskirjeen tilauksen voi perua milloin tahansa.
+            Tilaamalla Kultus-uutiskirjeen hyväksyn, että lähettämäni tiedot tallennetaan Kulttuuri- ja vapaa-aika toimialan Gruppo-tilaajarekisteriin. Uutiskirjeen tilauksen voi perua milloin tahansa. 
+            <a
+              aria-label="Näytä rekisteriseloste. Avautuu uudessa välilehdessä"
+              href="https://www.hel.fi/static/liitteet/kanslia/rekisteriselosteet/Kuva/Kuva-EU-Palvelutarjotin.pdf"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              Rekisteriselosteet
+            </a>
           </p>
           <form
             class="newsletterSubscribeForm"

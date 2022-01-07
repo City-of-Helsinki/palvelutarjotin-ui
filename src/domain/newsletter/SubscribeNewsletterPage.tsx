@@ -5,7 +5,8 @@ import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { convertSubscribeFormData } from '../../clients/gruppo/lib/subscribers';
-import TextWithLineBreaks from '../../common/components/textWithLineBreaks/TextWithLineBreaks';
+import { PRIVACY_POLICY_LINKS } from '../../constants';
+import useLocale from '../../hooks/useLocale';
 import Container from '../app/layout/Container';
 import PageWrapper from '../app/layout/PageWrapper';
 import { ROUTES } from '../app/routes/constants';
@@ -17,6 +18,7 @@ import styles from './subscribeNewsletterPage.module.scss';
 
 const SubscribeNewsletterPage: React.FC = () => {
   const { t } = useTranslation();
+  const locale = useLocale();
   const [notificationType, setNotificationType] = React.useState<
     'success' | 'error' | null
   >(null);
@@ -75,9 +77,13 @@ const SubscribeNewsletterPage: React.FC = () => {
               onClose={notificationOnClose}
             />
           )}
-          <TextWithLineBreaks
-            as="p"
-            text={t('newsletter:subscribeNewsletterPage.leadText')}
+          <p
+            dangerouslySetInnerHTML={{
+              __html: t('newsletter:subscribeNewsletterPage.leadText', {
+                openInNewTab: t('common:srOnly.opensInANewTab'),
+                url: PRIVACY_POLICY_LINKS[locale],
+              }),
+            }}
           />
           <NewsletterSubscribeForm
             initialValues={defaultInitialValues}
