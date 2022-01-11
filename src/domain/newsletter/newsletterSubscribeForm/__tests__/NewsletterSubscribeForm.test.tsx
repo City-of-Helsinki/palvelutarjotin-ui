@@ -63,10 +63,10 @@ const fillupForm = (values = defaultFillValues) => {
 describe('NewsLetterSubscribeForm', () => {
   it('renders correctly', async () => {
     const onSubmit = jest.fn();
-
     render(
       <NewsLetterSubscribeForm
         onSubmit={onSubmit}
+        onDeleteAccount={jest.fn()}
         initialValues={emptyValues}
       />
     );
@@ -113,6 +113,7 @@ describe('NewsLetterSubscribeForm', () => {
     render(
       <NewsLetterSubscribeForm
         onSubmit={jest.fn()}
+        onDeleteAccount={jest.fn()}
         initialValues={defaultInitialValues}
       />
     );

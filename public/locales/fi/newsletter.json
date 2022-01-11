@@ -12,7 +12,11 @@
     "buttonSubmit": "Tilaa uutiskirje",
     "subscribeSuccessLabel": "Tilaus lähetetty",
     "subscribeSuccess": "Kiitos tilauksesta!",
-    "subscribeFailedLabel": "Valitettavasti tilauksen lähettäminen epäonnistui! Yritäthän myöhemmin uudelleen."
+    "subscribeFailedLabel": "Valitettavasti tilauksen lähettäminen epäonnistui! Yritäthän myöhemmin uudelleen.",
+    "buttonDelete": "Peruuta tilaus ja poista tili",
+    "deleteSuccessLabel": "Uutiskirjeen tilaustiedot poistettu",
+    "deleteSuccess": "Uutiskirjeen tilaus on peruutettu ja tili poistettu!",
+    "deleteFailedLabel": "Valitettavasti tilauksen peruuttaminen epäonnistui! Yritäthän myöhemmin uudelleen."
   },
   "subscribeNewsletterPage": {
     "pageTitle": "Tilaa uutiskirje",

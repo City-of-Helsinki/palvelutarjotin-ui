@@ -15,13 +15,16 @@ const defaultFillValues = {
   email,
 };
 
-const serverSuccessfulAddSubscriptionHandlers = Object.values(
-  NewsletterGroupId
-).map((groupId) =>
-  rest.post(`/api/newsletter/subscribe/${groupId}`, (req, res, ctx) => {
-    return res(ctx.json({ email }));
-  })
-);
+const serverSuccessfulAddSubscriptionHandlers = Object.values(NewsletterGroupId)
+  .map((groupId) => [
+    rest.post(`/api/newsletter/subscribe/${groupId}`, (req, res, ctx) => {
+      return res(ctx.json({ email }));
+    }),
+    rest.delete(`/api/newsletter/subscribe/${groupId}`, (req, res, ctx) => {
+      return res(ctx.json({ email }));
+    }),
+  ])
+  .flat();
 
 describe('SubscribeNewsletterPage', () => {
   beforeEach(() => {
@@ -61,7 +64,7 @@ describe('SubscribeNewsletterPage', () => {
     fillupForm();
     expect(
       screen.queryByRole('heading', {
-        name: /tilaus lähetetty/i,
+        name: /kiitos tilauksesta!/i,
       })
     ).not.toBeInTheDocument();
 
@@ -74,7 +77,7 @@ describe('SubscribeNewsletterPage', () => {
     await waitFor(() => {
       expect(
         screen.getByRole('heading', {
-          name: /tilaus lähetetty/i,
+          name: /kiitos tilauksesta!/i,
         })
       ).toBeInTheDocument();
     });
@@ -92,11 +95,6 @@ describe('SubscribeNewsletterPage', () => {
 
     render(<SubscribeNewsletterPage />);
     fillupForm({ ...defaultFillValues, email: 'not-an-email' });
-    expect(
-      screen.queryByRole('heading', {
-        name: /tilaus lähetetty/i,
-      })
-    ).not.toBeInTheDocument();
 
     userEvent.click(
       screen.getByRole('button', {
@@ -108,6 +106,65 @@ describe('SubscribeNewsletterPage', () => {
       expect(
         screen.getByRole('heading', {
           name: /valitettavasti tilauksen lähettäminen epäonnistui! yritäthän myöhemmin uudelleen\./i,
+        })
+      ).toBeInTheDocument();
+    });
+  });
+
+  it('handles successful account deletions properly', async () => {
+    render(<SubscribeNewsletterPage />);
+
+    userEvent.type(
+      screen.getByRole('textbox', {
+        name: /sähköposti \*/i,
+      }),
+      email
+    );
+
+    expect(
+      screen.queryByRole('heading', {
+        name: /uutiskirjeen tilaus on peruutettu ja tili poistettu!/i,
+      })
+    ).not.toBeInTheDocument();
+
+    userEvent.click(
+      screen.getByRole('button', {
+        name: /peruuta tilaus ja poista tili/i,
+      })
+    );
+
+    await waitFor(() => {
+      expect(
+        screen.getByRole('heading', {
+          name: /uutiskirjeen tilaus on peruutettu ja tili poistettu!/i,
+        })
+      ).toBeInTheDocument();
+    });
+  });
+
+  it('handles errenous deletions properly', async () => {
+    const serverUnsuccessfulAddSubscriptionHandlers = Object.values(
+      NewsletterGroupId
+    ).map((groupId) =>
+      rest.delete(`/api/newsletter/subscribe/${groupId}`, (req, res, ctx) => {
+        return res.networkError('error');
+      })
+    );
+    server.use(...serverUnsuccessfulAddSubscriptionHandlers);
+
+    render(<SubscribeNewsletterPage />);
+    fillupForm({ ...defaultFillValues, email: 'not-an-email' });
+
+    userEvent.click(
+      screen.getByRole('button', {
+        name: /peruuta tilaus ja poista tili/i,
+      })
+    );
+
+    await waitFor(() => {
+      expect(
+        screen.getByRole('heading', {
+          name: /valitettavasti tilauksen peruuttaminen epäonnistui! yritäthän myöhemmin uudelleen\./i,
         })
       ).toBeInTheDocument();
     });

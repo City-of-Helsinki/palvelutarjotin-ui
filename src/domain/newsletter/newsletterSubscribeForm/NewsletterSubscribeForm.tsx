@@ -1,4 +1,4 @@
-import { Field, Formik, FormikHelpers } from 'formik';
+import { Field, Formik, FormikHelpers, FormikState } from 'formik';
 import { Button } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -25,11 +25,20 @@ type Props = {
     values: NewsletterSubscribeFormFields,
     actions: FormikHelpers<NewsletterSubscribeFormFields>
   ) => void;
+  onDeleteAccount: (
+    email: string,
+    resetForm: (
+      nextState?:
+        | Partial<FormikState<NewsletterSubscribeFormFields>>
+        | undefined
+    ) => void
+  ) => void;
 };
 
 const NewsletterSubscribeForm: React.FC<Props> = ({
   initialValues = defaultInitialValues,
   onSubmit,
+  onDeleteAccount,
 }) => {
   const { t } = useTranslation();
 
@@ -53,7 +62,7 @@ const NewsletterSubscribeForm: React.FC<Props> = ({
       onSubmit={onSubmit}
       validationSchema={validationSchema}
     >
-      {({ handleSubmit }) => {
+      {({ handleSubmit, resetForm, values: { email } }) => {
         return (
           <form
             className={styles.newsletterSubscribeForm}
@@ -98,6 +107,18 @@ const NewsletterSubscribeForm: React.FC<Props> = ({
             <div className={styles.submitButtonWrapper}>
               <Button type="submit">
                 {t('newsletter:newsletterSubscribeForm.buttonSubmit')}
+              </Button>
+
+              <Button
+                type="button"
+                variant="secondary"
+                onClick={() => {
+                  onDeleteAccount(email, resetForm);
+                }}
+                className={styles.deleteButton}
+                disabled={!email}
+              >
+                {t('newsletter:newsletterSubscribeForm.buttonDelete')}
               </Button>
             </div>
           </form>

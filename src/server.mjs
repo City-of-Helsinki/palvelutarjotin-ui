@@ -46,7 +46,9 @@ const checkIsServerReady = (response) => {
   server
     .route('/api/newsletter/subscribe/:groupId')
     .post((req, res) => handle(req, res))
-    .get((req, res) => res.status(403).end());
+    .delete((req, res) => handle(req, res))
+    .get((req, res) => res.status(403).end())
+    .put((req, res) => res.status(403).end());
 
   // Allow all GETs to everywhere, except to the ones reject before this
   server.get('*', (req, res) => handle(req, res));

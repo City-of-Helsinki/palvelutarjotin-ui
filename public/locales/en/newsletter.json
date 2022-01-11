@@ -12,7 +12,11 @@
     "buttonSubmit": "Subscribe",
     "subscribeSuccessLabel": "Thank you for your subscription!",
     "subscribeSuccess": "Hope you enjoy reading our newsletters!",
-    "subscribeFailedLabel": "An error occured. Subscription failed!"
+    "subscribeFailedLabel": "An error occured. Subscription failed!",
+    "buttonDelete": "Unsubscribe and delete the newsletter account",
+    "deleteSuccessLabel": "Newsletter subscription information deleted",
+    "deleteSuccess": "Newsletter unsubscribed and account deleted!",
+    "deleteFailedLabel": "Sorry, the unsubscribing failed! Please try again later."
   },
   "subscribeNewsletterPage": {
     "pageTitle": "Subscribe to our newsletters!",

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { FormikHelpers } from 'formik';
+import { FormikHelpers, FormikState } from 'formik';
 import { Notification } from 'hds-react';
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -9,7 +9,10 @@ import TextWithLineBreaks from '../../common/components/textWithLineBreaks/TextW
 import Container from '../app/layout/Container';
 import PageWrapper from '../app/layout/PageWrapper';
 import { ROUTES } from '../app/routes/constants';
-import { NewsletterSubscribeFormFields } from './newsletterSubscribeForm/constants';
+import {
+  NewsletterGroupId,
+  NewsletterSubscribeFormFields,
+} from './newsletterSubscribeForm/constants';
 import NewsletterSubscribeForm, {
   defaultInitialValues,
 } from './newsletterSubscribeForm/NewsletterSubscribeForm';
@@ -18,7 +21,11 @@ import styles from './subscribeNewsletterPage.module.scss';
 const SubscribeNewsletterPage: React.FC = () => {
   const { t } = useTranslation();
   const [notificationType, setNotificationType] = React.useState<
-    'success' | 'error' | null
+    | 'subscribeSuccess'
+    | 'subscribeError'
+    | 'deleteSuccess'
+    | 'deleteError'
+    | null
   >(null);
 
   const notificationOnClose = () => {
@@ -39,40 +46,101 @@ const SubscribeNewsletterPage: React.FC = () => {
     )
       .then(() => {
         actions.resetForm();
-        setNotificationType('success');
+        setNotificationType('subscribeSuccess');
       })
       .catch((e) => {
-        setNotificationType('error');
+        setNotificationType('subscribeError');
       });
   };
+
+  const handleDeleteAccount = async (
+    email: string,
+    resetForm: (
+      nextState?:
+        | Partial<FormikState<NewsletterSubscribeFormFields>>
+        | undefined
+    ) => void
+  ) => {
+    Promise.all(
+      Object.values(NewsletterGroupId).map((group) =>
+        axios.delete(
+          `${ROUTES.NEWSLETTER_SUBSCRIBE_API.replace(
+            ':group',
+            group
+          )}?email=${email}`
+        )
+      )
+    )
+      .then(() => {
+        resetForm();
+        setNotificationType('deleteSuccess');
+      })
+      .catch((e) => {
+        setNotificationType('deleteError');
+      });
+  };
+
+  const SuccessNotification: React.FC<{
+    label: string;
+    message?: string;
+  }> = ({ label, message }) => (
+    <Notification
+      type="success"
+      label={label}
+      position="top-right"
+      autoClose
+      onClose={notificationOnClose}
+    >
+      {message}
+    </Notification>
+  );
+
+  const ErrorNotification: React.FC<{
+    label: string;
+    message?: string;
+  }> = ({ label, message }) => (
+    <Notification
+      type="success"
+      label={label}
+      position="top-right"
+      autoClose
+      onClose={notificationOnClose}
+    >
+      {message}
+    </Notification>
+  );
 
   return (
     <PageWrapper title={t('newsletter:subscribeNewsletterPage.pageTitle')}>
       <div className={styles.subscribeNewsletter}>
         <Container>
           <h2>{t('newsletter:subscribeNewsletterPage.pageTitle')}</h2>
-          {notificationType === 'success' && (
-            <Notification
-              type="success"
-              label={t(
+          {notificationType === 'subscribeSuccess' && (
+            <SuccessNotification
+              label={t('newsletter:newsletterSubscribeForm.subscribeSuccess')}
+              message={t(
                 'newsletter:newsletterSubscribeForm.subscribeSuccessLabel'
               )}
-              position="top-right"
-              autoClose
-              onClose={notificationOnClose}
-            >
-              {t('newsletter:newsletterSubscribeForm.subscribeSuccess')}
-            </Notification>
+            />
           )}
-          {notificationType === 'error' && (
-            <Notification
-              type="error"
+          {notificationType === 'deleteSuccess' && (
+            <SuccessNotification
+              label={t('newsletter:newsletterSubscribeForm.deleteSuccess')}
+              message={t(
+                'newsletter:newsletterSubscribeForm.deleteSuccessLabel'
+              )}
+            />
+          )}
+          {notificationType === 'subscribeError' && (
+            <ErrorNotification
               label={t(
                 'newsletter:newsletterSubscribeForm.subscribeFailedLabel'
               )}
-              position="top-right"
-              autoClose
-              onClose={notificationOnClose}
+            />
+          )}
+          {notificationType === 'deleteError' && (
+            <ErrorNotification
+              label={t('newsletter:newsletterSubscribeForm.deleteFailedLabel')}
             />
           )}
           <TextWithLineBreaks
@@ -82,6 +150,7 @@ const SubscribeNewsletterPage: React.FC = () => {
           <NewsletterSubscribeForm
             initialValues={defaultInitialValues}
             onSubmit={handleSubmit}
+            onDeleteAccount={handleDeleteAccount}
           />
         </Container>
       </div>

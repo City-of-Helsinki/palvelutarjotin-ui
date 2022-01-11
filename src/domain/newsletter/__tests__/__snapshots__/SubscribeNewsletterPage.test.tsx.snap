@@ -374,6 +374,18 @@ exports[`SubscribeNewsletterPage renders correctly 1`] = `
                   Tilaa uutiskirje
                 </span>
               </button>
+              <button
+                aria-disabled="true"
+                class="Button-module_button__1msFE button_hds-button__2A0je Button-module_secondary__1nABp button_hds-button--secondary__1NOWS deleteButton"
+                disabled=""
+                type="button"
+              >
+                <span
+                  class="Button-module_label__a4np1 button_hds-button__label__2EQa-"
+                >
+                  Peruuta tilaus ja poista tili
+                </span>
+              </button>
             </div>
           </form>
         </div>

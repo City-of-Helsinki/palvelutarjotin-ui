@@ -12,7 +12,11 @@
     "buttonSubmit": "Beställ",
     "subscribeSuccessLabel": "Du har nu beställt nyhetsbrevet Kultus.",
     "subscribeSuccess": "Tack!",
-    "subscribeFailedLabel": "Ett fel uppstod"
+    "subscribeFailedLabel": "Ett fel uppstod",
+    "buttonDelete": "Avregistrera och ta bort nyhetsbrevskontot",
+    "deleteSuccessLabel": "Prenumerationsinformation för nyhetsbrev raderad",
+    "deleteSuccess": "Nyhetsbrev har avslutats och kontot raderats!",
+    "deleteFailedLabel": "Tyvärr, avanmälan misslyckades! Försök igen senare."
   },
   "subscribeNewsletterPage": {
     "pageTitle": "Beställ vårt nyhetsbrev!",
