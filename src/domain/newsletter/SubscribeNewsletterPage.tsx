@@ -1,11 +1,13 @@
 import axios from 'axios';
 import { FormikHelpers } from 'formik';
-import { Notification } from 'hds-react';
+import { IconLinkExternal, Notification } from 'hds-react';
+import Link from 'next/link';
 import * as React from 'react';
-import { useTranslation } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 
 import { convertSubscribeFormData } from '../../clients/gruppo/lib/subscribers';
-import TextWithLineBreaks from '../../common/components/textWithLineBreaks/TextWithLineBreaks';
+import { PRIVACY_POLICY_LINKS } from '../../constants';
+import useLocale from '../../hooks/useLocale';
 import Container from '../app/layout/Container';
 import PageWrapper from '../app/layout/PageWrapper';
 import { ROUTES } from '../app/routes/constants';
@@ -15,8 +17,26 @@ import NewsletterSubscribeForm, {
 } from './newsletterSubscribeForm/NewsletterSubscribeForm';
 import styles from './subscribeNewsletterPage.module.scss';
 
+const PrivacyStatementLink = ({
+  url,
+  children,
+  ...rest
+}: {
+  url: string;
+  children?: React.ReactNode;
+} & React.HTMLProps<HTMLAnchorElement>) => (
+  <Link href={url} passHref>
+    {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+    <a {...rest}>
+      {children}
+      <IconLinkExternal className={styles.privacyStatementIcon} />
+    </a>
+  </Link>
+);
+
 const SubscribeNewsletterPage: React.FC = () => {
   const { t } = useTranslation();
+  const locale = useLocale();
   const [notificationType, setNotificationType] = React.useState<
     'success' | 'error' | null
   >(null);
@@ -75,10 +95,24 @@ const SubscribeNewsletterPage: React.FC = () => {
               onClose={notificationOnClose}
             />
           )}
-          <TextWithLineBreaks
-            as="p"
-            text={t('newsletter:subscribeNewsletterPage.leadText')}
-          />
+          <p>
+            <Trans
+              i18nKey="newsletter:subscribeNewsletterPage.leadText"
+              values={{
+                openInNewTab: t('common:srOnly.opensInANewTab'),
+              }}
+              components={{
+                a: (
+                  <PrivacyStatementLink
+                    url={PRIVACY_POLICY_LINKS[locale]}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  />
+                ),
+              }}
+            />
+          </p>
+
           <NewsletterSubscribeForm
             initialValues={defaultInitialValues}
             onSubmit={handleSubmit}

@@ -1,4 +1,10 @@
 @import 'layout';
+
 .subscribeNewsletter {
   margin-top: var(--spacing-layout-m);
+
+  .privacyStatementIcon {
+    --icon-size: 1em !important;
+    vertical-align: middle;
+  }
 }

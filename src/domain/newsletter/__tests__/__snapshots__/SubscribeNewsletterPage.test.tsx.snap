@@ -14,11 +14,34 @@ exports[`SubscribeNewsletterPage renders correctly 1`] = `
             Tilaa uutiskirje
           </h2>
           <p>
-            Tilaamalla Kultus.fi -uutiskirjeen saat suoraan sähköpostiisi uusimmat tiedot ajankohtaisesta, lapsille ja nuorille suunnatusta kulttuuritarjonnasta kerran kuukaudessa. Kerromme uutiskirjeessä myös opettajille suunnatuista seminaareista ja koulutuksista.
-            <br />
-            
-            <br />
-            Tilaamalla Kultus.fi -uutiskirjeen hyväksyn, että lähettämäni tiedot tallennetaan tilaajarekisteriin. Uutiskirjeen tilauksen voi perua milloin tahansa.
+            Tilaamalla Kultus-uutiskirjeen hyväksyn, että lähettämäni tiedot tallennetaan Kulttuuri- ja vapaa-aika toimialan Gruppo-tilaajarekisteriin. Uutiskirjeen tilauksen voi perua milloin tahansa. 
+            <a
+              aria-label="Näytä rekisteriseloste. Avautuu uudessa välilehdessä"
+              href="https://www.hel.fi/static/liitteet/kanslia/rekisteriselosteet/Kuva/Kuva-EU-Palvelutarjotin.pdf"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              Rekisteriselosteet
+              <svg
+                class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik privacyStatementIcon"
+                role="img"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g
+                  fill="none"
+                  fill-rule="evenodd"
+                >
+                  <path
+                    d="M0 0h24v24H0z"
+                  />
+                  <path
+                    d="M10 3v2H5v14h14v-5h2v7H3V3h7zm11 0v8h-2V6.413l-7 7.001L10.586 12l6.999-7H13V3h8z"
+                    fill="currentColor"
+                  />
+                </g>
+              </svg>
+            </a>
           </p>
           <form
             class="newsletterSubscribeForm"

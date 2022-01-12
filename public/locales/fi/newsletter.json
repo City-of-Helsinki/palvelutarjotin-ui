@@ -16,6 +16,6 @@
   },
   "subscribeNewsletterPage": {
     "pageTitle": "Tilaa uutiskirje",
-    "leadText": "Tilaamalla Kultus.fi -uutiskirjeen saat suoraan sähköpostiisi uusimmat tiedot ajankohtaisesta, lapsille ja nuorille suunnatusta kulttuuritarjonnasta kerran kuukaudessa. Kerromme uutiskirjeessä myös opettajille suunnatuista seminaareista ja koulutuksista.\n\nTilaamalla Kultus.fi -uutiskirjeen hyväksyn, että lähettämäni tiedot tallennetaan tilaajarekisteriin. Uutiskirjeen tilauksen voi perua milloin tahansa."
+    "leadText": "Tilaamalla Kultus-uutiskirjeen hyväksyn, että lähettämäni tiedot tallennetaan Kulttuuri- ja vapaa-aika toimialan Gruppo-tilaajarekisteriin. Uutiskirjeen tilauksen voi perua milloin tahansa. <a aria-label=\"Näytä rekisteriseloste. {{openInNewTab}}\">Rekisteriselosteet</a>"
   }
 }
