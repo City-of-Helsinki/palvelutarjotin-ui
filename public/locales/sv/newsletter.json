@@ -16,6 +16,6 @@
   },
   "subscribeNewsletterPage": {
     "pageTitle": "Beställ vårt nyhetsbrev!",
-    "leadText": "Genom att prenumerera på nyhetsbrevet Kultus godkänner jag att mina uppgifter sparas i Gruppo-registret, som upprätthålls av Kultur och Fritid. Nyhetsbrevet kan avbeställas när som helst. Se närmare info om registren: <a href=\"{{url}}\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"Se registerbeskrivningen. {{openInNewTab}}\">Registerbeskrivning</a>"
+    "leadText": "Genom att prenumerera på nyhetsbrevet Kultus godkänner jag att mina uppgifter sparas i Gruppo-registret, som upprätthålls av Kultur och Fritid. Nyhetsbrevet kan avbeställas när som helst. Se närmare info om registren: <a aria-label=\"Se registerbeskrivningen. {{openInNewTab}}\">Registerbeskrivning</a>"
   }
 }
