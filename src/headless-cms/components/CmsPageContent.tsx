@@ -1,25 +1,19 @@
 import React from 'react';
 
-import HtmlToReact from '../../common/components/htmlToReact/HtmlToReact';
-import Container from '../../domain/app/layout/Container';
 import { PageFieldsFragment } from '../../generated/graphql-cms';
+import CmsOneColumnLayout from './CmsOneColumnLayout';
+import CmsSidebarLayout from './CmsSidebarLayout';
 
 const CmsPageContent: React.FC<{ page: PageFieldsFragment | undefined }> = ({
   page,
 }) => {
-  const title = page?.title || '';
-  const content = page?.content || '';
+  const sidebarContents = page?.sidebar || [];
 
-  return (
-    <Container>
-      {page && (
-        <>
-          <h1>{title}</h1>
-          <HtmlToReact>{content}</HtmlToReact>
-        </>
-      )}
-    </Container>
-  );
+  if (sidebarContents.length > 0) {
+    return <CmsSidebarLayout page={page} />;
+  }
+
+  return <CmsOneColumnLayout page={page} />;
 };
 
 export default CmsPageContent;
