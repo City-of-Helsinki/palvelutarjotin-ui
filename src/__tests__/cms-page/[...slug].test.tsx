@@ -39,6 +39,7 @@ afterAll(() => {
 
 const route1 = '/helsinki-liikkuu/';
 const route2 = '/helsinki-liikkuu/alisivu/';
+const route3 = '/kulttuurikasvatus/';
 const mainMenu = [
   { title: 'Mikä Kultus?', uri: route1 },
   { title: 'Helsinki liikkuu', uri: '/random2/' },
@@ -68,6 +69,13 @@ const page1 = {
 
 const page2 = {
   route: route2,
+  title: 'Alisivun otsikko',
+  content: 'Alisivun kontentti',
+  menuItems: subSubMenuItems,
+};
+
+const page3 = {
+  route: route3,
   title: 'Alisivun otsikko',
   content: 'Alisivun kontentti',
   menuItems: subSubMenuItems,
@@ -132,6 +140,24 @@ describe.skip('CMS Page', () => {
       })
     ).toBeInTheDocument();
     expect(screen.queryByText(page.content)).toBeInTheDocument();
+  });
+
+  it('renders with sidebar layout when sidebar has content', async () => {
+    initMocks({
+      page: page3,
+    });
+
+    (
+      await getPage({
+        route: `/cms-page${page3.route}`,
+      })
+    ).render();
+
+    // TODO: Remove and replace with selector targeting sidebar content when it
+    // has been implemented.
+    expect(
+      screen.findByTestId('cms-sidebar-layout-sidebar')
+    ).toBeInTheDocument();
   });
 });
 
@@ -200,6 +226,18 @@ const initMocks = ({ page }: { page: Partial<Page> }) => {
                   fakePage({ title: menuItem.title, uri: menuItem.uri })
                 ),
               },
+            }),
+          })
+        );
+      }
+
+      if (req.variables.id === page3.route) {
+        return res(
+          ctx.data({
+            page: fakePage({
+              title: page.title,
+              content: page.content,
+              sidebar: [{ title: 'Placeholder' }],
             }),
           })
         );
