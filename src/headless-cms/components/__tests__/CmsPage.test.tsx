@@ -11,21 +11,62 @@ global.TextEncoder = TextEncoder;
 global.TextDecoder = TextDecoder as any;
 
 test('renders with sidebar layout when sidebar has content', async () => {
-  render(
+  const sidebarLayoutLinkList = {
+    __typename: 'LayoutLinkList' as const,
+    title: 'Tärkeimmät linkit',
+    description: 'Tsekkaa nämä linkit ja löydä mahtavaa sisältöä!',
+    anchor: 'important-links',
+    links: [
+      {
+        target: '_blank',
+        // eslint-disable-next-line max-len
+        url: 'https://palvelutarjotin.test.kuva.hel.ninja/cms-page/oppimateriaalit/ylakoulu-ja-toinen-aste/koulujen-elokuvaviikko-elokuvan-kotitehtavat-etaopetukseen',
+        title: 'Elokuvaviikon etäkotitehtävät',
+      },
+      {
+        // eslint-disable-next-line max-len
+        url: 'https://palvelutarjotin.test.kuva.hel.ninja/cms-page/oppimateriaalit/ylakoulu-ja-toinen-aste/koulujen-elokuvaviikko-elokuvan-kotitehtavat-etaopetukseen',
+        title: 'Ideoita elokuvaviikon tunneille',
+      },
+    ],
+  };
+
+  const { container } = render(
     <CmsPage
       navigation={[]}
       breadcrumbs={[]}
       page={fakePage({
         title: 'Alisivun otsikko',
         content: 'Alisivun kontentti',
-        sidebar: [{ title: 'Placeholder' }],
+        sidebar: [sidebarLayoutLinkList],
       })}
     />
   );
 
-  // TODO: Remove and replace with selector targeting sidebar content when it
-  // has been implemented.
+  //-- Renders layout link lists correctly
+  // Renders title
+  expect(screen.queryByText(sidebarLayoutLinkList.title)).toBeInTheDocument();
+  // Renders description
   expect(
-    screen.queryByTestId('cms-sidebar-layout-sidebar')
+    screen.queryByText(sidebarLayoutLinkList.description)
+  ).toBeInTheDocument();
+  // Sets anchoring id
+  // Check that an element with the ID exists. Use uncommon pattern because we
+  // are ensuring a technical detail instead of validating the user
+  // experience.
+  expect(
+    container.querySelector(`#${sidebarLayoutLinkList.anchor}`)
+  ).toBeInTheDocument();
+  // Renders link opening in external window correctly
+  expect(
+    screen.getByRole('link', {
+      name: `${sidebarLayoutLinkList.links[0].title} Avautuu uudessa välilehdessä`,
+    })
+  ).toBeInTheDocument();
+  // Renders link opening in same window
+  expect(
+    screen.getByRole('link', {
+      name: sidebarLayoutLinkList.links[1].title,
+    })
   ).toBeInTheDocument();
 });

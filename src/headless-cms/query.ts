@@ -93,7 +93,14 @@ export const PAGE_QUERY = gql`
     }
     sidebar {
       ... on LayoutLinkList {
+        anchor
         title
+        description
+        links {
+          target
+          title
+          url
+        }
       }
       ... on LayoutArticles {
         title

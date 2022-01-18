@@ -6,16 +6,28 @@ import SrOnly from '../SrOnly/SrOnly';
 
 type Props = React.AnchorHTMLAttributes<HTMLAnchorElement> & {
   href: string;
+  iconPosition?: 'left' | 'right';
 };
 
-const ExternalLink: React.FC<Props> = ({ children, ...props }) => {
+const ExternalLink: React.FC<Props> = ({
+  children,
+  iconPosition = 'right',
+  ...props
+}) => {
   const { t } = useTranslation();
   return (
     <a {...props} href={props.href} target="_blank" rel="noreferrer">
+      {iconPosition === 'left' && (
+        <IconLinkExternal
+          style={{ verticalAlign: 'middle', marginRight: '0.5rem' }}
+        />
+      )}
       {children}
-      <IconLinkExternal
-        style={{ verticalAlign: 'middle', marginLeft: '0.5rem' }}
-      />
+      {iconPosition === 'right' && (
+        <IconLinkExternal
+          style={{ verticalAlign: 'middle', marginLeft: '0.5rem' }}
+        />
+      )}
       <SrOnly>{t('common:srOnly.opensInANewTab')}</SrOnly>
     </a>
   );
