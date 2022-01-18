@@ -4,6 +4,7 @@ import HtmlToReact from '../../common/components/htmlToReact/HtmlToReact';
 import Container from '../../domain/app/layout/Container';
 import { PageFieldsFragment } from '../../generated/graphql-cms';
 import styles from './cmsPageContent.module.scss';
+import CmsSidebarContent from './cmsSidebarContent/CmsSidebarContent';
 
 type Props = {
   page?: PageFieldsFragment;
@@ -12,6 +13,7 @@ type Props = {
 const CmsPageContent: React.FC<Props> = ({ page }) => {
   const title = page?.title || '';
   const content = page?.content || '';
+  const sidebar = page?.sidebar || [];
 
   return (
     <Container>
@@ -21,13 +23,8 @@ const CmsPageContent: React.FC<Props> = ({ page }) => {
             <h1>{title}</h1>
             <HtmlToReact>{content}</HtmlToReact>
           </div>
-          <aside
-            className={styles.cmsSidebarLayoutAside}
-            // TODO: Remove and replace with selector targeting sidebar content
-            // when it has been implemented.
-            data-testid="cms-sidebar-layout-sidebar"
-          >
-            {/* TODO: Render sidebar content */}
+          <aside className={styles.cmsSidebarLayoutAside}>
+            <CmsSidebarContent content={sidebar} />
           </aside>
         </div>
       )}

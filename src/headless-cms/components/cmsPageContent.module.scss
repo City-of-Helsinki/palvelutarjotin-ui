@@ -11,12 +11,14 @@
   &Main {
     @include layout.respond-above(md) {
       flex-basis: 66.666%;
+      margin-right: var(--spacing-xs);
     }
   }
 
   &Aside {
     @include layout.respond-above(md) {
       flex-basis: 33.333%;
+      margin-left: var(--spacing-xs);
     }
   }
 }
