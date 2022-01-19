@@ -3,7 +3,7 @@ import { Provider } from 'react-redux';
 
 import { MenuDocument } from '../../../../generated/graphql-cms';
 import { fakePage } from '../../../../utils/cmsMockDataUtils';
-import { render, screen, act } from '../../../../utils/testUtils';
+import { render, screen } from '../../../../utils/testUtils';
 import { store } from '../../store';
 import Header from '../Header';
 
