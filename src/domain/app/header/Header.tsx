@@ -7,6 +7,7 @@ import React from 'react';
 import { SUPPORTED_LANGUAGES } from '../../../constants';
 import {
   MenuNodeIdTypeEnum,
+  MenuPageFieldsFragment,
   PageIdType,
   useMenuQuery,
   usePageQuery,
@@ -17,6 +18,7 @@ import { stripLocaleFromUri } from '../../../headless-cms/utils';
 import useLocale from '../../../hooks/useLocale';
 import { OptionType } from '../../../types';
 import { isFeatureEnabled } from '../../../utils/featureFlags';
+import { skipFalsyType } from '../../../utils/typescript.utils';
 import { MAIN_CONTENT_ID } from '../layout/PageLayout';
 import { PATHNAMES, ROUTES } from '../routes/constants';
 import { getCmsPath } from '../routes/utils';
@@ -89,19 +91,45 @@ const Header: React.FC = () => {
           <Navigation.Row variant="inline">
             {menuItems
               ?.map((item, index) => {
-                if (!item?.uri) return null;
-                const uri = getCmsPath(item.uri);
-                return (
-                  <Navigation.Item
-                    key={index}
-                    as={Link}
-                    href={uri}
-                    active={isTabActive(uri)}
-                    label={item.title}
-                    lang={locale}
-                    locale={locale}
-                  />
-                );
+                if (!item?.id) return null;
+                if (!!item.children?.length) {
+                  return (
+                    <Navigation.Dropdown
+                      key={item.id}
+                      label={item.title}
+                      closeOnItemClick
+                      active={isTabActive(getCmsPath(item?.uri ?? ''))}
+                    >
+                      {item.children.map((child) => {
+                        return (
+                          <Navigation.Item
+                            key={child.id}
+                            label={child?.title}
+                            as={Link}
+                            href={getCmsPath(
+                              stripLocaleFromUri(child?.uri ?? '')
+                            )}
+                            lang={locale}
+                            locale={locale}
+                          />
+                        );
+                      })}
+                    </Navigation.Dropdown>
+                  );
+                } else {
+                  const uri = getCmsPath(item.uri);
+                  return (
+                    <Navigation.Item
+                      key={index}
+                      active={isTabActive(uri)}
+                      label={item.title}
+                      as={Link}
+                      href={uri}
+                      lang={locale}
+                      locale={locale}
+                    />
+                  );
+                }
               })
               .filter((item) => item != null)}
           </Navigation.Row>
@@ -110,7 +138,7 @@ const Header: React.FC = () => {
           <Navigation.LanguageSelector
             buttonAriaLabel={t('header:changeLanguage')}
             className={styles.languageSelector}
-            label={t(`header:languages:${locale}`)}
+            label={t(`header:languages.${locale}`)}
             icon={<IconGlobe />}
             closeOnItemClick
           >
@@ -193,11 +221,22 @@ const useCmsMenuItems = () => {
   const menuItemArrays = navigationData?.menu?.menuItems?.nodes?.map(
     (menuItem) => {
       const item = menuItem?.connectedNode?.node;
-      if (item && 'title' in item) {
+      if (isPageNode(item)) {
         const translationItems = item.translations?.map((translation) => ({
           ...translation,
           locale: translation?.language?.code,
           uri: stripLocaleFromUri(translation?.uri ?? ''),
+          // find all child translations that have same language
+          children: item.children?.nodes
+            ?.filter(isPageNode)
+            .map((childNode) =>
+              childNode.translations?.find(
+                (childTranslation) =>
+                  translation?.language?.code ===
+                  childTranslation?.language?.code
+              )
+            )
+            .filter(skipFalsyType),
         }));
 
         return [
@@ -205,6 +244,7 @@ const useCmsMenuItems = () => {
             ...item,
             locale: item?.language?.code,
             uri: stripLocaleFromUri(item.uri ?? ''),
+            children: item.children?.nodes?.filter(isPageNode),
           },
           ...(translationItems ?? []),
         ];
@@ -235,6 +275,11 @@ const useCmsMenuItems = () => {
     menuItems,
     navigationSlugs,
   };
+};
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const isPageNode = (node?: any): node is MenuPageFieldsFragment => {
+  return Boolean(node && 'title' in node);
 };
 
 export default Header;

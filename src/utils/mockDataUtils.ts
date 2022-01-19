@@ -427,7 +427,6 @@ export const fakeOrganisation = (
   phoneNumber: faker.phone.phoneNumber(),
   publisherId: faker.datatype.uuid(),
   type: 'USER' as OrganisationType,
-  pEvent: null as any,
   __typename: 'OrganisationNode',
   ...overrides,
 });
@@ -460,7 +459,6 @@ export const fakePerson = (overrides?: Partial<PersonNode>): PersonNode => ({
   enrolmentSet: '' as any,
   occurrences: [] as any,
   organisations: [] as any,
-  pEvent: '' as any,
   studygroupSet: '' as any,
   updatedAt: '' as any,
   isStaff: true,

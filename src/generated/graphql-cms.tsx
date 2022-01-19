@@ -590,7 +590,7 @@ export enum CollectionIdType {
   Uri = 'URI'
 }
 
-export type CollectionModulesUnionType = EventSearch | EventSelected | LocationsSelected;
+export type CollectionModulesUnionType = EventSearch | EventSelected;
 
 /** Connection between the collection type and the collection type */
 export type CollectionToPreviewConnectionEdge = {
@@ -3262,6 +3262,21 @@ export type LayoutContact = {
   title?: Maybe<Scalars['String']>;
 };
 
+/** Layout: LayoutLinkList */
+export type LayoutLinkList = {
+  __typename?: 'LayoutLinkList';
+  /** Anchor */
+  anchor?: Maybe<Scalars['String']>;
+  /** Background Color */
+  backgroundColor?: Maybe<Scalars['String']>;
+  /** Title */
+  description?: Maybe<Scalars['String']>;
+  /** Links */
+  links?: Maybe<Array<Maybe<Link>>>;
+  /** Title */
+  title?: Maybe<Scalars['String']>;
+};
+
 /** Layout: LayoutPages */
 export type LayoutPages = {
   __typename?: 'LayoutPages';
@@ -3277,17 +3292,15 @@ export type LayoutPages = {
   title?: Maybe<Scalars['String']>;
 };
 
-/** Collection Module: LocationsSelected */
-export type LocationsSelected = {
-  __typename?: 'LocationsSelected';
-  /** List of location IDs */
-  locations?: Maybe<Array<Maybe<Scalars['Int']>>>;
-  /** Module type */
-  module?: Maybe<Scalars['String']>;
-  /** List of modules */
-  modules?: Maybe<Array<Maybe<CollectionModulesUnionType>>>;
-  /** Module title */
+/** Link field */
+export type Link = {
+  __typename?: 'Link';
+  /** The target of the link */
+  target?: Maybe<Scalars['String']>;
+  /** The title of the link */
   title?: Maybe<Scalars['String']>;
+  /** The url of the link */
+  url?: Maybe<Scalars['String']>;
 };
 
 /** File details for a Media Item */
@@ -4253,6 +4266,8 @@ export type Page = Node & ContentNode & UniformResourceIdentifiable & DatabaseId
   seo?: Maybe<Seo>;
   /** Näytä alisivut */
   showChildPages?: Maybe<Scalars['Boolean']>;
+  /** List of modules */
+  sidebar?: Maybe<Array<Maybe<PageModulesUnionType>>>;
   /** The uri slug for the post. This is equivalent to the WP_Post-&gt;post_name field and the post_name column in the database for the &quot;post_objects&quot; table. */
   slug?: Maybe<Scalars['String']>;
   /** The current status of the object */
@@ -4357,7 +4372,7 @@ export enum PageIdType {
   Uri = 'URI'
 }
 
-export type PageModulesUnionType = EventSearch | EventSelected | LocationsSelected | LayoutCollection | LayoutContact | LayoutArticles | LayoutPages;
+export type PageModulesUnionType = LayoutLinkList | LayoutArticles | LayoutPages;
 
 /** Connection between the page type and the page type */
 export type PageToPreviewConnectionEdge = {
@@ -5000,7 +5015,7 @@ export enum PostIdType {
   Uri = 'URI'
 }
 
-export type PostModulesUnionType = EventSearch | EventSelected | LocationsSelected | LayoutCollection | LayoutContact | LayoutArticles | LayoutPages;
+export type PostModulesUnionType = EventSearch | EventSelected | LayoutCollection | LayoutContact | LayoutArticles | LayoutPages;
 
 /** The format of post field data. */
 export enum PostObjectFieldFormatEnum {
@@ -5076,6 +5091,8 @@ export enum PostStatusEnum {
   AcfDisabled = 'ACF_DISABLED',
   /** Objects with the auto-draft status */
   AutoDraft = 'AUTO_DRAFT',
+  /** Objects with the dp-rewrite-republish status */
+  DpRewriteRepublish = 'DP_REWRITE_REPUBLISH',
   /** Objects with the draft status */
   Draft = 'DRAFT',
   /** Objects with the future status */
@@ -10204,7 +10221,9 @@ export type MenuQueryVariables = Exact<{
 }>;
 
 
-export type MenuQuery = { __typename?: 'RootQuery', menu?: Maybe<{ __typename?: 'Menu', menuItems?: Maybe<{ __typename?: 'MenuToMenuItemConnection', nodes?: Maybe<Array<Maybe<{ __typename?: 'MenuItem', connectedNode?: Maybe<{ __typename?: 'MenuItemToMenuItemLinkableConnectionEdge', node?: Maybe<{ __typename?: 'Category' } | { __typename?: 'Page', id: string, content?: Maybe<string>, slug?: Maybe<string>, title?: Maybe<string>, uri?: Maybe<string>, lead?: Maybe<string>, children?: Maybe<{ __typename?: 'HierarchicalContentNodeToContentNodeChildrenConnection', nodes?: Maybe<Array<Maybe<{ __typename?: 'Collection' } | { __typename?: 'Contact' } | { __typename?: 'LandingPage' } | { __typename?: 'MediaItem' } | { __typename?: 'Page', id: string, content?: Maybe<string>, slug?: Maybe<string>, title?: Maybe<string>, uri?: Maybe<string>, lead?: Maybe<string>, seo?: Maybe<{ __typename?: 'SEO', title?: Maybe<string>, description?: Maybe<string>, openGraphTitle?: Maybe<string>, openGraphDescription?: Maybe<string>, openGraphType?: Maybe<string>, twitterTitle?: Maybe<string>, twitterDescription?: Maybe<string> }>, language?: Maybe<{ __typename?: 'Language', code?: Maybe<LanguageCodeEnum>, slug?: Maybe<string>, locale?: Maybe<string>, name?: Maybe<string> }>, featuredImage?: Maybe<{ __typename?: 'NodeWithFeaturedImageToMediaItemConnectionEdge', node?: Maybe<{ __typename?: 'MediaItem', mediaItemUrl?: Maybe<string>, link?: Maybe<string>, altText?: Maybe<string>, mimeType?: Maybe<string>, title?: Maybe<string>, uri?: Maybe<string> }> }> } | { __typename?: 'Post' } | { __typename?: 'Release' } | { __typename?: 'Translation' }>>> }>, translations?: Maybe<Array<Maybe<{ __typename?: 'Page', id: string, content?: Maybe<string>, slug?: Maybe<string>, title?: Maybe<string>, uri?: Maybe<string>, lead?: Maybe<string>, children?: Maybe<{ __typename?: 'HierarchicalContentNodeToContentNodeChildrenConnection', nodes?: Maybe<Array<Maybe<{ __typename?: 'Collection' } | { __typename?: 'Contact' } | { __typename?: 'LandingPage' } | { __typename?: 'MediaItem' } | { __typename?: 'Page', id: string, content?: Maybe<string>, slug?: Maybe<string>, title?: Maybe<string>, uri?: Maybe<string>, lead?: Maybe<string>, seo?: Maybe<{ __typename?: 'SEO', title?: Maybe<string>, description?: Maybe<string>, openGraphTitle?: Maybe<string>, openGraphDescription?: Maybe<string>, openGraphType?: Maybe<string>, twitterTitle?: Maybe<string>, twitterDescription?: Maybe<string> }>, language?: Maybe<{ __typename?: 'Language', code?: Maybe<LanguageCodeEnum>, slug?: Maybe<string>, locale?: Maybe<string>, name?: Maybe<string> }>, featuredImage?: Maybe<{ __typename?: 'NodeWithFeaturedImageToMediaItemConnectionEdge', node?: Maybe<{ __typename?: 'MediaItem', mediaItemUrl?: Maybe<string>, link?: Maybe<string>, altText?: Maybe<string>, mimeType?: Maybe<string>, title?: Maybe<string>, uri?: Maybe<string> }> }> } | { __typename?: 'Post' } | { __typename?: 'Release' } | { __typename?: 'Translation' }>>> }>, seo?: Maybe<{ __typename?: 'SEO', title?: Maybe<string>, description?: Maybe<string>, openGraphTitle?: Maybe<string>, openGraphDescription?: Maybe<string>, openGraphType?: Maybe<string>, twitterTitle?: Maybe<string>, twitterDescription?: Maybe<string> }>, language?: Maybe<{ __typename?: 'Language', code?: Maybe<LanguageCodeEnum>, slug?: Maybe<string>, locale?: Maybe<string>, name?: Maybe<string> }>, featuredImage?: Maybe<{ __typename?: 'NodeWithFeaturedImageToMediaItemConnectionEdge', node?: Maybe<{ __typename?: 'MediaItem', mediaItemUrl?: Maybe<string>, link?: Maybe<string>, altText?: Maybe<string>, mimeType?: Maybe<string>, title?: Maybe<string>, uri?: Maybe<string> }> }> }>>>, seo?: Maybe<{ __typename?: 'SEO', title?: Maybe<string>, description?: Maybe<string>, openGraphTitle?: Maybe<string>, openGraphDescription?: Maybe<string>, openGraphType?: Maybe<string>, twitterTitle?: Maybe<string>, twitterDescription?: Maybe<string> }>, language?: Maybe<{ __typename?: 'Language', code?: Maybe<LanguageCodeEnum>, slug?: Maybe<string>, locale?: Maybe<string>, name?: Maybe<string> }>, featuredImage?: Maybe<{ __typename?: 'NodeWithFeaturedImageToMediaItemConnectionEdge', node?: Maybe<{ __typename?: 'MediaItem', mediaItemUrl?: Maybe<string>, link?: Maybe<string>, altText?: Maybe<string>, mimeType?: Maybe<string>, title?: Maybe<string>, uri?: Maybe<string> }> }> } | { __typename?: 'Post' } | { __typename?: 'Tag' }> }> }>>> }> }> };
+export type MenuQuery = { __typename?: 'RootQuery', menu?: Maybe<{ __typename?: 'Menu', menuItems?: Maybe<{ __typename?: 'MenuToMenuItemConnection', nodes?: Maybe<Array<Maybe<{ __typename?: 'MenuItem', connectedNode?: Maybe<{ __typename?: 'MenuItemToMenuItemLinkableConnectionEdge', node?: Maybe<{ __typename?: 'Category' } | { __typename?: 'Page', id: string, content?: Maybe<string>, slug?: Maybe<string>, title?: Maybe<string>, uri?: Maybe<string>, lead?: Maybe<string>, children?: Maybe<{ __typename?: 'HierarchicalContentNodeToContentNodeChildrenConnection', nodes?: Maybe<Array<Maybe<{ __typename?: 'Collection' } | { __typename?: 'Contact' } | { __typename?: 'LandingPage' } | { __typename?: 'MediaItem' } | { __typename?: 'Page', id: string, content?: Maybe<string>, slug?: Maybe<string>, title?: Maybe<string>, uri?: Maybe<string>, lead?: Maybe<string>, translations?: Maybe<Array<Maybe<{ __typename?: 'Page', id: string, content?: Maybe<string>, slug?: Maybe<string>, title?: Maybe<string>, uri?: Maybe<string>, lead?: Maybe<string>, seo?: Maybe<{ __typename?: 'SEO', title?: Maybe<string>, description?: Maybe<string>, openGraphTitle?: Maybe<string>, openGraphDescription?: Maybe<string>, openGraphType?: Maybe<string>, twitterTitle?: Maybe<string>, twitterDescription?: Maybe<string> }>, language?: Maybe<{ __typename?: 'Language', code?: Maybe<LanguageCodeEnum>, slug?: Maybe<string>, locale?: Maybe<string>, name?: Maybe<string> }>, featuredImage?: Maybe<{ __typename?: 'NodeWithFeaturedImageToMediaItemConnectionEdge', node?: Maybe<{ __typename?: 'MediaItem', mediaItemUrl?: Maybe<string>, link?: Maybe<string>, altText?: Maybe<string>, mimeType?: Maybe<string>, title?: Maybe<string>, uri?: Maybe<string> }> }> }>>>, seo?: Maybe<{ __typename?: 'SEO', title?: Maybe<string>, description?: Maybe<string>, openGraphTitle?: Maybe<string>, openGraphDescription?: Maybe<string>, openGraphType?: Maybe<string>, twitterTitle?: Maybe<string>, twitterDescription?: Maybe<string> }>, language?: Maybe<{ __typename?: 'Language', code?: Maybe<LanguageCodeEnum>, slug?: Maybe<string>, locale?: Maybe<string>, name?: Maybe<string> }>, featuredImage?: Maybe<{ __typename?: 'NodeWithFeaturedImageToMediaItemConnectionEdge', node?: Maybe<{ __typename?: 'MediaItem', mediaItemUrl?: Maybe<string>, link?: Maybe<string>, altText?: Maybe<string>, mimeType?: Maybe<string>, title?: Maybe<string>, uri?: Maybe<string> }> }> } | { __typename?: 'Post' } | { __typename?: 'Release' } | { __typename?: 'Translation' }>>> }>, translations?: Maybe<Array<Maybe<{ __typename?: 'Page', id: string, content?: Maybe<string>, slug?: Maybe<string>, title?: Maybe<string>, uri?: Maybe<string>, lead?: Maybe<string>, seo?: Maybe<{ __typename?: 'SEO', title?: Maybe<string>, description?: Maybe<string>, openGraphTitle?: Maybe<string>, openGraphDescription?: Maybe<string>, openGraphType?: Maybe<string>, twitterTitle?: Maybe<string>, twitterDescription?: Maybe<string> }>, language?: Maybe<{ __typename?: 'Language', code?: Maybe<LanguageCodeEnum>, slug?: Maybe<string>, locale?: Maybe<string>, name?: Maybe<string> }>, featuredImage?: Maybe<{ __typename?: 'NodeWithFeaturedImageToMediaItemConnectionEdge', node?: Maybe<{ __typename?: 'MediaItem', mediaItemUrl?: Maybe<string>, link?: Maybe<string>, altText?: Maybe<string>, mimeType?: Maybe<string>, title?: Maybe<string>, uri?: Maybe<string> }> }> }>>>, seo?: Maybe<{ __typename?: 'SEO', title?: Maybe<string>, description?: Maybe<string>, openGraphTitle?: Maybe<string>, openGraphDescription?: Maybe<string>, openGraphType?: Maybe<string>, twitterTitle?: Maybe<string>, twitterDescription?: Maybe<string> }>, language?: Maybe<{ __typename?: 'Language', code?: Maybe<LanguageCodeEnum>, slug?: Maybe<string>, locale?: Maybe<string>, name?: Maybe<string> }>, featuredImage?: Maybe<{ __typename?: 'NodeWithFeaturedImageToMediaItemConnectionEdge', node?: Maybe<{ __typename?: 'MediaItem', mediaItemUrl?: Maybe<string>, link?: Maybe<string>, altText?: Maybe<string>, mimeType?: Maybe<string>, title?: Maybe<string>, uri?: Maybe<string> }> }> } | { __typename?: 'Post' } | { __typename?: 'Tag' }> }> }>>> }> }> };
+
+export type MenuPageFieldsFragment = { __typename?: 'Page', id: string, content?: Maybe<string>, slug?: Maybe<string>, title?: Maybe<string>, uri?: Maybe<string>, lead?: Maybe<string>, translations?: Maybe<Array<Maybe<{ __typename?: 'Page', id: string, content?: Maybe<string>, slug?: Maybe<string>, title?: Maybe<string>, uri?: Maybe<string>, lead?: Maybe<string>, seo?: Maybe<{ __typename?: 'SEO', title?: Maybe<string>, description?: Maybe<string>, openGraphTitle?: Maybe<string>, openGraphDescription?: Maybe<string>, openGraphType?: Maybe<string>, twitterTitle?: Maybe<string>, twitterDescription?: Maybe<string> }>, language?: Maybe<{ __typename?: 'Language', code?: Maybe<LanguageCodeEnum>, slug?: Maybe<string>, locale?: Maybe<string>, name?: Maybe<string> }>, featuredImage?: Maybe<{ __typename?: 'NodeWithFeaturedImageToMediaItemConnectionEdge', node?: Maybe<{ __typename?: 'MediaItem', mediaItemUrl?: Maybe<string>, link?: Maybe<string>, altText?: Maybe<string>, mimeType?: Maybe<string>, title?: Maybe<string>, uri?: Maybe<string> }> }> }>>>, seo?: Maybe<{ __typename?: 'SEO', title?: Maybe<string>, description?: Maybe<string>, openGraphTitle?: Maybe<string>, openGraphDescription?: Maybe<string>, openGraphType?: Maybe<string>, twitterTitle?: Maybe<string>, twitterDescription?: Maybe<string> }>, language?: Maybe<{ __typename?: 'Language', code?: Maybe<LanguageCodeEnum>, slug?: Maybe<string>, locale?: Maybe<string>, name?: Maybe<string> }>, featuredImage?: Maybe<{ __typename?: 'NodeWithFeaturedImageToMediaItemConnectionEdge', node?: Maybe<{ __typename?: 'MediaItem', mediaItemUrl?: Maybe<string>, link?: Maybe<string>, altText?: Maybe<string>, mimeType?: Maybe<string>, title?: Maybe<string>, uri?: Maybe<string> }> }> };
 
 export type PageQueryVariables = Exact<{
   id: Scalars['ID'];
@@ -10290,6 +10309,14 @@ export const PageFieldsFragmentDoc = gql`
   }
 }
     ${SeoFieldsFragmentDoc}`;
+export const MenuPageFieldsFragmentDoc = gql`
+    fragment menuPageFields on Page {
+  ...pageFields
+  translations {
+    ...pageFields
+  }
+}
+    ${PageFieldsFragmentDoc}`;
 export const MenuDocument = gql`
     query Menu($id: ID!, $idType: MenuNodeIdTypeEnum) {
   menu(id: $id, idType: $idType) {
@@ -10298,22 +10325,10 @@ export const MenuDocument = gql`
         connectedNode {
           node {
             ... on Page {
-              ...pageFields
+              ...menuPageFields
               children {
                 nodes {
-                  ... on Page {
-                    ...pageFields
-                  }
-                }
-              }
-              translations {
-                ...pageFields
-                children {
-                  nodes {
-                    ... on Page {
-                      ...pageFields
-                    }
-                  }
+                  ...menuPageFields
                 }
               }
             }
@@ -10323,7 +10338,7 @@ export const MenuDocument = gql`
     }
   }
 }
-    ${PageFieldsFragmentDoc}`;
+    ${MenuPageFieldsFragmentDoc}`;
 
 /**
  * __useMenuQuery__

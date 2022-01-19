@@ -18,28 +18,18 @@ import {
 } from '../../generated/graphql-cms';
 import { createCmsApolloClient } from '../../headless-cms/cmsApolloClient';
 import { Breadcrumb } from '../../headless-cms/components/Breadcrumbs';
-import CmsPage, {
-  SEARCH_PANEL_TRESHOLD,
-} from '../../headless-cms/components/CmsPage';
+import CmsPage from '../../headless-cms/components/CmsPage';
 import { MENU_NAME } from '../../headless-cms/constants';
 import {
   getAllMenuPages,
   getSlugFromUri,
   getUriID,
   slugsToUriSegments,
-  stripLocaleFromUri,
 } from '../../headless-cms/utils';
 import { Language } from '../../types';
 import { isFeatureEnabled } from '../../utils/featureFlags';
 
-export type NavigationObject = {
-  uri: string;
-  locale: string;
-  title: string;
-};
-
 const NextCmsPage: NextPage<{
-  navigation: NavigationObject[][];
   page: PageFieldsFragment;
   breadcrumbs: Breadcrumb[];
 }> = (props) => <CmsPage {...props} />;
@@ -67,7 +57,6 @@ export async function getStaticPaths() {
 export async function getStaticProps(context: GetStaticPropsContext): Promise<
   GetStaticPropsResult<{
     initialApolloState: NormalizedCacheObject;
-    navigation: NavigationObject[][];
     page: PageFieldsFragment;
     breadcrumbs: Breadcrumb[];
   }>
@@ -125,23 +114,6 @@ export async function getStaticProps(context: GetStaticPropsContext): Promise<
     title: page?.title ?? '',
   }));
 
-  // Form array of navigation arrays of all the sub menus of current cms page
-  const navigationArrays = pages
-    .map((page) => {
-      const navigationItems: NavigationObject[] = [];
-      page?.children?.nodes?.forEach((p) => {
-        if (p && 'uri' in p) {
-          navigationItems.push({
-            uri: stripLocaleFromUri(p.uri ?? '') as string,
-            locale: p.language?.code?.toLowerCase() ?? 'fi',
-            title: p.title ?? '',
-          });
-        }
-      });
-      return navigationItems;
-    })
-    .filter((i) => !!i.length && i.length < SEARCH_PANEL_TRESHOLD);
-
   if (!currentPage) {
     throw new Error('Page undefined!');
   }
@@ -153,7 +125,6 @@ export async function getStaticProps(context: GetStaticPropsContext): Promise<
         context.locale as string,
         ALL_I18N_NAMESPACES
       )),
-      navigation: navigationArrays,
       page: currentPage,
       breadcrumbs,
     },

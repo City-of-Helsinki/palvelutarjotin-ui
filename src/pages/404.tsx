@@ -10,7 +10,7 @@ export async function getStaticProps({
   locale,
 }: GetStaticPropsContext): Promise<GetStaticPropsResult<unknown>> {
   return {
-    props: await serverSideTranslations(locale ?? 'fi', ['common']),
+    props: await serverSideTranslations(locale ?? 'fi', ['common', 'header']),
   };
 }
 
