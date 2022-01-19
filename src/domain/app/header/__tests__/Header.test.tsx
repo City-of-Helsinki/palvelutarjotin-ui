@@ -1,9 +1,81 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 
-import { render, screen } from '../../../../utils/testUtils';
+import { MenuDocument } from '../../../../generated/graphql-cms';
+import { fakePage } from '../../../../utils/cmsMockDataUtils';
+import { render, screen, act } from '../../../../utils/testUtils';
 import { store } from '../../store';
 import Header from '../Header';
+
+const route1 = '/helsinki-liikkuu/';
+const route2 = '/helsinki-liikkuu/alisivu/';
+const title1 = 'Mikä Kultus?';
+const subTitle1 = 'Mikä Kultus alisivu1';
+const subTitle2 = 'Mikä Kultus alisivu2';
+const mainMenu = [
+  {
+    title: title1,
+    uri: route1,
+    children: [
+      {
+        title: subTitle1,
+        uri: route2,
+      },
+      {
+        title: subTitle2,
+        uri: route2,
+      },
+    ],
+  },
+  { title: 'Helsinki liikkuu', uri: '/' },
+  { title: 'Kulttuurikasvatus', uri: '/' },
+  { title: 'Oppimateriaalit', uri: '/' },
+  { title: 'Kultus sivu', uri: '/' },
+];
+
+// Mock menu query for header
+const mocks = [
+  {
+    request: {
+      query: MenuDocument,
+      variables: {
+        id: 'Palvelutarjotin-UI Header',
+        idType: 'NAME',
+      },
+    },
+    result: {
+      data: {
+        menu: {
+          __typename: 'Menu',
+          menuItems: {
+            __typename: 'MenuToMenuItemConnection',
+            nodes: mainMenu.map((menuItem) => ({
+              __typename: 'MenuItem',
+              connectedNode: {
+                __typename: 'MenuItemToMenuItemLinkableConnectionEdge',
+                node: fakePage({
+                  title: menuItem.title,
+                  uri: menuItem.uri,
+                  children: {
+                    __typename:
+                      'HierarchicalContentNodeToContentNodeChildrenConnection',
+                    // child node are rendered under dropdown
+                    nodes: menuItem?.children?.map((childItem) =>
+                      fakePage({
+                        title: childItem.title,
+                        uri: childItem.uri,
+                      })
+                    ),
+                  },
+                }),
+              },
+            })),
+          },
+        },
+      },
+    },
+  },
+];
 
 it('Header matches snapshot', () => {
   const { container } = render(
@@ -37,5 +109,18 @@ describe('cimode in language selector', () => {
     process.env.NEXT_PUBLIC_LANGUAGE_CIMODE_VISIBLE = 'false';
     render(<Header />);
     expect(screen.queryAllByText(/CIMODE/).length).toBe(0);
+  });
+});
+
+describe('navigation', () => {
+  it('renders menus and dropdown menus', async () => {
+    const { container } = render(<Header />, { mocks });
+
+    // dropdown menu with dropdown items
+    await screen.findByRole('button', { name: title1 });
+    screen.getByText(subTitle1);
+    screen.getByText(subTitle2);
+
+    expect(container).toMatchSnapshot();
   });
 });
