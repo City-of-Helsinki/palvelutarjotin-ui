@@ -1,6 +1,7 @@
 import isPast from 'date-fns/isPast';
 import isSameDay from 'date-fns/isSameDay';
 import subDays from 'date-fns/subDays';
+import isNumber from 'lodash/isNumber';
 
 import {
   EventFieldsFragment,
@@ -64,12 +65,11 @@ export const isEnrolmentClosed = (
   occurrence: OccurrenceFieldsFragment,
   event?: EventFieldsFragment | null
 ): boolean => {
-  return isPast(
-    subDays(
-      new Date(occurrence.startTime),
-      event?.pEvent?.enrolmentEndDays || 0
-    )
-  );
+  const enrolmentEndDays = event?.pEvent?.enrolmentEndDays;
+  if (isNumber(enrolmentEndDays)) {
+    return isPast(subDays(new Date(occurrence.startTime), enrolmentEndDays));
+  }
+  return false;
 };
 
 export const isEnrolmentOpen = (
