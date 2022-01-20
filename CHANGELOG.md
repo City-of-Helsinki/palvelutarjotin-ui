@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.3.1](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/v1.3.0...v1.3.1) (2022-01-20)
+
+
+### Bug Fixes
+
+* **enrolment:** don't show enrolment has ended if enrolmentEndDays is not defined ([f51b45e](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/f51b45e60e593c1cd7036d1b4055b5b7984401e9))
+
 ## [1.3.0](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/v1.2.0...v1.3.0) (2022-01-12)
 
 
