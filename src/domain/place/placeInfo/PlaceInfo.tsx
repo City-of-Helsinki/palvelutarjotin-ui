@@ -34,7 +34,7 @@ const PlaceInfo: React.FC<PlaceInfoProps> = ({
 }) => {
   const { t } = useTranslation();
   const locale = useLocale();
-  const { data } = usePlaceQuery({ variables: { id } });
+  const { data } = usePlaceQuery({ variables: { id }, skip: !id });
 
   if (!data) return null;
 
