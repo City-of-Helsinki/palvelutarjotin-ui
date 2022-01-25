@@ -32,6 +32,7 @@ const CalendarButton: React.FC<CalendarButtonProps> = ({
 
   const { data, loading } = usePlaceQuery({
     variables: { id: placeId },
+    skip: !placeId,
   });
 
   const {
