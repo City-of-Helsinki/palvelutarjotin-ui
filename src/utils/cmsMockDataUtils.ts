@@ -57,6 +57,7 @@ export const fakePage = (
       },
       parent: null,
       __typename: 'Page',
+      sidebar: [],
     },
     overrides
   );

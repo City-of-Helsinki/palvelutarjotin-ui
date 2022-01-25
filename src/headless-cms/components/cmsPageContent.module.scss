@@ -1,0 +1,24 @@
+@use 'layout';
+
+.cmsSidebarLayout {
+  display: flex;
+  flex-direction: column;
+
+  @include layout.respond-above(md) {
+    flex-direction: row;
+  }
+
+  &Main {
+    @include layout.respond-above(md) {
+      flex-basis: 66.666%;
+      margin-right: var(--spacing-xs);
+    }
+  }
+
+  &Aside {
+    @include layout.respond-above(md) {
+      flex-basis: 33.333%;
+      margin-left: var(--spacing-xs);
+    }
+  }
+}

@@ -86,6 +86,24 @@ export const PAGE_QUERY = gql`
         uri
       }
     }
+    sidebar {
+      ... on LayoutLinkList {
+        anchor
+        title
+        description
+        links {
+          target
+          title
+          url
+        }
+      }
+      ... on LayoutArticles {
+        title
+      }
+      ... on LayoutPages {
+        title
+      }
+    }
   }
 
   fragment seoFields on SEO {

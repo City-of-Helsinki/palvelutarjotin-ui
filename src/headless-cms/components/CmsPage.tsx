@@ -7,6 +7,7 @@ import { Page, PageQuery } from '../../generated/graphql-cms';
 import { Language } from '../../types';
 import { stripLocaleFromUri } from '../utils';
 import Breadcrumbs, { Breadcrumb } from './Breadcrumbs';
+import styles from './cmsPage.module.scss';
 import CmsPageContent from './CmsPageContent';
 import CmsPageSearch from './CmsPageSearch/CmsPageSearch';
 
@@ -24,7 +25,7 @@ const CmsPage: React.FC<{
     (page?.children?.nodes?.length ?? 0) > SEARCH_PANEL_TRESHOLD;
 
   return (
-    <div>
+    <div className={styles.cmsPageContainer}>
       <PageMeta title={title ?? 'Title'} {...seo} localePaths={localePaths} />
       {breadcrumbs && <Breadcrumbs breadcrumbs={breadcrumbs} />}
       <CmsPageContent page={page} />
