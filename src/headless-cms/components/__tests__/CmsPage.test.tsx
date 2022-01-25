@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { TextEncoder, TextDecoder } from 'util';
 
 import { fakePage } from '../../../utils/cmsMockDataUtils';
@@ -9,6 +10,35 @@ import CmsPage from '../CmsPage';
 global.TextEncoder = TextEncoder;
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 global.TextDecoder = TextDecoder as any;
+
+function verifyCmsSidebarContentCard({
+  title,
+  url,
+  image,
+  imageAlt,
+}: {
+  title: string;
+  url: string;
+  image?: string;
+  imageAlt?: string;
+}) {
+  // Has title with correct link
+  const link = screen.getByRole('link', {
+    name: title,
+  }) as HTMLAnchorElement;
+  expect(link).toBeInTheDocument();
+  expect(link.href).toEqual(url);
+
+  if (imageAlt) {
+    // Has image if it exists that has correct alt text
+    const imageElement = screen.getByRole('img', {
+      name: imageAlt,
+    }) as HTMLImageElement;
+    expect(imageElement).toBeInTheDocument();
+    // Next image components gets an encoded src value
+    expect(imageElement.src).toEqual(expect.any(String));
+  }
+}
 
 test('renders with sidebar layout when sidebar has content', async () => {
   const sidebarLayoutLinkList = {
@@ -30,6 +60,30 @@ test('renders with sidebar layout when sidebar has content', async () => {
       },
     ],
   };
+  const sidebarLayoutPage = {
+    id: '1',
+    title: 'Oppimateriaalit elokuvajuhlia varten',
+    uri: '/oppimateriaalit-elokuvajuhlia-varten',
+    featuredImage: {
+      node: {
+        mediaItemUrl: 'https://hkih.production.geniem.io/i/1245',
+        altText: 'Kirjoja eri väreissä',
+      },
+    },
+  };
+  const sidebarLayoutPages = {
+    __typename: 'LayoutPages',
+    pages: [sidebarLayoutPage],
+  };
+  const sidebarLayoutArticle = {
+    id: '2',
+    title: 'Kevät tulee, tuo luonto osaksi opetusta',
+    uri: '/kevat-tulee-tuo-luonto-osaksi-opetusta',
+  };
+  const sidebarLayoutArticles = {
+    __typename: 'LayoutArticles',
+    articles: [sidebarLayoutArticle],
+  };
 
   const { container } = render(
     <CmsPage
@@ -37,7 +91,15 @@ test('renders with sidebar layout when sidebar has content', async () => {
       page={fakePage({
         title: 'Alisivun otsikko',
         content: 'Alisivun kontentti',
-        sidebar: [sidebarLayoutLinkList],
+        sidebar: [
+          sidebarLayoutLinkList,
+          // Unexpected type errors which I wasn't able to track down.
+          // To me it seemed as if the type checker got confused somehow.
+          // @ts-ignore
+          sidebarLayoutPages,
+          // @ts-ignore
+          sidebarLayoutArticles,
+        ],
       })}
     />
   );
@@ -68,4 +130,18 @@ test('renders with sidebar layout when sidebar has content', async () => {
       name: sidebarLayoutLinkList.links[1].title,
     })
   ).toBeInTheDocument();
+
+  //-- Renders layout pages
+  verifyCmsSidebarContentCard({
+    title: sidebarLayoutPage.title,
+    url: `${window.origin}/cms-page${sidebarLayoutPage.uri}`,
+    image: sidebarLayoutPage.featuredImage.node.mediaItemUrl,
+    imageAlt: sidebarLayoutPage.featuredImage.node.altText,
+  });
+
+  //-- Renders layout articles
+  verifyCmsSidebarContentCard({
+    title: sidebarLayoutArticle.title,
+    url: `${window.origin}/cms-page${sidebarLayoutArticle.uri}`,
+  });
 });
