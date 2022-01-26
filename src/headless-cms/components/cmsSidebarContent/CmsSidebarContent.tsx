@@ -14,7 +14,7 @@ type Props = {
 const CmsSidebarContent: React.FC<Props> = ({ content }) => {
   return (
     <ul className={styles.container}>
-      {content?.map((item, i) => {
+      {content?.map((item) => {
         if (item?.__typename === 'LayoutLinkList') {
           return (
             <li key={item.title}>
