@@ -1,6 +1,12 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { TextEncoder, TextDecoder } from 'util';
 
-import { fakePage } from '../../../utils/cmsMockDataUtils';
+import {
+  fakePage,
+  fakeMediaItem,
+  fakePost,
+} from '../../../utils/cmsMockDataUtils';
 import { render, screen } from '../../../utils/testUtils';
 import CmsPage from '../CmsPage';
 
@@ -9,6 +15,35 @@ import CmsPage from '../CmsPage';
 global.TextEncoder = TextEncoder;
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 global.TextDecoder = TextDecoder as any;
+
+function verifyCmsSidebarContentCard({
+  title,
+  url,
+  image,
+  imageAlt,
+}: {
+  title: string;
+  url: string;
+  image?: string | null;
+  imageAlt?: string | null;
+}) {
+  // Has title with correct link
+  const link = screen.getByRole('link', {
+    name: title,
+  }) as HTMLAnchorElement;
+  expect(link).toBeInTheDocument();
+  expect(link.href).toEqual(url);
+
+  if (imageAlt) {
+    // Has image if it exists that has correct alt text
+    const imageElement = screen.getByRole('img', {
+      name: imageAlt,
+    }) as HTMLImageElement;
+    expect(imageElement).toBeInTheDocument();
+    // Next image components gets an encoded src value
+    expect(imageElement.src).toEqual(expect.any(String));
+  }
+}
 
 test('renders with sidebar layout when sidebar has content', async () => {
   const sidebarLayoutLinkList = {
@@ -30,6 +65,31 @@ test('renders with sidebar layout when sidebar has content', async () => {
       },
     ],
   };
+  const sidebarLayoutPage = fakePage({
+    id: '1',
+    title: 'Oppimateriaalit elokuvajuhlia varten',
+    uri: '/oppimateriaalit-elokuvajuhlia-varten',
+    featuredImage: {
+      node: fakeMediaItem({
+        id: '1',
+        mediaItemUrl: 'https://hkih.production.geniem.io/i/1245',
+        altText: 'Kirjoja eri väreissä',
+      }),
+    },
+  });
+  const sidebarLayoutPages = {
+    __typename: 'LayoutPages' as const,
+    pages: [sidebarLayoutPage],
+  };
+  const sidebarLayoutArticle = fakePost({
+    id: '2',
+    title: 'Kevät tulee, tuo luonto osaksi opetusta',
+    uri: '/kevat-tulee-tuo-luonto-osaksi-opetusta',
+  });
+  const sidebarLayoutArticles = {
+    __typename: 'LayoutArticles' as const,
+    articles: [sidebarLayoutArticle],
+  };
 
   const { container } = render(
     <CmsPage
@@ -37,7 +97,11 @@ test('renders with sidebar layout when sidebar has content', async () => {
       page={fakePage({
         title: 'Alisivun otsikko',
         content: 'Alisivun kontentti',
-        sidebar: [sidebarLayoutLinkList],
+        sidebar: [
+          sidebarLayoutLinkList,
+          sidebarLayoutPages,
+          sidebarLayoutArticles,
+        ],
       })}
     />
   );
@@ -68,4 +132,18 @@ test('renders with sidebar layout when sidebar has content', async () => {
       name: sidebarLayoutLinkList.links[1].title,
     })
   ).toBeInTheDocument();
+
+  //-- Renders layout pages
+  verifyCmsSidebarContentCard({
+    title: sidebarLayoutPage.title!,
+    url: `${window.origin}/cms-page${sidebarLayoutPage.uri}`,
+    image: sidebarLayoutPage.featuredImage?.node?.mediaItemUrl,
+    imageAlt: sidebarLayoutPage.featuredImage?.node?.altText,
+  });
+
+  //-- Renders layout articles
+  verifyCmsSidebarContentCard({
+    title: sidebarLayoutArticle.title!,
+    url: `${window.origin}/cms-page${sidebarLayoutArticle.uri}`,
+  });
 });

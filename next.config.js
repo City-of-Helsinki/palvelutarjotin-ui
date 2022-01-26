@@ -7,4 +7,12 @@ module.exports = {
   sassOptions: {
     includePaths: [path.join(__dirname, 'src/assets/styles')],
   },
+  images: {
+    domains: [
+      'hkih.production.geniem.io',
+      'kultus.content.api.hel.fi',
+      'hkih.stage.geniem',
+      'kultus.hkih.stage.geniem.io',
+    ],
+  },
 };

@@ -7,6 +7,7 @@ import {
   MediaItem,
   Notification,
   Page,
+  Post,
   Seo,
 } from '../generated/graphql-cms';
 
@@ -58,6 +59,48 @@ export const fakePage = (
       parent: null,
       __typename: 'Page',
       sidebar: [],
+    },
+    overrides
+  );
+};
+
+export const fakePost = (
+  overrides?: Partial<Post>,
+  isTranslation?: boolean
+): Post => {
+  return merge<Post, typeof overrides>(
+    {
+      id: faker.datatype.uuid(),
+      postId: faker.datatype.number(),
+      uri: generateUri(),
+      title: faker.random.words(),
+      lead: faker.random.word(),
+      slug: generateUri(),
+      content: faker.random.words(),
+      databaseId: faker.datatype.number(),
+      language: fakeLanguage({ code: LanguageCodeEnum.Fi }),
+      seo: fakeSEO(),
+      isContentNode: false,
+      isTermNode: false,
+      // to avoid infinite recursion loop :D
+      translations: isTranslation
+        ? null
+        : [
+            fakePost(
+              { language: fakeLanguage({ code: LanguageCodeEnum.En }) },
+              true
+            ),
+            fakePost(
+              { language: fakeLanguage({ code: LanguageCodeEnum.Sv }) },
+              true
+            ),
+          ],
+      featuredImage: {
+        node: fakeMediaItem(),
+        __typename: 'NodeWithFeaturedImageToMediaItemConnectionEdge',
+      },
+      __typename: 'Post',
+      isSticky: false,
     },
     overrides
   );

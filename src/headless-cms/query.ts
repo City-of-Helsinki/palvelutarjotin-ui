@@ -98,10 +98,30 @@ export const PAGE_QUERY = gql`
         }
       }
       ... on LayoutArticles {
-        title
+        articles {
+          id
+          title
+          uri
+          featuredImage {
+            node {
+              altText
+              mediaItemUrl
+            }
+          }
+        }
       }
       ... on LayoutPages {
-        title
+        pages {
+          id
+          title
+          uri
+          featuredImage {
+            node {
+              altText
+              mediaItemUrl
+            }
+          }
+        }
       }
     }
   }
