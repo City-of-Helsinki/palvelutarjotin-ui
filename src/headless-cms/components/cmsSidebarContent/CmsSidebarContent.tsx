@@ -1,8 +1,8 @@
 import React from 'react';
 
+import { getCmsPath } from '../../../domain/app/routes/utils';
 import { PageFieldsFragment } from '../../../generated/graphql-cms';
-import useLocale from '../../../hooks/useLocale';
-import { Language } from '../../../types';
+import { stripLocaleFromUri } from '../../utils';
 import styles from './cmsSidebarContent.module.scss';
 import CmsSidebarContentCard from './CmsSidebarContentCard';
 import CmsSidebarContentLayoutLinkList from './CmsSidebarContentLayoutLinkList';
@@ -12,8 +12,6 @@ type Props = {
 };
 
 const CmsSidebarContent: React.FC<Props> = ({ content }) => {
-  const locale = useLocale();
-
   return (
     <ul className={styles.container}>
       {content?.map((item, i) => {
@@ -43,7 +41,9 @@ const CmsSidebarContent: React.FC<Props> = ({ content }) => {
               <li key={page?.id}>
                 <CmsSidebarContentCard
                   title={title}
-                  url={createCmsLink(uri, locale)}
+                  // Remove language parameter uri because it's in the incorrect
+                  // position
+                  url={getCmsPath(stripLocaleFromUri(uri))}
                   image={page?.featuredImage?.node?.mediaItemUrl || undefined}
                   imageAlt={page?.featuredImage?.node?.altText || undefined}
                 />
@@ -65,7 +65,9 @@ const CmsSidebarContent: React.FC<Props> = ({ content }) => {
               <li key={article?.id}>
                 <CmsSidebarContentCard
                   title={title}
-                  url={createCmsLink(uri, locale)}
+                  // Remove language parameter uri because it's in the incorrect
+                  // position
+                  url={getCmsPath(stripLocaleFromUri(uri))}
                   image={
                     article?.featuredImage?.node?.mediaItemUrl || undefined
                   }
@@ -83,13 +85,3 @@ const CmsSidebarContent: React.FC<Props> = ({ content }) => {
 };
 
 export default CmsSidebarContent;
-
-function createCmsLink(cmsUri: string, language: Language) {
-  const baseUri = `/cms-page${cmsUri}`;
-
-  if (language === 'fi') {
-    return baseUri;
-  }
-
-  return `/${language}${baseUri}`;
-}
