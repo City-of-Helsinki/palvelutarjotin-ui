@@ -1,7 +1,12 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { TextEncoder, TextDecoder } from 'util';
 
-import { fakePage } from '../../../utils/cmsMockDataUtils';
+import {
+  fakePage,
+  fakeMediaItem,
+  fakePost,
+} from '../../../utils/cmsMockDataUtils';
 import { render, screen } from '../../../utils/testUtils';
 import CmsPage from '../CmsPage';
 
@@ -19,8 +24,8 @@ function verifyCmsSidebarContentCard({
 }: {
   title: string;
   url: string;
-  image?: string;
-  imageAlt?: string;
+  image?: string | null;
+  imageAlt?: string | null;
 }) {
   // Has title with correct link
   const link = screen.getByRole('link', {
@@ -60,28 +65,29 @@ test('renders with sidebar layout when sidebar has content', async () => {
       },
     ],
   };
-  const sidebarLayoutPage = {
+  const sidebarLayoutPage = fakePage({
     id: '1',
     title: 'Oppimateriaalit elokuvajuhlia varten',
     uri: '/oppimateriaalit-elokuvajuhlia-varten',
     featuredImage: {
-      node: {
+      node: fakeMediaItem({
+        id: '1',
         mediaItemUrl: 'https://hkih.production.geniem.io/i/1245',
         altText: 'Kirjoja eri väreissä',
-      },
+      }),
     },
-  };
+  });
   const sidebarLayoutPages = {
-    __typename: 'LayoutPages',
+    __typename: 'LayoutPages' as const,
     pages: [sidebarLayoutPage],
   };
-  const sidebarLayoutArticle = {
+  const sidebarLayoutArticle = fakePost({
     id: '2',
     title: 'Kevät tulee, tuo luonto osaksi opetusta',
     uri: '/kevat-tulee-tuo-luonto-osaksi-opetusta',
-  };
+  });
   const sidebarLayoutArticles = {
-    __typename: 'LayoutArticles',
+    __typename: 'LayoutArticles' as const,
     articles: [sidebarLayoutArticle],
   };
 
@@ -93,11 +99,7 @@ test('renders with sidebar layout when sidebar has content', async () => {
         content: 'Alisivun kontentti',
         sidebar: [
           sidebarLayoutLinkList,
-          // Unexpected type errors which I wasn't able to track down.
-          // To me it seemed as if the type checker got confused somehow.
-          // @ts-ignore
           sidebarLayoutPages,
-          // @ts-ignore
           sidebarLayoutArticles,
         ],
       })}
@@ -133,15 +135,15 @@ test('renders with sidebar layout when sidebar has content', async () => {
 
   //-- Renders layout pages
   verifyCmsSidebarContentCard({
-    title: sidebarLayoutPage.title,
+    title: sidebarLayoutPage.title!,
     url: `${window.origin}/cms-page${sidebarLayoutPage.uri}`,
-    image: sidebarLayoutPage.featuredImage.node.mediaItemUrl,
-    imageAlt: sidebarLayoutPage.featuredImage.node.altText,
+    image: sidebarLayoutPage.featuredImage?.node?.mediaItemUrl,
+    imageAlt: sidebarLayoutPage.featuredImage?.node?.altText,
   });
 
   //-- Renders layout articles
   verifyCmsSidebarContentCard({
-    title: sidebarLayoutArticle.title,
+    title: sidebarLayoutArticle.title!,
     url: `${window.origin}/cms-page${sidebarLayoutArticle.uri}`,
   });
 });
