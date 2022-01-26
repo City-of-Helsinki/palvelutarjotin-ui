@@ -12,6 +12,7 @@ module.exports = {
       'hkih.production.geniem.io',
       'kultus.content.api.hel.fi',
       'hkih.stage.geniem',
+      'kultus.hkih.stage.geniem.io',
     ],
   },
 };
