@@ -3,8 +3,11 @@ import {
   MatomoProvider,
 } from '@datapunt/matomo-tracker-react';
 import * as Sentry from '@sentry/browser';
+import { LoadingSpinner } from 'hds-react';
 import { appWithTranslation } from 'next-i18next';
 import { AppProps } from 'next/app';
+import NextError from 'next/error';
+import { useRouter } from 'next/router';
 import React, { ErrorInfo } from 'react';
 import { Provider } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
@@ -41,6 +44,7 @@ const matomoInstance = createMatomoInstance({
 });
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
+  const router = useRouter();
   const locale = useLocale();
   const cmsApolloClient = useCmsApollo(pageProps.initialApolloState);
 
@@ -56,11 +60,21 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
       <Provider store={store}>
         <MatomoProvider value={matomoInstance}>
           <FocusToTop />
-          <CMSApolloProvider value={cmsApolloClient}>
-            <PageLayout {...pageProps}>
-              <Component {...pageProps} />
-            </PageLayout>
-          </CMSApolloProvider>
+          {router.isFallback ? (
+            <Center>
+              <LoadingSpinner />
+            </Center>
+          ) : pageProps.error ? (
+            <NextError
+              statusCode={pageProps.error.networkError?.statusCode ?? 400}
+            />
+          ) : (
+            <CMSApolloProvider value={cmsApolloClient}>
+              <PageLayout {...pageProps}>
+                <Component {...pageProps} />
+              </PageLayout>
+            </CMSApolloProvider>
+          )}
           <ToastContainer position="top-right" />
         </MatomoProvider>
       </Provider>
@@ -88,6 +102,22 @@ class ErrorBoundary extends React.Component {
     return this.props.children;
   }
 }
+
+const Center: React.FC = ({ children }) => {
+  return (
+    <div
+      style={{
+        width: '100vw',
+        height: '100vh',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}
+    >
+      {children}
+    </div>
+  );
+};
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default appWithTranslation(MyApp as any, nextI18nextConfig);

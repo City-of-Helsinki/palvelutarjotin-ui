@@ -37,7 +37,7 @@ const NextCmsPage: NextPage<{
 export async function getStaticPaths() {
   const pages = await getAllMenuPages();
 
-  if (isFeatureEnabled('HEADLESS_CMS')) {
+  if (isFeatureEnabled('HEADLESS_CMS') && pages) {
     return {
       paths: pages.map((page) => {
         return {
@@ -54,13 +54,62 @@ export async function getStaticPaths() {
   return { paths: [], fallback: false };
 }
 
-export async function getStaticProps(context: GetStaticPropsContext): Promise<
-  GetStaticPropsResult<{
-    initialApolloState: NormalizedCacheObject;
-    page: PageFieldsFragment;
-    breadcrumbs: Breadcrumb[];
-  }>
-> {
+type ResultProps =
+  | {
+      initialApolloState: NormalizedCacheObject;
+      page: PageFieldsFragment;
+      breadcrumbs: Breadcrumb[];
+    }
+  | {
+      error?: {
+        statusCode: number;
+      };
+    };
+
+export async function getStaticProps(
+  context: GetStaticPropsContext
+): Promise<GetStaticPropsResult<ResultProps>> {
+  try {
+    const {
+      currentPage: page,
+      breadcrumbs,
+      cmsClient,
+    } = await getProps(context);
+
+    if (!page) {
+      return {
+        notFound: true,
+        revalidate: true,
+      };
+    }
+
+    return {
+      props: {
+        initialApolloState: cmsClient.cache.extract(),
+        ...(await serverSideTranslations(
+          context.locale as string,
+          ALL_I18N_NAMESPACES
+        )),
+        page,
+        breadcrumbs,
+      },
+      revalidate: 60,
+    };
+  } catch (e) {
+    // eslint-disable-next-line no-console
+    console.log('Error while generating content page', e);
+    return {
+      props: {
+        error: {
+          statusCode: 400,
+        },
+      },
+      revalidate: 10,
+    };
+  }
+}
+
+const getProps = async (context: GetStaticPropsContext) => {
   const cmsClient = createCmsApolloClient();
 
   // These breadcrumb uris are used to fetch all the parent pages of the current page
@@ -114,22 +163,7 @@ export async function getStaticProps(context: GetStaticPropsContext): Promise<
     title: page?.title ?? '',
   }));
 
-  if (!currentPage) {
-    throw new Error('Page undefined!');
-  }
-
-  return {
-    props: {
-      initialApolloState: cmsClient.cache.extract(),
-      ...(await serverSideTranslations(
-        context.locale as string,
-        ALL_I18N_NAMESPACES
-      )),
-      page: currentPage,
-      breadcrumbs,
-    },
-    revalidate: 60,
-  };
-}
+  return { currentPage, breadcrumbs, cmsClient };
+};
 
 export default NextCmsPage;
