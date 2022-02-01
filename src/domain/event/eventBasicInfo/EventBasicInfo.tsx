@@ -9,6 +9,7 @@ import { EventFieldsFragment } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
 import IconTicket from '../../../icons/IconTicket';
 import addUrlSlashes from '../../../utils/addUrlSlashes';
+import { ROUTES } from '../../app/routes/constants';
 import { getEventFields } from '../utils';
 import styles from './eventBasicInfo.module.scss';
 import EventCategorisation from './EventCategorisation';
@@ -99,7 +100,7 @@ const OrganisationInfo: React.FC<{
   contactPhoneNumber,
 }) => {
   const { t } = useTranslation();
-  const organisationSearchUrl = `/?organisation=${organisationId}`;
+  const organisationSearchUrl = `${ROUTES.EVENTS_SEARCH}/?organisation=${organisationId}`;
   return (
     <div>
       <p className={styles.organisation}>{organisation}</p>

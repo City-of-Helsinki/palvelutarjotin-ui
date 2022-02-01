@@ -53,6 +53,7 @@ const data = {
   name: 'Testitapahtuma',
   description: 'Tapahtuman pitkä kuvaus',
   organisationName: 'Testiorganisaatio',
+  organisationId: 'organisationId-test',
   contactPersonName: 'contact person',
   contactPersonEmail: 'testi@testaaja.fi',
   contactPersonPhoneNumber: '123321123',
@@ -144,7 +145,10 @@ const occurrences = [
 const pEventData = fakePEvent({
   enrolmentEndDays: 1,
   enrolmentStart: '2020-07-13T06:00:00+00:00',
-  organisation: fakeOrganisation({ name: data.organisationName }),
+  organisation: fakeOrganisation({
+    name: data.organisationName,
+    id: data.organisationId,
+  }),
   contactPhoneNumber: data.contactPersonPhoneNumber,
   contactEmail: data.contactPersonEmail,
   contactPerson: fakePerson({
@@ -332,6 +336,14 @@ it('renders page and event information correctly', async () => {
       screen.getByRole(item.role, { name: item.name })
     ).toBeInTheDocument();
   });
+
+  const organisationEventsLink = screen.getByRole('link', {
+    name: /näytä järjestäjän tapahtumat/i,
+  });
+  expect(organisationEventsLink).toHaveAttribute(
+    'href',
+    `${ROUTES.EVENTS_SEARCH}?organisation=${data.organisationId}`
+  );
 
   // Event image should have correct src url
   const eventImage = screen.queryByRole('img', {
