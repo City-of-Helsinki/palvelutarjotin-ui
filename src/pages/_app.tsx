@@ -1,7 +1,3 @@
-import {
-  createInstance as createMatomoInstance,
-  MatomoProvider,
-} from '@datapunt/matomo-tracker-react';
 import * as Sentry from '@sentry/browser';
 import { LoadingSpinner } from 'hds-react';
 import { appWithTranslation } from 'next-i18next';
@@ -16,6 +12,7 @@ import nextI18nextConfig from '../../next-i18next.config';
 import '../assets/styles/main.scss';
 import PageLayout from '../domain/app/layout/PageLayout';
 import { store } from '../domain/app/store';
+import MatomoTracker from '../domain/matomo/Matomo';
 import FocusToTop from '../FocusToTop';
 import { useCmsApollo } from '../headless-cms/cmsApolloClient';
 import CMSApolloProvider from '../headless-cms/cmsApolloContext';
@@ -27,21 +24,6 @@ if (process.env.NODE_ENV === 'production') {
     environment: process.env.NEXT_PUBLIC_ENVIRONMENT,
   });
 }
-
-const getMatomoUrlPath = (path: string) =>
-  `${process.env.NEXT_PUBLIC_MATOMO_URL_BASE}${path}`;
-
-const matomoInstance = createMatomoInstance({
-  disabled: process.env.NEXT_PUBLIC_MATOMO_ENABLED !== 'true',
-  urlBase: process.env.NEXT_PUBLIC_MATOMO_URL_BASE as string,
-  srcUrl:
-    process.env.NEXT_PUBLIC_MATOMO_SRC_URL &&
-    getMatomoUrlPath(process.env.NEXT_PUBLIC_MATOMO_SRC_URL),
-  trackerUrl:
-    process.env.NEXT_PUBLIC_MATOMO_TRACKER_URL &&
-    getMatomoUrlPath(process.env.NEXT_PUBLIC_MATOMO_TRACKER_URL),
-  siteId: Number(process.env.NEXT_PUBLIC_MATOMO_SITE_ID),
-});
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   const router = useRouter();
@@ -58,7 +40,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
     <ErrorBoundary>
       <Provider store={store}>
-        <MatomoProvider value={matomoInstance}>
+        <MatomoTracker>
           <FocusToTop />
           {router.isFallback ? (
             <Center>
@@ -76,7 +58,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
             </CMSApolloProvider>
           )}
           <ToastContainer position="top-right" />
-        </MatomoProvider>
+        </MatomoTracker>
       </Provider>
     </ErrorBoundary>
   );
