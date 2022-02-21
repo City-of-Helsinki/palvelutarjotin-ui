@@ -1,7 +1,6 @@
-import { useMatomo } from '@datapunt/matomo-tracker-react';
 import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import PageMeta, {
   getLanguageAwarePath,
@@ -15,20 +14,12 @@ interface Props {
 
 const PageWrapper: React.FC<Props> = ({ children, title = 'appName' }) => {
   const { t } = useTranslation();
-  const { trackPageView } = useMatomo();
   const { asPath } = useRouter();
 
   const translatedTitle =
     title !== 'appName'
       ? `${t(title)} - ${t('common:appName')}`
       : t('common:appName');
-
-  // Track page changes when pathnname changes
-  useEffect(() => {
-    trackPageView({
-      href: window.location.href,
-    });
-  }, [asPath, trackPageView]);
 
   return (
     <div>
