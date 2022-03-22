@@ -5,11 +5,16 @@ import { AppProps } from 'next/app';
 import NextError from 'next/error';
 import { useRouter } from 'next/router';
 import React, { ErrorInfo } from 'react';
+import {
+  ConfigProvider as RHHCConfigProvider,
+  defaultConfig as rhhcDefaultConfig,
+} from 'react-helsinki-headless-cms';
 import { Provider } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
 
 import nextI18nextConfig from '../../next-i18next.config';
 import '../assets/styles/main.scss';
+import CmsPageLayout from '../domain/app/layout/CmsPageLayout';
 import PageLayout from '../domain/app/layout/PageLayout';
 import { store } from '../domain/app/store';
 import MatomoTracker from '../domain/matomo/Matomo';
@@ -29,6 +34,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
   const router = useRouter();
   const locale = useLocale();
   const cmsApolloClient = useCmsApollo(pageProps.initialApolloState);
+  const rhhcConfig = React.useMemo(() => rhhcDefaultConfig, []);
 
   React.useEffect(() => {
     const html = document.querySelector('html');
@@ -37,29 +43,35 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
     }
   }, [locale]);
 
+  const PageLayoutComponent = router.route.startsWith('/cms-page')
+    ? CmsPageLayout
+    : PageLayout;
+
   return (
     <ErrorBoundary>
-      <Provider store={store}>
-        <MatomoTracker>
-          <FocusToTop />
-          {router.isFallback ? (
-            <Center>
-              <LoadingSpinner />
-            </Center>
-          ) : pageProps.error ? (
-            <NextError
-              statusCode={pageProps.error.networkError?.statusCode ?? 400}
-            />
-          ) : (
-            <CMSApolloProvider value={cmsApolloClient}>
-              <PageLayout {...pageProps}>
-                <Component {...pageProps} />
-              </PageLayout>
-            </CMSApolloProvider>
-          )}
-          <ToastContainer position="top-right" />
-        </MatomoTracker>
-      </Provider>
+      <RHHCConfigProvider config={rhhcConfig}>
+        <Provider store={store}>
+          <MatomoTracker>
+            <FocusToTop />
+            {router.isFallback ? (
+              <Center>
+                <LoadingSpinner />
+              </Center>
+            ) : pageProps.error ? (
+              <NextError
+                statusCode={pageProps.error.networkError?.statusCode ?? 400}
+              />
+            ) : (
+              <CMSApolloProvider value={cmsApolloClient}>
+                <PageLayoutComponent {...pageProps}>
+                  <Component {...pageProps} />
+                </PageLayoutComponent>
+              </CMSApolloProvider>
+            )}
+            <ToastContainer position="top-right" />
+          </MatomoTracker>
+        </Provider>
+      </RHHCConfigProvider>
     </ErrorBoundary>
   );
 };
