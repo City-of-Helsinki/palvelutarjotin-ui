@@ -66,6 +66,7 @@ export const PAGE_QUERY = gql`
     slug
     title
     uri
+    link
     lead
     seo {
       ...seoFields
@@ -101,7 +102,7 @@ export const PAGE_QUERY = gql`
         articles {
           id
           title
-          uri
+          link
           featuredImage {
             node {
               altText
@@ -114,7 +115,7 @@ export const PAGE_QUERY = gql`
         pages {
           id
           title
-          uri
+          link
           featuredImage {
             node {
               altText
