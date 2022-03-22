@@ -3,6 +3,7 @@
 import { NormalizedCacheObject } from '@apollo/client';
 import { GetStaticPropsContext, GetStaticPropsResult, NextPage } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { Breadcrumb } from 'react-helsinki-headless-cms';
 
 import { ALL_I18N_NAMESPACES } from '../../constants';
 import {
@@ -17,7 +18,6 @@ import {
   PageFieldsFragment,
 } from '../../generated/graphql-cms';
 import { createCmsApolloClient } from '../../headless-cms/cmsApolloClient';
-import { Breadcrumb } from '../../headless-cms/components/Breadcrumbs';
 import CmsPage from '../../headless-cms/components/CmsPage';
 import { MENU_NAME } from '../../headless-cms/constants';
 import {
@@ -159,7 +159,7 @@ const getProps = async (context: GetStaticPropsContext) => {
   const currentPage = pageData.page;
 
   const breadcrumbs = pages.map((page) => ({
-    uri: page?.uri ?? '',
+    link: page?.link ?? '',
     title: page?.title ?? '',
   }));
 
