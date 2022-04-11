@@ -11,7 +11,7 @@ import styles from './multiSelectDropdown.module.scss';
 
 const SELECT_ALL = 'SELECT_ALL';
 
-type Option = {
+export type Option = {
   text: string;
   value: string;
 };
@@ -24,6 +24,7 @@ export interface MultiselectDropdownProps {
   icon?: ReactNode;
   onChange: (values: string[]) => void;
   options: Option[];
+  fixedOptions?: Option[];
   renderOptionText?: (optionValue: string) => React.ReactChild;
   selectAllText?: string;
   setInputValue?: (newVal: string) => void;
@@ -32,6 +33,7 @@ export interface MultiselectDropdownProps {
   title: string;
   value: string[];
   className?: string;
+  helpText?: string;
 }
 
 const MultiSelectDropdown: React.FC<MultiselectDropdownProps> = ({
@@ -42,6 +44,7 @@ const MultiSelectDropdown: React.FC<MultiselectDropdownProps> = ({
   name,
   onChange,
   options,
+  fixedOptions = [],
   renderOptionText,
   selectAllText,
   setInputValue,
@@ -50,6 +53,7 @@ const MultiSelectDropdown: React.FC<MultiselectDropdownProps> = ({
   title,
   value,
   className,
+  helpText,
 }) => {
   const { t } = useTranslation();
   const inputPlaceholderText =
@@ -246,6 +250,43 @@ const MultiSelectDropdown: React.FC<MultiselectDropdownProps> = ({
     }
   }, [handleInputValueChange, isMenuOpen]);
 
+  const createDropdownOptions = (option: Option, index: number) => {
+    const isFocused = index === focusedIndex;
+    const isChecked =
+      option.value === SELECT_ALL
+        ? !value.length
+        : value.includes(option.value);
+
+    const setFocus = (ref: HTMLInputElement) => {
+      if (isFocused && ref) {
+        ref.focus();
+      }
+    };
+
+    return (
+      <ScrollIntoViewWithFocus
+        className={classNames(styles.dropdownItem, {
+          [styles['dropdownItem--first']]: index === 0,
+          [styles['dropdownItem--isFocused']]: isFocused,
+        })}
+        key={option.value}
+        isFocused={isFocused}
+      >
+        <Checkbox
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
+          ref={setFocus}
+          checked={isChecked}
+          id={`${checkboxName}_${option.value}`}
+          label={option.text}
+          name={checkboxName}
+          onChange={handleValueChange}
+          value={option.value}
+        />
+      </ScrollIntoViewWithFocus>
+    );
+  };
+
   return (
     <div className={classNames(styles.dropdown, className)} ref={dropdown}>
       <button
@@ -277,7 +318,6 @@ const MultiSelectDropdown: React.FC<MultiselectDropdownProps> = ({
             <SearchLabel htmlFor={name} srOnly={true}>
               {inputPlaceholderText}
             </SearchLabel>
-
             <input
               ref={inputRef}
               id={name}
@@ -288,43 +328,12 @@ const MultiSelectDropdown: React.FC<MultiselectDropdownProps> = ({
             />
           </div>
         )}
-
-        {filteredOptions.map((option, index) => {
-          const isFocused = index === focusedIndex;
-          const isChecked =
-            option.value === SELECT_ALL
-              ? !value.length
-              : value.includes(option.value);
-
-          const setFocus = (ref: HTMLInputElement) => {
-            if (isFocused && ref) {
-              ref.focus();
-            }
-          };
-
-          return (
-            <ScrollIntoViewWithFocus
-              className={classNames(styles.dropdownItem, {
-                [styles['dropdownItem--first']]: index === 0,
-                [styles['dropdownItem--isFocused']]: isFocused,
-              })}
-              key={option.value}
-              isFocused={isFocused}
-            >
-              <Checkbox
-                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                // @ts-ignore
-                ref={setFocus}
-                checked={isChecked}
-                id={`${checkboxName}_${option.value}`}
-                label={option.text}
-                name={checkboxName}
-                onChange={handleValueChange}
-                value={option.value}
-              />
-            </ScrollIntoViewWithFocus>
-          );
-        })}
+        {helpText && <div className={styles.helpText}>{helpText}</div>}
+        {filteredOptions.map(createDropdownOptions)}
+        {fixedOptions.length > 0 && filteredOptions.length > 0 && (
+          <hr className={styles.separator} />
+        )}
+        {fixedOptions.map(createDropdownOptions)}
       </DropdownMenu>
     </div>
   );

@@ -35,10 +35,15 @@
     "labelTargetGroups": "Kohderyhmät",
     "labelActivities": "Aktiviteetit",
     "placeInputPlaceholder": "Kirjoita hakusana",
+    "placeSearchHelptext": "Hae lisää paikkoja hakusanalla.",
     "buttonEditSearch": "Muokkaa hakua",
     "buttonAdvancedSearch": "Tarkennettu haku",
     "buttonHideAdditionalFields": "Piilota lisäkentät",
     "labelRemoveFilter": "Poista suodatin {{filter}}",
+    "place": {
+      "internet": "Internet",
+      "bookable": "Tilattavissa / Oma paikka"
+    },
     "accessibility": {
       "audienceDropdown": {
         "clearButtonAriaLabel": "Poista kohderyhmävalinnat",

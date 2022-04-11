@@ -12,3 +12,6 @@ export enum KEYWORD_QUERY_PARAMS {
 }
 
 export const EVENT_TOP_CATEGORIES = ['yso:p26626'];
+
+export const VIRTUAL_EVENT_LOCATION_ID = 'helsinki:internet';
+export const BOOKABLE_TO_SCHOOL_LOCATION_ID = 'helsinki:bookable';

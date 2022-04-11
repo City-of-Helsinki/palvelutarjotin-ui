@@ -116,7 +116,7 @@
 
 .dropdownItem {
   margin: 0;
-  padding: calc(var(--spacing-m) / 2) 1rem;
+  padding: var(--spacing-xs) var(--spacing-s);
 
   &--first {
     padding-top: 1rem;
@@ -129,4 +129,15 @@
 
 .checkbox--isFocused {
   background-color: var(--color-fog);
+}
+
+.helpText {
+  margin: 0;
+  padding: var(--spacing-xs) var(--spacing-s);
+  color: var(--color-black-60);
+}
+
+.separator {
+  border: 1px solid var(--color-black-10);
+  margin: var(--spacing-xs) var(--spacing-xs);
 }

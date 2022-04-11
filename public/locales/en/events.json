@@ -35,10 +35,15 @@
     "labelTargetGroups": "Target groups",
     "labelActivities": "Activities",
     "placeInputPlaceholder": "Write search word",
+    "placeSearchHelptext": "Find more places by search word.",
     "buttonEditSearch": "Edit search",
     "buttonAdvancedSearch": "Advanced search",
     "buttonHideAdditionalFields": "Hide additional fields",
     "labelRemoveFilter": "Remove filter {{filter}}",
+    "place": {
+      "internet": "Internet",
+      "bookable": "Bookable"
+    },
     "accessibility": {
       "audienceDropdown": {
         "clearButtonAriaLabel": "Delete audience filters",
