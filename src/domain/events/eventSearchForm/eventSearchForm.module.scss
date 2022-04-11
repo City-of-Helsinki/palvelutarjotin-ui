@@ -70,6 +70,12 @@
   }
 }
 
+.checkboxInput {
+  --size: 30px !important;
+  --label-color: var(--color-white) !important;
+  --background-unselected: var(--color-white) !important;
+}
+
 .contentWrapper {
   display: grid;
   grid-gap: var(--grid-gap-mobile);

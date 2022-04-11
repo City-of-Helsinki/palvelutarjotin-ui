@@ -28,6 +28,7 @@
     "labelEndDate": "Päättyen",
     "labelPlaces": "Paikat",
     "labelDivisions": "Alueet",
+    "labelIsFree": "Näytä vain maksuttomat",
     "divisionInputPlaceholder": "Kirjoita hakusana",
     "selectAllDivisions": "Kaikki alueet",
     "labelCategories": "Kategoriat",

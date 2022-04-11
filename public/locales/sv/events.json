@@ -28,6 +28,7 @@
     "labelEndDate": "I slutet",
     "labelPlaces": "Platser",
     "labelDivisions": "Områden",
+    "labelIsFree": "Visa endast avgiftsfria",
     "selectAllDivisions": "Alla områden",
     "divisionInputPlaceholder": "Skriv sökord",
     "labelCategories": "Kategorier",

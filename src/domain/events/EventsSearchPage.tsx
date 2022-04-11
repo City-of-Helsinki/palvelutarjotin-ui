@@ -117,8 +117,16 @@ export const useEventsSearch = () => {
     [router.query]
   );
 
-  const { allOngoingAnd, division, end, inLanguage, start, keyword, location } =
-    variables;
+  const {
+    allOngoingAnd,
+    division,
+    end,
+    inLanguage,
+    start,
+    keyword,
+    location,
+    isFree,
+  } = variables;
 
   const filterActive =
     !!allOngoingAnd?.length ||
@@ -127,6 +135,7 @@ export const useEventsSearch = () => {
     !!keyword?.length ||
     !!location ||
     !!end ||
+    !!isFree ||
     start !== 'now';
 
   const [sort, setSort] = React.useState<EVENT_SORT_OPTIONS>(

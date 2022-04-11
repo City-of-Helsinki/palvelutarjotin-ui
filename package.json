@@ -129,7 +129,7 @@
     "waait": "^1.0.5"
   },
   "lint-staged": {
-    "src/**/*.{tsx,ts}": [
+    "src/**/*.{tsx,ts,scss}": [
       "eslint --fix",
       "stylelint --fix",
       "prettier --write",

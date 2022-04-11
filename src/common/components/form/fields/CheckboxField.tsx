@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import { FieldProps } from 'formik';
 import { Checkbox, CheckboxProps } from 'hds-react';
 import { useTranslation } from 'next-i18next';
@@ -12,6 +13,7 @@ const CheckboxField: React.FC<Props> = (props) => {
   const {
     field: { name, ...field },
     form: { errors, touched },
+    className,
     ...rest
   } = props;
 
@@ -24,7 +26,7 @@ const CheckboxField: React.FC<Props> = (props) => {
       {...rest}
       id={name}
       checked={field.value}
-      className={errorText ? invalidFieldClass : undefined}
+      className={classNames(className, { [invalidFieldClass]: errorText })}
     />
   );
 };
