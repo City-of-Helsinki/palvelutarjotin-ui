@@ -28,6 +28,7 @@
     "labelEndDate": "To",
     "labelPlaces": "Places",
     "labelDivisions": "Areas",
+    "labelIsFree": "Show only events that are free",
     "divisionInputPlaceholder": "Write search word",
     "selectAllDivisions": "All areas",
     "labelCategories": "Categories",

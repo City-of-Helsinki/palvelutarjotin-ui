@@ -18,6 +18,7 @@ export const getSearchQueryObject = (
     ...values,
     date: values.date?.toISOString(),
     endDate: values.endDate?.toISOString(),
+    isFree: values.isFree ? 'true' : undefined,
   });
 };
 
@@ -51,6 +52,7 @@ export const getEventFilterVariables = (
     location: getTextFromDict(query, 'places', undefined),
     organisationId: getTextFromDict(query, 'organisation', undefined),
     division: getTextFromDict(query, 'divisions', undefined),
+    isFree: query.isFree === 'true' ? true : undefined,
     ...options,
   };
 };
@@ -91,6 +93,7 @@ export const getInitialValues = (
     inLanguage: queryParameterToArray(query.inLanguage as EVENT_LANGUAGES),
     places: queryParameterToArray(query.places),
     divisions: queryParameterToArray(query.divisions),
+    isFree: query.isFree === 'true',
     [KEYWORD_QUERY_PARAMS.TARGET_GROUPS]: queryParameterToArray(
       query[KEYWORD_QUERY_PARAMS.TARGET_GROUPS]
     ),

@@ -4,6 +4,7 @@ import { Button, IconSearch } from 'hds-react';
 import { useTranslation } from 'next-i18next';
 import React from 'react';
 
+import CheckboxField from '../../../common/components/form/fields/CheckboxField';
 import DateInputField from '../../../common/components/form/fields/DateInputField';
 import DivisionSelectorField from '../../../common/components/form/fields/DivisionSelectorField';
 import MultiDropdownField from '../../../common/components/form/fields/MultiDropdownField';
@@ -24,6 +25,7 @@ export type EventSearchFormValues = {
   divisions: string[];
   organisation?: string;
   organisationId?: string;
+  isFree: boolean;
   [KEYWORD_QUERY_PARAMS.TARGET_GROUPS]: string[];
   [KEYWORD_QUERY_PARAMS.CATEGORIES]: string[];
   [KEYWORD_QUERY_PARAMS.ADDITIONAL_CRITERIA]: string[];
@@ -41,6 +43,7 @@ const defaultEnrolmentInitialValues: EventSearchFormValues = {
   divisions: [],
   organisation: '',
   organisationId: '',
+  isFree: false,
 };
 
 export enum PanelState {
@@ -170,57 +173,67 @@ const EventSearchForm = ({
                 </div>
               )}
               {isAdvancedSearch && (
-                <div className={styles.filtersRow4}>
-                  <Field
-                    hideLabel
-                    name="categories"
-                    className={styles.selectInput}
-                    component={MultiDropdownField}
-                    label={t('events:search.labelCategories')}
-                    placeholder={t('events:search.labelCategories')}
-                    clearButtonAriaLabel={t(
-                      'events:search.accessibility.categoryDropdown.clearButtonAriaLabel'
-                    )}
-                    selectedItemRemoveButtonAriaLabel={t(
-                      'events:search.accessibility.categoryDropdown.selectedItemRemoveButtonAriaLabel'
-                    )}
-                    options={categoryKeywords}
-                  />
-                  <Field
-                    hideLabel
-                    name="additionalCriteria"
-                    className={styles.selectInput}
-                    component={MultiDropdownField}
-                    label={t('events:search.labelActivities')}
-                    placeholder={t('events:search.labelActivities')}
-                    clearButtonAriaLabel={t(
-                      'events:search.accessibility.activityDropdown.clearButtonAriaLabel'
-                    )}
-                    selectedItemRemoveButtonAriaLabel={t(
-                      'events:search.accessibility.activityDropdown.selectedItemRemoveButtonAriaLabel'
-                    )}
-                    options={additionalCriteriaKeywords}
-                  />
-                  <Field
-                    component={DivisionSelectorField}
-                    className={styles.selectInput}
-                    name="divisions"
-                    showSearch={true}
-                    title={t('events:search.labelDivisions')}
-                    inputPlaceholder={t(
-                      'events:search.divisionInputPlaceholder'
-                    )}
-                  />
-                  <Field
-                    hideLabel
-                    name="inLanguage"
-                    className={styles.selectInput}
-                    component={MultiDropdownField}
-                    label={t('events:search.labelLanguage')}
-                    placeholder={t('events:search.labelLanguage')}
-                    options={languageOptions}
-                  />
-                </div>
+                <>
+                  <div className={styles.filtersRow4}>
+                    <Field
+                      hideLabel
+                      name="categories"
+                      className={styles.selectInput}
+                      component={MultiDropdownField}
+                      label={t('events:search.labelCategories')}
+                      placeholder={t('events:search.labelCategories')}
+                      clearButtonAriaLabel={t(
+                        'events:search.accessibility.categoryDropdown.clearButtonAriaLabel'
+                      )}
+                      selectedItemRemoveButtonAriaLabel={t(
+                        'events:search.accessibility.categoryDropdown.selectedItemRemoveButtonAriaLabel'
+                      )}
+                      options={categoryKeywords}
+                    />
+                    <Field
+                      hideLabel
+                      name="additionalCriteria"
+                      className={styles.selectInput}
+                      component={MultiDropdownField}
+                      label={t('events:search.labelActivities')}
+                      placeholder={t('events:search.labelActivities')}
+                      clearButtonAriaLabel={t(
+                        'events:search.accessibility.activityDropdown.clearButtonAriaLabel'
+                      )}
+                      selectedItemRemoveButtonAriaLabel={t(
+                        'events:search.accessibility.activityDropdown.selectedItemRemoveButtonAriaLabel'
+                      )}
+                      options={additionalCriteriaKeywords}
+                    />
+                    <Field
+                      component={DivisionSelectorField}
+                      className={styles.selectInput}
+                      name="divisions"
+                      showSearch={true}
+                      title={t('events:search.labelDivisions')}
+                      inputPlaceholder={t(
+                        'events:search.divisionInputPlaceholder'
+                      )}
+                    />
+                    <Field
+                      hideLabel
+                      name="inLanguage"
+                      className={styles.selectInput}
+                      component={MultiDropdownField}
+                      label={t('events:search.labelLanguage')}
+                      placeholder={t('events:search.labelLanguage')}
+                      options={languageOptions}
+                    />
+                  </div>
+                  <div className={styles.filtersRow4}>
+                    <Field
+                      component={CheckboxField}
+                      name="isFree"
+                      label={t('events:search.labelIsFree')}
+                      className={styles.checkboxInput}
+                    />
+                  </div>
+                </>
               )}
               <div>
                 <FilterSummary filters={initialValues} />

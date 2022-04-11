@@ -290,6 +290,7 @@ const advancedSearchInputLabels = [
   'Aktiviteetit',
   'Alueet',
   'Kielet',
+  'Näytä vain maksuttomat',
 ];
 
 function testAdvancedSearchNotVisible() {
