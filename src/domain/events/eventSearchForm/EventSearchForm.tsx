@@ -10,11 +10,20 @@ import DivisionSelectorField from '../../../common/components/form/fields/Divisi
 import MultiDropdownField from '../../../common/components/form/fields/MultiDropdownField';
 import PlaceSelectorField from '../../../common/components/form/fields/PlaceSelectorField';
 import TextInputField from '../../../common/components/form/fields/TextInputField';
+import { Option as DropdownOption } from '../../../common/components/multiSelectDropdown/MultiSelectDropdown';
 import { EVENT_LANGUAGES } from '../../../constants';
-import { KEYWORD_QUERY_PARAMS } from '../constants';
+import {
+  BOOKABLE_TO_SCHOOL_LOCATION_ID,
+  KEYWORD_QUERY_PARAMS,
+  VIRTUAL_EVENT_LOCATION_ID,
+} from '../constants';
 import FilterSummary from '../filterSummary/FilterSummary';
 import styles from './eventSearchForm.module.scss';
 import { useKeywordOptions } from './useKeywordOptions';
+
+const checkboxSearchInputStyles = {
+  '--size': '30px',
+};
 
 export type EventSearchFormValues = {
   text: string;
@@ -90,6 +99,16 @@ const EventSearchForm = ({
 
   const isAdvancedSearch = panelState === PanelState.Advanced;
   const isCompactSearch = panelState === PanelState.Compact;
+  const fixedPlaceOptions: DropdownOption[] = [
+    {
+      text: t('events:search.place.internet'),
+      value: VIRTUAL_EVENT_LOCATION_ID,
+    },
+    {
+      text: t('events:search.place.bookable'),
+      value: BOOKABLE_TO_SCHOOL_LOCATION_ID,
+    },
+  ];
 
   return (
     <Formik
@@ -151,6 +170,8 @@ const EventSearchForm = ({
                     showSearch={true}
                     name="places"
                     inputPlaceholder={t('events:search.placeInputPlaceholder')}
+                    fixedOptions={fixedPlaceOptions}
+                    helpText={t('events:search.placeSearchHelptext')}
                   />
                   <Field
                     hideLabel

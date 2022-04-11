@@ -35,10 +35,15 @@
     "labelTargetGroups": "Målgrupper",
     "labelActivities": "Aktiviteter",
     "placeInputPlaceholder": "Skriv sökord",
+    "placeSearchHelptext": "Hitta fler platser efter sökord.",
     "buttonEditSearch": "Redigera sökning",
     "buttonAdvancedSearch": "Specifik sökning",
     "buttonHideAdditionalFields": "Dölj tilläggsfälten",
     "labelRemoveFilter": "Ta bort filtret {{filter}}",
+    "place": {
+      "internet": "Internet",
+      "bookable": "Går att beställa"
+    },
     "accessibility": {
       "audienceDropdown": {
         "clearButtonAriaLabel": "Ta bort målgruppsfilter",
