@@ -55,3 +55,9 @@ export const PROVIDER_UI_LINKS = {
   en: 'https://provider.kultus.fi/en',
   sv: 'https://provider.kultus.fi/sv',
 };
+
+export const ADMIN_EMAIL = {
+  fi: 'kultus@hel.fi',
+  en: 'kultus@hel.fi',
+  sv: 'kultus@hel.fi',
+};

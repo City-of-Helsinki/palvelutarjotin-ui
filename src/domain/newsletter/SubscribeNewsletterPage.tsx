@@ -6,7 +6,7 @@ import * as React from 'react';
 import { Trans, useTranslation } from 'react-i18next';
 
 import { convertSubscribeFormData } from '../../clients/gruppo/lib/subscribers';
-import { PRIVACY_POLICY_LINKS } from '../../constants';
+import { ADMIN_EMAIL, PRIVACY_POLICY_LINKS } from '../../constants';
 import useLocale from '../../hooks/useLocale';
 import Container from '../app/layout/Container';
 import PageWrapper from '../app/layout/PageWrapper';
@@ -95,23 +95,27 @@ const SubscribeNewsletterPage: React.FC = () => {
               onClose={notificationOnClose}
             />
           )}
-          <p>
+          <div>
             <Trans
               i18nKey="newsletter:subscribeNewsletterPage.leadText"
               values={{
                 openInNewTab: t('common:srOnly.opensInANewTab'),
+                adminMail: ADMIN_EMAIL[locale],
               }}
               components={{
-                a: (
+                PrivacyStatementLink: (
                   <PrivacyStatementLink
                     url={PRIVACY_POLICY_LINKS[locale]}
                     target="_blank"
                     rel="noopener noreferrer"
                   />
                 ),
+                // eslint-disable-next-line jsx-a11y/anchor-has-content
+                MailToAdminLink: <a href={`mailto:${ADMIN_EMAIL[locale]}`} />,
+                Paragraph: <p />,
               }}
             />
-          </p>
+          </div>
 
           <NewsletterSubscribeForm
             initialValues={defaultInitialValues}

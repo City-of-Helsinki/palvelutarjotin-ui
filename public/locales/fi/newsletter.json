@@ -16,6 +16,6 @@
   },
   "subscribeNewsletterPage": {
     "pageTitle": "Tilaa uutiskirje",
-    "leadText": "Tilaamalla Kultus-uutiskirjeen hyväksyn, että lähettämäni tiedot tallennetaan Kulttuuri- ja vapaa-aika toimialan Gruppo-tilaajarekisteriin. Uutiskirjeen tilauksen voi perua milloin tahansa. <a aria-label=\"Näytä rekisteriseloste. {{openInNewTab}}\">Rekisteriselosteet</a>"
+    "leadText": "<Paragraph>Tilaamalla Kultus-uutiskirjeen hyväksyn, että lähettämäni tiedot tallennetaan Kulttuuri- ja vapaa-aika toimialan Gruppo-tilaajarekisteriin. Uutiskirjeen tilauksen voi perua milloin tahansa. <PrivacyStatementLink aria-label=\"Näytä rekisteriseloste. {{openInNewTab}}\">Rekisteriselosteet</PrivacyStatementLink>.</Paragraph><Paragraph>Gruppo-tilin hallintaan ja uutiskirjetilaukseen liittyen voit olla yhteydessä Kultuksen ylläpitäjään: <MailToAdminLink aria-label=\"Ylläpitäjän sähköposti: {{adminMail}}\">{{adminMail}}</MailToAdminLink>.</Paragraph>"
   }
 }
