@@ -3,6 +3,7 @@ import { ParsedUrlQuery } from 'querystring';
 import { useRouter } from 'next/router';
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
+import useLocalStorage from 'react-use/lib/useLocalStorage';
 
 import LoadingSpinner from '../../common/components/loadingSpinner/LoadingSpinner';
 import { useEventsQuery } from '../../generated/graphql';
@@ -23,6 +24,8 @@ import {
   getSearchQueryObject,
   getTextFromDict,
 } from './utils';
+
+export const EVENT_SORT_STORAGE_KEY = 'event-search-sort';
 
 const panelStates = {
   closed: PanelState.Compact,
@@ -138,7 +141,8 @@ export const useEventsSearch = () => {
     !!isFree ||
     start !== 'now';
 
-  const [sort, setSort] = React.useState<EVENT_SORT_OPTIONS>(
+  const [sort, setSort] = useLocalStorage<EVENT_SORT_OPTIONS>(
+    EVENT_SORT_STORAGE_KEY,
     (getTextFromDict(router.query, 'sort') ||
       EVENT_SORT_OPTIONS.START_TIME) as EVENT_SORT_OPTIONS
   );
