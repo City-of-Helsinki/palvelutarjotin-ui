@@ -94,7 +94,7 @@ const MultiSelectDropdown: React.FC<MultiselectDropdownProps> = ({
     teardown: teardownKeyboardNav,
   } = useKeyboardNavigation({
     container: dropdown,
-    listLength: filteredOptions.length,
+    listLength: fixedOptions.length + filteredOptions.length,
     onKeyDown: (event: KeyboardEvent) => {
       // Handle keyboard events only if current element is focused
       if (!isComponentFocused()) return;
@@ -325,6 +325,7 @@ const MultiSelectDropdown: React.FC<MultiselectDropdownProps> = ({
               placeholder={inputPlaceholderText}
               onChange={handleInputChange}
               value={input}
+              autoComplete="off"
             />
           </div>
         )}
@@ -333,7 +334,11 @@ const MultiSelectDropdown: React.FC<MultiselectDropdownProps> = ({
         {fixedOptions.length > 0 && filteredOptions.length > 0 && (
           <hr className={styles.separator} />
         )}
-        {fixedOptions.map(createDropdownOptions)}
+        {fixedOptions.map((option, index) =>
+          // the filtered optiosn are rendered first in the same dropdown,
+          // so the index must be now started from the end of filtered options list
+          createDropdownOptions(option, index + filteredOptions.length)
+        )}
       </DropdownMenu>
     </div>
   );
