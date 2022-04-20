@@ -27,7 +27,8 @@ import {
   userEvent,
   fireEvent,
 } from '../../../utils/testUtils';
-import EventsSearchPage from '../EventsSearchPage';
+import { EVENT_SORT_OPTIONS } from '../constants';
+import EventsSearchPage, { EVENT_SORT_STORAGE_KEY } from '../EventsSearchPage';
 
 configure({ defaultHidden: true });
 
@@ -279,6 +280,27 @@ test('renders filter tag when category not found in pre defined list', async () 
   });
 
   await screen.findByRole('button', { name: `Poista suodatin ${keywordName}` });
+});
+
+test('saves sort state to local storage', async () => {
+  advanceTo(testDate);
+  render(<EventsSearchPage />, { mocks });
+
+  // Expand the sort selector
+  const toggleButton = await screen.findByText(/ajankohtaista/i);
+  userEvent.click(toggleButton);
+
+  act(() =>
+    userEvent.click(screen.getByRole('option', { name: /viimeksi muokattu/i }))
+  );
+
+  const localStorageObject = JSON.parse(
+    localStorage.getItem(EVENT_SORT_STORAGE_KEY) as string
+  );
+
+  expect(localStorageObject).toEqual(
+    EVENT_SORT_OPTIONS.LAST_MODIFIED_TIME_DESC
+  );
 });
 
 const advancedSearchInputLabels = [
