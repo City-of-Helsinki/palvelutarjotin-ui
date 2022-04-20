@@ -100,6 +100,13 @@ const Header: React.FC = () => {
                       closeOnItemClick
                       active={isTabActive(getCmsPath(item?.uri ?? ''))}
                     >
+                      <Navigation.Item
+                        label={item.title}
+                        as={Link}
+                        href={getCmsPath(stripLocaleFromUri(item.uri ?? ''))}
+                        lang={locale}
+                        locale={locale}
+                      />
                       {item.children.map((child) => {
                         return (
                           <Navigation.Item
