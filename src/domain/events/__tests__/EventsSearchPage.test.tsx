@@ -26,6 +26,7 @@ import {
   configure,
   userEvent,
   fireEvent,
+  waitFor,
 } from '../../../utils/testUtils';
 import { EVENT_SORT_OPTIONS } from '../constants';
 import EventsSearchPage, { EVENT_SORT_STORAGE_KEY } from '../EventsSearchPage';
@@ -290,7 +291,7 @@ test('saves sort state to local storage', async () => {
   const toggleButton = await screen.findByText(/ajankohtaista/i);
   userEvent.click(toggleButton);
 
-  act(() =>
+  await waitFor(() =>
     userEvent.click(screen.getByRole('option', { name: /viimeksi muokattu/i }))
   );
 
