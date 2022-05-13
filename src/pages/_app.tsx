@@ -34,8 +34,21 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
   const router = useRouter();
   const locale = useLocale();
   const cmsApolloClient = useCmsApollo(pageProps.initialApolloState);
-  const rhhcConfig = React.useMemo(() => rhhcDefaultConfig, []);
-
+  const rhhcConfig = React.useMemo(
+    () => ({
+      ...rhhcDefaultConfig,
+      utils: {
+        ...rhhcDefaultConfig.utils,
+        getIsHrefExternal: (href: string) => {
+          if (href.includes(router.basePath) || !href.startsWith('http')) {
+            return true;
+          }
+          return false;
+        },
+      },
+    }),
+    []
+  );
   React.useEffect(() => {
     const html = document.querySelector('html');
     if (html) {
