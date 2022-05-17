@@ -6,11 +6,9 @@ import {
 
 export const fakeLanguageString = (text: string): LanguageString => {
   return {
-    text,
     fi: text,
     en: text,
     sv: text,
-    defaultLanguage: Language.Fi,
     __typename: 'LanguageString',
   };
 };

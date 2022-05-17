@@ -21,6 +21,7 @@ export const fakePage = (
     {
       id: faker.datatype.uuid(),
       uri: generateUri(),
+      link: generateUri(),
       title: faker.random.words(),
       lead: faker.random.word(),
       slug: generateUri(),
@@ -59,6 +60,7 @@ export const fakePage = (
       parent: null,
       __typename: 'Page',
       sidebar: [],
+      modules: [],
     },
     overrides
   );

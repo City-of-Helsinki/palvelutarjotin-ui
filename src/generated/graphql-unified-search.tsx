@@ -404,8 +404,6 @@ export type LanguageString = {
   fi?: Maybe<Scalars['String']>;
   sv?: Maybe<Scalars['String']>;
   en?: Maybe<Scalars['String']>;
-  text: Scalars['String'];
-  defaultLanguage?: Maybe<Language>;
 };
 
 export type LegalEntity = Person | Organisation;
