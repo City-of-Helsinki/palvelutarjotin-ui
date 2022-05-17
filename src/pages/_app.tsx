@@ -40,14 +40,14 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
       utils: {
         ...rhhcDefaultConfig.utils,
         getIsHrefExternal: (href: string) => {
-          if (href.includes(router.basePath) || !href.startsWith('http')) {
+          if (href?.includes(router.basePath) || !href?.startsWith('http')) {
             return true;
           }
           return false;
         },
       },
     }),
-    []
+    [router.basePath]
   );
   React.useEffect(() => {
     const html = document.querySelector('html');

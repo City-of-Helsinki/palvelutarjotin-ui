@@ -3,6 +3,9 @@ import React from 'react';
 import {
   PageContent as RHHCPageContent,
   Breadcrumb,
+  Collection,
+  CollectionType,
+  Card,
 } from 'react-helsinki-headless-cms';
 
 import PageMeta from '../../common/components/meta/PageMeta';
@@ -18,7 +21,8 @@ export const SEARCH_PANEL_TRESHOLD = 5;
 const CmsPage: React.FC<{
   page: PageQuery['page'];
   breadcrumbs: Breadcrumb[];
-}> = ({ page, breadcrumbs }) => {
+  collections?: CollectionType[];
+}> = ({ page, breadcrumbs, collections }) => {
   const { t } = useTranslation();
 
   if (!page) return null;
@@ -39,7 +43,28 @@ const CmsPage: React.FC<{
   return (
     <>
       <PageMeta title={title ?? 'Title'} {...seo} localePaths={localePaths} />
-      <RHHCPageContent page={page} breadcrumbs={extendedBreadCrumbs} />
+      <RHHCPageContent
+        page={page}
+        breadcrumbs={extendedBreadCrumbs}
+        collections={collections?.map((collection) => (
+          <Collection
+            key={`collection-${Math.random()}`}
+            title={collection.title}
+            cards={collection.items.map((item) => (
+              <Card
+                key={item.id}
+                {...item}
+                text={item.lead}
+                withShadow={true}
+                hasLink={true}
+                url={item.link}
+                imageLabel={item.featuredImage?.node?.imageLabel}
+                imageUrl={item.featuredImage?.node?.mediaItemUrl}
+              />
+            ))}
+          />
+        ))}
+      />
       {showSearch && <CmsPageSearch page={page as Page} />}
     </>
   );

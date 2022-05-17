@@ -60,6 +60,49 @@ export const PAGE_QUERY = gql`
     }
   }
 
+  fragment LayoutLinkList on LayoutLinkList {
+    anchor
+    title
+    description
+    links {
+      target
+      title
+      url
+    }
+  }
+
+  fragment LayoutArticles on LayoutArticles {
+    title
+    articles {
+      id
+      title
+      link
+      lead
+      featuredImage {
+        node {
+          altText
+          mediaItemUrl
+        }
+      }
+    }
+  }
+
+  fragment LayoutPages on LayoutPages {
+    title
+    pages {
+      id
+      title
+      link
+      lead
+      featuredImage {
+        node {
+          altText
+          mediaItemUrl
+        }
+      }
+    }
+  }
+
   fragment pageFields on Page {
     id
     content
@@ -89,40 +132,21 @@ export const PAGE_QUERY = gql`
     }
     sidebar {
       ... on LayoutLinkList {
-        anchor
-        title
-        description
-        links {
-          target
-          title
-          url
-        }
+        ...LayoutLinkList
       }
       ... on LayoutArticles {
-        articles {
-          id
-          title
-          link
-          featuredImage {
-            node {
-              altText
-              mediaItemUrl
-            }
-          }
-        }
+        ...LayoutArticles
       }
       ... on LayoutPages {
-        pages {
-          id
-          title
-          link
-          featuredImage {
-            node {
-              altText
-              mediaItemUrl
-            }
-          }
-        }
+        ...LayoutPages
+      }
+    }
+    modules {
+      ... on LayoutArticles {
+        ...LayoutArticles
+      }
+      ... on LayoutPages {
+        ...LayoutPages
       }
     }
   }
