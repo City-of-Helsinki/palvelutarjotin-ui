@@ -3,7 +3,12 @@
 import { NormalizedCacheObject } from '@apollo/client';
 import { GetStaticPropsContext, GetStaticPropsResult, NextPage } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { Breadcrumb } from 'react-helsinki-headless-cms';
+import {
+  Breadcrumb,
+  getCollections,
+  PageModule,
+  CollectionType,
+} from 'react-helsinki-headless-cms';
 
 import { ALL_I18N_NAMESPACES } from '../../constants';
 import {
@@ -32,6 +37,7 @@ import { isFeatureEnabled } from '../../utils/featureFlags';
 const NextCmsPage: NextPage<{
   page: PageFieldsFragment;
   breadcrumbs: Breadcrumb[];
+  collections?: CollectionType[];
 }> = (props) => <CmsPage {...props} />;
 
 export async function getStaticPaths() {
@@ -59,6 +65,7 @@ type ResultProps =
       initialApolloState: NormalizedCacheObject;
       page: PageFieldsFragment;
       breadcrumbs: Breadcrumb[];
+      collections?: CollectionType[];
     }
   | {
       error?: {
@@ -92,6 +99,7 @@ export async function getStaticProps(
         )),
         page,
         breadcrumbs,
+        collections: getCollections(page.modules as PageModule[]),
       },
       revalidate: 60,
     };
