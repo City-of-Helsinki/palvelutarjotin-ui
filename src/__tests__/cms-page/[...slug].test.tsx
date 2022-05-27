@@ -1,5 +1,4 @@
 /* eslint-disable no-console */
-import { TextEncoder, TextDecoder } from 'util';
 
 import { screen } from '@testing-library/react';
 import { getPage } from 'next-page-tester';
@@ -13,12 +12,6 @@ import {
 } from '../../generated/graphql-cms';
 import { graphql, server } from '../../tests/msw/server';
 import { fakePage } from '../../utils/cmsMockDataUtils';
-
-// To avoid error: ReferenceError: TextEncoder is not defined
-// discusssed here: https://github.com/jsdom/jsdom/issues/2524
-global.TextEncoder = TextEncoder;
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-global.TextDecoder = TextDecoder as any;
 
 // eslint-disable-next-line no-console
 const originalError = console.error.bind(console.error);

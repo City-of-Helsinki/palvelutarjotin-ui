@@ -8,31 +8,29 @@ import {
   CollectionType,
   Card,
 } from 'react-helsinki-headless-cms';
+import { ArticleQuery } from 'react-helsinki-headless-cms/cjs/__generated__-5977fcee';
 
 import HtmlToReact from '../../common/components/htmlToReact/HtmlToReact';
 import PageMeta from '../../common/components/meta/PageMeta';
 import { SUPPORTED_LANGUAGES } from '../../constants';
 import { getCmsPath } from '../../domain/app/routes/utils';
-import { Page, PageQuery } from '../../generated/graphql-cms';
+import { Post } from '../../generated/graphql-cms';
 import { Language } from '../../types';
 import { stripLocaleFromUri } from '../utils';
-import CmsPageSearch from './CmsPageSearch/CmsPageSearch';
 
 export const SEARCH_PANEL_TRESHOLD = 5;
 
-const CmsPage: React.FC<{
-  page: PageQuery['page'];
+const CmsArticle: React.FC<{
+  article: ArticleQuery['post'];
   breadcrumbs: Breadcrumb[];
   collections?: CollectionType[];
-}> = ({ page, breadcrumbs, collections }) => {
+}> = ({ article, breadcrumbs, collections }) => {
   const { t } = useTranslation();
 
-  if (!page) return null;
+  if (!article) return null;
 
-  const { title, ...seo } = page.seo ?? {};
-  const localePaths = formLocalePathsFromPage(page);
-  const showSearch =
-    (page?.children?.nodes?.length ?? 0) > SEARCH_PANEL_TRESHOLD;
+  const { title, ...seo } = article.seo ?? {};
+  const localePaths = formLocalePathsFromPage(article);
 
   const extendedBreadCrumbs = [
     {
@@ -46,7 +44,7 @@ const CmsPage: React.FC<{
     <>
       <PageMeta title={title ?? 'Title'} {...seo} localePaths={localePaths} />
       <RHHCPageContent
-        page={page as PageContentProps['page']}
+        page={article as PageContentProps['page']}
         breadcrumbs={extendedBreadCrumbs}
         collections={collections?.map((collection) => (
           <Collection
@@ -71,23 +69,22 @@ const CmsPage: React.FC<{
           />
         ))}
       />
-      {showSearch && <CmsPageSearch page={page as Page} />}
     </>
   );
 };
 
-const formLocalePathsFromPage = (page: PageQuery['page']) => {
-  if (page) {
+const formLocalePathsFromPage = (article: ArticleQuery['post']) => {
+  if (article) {
     const localePaths = [
-      getPathAndLocale(page as Page),
-      ...(page.translations?.map((translation) =>
-        getPathAndLocale(translation as Page)
+      getPathAndLocale(article as Post),
+      ...(article.translations?.map((translation) =>
+        getPathAndLocale(translation as Post)
       ) ?? []),
     ];
     return localePaths;
   }
 
-  function getPathAndLocale(pageNode: Page) {
+  function getPathAndLocale(pageNode: Post) {
     const locale = pageNode.language?.code?.toLowerCase() as Language;
     const uriWithoutLocale = stripLocaleFromUri(pageNode.uri ?? '');
     let cmsUri = getCmsPath(uriWithoutLocale);
@@ -104,4 +101,4 @@ const formLocalePathsFromPage = (page: PageQuery['page']) => {
   }
 };
 
-export default CmsPage;
+export default CmsArticle;

@@ -240,3 +240,101 @@ export const NOTIFICATION_QUERY = gql`
     }
   }
 `;
+
+export const POST_QUERY = gql`
+  query article($id: ID!) {
+    post(id: $id, idType: URI) {
+      ...postFields
+    }
+  }
+
+  fragment postFields on Post {
+    id
+    date
+    content
+    slug
+    title
+    uri
+    link
+    lead
+    categories {
+      ...Categories
+    }
+    seo {
+      ...seoFields
+    }
+    language {
+      ...Language
+    }
+    featuredImage {
+      node {
+        mediaItemUrl
+        link
+        altText
+        mimeType
+        title
+        uri
+      }
+    }
+    modules {
+      # TODO: HCRC-13 - Support Event search and Event selection -modules
+      ... on LayoutArticles {
+        ...LayoutArticles
+      }
+      ... on LayoutPages {
+        ...LayoutPages
+      }
+    }
+    # Contains language versions other than the language the $id or type URI
+    # targets
+    translations {
+      uri
+      language {
+        ...Language
+      }
+      seo {
+        ...seoFields
+      }
+    }
+  }
+
+  fragment Language on Language {
+    code
+    id
+    locale
+    name
+    slug
+  }
+
+  fragment Categories on PostToCategoryConnection {
+    edges {
+      node {
+        id
+        name
+      }
+    }
+  }
+`;
+
+export const POSTS_QUERY = gql`
+  query posts($first: Int) {
+    posts(first: $first) {
+      edges {
+        node {
+          id
+          title
+          date
+          lead
+          slug
+          uri
+          featuredImage {
+            node {
+              altText
+              mediaItemUrl
+            }
+          }
+        }
+      }
+    }
+  }
+`;
