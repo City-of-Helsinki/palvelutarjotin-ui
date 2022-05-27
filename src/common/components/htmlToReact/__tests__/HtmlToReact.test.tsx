@@ -1,15 +1,7 @@
-import { TextEncoder, TextDecoder } from 'util';
-
 import React from 'react';
 
 import { render, screen } from '../../../../utils/testUtils';
 import HtmlToReact from '../HtmlToReact';
-
-// To avoid error: ReferenceError: TextEncoder is not defined
-// discusssed here: https://github.com/jsdom/jsdom/issues/2524
-global.TextEncoder = TextEncoder;
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-global.TextDecoder = TextDecoder as any;
 
 it('sanitizes and renders html string as react components', () => {
   render(
