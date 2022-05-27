@@ -11,7 +11,7 @@ export type Props = {
   title: string;
   description?: string | null;
   image?: string | null;
-  canonicalUrl?: string;
+  canonicalUrl?: string | null;
   openGraphDescription?: string | null;
   openGraphTitle?: string | null;
   openGraphType?: string | null;

@@ -33,6 +33,7 @@ export const fakePage = (
       pageId: faker.datatype.number(),
       language: fakeLanguage({ code: LanguageCodeEnum.Fi }),
       seo: fakeSEO(),
+      contentTypeName: 'attachment',
       isContentNode: false,
       isTermNode: false,
       // to avoid infinite recursion loop :D
@@ -82,6 +83,7 @@ export const fakePost = (
       databaseId: faker.datatype.number(),
       language: fakeLanguage({ code: LanguageCodeEnum.Fi }),
       seo: fakeSEO(),
+      contentTypeName: 'attachment',
       isContentNode: false,
       isTermNode: false,
       // to avoid infinite recursion loop :D
@@ -120,6 +122,7 @@ export const fakeMediaItem = (overrides?: Partial<MediaItem>): MediaItem => {
       altText: faker.random.words(),
       mimeType: faker.random.word(),
       uri: faker.internet.url(),
+      contentTypeName: 'attachment',
       isContentNode: false,
       isTermNode: false,
       __typename: 'MediaItem',
