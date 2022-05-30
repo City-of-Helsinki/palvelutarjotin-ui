@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 
 import LoadingSpinner from '../../../common/components/loadingSpinner/LoadingSpinner';
 import Container from '../../../domain/app/layout/Container';
-import { getCmsPath } from '../../../domain/app/routes/utils';
+import { getCmsPagePath } from '../../../domain/app/routes/utils';
 import { getEventPlaceholderImage } from '../../../domain/event/utils';
 import {
   Page,
@@ -126,7 +126,7 @@ const CmsPageSearchList: React.FC<{
           {pages.map((page) => {
             if (!page?.uri) return null;
 
-            const pageUri = getCmsPath(stripLocaleFromUri(page?.uri));
+            const pageUri = getCmsPagePath(stripLocaleFromUri(page?.uri));
             const pageLead =
               page.lead?.replaceAll('<p>', '')?.replaceAll('</p>', '') ?? '';
             const imgSrc =

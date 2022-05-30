@@ -6,7 +6,6 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import {
   Breadcrumb,
   getCollections,
-  PageModule,
   CollectionType,
 } from 'react-helsinki-headless-cms';
 
@@ -99,7 +98,7 @@ export async function getStaticProps(
         )),
         page,
         breadcrumbs,
-        collections: getCollections(page.modules as PageModule[]),
+        collections: getCollections(page.modules ?? []),
       },
       revalidate: 60,
     };

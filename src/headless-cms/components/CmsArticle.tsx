@@ -4,27 +4,22 @@ import {
   PageContent as RHHCPageContent,
   PageContentProps,
   Breadcrumb,
-  Collection,
   CollectionType,
-  Card,
 } from 'react-helsinki-headless-cms';
-import { ArticleQuery } from 'react-helsinki-headless-cms/cjs/__generated__-5977fcee';
 
-import HtmlToReact from '../../common/components/htmlToReact/HtmlToReact';
 import PageMeta from '../../common/components/meta/PageMeta';
 import { SUPPORTED_LANGUAGES } from '../../constants';
-import { getCmsPath } from '../../domain/app/routes/utils';
-import { Post } from '../../generated/graphql-cms';
+import { getCmsPagePath } from '../../domain/app/routes/utils';
+import { ArticleQuery, Post } from '../../generated/graphql-cms';
 import { Language } from '../../types';
 import { stripLocaleFromUri } from '../utils';
-
-export const SEARCH_PANEL_TRESHOLD = 5;
+import { getCmsCollectionList } from './utils';
 
 const CmsArticle: React.FC<{
   article: ArticleQuery['post'];
   breadcrumbs: Breadcrumb[];
   collections?: CollectionType[];
-}> = ({ article, breadcrumbs, collections }) => {
+}> = ({ article, breadcrumbs, collections = [] }) => {
   const { t } = useTranslation();
 
   if (!article) return null;
@@ -46,28 +41,7 @@ const CmsArticle: React.FC<{
       <RHHCPageContent
         page={article as PageContentProps['page']}
         breadcrumbs={extendedBreadCrumbs}
-        collections={collections?.map((collection) => (
-          <Collection
-            key={`collection-${Math.random()}`}
-            title={collection.title}
-            collectionContainerProps={{
-              withDots: collection.items.length < 4 ? false : true,
-            }}
-            type="grid"
-            cards={collection.items.map((item) => (
-              <Card
-                key={item.id}
-                {...item}
-                customContent={<HtmlToReact>{item.lead}</HtmlToReact>}
-                withShadow={true}
-                hasLink={true}
-                url={item.uri}
-                imageLabel={item.featuredImage?.node?.imageLabel}
-                imageUrl={item.featuredImage?.node?.mediaItemUrl}
-              />
-            ))}
-          />
-        ))}
+        collections={getCmsCollectionList(collections)}
       />
     </>
   );
@@ -87,7 +61,7 @@ const formLocalePathsFromPage = (article: ArticleQuery['post']) => {
   function getPathAndLocale(pageNode: Post) {
     const locale = pageNode.language?.code?.toLowerCase() as Language;
     const uriWithoutLocale = stripLocaleFromUri(pageNode.uri ?? '');
-    let cmsUri = getCmsPath(uriWithoutLocale);
+    let cmsUri = getCmsPagePath(uriWithoutLocale);
 
     // locale needed in the beginning of the path
     if (locale !== SUPPORTED_LANGUAGES.FI) {

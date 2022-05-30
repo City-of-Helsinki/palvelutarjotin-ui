@@ -6,16 +6,15 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import {
   Breadcrumb,
   getCollections,
-  PageModule,
   CollectionType,
 } from 'react-helsinki-headless-cms';
-import { ArticleQueryVariables } from 'react-helsinki-headless-cms/cjs/__generated__-5977fcee';
 
 import { ALL_I18N_NAMESPACES } from '../../constants';
 import {
   PostFieldsFragment,
   ArticleQuery,
   ArticleDocument,
+  ArticleQueryVariables,
 } from '../../generated/graphql-cms';
 import { createCmsApolloClient } from '../../headless-cms/cmsApolloClient';
 import CmsArticle from '../../headless-cms/components/CmsArticle';
@@ -92,7 +91,7 @@ export async function getStaticProps(
         )),
         article,
         breadcrumbs,
-        collections: getCollections(article.modules as PageModule[]),
+        collections: getCollections(article.modules ?? []),
       },
       revalidate: 60,
     };

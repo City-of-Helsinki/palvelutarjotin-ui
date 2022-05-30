@@ -4,7 +4,8 @@ export enum ROUTES {
   CREATE_ENROLMENT = '/event/:id/enrolment/create',
   HOME = '/',
   PRIVACY_POLICY = '/privacy-policy',
-  CMS_PAGE = '/cms-page/:slug',
+  CMS_PAGE = '/cms-page/:uri',
+  CMS_ARTICLE = '/cms-article/:uri',
   NEWSLETTER = '/newsletter',
   NEWSLETTER_SUBSCRIBE_API = '/api/newsletter/subscribe/:group',
 }
