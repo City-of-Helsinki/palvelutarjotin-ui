@@ -21,7 +21,7 @@ import { isFeatureEnabled } from '../../../utils/featureFlags';
 import { skipFalsyType } from '../../../utils/typescript.utils';
 import { MAIN_CONTENT_ID } from '../layout/PageLayout';
 import { PATHNAMES, ROUTES } from '../routes/constants';
-import { getCmsPath } from '../routes/utils';
+import { getCmsPagePath } from '../routes/utils';
 import styles from './header.module.scss';
 import HeaderNotification from './HeaderNotification';
 
@@ -69,7 +69,7 @@ const Header: React.FC = () => {
       return languageOption.locale?.toLowerCase() === lang;
     });
 
-    return getCmsPath(nav?.uri ? stripLocaleFromUri(nav?.uri) : '');
+    return getCmsPagePath(nav?.uri ? stripLocaleFromUri(nav?.uri) : '');
   };
 
   const logoLang = locale === 'sv' ? 'sv' : 'fi';
@@ -98,12 +98,14 @@ const Header: React.FC = () => {
                       key={item.id}
                       label={item.title}
                       closeOnItemClick
-                      active={isTabActive(getCmsPath(item?.uri ?? ''))}
+                      active={isTabActive(getCmsPagePath(item?.uri ?? ''))}
                     >
                       <Navigation.Item
                         label={item.title}
                         as={Link}
-                        href={getCmsPath(stripLocaleFromUri(item.uri ?? ''))}
+                        href={getCmsPagePath(
+                          stripLocaleFromUri(item.uri ?? '')
+                        )}
                         lang={locale}
                         locale={locale}
                       />
@@ -113,7 +115,7 @@ const Header: React.FC = () => {
                             key={child.id}
                             label={child?.title}
                             as={Link}
-                            href={getCmsPath(
+                            href={getCmsPagePath(
                               stripLocaleFromUri(child?.uri ?? '')
                             )}
                             lang={locale}
@@ -124,7 +126,7 @@ const Header: React.FC = () => {
                     </Navigation.Dropdown>
                   );
                 } else {
-                  const uri = getCmsPath(item.uri);
+                  const uri = getCmsPagePath(item.uri);
                   return (
                     <Navigation.Item
                       key={index}

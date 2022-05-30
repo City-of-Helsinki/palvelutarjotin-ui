@@ -55,7 +55,7 @@
     "react": "17.0.2",
     "react-content-loader": "^6.0.3",
     "react-dom": "17.0.2",
-    "react-helsinki-headless-cms": "1.0.0-alpha2-canary-501e78e",
+    "react-helsinki-headless-cms": "1.0.0-alpha2-canary-739785f",
     "react-redux": "^7.2.0",
     "react-table": "^7.2.2",
     "react-toastify": "^7.0.4",

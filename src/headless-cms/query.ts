@@ -75,9 +75,13 @@ export const PAGE_QUERY = gql`
     title
     articles {
       id
-      title
+      uri
+      slug
       link
+      date
+      title
       lead
+      content
       featuredImage {
         node {
           altText
@@ -91,9 +95,13 @@ export const PAGE_QUERY = gql`
     title
     pages {
       id
-      title
+      uri
+      slug
       link
+      date
+      title
       lead
+      content
       featuredImage {
         node {
           altText
