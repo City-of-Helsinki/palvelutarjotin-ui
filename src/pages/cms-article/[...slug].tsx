@@ -18,13 +18,8 @@ import {
 } from '../../generated/graphql-cms';
 import { createCmsApolloClient } from '../../headless-cms/cmsApolloClient';
 import CmsArticle from '../../headless-cms/components/CmsArticle';
-import {
-  getAllMenuPages,
-  getSlugFromUri,
-  getUriID,
-} from '../../headless-cms/utils';
+import { getUriID } from '../../headless-cms/utils';
 import { Language } from '../../types';
-import { isFeatureEnabled } from '../../utils/featureFlags';
 
 const NextCmsArticle: NextPage<{
   article: PostFieldsFragment;
@@ -33,22 +28,6 @@ const NextCmsArticle: NextPage<{
 }> = (props) => <CmsArticle {...props} />;
 
 export async function getStaticPaths() {
-  const pages = await getAllMenuPages();
-
-  if (isFeatureEnabled('HEADLESS_CMS') && pages) {
-    return {
-      paths: pages.map((page) => {
-        return {
-          params: {
-            slug: getSlugFromUri(page.uri),
-          },
-          locale: page.locale,
-        };
-      }),
-      fallback: true,
-    };
-  }
-
   return { paths: [], fallback: false };
 }
 
