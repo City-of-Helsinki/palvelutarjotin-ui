@@ -12,6 +12,7 @@ import {
   fakePost,
 } from '../../../utils/cmsMockDataUtils';
 import { render, screen } from '../../../utils/testUtils';
+import { getRoutedInternalHref } from '../../utils';
 import CmsPage from '../CmsPage';
 
 function verifyCmsSidebarContentCard({
@@ -67,6 +68,7 @@ test('renders with sidebar layout when sidebar has content', async () => {
     id: '1',
     title: 'Oppimateriaalit elokuvajuhlia varten',
     uri: '/oppimateriaalit-elokuvajuhlia-varten',
+    link: 'https://hkih.stage.geniem.io/oppimateriaalit-elokuvajuhlia-varten',
     featuredImage: {
       node: fakeMediaItem({
         id: '1',
@@ -82,7 +84,8 @@ test('renders with sidebar layout when sidebar has content', async () => {
   const sidebarLayoutArticle = fakePost({
     id: '2',
     title: 'Kevät tulee, tuo luonto osaksi opetusta',
-    uri: '/kevat-tulee-tuo-luonto-osaksi-opetusta',
+    uri: '/2020/01/01/kevat-tulee-tuo-luonto-osaksi-opetusta',
+    link: 'https://hkih.stage.geniem.io/2020/01/01/kevat-tulee-tuo-luonto-osaksi-opetusta',
   });
   const sidebarLayoutArticles = {
     __typename: 'LayoutArticles' as const,
@@ -100,6 +103,7 @@ test('renders with sidebar layout when sidebar has content', async () => {
             }
             return false;
           }),
+          getRoutedInternalHref,
         },
       }}
     >
