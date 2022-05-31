@@ -21,7 +21,10 @@ import MatomoTracker from '../domain/matomo/Matomo';
 import FocusToTop from '../FocusToTop';
 import { useCmsApollo } from '../headless-cms/cmsApolloClient';
 import CMSApolloProvider from '../headless-cms/cmsApolloContext';
+import { getRoutedInternalHref } from '../headless-cms/utils';
 import useLocale from '../hooks/useLocale';
+
+const API_DOMAIN = 'https://hkih.stage.geniem.io';
 
 if (process.env.NODE_ENV === 'production') {
   Sentry.init({
@@ -40,12 +43,14 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
       utils: {
         ...rhhcDefaultConfig.utils,
         getIsHrefExternal: (href: string) => {
-          if (!href?.includes(router.basePath) || href?.startsWith('http')) {
+          if (!href?.includes(router.basePath) || !href?.includes(API_DOMAIN)) {
             return true;
           }
           return false;
         },
+        getRoutedInternalHref,
       },
+      internalHrefOrigins: [API_DOMAIN],
     }),
     [router.basePath]
   );

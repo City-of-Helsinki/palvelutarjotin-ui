@@ -1,8 +1,16 @@
 import React from 'react';
-import { Card, Collection, CollectionType } from 'react-helsinki-headless-cms';
+import {
+  Card,
+  Collection,
+  CollectionItemType,
+  CollectionType,
+} from 'react-helsinki-headless-cms';
 
 import HtmlToReact from '../../common/components/htmlToReact/HtmlToReact';
-import { getCollectionItemUrl } from '../../domain/app/routes/utils';
+import {
+  getCmsArticlePath,
+  getCmsPagePath,
+} from '../../domain/app/routes/utils';
 
 export function getCmsCollectionList(
   collections: CollectionType[]
@@ -37,4 +45,17 @@ export function getCmsCollectionList(
       )}
     />
   ));
+}
+
+export function getCollectionItemUrl(item: CollectionItemType): string {
+  if (!item) {
+    return '#';
+  }
+  if (item.__typename === 'Post') {
+    return getCmsArticlePath(item.uri);
+  }
+  if (item.__typename === 'Page') {
+    return getCmsPagePath(item.uri);
+  }
+  return item?.uri ?? '';
 }

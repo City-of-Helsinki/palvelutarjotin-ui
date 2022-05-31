@@ -12,4 +12,5 @@ export enum ROUTES {
 
 export enum PATHNAMES {
   CMS_PAGE = '/cms-page/[...slug]',
+  CMS_ARTICLE = '/cms-article/[...slug]',
 }

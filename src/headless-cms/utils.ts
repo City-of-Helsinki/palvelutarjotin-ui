@@ -1,3 +1,6 @@
+import { ModuleItemTypeEnum } from 'react-helsinki-headless-cms';
+
+import { getCmsArticlePath, getCmsPagePath } from '../domain/app/routes/utils';
 import {
   MenuDocument,
   MenuNodeIdTypeEnum,
@@ -134,3 +137,16 @@ export const getAllMenuPages = async (): Promise<PageInfo[]> => {
     }
   }
 };
+
+export function getRoutedInternalHref(
+  link: string,
+  type: ModuleItemTypeEnum
+): string {
+  if (type === ModuleItemTypeEnum.Article) {
+    return getCmsArticlePath(link);
+  }
+  if (type === ModuleItemTypeEnum.Page) {
+    return getCmsPagePath(link);
+  }
+  return link ?? '#';
+}
