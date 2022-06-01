@@ -4,9 +4,9 @@ import {
   Collection,
   CollectionItemType,
   CollectionType,
+  getElementTextContent,
 } from 'react-helsinki-headless-cms';
 
-import HtmlToReact from '../../common/components/htmlToReact/HtmlToReact';
 import {
   getCmsArticlePath,
   getCmsPagePath,
@@ -29,9 +29,7 @@ export function getCmsCollectionList(
             key={item.id}
             {...item}
             title={item.title ?? ''}
-            customContent={
-              <HtmlToReact>{(item.lead || item.content) ?? ''}</HtmlToReact>
-            }
+            text={getElementTextContent((item.lead || item.content) ?? '')}
             clampText={true}
             withShadow={true}
             hasLink={true}
