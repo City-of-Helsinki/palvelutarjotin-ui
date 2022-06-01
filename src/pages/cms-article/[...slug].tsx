@@ -28,7 +28,7 @@ const NextCmsArticle: NextPage<{
 }> = (props) => <CmsArticle {...props} />;
 
 export async function getStaticPaths() {
-  return { paths: [], fallback: false };
+  return { paths: [], fallback: true };
 }
 
 type ResultProps =
@@ -90,15 +90,6 @@ export async function getStaticProps(
 
 const getProps = async (context: GetStaticPropsContext) => {
   const cmsClient = createCmsApolloClient();
-
-  // Fetch menu data to cache for the components so they can be rendered in the server
-  //   await cmsClient.query<MenuQuery, MenuQueryVariables>({
-  //     query: MenuDocument,
-  //     variables: {
-  //       id: MENU_NAME.Header,
-  //       idType: MenuNodeIdTypeEnum.Name,
-  //     },
-  //   });
 
   const { data: articleData } = await cmsClient.query<
     ArticleQuery,
