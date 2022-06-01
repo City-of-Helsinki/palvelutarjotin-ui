@@ -71,7 +71,7 @@ export const PAGE_QUERY = gql`
     }
   }
 
-  fragment LayoutArticles on LayoutArticles {
+  fragment layoutArticlesFields on LayoutArticles {
     title
     articles {
       id
@@ -91,7 +91,7 @@ export const PAGE_QUERY = gql`
     }
   }
 
-  fragment LayoutPages on LayoutPages {
+  fragment layoutPagesFields on LayoutPages {
     title
     pages {
       id
@@ -143,18 +143,18 @@ export const PAGE_QUERY = gql`
         ...LayoutLinkList
       }
       ... on LayoutArticles {
-        ...LayoutArticles
+        ...layoutArticlesFields
       }
       ... on LayoutPages {
-        ...LayoutPages
+        ...layoutPagesFields
       }
     }
     modules {
       ... on LayoutArticles {
-        ...LayoutArticles
+        ...layoutArticlesFields
       }
       ... on LayoutPages {
-        ...LayoutPages
+        ...layoutPagesFields
       }
     }
   }
@@ -287,10 +287,10 @@ export const POST_QUERY = gql`
     modules {
       # TODO: HCRC-13 - Support Event search and Event selection -modules
       ... on LayoutArticles {
-        ...LayoutArticles
+        ...layoutArticlesFields
       }
       ... on LayoutPages {
-        ...LayoutPages
+        ...layoutPagesFields
       }
     }
     # Contains language versions other than the language the $id or type URI
