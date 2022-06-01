@@ -9,7 +9,7 @@ import {
 
 import PageMeta from '../../common/components/meta/PageMeta';
 import { SUPPORTED_LANGUAGES } from '../../constants';
-import { getCmsPagePath } from '../../domain/app/routes/utils';
+import { getCmsArticlePath } from '../../domain/app/routes/utils';
 import { ArticleQuery, Post } from '../../generated/graphql-cms';
 import { Language } from '../../types';
 import { stripLocaleFromUri } from '../utils';
@@ -61,7 +61,7 @@ const formLocalePathsFromPage = (article: ArticleQuery['post']) => {
   function getPathAndLocale(pageNode: Post) {
     const locale = pageNode.language?.code?.toLowerCase() as Language;
     const uriWithoutLocale = stripLocaleFromUri(pageNode.uri ?? '');
-    let cmsUri = getCmsPagePath(uriWithoutLocale);
+    let cmsUri = getCmsArticlePath(uriWithoutLocale);
 
     // locale needed in the beginning of the path
     if (locale !== SUPPORTED_LANGUAGES.FI) {
