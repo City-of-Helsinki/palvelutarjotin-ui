@@ -13,6 +13,8 @@ export default function CmsPageLayout({ children }: Props): JSX.Element {
   return (
     <Page
       navigation={<Header />}
+      // TODO: Notification - it's already once in the Header
+      // notification={<HeaderNotification />}
       content={<div className={styles.pageBody}>{children}</div>}
       footer={<Footer />}
     />

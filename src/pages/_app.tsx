@@ -16,6 +16,7 @@ import nextI18nextConfig from '../../next-i18next.config';
 import '../assets/styles/main.scss';
 import CmsPageLayout from '../domain/app/layout/CmsPageLayout';
 import PageLayout from '../domain/app/layout/PageLayout';
+import { getCmsArticlePath, getCmsPagePath } from '../domain/app/routes/utils';
 import { store } from '../domain/app/store';
 import MatomoTracker from '../domain/matomo/Matomo';
 import FocusToTop from '../FocusToTop';
@@ -24,7 +25,9 @@ import CMSApolloProvider from '../headless-cms/cmsApolloContext';
 import { getRoutedInternalHref } from '../headless-cms/utils';
 import useLocale from '../hooks/useLocale';
 
-const API_DOMAIN = 'https://hkih.stage.geniem.io';
+const CMS_API_DOMAIN = process.env.NEXT_PUBLIC_CMS_BASE_URL
+  ? new URL(process.env.NEXT_PUBLIC_CMS_BASE_URL).origin
+  : null;
 
 if (process.env.NODE_ENV === 'production') {
   Sentry.init({
@@ -43,14 +46,17 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
       utils: {
         ...rhhcDefaultConfig.utils,
         getIsHrefExternal: (href: string) => {
-          if (!href?.includes(router.basePath) || !href?.includes(API_DOMAIN)) {
+          if (
+            !href?.includes(router.basePath) ||
+            (CMS_API_DOMAIN && !href?.includes(CMS_API_DOMAIN))
+          ) {
             return true;
           }
           return false;
         },
         getRoutedInternalHref,
       },
-      internalHrefOrigins: [API_DOMAIN],
+      internalHrefOrigins: CMS_API_DOMAIN ? [CMS_API_DOMAIN] : [],
     }),
     [router.basePath]
   );
@@ -61,7 +67,9 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
     }
   }, [locale]);
 
-  const PageLayoutComponent = router.route.startsWith('/cms-page')
+  const PageLayoutComponent = [getCmsPagePath(''), getCmsArticlePath('')].some(
+    (path) => router.route.startsWith(path)
+  )
     ? CmsPageLayout
     : PageLayout;
 
