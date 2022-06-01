@@ -10310,9 +10310,9 @@ export type PageQuery = { __typename?: 'RootQuery', page?: Maybe<{ __typename?: 
 
 export type LayoutLinkListFragment = { __typename?: 'LayoutLinkList', anchor?: Maybe<string>, title?: Maybe<string>, description?: Maybe<string>, links?: Maybe<Array<Maybe<{ __typename?: 'Link', target?: Maybe<string>, title?: Maybe<string>, url?: Maybe<string> }>>> };
 
-export type LayoutArticlesFragment = { __typename?: 'LayoutArticles', title?: Maybe<string>, articles?: Maybe<Array<Maybe<{ __typename?: 'Post', id: string, uri?: Maybe<string>, slug?: Maybe<string>, link?: Maybe<string>, date?: Maybe<string>, title?: Maybe<string>, lead?: Maybe<string>, content?: Maybe<string>, featuredImage?: Maybe<{ __typename?: 'NodeWithFeaturedImageToMediaItemConnectionEdge', node?: Maybe<{ __typename?: 'MediaItem', altText?: Maybe<string>, mediaItemUrl?: Maybe<string> }> }> }>>> };
+export type LayoutArticlesFieldsFragment = { __typename?: 'LayoutArticles', title?: Maybe<string>, articles?: Maybe<Array<Maybe<{ __typename?: 'Post', id: string, uri?: Maybe<string>, slug?: Maybe<string>, link?: Maybe<string>, date?: Maybe<string>, title?: Maybe<string>, lead?: Maybe<string>, content?: Maybe<string>, featuredImage?: Maybe<{ __typename?: 'NodeWithFeaturedImageToMediaItemConnectionEdge', node?: Maybe<{ __typename?: 'MediaItem', altText?: Maybe<string>, mediaItemUrl?: Maybe<string> }> }> }>>> };
 
-export type LayoutPagesFragment = { __typename?: 'LayoutPages', title?: Maybe<string>, pages?: Maybe<Array<Maybe<{ __typename?: 'Page', id: string, uri?: Maybe<string>, slug?: Maybe<string>, link?: Maybe<string>, date?: Maybe<string>, title?: Maybe<string>, lead?: Maybe<string>, content?: Maybe<string>, featuredImage?: Maybe<{ __typename?: 'NodeWithFeaturedImageToMediaItemConnectionEdge', node?: Maybe<{ __typename?: 'MediaItem', altText?: Maybe<string>, mediaItemUrl?: Maybe<string> }> }> }>>> };
+export type LayoutPagesFieldsFragment = { __typename?: 'LayoutPages', title?: Maybe<string>, pages?: Maybe<Array<Maybe<{ __typename?: 'Page', id: string, uri?: Maybe<string>, slug?: Maybe<string>, link?: Maybe<string>, date?: Maybe<string>, title?: Maybe<string>, lead?: Maybe<string>, content?: Maybe<string>, featuredImage?: Maybe<{ __typename?: 'NodeWithFeaturedImageToMediaItemConnectionEdge', node?: Maybe<{ __typename?: 'MediaItem', altText?: Maybe<string>, mediaItemUrl?: Maybe<string> }> }> }>>> };
 
 export type PageFieldsFragment = { __typename?: 'Page', id: string, content?: Maybe<string>, slug?: Maybe<string>, title?: Maybe<string>, uri?: Maybe<string>, link?: Maybe<string>, lead?: Maybe<string>, seo?: Maybe<{ __typename?: 'SEO', title?: Maybe<string>, description?: Maybe<string>, openGraphTitle?: Maybe<string>, openGraphDescription?: Maybe<string>, openGraphType?: Maybe<string>, twitterTitle?: Maybe<string>, twitterDescription?: Maybe<string> }>, language?: Maybe<{ __typename?: 'Language', code?: Maybe<LanguageCodeEnum>, slug?: Maybe<string>, locale?: Maybe<string>, name?: Maybe<string> }>, featuredImage?: Maybe<{ __typename?: 'NodeWithFeaturedImageToMediaItemConnectionEdge', node?: Maybe<{ __typename?: 'MediaItem', mediaItemUrl?: Maybe<string>, link?: Maybe<string>, altText?: Maybe<string>, mimeType?: Maybe<string>, title?: Maybe<string>, uri?: Maybe<string> }> }>, sidebar?: Maybe<Array<Maybe<{ __typename?: 'LayoutLinkList', anchor?: Maybe<string>, title?: Maybe<string>, description?: Maybe<string>, links?: Maybe<Array<Maybe<{ __typename?: 'Link', target?: Maybe<string>, title?: Maybe<string>, url?: Maybe<string> }>>> } | { __typename?: 'LayoutArticles', title?: Maybe<string>, articles?: Maybe<Array<Maybe<{ __typename?: 'Post', id: string, uri?: Maybe<string>, slug?: Maybe<string>, link?: Maybe<string>, date?: Maybe<string>, title?: Maybe<string>, lead?: Maybe<string>, content?: Maybe<string>, featuredImage?: Maybe<{ __typename?: 'NodeWithFeaturedImageToMediaItemConnectionEdge', node?: Maybe<{ __typename?: 'MediaItem', altText?: Maybe<string>, mediaItemUrl?: Maybe<string> }> }> }>>> } | { __typename?: 'LayoutPages', title?: Maybe<string>, pages?: Maybe<Array<Maybe<{ __typename?: 'Page', id: string, uri?: Maybe<string>, slug?: Maybe<string>, link?: Maybe<string>, date?: Maybe<string>, title?: Maybe<string>, lead?: Maybe<string>, content?: Maybe<string>, featuredImage?: Maybe<{ __typename?: 'NodeWithFeaturedImageToMediaItemConnectionEdge', node?: Maybe<{ __typename?: 'MediaItem', altText?: Maybe<string>, mediaItemUrl?: Maybe<string> }> }> }>>> }>>>, modules?: Maybe<Array<Maybe<{ __typename?: 'EventSearch' } | { __typename?: 'EventSelected' } | { __typename?: 'LayoutCollection' } | { __typename?: 'LayoutContact' } | { __typename?: 'LayoutArticles', title?: Maybe<string>, articles?: Maybe<Array<Maybe<{ __typename?: 'Post', id: string, uri?: Maybe<string>, slug?: Maybe<string>, link?: Maybe<string>, date?: Maybe<string>, title?: Maybe<string>, lead?: Maybe<string>, content?: Maybe<string>, featuredImage?: Maybe<{ __typename?: 'NodeWithFeaturedImageToMediaItemConnectionEdge', node?: Maybe<{ __typename?: 'MediaItem', altText?: Maybe<string>, mediaItemUrl?: Maybe<string> }> }> }>>> } | { __typename?: 'LayoutPages', title?: Maybe<string>, pages?: Maybe<Array<Maybe<{ __typename?: 'Page', id: string, uri?: Maybe<string>, slug?: Maybe<string>, link?: Maybe<string>, date?: Maybe<string>, title?: Maybe<string>, lead?: Maybe<string>, content?: Maybe<string>, featuredImage?: Maybe<{ __typename?: 'NodeWithFeaturedImageToMediaItemConnectionEdge', node?: Maybe<{ __typename?: 'MediaItem', altText?: Maybe<string>, mediaItemUrl?: Maybe<string> }> }> }>>> }>>> };
 
@@ -10393,8 +10393,8 @@ export const LayoutLinkListFragmentDoc = gql`
   }
 }
     `;
-export const LayoutArticlesFragmentDoc = gql`
-    fragment LayoutArticles on LayoutArticles {
+export const LayoutArticlesFieldsFragmentDoc = gql`
+    fragment layoutArticlesFields on LayoutArticles {
   title
   articles {
     id
@@ -10414,8 +10414,8 @@ export const LayoutArticlesFragmentDoc = gql`
   }
 }
     `;
-export const LayoutPagesFragmentDoc = gql`
-    fragment LayoutPages on LayoutPages {
+export const LayoutPagesFieldsFragmentDoc = gql`
+    fragment layoutPagesFields on LayoutPages {
   title
   pages {
     id
@@ -10468,25 +10468,25 @@ export const PageFieldsFragmentDoc = gql`
       ...LayoutLinkList
     }
     ... on LayoutArticles {
-      ...LayoutArticles
+      ...layoutArticlesFields
     }
     ... on LayoutPages {
-      ...LayoutPages
+      ...layoutPagesFields
     }
   }
   modules {
     ... on LayoutArticles {
-      ...LayoutArticles
+      ...layoutArticlesFields
     }
     ... on LayoutPages {
-      ...LayoutPages
+      ...layoutPagesFields
     }
   }
 }
     ${SeoFieldsFragmentDoc}
 ${LayoutLinkListFragmentDoc}
-${LayoutArticlesFragmentDoc}
-${LayoutPagesFragmentDoc}`;
+${LayoutArticlesFieldsFragmentDoc}
+${LayoutPagesFieldsFragmentDoc}`;
 export const MenuPageFieldsFragmentDoc = gql`
     fragment menuPageFields on Page {
   ...pageFields
@@ -10545,10 +10545,10 @@ export const PostFieldsFragmentDoc = gql`
   }
   modules {
     ... on LayoutArticles {
-      ...LayoutArticles
+      ...layoutArticlesFields
     }
     ... on LayoutPages {
-      ...LayoutPages
+      ...layoutPagesFields
     }
   }
   translations {
@@ -10564,8 +10564,8 @@ export const PostFieldsFragmentDoc = gql`
     ${CategoriesFragmentDoc}
 ${SeoFieldsFragmentDoc}
 ${LanguageFragmentDoc}
-${LayoutArticlesFragmentDoc}
-${LayoutPagesFragmentDoc}`;
+${LayoutArticlesFieldsFragmentDoc}
+${LayoutPagesFieldsFragmentDoc}`;
 export const MenuDocument = gql`
     query Menu($id: ID!, $idType: MenuNodeIdTypeEnum) {
   menu(id: $id, idType: $idType) {
