@@ -92,18 +92,32 @@ test('renders with sidebar layout when sidebar has content', async () => {
     articles: [sidebarLayoutArticle],
   };
 
+  const internalHrefOrigins = [
+    'https://hkih.stage.geniem.io',
+    'https://palvelutarjotin.test.kuva.hel.ninja',
+  ];
+  const mockedGetIsHrefExternal = jest.fn((href: string) => {
+    if (
+      !internalHrefOrigins.includes(new URL(href).origin) &&
+      href?.startsWith('http')
+    ) {
+      return true;
+    }
+    return false;
+  });
+  const mockedGetRoutedInternalHref = jest.fn(getRoutedInternalHref);
   const { container } = render(
     <RHHCConfigProvider
       config={{
         ...rhhcDefaultConfig,
+        copy: {
+          ...rhhcDefaultConfig.copy,
+          openInNewTabAriaLabel: 'Avautuu uudessa välilehdessä.',
+        },
+        internalHrefOrigins,
         utils: {
-          getIsHrefExternal: jest.fn((href: string) => {
-            if (href?.startsWith('http')) {
-              return true;
-            }
-            return false;
-          }),
-          getRoutedInternalHref,
+          getIsHrefExternal: mockedGetIsHrefExternal,
+          getRoutedInternalHref: mockedGetRoutedInternalHref,
         },
       }}
     >
@@ -139,7 +153,7 @@ test('renders with sidebar layout when sidebar has content', async () => {
   // Renders link opening in external window correctly
   expect(
     screen.getByRole('link', {
-      name: `${sidebarLayoutLinkList.links[0].title} Opens in a new tab.`,
+      name: `${sidebarLayoutLinkList.links[0].title} Avautuu uudessa välilehdessä.`,
     })
   ).toBeInTheDocument();
   // Renders link opening in same window
@@ -149,17 +163,22 @@ test('renders with sidebar layout when sidebar has content', async () => {
     })
   ).toBeInTheDocument();
 
-  // //-- Renders layout pages
-  // verifyCmsSidebarContentCard({
-  //   title: sidebarLayoutPage.title!,
-  //   url: `${window.origin}/cms-page${sidebarLayoutPage.uri}`,
-  //   image: sidebarLayoutPage.featuredImage?.node?.mediaItemUrl,
-  //   imageAlt: sidebarLayoutPage.featuredImage?.node?.altText,
-  // });
+  expect(mockedGetRoutedInternalHref).toBeCalled();
+  expect(mockedGetRoutedInternalHref).toHaveReturnedWith(
+    '/cms-page/oppimateriaalit-elokuvajuhlia-varten'
+  );
 
-  // //-- Renders layout articles
-  // verifyCmsSidebarContentCard({
-  //   title: sidebarLayoutArticle.title!,
-  //   url: `${window.origin}/cms-page${sidebarLayoutArticle.uri}`,
-  // });
+  //-- Renders layout pages
+  verifyCmsSidebarContentCard({
+    title: sidebarLayoutPage.title!,
+    url: `${window.origin}/cms-page${sidebarLayoutPage.uri}`,
+    image: sidebarLayoutPage.featuredImage?.node?.mediaItemUrl,
+    imageAlt: sidebarLayoutPage.featuredImage?.node?.altText,
+  });
+
+  //-- Renders layout articles
+  verifyCmsSidebarContentCard({
+    title: sidebarLayoutArticle.title!,
+    url: `${window.origin}/cms-article${sidebarLayoutArticle.uri}`,
+  });
 });
