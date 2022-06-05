@@ -1,12 +1,19 @@
 import { NetworkStatus } from '@apollo/client';
-import { Button, TextInput } from 'hds-react';
-import Link from 'next/link';
 import React from 'react';
-import { useTranslation } from 'react-i18next';
+import {
+  Card,
+  CardProps,
+  CollectionItemType,
+  LargeCard,
+  LargeCardProps,
+  SearchPageContent,
+  useConfig,
+  PageMeta,
+  PageMainContent,
+} from 'react-helsinki-headless-cms';
 
-import LoadingSpinner from '../../../common/components/loadingSpinner/LoadingSpinner';
+import HtmlToReact from '../../../common/components/htmlToReact/HtmlToReact';
 import Container from '../../../domain/app/layout/Container';
-import { getCmsPagePath } from '../../../domain/app/routes/utils';
 import { getEventPlaceholderImage } from '../../../domain/event/utils';
 import {
   Page,
@@ -15,8 +22,6 @@ import {
 } from '../../../generated/graphql-cms';
 import useDebounce from '../../../hooks/useDebounce';
 import { useCMSClient } from '../../cmsApolloContext';
-import { stripLocaleFromUri } from '../../utils';
-import styles from './cmspagesearch.module.scss';
 
 const BLOCK_SIZE = 10;
 const SEARCH_DEBOUNCE_TIME = 500;
@@ -27,6 +32,9 @@ const CmsPageSearch: React.FC<{
   const [searchTerm, setSearchTerm] = React.useState('');
   const debouncedSearchTerm = useDebounce(searchTerm, SEARCH_DEBOUNCE_TIME);
   const cmsClient = useCMSClient();
+  const {
+    components: { Head },
+  } = useConfig();
 
   const {
     data: pageData,
@@ -68,98 +76,44 @@ const CmsPageSearch: React.FC<{
       ?.map((edge) => edge?.node as Page)
       .filter((page) => !!page) ?? [];
 
-  return (
-    <Container>
-      <CmsPageSearchForm
-        page={page}
-        setSearchTerm={setSearchTerm}
-        searchTerm={searchTerm}
-      />
-      <CmsPageSearchList
-        pages={subPages}
-        loading={isLoading}
-        isLoadingMore={isLoadingMore}
-        fetchMore={fetchMorePages}
-        hasMoreToLoad={hasMoreToLoad}
-      />
-    </Container>
+  const getCardProps = (
+    item: CollectionItemType
+  ): CardProps | LargeCardProps => ({
+    id: item?.id,
+    ariaLabel: item?.title || '',
+    title: item?.title || '',
+    subTitle: '',
+    customContent: <HtmlToReact>{item?.lead || ''}</HtmlToReact>,
+    url: item?.slug || '',
+    imageUrl:
+      item?.featuredImage?.node?.mediaItemUrl || getEventPlaceholderImage(''),
+  });
+
+  const customContent = (
+    <PageMainContent title={page.title ?? ''} content={page.content ?? ''} />
   );
-};
 
-/**
- * Search form to search headless cms pages from all the pages or 1 page's sub pages.
- */
-const CmsPageSearchForm: React.FC<{
-  page: Page;
-  searchTerm: string;
-  setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
-}> = ({ page, searchTerm, setSearchTerm }) => {
-  const { t } = useTranslation();
   return (
-    <div className={styles.searchForm}>
-      <TextInput
-        id="page-search"
-        label={t('cms:pageSearch.searchLabel')}
-        value={searchTerm}
-        helperText={t('cms:pageSearch.searchHelperText', { title: page.title })}
-        onChange={(e) => setSearchTerm(e.target.value)}
-      />
-    </div>
-  );
-};
-
-/**
- * List the search results as cards.
- */
-const CmsPageSearchList: React.FC<{
-  pages: Page[];
-  loading: boolean;
-  isLoadingMore: boolean;
-  hasMoreToLoad: boolean;
-  fetchMore: () => void;
-}> = ({ pages, loading, isLoadingMore, fetchMore, hasMoreToLoad }) => {
-  const { t } = useTranslation();
-  return (
-    <div>
-      <LoadingSpinner isLoading={loading}>
-        <div className={styles.cmsCardList}>
-          {pages.map((page) => {
-            if (!page?.uri) return null;
-
-            const pageUri = getCmsPagePath(stripLocaleFromUri(page?.uri));
-            const pageLead =
-              page.lead?.replaceAll('<p>', '')?.replaceAll('</p>', '') ?? '';
-            const imgSrc =
-              page.featuredImage?.node?.mediaItemUrl ??
-              getEventPlaceholderImage(page.id);
-
-            return (
-              <Link href={stripLocaleFromUri(pageUri)}>
-                {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                <a className={styles.cmsCard}>
-                  <img
-                    src={imgSrc}
-                    alt={page.featuredImage?.node?.altText ?? ''}
-                    className={styles.cardImage}
-                  />
-                  <div className={styles.cardContent}>
-                    {page.title && <h2>{page.title}</h2>}
-                    <p>{pageLead}</p>
-                  </div>
-                </a>
-              </Link>
-            );
-          })}
-        </div>
-      </LoadingSpinner>
-      {isLoadingMore ? (
-        <LoadingSpinner isLoading hasPadding={false} />
-      ) : hasMoreToLoad ? (
-        <Button style={{ marginTop: '2rem' }} onClick={fetchMore}>
-          {t('cms:pageSearch.loadMore')}
-        </Button>
-      ) : null}
-    </div>
+    <>
+      {Head && <PageMeta headComponent={Head} page={page} />}
+      <Container>
+        <SearchPageContent
+          customContent={customContent}
+          items={subPages}
+          onSearch={(freeSearch, tags) => {
+            setSearchTerm(freeSearch);
+          }}
+          onLoadMore={() => {
+            fetchMorePages();
+          }}
+          largeFirstItem={false}
+          createLargeCard={(item) => <LargeCard {...getCardProps(item)} />}
+          createCard={(item) => <Card {...getCardProps(item)} />}
+          hasMore={hasMoreToLoad}
+          isLoading={isLoading || isLoadingMore}
+        />
+      </Container>
+    </>
   );
 };
 
