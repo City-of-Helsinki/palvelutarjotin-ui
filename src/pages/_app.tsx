@@ -1,6 +1,6 @@
 import * as Sentry from '@sentry/browser';
 import { LoadingSpinner } from 'hds-react';
-import { appWithTranslation } from 'next-i18next';
+import { appWithTranslation, useTranslation } from 'next-i18next';
 import { AppProps } from 'next/app';
 import NextError from 'next/error';
 import { useRouter } from 'next/router';
@@ -20,6 +20,7 @@ import { getCmsArticlePath, getCmsPagePath } from '../domain/app/routes/utils';
 import { store } from '../domain/app/store';
 import MatomoTracker from '../domain/matomo/Matomo';
 import FocusToTop from '../FocusToTop';
+import { LanguageCodeEnum } from '../generated/graphql-cms';
 import { useCmsApollo } from '../headless-cms/cmsApolloClient';
 import CMSApolloProvider from '../headless-cms/cmsApolloContext';
 import { getRoutedInternalHref } from '../headless-cms/utils';
@@ -39,10 +40,32 @@ if (process.env.NODE_ENV === 'production') {
 const MyApp = ({ Component, pageProps }: AppProps) => {
   const router = useRouter();
   const locale = useLocale();
+  const { t } = useTranslation();
   const cmsApolloClient = useCmsApollo(pageProps.initialApolloState);
   const rhhcConfig = React.useMemo(
     () => ({
       ...rhhcDefaultConfig,
+      siteName: t('common:appName'),
+      currentLanguageCode: LanguageCodeEnum.Fi,
+      copy: {
+        breadcrumbNavigationLabel: t(
+          'common:breadcrumb.breadcrumbNavigationLabel'
+        ),
+        breadcrumbListLabel: t('common:breadcrumb.breadcrumbListLabel'),
+        menuToggleAriaLabel: t('common:menu.toggle'),
+        skipToContentLabel: t('common:linkSkipToContent'),
+        openInExternalDomainAriaLabel: t('common:srOnly.opensInAnExternalSite'),
+        openInNewTabAriaLabel: t('common:srOnly.opensInANewTab'),
+        closeButtonLabelText: t('common:button.close'),
+        archiveSearch: {
+          searchTextPlaceholder: t('cms:archiveSearch.searchTextPlaceholder'),
+          searchButtonLabelText: t('cms:archiveSearch.searchButtonLabelText'),
+          loadMoreButtonLabelText: t(
+            'cms:archiveSearch.loadMoreButtonLabelText'
+          ),
+          noResultsText: t('cms:archiveSearch.noResultsText'),
+        },
+      },
       utils: {
         ...rhhcDefaultConfig.utils,
         getIsHrefExternal: (href: string) => {
@@ -58,7 +81,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
       },
       internalHrefOrigins: CMS_API_DOMAIN ? [CMS_API_DOMAIN] : [],
     }),
-    [router.basePath]
+    [router.basePath, t]
   );
   React.useEffect(() => {
     const html = document.querySelector('html');

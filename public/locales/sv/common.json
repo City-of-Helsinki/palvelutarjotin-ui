@@ -55,7 +55,8 @@
   "linkSkipToContent": "Gå till innehållet",
   "feedbackLink": "Ge respons",
   "srOnly": {
-    "opensInANewTab": "Öppnas i en ny flik"
+    "opensInANewTab": "Öppnas i en ny flik",
+    "opensInAnExternalSite": "Öppnar en annan webbplats."
   },
   "autoSuggest": {
     "accessibility": {
@@ -70,6 +71,17 @@
   },
   "unitPlaceSelector": {
     "noPlaceFoundError": "Platsen har valts, men det gick inte att läsa in namnet"
+  },
+  "button": {
+    "close": "stänga"
+  },
+  "menu": {
+    "menuToggleAriaLabel": "öppna menyn"
+  },
+  "breadcrumb": {
+    "breadcrumbNavigationLabel": "brödsmula navigation",
+    "breadcrumbListLabel": "brödsmula"
+  }
   },
   "termsOfService": "Användarvillkor"
 }

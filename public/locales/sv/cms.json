@@ -1,8 +1,9 @@
 {
   "linkFrontPage": "Hemsidan",
-  "pageSearch": {
-    "searchLabel": "Sök",
-    "searchHelperText": "Sök från {{title}} sidas undersidor ...",
-    "loadMore": "Ladda mer"
+  "archiveSearch": {
+    "searchTextPlaceholder": "Söktext",
+    "searchButtonLabelText": "Sök",
+    "loadMoreButtonLabelText": "Ladda mer",
+    "noResultsText": "Inga resultat"
   }
 }
