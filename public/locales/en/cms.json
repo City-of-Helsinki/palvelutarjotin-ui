@@ -1,8 +1,9 @@
 {
   "linkFrontPage": "Home page",
-  "pageSearch": {
-    "searchLabel": "Search",
-    "searchHelperText": "Search from {{title}} page's subpages...",
-    "loadMore": "Load more"
+  "archiveSearch": {
+    "searchTextPlaceholder": "Search text",
+    "searchButtonLabelText": "Search",
+    "loadMoreButtonLabelText": "Load more",
+    "noResultsText": "No results"
   }
 }

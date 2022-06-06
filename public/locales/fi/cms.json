@@ -1,8 +1,9 @@
 {
   "linkFrontPage": "Kotisivu",
-  "pageSearch": {
-    "searchLabel": "Haku",
-    "searchHelperText": "Hae sivun {{title}} alisivuja...",
-    "loadMore": "Lataa lisää"
+  "archiveSearch": {
+    "searchTextPlaceholder": "Hakusana",
+    "searchButtonLabelText": "Hae",
+    "loadMoreButtonLabelText": "Lataa lisää",
+    "noResultsText": "Ei hakutuloksia"
   }
 }

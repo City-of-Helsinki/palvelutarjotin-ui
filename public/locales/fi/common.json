@@ -56,7 +56,8 @@
   "linkSkipToContent": "Siirry sisältöön",
   "feedbackLink": "Anna palautetta",
   "srOnly": {
-    "opensInANewTab": "Avautuu uudessa välilehdessä"
+    "opensInANewTab": "Avautuu uudessa välilehdessä",
+    "opensInAnExternalSite": "Avautuu toisella sivustolla"
   },
   "autoSuggest": {
     "accessibility": {
@@ -71,6 +72,17 @@
   },
   "unitPlaceSelector": {
     "noPlaceFoundError": "Paikka on valittu, mutta nimen latauksessa esiintyi ongelma"
+  },
+  "button": {
+    "close": "sulje"
+  },
+  "menu": {
+    "menuToggleAriaLabel": "avaa valikko"
+  },
+  "breadcrumb": {
+    "breadcrumbNavigationLabel": "Leivänmurunavigointi",
+    "breadcrumbListLabel": "leivänmurut"
+  }
   },
   "termsOfService": "Käyttöehdot"
 }
