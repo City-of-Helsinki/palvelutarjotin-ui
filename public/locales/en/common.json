@@ -56,7 +56,8 @@
   "linkSkipToContent": "Skip to content",
   "feedbackLink": "Give feedback",
   "srOnly": {
-    "opensInANewTab": "Opens in a new tab"
+    "opensInANewTab": "Opens in a new tab",
+    "opensInAnExternalSite": "Opens a different website."
   },
   "autoSuggest": {
     "accessibility": {
@@ -73,4 +74,15 @@
     "noPlaceFoundError": "Unit is selected, but there was a problem loading the name"
   },
   "termsOfService": "Terms of service"
+  },
+  "button": {
+    "close": "close"
+  },
+  "menu": {
+    "menuToggleAriaLabel": "toggle menu"
+  },
+  "breadcrumb": {
+    "breadcrumbNavigationLabel": "Breadcrumb navigation",
+    "breadcrumbListLabel": "breadcrumbs"
+  }
 }

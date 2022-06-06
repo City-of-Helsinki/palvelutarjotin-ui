@@ -43,7 +43,7 @@
     "descriptionServicemap": "More information about the venue can be found from the Servicemap."
   },
   "multiDropdown": {
-    "clearButtonAriaLabel": "Poista valinnat",
-    "selectedItemRemoveButtonAriaLabel": "Poista valinta"
+    "clearButtonAriaLabel": "Clear the selections",
+    "selectedItemRemoveButtonAriaLabel": "Remove the selection"
   }
 }
