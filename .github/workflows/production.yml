@@ -4,6 +4,9 @@ on:
     tags:
       - 'release-*'
 
+# allow only one run at a time
+concurrency: ${{ github.workflow }}
+
 env:
   CONTAINER_REGISTRY: ghcr.io
   CONTAINER_REGISTRY_USER: ${{ secrets.GHCR_CONTAINER_REGISTRY_USER }}
@@ -14,11 +17,17 @@ env:
   BUILD_ARTIFACT_FOLDER: 'build_artifacts'
   SERVICE_ARTIFACT_FOLDER: 'service_artifacts'
   SERVICE_PORT: 3000
-  K8S_REQUEST_CPU: 100m
-  K8S_REQUEST_RAM: 400Mi
+  # resource requests base on usage history
+  K8S_REQUEST_CPU: 50m
+  K8S_REQUEST_RAM: 350Mi
   K8S_LIMIT_CPU: 1000m
   K8S_LIMIT_RAM: 800Mi
-  K8S_REPLICACOUNT: 2
+  # horizontal pod autoscaler
+  K8S_HPA_ENABLED: true
+  K8S_HPA_MAX_REPLICAS: 4
+  K8S_HPA_MIN_REPLICAS: 2
+  K8S_HPA_MAX_CPU_AVG: 100 # 100% from request
+#  K8S_HPA_MAX_RAM_AVG: 80 # 80% from request
   PUBLIC_URL: https://${{ secrets.ENVIRONMENT_URL_STABLE }}
 jobs:
   build:

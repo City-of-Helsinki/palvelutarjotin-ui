@@ -12,11 +12,18 @@ env:
   BUILD_ARTIFACT_FOLDER: 'build_artifacts'
   SERVICE_ARTIFACT_FOLDER: 'service_artifacts'
   SERVICE_PORT: 3000
-  K8S_REQUEST_CPU: 100m
-  K8S_REQUEST_RAM: 400Mi
+  # resource requests base on usage history
+  K8S_REQUEST_CPU: 50m
+  K8S_REQUEST_RAM: 150Mi
   K8S_LIMIT_CPU: 800m
-  K8S_LIMIT_RAM: 800Mi
-  K8S_REPLICACOUNT: 2
+  K8S_LIMIT_RAM: 500Mi
+  # horizontal pod autoscaler
+  K8S_HPA_ENABLED: true
+  K8S_HPA_MAX_REPLICAS: 3
+  K8S_HPA_MIN_REPLICAS: 1
+  K8S_HPA_MAX_CPU_AVG: 100 # 100% from request
+#  K8S_HPA_MAX_RAM_AVG: 80 # 80% from request
+
   PUBLIC_URL: https://${{ secrets.ENVIRONMENT_URL_STAGING }}
 jobs:
   build:
@@ -50,6 +57,10 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     name: Staging
+
+    # allow only one deployment at a time
+    concurrency: ${{ github.workflow }}-${{ github.ref }}
+
     steps:
       - uses: actions/checkout@v2
       - uses: andersinno/kolga-setup-action@v2
