@@ -4,7 +4,7 @@ import http from 'k6/http';
 
 export const options = {
   duration: '10m',
-  vus: 20,
+  vus: 5, // Staging headless cms is a bottle neck. It seems to slow down very fast when load increase
   //  vus: 1,
   thresholds: {
     //avg is around ?800ms? on https://palvelutarjotin.test.kuva.hel.ninja
