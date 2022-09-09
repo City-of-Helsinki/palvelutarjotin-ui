@@ -203,10 +203,15 @@ test('render and focuses error notification correctly', async () => {
 describe('max group size validation of the Children and Adults -fields', () => {
   const createEnrolmentForm = async (
     childrenCount: string,
-    adultsCount: string
+    adultsCount: string,
+    minGroupSize: number | undefined = 10,
+    maxGroupSize: number | undefined = 20
   ) => {
     renderComponent({
-      props: { minGroupSize: 10, maxGroupSize: 20 },
+      props: {
+        minGroupSize,
+        maxGroupSize,
+      },
     });
     await screen.findByLabelText(/lapsia/i);
     childrenCount
@@ -300,6 +305,17 @@ describe('max group size validation of the Children and Adults -fields', () => {
         /Arvon tulee olla enintään 1 yhdessä lasten lukumäärän kanssa/i
       )
     ).not.toBeInTheDocument();
+  });
+
+  test('the enrolment should not be valid for empty group', async () => {
+    await createEnrolmentForm('0', '0', undefined, undefined);
+    await waitFor(() => {
+      expect(
+        screen.getAllByText(
+          /Lasten ja aikuisten yhteislukumäärän tulee olla vähintään 1/i
+        )
+      ).toHaveLength(2);
+    });
   });
 });
 

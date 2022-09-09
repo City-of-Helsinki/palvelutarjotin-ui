@@ -63,7 +63,7 @@ const EnrolmentForm: React.FC<Props> = ({
       initialValues={initialValues}
       onSubmit={onSubmit}
       validationSchema={getValidationSchema({
-        minGroupSize,
+        minGroupSize: minGroupSize || 1,
         maxGroupSize,
       })}
     >
