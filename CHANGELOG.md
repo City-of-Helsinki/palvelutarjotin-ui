@@ -2,6 +2,36 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.5.0](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/v1.3.1...v1.5.0) (2022-09-16)
+
+
+### Features
+
+* **navigation:** add support for dropdown in header and delete sub menus ([bf9ef52](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/bf9ef529cf5019f95ccafb5466c6cdc4765e6aaf))
+* **search:** added a bookable place filter ([684dd00](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/684dd00971803948efb503fcfc0a62da2e5ae75d))
+* **search:** added a isFree -filter to the events search ([8b72747](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/8b727474a201c0278f90f8e473c1a26ff364af8f))
+* **search:** save EventSearchPage sort state to localStorage ([4acadbb](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/4acadbb050e36d1afa09b30d30ff0d06b53a1cd4))
+* **sidebar:** Add sidebar layout ([ae09705](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/ae09705c715781f0c33b7f7ec6df9d4783f3600f))
+* **sidebar:** add support for layout link list ([04973dc](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/04973dc0921211f8b79b3ab9869059bd233c7ebe))
+* **sidebar:** allow highlighting of pages and articles ([a0ea4ee](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/a0ea4eeb0fdf38faf26feb96f37150194dace9f8))
+* **sidebar:** deprecate sidebarlayout component ([14530c1](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/14530c102b74419b9ccf55d573728dad2a14726d))
+* **sidebar:** use sidebar layout for all content ([fecc8a3](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/fecc8a37bd1f82a7fb79ce23356b05917277977f))
+
+
+### Bug Fixes
+
+* a typo in the placeholder text "Etsi helsinkiläistä toimipistettä" ([d0cf4d1](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/d0cf4d113406bb65c99fc1a324d6d35ff2be4677))
+* add img and figure styles to fix cms page with bit image ([4994175](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/4994175c9d90d05f2645c83aefe158635e9cfd78))
+* add missing domain ([ba86e71](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/ba86e71a486fc866be3f921fcb62794cf8720f2c))
+* delete duplicated page tracking and move matomo tests ([3840d95](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/3840d956048ad6e16d0d949a0ccfdaa31526b7a0))
+* delete unused import ([28e34f3](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/28e34f3b7fa3d6179dcf63a8b5e29da73c30d78b))
+* enrolments with 0 participants are not allowed ([9a53f42](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/9a53f4285c041d642bf95c1ef3d26abf2f92e70d))
+* handle situation when cms page is not found ([bcf7f26](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/bcf7f265c48b860c7a467f8f576b453b7694b3ae))
+* move matomo tracking component _app.tsx so it included on all pages ([1ad0c60](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/1ad0c60bd9173e7d50649a3bcddc03d69357f4c9))
+* prevent fetching the places without place id ([5bbf07c](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/5bbf07c737fedc4b0f29846a02c7a1ec147b5158))
+* **search:** the keyboard navigation issue in place multiselect ([0587bc8](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/0587bc8e5728bbf79ecba5b3da36810487d338d0))
+* update organisation events link to target correct page ([fa89087](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/fa89087f53265bea2dfe86f63681845a100dc8db))
+
 ## [1.4.0](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/v1.3.1...v1.4.0) (2022-04-21)
 
 
