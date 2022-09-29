@@ -26,6 +26,7 @@ import {
   configure,
   userEvent,
   fireEvent,
+  waitFor,
 } from '../../../utils/testUtils';
 import { EVENT_SORT_OPTIONS } from '../constants';
 import EventsSearchPage, { EVENT_SORT_STORAGE_KEY } from '../EventsSearchPage';
@@ -98,7 +99,7 @@ const mocks: MockedResponse[] = [
       variables: {
         include: ['keywords', 'location', 'audience', 'in_language'],
         keyword: [],
-        allOngoingAnd: null,
+        text: '',
         inLanguage: '',
         location: '',
         start: 'now',
@@ -125,7 +126,9 @@ test('renders search form and events list with correct information', async () =>
   advanceTo(testDate);
   render(<EventsSearchPage />, { mocks });
 
-  await act(wait);
+  await waitFor(() => {
+    expect(screen.getByText(/järjestys/i)).toBeInTheDocument();
+  });
 
   expect(screen.queryByLabelText('Hae tapahtumia')).toBeInTheDocument();
 
@@ -135,7 +138,9 @@ test('renders search form and events list with correct information', async () =>
   ).not.toBeInTheDocument();
 
   // expand search panel
-  userEvent.click(screen.getByRole('button', { name: /muokkaa hakua/i }));
+  act(() =>
+    userEvent.click(screen.getByRole('button', { name: /muokkaa hakua/i }))
+  );
 
   expect(
     screen.queryByRole('button', { name: /piilota lisäkentät/i })
@@ -285,11 +290,12 @@ test('renders filter tag when category not found in pre defined list', async () 
 test('saves sort state to local storage', async () => {
   advanceTo(testDate);
   render(<EventsSearchPage />, { mocks });
-
+  await waitFor(() => {
+    expect(screen.getByText(/järjestys/i)).toBeInTheDocument();
+  });
   // Expand the sort selector
   const toggleButton = await screen.findByText(/ajankohtaista/i);
-  userEvent.click(toggleButton);
-
+  act(() => userEvent.click(toggleButton));
   act(() =>
     userEvent.click(screen.getByRole('option', { name: /viimeksi muokattu/i }))
   );
