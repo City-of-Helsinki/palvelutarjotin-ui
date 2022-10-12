@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.6.0](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/v1.5.0...v1.6.0) (2022-10-12)
+
+
+### Features
+
+* **search:** use text-param instead of allOngoingAnd ([6c8fcfe](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/6c8fcfe26e9f5599b57ee610b9933343240543ae))
+
 ## [1.5.0](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/v1.3.1...v1.5.0) (2022-09-16)
 
 
