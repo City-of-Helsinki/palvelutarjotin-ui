@@ -71,5 +71,6 @@
   },
   "unitPlaceSelector": {
     "noPlaceFoundError": "Unit is selected, but there was a problem loading the name"
-  }
+  },
+  "termsOfService": "Terms of service"
 }

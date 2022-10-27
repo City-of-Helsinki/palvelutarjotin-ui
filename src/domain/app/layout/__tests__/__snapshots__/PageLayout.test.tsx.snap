@@ -429,6 +429,14 @@ exports[`PageLayout matches snapshot 1`] = `
         >
           <a
             class="FooterItem-module_item__1i8Z8"
+            href="/cms-page/kayttoehdot"
+          >
+            <span>
+              Käyttöehdot
+            </span>
+          </a>
+          <a
+            class="FooterItem-module_item__1i8Z8"
             href="/fi/newsletter"
           >
             <span>

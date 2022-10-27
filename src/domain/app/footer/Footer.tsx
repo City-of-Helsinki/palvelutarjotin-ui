@@ -6,10 +6,12 @@ import {
   FEEDBACK_LINKS,
   PRIVACY_POLICY_LINKS,
   PROVIDER_UI_LINKS,
+  TERMS_OF_SERVICE_SLUGS,
 } from '../../../constants';
 import useLocale from '../../../hooks/useLocale';
 import { isFeatureEnabled } from '../../../utils/featureFlags';
 import { ROUTES } from '../routes/constants';
+import { getCmsPath } from '../routes/utils';
 import styles from './footer.module.scss';
 
 const FooterSection = (): React.ReactElement => {
@@ -26,6 +28,11 @@ const FooterSection = (): React.ReactElement => {
         copyrightHolder={t('footer:copyrightText')}
         copyrightText={t('footer:allRightsReservedText')}
       >
+        <Footer.Item
+          as={'a'}
+          href={getCmsPath(`/${TERMS_OF_SERVICE_SLUGS[locale]}`)}
+          label={t('common:termsOfService')}
+        />
         {isNewsletterEnabled && (
           <Footer.Item
             as={'a'}
