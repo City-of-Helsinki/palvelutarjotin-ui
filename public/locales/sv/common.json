@@ -70,5 +70,6 @@
   },
   "unitPlaceSelector": {
     "noPlaceFoundError": "Platsen har valts, men det gick inte att läsa in namnet"
-  }
+  },
+  "termsOfService": "Användarvillkor"
 }

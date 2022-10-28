@@ -71,5 +71,6 @@
   },
   "unitPlaceSelector": {
     "noPlaceFoundError": "Paikka on valittu, mutta nimen latauksessa esiintyi ongelma"
-  }
+  },
+  "termsOfService": "Käyttöehdot"
 }

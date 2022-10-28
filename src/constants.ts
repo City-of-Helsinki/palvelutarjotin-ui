@@ -56,6 +56,13 @@ export const PROVIDER_UI_LINKS = {
   sv: 'https://provider.kultus.fi/sv',
 };
 
+export const TERMS_OF_SERVICE_SLUGS = {
+  fi: process.env.NEXT_PUBLIC_CMS_TERMS_OF_SERVICE_SLUG_FI ?? 'kayttoehdot',
+  en:
+    process.env.NEXT_PUBLIC_CMS_TERMS_OF_SERVICE_SLUG_EN ?? 'terms-of-service',
+  sv: process.env.NEXT_PUBLIC_CMS_TERMS_OF_SERVICE_SLUG_SV ?? 'anvandarvillkor',
+};
+
 export const ADMIN_EMAIL = {
   fi: 'kultus@hel.fi',
   en: 'kultus@hel.fi',
