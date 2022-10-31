@@ -1,9 +1,12 @@
 {
   "linkFrontPage": "Home page",
   "archiveSearch": {
+    "title": "News",
     "searchTextPlaceholder": "Search text",
     "searchButtonLabelText": "Search",
     "loadMoreButtonLabelText": "Load more",
-    "noResultsText": "No results"
+    "noResultsTitle": "Valitsemillasi hakuehdoilla ei löytynyt ajankohtaisia aiheita",
+    "noResultsText": "Voit koittaa muuttaa tai vähentää hakuehtoja.",
+    "buttonClearFilters": "Clear filters"
   }
 }

@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import {
   ApolloClient,
+  ApolloLink,
   HttpLink,
   InMemoryCache,
   NormalizedCacheObject,
@@ -9,6 +10,8 @@ import { relayStylePagination } from '@apollo/client/utilities';
 import fetch from 'cross-fetch';
 import merge from 'lodash/merge';
 import { useMemo } from 'react';
+
+import { rewriteInternalURLs } from './utils';
 
 let cmsApolloClient: ApolloClient<NormalizedCacheObject>;
 
@@ -42,13 +45,25 @@ const initializeCmsApolloClient = (
 
 export const createCmsApolloClient =
   (): ApolloClient<NormalizedCacheObject> => {
+    // Rewrite the URLs coming from events API to route them internally.
+    const transformInternalURLs = new ApolloLink((operation, forward) => {
+      return forward(operation).map((response) => {
+        response.data = response.data
+          ? rewriteInternalURLs(response.data)
+          : response.data;
+        return response;
+      });
+    });
+
+    const httpLink = new HttpLink({
+      uri:
+        process.env.NEXT_PUBLIC_CMS_BASE_URL ??
+        'https://kultus.content.api.hel.fi/graphql',
+      fetch,
+    });
+
     return new ApolloClient({
-      link: new HttpLink({
-        uri:
-          process.env.NEXT_PUBLIC_CMS_BASE_URL ??
-          'https://kultus.content.api.hel.fi/graphql',
-        fetch,
-      }),
+      link: ApolloLink.from([transformInternalURLs, httpLink]),
       cache: new InMemoryCache({
         typePolicies: {
           Page: {

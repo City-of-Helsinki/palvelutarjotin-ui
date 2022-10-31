@@ -4,7 +4,7 @@ import {
   PageContent as RHHCPageContent,
   PageContentProps,
   Breadcrumb,
-  CollectionType,
+  GeneralCollectionType,
 } from 'react-helsinki-headless-cms';
 
 import { Page, PageQuery } from '../../generated/graphql-cms';
@@ -16,8 +16,9 @@ export const SEARCH_PANEL_TRESHOLD = 2;
 const CmsPage: React.FC<{
   page: PageQuery['page'];
   breadcrumbs: Breadcrumb[];
-  collections?: CollectionType[];
-}> = ({ page, breadcrumbs, collections = [] }) => {
+  collections?: GeneralCollectionType[];
+  hideHero?: boolean;
+}> = ({ page, breadcrumbs, collections = [], hideHero = true }) => {
   const { t } = useTranslation();
 
   if (!page) return null;
@@ -40,9 +41,13 @@ const CmsPage: React.FC<{
 
   return (
     <RHHCPageContent
+      // FIXME: Start supporting the hero when the content from CMS does not duplicate it
+      heroContainer={hideHero ? <div style={{ display: 'none' }} /> : <></>}
       page={page as PageContentProps['page']}
       breadcrumbs={extendedBreadCrumbs}
-      collections={getCmsCollectionList(collections)}
+      collections={() =>
+        collections?.length ? getCmsCollectionList(collections) : []
+      }
     />
   );
 };

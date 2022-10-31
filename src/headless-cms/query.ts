@@ -8,10 +8,10 @@ export const MENU_QUERY = gql`
           connectedNode {
             node {
               ... on Page {
-                ...menuPageFields
+                ...cmsMenuPageFields
                 children {
                   nodes {
-                    ...menuPageFields
+                    ...cmsMenuPageFields
                   }
                 }
               }
@@ -22,7 +22,7 @@ export const MENU_QUERY = gql`
     }
   }
 
-  fragment menuPageFields on Page {
+  fragment cmsMenuPageFields on Page {
     ...pageFields
     translations {
       ...pageFields
@@ -60,7 +60,7 @@ export const PAGE_QUERY = gql`
     }
   }
 
-  fragment LayoutLinkList on LayoutLinkList {
+  fragment cmsLayoutLinkListFields on LayoutLinkList {
     anchor
     title
     description
@@ -140,7 +140,7 @@ export const PAGE_QUERY = gql`
     }
     sidebar {
       ... on LayoutLinkList {
-        ...LayoutLinkList
+        ...cmsLayoutLinkListFields
       }
       ... on LayoutArticles {
         ...layoutArticlesFields

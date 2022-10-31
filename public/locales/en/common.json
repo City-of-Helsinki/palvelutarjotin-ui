@@ -73,10 +73,13 @@
   "unitPlaceSelector": {
     "noPlaceFoundError": "Unit is selected, but there was a problem loading the name"
   },
-  "termsOfService": "Terms of service"
-  },
+  "termsOfService": "Terms of service",
   "button": {
-    "close": "close"
+    "close": "Close",
+    "loadMore": "Load more",
+    "showAll": "Show more",
+    "next": "Next",
+    "previous": "Previous"
   },
   "menu": {
     "menuToggleAriaLabel": "toggle menu"
