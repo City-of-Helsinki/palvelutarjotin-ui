@@ -7,6 +7,7 @@ import {
   Breadcrumb,
   getCollections,
   CollectionType,
+  GeneralCollectionType,
 } from 'react-helsinki-headless-cms';
 
 import { ALL_I18N_NAMESPACES } from '../../constants';
@@ -36,13 +37,13 @@ import { isFeatureEnabled } from '../../utils/featureFlags';
 const NextCmsPage: NextPage<{
   page: PageFieldsFragment;
   breadcrumbs: Breadcrumb[];
-  collections?: CollectionType[];
+  collections?: GeneralCollectionType[];
 }> = (props) => <CmsPage {...props} />;
 
 export async function getStaticPaths() {
   const pages = await getAllMenuPages();
 
-  if (isFeatureEnabled('HEADLESS_CMS') && pages) {
+  if (isFeatureEnabled('HEADLESS_CMS') && pages?.length) {
     return {
       paths: pages.map((page) => {
         return {

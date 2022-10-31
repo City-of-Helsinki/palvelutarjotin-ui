@@ -7,7 +7,7 @@ import React from 'react';
 import { SUPPORTED_LANGUAGES } from '../../../constants';
 import {
   MenuNodeIdTypeEnum,
-  MenuPageFieldsFragment,
+  CmsMenuPageFieldsFragment,
   PageIdType,
   useMenuQuery,
   usePageQuery,
@@ -230,6 +230,7 @@ const useCmsMenuItems = () => {
   const menuItemArrays = navigationData?.menu?.menuItems?.nodes?.map(
     (menuItem) => {
       const item = menuItem?.connectedNode?.node;
+      if (!item) return null;
       if (isPageNode(item)) {
         const translationItems = item.translations?.map((translation) => ({
           ...translation,
@@ -264,10 +265,10 @@ const useCmsMenuItems = () => {
   );
 
   const menuItems = menuItemArrays
+    ?.filter((i) => !!i)
     ?.map((item) => {
       return item?.find((i) => i.locale?.toLowerCase() === (locale as string));
-    })
-    .filter((i) => i);
+    });
 
   const navigationSlugs = menuItemArrays?.find((a) => {
     return a?.some((b) => {
@@ -287,7 +288,7 @@ const useCmsMenuItems = () => {
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const isPageNode = (node?: any): node is MenuPageFieldsFragment => {
+const isPageNode = (node?: any): node is CmsMenuPageFieldsFragment => {
   return Boolean(node && 'title' in node);
 };
 

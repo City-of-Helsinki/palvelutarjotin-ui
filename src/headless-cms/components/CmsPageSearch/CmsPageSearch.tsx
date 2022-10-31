@@ -3,17 +3,18 @@ import React from 'react';
 import {
   Card,
   CardProps,
-  CollectionItemType,
   LargeCard,
   LargeCardProps,
   SearchPageContent,
   useConfig,
   PageMeta,
   PageMainContent,
+  PageType,
 } from 'react-helsinki-headless-cms';
 
 import HtmlToReact from '../../../common/components/htmlToReact/HtmlToReact';
 import Container from '../../../domain/app/layout/Container';
+import { getCmsPagePath } from '../../../domain/app/routes/utils';
 import { getEventPlaceholderImage } from '../../../domain/event/utils';
 import {
   Page,
@@ -77,14 +78,14 @@ const CmsPageSearch: React.FC<{
       .filter((page) => !!page) ?? [];
 
   const getCardProps = (
-    item: CollectionItemType
+    item?: PageType | null
   ): CardProps | LargeCardProps => ({
     id: item?.id,
     ariaLabel: item?.title || '',
     title: item?.title || '',
     subTitle: '',
     customContent: <HtmlToReact>{item?.lead || ''}</HtmlToReact>,
-    url: item?.slug || '',
+    url: getCmsPagePath(item?.uri ?? ''),
     imageUrl:
       item?.featuredImage?.node?.mediaItemUrl || getEventPlaceholderImage(''),
   });
@@ -95,11 +96,11 @@ const CmsPageSearch: React.FC<{
 
   return (
     <>
-      {Head && <PageMeta headComponent={Head} page={page} />}
+      {Head && <PageMeta headComponent={Head} page={page as PageType} />}
       <Container>
         <SearchPageContent
           customContent={customContent}
-          items={subPages}
+          items={subPages as PageType[]}
           onSearch={(freeSearch, tags) => {
             setSearchTerm(freeSearch);
           }}
@@ -107,8 +108,10 @@ const CmsPageSearch: React.FC<{
             fetchMorePages();
           }}
           largeFirstItem={false}
-          createLargeCard={(item) => <LargeCard {...getCardProps(item)} />}
-          createCard={(item) => <Card {...getCardProps(item)} />}
+          createLargeCard={(item) => (
+            <LargeCard {...getCardProps(item as PageType)} />
+          )}
+          createCard={(item) => <Card {...getCardProps(item as PageType)} />}
           hasMore={hasMoreToLoad}
           isLoading={isLoading || isLoadingMore}
         />

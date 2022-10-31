@@ -92,27 +92,22 @@ test('renders with sidebar layout when sidebar has content', async () => {
     articles: [sidebarLayoutArticle],
   };
 
-  const internalHrefOrigins = [
-    'https://hkih.stage.geniem.io',
-    'https://palvelutarjotin.test.kuva.hel.ninja',
-  ];
-  const mockedGetIsHrefExternal = jest.fn((href: string) => {
-    if (
-      !internalHrefOrigins.includes(new URL(href).origin) &&
-      href?.startsWith('http')
-    ) {
-      return true;
-    }
-    return false;
-  });
+  const internalHrefOrigins = ['https://hkih.stage.geniem.io'];
+  const getIsHrefExternal = (href: string) => {
+    if (href?.startsWith('/')) return false;
+    return !internalHrefOrigins.some((origin) => href?.includes(origin));
+  };
+  const mockedGetIsHrefExternal = jest.fn(getIsHrefExternal);
   const mockedGetRoutedInternalHref = jest.fn(getRoutedInternalHref);
   const { container } = render(
     <RHHCConfigProvider
       config={{
         ...rhhcDefaultConfig,
+        currentLanguageCode: 'fi',
         copy: {
           ...rhhcDefaultConfig.copy,
           openInNewTabAriaLabel: 'Avautuu uudessa välilehdessä.',
+          openInExternalDomainAriaLabel: 'Avautuu uudella sivustolla.',
         },
         internalHrefOrigins,
         utils: {
@@ -153,7 +148,7 @@ test('renders with sidebar layout when sidebar has content', async () => {
   // Renders link opening in external window correctly
   expect(
     screen.getByRole('link', {
-      name: `${sidebarLayoutLinkList.links[0].title} Avautuu uudessa välilehdessä.`,
+      name: `${sidebarLayoutLinkList.links[0].title}. Avautuu uudessa välilehdessä. Avautuu uudella sivustolla.`,
     })
   ).toBeInTheDocument();
   // Renders link opening in same window

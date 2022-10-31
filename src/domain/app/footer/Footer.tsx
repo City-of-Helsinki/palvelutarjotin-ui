@@ -11,7 +11,7 @@ import {
 import useLocale from '../../../hooks/useLocale';
 import { isFeatureEnabled } from '../../../utils/featureFlags';
 import { ROUTES } from '../routes/constants';
-import { getCmsPath } from '../routes/utils';
+import { getCmsPagePath } from '../routes/utils';
 import styles from './footer.module.scss';
 
 const FooterSection = (): React.ReactElement => {
@@ -30,7 +30,7 @@ const FooterSection = (): React.ReactElement => {
       >
         <Footer.Item
           as={'a'}
-          href={getCmsPath(`/${TERMS_OF_SERVICE_SLUGS[locale]}`)}
+          href={getCmsPagePath(`/${TERMS_OF_SERVICE_SLUGS[locale]}`)}
           label={t('common:termsOfService')}
         />
         {isNewsletterEnabled && (

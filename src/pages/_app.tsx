@@ -6,6 +6,7 @@ import NextError from 'next/error';
 import { useRouter } from 'next/router';
 import React, { ErrorInfo } from 'react';
 import {
+  Config,
   ConfigProvider as RHHCConfigProvider,
   defaultConfig as rhhcDefaultConfig,
 } from 'react-helsinki-headless-cms';
@@ -23,12 +24,12 @@ import FocusToTop from '../FocusToTop';
 import { LanguageCodeEnum } from '../generated/graphql-cms';
 import { useCmsApollo } from '../headless-cms/cmsApolloClient';
 import CMSApolloProvider from '../headless-cms/cmsApolloContext';
+import AppConfig from '../headless-cms/config';
 import { getRoutedInternalHref } from '../headless-cms/utils';
 import useLocale from '../hooks/useLocale';
 
-const CMS_API_DOMAIN = process.env.NEXT_PUBLIC_CMS_BASE_URL
-  ? new URL(process.env.NEXT_PUBLIC_CMS_BASE_URL).origin
-  : null;
+const CMS_API_DOMAIN = AppConfig.cmsOrigin;
+const APP_DOMAIN = AppConfig.origin;
 
 if (process.env.NODE_ENV === 'production') {
   Sentry.init({
@@ -37,13 +38,19 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
+const internalHrefOrigins = [APP_DOMAIN, CMS_API_DOMAIN];
+const getIsHrefExternal = (href: string) => {
+  if (href?.startsWith('/')) return false;
+  return !internalHrefOrigins.some((origin) => href?.includes(origin));
+};
+
 const MyApp = ({ Component, pageProps }: AppProps) => {
   const router = useRouter();
   const locale = useLocale();
   const { t } = useTranslation();
   const cmsApolloClient = useCmsApollo(pageProps.initialApolloState);
   const rhhcConfig = React.useMemo(
-    () => ({
+    (): Config => ({
       ...rhhcDefaultConfig,
       siteName: t('common:appName'),
       currentLanguageCode: LanguageCodeEnum.Fi,
@@ -57,31 +64,30 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
         openInExternalDomainAriaLabel: t('common:srOnly.opensInAnExternalSite'),
         openInNewTabAriaLabel: t('common:srOnly.opensInANewTab'),
         closeButtonLabelText: t('common:button.close'),
+        loadMoreButtonLabelText: t('cms:archiveSearch.searchButtonLabelText'),
+        showAllText: t('common:button.showAll'),
         archiveSearch: {
+          title: '', // t('cms:archiveSearch.title'),
           searchTextPlaceholder: t('cms:archiveSearch.searchTextPlaceholder'),
           searchButtonLabelText: t('cms:archiveSearch.searchButtonLabelText'),
           loadMoreButtonLabelText: t(
             'cms:archiveSearch.loadMoreButtonLabelText'
           ),
           noResultsText: t('cms:archiveSearch.noResultsText'),
+          noResultsTitle: t('cms:archiveSearch.noResultsTitle'),
+          clearAll: t('cms:archiveSearch.buttonClearFilters'),
         },
+        next: t('common:button.next'),
+        previous: t('common:button.previous'),
       },
       utils: {
         ...rhhcDefaultConfig.utils,
-        getIsHrefExternal: (href: string) => {
-          if (
-            !href?.includes(router.basePath) ||
-            (CMS_API_DOMAIN && !href?.includes(CMS_API_DOMAIN))
-          ) {
-            return true;
-          }
-          return false;
-        },
+        getIsHrefExternal,
         getRoutedInternalHref,
       },
       internalHrefOrigins: CMS_API_DOMAIN ? [CMS_API_DOMAIN] : [],
     }),
-    [router.basePath, t]
+    [t]
   );
   React.useEffect(() => {
     const html = document.querySelector('html');

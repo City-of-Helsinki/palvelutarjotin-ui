@@ -1,10 +1,11 @@
 import React from 'react';
 import {
+  ArticleType,
   Card,
   Collection,
-  CollectionItemType,
-  CollectionType,
-  getElementTextContent,
+  GeneralCollectionType,
+  getCollectionCards,
+  PageType,
 } from 'react-helsinki-headless-cms';
 
 import {
@@ -13,7 +14,7 @@ import {
 } from '../../domain/app/routes/utils';
 
 export function getCmsCollectionList(
-  collections: CollectionType[]
+  collections: GeneralCollectionType[]
 ): React.ReactElement<typeof Collection>[] {
   return collections.map((collection) => (
     <Collection
@@ -23,29 +24,25 @@ export function getCmsCollectionList(
         withDots: collection.items.length < 4 ? false : true,
       }}
       type="grid"
-      cards={collection.items.map((item) =>
-        item ? (
+      cards={getCollectionCards(collection as GeneralCollectionType).map(
+        (item) => (
           <Card
-            key={item.id}
+            key={`card-${item.id}`}
             {...item}
-            title={item.title ?? ''}
-            text={getElementTextContent((item.lead || item.content) ?? '')}
             clampText={true}
             withShadow={true}
             hasLink={true}
             url={getCollectionItemUrl(item)}
-            imageLabel={item.featuredImage?.node?.title ?? ''}
-            imageUrl={item.featuredImage?.node?.mediaItemUrl ?? ''}
+            // imageLabel={item.featuredImage?.node?.title ?? ''}
+            // imageUrl={item.featuredImage?.node?.mediaItemUrl ?? ''}
           />
-        ) : (
-          <></>
         )
       )}
     />
   ));
 }
 
-export function getCollectionItemUrl(item: CollectionItemType): string {
+export function getCollectionItemUrl(item: PageType | ArticleType): string {
   if (!item) {
     return '#';
   }
