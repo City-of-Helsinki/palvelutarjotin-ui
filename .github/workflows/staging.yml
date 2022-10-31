@@ -37,6 +37,7 @@ jobs:
           DOCKER_IMAGE_NAME: ${{ env.REPO_NAME }}-staging
           DOCKER_BUILD_ARG_NEXT_PUBLIC_SENTRY_DSN: ${{ secrets.GH_SENTRY_DSN }}
           DOCKER_BUILD_ARG_NEXT_PUBLIC_ENVIRONMENT: 'staging'
+          DOCKER_BUILD_ARG_NEXT_PUBLIC_APP_ORIGIN: ${{ env.PUBLIC_URL }}
           DOCKER_BUILD_ARG_NEXT_PUBLIC_API_BASE_URL: 'https://palvelutarjotin-api.test.kuva.hel.ninja/graphql'
           DOCKER_BUILD_ARG_NEXT_PUBLIC_UNIFIED_SEARCH_BASE_URL: 'https://unified-search.test.kuva.hel.ninja/search'
           DOCKER_BUILD_ARG_NEXT_PUBLIC_CMS_BASE_URL: 'https://kultus.hkih.stage.geniem.io/graphql'

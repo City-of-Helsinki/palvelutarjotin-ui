@@ -1,9 +1,12 @@
 {
   "linkFrontPage": "Kotisivu",
   "archiveSearch": {
+    "title": "Ajankohtaista",
     "searchTextPlaceholder": "Hakusana",
     "searchButtonLabelText": "Hae",
     "loadMoreButtonLabelText": "Lataa lisää",
-    "noResultsText": "Ei hakutuloksia"
+    "noResultsTitle": "Valitsemillasi hakuehdoilla ei löytynyt ajankohtaisia aiheita",
+    "noResultsText": "Voit koittaa muuttaa tai vähentää hakuehtoja.",
+    "buttonClearFilters": "Tyhjennä hakuehdot"
   }
 }

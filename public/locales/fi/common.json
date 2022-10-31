@@ -74,7 +74,11 @@
     "noPlaceFoundError": "Paikka on valittu, mutta nimen latauksessa esiintyi ongelma"
   },
   "button": {
-    "close": "sulje"
+    "close": "Sulje",
+    "loadMore": "Lataa lisää",
+    "showAll": "Näytä kaikki",
+    "next": "Seuraavat",
+    "previous": "Edelliset"
   },
   "menu": {
     "menuToggleAriaLabel": "avaa valikko"
@@ -82,7 +86,6 @@
   "breadcrumb": {
     "breadcrumbNavigationLabel": "Leivänmurunavigointi",
     "breadcrumbListLabel": "leivänmurut"
-  }
   },
   "termsOfService": "Käyttöehdot"
 }

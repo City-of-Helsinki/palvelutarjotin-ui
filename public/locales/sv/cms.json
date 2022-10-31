@@ -1,9 +1,11 @@
 {
   "linkFrontPage": "Hemsidan",
   "archiveSearch": {
+    "title": "Aktuellt",
     "searchTextPlaceholder": "Söktext",
     "searchButtonLabelText": "Sök",
     "loadMoreButtonLabelText": "Ladda mer",
-    "noResultsText": "Inga resultat"
+    "noResultsText": "Inga resultat",
+    "buttonClearFilters": "Töm sökfilter"
   }
 }

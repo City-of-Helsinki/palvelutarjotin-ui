@@ -7,6 +7,7 @@ import {
   Breadcrumb,
   getCollections,
   CollectionType,
+  GeneralCollectionType,
 } from 'react-helsinki-headless-cms';
 
 import { ALL_I18N_NAMESPACES } from '../../constants';
@@ -24,7 +25,7 @@ import { Language } from '../../types';
 const NextCmsArticle: NextPage<{
   article: PostFieldsFragment;
   breadcrumbs: Breadcrumb[];
-  collections?: CollectionType[];
+  collections?: GeneralCollectionType[];
 }> = (props) => <CmsArticle {...props} />;
 
 export async function getStaticPaths() {

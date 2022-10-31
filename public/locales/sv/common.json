@@ -73,7 +73,11 @@
     "noPlaceFoundError": "Platsen har valts, men det gick inte att läsa in namnet"
   },
   "button": {
-    "close": "stänga"
+    "close": "Stäng",
+    "loadMore": "Ladda mera",
+    "showAll": "Visa alt",
+    "next": "Nästa",
+    "previous": "Föregående"
   },
   "menu": {
     "menuToggleAriaLabel": "öppna menyn"
@@ -81,7 +85,6 @@
   "breadcrumb": {
     "breadcrumbNavigationLabel": "brödsmula navigation",
     "breadcrumbListLabel": "brödsmula"
-  }
   },
   "termsOfService": "Användarvillkor"
 }

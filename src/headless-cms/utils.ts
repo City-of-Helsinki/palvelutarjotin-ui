@@ -14,6 +14,7 @@ import {
 } from '../generated/graphql-cms';
 import { Language } from '../types';
 import { createCmsApolloClient } from './cmsApolloClient';
+import AppConfig from './config';
 import { MENU_NAME } from './constants';
 
 export const getUriID = (slugs: string[], locale: Language): string => {
@@ -88,7 +89,7 @@ export const getAllMenuPages = async (): Promise<PageInfo[]> => {
 
   async function getPageChildren(node?: Page): Promise<unknown> {
     if (node) addPageToPageInfosArray(node);
-    if (node?.children?.nodes) {
+    if (node?.children?.nodes?.length) {
       return Promise.all(
         node.children.nodes.map(async (page) => {
           if (page?.id) {
@@ -139,8 +140,8 @@ export const getAllMenuPages = async (): Promise<PageInfo[]> => {
 };
 
 export function getRoutedInternalHref(
-  link: string,
-  type: ModuleItemTypeEnum
+  link: string | null | undefined,
+  type?: ModuleItemTypeEnum
 ): string {
   if (type === ModuleItemTypeEnum.Article) {
     return getCmsArticlePath(link);
@@ -149,4 +150,19 @@ export function getRoutedInternalHref(
     return getCmsPagePath(link);
   }
   return link ?? '#';
+}
+
+/**
+ * Rewrite the URLs with internal URLS.
+ * @param apolloResponseData The fetch result in JSON format
+ * @returns A JSON with manipulated content transformed with URLRewriteMapping
+ */
+export function rewriteInternalURLs(
+  apolloResponseData: Record<string, unknown>
+): typeof JSON.parse {
+  let jsonText = JSON.stringify(apolloResponseData);
+  for (const [search, replace] of Object.entries(AppConfig.URLRewriteMapping)) {
+    jsonText = jsonText.replace(new RegExp(search, 'g'), replace);
+  }
+  return JSON.parse(jsonText);
 }

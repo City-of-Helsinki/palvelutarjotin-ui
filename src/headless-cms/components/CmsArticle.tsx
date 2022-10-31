@@ -4,7 +4,7 @@ import {
   PageContent as RHHCPageContent,
   PageContentProps,
   Breadcrumb,
-  CollectionType,
+  GeneralCollectionType,
 } from 'react-helsinki-headless-cms';
 
 import PageMeta from '../../common/components/meta/PageMeta';
@@ -18,7 +18,7 @@ import { getCmsCollectionList } from './utils';
 const CmsArticle: React.FC<{
   article: ArticleQuery['post'];
   breadcrumbs: Breadcrumb[];
-  collections?: CollectionType[];
+  collections?: GeneralCollectionType[];
 }> = ({ article, breadcrumbs, collections = [] }) => {
   const { t } = useTranslation();
 

@@ -11,7 +11,7 @@ import {
 import useLocale from '../../../hooks/useLocale';
 import { isFeatureEnabled } from '../../../utils/featureFlags';
 import { ROUTES } from '../routes/constants';
-import { getCmsPath } from '../routes/utils';
+import { getCmsPagePath } from '../routes/utils';
 import styles from './footer.module.scss';
 
 const FooterSection = (): React.ReactElement => {
