@@ -30,7 +30,7 @@ const FooterSection = (): React.ReactElement => {
       >
         <Footer.Item
           as={'a'}
-          href={getCmsPath(`/${TERMS_OF_SERVICE_SLUGS[locale]}`)}
+          href={`/${locale}` + getCmsPath(`/${TERMS_OF_SERVICE_SLUGS[locale]}`)}
           label={t('common:termsOfService')}
         />
         {isNewsletterEnabled && (
