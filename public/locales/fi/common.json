@@ -16,9 +16,6 @@
     "sv": "ruotsi",
     "zh_hans": "kiina"
   },
-  "accessibilityStatement": {
-    "title": "Saavutettavuusseloste"
-  },
   "subscribeNewsletter": {
     "title": "Tilaa uutiskirje"
   },
@@ -86,6 +83,5 @@
   "breadcrumb": {
     "breadcrumbNavigationLabel": "Leivänmurunavigointi",
     "breadcrumbListLabel": "leivänmurut"
-  },
-  "termsOfService": "Käyttöehdot"
+  }
 }

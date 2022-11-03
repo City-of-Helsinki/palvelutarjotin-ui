@@ -16,9 +16,6 @@
     "sv": "Swedish",
     "zh_hans": "Chinese"
   },
-  "accessibilityStatement": {
-    "title": "Accessibility Statement"
-  },
   "subscribeNewsletter": {
     "title": "Subscribe to the newsletter"
   },
@@ -73,7 +70,6 @@
   "unitPlaceSelector": {
     "noPlaceFoundError": "Unit is selected, but there was a problem loading the name"
   },
-  "termsOfService": "Terms of service",
   "button": {
     "close": "Close",
     "loadMore": "Load more",
