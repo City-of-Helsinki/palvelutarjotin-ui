@@ -1,22 +1,32 @@
 module.exports = {
-  testEnvironment: 'jsdom',
-  preset: 'ts-jest',
+  preset: 'ts-jest/presets/js-with-ts',
+  testEnvironment: 'jest-environment-jsdom',
   transform: {
-    '^.+\\.tsx?$': 'ts-jest',
+    '^.+\\.(js|jsx|ts|tsx)$': [
+      'babel-jest',
+      { configFile: './babel.config.test.json' },
+    ],
   },
+  transformIgnorePatterns: [
+    // '/node_modules/',
+    'node_modules/(?!(react-helsinki-headless-cms|react-helsinki-headless-cms/apollo))/',
+    '^.+\\.module\\.(css|sass|scss)$',
+  ],
   moduleNameMapper: {
     '.+\\.(css|styl|less|sass|scss)$': 'identity-obj-proxy',
   },
   setupFilesAfterEnv: ['<rootDir>/src/setupTests.ts'],
-  // https://github.com/zeit/next.js/issues/8663#issue-490553899
   globals: {
-    // we must specify a custom tsconfig for tests because we need the typescript transform
-    // to transform jsx into js rather than leaving it jsx such as the next build requires. you
-    // can see this setting in tsconfig.jest.json -> "jsx": "react"
     'ts-jest': {
-      tsconfig: '<rootDir>/tsconfig.jest.json',
+      diagnostics: true,
+      tsconfig: './tsconfig.jest.json',
     },
   },
+  testPathIgnorePatterns: [
+    '<rootDir>/.next/',
+    '<rootDir>/node_modules/',
+    '/__mocks__/',
+  ],
   coveragePathIgnorePatterns: [
     '<rootDir>/src/generated/',
     '<rootDir>/src/pages/',

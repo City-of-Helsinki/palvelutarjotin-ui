@@ -1,3 +1,5 @@
+import { Language } from 'react-helsinki-headless-cms';
+
 export const IS_CLIENT = typeof window !== 'undefined';
 
 export enum FORM_NAMES {
@@ -44,27 +46,20 @@ export const PRIVACY_POLICY_LINKS = {
   sv: 'https://www.hel.fi/static/liitteet/kanslia/rekisteriselosteet/Kuva/Kuva-EU-Palvelutarjotin-SV.pdf',
 };
 
-export const FEEDBACK_LINKS = {
-  fi: 'https://www.hel.fi/helsinki/fi/kaupunki-ja-hallinto/osallistu-ja-vaikuta/palaute',
-  en: 'https://www.hel.fi/helsinki/en/administration/participate/feedback',
-  sv: 'https://www.hel.fi/helsinki/sv/stad-och-forvaltning/delta/feedback',
-};
-
-export const PROVIDER_UI_LINKS = {
-  fi: 'https://provider.kultus.fi',
-  en: 'https://provider.kultus.fi/en',
-  sv: 'https://provider.kultus.fi/sv',
-};
-
-export const TERMS_OF_SERVICE_SLUGS = {
-  fi: process.env.NEXT_PUBLIC_CMS_TERMS_OF_SERVICE_SLUG_FI ?? 'kayttoehdot',
-  en:
-    process.env.NEXT_PUBLIC_CMS_TERMS_OF_SERVICE_SLUG_EN ?? 'terms-of-service',
-  sv: process.env.NEXT_PUBLIC_CMS_TERMS_OF_SERVICE_SLUG_SV ?? 'anvandarvillkor',
-};
-
 export const ADMIN_EMAIL = {
   fi: 'kultus@hel.fi',
   en: 'kultus@hel.fi',
   sv: 'kultus@hel.fi',
+};
+
+export const DEFAULT_FOOTER_MENU_NAME: Record<Language, string> = {
+  fi:
+    process.env.NEXT_PUBLIC_CMS_FOOTER_MENU_NAME_FI ??
+    'Palvelutarjotin-UI Footer (FI)',
+  en:
+    process.env.NEXT_PUBLIC_CMS_FOOTER_MENU_NAME_EN ??
+    'Palvelutarjotin-UI Footer (EN)',
+  sv:
+    process.env.NEXT_PUBLIC_CMS_FOOTER_MENU_NAME_SV ??
+    'Palvelutarjotin-UI Footer (SV)',
 };

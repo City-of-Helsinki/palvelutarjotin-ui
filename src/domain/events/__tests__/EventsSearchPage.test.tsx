@@ -2,7 +2,6 @@ import { MockedResponse } from '@apollo/client/testing';
 import { advanceTo, clear } from 'jest-date-mock';
 import capitalize from 'lodash/capitalize';
 import React from 'react';
-import wait from 'waait';
 
 import {
   EventsDocument,
