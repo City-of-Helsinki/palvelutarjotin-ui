@@ -97,54 +97,62 @@ exports[`Footer matches snapshot 1`] = `
         class="FooterBase-module_links__16QKO"
       >
         <a
-          class="FooterItem-module_item__1i8Z8"
-          href="/cms-page/kayttoehdot"
-        >
-          <span>
-            Käyttöehdot
-          </span>
-        </a>
-        <a
-          class="FooterItem-module_item__1i8Z8"
-          href="/fi/newsletter"
-        >
-          <span>
-            Tilaa uutiskirje
-          </span>
-        </a>
-        <a
-          class="FooterItem-module_item__1i8Z8"
-          href="https://provider.kultus.fi"
-          rel="noopener noreferrer"
-          target="_blank"
-        >
-          <span>
-            Tapahtumanjärjestäjälle
-          </span>
-        </a>
-        <a
-          class="FooterItem-module_item__1i8Z8"
-          href="https://www.hel.fi/static/liitteet/kanslia/rekisteriselosteet/Kuva/Kuva-EU-Palvelutarjotin.pdf"
-        >
-          <span>
-            Rekisteriseloste
-          </span>
-        </a>
-        <a
-          class="FooterItem-module_item__1i8Z8"
-          href="/accessibility"
+          aria-label="Saavutettavuusseloste"
+          class="LinkBase-module_link__djxNm i__imported_hds_link_0 LinkBase-module_linkM__Hz4Zc i__imported_hds_link__medium_7 LinkBase-module_disableVisitedStyles__S6UjE i__imported_hds_link__disable_visited_styles_5 Link-module_link__ysKHd FooterItem-module_item__1i8Z8 footerLink"
+          href="/saavutettavuusseloste"
         >
           <span>
             Saavutettavuusseloste
           </span>
         </a>
         <a
-          class="FooterItem-module_item__1i8Z8"
-          href="https://www.hel.fi/helsinki/fi/kaupunki-ja-hallinto/osallistu-ja-vaikuta/palaute"
+          aria-label="Käyttöehdot"
+          class="LinkBase-module_link__djxNm i__imported_hds_link_0 LinkBase-module_linkM__Hz4Zc i__imported_hds_link__medium_7 LinkBase-module_disableVisitedStyles__S6UjE i__imported_hds_link__disable_visited_styles_5 Link-module_link__ysKHd FooterItem-module_item__1i8Z8 footerLink"
+          href="/kayttoehdot"
+        >
+          <span>
+            Käyttöehdot
+          </span>
+        </a>
+        <a
+          aria-label="Anna palautetta"
+          class="LinkBase-module_link__djxNm i__imported_hds_link_0 LinkBase-module_linkM__Hz4Zc i__imported_hds_link__medium_7 LinkBase-module_disableVisitedStyles__S6UjE i__imported_hds_link__disable_visited_styles_5 Link-module_link__ysKHd FooterItem-module_item__1i8Z8 footerLink"
+          href="/palaute"
         >
           <span>
             Anna palautetta
           </span>
+        </a>
+        <a
+          aria-label="Palveluntarjoajille. Avautuu uudessa välilehdessä. Avautuu uudella sivustolla."
+          class="LinkBase-module_link__djxNm i__imported_hds_link_0 LinkBase-module_linkM__Hz4Zc i__imported_hds_link__medium_7 LinkBase-module_disableVisitedStyles__S6UjE i__imported_hds_link__disable_visited_styles_5 Link-module_link__ysKHd FooterItem-module_item__1i8Z8 footerLink"
+          href="https://provider.kultus.fi"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          <span>
+            Palveluntarjoajille
+          </span>
+          <svg
+            aria-hidden="true"
+            class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik LinkBase-module_icon__-LloU i__imported_icon_1 LinkBase-module_verticalAlignSmallOrMediumIcon__0SjrX i__imported_vertical_align_small_or_medium_icon_3"
+            role="img"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g
+              fill="none"
+              fill-rule="evenodd"
+            >
+              <path
+                d="M0 0h24v24H0z"
+              />
+              <path
+                d="M10 3v2H5v14h14v-5h2v7H3V3h7zm11 0v8h-2V6.413l-7 7.001L10.586 12l6.999-7H13V3h8z"
+                fill="currentColor"
+              />
+            </g>
+          </svg>
         </a>
       </div>
     </div>

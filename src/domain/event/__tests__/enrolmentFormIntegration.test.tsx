@@ -189,7 +189,7 @@ test('user can select single occurrences and enrol to it with enrolment form', a
       },
     });
   });
-});
+}, 70000);
 
 test('user can select multiple occurrences and enrol to them with enrolment form', async () => {
   // eslint-disable-next-line import/namespace

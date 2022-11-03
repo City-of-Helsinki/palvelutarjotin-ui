@@ -86,8 +86,9 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
         getRoutedInternalHref,
       },
       internalHrefOrigins: CMS_API_DOMAIN ? [CMS_API_DOMAIN] : [],
+      apolloClient: cmsApolloClient,
     }),
-    [t]
+    [t, cmsApolloClient]
   );
   React.useEffect(() => {
     const html = document.querySelector('html');

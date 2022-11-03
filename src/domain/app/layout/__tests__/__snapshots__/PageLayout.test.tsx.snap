@@ -424,60 +424,6 @@ exports[`PageLayout matches snapshot 1`] = `
             Kaikki oikeudet pidätetään
           </span>
         </div>
-        <div
-          class="FooterBase-module_links__16QKO"
-        >
-          <a
-            class="FooterItem-module_item__1i8Z8"
-            href="/cms-page/kayttoehdot"
-          >
-            <span>
-              Käyttöehdot
-            </span>
-          </a>
-          <a
-            class="FooterItem-module_item__1i8Z8"
-            href="/fi/newsletter"
-          >
-            <span>
-              Tilaa uutiskirje
-            </span>
-          </a>
-          <a
-            class="FooterItem-module_item__1i8Z8"
-            href="https://provider.kultus.fi"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <span>
-              Tapahtumanjärjestäjälle
-            </span>
-          </a>
-          <a
-            class="FooterItem-module_item__1i8Z8"
-            href="https://www.hel.fi/static/liitteet/kanslia/rekisteriselosteet/Kuva/Kuva-EU-Palvelutarjotin.pdf"
-          >
-            <span>
-              Rekisteriseloste
-            </span>
-          </a>
-          <a
-            class="FooterItem-module_item__1i8Z8"
-            href="/accessibility"
-          >
-            <span>
-              Saavutettavuusseloste
-            </span>
-          </a>
-          <a
-            class="FooterItem-module_item__1i8Z8"
-            href="https://www.hel.fi/helsinki/fi/kaupunki-ja-hallinto/osallistu-ja-vaikuta/palaute"
-          >
-            <span>
-              Anna palautetta
-            </span>
-          </a>
-        </div>
       </div>
     </div>
   </footer>

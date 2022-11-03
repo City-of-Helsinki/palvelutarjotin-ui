@@ -71,13 +71,16 @@ describe('SubscribeNewsletterPage', () => {
       })
     );
 
-    await waitFor(() => {
-      expect(
-        screen.getByRole('heading', {
-          name: /tilaus lähetetty/i,
-        })
-      ).toBeInTheDocument();
-    });
+    await waitFor(
+      () => {
+        expect(
+          screen.getByRole('heading', {
+            name: /tilaus lähetetty/i,
+          })
+        ).toBeInTheDocument();
+      },
+      { timeout: 10000 }
+    );
   });
 
   it('handles errenous submits properly', async () => {

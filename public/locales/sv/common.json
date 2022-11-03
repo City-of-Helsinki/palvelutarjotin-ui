@@ -16,9 +16,6 @@
     "sv": "Svenska",
     "zh_hans": "Kinesisk"
   },
-  "accessibilityStatement": {
-    "title": "Tillgänglighet"
-  },
   "subscribeNewsletter": {
     "title": "Prenumerera på nyhetsbrev"
   },
@@ -85,6 +82,5 @@
   "breadcrumb": {
     "breadcrumbNavigationLabel": "brödsmula navigation",
     "breadcrumbListLabel": "brödsmula"
-  },
-  "termsOfService": "Användarvillkor"
+  }
 }

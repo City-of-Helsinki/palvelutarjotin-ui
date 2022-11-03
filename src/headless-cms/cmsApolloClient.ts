@@ -63,6 +63,7 @@ export const createCmsApolloClient =
     });
 
     return new ApolloClient({
+      connectToDevTools: true,
       link: ApolloLink.from([transformInternalURLs, httpLink]),
       cache: new InMemoryCache({
         typePolicies: {

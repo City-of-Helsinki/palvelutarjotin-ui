@@ -16,6 +16,9 @@ global.TextDecoder = TextDecoder as any;
 
 dotenv.config({ path: '.env' });
 
+// Mock the ICS create event that fails during the tests
+jest.mock('ics', () => jest.fn());
+
 expect.extend(toHaveNoViolations);
 
 beforeAll(() => {
