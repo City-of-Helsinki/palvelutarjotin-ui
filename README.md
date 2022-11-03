@@ -15,7 +15,7 @@ Project is automatically deployed to testing environment when pushing to develop
 
 ## Requirements
 
-- Node 12.x
+- Node 14.x
 - Yarn
 - Git
 - Docker
