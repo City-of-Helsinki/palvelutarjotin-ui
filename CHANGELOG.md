@@ -2,6 +2,35 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.0.0](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/v1.6.0...v2.0.0) (2022-11-08)
+
+
+### ⚠ BREAKING CHANGES
+
+* **hcrc:** installed latest version and handled the links with middleware
+
+### Features
+
+* add terms of service to footer ([70372b6](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/70372b653a77c849056923317ebd46c8f390257b))
+* dynamic footer links from cms ([d4fec64](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/d4fec649afa8f63a2394a96cbe516281d38f47fb))
+* **hcrc:** add CMS translations to HCRC config ([c43c883](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/c43c88354c0db1939dcadf4b729392f6332d83b4))
+* **hcrc:** implemented a first cms collection ([41a43ba](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/41a43ba1a2ef3c1dd60e933054e452f7d90d619b))
+* **hcrc:** implemented getIsHrefExternal to cms config ([ea5c39f](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/ea5c39f25bfa8112be6dcdd1fda4250896e30dc8))
+* **hcrc:** init PoC use of RHHC ([0746c19](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/0746c197f72e0e882c0a5ffec62fc26ca1aee7bf))
+* **hcrc:** integrated articles to SSR ([da37ceb](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/da37cebfc03c0a02718682048daf8ac684641ffe))
+* **hcrc:** use archive page search for page's sub pages searching ([9cb5a8a](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/9cb5a8a752bdb2bc4b8f86bd558f91e52f305682))
+
+
+### Bug Fixes
+
+* footer terms of service link i18n support ([eed3103](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/eed31039cd006eb10feb5b6ae2b28831da83662e))
+* **hcrc:** added internal href origins ([69e0682](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/69e06823ba288e4946373527c3f1c4ed1105634f))
+* **hcrc:** getCmsArticlePath ([3779dc9](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/3779dc9c8ecaed0f1ebc3d164af442319a53aec1))
+* **hcrc:** installed latest version and handled the links with middleware ([686a50f](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/686a50f8d56499ee9e575bd488fd7ecfcc7841f3))
+* **hcrc:** rename the layoutPageframent and layoutArticleFragment fields ([b25d6cd](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/b25d6cdca59caf0285cff1cf4ad732976e5771d3))
+* **hcrc:** set cms articles static paths fall back to true ([89bcd55](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/89bcd558029a05267ebe0e537dbc23d065e66a1c))
+* trivial translation fix ([0a98c78](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/0a98c7882d1eb46cdbe546c445dcd46a50ece4e6))
+
 ## [1.6.0](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/v1.5.0...v1.6.0) (2022-10-12)
 
 
