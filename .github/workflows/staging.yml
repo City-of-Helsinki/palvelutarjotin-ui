@@ -44,7 +44,10 @@ jobs:
           DOCKER_BUILD_ARG_NEXT_PUBLIC_APP_ORIGIN: ${{ env.PUBLIC_URL }}
           DOCKER_BUILD_ARG_NEXT_PUBLIC_API_BASE_URL: 'https://palvelutarjotin-api.test.kuva.hel.ninja/graphql'
           DOCKER_BUILD_ARG_NEXT_PUBLIC_UNIFIED_SEARCH_BASE_URL: 'https://unified-search.test.kuva.hel.ninja/search'
-          DOCKER_BUILD_ARG_NEXT_PUBLIC_CMS_BASE_URL: 'https://kultus.hkih.stage.geniem.io/graphql'
+          DOCKER_BUILD_ARG_NEXT_PUBLIC_CMS_BASE_URL: 'https://kultus.content.api.hel.fi/graphql'
+          # FIXME: The kultus.hkih -server responded several days with gateway timeout ajd internal server error, 
+          # so it was changed to the production cms.
+          # DOCKER_BUILD_ARG_NEXT_PUBLIC_CMS_BASE_URL: 'https://kultus.hkih.stage.geniem.io/graphql'
           DOCKER_BUILD_ARG_NEWSLETTER_BASE_URL: 'https://api.createsend.com/api/v3.2'
           DOCKER_BUILD_ARG_NEWSLETTER_APIKEY: ${{ secrets.GH_QA_NEWSLETTER_APIKEY }}
           DOCKER_BUILD_ARG_NEXT_PUBLIC_MATOMO_URL_BASE: '//webanalytics.digiaiiris.com/js/'
