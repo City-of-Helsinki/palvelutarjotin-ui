@@ -1,8 +1,8 @@
 {
   "enrolmentConfirmation": {
     "sentBy": {
-      "email": "Vi skickar ett bekräftelsemeddelande. Obs! Tjänsten är fortfarande under utveckling och vi har noterat störningar i kommunikationen. Vänligen kontrollera även din skräppost. Om du inte får svar på din bokning, vänligen kontakta programarrangören.",
-      "emailSms": "Vi skickar ett bekräftelsemail och textmeddelande. Obs! Tjänsten är fortfarande under utveckling och vi har noterat störningar i kommunikationen. Vänligen kontrollera även din skräppost. Om du inte får svar på din bokning, vänligen kontakta programarrangören.",
+      "email": "Vi skickar dig en bekräftelse via e-post. OBS! Tjänsten är fortfarande i utvecklingsfasen, och kommunikationsproblem har identifierats. Kontrollera även din skräppost för meddelanden. Om du inte får någon e-post om din anmälan, kontakta arrangören av evenemanget.",
+      "emailSms": "Vi skickar dig en bekräftelse via e-post. OBS! Tjänsten är fortfarande i utvecklingsfasen, och kommunikationsproblem har identifierats. Kontrollera även din skräppost för meddelanden. Om du inte får någon e-post om din anmälan, kontakta arrangören av evenemanget.",
       "sms": "Vi skickar en bekräftelse via SMS."
     },
     "title": "Registrering skickad",
@@ -10,12 +10,12 @@
   },
   "eventCard": {
     "ariaLabelOpenEvent": "Gå till evenemang: {{eventName}}",
-    "free": "Fri",
+    "free": "Gratis",
     "noUpcomingOccurrences": "Inga kommande händelser",
     "startTime": {
-      "other": "{{date}} kl {{time}}",
-      "today": "Idag kl {{time}}",
-      "tomorrow": "Imorgon kl {{time}}"
+      "other": "{{date}} kl. {{time}}",
+      "today": "Idag kl. {{time}}",
+      "tomorrow": "Imorgon kl. {{time}}"
     },
     "buttonMultipleOccurrences": {
       "closed": "+ andra evenemangstider",
@@ -27,43 +27,43 @@
   },
   "occurrenceList": {
     "loadMoreOccurrences": "Visa fler händelser",
-    "enrolOccurrenceButton": "Skriva in",
+    "enrolOccurrenceButton": "Anmäl dig",
     "reservationEnquiryButton": "Bokningsförfrågan",
     "chooseOccurrenceButton": "Välja",
-    "downloadToCalendar": "Importera till kalender...",
-    "showAllLocationEvents": "Visa alla händelser på den här platsen",
+    "downloadToCalendar": "Ladda ner till kalendern",
+    "showAllLocationEvents": "Visa alla evenemang på platsen",
     "labelStartDateFilter": "Startdatum för händelsefilter",
     "labelEndDateFilter": "Slutdatum för händelsefilter",
-    "eventIsFree": "Fri",
+    "eventIsFree": "Gratis",
     "enrolmentStartsLabel": "Registrering",
     "enrolmentStartsAt": "Registreringen börjar {{date}} kl. {{time}}"
   },
   "location": {
-    "labelLocation": "Standard venue",
-    "labelLocationDescription": "Beskrivning av arenan",
-    "labelHasClothingStorage": "Klädförvaring",
-    "labelHasSnackEatingPlace": "Snack äta plats",
-    "labelOutdoorActivity": "Utomhusaktivitet",
-    "labelHasToiletNearby": "Toalett i närheten",
-    "labelHasAreaForGroupWork": "Grupparbetsutrymme",
-    "labelHasIndoorPlayingArea": "Lekutrymme inne",
-    "labelHasOutdoorPlayingArea": "Lekutrymme ute",
+    "labelLocation": "Standardevenemangsplats",
+    "labelLocationDescription": "Beskrivning av evenemangsplatsen",
+    "labelHasClothingStorage": "Förvaring av ytterkläder",
+    "labelHasSnackEatingPlace": "Plats för att äta matsäck",
+    "labelOutdoorActivity": "Verksamheten sker utomhus",
+    "labelHasToiletNearby": "Toalett nära utrymmet",
+    "labelHasAreaForGroupWork": "Grupparbetstrum",
+    "labelHasIndoorPlayingArea": "Lekplats inomhus",
+    "labelHasOutdoorPlayingArea": "Lekplats utomhus",
     "title": "Plats"
   },
   "pageTitle": "Evenemang",
   "photographerText": "Foto: {{photographer}}",
   "eventImageAltText": "Händelsebild",
   "contactPerson": "Kontaktperson",
-  "occurrencesTitle": "Händelsetider ({{count}} st)",
+  "occurrencesTitle": "Evenemang ({{count}} st.)",
   "categorisation": {
-    "labelAudience": "Målgrupper",
+    "labelAudience": "Målgrupp",
     "labelKeywords": "Nyckelord",
     "labelCategories": "Kategorier",
     "labelActivities": "Aktiviteter",
     "labelLanguages": "Evenemangets språk"
   },
   "shareLinks": {
-    "title": "Dela händelsen"
+    "title": "Dela evenemanget"
   },
   "info": {
     "textCalendarLinkDescription": "{{description}} Läs mer: {{link}}"
@@ -72,6 +72,6 @@
     "deleteDateFilter": "Ta bort filter"
   },
   "keywords": {
-    "labelKeywordLink": "Sök evenemang med nyckelord {{keyword}}"
+    "labelKeywordLink": "Sök evenemang med ett sökord {{keyword}}"
   }
 }

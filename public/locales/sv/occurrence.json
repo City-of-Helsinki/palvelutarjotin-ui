@@ -3,21 +3,21 @@
   "textDateAndTime": "{{date}} kl. {{time}}",
   "textAmountOfSeats": "{{count}} plats",
   "textAmountOfSeats_plural": "{{count}} platser",
-  "textGroupInfo": "gruppstorlek {{minGroupSize}}–{{maxGroupSize}}",
+  "textGroupInfo": "Gruppstorlek {{minGroupSize}}–{{maxGroupSize}}",
   "labelGroupInfo": "Platser",
   "labelLanguages": "Språk",
-  "showOccurrenceDetails": "Visa händelsedetaljer",
-  "labelExternalEnrolmentLink": "Skriva in",
+  "showOccurrenceDetails": "Visa evenemangsedetaljer",
+  "labelExternalEnrolmentLink": "Anmäl dig",
   "labelNoEnrolment": "Ingen registrering",
   "buttonShowDetails": "Visa information",
-  "buttonHideDetails": "Göm information",
+  "buttonHideDetails": "Dölj information",
   "ariaLabelShowDetails": "Visa tidpunkten för evenemanget",
   "occurrenceSelection": {
     "checkboxSelectOccurrence": "Välj tidpunkt för evenemang",
     "buttonSelectOccurrence": "Välj",
     "buttonSelectedOccurrences": "Vald {{selectedOccurrences}} / {{neededOccurrences}}",
     "buttonSelectOccurrences": "Välj {{neededOccurrences}} förekomster",
-    "buttonEnrolOccurrence": "Skriva in",
+    "buttonEnrolOccurrence": "Anmäl dig",
     "reservationEnquiryButton": "Bokningsförfrågan"
   }
 }

@@ -6,7 +6,7 @@
   },
   "dropdown": {
     "placeholder": "Välj...",
-    "buttonClear": "Radera val"
+    "buttonClear": "Rensa valen"
   },
   "languages": {
     "ar": "Arabiska",
@@ -14,7 +14,7 @@
     "fi": "Finska",
     "ru": "Ryska",
     "sv": "Svenska",
-    "zh_hans": "Kinesisk"
+    "zh_hans": "Kinesiska"
   },
   "subscribeNewsletter": {
     "title": "Prenumerera på nyhetsbrev"
@@ -25,7 +25,7 @@
     "returnToHome": "Återgå till hemsidan"
   },
   "notFound": {
-    "textNotFound": "Tyvärr hittades inte sidan du sökte.",
+    "textNotFound": "Sidan du sökte kunde tyvärr inte hittas.",
     "textNotFoundDescription": "Välkommen och bekanta dig med utbudet på den förnyade <a>Kultus</a>!"
   },
   "shareLink": {
@@ -34,7 +34,7 @@
     "shareOnLinkedIn": "Dela på LinkedIn"
   },
   "shareLinks": {
-    "buttonCopyLink": "Kopiera länk adress",
+    "buttonCopyLink": "Kopiera länk",
     "messageLinkCopySuccess": "Länk kopierad till urklipp"
   },
   "datepicker": {
@@ -71,7 +71,7 @@
   },
   "button": {
     "close": "Stäng",
-    "loadMore": "Ladda mera",
+    "loadMore": "Ladda fler",
     "showAll": "Visa alt",
     "next": "Nästa",
     "previous": "Föregående"
