@@ -18,7 +18,7 @@ exports[`SubscribeNewsletterPage renders correctly 1`] = `
               Tilaamalla Kultus-uutiskirjeen hyväksyn, että lähettämäni tiedot tallennetaan Kulttuuri- ja vapaa-aika toimialan Gruppo-tilaajarekisteriin. Uutiskirjeen tilauksen voi perua milloin tahansa. 
               <a
                 aria-label="Näytä rekisteriseloste. Avautuu uudessa välilehdessä"
-                href="https://www.hel.fi/static/liitteet/kanslia/rekisteriselosteet/Kuva/Kuva-EU-Palvelutarjotin.pdf"
+                href="https://hkih.production.geniem.io/uploads/sites/5/2022/11/739f5edc-rekisteriseloste-kultus.fi_.pdf"
                 rel="noopener noreferrer"
                 target="_blank"
               >
