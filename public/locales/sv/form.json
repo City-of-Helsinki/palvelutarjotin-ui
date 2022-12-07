@@ -11,8 +11,8 @@
       "min": "Detta fält måste vara minst {{min}} tecken långt",
       "required": "Detta fält krävs",
       "url": "Detta fält måste vara en giltig URL",
-      "date": "This field must be valid date",
-      "time": "Tid måste ges i följande format hh:mm"
+      "date": "Vänligen ange ett giltigt datum",
+      "time": "Tid måste vara i formatet hh:mm"
     },
     "date": {
       "required": "Detta fält krävs",
@@ -38,8 +38,8 @@
   },
   "placeInfo": {
     "buttonEdit": "Förändra",
-    "labelReittiopas": "Reittiopas",
+    "labelReittiopas": "Reseplanerare",
     "labelServicemap": "Servicekartan",
-    "descriptionServicemap": "Mer information om arenan finns på Servicekartan."
+    "descriptionServicemap": "Mer information om evenemangsplatsen hittar du på servicekartan."
   }
 }
