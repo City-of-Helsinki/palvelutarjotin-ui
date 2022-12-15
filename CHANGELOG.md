@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.1.0](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/release-v2.0.0...release-v2.1.0) (2022-12-15)
+
+
+### Features
+
+* update privacy policy links ([7d8c935](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/7d8c935f0086119c43e320b85bc6ebaa5c098b74))
+* modify translations ([9f35113](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/9f35113d6fdc177eebb1ea25e7ec5d00d5d53873))
+
 ## [2.0.0](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/v1.6.0...v2.0.0) (2022-11-08)
 
 
