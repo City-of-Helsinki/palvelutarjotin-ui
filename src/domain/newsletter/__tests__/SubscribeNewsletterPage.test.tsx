@@ -73,7 +73,7 @@ describe('SubscribeNewsletterPage', () => {
 
     await waitFor(
       () => {
-        expect(screen.getAllByText(/tilaus lähetetty/i)).toHaveLength(1);
+        expect(screen.getByText(/tilaus lähetetty/i)).toBeInTheDocument();
       },
       { timeout: 10000 }
     );
@@ -105,10 +105,10 @@ describe('SubscribeNewsletterPage', () => {
 
     await waitFor(() => {
       expect(
-        screen.getAllByText(
+        screen.getByText(
           /valitettavasti tilauksen lähettäminen epäonnistui! yritäthän myöhemmin uudelleen\./i
         )
-      ).toHaveLength(1);
+      ).toBeInTheDocument();
     });
   });
 });
