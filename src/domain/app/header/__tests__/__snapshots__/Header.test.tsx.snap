@@ -22,7 +22,6 @@ exports[`Header matches snapshot 1`] = `
         >
           <a
             class="Navigation-module_title__3zRBe"
-            tabindex="0"
           >
             <svg
               aria-hidden="true"
@@ -186,7 +185,6 @@ exports[`Header matches snapshot 1`] = `
         >
           <a
             class="Navigation-module_title__3zRBe"
-            tabindex="0"
           >
             <svg
               aria-hidden="true"
@@ -346,7 +344,6 @@ exports[`navigation renders menus and dropdown menus 1`] = `
           >
             <a
               class="Navigation-module_title__3zRBe"
-              tabindex="0"
             >
               <svg
                 aria-hidden="true"
@@ -510,7 +507,6 @@ exports[`navigation renders menus and dropdown menus 1`] = `
           >
             <a
               class="Navigation-module_title__3zRBe"
-              tabindex="0"
             >
               <svg
                 aria-hidden="true"

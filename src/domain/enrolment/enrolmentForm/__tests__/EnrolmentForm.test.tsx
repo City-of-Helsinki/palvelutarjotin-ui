@@ -105,7 +105,7 @@ test('renders form and user can fill it and submit and form is saved to local st
   userEvent.click(screen.getByRole('option', { name: /2\. luokka/i }));
 
   // // close dropdown
-  userEvent.click(screen.getByRole('button', { name: /luokka-aste/i }));
+  userEvent.click(screen.getAllByRole('button', { name: /luokka-aste/i })[1]);
 
   userEvent.type(screen.getByLabelText(/lapsia/i), '10');
   userEvent.type(screen.getByLabelText(/aikuisia/i), '2');

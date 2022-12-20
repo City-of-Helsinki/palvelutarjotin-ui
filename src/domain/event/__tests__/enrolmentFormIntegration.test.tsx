@@ -295,7 +295,7 @@ const fillForm = async ({
   userEvent.type(enrolmentForm.getByLabelText(/ryhmä/i), '4a');
 
   // select grade from dropdown
-  userEvent.click(enrolmentForm.getByRole('button', { name: /luokka-aste/i }));
+  userEvent.click(screen.getAllByRole('button', { name: /luokka-aste/i })[0]);
 
   const grade1 = await enrolmentForm.findByRole('option', {
     name: /2\. luokka/i,
@@ -307,7 +307,7 @@ const fillForm = async ({
   userEvent.click(grade2);
 
   // close dropdown
-  userEvent.click(enrolmentForm.getByRole('button', { name: /luokka-aste/i }));
+  userEvent.click(screen.getAllByRole('button', { name: /luokka-aste/i })[0]);
 
   userEvent.type(enrolmentForm.getByLabelText(/lapsia/i), '10');
   userEvent.type(enrolmentForm.getByLabelText(/aikuisia/i), '2');

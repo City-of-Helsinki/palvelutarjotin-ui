@@ -85,14 +85,14 @@ exports[`SubscribeNewsletterPage renders correctly 1`] = `
                     class="SelectedItems-module_selectedItems__2m24K SelectedItems-module_itemsHidden__2ewH3"
                   >
                     <div
-                      class="Tag-module_tag__3bo5S SelectedItems-module_tag__13n3H SelectedItems-module_hidden__2hyRx"
+                      class="Tag-module_tag__3bo5S tag_hds-tag__3MKf3 SelectedItems-module_tag__13n3H SelectedItems-module_hidden__2hyRx"
                       id="hds-tag-7"
-                      role="link"
+                      role="button"
                       tabindex="0"
                     >
                       <span
                         aria-labelledby="groups-label hds-tag-7-label"
-                        class="Tag-module_label__zCgFr"
+                        class="Tag-module_label__zCgFr tag_hds-tag__label__I6mc8"
                         id="hds-tag-7-label"
                       >
                         <span
@@ -102,7 +102,7 @@ exports[`SubscribeNewsletterPage renders correctly 1`] = `
                         </span>
                       </span>
                       <button
-                        class="Tag-module_deleteButton__1diMR"
+                        class="Tag-module_deleteButton__1diMR tag_hds-tag__delete-button__33Tgz"
                         id="hds-tag-7-delete-button"
                         tabindex="-1"
                         type="button"
@@ -131,14 +131,14 @@ exports[`SubscribeNewsletterPage renders correctly 1`] = `
                       </button>
                     </div>
                     <div
-                      class="Tag-module_tag__3bo5S SelectedItems-module_tag__13n3H SelectedItems-module_hidden__2hyRx"
+                      class="Tag-module_tag__3bo5S tag_hds-tag__3MKf3 SelectedItems-module_tag__13n3H SelectedItems-module_hidden__2hyRx"
                       id="hds-tag-8"
-                      role="link"
+                      role="button"
                       tabindex="-1"
                     >
                       <span
                         aria-labelledby="groups-label hds-tag-8-label"
-                        class="Tag-module_label__zCgFr"
+                        class="Tag-module_label__zCgFr tag_hds-tag__label__I6mc8"
                         id="hds-tag-8-label"
                       >
                         <span
@@ -148,7 +148,7 @@ exports[`SubscribeNewsletterPage renders correctly 1`] = `
                         </span>
                       </span>
                       <button
-                        class="Tag-module_deleteButton__1diMR"
+                        class="Tag-module_deleteButton__1diMR tag_hds-tag__delete-button__33Tgz"
                         id="hds-tag-8-delete-button"
                         tabindex="-1"
                         type="button"
@@ -177,14 +177,14 @@ exports[`SubscribeNewsletterPage renders correctly 1`] = `
                       </button>
                     </div>
                     <div
-                      class="Tag-module_tag__3bo5S SelectedItems-module_tag__13n3H SelectedItems-module_hidden__2hyRx"
+                      class="Tag-module_tag__3bo5S tag_hds-tag__3MKf3 SelectedItems-module_tag__13n3H SelectedItems-module_hidden__2hyRx"
                       id="hds-tag-9"
-                      role="link"
+                      role="button"
                       tabindex="-1"
                     >
                       <span
                         aria-labelledby="groups-label hds-tag-9-label"
-                        class="Tag-module_label__zCgFr"
+                        class="Tag-module_label__zCgFr tag_hds-tag__label__I6mc8"
                         id="hds-tag-9-label"
                       >
                         <span
@@ -194,7 +194,7 @@ exports[`SubscribeNewsletterPage renders correctly 1`] = `
                         </span>
                       </span>
                       <button
-                        class="Tag-module_deleteButton__1diMR"
+                        class="Tag-module_deleteButton__1diMR tag_hds-tag__delete-button__33Tgz"
                         id="hds-tag-9-delete-button"
                         tabindex="-1"
                         type="button"
