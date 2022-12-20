@@ -295,7 +295,7 @@ const fillForm = async ({
   userEvent.type(enrolmentForm.getByLabelText(/ryhmä/i), '4a');
 
   // select grade from dropdown
-  userEvent.click(enrolmentForm.getByRole('button', { name: /luokka-aste/i }));
+  userEvent.click(enrolmentForm.getByLabelText(/luokka-aste/i));
 
   const grade1 = await enrolmentForm.findByRole('option', {
     name: /2\. luokka/i,

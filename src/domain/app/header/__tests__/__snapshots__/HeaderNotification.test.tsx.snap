@@ -3,7 +3,6 @@
 exports[`matches snapshot 1`] = `
 <div>
   <section
-    aria-atomic="true"
     aria-label="Notification"
     class="Notification-module_notification__2hN3H notification_hds-notification__2DQPN Notification-module_alert__1Erry notification_hds-notification--alert__1MV7H"
   >
