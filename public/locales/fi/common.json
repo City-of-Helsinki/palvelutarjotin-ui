@@ -85,21 +85,10 @@
     "breadcrumbListLabel": "leivänmurut"
   },
   "consent": {
-    "groups": {
-      "servicemap": {
-        "title": "Palvelukartta",
-        "text": "Pääkaupunkiseudun palvelukartta auttaa käyttäjää etsimään tapahtuman kartalta",
-        "expandAriaLabel": "Näytä palvelukarttaan liittyvien evästeiden tiedot",
-        "checkboxAriaDescription": "Evästeitä käytetään Pääkaupunkiseudun palvelukartan näyttämiseen"
-      }
-    },
     "cookies": {
       "matomo": "Matomo-tilastointijärjestelmän eväste",
       "linkedevents": "Eväste tapahtumien hakemisen valtuuttamiseen",
       "i18next": "Eväste sivuston kielivalinnan muistamiseen",
-      "servicemap_analytics": "Matomo-tilastointijärjestelmän eväste palvelukartalle.",
-      "servicemap_session": "Palvelukartan istunto",
-      "servicemap_ga": "Google-analytiikan eväste palvelukartalle",
       "wordpress": "Wordpress-sisällönhallintajärjestelmän toimintaan liittyvä eväste."
     },
     "expiration": {

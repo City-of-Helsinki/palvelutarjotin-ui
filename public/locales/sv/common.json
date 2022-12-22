@@ -84,21 +84,10 @@
     "breadcrumbListLabel": "brödsmula"
   },
   "consent": {
-    "groups": {
-      "servicemap": {
-        "title": "Servicekarta",
-        "text": "Huvudstadsregionens servicekarta hjälper användaren att hitta evenemang på kartan.",
-        "expandAriaLabel": "Visa information om servicekartans kakor",
-        "checkboxAriaDescription": "Kakor används för att visa huvudstadstadsregionens servicekarta."
-      }
-    },
     "cookies": {
       "matomo": "Kaka för statistiksystemet Matomo",
       "linkedevents": "Kaka för att söka evenemang",
       "i18next": "Kaka som sparar användarens språkval på webbplatsen",
-      "servicemap_analytics": "Kaka för statistiksystemet Matomo på servicekartan",
-      "servicemap_session": "Session på servicekartan",
-      "servicemap_ga": "Kaka för analysverktyget Google Analytics på servicekartan",
       "wordpress": "Kaka för användning av WordPress-innehållshanteringssystemet."
     },
     "expiration": {

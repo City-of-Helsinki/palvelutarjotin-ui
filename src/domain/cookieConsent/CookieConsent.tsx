@@ -73,43 +73,6 @@ const CookieConsent: React.FC<Props> = ({ appName, allowLanguageSwitch }) => {
           },
         ],
       },
-      optionalCookies: {
-        groups: [
-          {
-            title: t('common:consent.groups.servicemap.title'),
-            text: t('common:consent.groups.servicemap.text'),
-            expandAriaLabel: t(
-              'common:consent.groups.servicemap.expandAriaLabel'
-            ),
-            checkboxAriaDescription: t(
-              'common:consent.groups.servicemap.checkboxAriaDescription'
-            ),
-            cookies: [
-              {
-                id: 'servicemap_analytics',
-                name: '_pk.fi*',
-                hostName: 'palvelukartta.hel.fi',
-                description: t('common:consent.cookies.servicemap_analytics'),
-                expiration: t('common:consent.expiration.days', { days: 393 }),
-              },
-              {
-                id: 'servicemap_session',
-                name: 'ADRUM',
-                hostName: 'palvelukartta.hel.fi',
-                description: t('common:consent.cookies.servicemap_session'),
-                expiration: t('common:consent.expiration.session'),
-              },
-              {
-                id: 'servicemap_ga',
-                name: '_ga*',
-                hostName: 'palvelukartta.hel.fi',
-                description: t('common:consent.cookies.servicemap_ga'),
-                expiration: t('common:consent.expiration.session'),
-              },
-            ],
-          },
-        ],
-      },
       language: {
         current: language,
         onLanguageChange,

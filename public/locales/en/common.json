@@ -85,21 +85,10 @@
     "breadcrumbListLabel": "breadcrumbs"
   },
   "consent": {
-    "groups": {
-      "servicemap": {
-        "title": "Service Map",
-        "text": "The Service Map of the Helsinki Metropolitan Area helps users in finding an event on the map",
-        "expandAriaLabel": "Show cookie information related to the Service Map",
-        "checkboxAriaDescription": "Cookies are used to display the Service Map of the Helsinki Metropolitan Area"
-      }
-    },
     "cookies": {
       "matomo": "A cookie of the Matomo statistics system",
       "linkedevents": "A cookie to authorise the retrieval of events",
       "i18next": "A cookie to remember the website language selection",
-      "servicemap_analytics": "A cookie of the Matomo statistics system for the Service Map.",
-      "servicemap_session": "Service Map session",
-      "servicemap_ga": "A Google analytics cookie for the Service Map",
       "wordpress": "A cookie for operation of the WordPress-content management system."
     },
     "expiration": {
