@@ -85,6 +85,14 @@
     "breadcrumbListLabel": "breadcrumbs"
   },
   "consent": {
+    "groups": {
+      "matomo": {
+        "title": "Matomo",
+        "text": "Matomo Analytics software is being used to follow and improve the website to better attend to user's needs.",
+        "expandAriaLabel": "Show cookie information related to the Matomo.",
+        "checkboxAriaDescription": "Matomo uses cookies."
+      }
+    },
     "cookies": {
       "matomo": "A cookie of the Matomo statistics system",
       "linkedevents": "A cookie to authorise the retrieval of events",

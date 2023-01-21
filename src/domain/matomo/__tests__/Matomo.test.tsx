@@ -24,11 +24,13 @@ test('trackPageView gets called when pathname changes', async () => {
   const testHref1 = 'testurl.com';
   const testHref2 = 'testurl2.com';
   const trackPageViewMock = jest.fn();
+  const pushInstructionMock = jest.fn();
   setHref(testHref1);
 
-  jest
-    .spyOn(matomo, 'useMatomo')
-    .mockReturnValue({ trackPageView: trackPageViewMock } as any);
+  jest.spyOn(matomo, 'useMatomo').mockReturnValue({
+    trackPageView: trackPageViewMock,
+    pushInstruction: pushInstructionMock,
+  } as any);
 
   const { rerender } = render(<Matomo>Test</Matomo>, { path: '/test1' });
 

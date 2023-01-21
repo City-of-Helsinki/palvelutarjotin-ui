@@ -56,18 +56,32 @@ const CookieConsent: React.FC<Props> = ({ appName, allowLanguageSwitch }) => {
                 expiration: t('common:consent.expiration.year'),
               },
               {
-                id: 'matomo',
-                name: '_pk*',
-                hostName: 'digia.fi',
-                description: t('common:consent.cookies.matomo'),
-                expiration: t('common:consent.expiration.days', { days: 393 }),
-              },
-              {
                 id: 'i18next',
                 name: 'i18next',
                 hostName: 'api.hel.fi',
                 description: t('common:consent.cookies.i18next'),
                 expiration: t('common:consent.expiration.session'),
+              },
+            ],
+          },
+        ],
+      },
+      optionalCookies: {
+        groups: [
+          {
+            title: t('common:consent.groups.matomo.title'),
+            text: t('common:consent.groups.matomo.text'),
+            expandAriaLabel: t('common:consent.groups.matomo.expandAriaLabel'),
+            checkboxAriaDescription: t(
+              'common:consent.groups.matomo.checkboxAriaDescription'
+            ),
+            cookies: [
+              {
+                id: 'matomo',
+                name: '_pk*',
+                hostName: 'digia.fi',
+                description: t('common:consent.cookies.matomo'),
+                expiration: t('common:consent.expiration.days', { days: 393 }),
               },
             ],
           },

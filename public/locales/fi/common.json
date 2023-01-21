@@ -85,6 +85,14 @@
     "breadcrumbListLabel": "leivänmurut"
   },
   "consent": {
+    "groups": {
+      "matomo": {
+        "title": "Matomo",
+        "text": "Matomo-analytiikkaohjelmistolla seurataan ja kehitetään verkkosivustoa käyttäjien tarpeita vastaavaksi.",
+        "expandAriaLabel": "Näytä Matomoon liittyvät evästetiedot.",
+        "checkboxAriaDescription": "Matomo käyttää evästeitä."
+      }
+    },
     "cookies": {
       "matomo": "Matomo-tilastointijärjestelmän eväste",
       "linkedevents": "Eväste tapahtumien hakemisen valtuuttamiseen",

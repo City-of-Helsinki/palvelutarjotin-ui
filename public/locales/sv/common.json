@@ -84,6 +84,14 @@
     "breadcrumbListLabel": "brödsmula"
   },
   "consent": {
+    "groups": {
+      "matomo": {
+        "title": "Matomo",
+        "text": "Matomo Analytics-programvaran används för att spåra och utveckla webbplatsen för att möta användarnas behov.",
+        "expandAriaLabel": "Visa information om kakor som är relaterade till Matomo.",
+        "checkboxAriaDescription": "Matomo använder kakor."
+      }
+    },
     "cookies": {
       "matomo": "Kaka för statistiksystemet Matomo",
       "linkedevents": "Kaka för att söka evenemang",
