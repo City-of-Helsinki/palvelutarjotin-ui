@@ -1,57 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`UnitField renders a list of schools and kindergartens in unit id field 1`] = `null`;
-
-exports[`UnitField renders a list of schools and kindergartens in unit id field 2`] = `
-Array [
-  Object {
-    "hasEmailNotification": true,
-    "hasSmsNotification": true,
-    "isMandatoryAdditionalInformationRequired": false,
-    "isSameResponsiblePerson": true,
-    "isSharingDataAccepted": true,
-    "language": "FI",
-    "person": Object {
-      "emailAddress": "",
-      "name": "",
-      "phoneNumber": "",
-    },
-    "studyGroup": Object {
-      "amountOfAdult": 2,
-      "extraNeeds": "Lisätietoja ilmoittautumiseen",
-      "groupName": "4a",
-      "groupSize": 10,
-      "person": Object {
-        "emailAddress": "testi@testi.fi",
-        "name": "Nimi Niminen",
-        "phoneNumber": "123321123123321123",
-      },
-      "studyLevels": Array [
-        "GRADE_4",
-        "GRADE_2",
-      ],
-      "unitId": null,
-      "unitName": "Testikoulu",
-    },
-  },
-  Object {
-    "resetForm": [Function],
-    "setErrors": [Function],
-    "setFieldError": [Function],
-    "setFieldTouched": [Function],
-    "setFieldValue": [Function],
-    "setFormikState": [Function],
-    "setStatus": [Function],
-    "setSubmitting": [Function],
-    "setTouched": [Function],
-    "setValues": [Function],
-    "submitForm": [Function],
-    "validateField": [Function],
-    "validateForm": [Function],
-  },
-]
-`;
-
 exports[`renders form and user can fill it and submit and form is saved to local storage 1`] = `
 Object {
   "dirty": true,
