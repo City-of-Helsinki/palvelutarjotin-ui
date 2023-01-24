@@ -19,6 +19,7 @@ import CmsPageLayout from '../domain/app/layout/CmsPageLayout';
 import PageLayout from '../domain/app/layout/PageLayout';
 import { getCmsArticlePath, getCmsPagePath } from '../domain/app/routes/utils';
 import { store } from '../domain/app/store';
+import CookieConsent from '../domain/cookieConsent/CookieConsent';
 import MatomoTracker from '../domain/matomo/Matomo';
 import FocusToTop from '../FocusToTop';
 import { LanguageCodeEnum } from '../generated/graphql-cms';
@@ -121,6 +122,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
               <CMSApolloProvider value={cmsApolloClient}>
                 <PageLayoutComponent {...pageProps}>
                   <Component {...pageProps} />
+                  <CookieConsent appName={t('common:appName')} />
                 </PageLayoutComponent>
               </CMSApolloProvider>
             )}

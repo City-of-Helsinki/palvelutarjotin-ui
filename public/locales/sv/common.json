@@ -82,5 +82,30 @@
   "breadcrumb": {
     "breadcrumbNavigationLabel": "Brödsmula navigation",
     "breadcrumbListLabel": "brödsmula"
+  },
+  "consent": {
+    "groups": {
+      "matomo": {
+        "title": "Matomo",
+        "text": "Matomo Analytics-programvaran används för att spåra och utveckla webbplatsen för att möta användarnas behov.",
+        "expandAriaLabel": "Visa information om kakor som är relaterade till Matomo.",
+        "checkboxAriaDescription": "Matomo använder kakor."
+      }
+    },
+    "cookies": {
+      "matomo": "Kaka för statistiksystemet Matomo",
+      "linkedevents": "Kaka för att söka evenemang",
+      "i18next": "Kaka som sparar användarens språkval på webbplatsen",
+      "wordpress": "Kaka för användning av WordPress-innehållshanteringssystemet."
+    },
+    "expiration": {
+      "session": "Sessionskakan raderas när användaren lämnar webbsidan",
+      "year": "1 år",
+      "hour": "1 timme",
+      "day": "1 dag",
+      "years": "{{ days }} år",
+      "hours": "{{ hours }} timmar",
+      "days": "{{ days }} dagar"
+    }
   }
 }
