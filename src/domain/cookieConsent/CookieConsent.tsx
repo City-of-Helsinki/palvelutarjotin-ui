@@ -42,6 +42,7 @@ const CookieConsent: React.FC<Props> = ({ appName, allowLanguageSwitch }) => {
           approveOnlyRequiredConsents: t(
             'common:consent.texts.ui.approveOnlyRequiredConsents'
           ),
+          hideSettings: t('common:consent.texts.ui.hideSettings'),
         },
       },
       onAllConsentsGiven: () => {
