@@ -85,6 +85,24 @@
     "breadcrumbListLabel": "breadcrumbs"
   },
   "consent": {
+    "texts": {
+      "sections": {
+        "main": {
+          "text": "This website uses essential cookies to ensure the basic functionality and performance of the site."
+        }
+      },
+      "ui": {
+        "approveOnlyRequiredConsents": "Accept only essential cookies",
+        "hideSettings": "Hide cookie settings"
+      }
+    },
+    "required": {
+      "title": "Necessary cookies",
+      "text": "Necessary cookies cannot be rejected. They enable the proper functioning of the website and affect the usability."
+    },
+    "optional": {
+      "title": "Optional cookies"
+    },
     "groups": {
       "matomo": {
         "title": "Matomo",
