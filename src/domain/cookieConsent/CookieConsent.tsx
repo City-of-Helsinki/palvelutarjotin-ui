@@ -32,11 +32,26 @@ const CookieConsent: React.FC<Props> = ({ appName, allowLanguageSwitch }) => {
   const contentSource: ContentSource = React.useMemo(
     () => ({
       siteName: appName,
+      texts: {
+        sections: {
+          main: {
+            text: t('common:consent.texts.sections.main.text'),
+          },
+        },
+        ui: {
+          approveOnlyRequiredConsents: t(
+            'common:consent.texts.ui.approveOnlyRequiredConsents'
+          ),
+          hideSettings: t('common:consent.texts.ui.hideSettings'),
+        },
+      },
       onAllConsentsGiven: () => {
         setShowCookieConsentModal(false);
       },
       currentLanguage: language as string as ContentSource['currentLanguage'],
       requiredCookies: {
+        title: t('common:consent.required.title'),
+        text: t('common:consent.required.text'),
         groups: [
           {
             commonGroup: 'essential',
@@ -67,6 +82,7 @@ const CookieConsent: React.FC<Props> = ({ appName, allowLanguageSwitch }) => {
         ],
       },
       optionalCookies: {
+        title: t('common:consent.optional.title'),
         groups: [
           {
             title: t('common:consent.groups.matomo.title'),

@@ -84,6 +84,24 @@
     "breadcrumbListLabel": "brödsmula"
   },
   "consent": {
+    "texts": {
+      "sections": {
+        "main": {
+          "text": "Denna webbplats använder obligatoriska kakor för att säkerställa de grundläggande funktionerna och prestandan. Dessutom använder vi inriktningskakor för en bättre användarupplevelse, analytik och individualiserat innehåll."
+        }
+      },
+      "ui": {
+        "approveOnlyRequiredConsents": "Acceptera endast nödvändiga kakor",
+        "hideSettings": "Stäng kakinställningarna"
+      }
+    },
+    "required": {
+      "title": "Nödvändiga kakor",
+      "text": "Du kan inte förbjuda användningen av nödvändiga kakor."
+    },
+    "optional": {
+      "title": "Valfria kakor"
+    },
     "groups": {
       "matomo": {
         "title": "Matomo",

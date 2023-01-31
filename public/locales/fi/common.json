@@ -85,6 +85,24 @@
     "breadcrumbListLabel": "leivänmurut"
   },
   "consent": {
+    "texts": {
+      "sections": {
+        "main": {
+          "text": "Tämä sivusto käyttää välttämättömiä evästeitä sivun perustoimintojen ja suorituskyvyn varmistamiseksi. Lisäksi käytämme kohdennusevästeitä käyttäjäkokemuksen parantamiseksi, analytiikkaan ja yksilöidyn sisällön näyttämiseen."
+        }
+      },
+      "ui": {
+        "approveOnlyRequiredConsents": "Hyväksy vain välttämättömät evästeet",
+        "hideSettings": "Piilota asetukset"
+      }
+    },
+    "required": {
+      "title": "Välttämättömät evästeet",
+      "text": "Välttämättömien evästeiden käyttöä ei voi kieltää. Ne mahdollistavat sivuston toiminnan ja vaikuttavat käytettävyyteen."
+    },
+    "optional": {
+      "title": "Valinnaiset evästeet"
+    },
     "groups": {
       "matomo": {
         "title": "Matomo",
