@@ -104,6 +104,10 @@
       "title": "Optional cookies"
     },
     "groups": {
+      "essential": {
+        "title": "Cookies related to basic functionalities",
+        "text": "Cookies related to basic functionalities cannot be rejected. They enable the proper functioning of the website and affect the usability."
+      },
       "matomo": {
         "title": "Matomo",
         "text": "Matomo Analytics software is being used to follow and improve the website to better attend to user's needs.",

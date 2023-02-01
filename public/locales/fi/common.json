@@ -104,6 +104,10 @@
       "title": "Valinnaiset evästeet"
     },
     "groups": {
+      "essential": {
+        "title": "Perustoimintoihin liittyvät evästeet",
+        "text": "Perustoimintoihin liittyviä evästeitä ei voi hylätä. Ne mahdollistavat sivuston kunnollisen toimivuuden ja vaikuttavat käytettävyyteen."
+      },
       "matomo": {
         "title": "Matomo",
         "text": "Matomo-analytiikkaohjelmistolla seurataan ja kehitetään verkkosivustoa käyttäjien tarpeita vastaavaksi.",

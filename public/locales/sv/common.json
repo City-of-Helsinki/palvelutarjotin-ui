@@ -103,6 +103,10 @@
       "title": "Valfria kakor"
     },
     "groups": {
+      "essential": {
+        "title": "Kakor för grundläggande funktioner",
+        "text": "Du kan inte förbjuda användningen av kakor för grundläggande funktioner. De möjliggör webbplatsens funktioner och påverkar användbarheten."
+      },
       "matomo": {
         "title": "Matomo",
         "text": "Matomo Analytics-programvaran används för att spåra och utveckla webbplatsen för att möta användarnas behov.",
