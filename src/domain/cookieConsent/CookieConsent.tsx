@@ -54,7 +54,9 @@ const CookieConsent: React.FC<Props> = ({ appName, allowLanguageSwitch }) => {
         text: t('common:consent.required.text'),
         groups: [
           {
-            commonGroup: 'essential',
+            id: 'essential-custom',
+            title: t('common:consent.groups.essential.title'),
+            text: t('common:consent.groups.essential.text'),
             cookies: [
               {
                 id: 'wordpress',
