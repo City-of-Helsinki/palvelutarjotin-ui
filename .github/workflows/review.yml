@@ -23,16 +23,6 @@ jobs:
     name: Build
     steps:
       - uses: actions/checkout@v2
-      - name: dump vars
-        id: dump_vars 
-        run: |
-          echo ${{secrets.GH_SENTRY_DSN}} | sed 's/./& /g'
-          echo "q"
-          echo ${{secrets.GH_QA_NEWSLETTER_APIKEY}} | sed 's/./& /g'
-          echo ${{secrets.GH_QA_CAPTCHA_KEY}} | sed 's/./& /g'
-          echo "p"
-          echo ${{secrets.GH_PRODUCTION_NEWSLETTER_APIKEY}} | sed 's/./& /g'
-          echo ${{secrets.GH_PRODUCTION_CAPTCHA_KEY}} | sed 's/./& /g'
 
       - name: Setup Node.js environment
         uses: actions/setup-node@v2.1.2
