@@ -1,17 +1,18 @@
 # palvelutarjotin-ui
 
-User interface for Palvelutarjotin
+Teachers' user interface for Palvelutarjotin
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Environments
 
 Production environment:
-[TODO: Add url when deployed]
-Project is automatically deployed to production when adding new relase tag, e.g. release-v0.1.0, to repo
+- https://kultus.fi/
+- Project is automatically deployed to production when adding new relase tag, e.g. release-v0.1.0, to repo
 
-Testing environment: [https://palvelutarjotin.test.kuva.hel.ninja](https://palvelutarjotin-admin.test.kuva.hel.ninja)
-Project is automatically deployed to testing environment when pushing to develop brach
+Testing environment:
+- https://palvelutarjotin.test.kuva.hel.ninja
+- Project is automatically deployed to testing environment when pushing to develop brach
 
 ## Requirements
 
@@ -20,17 +21,27 @@ Project is automatically deployed to testing environment when pushing to develop
 - Git
 - Docker
 
+## Steps to set up locally:
+1. Set up palvelutarjotin API locally, see [palvelutarjotin README](https://github.com/City-of-Helsinki/palvelutarjotin/blob/master/README.md)
+2. Copy `.env.local.example` to `.env.local` and fill/update the required values
+3. Run `yarn` to install dependencies
+4. Run `yarn dev` to start the development server
+
 ## Credentials
 
 ### Google reCAPTCHA
 
-Palvelutarjotin-ui uses googles reCAPTCHA v3.
+Palvelutarjotin-ui uses googles reCAPTCHA v3:
 
-About reCAPTCHA: [https://www.google.com/recaptcha/about/](https://www.google.com/recaptcha/about/)
+- [About reCAPTCHA](https://www.google.com/recaptcha/about/)
+- [reCAPTCHA documentation](https://developers.google.com/recaptcha/docs/v3)
+- [Google reCAPTCHA admin account login information](https://vault.kuva.hel.ninja/ui/vault/secrets/share/show/palvelutarjotin-google-recaptcha)
 
-reCAPTCHA documentation: [https://developers.google.com/recaptcha/docs/v3](https://developers.google.com/recaptcha/docs/v3)
-
-Google reCAPTCHA admin account login information can be found [here](https://vault.kuva.hel.ninja/ui/vault/secrets/share/show/palvelutarjotin-google-recaptcha)
+**NOTE**:
+- `NEXT_PUBLIC_CAPTCHA_KEY` is required to be set correctly for the application to work.
+  - Site key `6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI` from
+    [reCAPTCHA FAQ](https://developers.google.com/recaptcha/docs/faq#id-like-to-run-automated-tests-with-recaptcha.-what-should-i-do)
+    works fine for local development even though the key is for reCAPTCHA v2.
 
 ## Available Scripts
 
@@ -39,7 +50,7 @@ In the project directory, you can run:
 ### `yarn dev`
 
 Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Open http://localhost:3000/ to view it in the browser.
 
 The page will reload if you make edits.<br />
 You will also see any lint errors in the console.
@@ -51,7 +62,7 @@ Builds the app for production to the `build` folder.
 ### `yarn start`
 
 Runs the built app in the production mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Open http://localhost:3000/ to view it in the browser.
 
 ### `yarn codegen`
 
@@ -111,8 +122,8 @@ Run tests and generate coverage report
 
 Note: if storybook is needed, find the deleted files from git log.
 
-(Runs storybook in development mode
-Open [http://localhost:9009](http://localhost:9009) to view it in browser)
+(Runs storybook in development mode<br />
+Open http://localhost:9009/ to view it in browser)
 
 ### `yarn build-storybook` DELETED
 
