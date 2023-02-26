@@ -85,8 +85,10 @@
     "title": "Valitut tapahtuma-ajat"
   },
   "studyLevel": {
-    "grade": "{{count}}. luokka",
-    "grade_plural": "{{count}}. luokka",
+    "grade1": "1. luokka",
+    "grade2": "2. luokka",
+    "grade3": "3. luokka",
+    "grade_with_count": "{{count}}. luokka",
     "preschool": "5-6 -vuotiaat",
     "secondary": "Toisen asteen opiskelijat",
     "age02": "0-2 -vuotiaat",
