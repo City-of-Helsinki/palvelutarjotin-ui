@@ -28,13 +28,21 @@ export default function useStudyLevels(): StudyLevelsState {
       if (!level) {
         return { label: '', value: '' };
       }
+      if (level.startsWith('GRADE_')) {
+        // TECHNICAL DEBT: The ordinal number translations could be done using i18next
+        // but that would require at least v21.0.0 of i18next which is a major breaking
+        // release.
+        const count = Number(level.split('_')[1]);
+        if (count > 3) {
+          return {
+            label: t('enrolment:studyLevel.grade_with_count', { count: count }),
+            value: level,
+          };
+        }
+      }
+
       return {
-        label: level.startsWith('GRADE')
-          ? t('enrolment:studyLevel.grade_interval', {
-              postProcess: 'interval',
-              count: Number(level.split('_')[1]),
-            })
-          : translateValue('enrolment:studyLevel.', level, t),
+        label: translateValue('enrolment:studyLevel.', level, t),
         value: level,
       };
     }) ?? [];

@@ -86,8 +86,10 @@
   },
   "pageTitle": "Anmäl dig till evenemanget",
   "studyLevel": {
-    "grade": "{{count}}: Åk",
-    "grade_plural": "{{count}}: Åk",
+    "grade1": "1:a klass",
+    "grade2": "2:a klass",
+    "grade3": "3:e klass",
+    "grade_with_count": "{{count}}:e klass",
     "preschool": "5-6 åringar",
     "secondary": "Gymnasie- och yrkesutbildning",
     "age02": "0-2 åringar",
