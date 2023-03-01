@@ -1,11 +1,18 @@
 import { NetworkStatus } from '@apollo/client';
 import { Koros } from 'hds-react';
-import { useTranslation } from 'next-i18next';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { useTranslation } from 'next-i18next';
 import React, { ReactElement } from 'react';
 
+import EventList from './eventList/EventList';
+import EventSearchForm, {
+  EventSearchFormValues,
+  PanelState,
+} from './eventSearchForm/EventSearchForm';
+import styles from './eventsPage.module.scss';
+import { getSearchQueryObject } from './utils';
 import LoadingSpinner from '../../common/components/loadingSpinner/LoadingSpinner';
 import {
   usePopularKeywordsQuery,
@@ -18,13 +25,6 @@ import Container from '../app/layout/Container';
 import PageWrapper from '../app/layout/PageWrapper';
 import { ROUTES } from '../app/routes/constants';
 import BannerHero from '../bannerHero/BannerHero';
-import EventList from './eventList/EventList';
-import EventSearchForm, {
-  EventSearchFormValues,
-  PanelState,
-} from './eventSearchForm/EventSearchForm';
-import styles from './eventsPage.module.scss';
-import { getSearchQueryObject } from './utils';
 
 const panelStates = {
   closed: PanelState.Condensed,

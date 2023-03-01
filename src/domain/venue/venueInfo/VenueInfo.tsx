@@ -2,6 +2,7 @@ import { IconGroup, IconSignout } from 'hds-react';
 import { useTranslation } from 'next-i18next';
 import React from 'react';
 
+import styles from './venueInfo.module.scss';
 import TextTitle from '../../../common/components/textTitle/TextTitle';
 import { useVenueQuery } from '../../../generated/graphql';
 import IconFood from '../../../icons/IconFood';
@@ -11,7 +12,6 @@ import IconPlayOutdoor from '../../../icons/IconPlayOutdoor';
 import IconToilet from '../../../icons/IconToilet';
 import { Language } from '../../../types';
 import { getVenueDescription, getVenueFields } from '../utils';
-import styles from './venueInfo.module.scss';
 
 interface Props {
   language: Language;

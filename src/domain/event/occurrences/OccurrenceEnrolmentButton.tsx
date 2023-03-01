@@ -3,6 +3,10 @@ import { IconAngleUp, Button } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
+import EnrolmentError from './EnrolmentError';
+import styles from './occurrences.module.scss';
+import { enrolButtonColumnWidth } from './OccurrencesTable';
+import { getEnrolmentError } from './utils';
 import ExternalLink, {
   getExternalUrl,
 } from '../../../common/components/externalLink/ExternalLink';
@@ -13,10 +17,6 @@ import {
 import isEmail from '../../../utils/isEmail';
 import { formatIntoDate, formatIntoTime } from '../../../utils/time/format';
 import { isEnrolmentStarted } from '../../occurrence/utils';
-import EnrolmentError from './EnrolmentError';
-import styles from './occurrences.module.scss';
-import { enrolButtonColumnWidth } from './OccurrencesTable';
-import { getEnrolmentError } from './utils';
 
 interface Props {
   event: EventFieldsFragment;

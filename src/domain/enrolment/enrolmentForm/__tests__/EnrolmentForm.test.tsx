@@ -614,7 +614,7 @@ describe('UnitField', () => {
 
     // clear the selection
     userEvent.click(
-      screen.getByRole('button', {
+      await screen.findByRole('button', {
         name: /poista arvo/i,
       })
     );

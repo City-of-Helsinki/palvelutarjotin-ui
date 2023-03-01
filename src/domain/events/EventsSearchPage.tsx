@@ -5,12 +5,6 @@ import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import useLocalStorage from 'react-use/lib/useLocalStorage';
 
-import LoadingSpinner from '../../common/components/loadingSpinner/LoadingSpinner';
-import { useEventsQuery } from '../../generated/graphql';
-import getPageNumberFromUrl from '../../utils/getPageNumberFromUrl';
-import Container from '../app/layout/Container';
-import PageWrapper from '../app/layout/PageWrapper';
-import { ROUTES } from '../app/routes/constants';
 import { EVENT_LIST_PAGE_SIZE, EVENT_SORT_OPTIONS } from './constants';
 import EventList from './eventList/EventList';
 import EventSearchForm, {
@@ -24,6 +18,12 @@ import {
   getSearchQueryObject,
   getTextFromDict,
 } from './utils';
+import LoadingSpinner from '../../common/components/loadingSpinner/LoadingSpinner';
+import { useEventsQuery } from '../../generated/graphql';
+import getPageNumberFromUrl from '../../utils/getPageNumberFromUrl';
+import Container from '../app/layout/Container';
+import PageWrapper from '../app/layout/PageWrapper';
+import { ROUTES } from '../app/routes/constants';
 
 export const EVENT_SORT_STORAGE_KEY = 'event-search-sort';
 

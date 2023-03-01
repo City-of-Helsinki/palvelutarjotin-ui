@@ -2,8 +2,8 @@ import classNames from 'classnames';
 import { Tooltip } from 'hds-react';
 import React, { CSSProperties, FC, ReactNode } from 'react';
 
-import { RequiredIndicator } from '../requiredIndicator/RequiredIndicator';
 import styles from './inputWrapper.module.scss';
+import { RequiredIndicator } from '../requiredIndicator/RequiredIndicator';
 
 type InputWrapperProps = {
   children?: ReactNode;

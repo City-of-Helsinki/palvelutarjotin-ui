@@ -1,8 +1,10 @@
 import { IconInfoCircle, IconFaceSmile } from 'hds-react';
-import { useTranslation } from 'next-i18next';
 import Link from 'next/link';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
+import styles from './eventBasicInfo.module.scss';
+import EventCategorisation from './EventCategorisation';
 import KeywordsList from '../../../common/components/keyword/KeywordsList';
 import TextWithHTMLOrLineBreaks from '../../../common/components/textWithHTMLOrLineBreaks/TextWithHTMLOrLineBreaks';
 import { EventFieldsFragment } from '../../../generated/graphql';
@@ -11,8 +13,6 @@ import IconTicket from '../../../icons/IconTicket';
 import addUrlSlashes from '../../../utils/addUrlSlashes';
 import { ROUTES } from '../../app/routes/constants';
 import { getEventFields } from '../utils';
-import styles from './eventBasicInfo.module.scss';
-import EventCategorisation from './EventCategorisation';
 
 interface EventBasicInfoProps {
   event: EventFieldsFragment;

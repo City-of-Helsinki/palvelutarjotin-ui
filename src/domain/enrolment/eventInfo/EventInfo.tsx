@@ -1,9 +1,9 @@
 import React from 'react';
 
+import styles from './eventInfo.module.scss';
 import { EventFieldsFragment } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
 import getLocalisedString from '../../../utils/getLocalisedString';
-import styles from './eventInfo.module.scss';
 
 interface Props {
   event: EventFieldsFragment;

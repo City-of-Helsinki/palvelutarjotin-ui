@@ -3,11 +3,11 @@ import { IconAngleDown, IconAngleUp, IconSearch, Checkbox } from 'hds-react';
 import { useTranslation } from 'next-i18next';
 import React, { ReactNode } from 'react';
 
+import DropdownMenu from './DropdownMenu';
+import styles from './multiSelectDropdown.module.scss';
 import useKeyboardNavigation from '../../../hooks/useDropdownKeyboardNavigation';
 import ScrollIntoViewWithFocus from '../scrollIntoViewWithFocus/ScrollIntoViewWithFocus';
 import SearchLabel from '../search/searchLabel/SearchLabel';
-import DropdownMenu from './DropdownMenu';
-import styles from './multiSelectDropdown.module.scss';
 
 const SELECT_ALL = 'SELECT_ALL';
 

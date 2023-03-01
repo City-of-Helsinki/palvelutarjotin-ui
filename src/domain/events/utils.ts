@@ -1,5 +1,7 @@
 import isValidDate from 'date-fns/isValid';
 
+import { KEYWORD_QUERY_PARAMS } from './constants';
+import { EventSearchFormValues } from './eventSearchForm/EventSearchForm';
 import { EVENT_LANGUAGES } from '../../constants';
 import {
   EventsQueryVariables,
@@ -8,8 +10,6 @@ import {
 } from '../../generated/graphql';
 import deleteEmptyPropertiesFromObject from '../../utils/deleteEmptyPropertiesFromObject';
 import { queryParameterToArray } from '../../utils/queryParameterToArray';
-import { KEYWORD_QUERY_PARAMS } from './constants';
-import { EventSearchFormValues } from './eventSearchForm/EventSearchForm';
 
 export const getSearchQueryObject = (
   values: EventSearchFormValues

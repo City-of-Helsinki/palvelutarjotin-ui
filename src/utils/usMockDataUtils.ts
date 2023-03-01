@@ -1,6 +1,5 @@
 import {
   AdministrativeDivision,
-  Language,
   LanguageString,
 } from '../generated/graphql-unified-search';
 

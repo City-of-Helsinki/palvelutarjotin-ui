@@ -1,10 +1,10 @@
 import capitalize from 'lodash/capitalize';
 import * as React from 'react';
 
+import FilterButton, { FilterButtonProps } from './FilterButton';
 import { useKeywordQuery } from '../../../../generated/graphql';
 import useLocale from '../../../../hooks/useLocale';
 import localizedString from '../../../../utils/getLocalisedString';
-import FilterButton, { FilterButtonProps } from './FilterButton';
 
 const KeywordFilterButton: React.FC<Omit<FilterButtonProps, 'text'>> = ({
   value,

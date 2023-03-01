@@ -7,9 +7,9 @@ import {
   GeneralCollectionType,
 } from 'react-helsinki-headless-cms';
 
-import { Page, PageQuery } from '../../generated/graphql-cms';
 import CmsPageSearch from './CmsPageSearch/CmsPageSearch';
 import { getCmsCollectionList } from './utils';
+import { Page, PageQuery } from '../../generated/graphql-cms';
 
 export const SEARCH_PANEL_TRESHOLD = 2;
 

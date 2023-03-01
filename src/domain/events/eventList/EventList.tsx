@@ -1,8 +1,9 @@
 import { Button, Select, IconArrowDown } from 'hds-react';
-import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
+import { useTranslation } from 'next-i18next';
 import React, { ReactElement } from 'react';
 
+import styles from './eventList.module.scss';
 import LoadingSpinner from '../../../common/components/loadingSpinner/LoadingSpinner';
 import { EventsFieldsFragment } from '../../../generated/graphql';
 import { addParamsToQueryString } from '../../../utils/queryString';
@@ -10,7 +11,6 @@ import { translateValue } from '../../../utils/translateUtils';
 import { ROUTES } from '../../app/routes/constants';
 import EventCard from '../../event/eventCard/EventCard';
 import { EVENT_SORT_OPTIONS } from '../constants';
-import styles from './eventList.module.scss';
 
 interface Props {
   events: EventsFieldsFragment[];

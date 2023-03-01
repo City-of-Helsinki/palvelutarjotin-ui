@@ -4,14 +4,14 @@ import React from 'react';
 import { Link } from 'react-helsinki-headless-cms';
 import { useMenuQuery } from 'react-helsinki-headless-cms/apollo';
 
+import styles from './footer.module.scss';
 import { DEFAULT_FOOTER_MENU_NAME } from '../../../constants';
 import useLocale from '../../../hooks/useLocale';
-import styles from './footer.module.scss';
 
 const FooterSection = (): React.ReactElement => {
   const { t } = useTranslation();
   const locale = useLocale();
-  const { data, error, loading } = useMenuQuery({
+  const { data, loading } = useMenuQuery({
     variables: {
       id: DEFAULT_FOOTER_MENU_NAME[locale],
     },

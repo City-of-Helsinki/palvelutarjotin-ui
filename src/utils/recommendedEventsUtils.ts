@@ -1,9 +1,9 @@
 import uniq from 'lodash/uniq';
 
+import { skipFalsyType } from './typescript.utils';
 import { LOCAL_STORAGE } from '../constants';
 import { EnrolmentFormFields } from '../domain/enrolment/enrolmentForm/constants';
 import { STUDY_LEVEL_TO_KEYWORD_MAP } from '../domain/keyword/constants';
-import { skipFalsyType } from './typescript.utils';
 
 export const saveDataForRecommendedEventsQuery = (
   values: EnrolmentFormFields

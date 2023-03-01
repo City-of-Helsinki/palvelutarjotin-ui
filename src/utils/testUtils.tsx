@@ -7,9 +7,9 @@ import { render, RenderResult, fireEvent } from '@testing-library/react';
 import { NextRouter, Router } from 'next/router';
 import React from 'react';
 
+import TestProviders from './TestProviders';
 import { createApolloCache } from '../domain/app/apollo/configureApollo';
 import { store as reduxStore } from '../domain/app/store';
-import TestProviders from './TestProviders';
 
 export const arrowUpKeyPressHelper = (): boolean =>
   fireEvent.keyDown(document, { code: 38, key: 'ArrowUp' });

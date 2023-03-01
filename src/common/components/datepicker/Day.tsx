@@ -5,9 +5,9 @@ import isToday from 'date-fns/isToday';
 import { useTranslation } from 'next-i18next';
 import React, { useContext, useRef } from 'react';
 
-import { formatIntoDate } from '../../../utils/time/format';
 import styles from './datepicker.module.scss';
 import DatepickerContext from './datepickerContext';
+import { formatIntoDate } from '../../../utils/time/format';
 
 const Day: React.FC<{ dayLabel: string; date: Date }> = ({
   dayLabel,

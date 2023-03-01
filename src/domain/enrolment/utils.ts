@@ -1,9 +1,9 @@
+import { EnrolmentFormFields } from './enrolmentForm/constants';
 import {
   EnrolOccurrenceMutationInput,
   Language,
   NotificationType,
 } from '../../generated/graphql';
-import { EnrolmentFormFields } from './enrolmentForm/constants';
 
 const getNotificationType = (values: EnrolmentFormFields): NotificationType => {
   return values.hasEmailNotification &&

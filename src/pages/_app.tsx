@@ -1,9 +1,9 @@
 import * as Sentry from '@sentry/browser';
 import { LoadingSpinner } from 'hds-react';
-import { appWithTranslation, useTranslation } from 'next-i18next';
 import { AppProps } from 'next/app';
 import NextError from 'next/error';
 import { useRouter } from 'next/router';
+import { appWithTranslation, useTranslation } from 'next-i18next';
 import React, { ErrorInfo } from 'react';
 import {
   Config,

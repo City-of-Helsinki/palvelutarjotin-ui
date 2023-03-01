@@ -1,8 +1,8 @@
 import classNames from 'classnames';
 import React, { FunctionComponent } from 'react';
 
-import IconLoadingSpinner from '../../../icons/IconLoadingSpinner';
 import styles from './loadingSpinner.module.scss';
+import IconLoadingSpinner from '../../../icons/IconLoadingSpinner';
 
 interface Props {
   hasPadding?: boolean;

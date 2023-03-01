@@ -1,9 +1,9 @@
 import { useTranslation } from 'next-i18next';
 import React from 'react';
 
-import Container from '../app/layout/Container';
 import styles from './bannerHero.module.scss';
 import { BANNER_IMAGE } from './constants';
+import Container from '../app/layout/Container';
 
 const BannerHero: React.FC = ({ children }) => {
   const { t } = useTranslation();

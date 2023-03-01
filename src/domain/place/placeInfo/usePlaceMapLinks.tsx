@@ -1,5 +1,7 @@
 import { useTranslation } from 'next-i18next';
 
+import { PlaceInfoLinkProps } from './PlaceInfo';
+import { PlaceMapLinkEntryProps } from './PlaceMapLink';
 import { usePlaceQuery } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
 import {
@@ -7,8 +9,6 @@ import {
   generateServiceMapLink,
   getPlaceFields,
 } from '../utils';
-import { PlaceInfoLinkProps } from './PlaceInfo';
-import { PlaceMapLinkEntryProps } from './PlaceMapLink';
 
 function usePlaceMapLinks(props: PlaceInfoLinkProps): PlaceMapLinkEntryProps[] {
   const { id, language } = props;

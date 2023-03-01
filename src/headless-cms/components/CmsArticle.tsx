@@ -7,13 +7,13 @@ import {
   GeneralCollectionType,
 } from 'react-helsinki-headless-cms';
 
+import { getCmsCollectionList } from './utils';
 import PageMeta from '../../common/components/meta/PageMeta';
 import { SUPPORTED_LANGUAGES } from '../../constants';
 import { getCmsArticlePath } from '../../domain/app/routes/utils';
 import { ArticleQuery, Post } from '../../generated/graphql-cms';
 import { Language } from '../../types';
 import { stripLocaleFromUri } from '../utils';
-import { getCmsCollectionList } from './utils';
 
 const CmsArticle: React.FC<{
   article: ArticleQuery['post'];

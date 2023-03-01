@@ -1,9 +1,11 @@
 import { Navigation, IconGlobe } from 'hds-react';
-import { useTranslation } from 'next-i18next';
 import NextLink, { LinkProps } from 'next/link';
 import { useRouter } from 'next/router';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
+import styles from './header.module.scss';
+import HeaderNotification from './HeaderNotification';
 import { SUPPORTED_LANGUAGES } from '../../../constants';
 import {
   MenuNodeIdTypeEnum,
@@ -22,8 +24,6 @@ import { skipFalsyType } from '../../../utils/typescript.utils';
 import { MAIN_CONTENT_ID } from '../layout/PageLayout';
 import { PATHNAMES, ROUTES } from '../routes/constants';
 import { getCmsPagePath } from '../routes/utils';
-import styles from './header.module.scss';
-import HeaderNotification from './HeaderNotification';
 
 const Header: React.FC = () => {
   const { t } = useTranslation();
