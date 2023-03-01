@@ -1,11 +1,19 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import classNames from 'classnames';
 import { Notification, IconArrowLeft, Button, IconAngleUp } from 'hds-react';
-import { useTranslation } from 'next-i18next';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { useTranslation } from 'next-i18next';
 import React, { ReactElement } from 'react';
 
+import EnrolmentButton from './enrolmentButton/EnrolmentButton';
+import EventBasicInfo from './eventBasicInfo/EventBasicInfo';
+import EventImage from './eventImage/EventImage';
+import styles from './eventPage.module.scss';
+import EventPageMeta from './eventPageMeta/EventPageMeta';
+import EnrolmentFormSection from './occurrences/EnrolmentFormSection';
+import Occurrences from './occurrences/OccurrencesTable';
+import { getEventFields } from './utils';
 import LoadingSpinner from '../../common/components/loadingSpinner/LoadingSpinner';
 import ShareLinks from '../../common/components/shareLinks/ShareLinks';
 import {
@@ -21,14 +29,6 @@ import PageWrapper from '../app/layout/PageWrapper';
 import { ENROLMENT_URL_PARAMS } from '../enrolment/constants';
 import NotFoundPage from '../notFoundPage/NotFoundPage';
 import { isEnrolmentStarted } from '../occurrence/utils';
-import EnrolmentButton from './enrolmentButton/EnrolmentButton';
-import EventBasicInfo from './eventBasicInfo/EventBasicInfo';
-import EventImage from './eventImage/EventImage';
-import styles from './eventPage.module.scss';
-import EventPageMeta from './eventPageMeta/EventPageMeta';
-import EnrolmentFormSection from './occurrences/EnrolmentFormSection';
-import Occurrences from './occurrences/OccurrencesTable';
-import { getEventFields } from './utils';
 
 const EventPage = (): ReactElement => {
   const { t } = useTranslation();
@@ -242,17 +242,18 @@ const EnrolmentFormContainer: React.FC<{
 
   return (
     <div className={styles.enrolmentFormContainer}>
-      {showEnrolmentForm && selectedOccurrences.length !== neededOccurrences && (
-        <Notification
-          style={{ marginTop: 'var(--spacing-xl)' }}
-          label={t('enrolment:enrolmentForm.labelChooseRequiredOccurrences', {
-            amount: neededOccurrences,
-          })}
-          type="alert"
-        >
-          {t('enrolment:enrolmentForm.descriptionChooseRequiredOccurrences')}
-        </Notification>
-      )}
+      {showEnrolmentForm &&
+        selectedOccurrences.length !== neededOccurrences && (
+          <Notification
+            style={{ marginTop: 'var(--spacing-xl)' }}
+            label={t('enrolment:enrolmentForm.labelChooseRequiredOccurrences', {
+              amount: neededOccurrences,
+            })}
+            type="alert"
+          >
+            {t('enrolment:enrolmentForm.descriptionChooseRequiredOccurrences')}
+          </Notification>
+        )}
       <div
         className={classNames(styles.enrolmentFormSection, {
           [styles.hideEnrolmentForm]:

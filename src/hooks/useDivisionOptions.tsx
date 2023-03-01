@@ -1,12 +1,12 @@
 import sortBy from 'lodash/sortBy';
 
+import useLocale from './useLocale';
 import {
   AdministrativeDivisionsQuery,
   useAdministrativeDivisionsQuery,
 } from '../generated/graphql-unified-search';
 import { useUnifiedSearchApolloClient } from '../unified-search/unifiedSearchApolloClient';
 import getTranslation from '../unified-search/utils';
-import useLocale from './useLocale';
 
 type AdministrativeDivisions =
   AdministrativeDivisionsQuery['administrativeDivisions'];

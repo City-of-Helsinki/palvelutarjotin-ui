@@ -1,14 +1,14 @@
 import { useTranslation } from 'next-i18next';
 import React from 'react';
 
+import styles from './placeInfo.module.scss';
+import PlaceMapLink from './PlaceMapLink';
+import usePlaceMapLinks from './usePlaceMapLinks';
 import { usePlaceQuery } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
 import { Language } from '../../../types';
 import VenueInfo from '../../venue/venueInfo/VenueInfo';
 import { getPlaceFields } from '../utils';
-import styles from './placeInfo.module.scss';
-import PlaceMapLink from './PlaceMapLink';
-import usePlaceMapLinks from './usePlaceMapLinks';
 
 interface PlaceInfoProps {
   id: string;

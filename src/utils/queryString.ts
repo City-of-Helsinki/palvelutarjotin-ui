@@ -1,5 +1,5 @@
-import { SUPPORTED_LANGUAGES } from '../constants';
 import { assertUnreachable } from './typescript.utils';
+import { SUPPORTED_LANGUAGES } from '../constants';
 
 type QueryParamValue = string | string[];
 

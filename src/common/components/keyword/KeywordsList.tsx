@@ -3,6 +3,8 @@ import { UrlObject } from 'url';
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 
+import Keyword from './Keyword';
+import styles from './keyword.module.scss';
 import { ROUTES } from '../../../domain/app/routes/constants';
 import { KEYWORD_QUERY_PARAMS } from '../../../domain/events/constants';
 import {
@@ -13,8 +15,6 @@ import { KeywordFieldsFragment } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
 import { Language } from '../../../types';
 import getLocalisedString from '../../../utils/getLocalisedString';
-import Keyword from './Keyword';
-import styles from './keyword.module.scss';
 
 type KeywordsListProps = {
   keywords: KeywordFieldsFragment[];

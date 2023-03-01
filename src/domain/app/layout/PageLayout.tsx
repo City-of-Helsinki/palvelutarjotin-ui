@@ -1,8 +1,8 @@
 import React from 'react';
 
+import styles from './pageLayout.module.scss';
 import Footer from '../footer/Footer';
 import Header from '../header/Header';
-import styles from './pageLayout.module.scss';
 
 export const MAIN_CONTENT_ID = 'main-content';
 

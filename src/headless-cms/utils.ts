@@ -1,5 +1,8 @@
 import { ModuleItemTypeEnum } from 'react-helsinki-headless-cms';
 
+import { createCmsApolloClient } from './cmsApolloClient';
+import AppConfig from './config';
+import { MENU_NAME } from './constants';
 import { getCmsArticlePath, getCmsPagePath } from '../domain/app/routes/utils';
 import {
   MenuDocument,
@@ -13,9 +16,6 @@ import {
   PageQueryVariables,
 } from '../generated/graphql-cms';
 import { Language } from '../types';
-import { createCmsApolloClient } from './cmsApolloClient';
-import AppConfig from './config';
-import { MENU_NAME } from './constants';
 
 export const getUriID = (slugs: string[], locale: Language): string => {
   if (!slugs) return '/';

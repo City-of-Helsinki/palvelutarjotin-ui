@@ -5,6 +5,13 @@ import isEmpty from 'lodash/isEmpty';
 import { useTranslation } from 'next-i18next';
 import React, { useEffect } from 'react';
 
+import {
+  defaultEnrolmentInitialValues,
+  EnrolmentFormFields,
+  nameToLabelPath,
+} from './constants';
+import styles from './enrolmentForm.module.scss';
+import getValidationSchema from './ValidationSchema';
 import ErrorMessage from '../../../common/components/form/ErrorMessage';
 import CheckboxField from '../../../common/components/form/fields/CheckboxField';
 import DropdownField from '../../../common/components/form/fields/DropdownField';
@@ -21,13 +28,6 @@ import useLocale from '../../../hooks/useLocale';
 import keyify from '../../../utils/keyify';
 import { translateValue } from '../../../utils/translateUtils';
 import useStudyLevels from '../../studyLevel/useStudyLevels';
-import {
-  defaultEnrolmentInitialValues,
-  EnrolmentFormFields,
-  nameToLabelPath,
-} from './constants';
-import styles from './enrolmentForm.module.scss';
-import getValidationSchema from './ValidationSchema';
 
 export interface Props {
   initialValues?: EnrolmentFormFields;

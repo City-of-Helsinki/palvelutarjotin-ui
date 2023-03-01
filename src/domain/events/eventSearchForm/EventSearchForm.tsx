@@ -4,6 +4,8 @@ import { Button, IconSearch } from 'hds-react';
 import { useTranslation } from 'next-i18next';
 import React from 'react';
 
+import styles from './eventSearchForm.module.scss';
+import { useKeywordOptions } from './useKeywordOptions';
 import CheckboxField from '../../../common/components/form/fields/CheckboxField';
 import DateInputField from '../../../common/components/form/fields/DateInputField';
 import DivisionSelectorField from '../../../common/components/form/fields/DivisionSelectorField';
@@ -18,12 +20,6 @@ import {
   VIRTUAL_EVENT_LOCATION_ID,
 } from '../constants';
 import FilterSummary from '../filterSummary/FilterSummary';
-import styles from './eventSearchForm.module.scss';
-import { useKeywordOptions } from './useKeywordOptions';
-
-const checkboxSearchInputStyles = {
-  '--size': '30px',
-};
 
 export type EventSearchFormValues = {
   text: string;

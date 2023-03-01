@@ -1,5 +1,6 @@
 import React from 'react';
 
+import PlaceText from '..//placeText/PlaceText';
 import MultiSelectDropdown, {
   MultiselectDropdownProps,
 } from '../../../common/components/multiSelectDropdown/MultiSelectDropdown';
@@ -8,7 +9,6 @@ import useDebounce from '../../../hooks/useDebounce';
 import useLocale from '../../../hooks/useLocale';
 import getLocalisedString from '../../../utils/getLocalisedString';
 import isClient from '../../../utils/isClient';
-import PlaceText from '..//placeText/PlaceText';
 
 const { getPlaceDetailsFromCache } = isClient
   ? // eslint-disable-next-line @typescript-eslint/no-require-imports

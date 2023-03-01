@@ -1,7 +1,6 @@
 {
   "extends": [
     "react-app",
-    "plugin:@typescript-eslint/recommended",
     "plugin:prettier/recommended",
     "plugin:import/errors",
     "plugin:import/warnings",
@@ -27,7 +26,7 @@
     "@typescript-eslint/func-call-spacing": ["error"],
     "@typescript-eslint/member-ordering": ["warn"],
     "@typescript-eslint/no-require-imports": ["error"],
-    "react/no-unused-prop-types": ["warn", { "skipShapeProps": true }],
+    "react/no-unused-prop-types": "off",
     "array-bracket-spacing": ["warn", "never"],
     "import/order": [
       "error",

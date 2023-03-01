@@ -1,5 +1,5 @@
-import { useTranslation, Trans } from 'next-i18next';
 import Link from 'next/link';
+import { useTranslation, Trans } from 'next-i18next';
 import React, { ReactElement } from 'react';
 
 import ErrorPage from '../errorPage/ErrorPage';

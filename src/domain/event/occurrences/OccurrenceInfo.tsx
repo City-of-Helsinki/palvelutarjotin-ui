@@ -2,10 +2,13 @@ import { useApolloClient } from '@apollo/client';
 import isSameDay from 'date-fns/isSameDay';
 import { Button, IconLocation, IconClock, IconGlyphEuro } from 'hds-react';
 import { capitalize } from 'lodash';
-import { useTranslation } from 'next-i18next';
 import Link from 'next/link';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
+import EnrolmentFormSection from './EnrolmentFormSection';
+import OccurrenceEnrolmentButton from './OccurrenceEnrolmentButton';
+import styles from './occurrences.module.scss';
 import {
   OccurrenceFieldsFragment,
   EventFieldsFragment,
@@ -25,9 +28,6 @@ import PlaceInfo, { PlaceInfoLinks } from '../../place/placeInfo/PlaceInfo';
 import CalendarButton from '../calendarButton/CalendarButton';
 import { EnrolmentType } from '../constants';
 import { getEnrolmentType } from '../utils';
-import EnrolmentFormSection from './EnrolmentFormSection';
-import OccurrenceEnrolmentButton from './OccurrenceEnrolmentButton';
-import styles from './occurrences.module.scss';
 
 const OccurrenceInfo: React.FC<{
   occurrence: OccurrenceFieldsFragment;

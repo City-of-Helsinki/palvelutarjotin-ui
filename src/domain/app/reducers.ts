@@ -4,7 +4,7 @@ export const defaultMobileMenuState = {
   isMenuOpen: false,
 };
 
-export const defaultReducer = createReducer(defaultMobileMenuState, {});
+export const defaultReducer = createReducer(defaultMobileMenuState, () => {});
 
 export default combineReducers({
   mobileMenu: defaultReducer,

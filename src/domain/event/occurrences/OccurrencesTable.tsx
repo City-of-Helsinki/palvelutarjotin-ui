@@ -9,6 +9,11 @@ import take from 'lodash/take';
 import { useTranslation } from 'next-i18next';
 import React from 'react';
 
+import EnrolmentError from './EnrolmentError';
+import OccurrenceInfo from './OccurrenceInfo';
+import styles from './occurrences.module.scss';
+import { useDateFiltering } from './useDateFiltering';
+import { getEnrolmentError, getOrderedLanguages } from './utils';
 import SrOnly from '../../../common/components/SrOnly/SrOnly';
 import Table from '../../../common/components/table/Table';
 import {
@@ -35,11 +40,6 @@ import PlaceText from '../../place/placeText/PlaceText';
 import { EnrolmentType, OCCURRENCE_LIST_PAGE_SIZE } from '../constants';
 import DateFilter from '../dateFilter/DateFilter';
 import { getEnrolmentType } from '../utils';
-import EnrolmentError from './EnrolmentError';
-import OccurrenceInfo from './OccurrenceInfo';
-import styles from './occurrences.module.scss';
-import { useDateFiltering } from './useDateFiltering';
-import { getEnrolmentError, getOrderedLanguages } from './utils';
 
 interface Props {
   event: EventFieldsFragment;

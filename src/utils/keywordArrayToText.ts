@@ -1,6 +1,6 @@
+import getLocalizedString from './getLocalisedString';
 import { LocalisedFieldsFragment } from '../generated/graphql';
 import { Language } from '../types';
-import getLocalizedString from './getLocalisedString';
 
 const keywordArrayToText = (
   items: { name?: LocalisedFieldsFragment | null }[] | undefined,

@@ -2,10 +2,10 @@ import classNames from 'classnames';
 import { useTranslation } from 'next-i18next';
 import React from 'react';
 
+import styles from './datepicker.module.scss';
 import useDropdownKeyboardNavigation from '../../../hooks/useDropdownKeyboardNavigation';
 import ScrollIntoViewWithFocus from '../scrollIntoViewWithFocus/ScrollIntoViewWithFocus';
 import { formatTime, TimeObject } from '../timepicker/utils';
-import styles from './datepicker.module.scss';
 
 type TimesListProps = {
   times: TimeObject[];

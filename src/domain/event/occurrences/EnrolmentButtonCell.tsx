@@ -2,6 +2,10 @@ import { Button, ButtonVariant } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
+import EnrolmentError from './EnrolmentError';
+import styles from './occurrences.module.scss';
+import { enrolButtonColumnWidth } from './OccurrencesTable';
+import { getEnrolmentError } from './utils';
 import ExternalLink from '../../../common/components/externalLink/ExternalLink';
 import {
   EventFieldsFragment,
@@ -12,10 +16,6 @@ import { formatIntoDate, formatIntoTime } from '../../../utils/time/format';
 import { isEnrolmentStarted } from '../../occurrence/utils';
 import { EnrolmentType } from '../constants';
 import { getEventFields, getEnrolmentType } from '../utils';
-import EnrolmentError from './EnrolmentError';
-import styles from './occurrences.module.scss';
-import { enrolButtonColumnWidth } from './OccurrencesTable';
-import { getEnrolmentError } from './utils';
 
 type Props = {
   event: EventFieldsFragment;

@@ -1,9 +1,9 @@
 import React from 'react';
 import { Page } from 'react-helsinki-headless-cms';
 
+import styles from './pageLayout.module.scss';
 import Footer from '../footer/Footer';
 import Header from '../header/Header';
-import styles from './pageLayout.module.scss';
 
 type Props = {
   children: React.ReactNode;

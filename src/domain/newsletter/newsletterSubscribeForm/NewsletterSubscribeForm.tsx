@@ -3,14 +3,14 @@ import { Button } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { NewsletterGroupId, NewsletterSubscribeFormFields } from './constants';
+import styles from './newsletterSubscribeForm.module.scss';
+import getValidationSchema from './ValidationSchema';
 import MultiDropdownField from '../../../common/components/form/fields/MultiDropdownField';
 import TextInputField from '../../../common/components/form/fields/TextInputField';
 import FocusToFirstError from '../../../common/components/form/FocusToFirstError';
 import FormGroup from '../../../common/components/form/FormGroup';
 import { translateValue } from '../../../utils/translateUtils';
-import { NewsletterGroupId, NewsletterSubscribeFormFields } from './constants';
-import styles from './newsletterSubscribeForm.module.scss';
-import getValidationSchema from './ValidationSchema';
 
 export const defaultInitialValues: NewsletterSubscribeFormFields = {
   groups: Object.values(NewsletterGroupId),

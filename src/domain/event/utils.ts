@@ -6,6 +6,11 @@ import startOfDay from 'date-fns/startOfDay';
 import { TFunction } from 'next-i18next';
 
 import {
+  EnrolmentType,
+  EVENT_PLACEHOLDER_IMAGES,
+  EVENT_SOME_IMAGE,
+} from './constants';
+import {
   EventFieldsFragment,
   EventQuery,
   Keyword,
@@ -16,11 +21,6 @@ import {
 import { Language } from '../../types';
 import getLocalisedString from '../../utils/getLocalisedString';
 import { formatIntoTime, formatLocalizedDate } from '../../utils/time/format';
-import {
-  EnrolmentType,
-  EVENT_PLACEHOLDER_IMAGES,
-  EVENT_SOME_IMAGE,
-} from './constants';
 
 export const getEventPlaceholderImage = (id: string): string => {
   const numbers = id.match(/\d+/g);

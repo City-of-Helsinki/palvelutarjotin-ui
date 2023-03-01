@@ -1,10 +1,11 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import { Button, IconLocation } from 'hds-react';
 import times from 'lodash/times';
-import { TFunction, useTranslation } from 'next-i18next';
 import Link from 'next/link';
+import { TFunction, useTranslation } from 'next-i18next';
 import React from 'react';
 
+import styles from './eventCard.module.scss';
 import KeywordsList from '../../../common/components/keyword/KeywordsList';
 import SkeletonLoader from '../../../common/components/skeletonLoader/SkeletonLoader';
 import {
@@ -19,7 +20,6 @@ import { formatDateRange } from '../../../utils/time/format';
 import { isMultidayOccurrence } from '../../occurrence/utils';
 import PlaceText from '../../place/placeText/PlaceText';
 import { getEventPlaceholderImage, getEventStartTimeStr } from '../utils';
-import styles from './eventCard.module.scss';
 
 interface Props {
   event: EventsFieldsFragment;

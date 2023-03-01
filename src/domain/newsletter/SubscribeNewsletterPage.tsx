@@ -5,17 +5,17 @@ import Link from 'next/link';
 import * as React from 'react';
 import { Trans, useTranslation } from 'react-i18next';
 
+import { NewsletterSubscribeFormFields } from './newsletterSubscribeForm/constants';
+import NewsletterSubscribeForm, {
+  defaultInitialValues,
+} from './newsletterSubscribeForm/NewsletterSubscribeForm';
+import styles from './subscribeNewsletterPage.module.scss';
 import { convertSubscribeFormData } from '../../clients/gruppo/lib/subscribers';
 import { ADMIN_EMAIL, PRIVACY_POLICY_LINKS } from '../../constants';
 import useLocale from '../../hooks/useLocale';
 import Container from '../app/layout/Container';
 import PageWrapper from '../app/layout/PageWrapper';
 import { ROUTES } from '../app/routes/constants';
-import { NewsletterSubscribeFormFields } from './newsletterSubscribeForm/constants';
-import NewsletterSubscribeForm, {
-  defaultInitialValues,
-} from './newsletterSubscribeForm/NewsletterSubscribeForm';
-import styles from './subscribeNewsletterPage.module.scss';
 
 const PrivacyStatementLink = ({
   url,

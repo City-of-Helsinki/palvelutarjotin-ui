@@ -2,9 +2,9 @@ import classNames from 'classnames';
 import { IconAngleDown } from 'hds-react';
 import React from 'react';
 
+import styles from './menuDropdown.module.scss';
 import useKeyboardNavigation from '../../../hooks/useDropdownKeyboardNavigation';
 import { Language } from '../../../types';
-import styles from './menuDropdown.module.scss';
 
 const useIsomorphicLayoutEffect =
   typeof window !== 'undefined' ? React.useLayoutEffect : React.useEffect;

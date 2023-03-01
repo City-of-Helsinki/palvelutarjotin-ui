@@ -1,11 +1,11 @@
 import { useRouter } from 'next/router';
 import React from 'react';
 
-import { EventSearchFormValues } from '../eventSearchForm/EventSearchForm';
-import { useKeywordOptions } from '../eventSearchForm/useKeywordOptions';
 import FilterButton, { FilterType } from './filterButton/FilterButton';
 import KeywordFilterButton from './filterButton/KeywordFilterButton';
 import styles from './filterSummary.module.scss';
+import { EventSearchFormValues } from '../eventSearchForm/EventSearchForm';
+import { useKeywordOptions } from '../eventSearchForm/useKeywordOptions';
 
 export const filterSummaryContainerTestId = 'filter-summary';
 

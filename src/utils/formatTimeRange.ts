@@ -1,5 +1,5 @@
-import { Language } from '../types';
 import { formatIntoTime } from './time/format';
+import { Language } from '../types';
 
 /**
  * Format and localize time range

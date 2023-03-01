@@ -10,8 +10,8 @@ import {
 } from 'react-helsinki-headless-cms';
 import { Provider } from 'react-redux';
 
-import { store as reduxStore } from '../domain/app/store';
 import { CustomRenderOptions } from './testUtils';
+import { store as reduxStore } from '../domain/app/store';
 
 const mockRouter: NextRouter = {
   basePath: '',

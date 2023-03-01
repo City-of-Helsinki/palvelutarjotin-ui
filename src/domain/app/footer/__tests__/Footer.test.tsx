@@ -1,7 +1,6 @@
 import React from 'react';
 import { MenuDocument } from 'react-helsinki-headless-cms/apollo';
 
-import { fakePage } from '../../../../utils/cmsMockDataUtils';
 import { render, screen, waitFor } from '../../../../utils/testUtils';
 import Footer from '../Footer';
 
