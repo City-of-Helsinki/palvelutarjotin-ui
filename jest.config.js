@@ -1,10 +1,18 @@
 module.exports = {
-  preset: 'ts-jest/presets/js-with-ts',
   testEnvironment: 'jest-environment-jsdom',
   transform: {
-    '^.+\\.(js|jsx|ts|tsx)$': [
-      'babel-jest',
-      { configFile: './babel.config.test.json' },
+    '.*\\.(tsx?)$': [
+      '@swc/jest',
+      {
+        jsc: {
+          target: 'es2021',
+          transform: {
+            react: {
+              runtime: 'automatic',
+            },
+          },
+        },
+      },
     ],
   },
   transformIgnorePatterns: [
@@ -16,12 +24,6 @@ module.exports = {
     '.+\\.(css|styl|less|sass|scss)$': 'identity-obj-proxy',
   },
   setupFilesAfterEnv: ['<rootDir>/src/setupTests.ts'],
-  globals: {
-    'ts-jest': {
-      diagnostics: true,
-      tsconfig: './tsconfig.jest.json',
-    },
-  },
   testPathIgnorePatterns: [
     '<rootDir>/.next/',
     '<rootDir>/node_modules/',
@@ -36,4 +38,5 @@ module.exports = {
     '<rootDir>/src/utils/testUtils.ts',
   ],
   collectCoverageFrom: ['src/**/*.{js,jsx,tsx}'],
+  testTimeout: 20000,
 };

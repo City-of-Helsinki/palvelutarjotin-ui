@@ -19,6 +19,28 @@ dotenv.config({ path: '.env' });
 // Mock the ICS create event that fails during the tests
 jest.mock('ics', () => jest.fn());
 
+// eslint-disable-next-line max-len
+// https://stackoverflow.com/questions/67872622/jest-spyon-not-working-on-index-file-cannot-redefine-property/69951703#69951703
+jest.mock('./generated/graphql', () => ({
+  __esModule: true,
+  ...jest.requireActual('./generated/graphql'),
+}));
+
+// eslint-disable-next-line max-len
+// https://stackoverflow.com/questions/67872622/jest-spyon-not-working-on-index-file-cannot-redefine-property/69951703#69951703
+jest.mock('./domain/enrolment/utils', () => ({
+  __esModule: true,
+  ...jest.requireActual('./domain/enrolment/utils'),
+  getCAPTCHAToken: () => 'captcha-token',
+}));
+
+// To avoid error: TypeError: Cannot redefine property
+// eslint-disable-next-line max-len
+// disusssed here: https://stackoverflow.com/questions/67872622/jest-spyon-not-working-on-index-file-cannot-redefine-property
+Object.defineProperty(exports, '__esModule', {
+  value: true,
+});
+
 expect.extend(toHaveNoViolations);
 
 beforeAll(() => {

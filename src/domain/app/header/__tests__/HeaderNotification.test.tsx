@@ -120,11 +120,11 @@ it('saves notification state to local storage', async () => {
   );
 
   expect(localStorageObjectAfterClosing).toMatchInlineSnapshot(`
-Object {
-  "closedNotificationHash": "6176514228182135",
-  "isVisible": false,
-}
-`);
+    {
+      "closedNotificationHash": "6176514228182135",
+      "isVisible": false,
+    }
+  `);
 
   expect(screen.queryByText(notificationContent)).not.toBeInTheDocument();
 });
