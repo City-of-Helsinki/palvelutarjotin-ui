@@ -90,6 +90,9 @@ export default function getValidationSchema({
               name: Yup.string().required(
                 VALIDATION_MESSAGE_KEYS.STRING_REQUIRED
               ),
+              phoneNumber: Yup.string().required(
+                VALIDATION_MESSAGE_KEYS.STRING_REQUIRED
+              ),
               emailAddress: Yup.string()
                 .required(VALIDATION_MESSAGE_KEYS.STRING_REQUIRED)
                 .email(VALIDATION_MESSAGE_KEYS.EMAIL),

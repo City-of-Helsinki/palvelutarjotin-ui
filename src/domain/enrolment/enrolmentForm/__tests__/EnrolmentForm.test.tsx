@@ -188,7 +188,7 @@ test('render and focuses error notification correctly', async () => {
     'Hyväksyn tietojeni jakamisen tapahtuman järjestäjän kanssa',
     'Nimi',
     'Sähköpostiosoite',
-    // 'Puhelinnumero', // TODO: PT-1605
+    'Puhelinnumero',
     'Päiväkoti / koulu / oppilaitos',
     'Ryhmä',
     'Lapsia',
