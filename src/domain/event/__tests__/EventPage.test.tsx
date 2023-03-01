@@ -648,21 +648,21 @@ it('filters occurrence list correctly when sate filters are selected', async () 
   expect(occurrenceEnrolButtons).toHaveLength(1);
 });
 
+const mockEventQuery = (refetchMock: jest.Mock) => {
+  jest
+    .spyOn(graphqlFuncs, 'useEventQuery')
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    .mockReturnValue({
+      refetch: refetchMock,
+      data: {},
+      loading: true,
+    } as any);
+};
+
 describe('refetch of event works correctly', () => {
   afterEach(() => {
     jest.restoreAllMocks();
   });
-
-  const mockEventQuery = (refetchMock: jest.Mock) => {
-    jest
-      .spyOn(graphqlFuncs, 'useEventQuery')
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      .mockReturnValue({
-        refetch: refetchMock,
-        data: {},
-        loading: true,
-      } as any);
-  };
 
   it('refetches event so that occurrences update after enrolment is done', async () => {
     const refetchMock = jest.fn();

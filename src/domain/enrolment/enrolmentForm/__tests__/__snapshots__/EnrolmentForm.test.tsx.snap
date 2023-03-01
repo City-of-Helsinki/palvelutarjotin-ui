@@ -1,34 +1,34 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders form and user can fill it and submit and form is saved to local storage 1`] = `
-Object {
+{
   "dirty": true,
-  "errors": Object {},
-  "initialErrors": Object {},
-  "initialTouched": Object {},
-  "initialValues": Object {
+  "errors": {},
+  "initialErrors": {},
+  "initialTouched": {},
+  "initialValues": {
     "hasEmailNotification": true,
     "hasSmsNotification": false,
     "isMandatoryAdditionalInformationRequired": false,
     "isSameResponsiblePerson": true,
     "isSharingDataAccepted": false,
     "language": "",
-    "person": Object {
+    "person": {
       "emailAddress": "",
       "name": "",
       "phoneNumber": "",
     },
-    "studyGroup": Object {
+    "studyGroup": {
       "amountOfAdult": "",
       "extraNeeds": "",
       "groupName": "",
       "groupSize": "",
-      "person": Object {
+      "person": {
         "emailAddress": "",
         "name": "",
         "phoneNumber": "",
       },
-      "studyLevels": Array [],
+      "studyLevels": [],
       "unitId": "",
       "unitName": "",
     },
@@ -37,29 +37,29 @@ Object {
   "isValid": true,
   "isValidating": false,
   "submitCount": 2,
-  "touched": Object {
+  "touched": {
     "hasEmailNotification": true,
     "hasSmsNotification": true,
     "isMandatoryAdditionalInformationRequired": true,
     "isSameResponsiblePerson": true,
     "isSharingDataAccepted": true,
     "language": true,
-    "person": Object {
+    "person": {
       "emailAddress": true,
       "name": true,
       "phoneNumber": true,
     },
-    "studyGroup": Object {
+    "studyGroup": {
       "amountOfAdult": true,
       "extraNeeds": true,
       "groupName": true,
       "groupSize": true,
-      "person": Object {
+      "person": {
         "emailAddress": true,
         "name": true,
         "phoneNumber": true,
       },
-      "studyLevels": Array [
+      "studyLevels": [
         true,
         true,
       ],
@@ -70,29 +70,29 @@ Object {
   "validateOnBlur": true,
   "validateOnChange": true,
   "validateOnMount": false,
-  "values": Object {
+  "values": {
     "hasEmailNotification": true,
     "hasSmsNotification": true,
     "isMandatoryAdditionalInformationRequired": false,
     "isSameResponsiblePerson": true,
     "isSharingDataAccepted": true,
     "language": "FI",
-    "person": Object {
+    "person": {
       "emailAddress": "",
       "name": "",
       "phoneNumber": "",
     },
-    "studyGroup": Object {
+    "studyGroup": {
       "amountOfAdult": 2,
       "extraNeeds": "Lisätietoja ilmoittautumiseen",
       "groupName": "4a",
       "groupSize": 10,
-      "person": Object {
+      "person": {
         "emailAddress": "testi@testi.fi",
         "name": "Nimi Niminen",
         "phoneNumber": "123321123123321123",
       },
-      "studyLevels": Array [
+      "studyLevels": [
         "GRADE_4",
         "GRADE_2",
       ],
@@ -104,30 +104,30 @@ Object {
 `;
 
 exports[`renders form and user can fill it and submit and form is saved to local storage 2`] = `
-Array [
-  Object {
+[
+  {
     "hasEmailNotification": true,
     "hasSmsNotification": true,
     "isMandatoryAdditionalInformationRequired": false,
     "isSameResponsiblePerson": true,
     "isSharingDataAccepted": true,
     "language": "FI",
-    "person": Object {
+    "person": {
       "emailAddress": "",
       "name": "",
       "phoneNumber": "",
     },
-    "studyGroup": Object {
+    "studyGroup": {
       "amountOfAdult": 2,
       "extraNeeds": "Lisätietoja ilmoittautumiseen",
       "groupName": "4a",
       "groupSize": 10,
-      "person": Object {
+      "person": {
         "emailAddress": "testi@testi.fi",
         "name": "Nimi Niminen",
         "phoneNumber": "123321123123321123",
       },
-      "studyLevels": Array [
+      "studyLevels": [
         "GRADE_4",
         "GRADE_2",
       ],
@@ -135,7 +135,7 @@ Array [
       "unitName": "Testikoulu",
     },
   },
-  Object {
+  {
     "resetForm": [Function],
     "setErrors": [Function],
     "setFieldError": [Function],

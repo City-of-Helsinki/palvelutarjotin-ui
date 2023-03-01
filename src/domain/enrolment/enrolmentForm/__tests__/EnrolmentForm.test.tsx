@@ -62,8 +62,6 @@ const renderComponent = ({
   return { ...renderResult, onCloseFormMock, onSubmitMock };
 };
 
-jest.setTimeout(30000);
-
 test('renders form and user can fill it and submit and form is saved to local storage', async () => {
   const { onSubmitMock } = renderComponent({
     props: { minGroupSize: 10, maxGroupSize: 20 },
@@ -182,6 +180,7 @@ test('render and focuses error notification correctly', async () => {
     'Hyväksyn tietojeni jakamisen tapahtuman järjestäjän kanssa',
     'Nimi',
     'Sähköpostiosoite',
+    // 'Puhelinnumero', // TODO: PT-1605
     'Päiväkoti / koulu / oppilaitos',
     'Ryhmä',
     'Lapsia',
