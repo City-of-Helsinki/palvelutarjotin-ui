@@ -142,6 +142,8 @@ const EnrolmentForm: React.FC<Props> = ({
               <FormGroup>
                 <Field
                   label={t(nameToLabelPath['studyGroup.person.phoneNumber'])}
+                  required
+                  aria-required
                   component={TextInputField}
                   name="studyGroup.person.phoneNumber"
                 />
