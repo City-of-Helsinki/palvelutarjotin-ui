@@ -5,7 +5,7 @@ import styles from './bannerHero.module.scss';
 import { BANNER_IMAGE } from './constants';
 import Container from '../app/layout/Container';
 
-const BannerHero: React.FC = ({ children }) => {
+const BannerHero: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
   const { t } = useTranslation();
   return (
     <div

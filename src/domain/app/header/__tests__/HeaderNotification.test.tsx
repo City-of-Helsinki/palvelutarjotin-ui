@@ -81,11 +81,14 @@ it('renders notification data correctly', async () => {
   screen.getByRole('link', {
     name: /Linkki sivustolle avautuu uudessa välilehdessä/i,
   });
-
-  userEvent.click(
-    screen.getByRole('button', {
-      name: 'Sulje huomiotiedote',
-    })
+  await act(() => wait(100));
+  await act(
+    async () =>
+      await userEvent.click(
+        screen.getByRole('button', {
+          name: 'Sulje huomiotiedote',
+        })
+      )
   );
 
   await waitFor(() => {
@@ -101,16 +104,20 @@ it('saves notification state to local storage', async () => {
   const localStorageObject = JSON.parse(
     localStorage.getItem(NOTIFICATION_STORAGE_KEY) as string
   );
+  await act(() => wait(100));
 
   expect(localStorageObject).toEqual({
     isVisible: true,
     closedNotificationHash: null,
   });
 
-  userEvent.click(
-    screen.getByRole('button', {
-      name: 'Sulje huomiotiedote',
-    })
+  await act(
+    async () =>
+      await userEvent.click(
+        screen.getByRole('button', {
+          name: 'Sulje huomiotiedote',
+        })
+      )
   );
 
   await act(() => wait(100));

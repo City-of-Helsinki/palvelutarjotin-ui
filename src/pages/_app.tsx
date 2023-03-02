@@ -1,9 +1,10 @@
+import { NormalizedCacheObject } from '@apollo/client';
 import * as Sentry from '@sentry/browser';
 import { LoadingSpinner } from 'hds-react';
-import { AppProps } from 'next/app';
+import type { AppProps as NextAppProps } from 'next/app';
 import NextError from 'next/error';
 import { useRouter } from 'next/router';
-import { appWithTranslation, useTranslation } from 'next-i18next';
+import { appWithTranslation, SSRConfig, useTranslation } from 'next-i18next';
 import React, { ErrorInfo } from 'react';
 import {
   Config,
@@ -45,7 +46,18 @@ const getIsHrefExternal = (href: string) => {
   return !internalHrefOrigins.some((origin) => href?.includes(origin));
 };
 
-const MyApp = ({ Component, pageProps }: AppProps) => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type AppProps<P = any> = {
+  pageProps: P;
+} & Omit<NextAppProps<P>, 'pageProps'>;
+
+export type CustomPageProps = {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  error: any;
+  initialApolloState: NormalizedCacheObject;
+} & SSRConfig;
+
+const MyApp = ({ Component, pageProps }: AppProps<CustomPageProps>) => {
   const router = useRouter();
   const locale = useLocale();
   const { t } = useTranslation();
@@ -134,7 +146,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
   );
 };
 
-class ErrorBoundary extends React.Component {
+class ErrorBoundary extends React.Component<{ children?: React.ReactNode }> {
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     if (process.env.NODE_ENV !== 'production') {
       // eslint-disable-next-line no-console
@@ -155,7 +167,7 @@ class ErrorBoundary extends React.Component {
   }
 }
 
-const Center: React.FC = ({ children }) => {
+const Center: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
   return (
     <div
       style={{
@@ -172,4 +184,4 @@ const Center: React.FC = ({ children }) => {
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export default appWithTranslation(MyApp as any, nextI18nextConfig);
+export default appWithTranslation(MyApp as any, nextI18nextConfig as any);

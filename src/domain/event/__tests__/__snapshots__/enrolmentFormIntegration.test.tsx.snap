@@ -59,7 +59,10 @@ exports[`user can select multiple occurrences and enrol to them with enrolment f
         "name": true,
         "phoneNumber": true,
       },
-      "studyLevels": true,
+      "studyLevels": [
+        true,
+        true,
+      ],
       "unitId": true,
       "unitName": true,
     },

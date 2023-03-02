@@ -86,7 +86,7 @@ test.skip('works correctly when download button is clicked', async () => {
     name: /Lataa kalenteriin/i,
   });
 
-  userEvent.click(downloadButton);
+  await userEvent.click(downloadButton);
 
   expect(downloadButton).toBeInTheDocument();
 

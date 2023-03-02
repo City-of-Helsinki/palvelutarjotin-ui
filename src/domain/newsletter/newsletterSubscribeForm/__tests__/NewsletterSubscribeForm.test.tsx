@@ -1,4 +1,5 @@
 import * as React from 'react';
+import wait from 'waait';
 
 import {
   render,
@@ -6,6 +7,7 @@ import {
   userEvent,
   waitFor,
   configure,
+  act,
 } from '../../../../utils/testUtils';
 import { NewsletterGroupId, NewsletterSubscribeFormFields } from '../constants';
 import NewsLetterSubscribeForm, {
@@ -37,26 +39,35 @@ const getData = (
   lastName,
 });
 
-const fillupForm = (values = defaultFillValues) => {
-  userEvent.type(
-    screen.getByRole('textbox', {
-      name: /etunimi \*/i,
-    }),
-    firstName
+const fillupForm = async (values = defaultFillValues) => {
+  await act(
+    async () =>
+      await userEvent.type(
+        screen.getByRole('textbox', {
+          name: /etunimi \*/i,
+        }),
+        firstName
+      )
   );
 
-  userEvent.type(
-    screen.getByRole('textbox', {
-      name: /sukunimi \*/i,
-    }),
-    lastName
+  await act(
+    async () =>
+      await userEvent.type(
+        screen.getByRole('textbox', {
+          name: /sukunimi \*/i,
+        }),
+        lastName
+      )
   );
 
-  userEvent.type(
-    screen.getByRole('textbox', {
-      name: /sähköposti \*/i,
-    }),
-    email
+  await act(
+    async () =>
+      await userEvent.type(
+        screen.getByRole('textbox', {
+          name: /sähköposti \*/i,
+        }),
+        email
+      )
   );
 };
 
@@ -71,37 +82,52 @@ describe('NewsLetterSubscribeForm', () => {
       />
     );
 
-    userEvent.click(
-      screen.getByRole('button', { name: /tilaan uutiskirjeen \*/i })
+    await act(
+      async () =>
+        await userEvent.click(
+          screen.getByRole('button', { name: /tilaan uutiskirjeen \*/i })
+        )
     );
-    userEvent.click(
-      screen.getByRole('option', {
-        name: /alakouluille/i,
-      })
+    await act(
+      async () =>
+        await userEvent.click(
+          screen.getByRole('option', {
+            name: /alakouluille/i,
+          })
+        )
     );
-    userEvent.click(
-      screen.getByRole('option', {
-        name: /varhaiskasvatukselle/i,
-      })
+    await act(
+      async () =>
+        await userEvent.click(
+          screen.getByRole('option', {
+            name: /varhaiskasvatukselle/i,
+          })
+        )
     );
-    userEvent.click(
-      screen.getByRole('option', {
-        name: /yläkouluille ja toisen asteen oppilaitoksille/i,
-      })
+    await act(
+      async () =>
+        await userEvent.click(
+          screen.getByRole('option', {
+            name: /yläkouluille ja toisen asteen oppilaitoksille/i,
+          })
+        )
     );
-    userEvent.tab();
+    await act(async () => await userEvent.tab());
     expect(screen.getByText(/alakouluille/i)).toBeInTheDocument();
     expect(screen.getByText(/varhaiskasvatukselle/i)).toBeInTheDocument();
     expect(
       screen.getByText(/yläkouluille ja toisen asteen oppilaitoksille/i)
     ).toBeInTheDocument();
 
-    fillupForm();
+    await act(async () => await fillupForm());
 
-    userEvent.click(
-      screen.getByRole('button', {
-        name: /tilaa uutiskirje/i,
-      })
+    await act(
+      async () =>
+        await userEvent.click(
+          screen.getByRole('button', {
+            name: /tilaa uutiskirje/i,
+          })
+        )
     );
 
     await waitFor(() => {
@@ -116,18 +142,23 @@ describe('NewsLetterSubscribeForm', () => {
         initialValues={defaultInitialValues}
       />
     );
-    userEvent.type(
-      screen.getByRole('textbox', {
-        name: /sähköposti \*/i,
-      }),
-      'not-an-email'
+    await act(
+      async () =>
+        await userEvent.type(
+          screen.getByRole('textbox', {
+            name: /sähköposti \*/i,
+          }),
+          'not-an-email'
+        )
     );
     // Unfocus
-    userEvent.tab();
+    await act(async () => await userEvent.tab());
     await waitFor(() => {
       expect(
         screen.getByText(/tämän kentän on oltava kelvollinen sähköpostiosoite/i)
       ).toBeInTheDocument();
     });
+    // wait for debounce to trigger and populate localStorage
+    await act(() => wait(500));
   });
 });

@@ -7,6 +7,7 @@ const CMSApolloContext =
 
 const CMSApolloProvider: React.FC<{
   value: ApolloClient<NormalizedCacheObject>;
+  children?: React.ReactNode;
 }> = ({ children, value }) => {
   return (
     <CMSApolloContext.Provider value={value}>

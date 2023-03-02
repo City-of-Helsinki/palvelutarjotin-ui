@@ -314,6 +314,7 @@ const OccurrenceEnrolmentTable: React.FC<{
 
   return (
     <Table
+      // @ts-ignore
       columns={columns}
       data={filteredOccurrences}
       renderExpandedArea={(occurrence: OccurrenceFieldsFragment) => (

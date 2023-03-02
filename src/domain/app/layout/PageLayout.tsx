@@ -6,7 +6,7 @@ import Header from '../header/Header';
 
 export const MAIN_CONTENT_ID = 'main-content';
 
-const PageLayout: React.FC = ({ children }) => {
+const PageLayout: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
   return (
     <div className={styles.pageLayout}>
       <Header />

@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { act, fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 
@@ -15,17 +15,13 @@ const renderMenuDropdown = (props: MenuDropdownProps) => {
     selector: 'button',
   });
 
-  const clickOnToggleButton = () => {
-    userEvent.click(toggleButton);
+  const clickOnToggleButton = async () => {
+    await act(async () => await userEvent.click(toggleButton));
   };
 
   const getItems = () => screen.getAllByRole('menuitem');
 
   const getItemAtIndex = (index: number) => getItems()[index];
-
-  const clickOnItemAtIndex = (index: number) => {
-    userEvent.click(getItemAtIndex(index));
-  };
 
   const keyDown = (key: string) => {
     fireEvent.keyDown(container, { key });
@@ -48,7 +44,6 @@ const renderMenuDropdown = (props: MenuDropdownProps) => {
     arrowDown,
     arrowUp,
     escape,
-    clickOnItemAtIndex,
     clickOnToggleButton,
   };
 };
@@ -74,7 +69,7 @@ describe('MenuDropdown component', () => {
     const { arrowDown, arrowUp, clickOnToggleButton, getItemAtIndex } =
       renderMenuDropdown(defaultProps);
 
-    clickOnToggleButton();
+    await clickOnToggleButton();
 
     arrowDown();
 
@@ -98,14 +93,14 @@ describe('MenuDropdown component', () => {
     expect(getItemAtIndex(3)).toHaveClass('isFocused');
   });
 
-  it('calls onChange callback correctly', () => {
+  it('calls onChange callback correctly', async () => {
     const { getItemAtIndex, clickOnToggleButton } =
       renderMenuDropdown(defaultProps);
 
-    clickOnToggleButton();
+    await clickOnToggleButton();
 
-    items.forEach(async (item, index) => {
-      getItemAtIndex(index).click();
+    items.forEach((item, index) => {
+      act(() => getItemAtIndex(index).click());
       expect(onClickMock).toHaveBeenCalledTimes(index + 1);
       expect(onClickMock).toHaveBeenCalledWith(item.value);
     });
@@ -113,11 +108,11 @@ describe('MenuDropdown component', () => {
 });
 
 describe('when menu has been closed, it should reopen with', () => {
-  const getClosedInput = () => {
+  const getClosedInput = async () => {
     const helpers = renderMenuDropdown(defaultProps);
     const { clickOnToggleButton, menu, keyDown } = helpers;
 
-    clickOnToggleButton();
+    await clickOnToggleButton();
     expect(menu).toHaveClass('isOpen');
     keyDown('Escape');
     expect(menu).not.toHaveClass('isOpen');
@@ -125,8 +120,8 @@ describe('when menu has been closed, it should reopen with', () => {
     return helpers;
   };
 
-  test('ArrowDown', () => {
-    const { arrowDown, menu } = getClosedInput();
+  test('ArrowDown', async () => {
+    const { arrowDown, menu } = await getClosedInput();
 
     arrowDown();
     expect(menu).toHaveClass('isOpen');

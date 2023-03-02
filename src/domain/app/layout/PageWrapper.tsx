@@ -10,6 +10,7 @@ import { Language } from '../../../types';
 
 interface Props {
   title?: string;
+  children?: React.ReactNode;
 }
 
 const PageWrapper: React.FC<Props> = ({ children, title = 'appName' }) => {

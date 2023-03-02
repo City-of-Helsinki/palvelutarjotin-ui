@@ -76,7 +76,7 @@ it('renders a button to view multiple occurrences when event has them', async ()
   expect(screen.queryByText(/21.9 klo 10:20/)).not.toBeInTheDocument();
   expect(screen.queryByText(/22.10 klo 12:40/)).not.toBeInTheDocument();
 
-  userEvent.click(
+  await userEvent.click(
     screen.getByRole('button', {
       name: /\+ muita tapahtuma-aikoja/i,
     })
@@ -180,7 +180,7 @@ it('renders multiday occurrence time correctly', async () => {
     expect(screen.getByText('20.9.2020 – 22.9.2020')).toBeInTheDocument();
   });
 
-  userEvent.click(
+  await userEvent.click(
     screen.getByRole('button', {
       name: /\+ muita tapahtuma-aikoja/i,
     })
