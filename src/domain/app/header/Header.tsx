@@ -199,7 +199,9 @@ const useCmsLanguageOptions = ({ skip = false }: { skip?: boolean } = {}) => {
     : [];
 };
 
-const Link: React.FC<LinkProps & { lang: string }> = ({
+type CustomLinkProps = LinkProps & { lang: string; children?: React.ReactNode };
+
+const Link: React.FC<CustomLinkProps> = ({
   href,
   children,
   locale,

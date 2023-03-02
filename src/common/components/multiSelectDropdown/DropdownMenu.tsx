@@ -6,6 +6,7 @@ import styles from './dropdownMenu.module.scss';
 interface Props {
   isOpen: boolean;
   onClear: () => void;
+  children?: React.ReactNode;
 }
 
 const DropdownMenu: React.FC<Props> = ({ children, isOpen, onClear }) => {

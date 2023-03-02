@@ -577,7 +577,6 @@ exports[`navigation renders menus and dropdown menus 1`] = `
                     class="Menu-module_menu__FuqT0"
                     id="hds-menu-button-2-menu"
                     role="region"
-                    style="top: 0px; min-width: 190px;"
                   >
                     <a
                       class="Menu-module_item__3yQdE "
@@ -724,7 +723,6 @@ exports[`navigation renders menus and dropdown menus 1`] = `
                     class="Menu-module_menu__FuqT0"
                     id="languageSelector-menu"
                     role="region"
-                    style="top: 10px; min-width: 190px;"
                   >
                     <a
                       class="Menu-module_item__3yQdE "

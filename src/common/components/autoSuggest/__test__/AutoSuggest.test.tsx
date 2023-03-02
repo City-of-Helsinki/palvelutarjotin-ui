@@ -58,12 +58,12 @@ describe('<AutoSuggest />', () => {
     expect(screen.queryByText(/ei tuloksia/i)).toBeInTheDocument();
   });
 
-  it('calls setInputValue correctly when user types to input', () => {
+  it('calls setInputValue correctly when user types to input', async () => {
     const { labelText, setInputValue } = renderAutoSuggest();
 
     const input = screen.getByLabelText(labelText);
 
-    act(() => userEvent.type(input, 'testi'));
+    await act(async () => await userEvent.type(input, 'testi'));
 
     expect(setInputValue.mock.calls).toEqual([
       ['t'],
@@ -77,7 +77,7 @@ describe('<AutoSuggest />', () => {
   it('shows autocomplete list when using arrow key', async () => {
     renderAutoSuggest({ options });
 
-    act(() => userEvent.tab());
+    await act(async () => await userEvent.tab());
 
     fireEvent.keyDown(document.activeElement || document.body, {
       key: 'ArrowDown',
@@ -90,36 +90,36 @@ describe('<AutoSuggest />', () => {
     });
   });
 
-  it('show focused autocomplete item correctly and calls onChange when item selected', () => {
+  it('show focused autocomplete item correctly and calls onChange when item selected', async () => {
     const { onChange } = renderAutoSuggest({ options });
 
-    act(() => userEvent.tab());
+    await act(async () => await userEvent.tab());
 
-    keyDown('ArrowDown');
+    act(() => keyDown('ArrowDown'));
 
     expect(
       screen.queryByRole('option', { name: options[0].label })
     ).toHaveClass('isFocused');
 
-    keyDown('ArrowDown');
+    act(() => keyDown('ArrowDown'));
 
     expect(
       screen.queryByRole('option', { name: options[1].label })
     ).toHaveClass('isFocused');
 
-    keyDown('ArrowDown');
+    act(() => keyDown('ArrowDown'));
 
     expect(
       screen.queryByRole('option', { name: options[2].label })
     ).toHaveClass('isFocused');
 
-    keyDown('ArrowUp');
+    act(() => keyDown('ArrowUp'));
 
     expect(
       screen.queryByRole('option', { name: options[1].label })
     ).toHaveClass('isFocused');
 
-    keyDown('Enter');
+    act(() => keyDown('Enter'));
 
     expect(onChange).toHaveBeenCalledWith(options[1]);
 
@@ -131,7 +131,7 @@ describe('<AutoSuggest />', () => {
     });
   });
 
-  it('calls onChange when clicking one of the options', () => {
+  it('calls onChange when clicking one of the options', async () => {
     const { labelText, onChange } = renderAutoSuggest({
       options,
       inputValue: 'test',
@@ -139,7 +139,7 @@ describe('<AutoSuggest />', () => {
 
     const input = screen.getByLabelText(labelText);
 
-    act(() => userEvent.click(input));
+    await act(async () => await userEvent.click(input));
 
     const selectedOption = screen.getByRole('option', {
       name: options[2].label,

@@ -41,6 +41,9 @@ const NewsletterEndpoint = async (
 
   switch (method) {
     case 'POST': // To subscribe
+      if (!groupId) {
+        throw new Error('GroupId cannot be undefined');
+      }
       const subscriberMail = await addSubscriber(groupId, body).catch((err) =>
         axiosErrorHandler(res, err)
       );

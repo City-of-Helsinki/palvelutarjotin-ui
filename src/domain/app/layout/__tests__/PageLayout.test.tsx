@@ -62,8 +62,13 @@ it('renders notification and it can be closed', async () => {
   within(notification).getByText(notificationContent);
   within(notification).getByText(notificationTitle);
 
-  userEvent.click(
-    within(notification).getByRole('button', { name: 'Sulje huomiotiedote' })
+  await act(
+    async () =>
+      await userEvent.click(
+        within(notification).getByRole('button', {
+          name: 'Sulje huomiotiedote',
+        })
+      )
   );
 
   await waitFor(() => {

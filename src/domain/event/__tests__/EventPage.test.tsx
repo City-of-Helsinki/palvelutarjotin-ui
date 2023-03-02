@@ -463,10 +463,13 @@ it('hides seats left column header when event has external enrolment', async () 
     `"15.7.2020 – 17.7.2020suomi, ruotsi, englantifi, sv, enSoukan kirjastoNäytä lisätiedot"`
   );
 
-  userEvent.click(
-    within(tableRows[1]).getByRole('button', {
-      name: /näytä tapahtuma-ajan lisätiedot/i,
-    })
+  await act(
+    async () =>
+      await userEvent.click(
+        within(tableRows[1]).getByRole('button', {
+          name: /näytä tapahtuma-ajan lisätiedot/i,
+        })
+      )
   );
   screen.getByRole('link', {
     name: /ilmoittaudu avautuu uudessa välilehdessä/i,
@@ -492,7 +495,7 @@ it('selecting enrolments works and buttons have correct texts', async () => {
     )
   ).toHaveLength(3);
 
-  userEvent.click(occurrenceEnrolmentButtons[0]);
+  await act(async () => await userEvent.click(occurrenceEnrolmentButtons[0]));
 
   expect(occurrenceEnrolmentButtons[0]).toBeChecked();
 
@@ -500,18 +503,21 @@ it('selecting enrolments works and buttons have correct texts', async () => {
   // -> new query is needed
   occurrenceEnrolmentButtons = getOccurrenceCheckboxes();
 
-  userEvent.click(occurrenceEnrolmentButtons[1]);
+  await act(async () => await userEvent.click(occurrenceEnrolmentButtons[1]));
 
   expect(occurrenceEnrolmentButtons[1]).toBeChecked();
 
   occurrenceEnrolmentButtons = getOccurrenceCheckboxes();
 
-  userEvent.click(occurrenceEnrolmentButtons[2]);
+  await act(async () => await userEvent.click(occurrenceEnrolmentButtons[2]));
 
-  userEvent.click(
-    screen.getByRole('button', {
-      name: eventMessages.occurrenceList.loadMoreOccurrences,
-    })
+  await act(
+    async () =>
+      await userEvent.click(
+        screen.getByRole('button', {
+          name: eventMessages.occurrenceList.loadMoreOccurrences,
+        })
+      )
   );
 
   // should be 3 buttons with valittu text and not disabled
@@ -530,7 +536,7 @@ it('selecting enrolments works and buttons have correct texts', async () => {
     )
   ).toHaveLength(8);
 
-  userEvent.click(screen.getByRole('button', { name: 'Ilmoittaudu' }));
+  await userEvent.click(screen.getByRole('button', { name: 'Ilmoittaudu' }));
 
   // should render form when user has clicked "Ilmoittaudu"
   await screen.findByRole('heading', {
@@ -555,7 +561,7 @@ it('opens expanded area with enrolment button when clicked', async () => {
     screen.queryByText(occurrenceMessages.dateAndTimeTitle)
   ).not.toBeInTheDocument();
 
-  userEvent.click(expandButton);
+  await userEvent.click(expandButton);
 
   await waitFor(() => {
     expect(screen.queryByText(data.venueDescription)).toBeInTheDocument();
@@ -604,7 +610,7 @@ it('renders enrolment notification and expanded area does not have an enrolment 
 
   const occurrenceRow = within(screen.getAllByRole('row')[8]);
 
-  userEvent.click(
+  await userEvent.click(
     occurrenceRow.getByRole('button', {
       name: occurrenceMessages.ariaLabelShowDetails,
     })
@@ -628,14 +634,18 @@ it('filters occurrence list correctly when sate filters are selected', async () 
   renderComponent();
   await waitForRequestsToComplete();
 
-  userEvent.click(
+  await userEvent.click(
     screen.getByLabelText(eventMessages.occurrenceList.labelStartDateFilter)
   );
-  userEvent.click(screen.getByRole('button', { name: 'Valitse 28.7.2020' }));
-  userEvent.click(
+  await userEvent.click(
+    screen.getByRole('button', { name: 'Valitse 28.7.2020' })
+  );
+  await userEvent.click(
     screen.getByLabelText(eventMessages.occurrenceList.labelEndDateFilter)
   );
-  userEvent.click(screen.getByRole('button', { name: 'Valitse 29.7.2020' }));
+  await userEvent.click(
+    screen.getByRole('button', { name: 'Valitse 29.7.2020' })
+  );
 
   const tableRows = screen.getAllByRole('row');
 
@@ -764,7 +774,7 @@ it('shows external enrolment link in occurrence row when event has external enro
   const detailsButton = await screen.findByRole('button', {
     name: /Näytä tapahtuma-ajan lisätiedot/i,
   });
-  userEvent.click(detailsButton);
+  await userEvent.click(detailsButton);
 
   const enrolmentLink = await screen.findByRole('link', {
     name: /ilmoittaudu/i,
@@ -793,7 +803,7 @@ it('shows inquire registration button when no autoacceptance', async () => {
   const showDetailsButton = await screen.findByRole('button', {
     name: /näytä tapahtuma-ajan lisätiedot/i,
   });
-  userEvent.click(showDetailsButton);
+  await userEvent.click(showDetailsButton);
 
   await screen.findByRole('button', {
     name: /varaustiedustelu/i,
@@ -821,7 +831,7 @@ it('shows normal enrolment button when autoacceptance is on', async () => {
   const showDetailsButton = await screen.findByRole('button', {
     name: /näytä tapahtuma-ajan lisätiedot/i,
   });
-  userEvent.click(showDetailsButton);
+  await userEvent.click(showDetailsButton);
 
   await screen.findByRole('button', {
     name: /ilmoittaudu/i,

@@ -25,6 +25,7 @@ const matomoInstance = createMatomoInstance({
 function Matomo({ children }: { children: React.ReactNode }): JSX.Element {
   if (matomoInstance) {
     return (
+      // @ts-ignore 2322
       <MatomoProvider value={matomoInstance}>
         <TrackPageViews />
         {children}

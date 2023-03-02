@@ -133,7 +133,6 @@ exports[`renders multiday occurrence time correctly 1`] = `
               />
             </g>
           </svg>
-          
         </div>
       </div>
       <ul

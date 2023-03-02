@@ -21,11 +21,11 @@ import {
 import {
   render,
   screen,
-  act,
   configure,
   userEvent,
   fireEvent,
   waitFor,
+  act,
 } from '../../../utils/testUtils';
 import { EVENT_SORT_OPTIONS } from '../constants';
 import EventsSearchPage, { EVENT_SORT_STORAGE_KEY } from '../EventsSearchPage';
@@ -115,6 +115,45 @@ const mocks: MockedResponse[] = [
       },
     },
   },
+  {
+    request: {
+      query: KeywordSetDocument,
+      variables: {
+        setType: 'CATEGORY',
+      },
+    },
+    result: {
+      data: {
+        keywordSet: null,
+      },
+    },
+  },
+  {
+    request: {
+      query: KeywordSetDocument,
+      variables: {
+        setType: 'TARGET_GROUP',
+      },
+    },
+    result: {
+      data: {
+        keywordSet: null,
+      },
+    },
+  },
+  {
+    request: {
+      query: KeywordSetDocument,
+      variables: {
+        setType: 'ADDITIONAL_CRITERIA',
+      },
+    },
+    result: {
+      data: {
+        keywordSet: null,
+      },
+    },
+  },
 ];
 
 afterEach(() => {
@@ -137,8 +176,11 @@ test('renders search form and events list with correct information', async () =>
   ).not.toBeInTheDocument();
 
   // expand search panel
-  act(() =>
-    userEvent.click(screen.getByRole('button', { name: /muokkaa hakua/i }))
+  await act(
+    async () =>
+      await userEvent.click(
+        screen.getByRole('button', { name: /muokkaa hakua/i })
+      )
   );
 
   expect(
@@ -229,10 +271,13 @@ test('search form is in advanced state if advanced search parameters are used', 
   testAdvancedSearchIsVisible();
 
   // hides advanced search
-  userEvent.click(
-    screen.getByRole('button', {
-      name: /piilota lisäkentät/i,
-    })
+  await act(
+    async () =>
+      await userEvent.click(
+        screen.getByRole('button', {
+          name: /piilota lisäkentät/i,
+        })
+      )
   );
 
   testAdvancedSearchNotVisible();
@@ -283,7 +328,11 @@ test('renders filter tag when category not found in pre defined list', async () 
     },
   });
 
-  await screen.findByRole('button', { name: `Poista suodatin ${keywordName}` });
+  await screen.findByRole(
+    'button',
+    { name: `Poista suodatin ${keywordName}` },
+    { timeout: 5000 }
+  );
 });
 
 test('saves sort state to local storage', async () => {
@@ -294,9 +343,13 @@ test('saves sort state to local storage', async () => {
   });
   // Expand the sort selector
   const toggleButton = await screen.findByText(/ajankohtaista/i);
-  act(() => userEvent.click(toggleButton));
-  act(() =>
-    userEvent.click(screen.getByRole('option', { name: /viimeksi muokattu/i }))
+  await act(async () => await userEvent.click(toggleButton));
+
+  await act(
+    async () =>
+      await userEvent.click(
+        screen.getByRole('option', { name: /viimeksi muokattu/i })
+      )
   );
 
   const localStorageObject = JSON.parse(

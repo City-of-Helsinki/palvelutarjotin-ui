@@ -7,6 +7,7 @@ interface Props {
   color?: 'white' | 'black';
   htmlFor: string;
   srOnly?: boolean;
+  children?: React.ReactNode;
 }
 
 const SearchLabel: React.FC<Props> = ({

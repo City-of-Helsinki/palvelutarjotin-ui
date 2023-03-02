@@ -86,14 +86,14 @@ exports[`SubscribeNewsletterPage renders correctly 1`] = `
                   >
                     <div
                       class="Tag-module_tag__3bo5S tag_hds-tag__3MKf3 SelectedItems-module_tag__13n3H SelectedItems-module_hidden__2hyRx"
-                      id="hds-tag-7"
+                      id="hds-tag-10"
                       role="button"
                       tabindex="0"
                     >
                       <span
-                        aria-labelledby="groups-label hds-tag-7-label"
+                        aria-labelledby="groups-label hds-tag-10-label"
                         class="Tag-module_label__zCgFr tag_hds-tag__label__I6mc8"
-                        id="hds-tag-7-label"
+                        id="hds-tag-10-label"
                       >
                         <span
                           aria-hidden="false"
@@ -103,7 +103,7 @@ exports[`SubscribeNewsletterPage renders correctly 1`] = `
                       </span>
                       <button
                         class="Tag-module_deleteButton__1diMR tag_hds-tag__delete-button__33Tgz"
-                        id="hds-tag-7-delete-button"
+                        id="hds-tag-10-delete-button"
                         tabindex="-1"
                         type="button"
                       >
@@ -132,14 +132,14 @@ exports[`SubscribeNewsletterPage renders correctly 1`] = `
                     </div>
                     <div
                       class="Tag-module_tag__3bo5S tag_hds-tag__3MKf3 SelectedItems-module_tag__13n3H SelectedItems-module_hidden__2hyRx"
-                      id="hds-tag-8"
+                      id="hds-tag-11"
                       role="button"
                       tabindex="-1"
                     >
                       <span
-                        aria-labelledby="groups-label hds-tag-8-label"
+                        aria-labelledby="groups-label hds-tag-11-label"
                         class="Tag-module_label__zCgFr tag_hds-tag__label__I6mc8"
-                        id="hds-tag-8-label"
+                        id="hds-tag-11-label"
                       >
                         <span
                           aria-hidden="false"
@@ -149,7 +149,7 @@ exports[`SubscribeNewsletterPage renders correctly 1`] = `
                       </span>
                       <button
                         class="Tag-module_deleteButton__1diMR tag_hds-tag__delete-button__33Tgz"
-                        id="hds-tag-8-delete-button"
+                        id="hds-tag-11-delete-button"
                         tabindex="-1"
                         type="button"
                       >
@@ -178,14 +178,14 @@ exports[`SubscribeNewsletterPage renders correctly 1`] = `
                     </div>
                     <div
                       class="Tag-module_tag__3bo5S tag_hds-tag__3MKf3 SelectedItems-module_tag__13n3H SelectedItems-module_hidden__2hyRx"
-                      id="hds-tag-9"
+                      id="hds-tag-12"
                       role="button"
                       tabindex="-1"
                     >
                       <span
-                        aria-labelledby="groups-label hds-tag-9-label"
+                        aria-labelledby="groups-label hds-tag-12-label"
                         class="Tag-module_label__zCgFr tag_hds-tag__label__I6mc8"
-                        id="hds-tag-9-label"
+                        id="hds-tag-12-label"
                       >
                         <span
                           aria-hidden="false"
@@ -195,7 +195,7 @@ exports[`SubscribeNewsletterPage renders correctly 1`] = `
                       </span>
                       <button
                         class="Tag-module_deleteButton__1diMR tag_hds-tag__delete-button__33Tgz"
-                        id="hds-tag-9-delete-button"
+                        id="hds-tag-12-delete-button"
                         tabindex="-1"
                         type="button"
                       >
@@ -329,7 +329,6 @@ exports[`SubscribeNewsletterPage renders correctly 1`] = `
                       value=""
                     />
                   </div>
-                  
                 </div>
                 <div
                   class="TextInput-module_root__2CMNr text-input_hds-text-input__2LODq"
@@ -357,7 +356,6 @@ exports[`SubscribeNewsletterPage renders correctly 1`] = `
                       value=""
                     />
                   </div>
-                  
                 </div>
               </div>
             </div>
@@ -393,7 +391,6 @@ exports[`SubscribeNewsletterPage renders correctly 1`] = `
                       value=""
                     />
                   </div>
-                  
                 </div>
               </div>
             </div>

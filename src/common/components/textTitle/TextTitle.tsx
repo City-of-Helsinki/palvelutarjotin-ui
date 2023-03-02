@@ -5,6 +5,7 @@ import styles from './textTitle.module.scss';
 
 type Props = {
   className?: string;
+  children?: React.ReactNode;
 };
 
 const TextTitle: React.FC<Props> = ({ children, className }) => {

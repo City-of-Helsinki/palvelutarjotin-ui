@@ -2,7 +2,13 @@ import { rest } from 'msw';
 import * as React from 'react';
 
 import { server } from '../../../tests/msw/server';
-import { render, userEvent, screen, waitFor } from '../../../utils/testUtils';
+import {
+  render,
+  userEvent,
+  screen,
+  waitFor,
+  act,
+} from '../../../utils/testUtils';
 import { NewsletterGroupId } from '../newsletterSubscribeForm/constants';
 import SubscribeNewsletterPage from '../SubscribeNewsletterPage';
 
@@ -28,26 +34,35 @@ describe('SubscribeNewsletterPage', () => {
     server.use(...serverSuccessfulAddSubscriptionHandlers);
   });
 
-  const fillupForm = (values = defaultFillValues) => {
-    userEvent.type(
-      screen.getByRole('textbox', {
-        name: /etunimi \*/i,
-      }),
-      firstName
+  const fillupForm = async (values = defaultFillValues) => {
+    await act(
+      async () =>
+        await userEvent.type(
+          screen.getByRole('textbox', {
+            name: /etunimi \*/i,
+          }),
+          firstName
+        )
     );
 
-    userEvent.type(
-      screen.getByRole('textbox', {
-        name: /sukunimi \*/i,
-      }),
-      lastName
+    await act(
+      async () =>
+        await userEvent.type(
+          screen.getByRole('textbox', {
+            name: /sukunimi \*/i,
+          }),
+          lastName
+        )
     );
 
-    userEvent.type(
-      screen.getByRole('textbox', {
-        name: /sähköposti \*/i,
-      }),
-      email
+    await act(
+      async () =>
+        await userEvent.type(
+          screen.getByRole('textbox', {
+            name: /sähköposti \*/i,
+          }),
+          email
+        )
     );
   };
 
@@ -58,17 +73,20 @@ describe('SubscribeNewsletterPage', () => {
 
   it('handles successful submits properly', async () => {
     render(<SubscribeNewsletterPage />);
-    fillupForm();
+    await fillupForm();
     expect(
       screen.queryByRole('heading', {
         name: /tilaus lähetetty/i,
       })
     ).not.toBeInTheDocument();
 
-    userEvent.click(
-      screen.getByRole('button', {
-        name: /tilaa uutiskirje/i,
-      })
+    await act(
+      async () =>
+        await userEvent.click(
+          screen.getByRole('button', {
+            name: /tilaa uutiskirje/i,
+          })
+        )
     );
 
     await waitFor(
@@ -90,17 +108,23 @@ describe('SubscribeNewsletterPage', () => {
     server.use(...serverUnsuccessfulAddSubscriptionHandlers);
 
     render(<SubscribeNewsletterPage />);
-    fillupForm({ ...defaultFillValues, email: 'not-an-email' });
+    await act(
+      async () =>
+        await fillupForm({ ...defaultFillValues, email: 'not-an-email' })
+    );
     expect(
       screen.queryByRole('heading', {
         name: /tilaus lähetetty/i,
       })
     ).not.toBeInTheDocument();
 
-    userEvent.click(
-      screen.getByRole('button', {
-        name: /tilaa uutiskirje/i,
-      })
+    await act(
+      async () =>
+        await userEvent.click(
+          screen.getByRole('button', {
+            name: /tilaa uutiskirje/i,
+          })
+        )
     );
 
     await waitFor(() => {

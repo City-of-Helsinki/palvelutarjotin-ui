@@ -153,7 +153,9 @@ test('renders search form and events list with correct information', async () =>
     screen.queryByLabelText('Kielet', { selector: 'button' })
   ).not.toBeInTheDocument();
 
-  userEvent.click(screen.getByRole('button', { name: /tarkennettu haku/i }));
+  await userEvent.click(
+    screen.getByRole('button', { name: /tarkennettu haku/i })
+  );
 
   expect(screen.queryByLabelText('Alueet')).toBeInTheDocument();
   expect(screen.queryByLabelText('Paikat')).toBeInTheDocument();

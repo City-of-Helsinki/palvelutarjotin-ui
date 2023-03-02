@@ -7,6 +7,7 @@ import IconLoadingSpinner from '../../../icons/IconLoadingSpinner';
 interface Props {
   hasPadding?: boolean;
   isLoading: boolean;
+  children?: React.ReactNode;
 }
 
 const LoadingSpinner: FunctionComponent<Props> = ({
