@@ -1,5 +1,5 @@
 # =======================================
-FROM helsinkitest/node:14-slim as appbase
+FROM helsinkitest/node:16-slim as appbase
 # =======================================
 
 # Use non-root user
@@ -64,7 +64,7 @@ COPY --chown=appuser:appuser . .
 RUN yarn build
 
 # ==========================================
-FROM helsinkitest/node:14-slim AS production
+FROM helsinkitest/node:16-slim AS production
 # ==========================================
 
 ARG NEXT_PUBLIC_CAPTCHA_KEY

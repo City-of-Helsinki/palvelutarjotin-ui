@@ -7,21 +7,24 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 ## Environments
 
 Production environment:
+
 - https://kultus.fi/
 - Project is automatically deployed to production when adding new relase tag, e.g. release-v0.1.0, to repo
 
 Testing environment:
+
 - https://palvelutarjotin.test.kuva.hel.ninja
 - Project is automatically deployed to testing environment when pushing to develop brach
 
 ## Requirements
 
-- Node 14.x
+- Node 16.x
 - Yarn
 - Git
 - Docker
 
 ## Steps to set up locally:
+
 1. Set up palvelutarjotin API locally, see [palvelutarjotin README](https://github.com/City-of-Helsinki/palvelutarjotin/blob/master/README.md)
 2. Copy `.env.local.example` to `.env.local` and fill/update the required values
 3. Run `yarn` to install dependencies
@@ -38,6 +41,7 @@ Palvelutarjotin-ui uses googles reCAPTCHA v3:
 - [Google reCAPTCHA admin account login information](https://vault.kuva.hel.ninja/ui/vault/secrets/share/show/palvelutarjotin-google-recaptcha)
 
 **NOTE**:
+
 - `NEXT_PUBLIC_CAPTCHA_KEY` is required to be set correctly for the application to work.
   - Site key `6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI` from
     [reCAPTCHA FAQ](https://developers.google.com/recaptcha/docs/faq#id-like-to-run-automated-tests-with-recaptcha.-what-should-i-do)
