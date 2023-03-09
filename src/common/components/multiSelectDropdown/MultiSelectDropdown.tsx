@@ -273,8 +273,6 @@ const MultiSelectDropdown: React.FC<MultiselectDropdownProps> = ({
         isFocused={isFocused}
       >
         <Checkbox
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
           ref={setFocus}
           checked={isChecked}
           id={`${checkboxName}_${option.value}`}

@@ -2,7 +2,7 @@ import {
   createInstance as createMatomoInstance,
   MatomoProvider,
   useMatomo,
-} from '@datapunt/matomo-tracker-react';
+} from '@jonkoops/matomo-tracker-react';
 import { useCookies } from 'hds-react';
 import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
@@ -25,7 +25,6 @@ const matomoInstance = createMatomoInstance({
 function Matomo({ children }: { children: React.ReactNode }): JSX.Element {
   if (matomoInstance) {
     return (
-      // @ts-ignore 2322
       <MatomoProvider value={matomoInstance}>
         <TrackPageViews />
         {children}

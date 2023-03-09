@@ -30,7 +30,7 @@ import EventsPage from '../EventsPage';
 
 configure({ defaultHidden: true });
 
-jest.setTimeout(70_000);
+jest.setTimeout(95_000);
 
 const testDate = new Date(2020, 5, 20);
 

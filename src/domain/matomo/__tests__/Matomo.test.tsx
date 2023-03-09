@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import * as matomo from '@datapunt/matomo-tracker-react';
+import * as matomo from '@jonkoops/matomo-tracker-react';
 import * as nextRouter from 'next/router';
 import * as React from 'react';
 
