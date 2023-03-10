@@ -13,80 +13,80 @@ type TimesListProps = {
   datetime: Date | null;
 };
 
-const TimesList = React.memo(
-  React.forwardRef<HTMLDivElement, TimesListProps>(
-    ({ times, onTimeClick, datetime }, forwardedRef) => {
-      const { t } = useTranslation();
-      const findSelectedIndex = React.useCallback(() => {
-        if (datetime) {
-          const index = times.findIndex(
-            (time) =>
-              datetime.getHours() === time.hours &&
-              datetime.getMinutes() === time.minutes
-          );
-          return index < 0 ? 0 : index;
-        }
-        return 0;
-      }, [datetime, times]);
-
-      const [selectedIndex, setSelectedIndex] = React.useState<number>(() => {
-        return findSelectedIndex();
-      });
-
-      const {
-        focusedIndex,
-        setFocusedIndex,
-        setup: setupKeyboardNav,
-        teardown: teardownKeyoboardNav,
-      } = useDropdownKeyboardNavigation({
-        container:
-          forwardedRef as React.MutableRefObject<HTMLDivElement | null>,
-        listLength: times.length,
-        initialFocusedIndex: findSelectedIndex(),
-      });
-
-      React.useEffect(() => {
-        setupKeyboardNav();
-        return () => {
-          teardownKeyoboardNav();
-        };
-      }, [setupKeyboardNav, teardownKeyoboardNav]);
-
-      React.useEffect(() => {
-        setSelectedIndex(findSelectedIndex());
-      }, [datetime, findSelectedIndex, setFocusedIndex]);
-
-      return (
-        <>
-          <div className={styles.timesDivider} />
-          <div
-            aria-label={t('common:datepicker.accessibility.timeInstructions')}
-            className={styles.timesListContainer}
-            tabIndex={0}
-            ref={forwardedRef}
-          >
-            <div className={styles.timesList}>
-              {times.map((time, index) => (
-                <TimeItem
-                  key={`${time.hours}:${time.minutes}`}
-                  label={t('common:datepicker.accessibility.selectTime', {
-                    value: formatTime(time),
-                  })}
-                  time={time}
-                  index={index}
-                  selected={selectedIndex === index}
-                  focused={focusedIndex === index}
-                  setFocusedIndex={setFocusedIndex}
-                  onTimeClick={onTimeClick}
-                />
-              ))}
-            </div>
-          </div>
-        </>
+const TimesList: React.FC<TimesListProps> = ({
+  times,
+  onTimeClick,
+  datetime,
+}) => {
+  const containerRef = React.useRef<HTMLDivElement>(null);
+  const { t } = useTranslation();
+  const findSelectedIndex = React.useCallback(() => {
+    if (datetime) {
+      const index = times.findIndex(
+        (time) =>
+          datetime.getHours() === time.hours &&
+          datetime.getMinutes() === time.minutes
       );
+      return index < 0 ? 0 : index;
     }
-  )
-);
+    return 0;
+  }, [datetime, times]);
+
+  const [selectedIndex, setSelectedIndex] = React.useState<number>(() => {
+    return findSelectedIndex();
+  });
+
+  const {
+    focusedIndex,
+    setFocusedIndex,
+    setup: setupKeyboardNav,
+    teardown: teardownKeyoboardNav,
+  } = useDropdownKeyboardNavigation({
+    container: containerRef,
+    listLength: times.length,
+    initialFocusedIndex: findSelectedIndex(),
+  });
+
+  React.useEffect(() => {
+    setupKeyboardNav();
+    return () => {
+      teardownKeyoboardNav();
+    };
+  }, [setupKeyboardNav, teardownKeyoboardNav]);
+
+  React.useEffect(() => {
+    setSelectedIndex(findSelectedIndex());
+  }, [datetime, findSelectedIndex, setFocusedIndex]);
+
+  return (
+    <>
+      <div className={styles.timesDivider} />
+      <div
+        aria-label={t('common:datepicker.accessibility.timeInstructions')}
+        className={styles.timesListContainer}
+        tabIndex={0}
+        ref={containerRef}
+      >
+        <div className={styles.timesList}>
+          {times.map((time, index) => (
+            <TimeItem
+              key={`${time.hours}:${time.minutes}`}
+              label={t('common:datepicker.accessibility.selectTime', {
+                value: formatTime(time),
+              })}
+              time={time}
+              index={index}
+              selected={selectedIndex === index}
+              focused={focusedIndex === index}
+              setFocusedIndex={setFocusedIndex}
+              onTimeClick={onTimeClick}
+            />
+          ))}
+        </div>
+      </div>
+    </>
+  );
+};
 
 type TimeItemProps = {
   time: TimeObject;
