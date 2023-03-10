@@ -35,7 +35,6 @@ const MINUTE_INTERVAL = 15;
 
 export type DatepickerProps = {
   className?: string;
-  disabled?: boolean;
   helperText?: string;
   id: string;
   invalidText?: string;
@@ -77,7 +76,6 @@ const Datepicker: React.FC<DatepickerProps> = ({
   const closeButton = React.useRef<HTMLButtonElement>(null);
   const inputRef = React.useRef<HTMLInputElement>(null);
   const datepickerContainer = React.useRef<HTMLDivElement>(null);
-  const timesContainer = React.useRef<HTMLDivElement>(null);
   const dialogLabelId = React.useMemo(
     () => generateUniqueId('dialog-label'),
     []
@@ -416,7 +414,6 @@ const Datepicker: React.FC<DatepickerProps> = ({
                   <TimesList
                     times={times}
                     datetime={value}
-                    ref={timesContainer}
                     onTimeClick={handleTimeClick}
                   />
                 )}
