@@ -121,7 +121,6 @@ const PopularKeywords: React.FC = () => {
 
   return popularKeywords ? (
     <div className={styles.popularKeywords}>
-      <Koros className={styles.korosTop} />
       <div className={styles.popularKeywordsSection}>
         <Container>
           <h2>{t('events:titlePopularEventCategories')}</h2>

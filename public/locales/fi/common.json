@@ -2,7 +2,9 @@
   "appName": "Kultus",
   "buttonBack": "Takaisin",
   "bannerHero": {
-    "title": "Oppimisen elämyksiä koko kaupungissa"
+    "topTitle": "Kulttuuri- ja toimintakalenteri",
+    "middleTitle": "Oppimisen elämyksiä koko kaupungissa",
+    "bottomTitle": "Oppiminen ja kulttuuri kuuluvat kaikille lapsille ja nuorille. Kultuksesta löydät kouluille, päiväkodeille ja oppilaitoksille suunnatut tämän hetken kiinnostavimmat kulttuurin tapahtumat ja elämykset. Tarjolla on muun muassa sirkusta, satutuokioita, luontoretkiä, taidetyöpajoja, turvallisuuskursseja, liikuntaa ja paljon muuta. Sisältöihin voi tutustua selaamalla kalenteria ja ilmoittautumalla mukaan tapahtumiin."
   },
   "dropdown": {
     "placeholder": "Valitse...",
