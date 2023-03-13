@@ -1,24 +1,81 @@
-.bannerHeroContainer {
+@import 'layout';
+
+.bannerHeroUpperText {
   width: 100%;
-  background-position: 50%;
-  background-repeat: no-repeat;
-  background-size: cover;
-  padding-top: var(--spacing-layout-m);
+  background-color: var(--color-white);
+  position: relative;
+  z-index: 2;
+  padding-top: var(--spacing-layout-2-xs);
+
+  h1,
+  h2,
+  h3 {
+    font-weight: normal;
+  }
 
   h1 {
-    font-size: 5rem;
-    margin: 0;
-    font-weight: bold;
-    color: var(--color-white);
+    font-size: var(--fontsize-heading-l);
+    color: var(--color-black-90);
+    margin-bottom: var(--spacing-3-xs);
   }
 
   h2 {
-    font-size: var(--fontsize-heading-l);
-    padding-left: var(--spacing-layout-m);
-    color: var(--color-white);
+    background-color: var(--color-white);
+    font-size: var(--fontsize-heading-xxl);
+    margin: 0;
+    color: var(--color-black);
+  }
+
+  h3 {
+    width: 75%;
+    font-size: var(--fontsize-heading-xs);
+    color: var(--color-black-90);
+    margin-top: var(--spacing-layout-2-xs);
+    line-height: var(--lineheight-xl);
   }
 }
 
-.koros {
-  fill: var(--background-color-body);
+.bannerHeroContainer {
+  position: relative;
+  z-index: 1;
+  background-color: var(--color-white);
+  margin-top: calc(-1 * var(--spacing-xl));
+}
+
+.bannerHeroImage {
+  background-position: 50%;
+  background-size: cover;
+}
+
+.korosTop {
+  fill: var(--color-white);
+  position: relative;
+  transform: scaleY(-1);
+  z-index: 1;
+}
+
+.bannerHeroSpacer {
+  height: 320px;
+}
+
+.korosBottom {
+  fill: var(--color-white);
+}
+
+.bannerHeroOverlay {
+  position: relative;
+  z-index: 2;
+  margin-top: -185px;
+
+  @include respond-above(md) {
+    margin-top: -165px;
+  }
+
+  @include respond-above(lg) {
+    margin-top: -155px;
+  }
+
+  @include respond-above(xlg) {
+    margin-top: -120px;
+  }
 }

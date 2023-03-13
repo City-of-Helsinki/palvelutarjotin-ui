@@ -3,12 +3,10 @@
 .eventsSearchForm {
   background-color: var(--color-black-70);
   padding: var(--spacing-layout-xs);
-  margin: var(--spacing-layout-s) 0;
-  margin-bottom: var(--spacing-layout-xl) !important;
+  margin-bottom: var(--spacing-layout-s) !important;
 
   @include respond_above(md) {
     padding: var(--spacing-layout-l);
-    margin: var(--spacing-layout-l) 0;
   }
 }
 
@@ -40,16 +38,15 @@
 
 .popularKeywordsSection {
   background-color: var(--color-white);
-  margin-top: -20px;
-  padding-bottom: 65px;
+  padding-bottom: calc(-1 * var(--spacing-4-xl));
 }
 
 .korosTop {
-  fill: var(--color-white); // var(--background-color-body);
-  margin-top: -1rem;
+  fill: var(--color-white);
+  margin-top: -6.3rem;
 }
 
 .korosBottom {
   fill: var(--background-color-body);
-  margin-top: -1rem;
+  margin-top: calc(-1 * var(--spacing-s));
 }
