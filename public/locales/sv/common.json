@@ -2,9 +2,9 @@
   "appName": "Kultus",
   "buttonBack": "Tillbaka",
   "bannerHero": {
-    "topTitle": "Kultur- och aktivitetskalender",
-    "middleTitle": "Konst, kultur och evenemang för skola och småbarnspedagogik",
-    "bottomTitle": "Lärande och kultur tillhör alla barn och unga. I Kultu hittar du stundens mest intressanta kulturevenemang och upplevelser riktade till skolor, förskolor och utbildningsinstitutioner. Det finns bland annat cirkus, sagor, naturresor, konstverkstäder, säkerhetskurser, motion och mycket mer. Du kan bekanta dig med innehållet genom att bläddra i kalendern och anmäla dig till evenemangen."
+    "topTitle": "Kultur- och verksamhetskalendern",
+    "middleTitle": "Välbefinnande från utflykter och upplevelser",
+    "bottomTitle": "Hej lärare eller handledare! I Kultus kan du boka för din grupp de mest intressanta utflykterna och evenemangen just nu. Det finns sagostunder, konst, motion, naturutflykter och mycket annat. Se utbudet i kalendern och anmäl din grupp!"
   },
   "dropdown": {
     "placeholder": "Välj...",

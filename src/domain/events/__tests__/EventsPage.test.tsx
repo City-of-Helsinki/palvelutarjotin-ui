@@ -145,7 +145,7 @@ test('renders search form and events list with correct information', async () =>
 
   expect(
     screen.queryByRole('heading', {
-      name: 'Oppimisen elämyksiä koko kaupungissa',
+      name: 'Hyvinvointia retkistä ja elämyksistä',
     })
   ).toBeInTheDocument();
   expect(screen.queryByLabelText('Hae tapahtumia')).toBeInTheDocument();
