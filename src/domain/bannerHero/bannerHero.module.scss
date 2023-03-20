@@ -50,7 +50,11 @@
 .korosTop {
   fill: var(--color-white);
   position: relative;
-  transform: scaleY(-1);
+  // HACK: "transform: translateZ(0)" is a magic trick for removing subpixel
+  // horizontal line under Koros on at least Google Chrome, see bug ticket
+  // https://helsinkisolutionoffice.atlassian.net/browse/HDS-1628
+  // This hack could be removed when the issue is fixed in HDS.
+  transform: scaleY(-1) translateZ(0);
   z-index: 1;
 }
 
@@ -65,17 +69,5 @@
 .bannerHeroOverlay {
   position: relative;
   z-index: 2;
-  margin-top: -185px;
-
-  @include respond-above(md) {
-    margin-top: -165px;
-  }
-
-  @include respond-above(lg) {
-    margin-top: -155px;
-  }
-
-  @include respond-above(xlg) {
-    margin-top: -120px;
-  }
+  margin-top: -250px;
 }
