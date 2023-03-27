@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.2.0](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/v2.1.0...v2.2.0) (2023-03-27)
+
+
+### Features
+
+* cookie consent implementation ([#258](https://github.com/City-of-Helsinki/palvelutarjotin-ui/issues/258)) ([187dc42](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/187dc426af40fc50f733a4d51c45a106ea7ea514))
+* **enrolment:** require phone number when enrolling ([f008e72](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/f008e729e1c8f65fb7ef185eafc8b19f039a925e))
+* upgrade hds version to 2.8.0 ([#257](https://github.com/City-of-Helsinki/palvelutarjotin-ui/issues/257)) ([9ee5d9d](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/9ee5d9d83d953bd5c8ad373d45bd78bc2ab779d0))
+
+
+### Bug Fixes
+
+* cookie consent translations ([#260](https://github.com/City-of-Helsinki/palvelutarjotin-ui/issues/260)) ([342b39e](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/342b39ec67ef80de9f9a2e4a09c99305c5f180b4))
+* essential cookies texts overrides ([#261](https://github.com/City-of-Helsinki/palvelutarjotin-ui/issues/261)) ([ff5830a](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/ff5830a6a2718b0a89072bad2ed5eded6833cf7d))
+* fix banner hero layout accessibility issue 4.1 ([30c14f0](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/30c14f0d3b257e248a8704bad1599a698ae4d513))
+* fix study level grade translations, e.g. "3rd class" ([f288cfb](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/f288cfb880edc579c3dcff8587f529e9e86c9e6c))
+* fix swedish translations of study level grades to "Åk {{count}}" ([66887c1](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/66887c1aa087560151a33f6a1ac78baa2b971f51))
+* update banner hero texts and raise search box a bit ([f7b34b5](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/f7b34b511ed23c525adca5f8407ae6f2187cbc8f))
+
 ## [2.1.0](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/release-v2.0.0...release-v2.1.0) (2022-12-15)
 
 
