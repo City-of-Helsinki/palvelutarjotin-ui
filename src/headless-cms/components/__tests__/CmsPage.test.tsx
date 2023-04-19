@@ -54,7 +54,7 @@ test('renders with sidebar layout when sidebar has content', async () => {
       {
         target: '_blank',
         // eslint-disable-next-line max-len
-        url: 'https://palvelutarjotin.test.kuva.hel.ninja/cms-page/oppimateriaalit/ylakoulu-ja-toinen-aste/koulujen-elokuvaviikko-elokuvan-kotitehtavat-etaopetukseen',
+        url: 'https://kultus-ui.test.hel.ninja/cms-page/oppimateriaalit/ylakoulu-ja-toinen-aste/koulujen-elokuvaviikko-elokuvan-kotitehtavat-etaopetukseen',
         title: 'Elokuvaviikon etäkotitehtävät',
       },
       {
