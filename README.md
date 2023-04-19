@@ -9,12 +9,18 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 Production environment:
 
 - https://kultus.fi/
-- Project is automatically deployed to production when adding new relase tag, e.g. release-v0.1.0, to repo
+- Triggered by creation of release-\* tag, e.g. `release-v0.1.0`
+  - Needs to be manually approved in pipeline to be deployed
+
+Staging environment:
+
+- https://kultus-ui.stage.hel.ninja/
+- Automatically deployed by creation of release-\* tag, e.g. `release-v0.1.0`
 
 Testing environment:
 
-- https://palvelutarjotin.test.kuva.hel.ninja
-- Project is automatically deployed to testing environment when pushing to develop brach
+- https://kultus-ui.test.hel.ninja/
+- Automatically deployed by any change to master branch
 
 ## Requirements
 
