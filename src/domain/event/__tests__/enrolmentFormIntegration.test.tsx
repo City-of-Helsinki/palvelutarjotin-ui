@@ -298,7 +298,7 @@ test('user can select multiple occurrences and enrol to them with enrolment form
   await act(
     async () =>
       await userEvent.click(
-        await screen.findByRole('button', { name: /ilmoittaudu/i })
+        await screen.findByRole('button', { name: 'Ilmoittaudu' })
       )
   );
 
