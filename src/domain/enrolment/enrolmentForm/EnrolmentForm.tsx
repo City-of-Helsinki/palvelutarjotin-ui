@@ -37,6 +37,7 @@ export interface Props {
   onCloseForm: () => void;
   minGroupSize?: number;
   maxGroupSize?: number;
+  actionType?: 'enrolment' | 'queue';
 }
 
 const EnrolmentForm: React.FC<Props> = ({
@@ -47,6 +48,7 @@ const EnrolmentForm: React.FC<Props> = ({
   onCloseForm,
   minGroupSize = 10,
   maxGroupSize = 20,
+  actionType = 'enrolment',
 }) => {
   const { t } = useTranslation();
   const locale = useLocale();
@@ -356,11 +358,18 @@ const EnrolmentForm: React.FC<Props> = ({
               <Button
                 type="submit"
                 disabled={submitting}
-                className={enquiry ? styles.enquiryButton : styles.enrolButton}
+                className={classNames(
+                  enquiry ? styles.enquiryButton : styles.enrolButton,
+                  actionType === 'queue' && styles.queueButton
+                )}
               >
-                {enquiry
-                  ? t('enrolment:enrolmentForm.buttonSubmitEnquiry')
-                  : t('enrolment:enrolmentForm.buttonSubmit')}
+                {actionType === 'enrolment' &&
+                  t(
+                    `enrolment:enrolmentForm.buttonSubmit${
+                      enquiry ? 'Enquiry' : ''
+                    }`
+                  )}
+                {actionType === 'queue' && t('enrolment:queue.submit')}
               </Button>
               <Button
                 onClick={onCloseForm}

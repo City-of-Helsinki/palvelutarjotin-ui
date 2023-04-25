@@ -96,5 +96,13 @@
     "other": "Other group"
   },
   "title": "Enrol for the event",
-  "titleEnquiry": "Enquiry for the event"
+  "titleEnquiry": "Enquiry for the event",
+  "queue": {
+    "title": "Enrolment",
+    "enrol": "Enrol to queue",
+    "enrolText": "Is the event fully booked? Enroll to queue if you are interested in cancellations.",
+    "submit": "Submit your enrolment to queue",
+    "success": "You are joining the queue. We will send you a separate message no later than the day before the event, if there are any cancellations.",
+    "error": "Something went wrong"
+  }
 }

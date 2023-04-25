@@ -27,6 +27,14 @@
   margin-bottom: -1rem;
 }
 
+h2.enrolmentHeader {
+  font-size: var(--fontsize-heading-l);
+}
+
+.enrolmentText {
+  font-size: var(--fontsize-body-l);
+}
+
 .enrolmentFormSection {
   background-color: var(--enrolmentFormBackgroundColor);
   padding: 0 var(--spacing-m);
@@ -78,4 +86,34 @@
 
 .hideEnrolmentForm {
   display: none;
+}
+
+.closeQueueFormButtonWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 var(--spacing-layout-xs);
+}
+
+.queueInfoContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  button {
+    --background-color: var(--color-engel);
+    --background-color-hover: var(--color-engel-dark);
+    --background-color-focus: var(--color-engel);
+    --background-color-hover-focus: var(--color-engel-dark);
+    --background-color-disabled: var(--color-black-20);
+    --border-color: var(--color-engel);
+    --border-color-hover: var(--color-engel-dark);
+    --border-color-focus: var(--color-engel);
+    --border-color-hover-focus: var(--color-engel-dark);
+    --border-color-disabled: var(--color-black-20);
+    --color: var(--color-black);
+    --color-hover: var(--color-black);
+    --color-focus: var(--color-black);
+    --color-hover-focus: var(--color-black);
+    --color-disabled: var(--color-black);
+  }
 }

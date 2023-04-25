@@ -13,6 +13,7 @@ import styles from './eventPage.module.scss';
 import EventPageMeta from './eventPageMeta/EventPageMeta';
 import EnrolmentFormSection from './occurrences/EnrolmentFormSection';
 import Occurrences from './occurrences/OccurrencesTable';
+import QueueFormSection from './occurrences/QueueFormSection';
 import { getEventFields } from './utils';
 import LoadingSpinner from '../../common/components/loadingSpinner/LoadingSpinner';
 import ShareLinks from '../../common/components/shareLinks/ShareLinks';
@@ -37,12 +38,14 @@ const EventPage = (): ReactElement => {
     query: { eventId, ...query },
   } = useRouter();
   const enrolmentCreated = query[ENROLMENT_URL_PARAMS.ENROLMENT_CREATED];
+  const queueCreated = query[ENROLMENT_URL_PARAMS.QUEUE_CREATED];
   const notificationType = query[ENROLMENT_URL_PARAMS.NOTIFICATION_TYPE];
   const [selectedOccurrences, setSelectedOccurrences] = React.useState<
     string[]
   >([]);
 
   const [showEnrolmentForm, setShowEnrolmentForm] = React.useState(false);
+  const [showQueueForm, setShowQueueForm] = React.useState(false);
 
   const {
     data: eventData,
@@ -84,6 +87,12 @@ const EventPage = (): ReactElement => {
   const handleOnEnrol = () => {
     setSelectedOccurrences([]);
     setShowEnrolmentForm(false);
+    refetchEvent();
+  };
+
+  const handleOnQueue = () => {
+    setSelectedOccurrences([]);
+    setShowQueueForm(false);
     refetchEvent();
   };
 
@@ -136,7 +145,20 @@ const EventPage = (): ReactElement => {
                     )}
                 </Notification>
               )}
+              {queueCreated && (
+                <Notification
+                  label={t(`enrolment:queue.success`)}
+                  type="success"
+                  className={styles.eventPageNotification}
+                />
+              )}
               <EventBasicInfo event={eventData.event} />
+              <QueueFormContainer
+                event={eventData.event}
+                handleOnQueue={handleOnQueue}
+                setShowQueueForm={setShowQueueForm}
+                showQueueForm={showQueueForm}
+              />
               {occurrences && (
                 <div
                   className={styles.occurrencesContainer}
@@ -279,6 +301,58 @@ const EnrolmentFormContainer: React.FC<{
         />
       </div>
     </div>
+  );
+};
+
+const QueueFormContainer: React.FC<{
+  showQueueForm: boolean;
+  setShowQueueForm: (a: boolean) => void;
+  event: EventFieldsFragment;
+  handleOnQueue: () => void;
+}> = ({ showQueueForm, setShowQueueForm, event, handleOnQueue }) => {
+  const { t } = useTranslation();
+  const queueFormRef = React.useRef<HTMLDivElement>(null);
+
+  React.useEffect(() => {
+    queueFormRef.current?.scrollIntoView?.({ behavior: 'smooth' });
+  }, [showQueueForm]);
+
+  return (
+    <>
+      <h2 className={styles.enrolmentHeader}>{t('enrolment:queue.title')}</h2>
+      {showQueueForm ? (
+        <div className={styles.enrolmentFormContainer}>
+          <div className={styles.enrolmentFormSection} ref={queueFormRef}>
+            <div className={styles.closeQueueFormButtonWrapper}>
+              <div className={styles.enrolmentText}>
+                {t('enrolment:queue.enrolText')}
+              </div>
+              <Button
+                variant="supplementary"
+                iconRight={<IconAngleUp />}
+                onClick={() => setShowQueueForm(false)}
+              >
+                {t('enrolment:enrolmentForm.buttonCancelAndCloseForm')}
+              </Button>
+            </div>
+            <QueueFormSection
+              event={event}
+              onCloseForm={() => setShowQueueForm(false)}
+              onQueue={handleOnQueue}
+            />
+          </div>
+        </div>
+      ) : (
+        <div className={styles.queueInfoContainer}>
+          <div className={styles.enrolmentText}>
+            {t('enrolment:queue.enrolText')}
+          </div>
+          <Button onClick={() => setShowQueueForm(true)}>
+            {t('enrolment:queue.enrol')}
+          </Button>
+        </div>
+      )}
+    </>
   );
 };
 
