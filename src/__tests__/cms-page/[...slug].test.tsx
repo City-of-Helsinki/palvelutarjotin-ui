@@ -164,18 +164,20 @@ const initMocks = ({ page }: { page: Partial<Page> }) => {
     }),
     graphql.query<PageQuery, PageQueryVariables>('Page', (req, res, ctx) => {
       if (req.variables.id === page1.route) {
+        const nodes = subMenuItems.map((menuItem) =>
+          fakePage({
+            title: menuItem.title,
+            uri: menuItem.uri,
+          })
+        );
         return res(
           ctx.data({
             page: fakePage({
               title: page.title,
               content: page.content,
               children: {
-                nodes: subMenuItems.map((menuItem) =>
-                  fakePage({
-                    title: menuItem.title,
-                    uri: menuItem.uri,
-                  })
-                ),
+                nodes,
+                edges: nodes.map((node) => ({ node })),
               },
             }),
           })
@@ -183,15 +185,17 @@ const initMocks = ({ page }: { page: Partial<Page> }) => {
       }
 
       if (req.variables.id === page2.route) {
+        const nodes = subSubMenuItems.map((menuItem) =>
+          fakePage({ title: menuItem.title, uri: menuItem.uri })
+        );
         return res(
           ctx.data({
             page: fakePage({
               title: page.title,
               content: page.content,
               children: {
-                nodes: subSubMenuItems.map((menuItem) =>
-                  fakePage({ title: menuItem.title, uri: menuItem.uri })
-                ),
+                nodes,
+                edges: nodes.map((node) => ({ node })),
               },
             }),
           })
