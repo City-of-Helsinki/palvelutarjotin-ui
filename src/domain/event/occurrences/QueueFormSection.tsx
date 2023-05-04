@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 
 import {
   EventFieldsFragment,
-  useEnrolOccurrenceMutation,
+  useEnrolEventQueueMutation,
 } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
 import { ROUTES } from '../../app/routes/constants';
@@ -16,7 +16,7 @@ import {
   defaultEnrolmentInitialValues,
 } from '../../enrolment/enrolmentForm/constants';
 import EnrolmentForm from '../../enrolment/enrolmentForm/EnrolmentForm';
-import { getCAPTCHAToken, getEnrolmentPayload } from '../../enrolment/utils';
+import { getCAPTCHAToken, getQueuePayload } from '../../enrolment/utils';
 import { getEventFields } from '../utils';
 
 const QueueFormSection: React.FC<{
@@ -29,8 +29,7 @@ const QueueFormSection: React.FC<{
   const router = useRouter();
 
   //todo: replace with queue mutation
-  const [enrolOccurrence, { loading: queueLoading }] =
-    useEnrolOccurrenceMutation();
+  const [enrolQueue, { loading: queueLoading }] = useEnrolEventQueueMutation();
 
   const { isMandatoryAdditionalInformationRequired, autoAcceptance } =
     getEventFields(event, locale);
@@ -39,12 +38,11 @@ const QueueFormSection: React.FC<{
     try {
       const token = await getCAPTCHAToken();
       //todo: fix
-      await enrolOccurrence({
+      await enrolQueue({
         variables: {
           input: {
-            //todo: fix
-            ...getEnrolmentPayload({
-              occurrenceIds: [],
+            ...getQueuePayload({
+              pEventId: event.id,
               values,
             }),
             captchaKey: token,
