@@ -14,15 +14,10 @@ const getNotificationType = (values: EnrolmentFormFields): NotificationType => {
     : NotificationType.Email;
 };
 
-export const getEnrolmentPayload = ({
-  occurrenceIds,
-  values,
-}: {
-  occurrenceIds: string[];
-  values: EnrolmentFormFields;
-}): EnrolOccurrenceMutationInput => {
+export const getEnrolmentPayloadBase = (
+  values: EnrolmentFormFields
+): Omit<EnrolOccurrenceMutationInput, 'occurrenceIds'> => {
   return {
-    occurrenceIds,
     notificationType: getNotificationType(values),
     person: values.isSameResponsiblePerson
       ? undefined
@@ -40,6 +35,19 @@ export const getEnrolmentPayload = ({
   };
 };
 
+export const getEnrolmentPayload = ({
+  occurrenceIds,
+  values,
+}: {
+  occurrenceIds: string[];
+  values: EnrolmentFormFields;
+}): EnrolOccurrenceMutationInput => {
+  return {
+    occurrenceIds,
+    ...getEnrolmentPayloadBase(values),
+  };
+};
+
 export const getQueuePayload = ({
   pEventId,
   values,
@@ -49,20 +57,7 @@ export const getQueuePayload = ({
 }): EnrolEventQueueMutationInput => {
   return {
     pEventId,
-    notificationType: getNotificationType(values),
-    person: values.isSameResponsiblePerson
-      ? undefined
-      : { ...values.person, language: values.language as Language },
-    studyGroup: {
-      ...values.studyGroup,
-      amountOfAdult: Number(values.studyGroup.amountOfAdult),
-      groupSize: Number(values.studyGroup.groupSize),
-      person: {
-        ...values.studyGroup.person,
-        language: values.language as Language,
-      },
-      studyLevels: values.studyGroup.studyLevels,
-    },
+    ...getEnrolmentPayloadBase(values),
   };
 };
 

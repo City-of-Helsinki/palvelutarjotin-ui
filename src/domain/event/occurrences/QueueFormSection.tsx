@@ -28,7 +28,6 @@ const QueueFormSection: React.FC<{
   const locale = useLocale();
   const router = useRouter();
 
-  //todo: replace with queue mutation
   const [enrolQueue, { loading: queueLoading }] = useEnrolEventQueueMutation();
 
   const { isMandatoryAdditionalInformationRequired, autoAcceptance } =
@@ -37,7 +36,6 @@ const QueueFormSection: React.FC<{
   const submit = async (values: EnrolmentFormFields) => {
     try {
       const token = await getCAPTCHAToken();
-      //todo: fix
       await enrolQueue({
         variables: {
           input: {
@@ -61,7 +59,6 @@ const QueueFormSection: React.FC<{
       });
       onQueue?.();
     } catch (e) {
-      //todo: add translation
       toast(t('enrolment:queue.error'), {
         type: toast.TYPE.ERROR,
       });
