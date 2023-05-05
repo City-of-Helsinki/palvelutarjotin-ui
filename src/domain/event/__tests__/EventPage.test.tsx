@@ -834,7 +834,7 @@ it('shows normal enrolment button when autoacceptance is on', async () => {
   await userEvent.click(showDetailsButton);
 
   await screen.findByRole('button', {
-    name: /ilmoittaudu/i,
+    name: 'Ilmoittaudu',
   });
 });
 

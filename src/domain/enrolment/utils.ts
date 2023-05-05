@@ -1,5 +1,6 @@
 import { EnrolmentFormFields } from './enrolmentForm/constants';
 import {
+  EnrolEventQueueMutationInput,
   EnrolOccurrenceMutationInput,
   Language,
   NotificationType,
@@ -13,15 +14,10 @@ const getNotificationType = (values: EnrolmentFormFields): NotificationType => {
     : NotificationType.Email;
 };
 
-export const getEnrolmentPayload = ({
-  occurrenceIds,
-  values,
-}: {
-  occurrenceIds: string[];
-  values: EnrolmentFormFields;
-}): EnrolOccurrenceMutationInput => {
+export const getEnrolmentPayloadBase = (
+  values: EnrolmentFormFields
+): Omit<EnrolOccurrenceMutationInput, 'occurrenceIds'> => {
   return {
-    occurrenceIds,
     notificationType: getNotificationType(values),
     person: values.isSameResponsiblePerson
       ? undefined
@@ -36,6 +32,32 @@ export const getEnrolmentPayload = ({
       },
       studyLevels: values.studyGroup.studyLevels,
     },
+  };
+};
+
+export const getEnrolmentPayload = ({
+  occurrenceIds,
+  values,
+}: {
+  occurrenceIds: string[];
+  values: EnrolmentFormFields;
+}): EnrolOccurrenceMutationInput => {
+  return {
+    occurrenceIds,
+    ...getEnrolmentPayloadBase(values),
+  };
+};
+
+export const getQueuePayload = ({
+  pEventId,
+  values,
+}: {
+  pEventId: string;
+  values: EnrolmentFormFields;
+}): EnrolEventQueueMutationInput => {
+  return {
+    pEventId,
+    ...getEnrolmentPayloadBase(values),
   };
 };
 

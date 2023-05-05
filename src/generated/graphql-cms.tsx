@@ -2664,6 +2664,23 @@ export type GeneralSettings = {
   url?: Maybe<Scalars['String']>;
 };
 
+/** Hero field */
+export type Hero = {
+  __typename?: 'Hero';
+  /** The background color of the hero */
+  background_color?: Maybe<Scalars['String']>;
+  /** The background color of the hero */
+  background_image_url?: Maybe<Scalars['String']>;
+  /** The desctiption of the hero */
+  description?: Maybe<Scalars['String']>;
+  /** The title of the hero link */
+  link?: Maybe<Link>;
+  /** The title of the hero */
+  title?: Maybe<Scalars['String']>;
+  /** The wave motif of the hero */
+  wave_motif?: Maybe<Scalars['String']>;
+};
+
 /** Content node with hierarchical (parent/child) relationships */
 export type HierarchicalContentNode = {
   /** Returns ancestors of the node. Default ordered as lowest (closest to the child) to highest (closest to the root). */
@@ -4475,6 +4492,8 @@ export type Page = ContentNode & DatabaseIdentifier & HierarchicalContentNode & 
   featuredImageId?: Maybe<Scalars['ID']>;
   /** The global unique identifier for this post. This currently matches the value stored in WP_Post-&gt;guid and the guid column in the &quot;post_objects&quot; database table. */
   guid?: Maybe<Scalars['String']>;
+  /** Hero fields */
+  hero?: Maybe<Hero>;
   /** The globally unique identifier of the page object. */
   id: Scalars['ID'];
   /** Whether the node is a Content Node */

@@ -282,6 +282,8 @@ export type EnrolOccurrenceMutationInput = {
   occurrenceIds: Array<InputMaybe<Scalars['ID']>>;
   /** Leave blank if the contact person is the same with group contact person */
   person?: InputMaybe<PersonNodeInput>;
+  /** Should the related notifications be sent during the mutation. Default is True. */
+  sendNotifications?: InputMaybe<Scalars['Boolean']>;
   /** Study group data */
   studyGroup: StudyGroupInput;
 };
@@ -2120,6 +2122,13 @@ export type EventQueryVariables = Exact<{
 
 export type EventQuery = { __typename?: 'Query', event?: { __typename?: 'Event', id: string, internalId: string, startTime?: string | null, name: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null }, shortDescription: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null }, description: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null }, images: Array<{ __typename?: 'Image', id?: string | null, internalId: string, license?: string | null, name: string, url: string, cropping?: string | null, photographerName?: string | null, altText?: string | null }>, infoUrl?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null, offers: Array<{ __typename?: 'Offer', isFree?: boolean | null, description?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null, price?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null, infoUrl?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null }>, pEvent: { __typename?: 'PalvelutarjotinEventNode', autoAcceptance: boolean, id: string, enrolmentEndDays?: number | null, enrolmentStart?: any | null, externalEnrolmentUrl?: string | null, neededOccurrences: number, contactPhoneNumber: string, contactEmail: string, mandatoryAdditionalInformation: boolean, nextOccurrenceDatetime?: any | null, lastOccurrenceDatetime?: any | null, organisation?: { __typename?: 'OrganisationNode', id: string, name: string } | null, contactPerson?: { __typename?: 'PersonNode', id: string, name: string } | null, occurrences?: { __typename?: 'OccurrenceNodeConnection', edges: Array<{ __typename?: 'OccurrenceNodeEdge', node?: { __typename?: 'OccurrenceNode', id: string, amountOfSeats: number, seatsTaken: number, seatType: OccurrenceSeatType, remainingSeats: number, minGroupSize?: number | null, maxGroupSize?: number | null, cancelled: boolean, startTime: any, endTime: any, placeId: string, pEvent?: { __typename?: 'PalvelutarjotinEventNode', id: string } | null, languages: { __typename?: 'LanguageNodeConnection', edges: Array<{ __typename?: 'LanguageNodeEdge', node?: { __typename?: 'LanguageNode', id: string, name: string } | null } | null> } } | null } | null> } | null, nextOccurrence?: { __typename?: 'OccurrenceNodeConnection', edges: Array<{ __typename?: 'OccurrenceNodeEdge', node?: { __typename?: 'OccurrenceNode', id: string, startTime: any, endTime: any } | null } | null> } | null }, inLanguage: Array<{ __typename?: 'InLanguage', id?: string | null, internalId: string, name?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null }>, audience: Array<{ __typename?: 'Keyword', id?: string | null, internalId: string, name?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null }>, keywords: Array<{ __typename?: 'Keyword', id?: string | null, internalId: string, name?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null }>, location?: { __typename?: 'Place', id?: string | null, internalId: string, name?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null, streetAddress?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null, addressLocality?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null, telephone?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null } | null, venue?: { __typename?: 'VenueNode', id: string, hasClothingStorage: boolean, hasSnackEatingPlace: boolean, outdoorActivity: boolean, hasToiletNearby: boolean, hasAreaForGroupWork: boolean, hasIndoorPlayingArea: boolean, hasOutdoorPlayingArea: boolean, translations: Array<{ __typename?: 'VenueTranslationType', languageCode: Language, description: string }> } | null, additionalCriteria: Array<{ __typename?: 'Keyword', id?: string | null, internalId: string, name?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null }>, categories: Array<{ __typename?: 'Keyword', id?: string | null, internalId: string, name?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null }> } | null };
 
+export type EnrolEventQueueMutationVariables = Exact<{
+  input: EnrolEventQueueMutationInput;
+}>;
+
+
+export type EnrolEventQueueMutation = { __typename?: 'Mutation', enrolEventQueue?: { __typename?: 'EnrolEventQueueMutationPayload', eventQueueEnrolment?: { __typename?: 'EventQueueEnrolmentNode', id: string, notificationType?: NotificationType | null, enrolmentTime: any, status?: EventQueueEnrolmentStatus | null, person?: { __typename?: 'PersonNode', id: string, emailAddress: string, name: string, phoneNumber: string, language: Language } | null, studyGroup: { __typename?: 'StudyGroupNode', id: string, unitId?: string | null, unitName: string, groupSize: number, amountOfAdult: number, groupName: string, extraNeeds: string, unit?: { __typename?: 'ExternalPlace', name?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null } | { __typename?: 'Place', internalId: string, id?: string | null, name?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null } | null, studyLevels: { __typename?: 'StudyLevelNodeConnection', edges: Array<{ __typename?: 'StudyLevelNodeEdge', node?: { __typename?: 'StudyLevelNode', id: string, label?: string | null, level: number, translations: Array<{ __typename?: 'StudyLevelTranslationType', languageCode: Language, label: string }> } | null } | null> }, person?: { __typename?: 'PersonNode', id: string, emailAddress: string, name: string, phoneNumber: string, language: Language } | null } } | null } | null };
+
 export type EventQueueEnrolmentFieldsFragment = { __typename?: 'EventQueueEnrolmentNode', id: string, notificationType?: NotificationType | null, enrolmentTime: any, status?: EventQueueEnrolmentStatus | null, person?: { __typename?: 'PersonNode', id: string, emailAddress: string, name: string, phoneNumber: string, language: Language } | null, studyGroup: { __typename?: 'StudyGroupNode', id: string, unitId?: string | null, unitName: string, groupSize: number, amountOfAdult: number, groupName: string, extraNeeds: string, unit?: { __typename?: 'ExternalPlace', name?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null } | { __typename?: 'Place', internalId: string, id?: string | null, name?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null } | null, studyLevels: { __typename?: 'StudyLevelNodeConnection', edges: Array<{ __typename?: 'StudyLevelNodeEdge', node?: { __typename?: 'StudyLevelNode', id: string, label?: string | null, level: number, translations: Array<{ __typename?: 'StudyLevelTranslationType', languageCode: Language, label: string }> } | null } | null> }, person?: { __typename?: 'PersonNode', id: string, emailAddress: string, name: string, phoneNumber: string, language: Language } | null } };
 
 export type MetaFieldsFragment = { __typename?: 'Meta', count?: number | null, next?: string | null, previous?: string | null };
@@ -2732,6 +2741,41 @@ export function useEventLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Even
 export type EventQueryHookResult = ReturnType<typeof useEventQuery>;
 export type EventLazyQueryHookResult = ReturnType<typeof useEventLazyQuery>;
 export type EventQueryResult = Apollo.QueryResult<EventQuery, EventQueryVariables>;
+export const EnrolEventQueueDocument = gql`
+    mutation EnrolEventQueue($input: EnrolEventQueueMutationInput!) {
+  enrolEventQueue(input: $input) {
+    eventQueueEnrolment {
+      ...eventQueueEnrolmentFields
+    }
+  }
+}
+    ${EventQueueEnrolmentFieldsFragmentDoc}`;
+export type EnrolEventQueueMutationFn = Apollo.MutationFunction<EnrolEventQueueMutation, EnrolEventQueueMutationVariables>;
+
+/**
+ * __useEnrolEventQueueMutation__
+ *
+ * To run a mutation, you first call `useEnrolEventQueueMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useEnrolEventQueueMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [enrolEventQueueMutation, { data, loading, error }] = useEnrolEventQueueMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useEnrolEventQueueMutation(baseOptions?: Apollo.MutationHookOptions<EnrolEventQueueMutation, EnrolEventQueueMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<EnrolEventQueueMutation, EnrolEventQueueMutationVariables>(EnrolEventQueueDocument, options);
+      }
+export type EnrolEventQueueMutationHookResult = ReturnType<typeof useEnrolEventQueueMutation>;
+export type EnrolEventQueueMutationResult = Apollo.MutationResult<EnrolEventQueueMutation>;
+export type EnrolEventQueueMutationOptions = Apollo.BaseMutationOptions<EnrolEventQueueMutation, EnrolEventQueueMutationVariables>;
 export const EventsDocument = gql`
     query Events($division: [String], $allOngoingAnd: [String], $end: String, $include: [String], $inLanguage: String, $isFree: Boolean, $keyword: [String], $keywordNot: [String], $language: String, $location: String, $page: Int, $pageSize: Int, $publisher: ID, $sort: String, $start: String, $superEvent: ID, $superEventType: [String], $text: String, $translation: String, $organisationId: String) {
   events(

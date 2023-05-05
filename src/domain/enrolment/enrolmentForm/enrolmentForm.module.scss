@@ -66,6 +66,24 @@
     background-color: var(--color-engel-medium-light);
   }
 
+  .queueButton {
+    --background-color: var(--color-engel);
+    --background-color-hover: var(--color-engel-dark);
+    --background-color-focus: var(--color-engel);
+    --background-color-hover-focus: var(--color-engel-dark);
+    --background-color-disabled: var(--color-black-20);
+    --border-color: var(--color-engel);
+    --border-color-hover: var(--color-engel-dark);
+    --border-color-focus: var(--color-engel);
+    --border-color-hover-focus: var(--color-engel-dark);
+    --border-color-disabled: var(--color-black-20);
+    --color: var(--color-black);
+    --color-hover: var(--color-black);
+    --color-focus: var(--color-black);
+    --color-hover-focus: var(--color-black);
+    --color-disabled: var(--color-black);
+  }
+
   .notification {
     margin-bottom: var(--spacing-layout-xs);
   }
