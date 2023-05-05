@@ -317,8 +317,6 @@ const QueueFormContainer: React.FC<{
     queueFormRef.current?.scrollIntoView?.({ behavior: 'smooth' });
   }, [showQueueForm]);
 
-  console.log(event);
-
   return (
     <>
       <h2 className={styles.enrolmentHeader}>{t('enrolment:queue.title')}</h2>
