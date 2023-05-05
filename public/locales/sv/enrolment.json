@@ -99,11 +99,11 @@
   "title": "Anmäl dig till evenemanget",
   "titleEnquiry": "Bokningsförfrågan till evenemanget",
   "queue": {
-    "title": "Enrolment",
+    "title": "Anmälning",
     "enrol": "Anmäl dig i kö",
     "enrolText": "Är de önskade tiderna fullbokade? Ställ dig i kö om du vill få information om avbokningar.",
     "submit": "Skicka anmälan för att köa",
     "success": "Du håller på att anmäla dig till evenemangets kölista. Vi skickar dig ett separat meddelande senast dagen före evenemanget om det finns några avbokningsplatser tillgängliga.",
-    "error": "Something went wrong"
+    "error": "Din anmälan i kö misslyckades. Vänligen prova igen."
   }
 }

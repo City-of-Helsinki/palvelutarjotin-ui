@@ -103,6 +103,6 @@
     "enrolText": "Is the event fully booked? Enroll to queue if you are interested in cancellations.",
     "submit": "Submit your enrolment to queue",
     "success": "You are joining the queue. We will send you a separate message no later than the day before the event, if there are any cancellations.",
-    "error": "Something went wrong"
+    "error": "Your enrolment to queue failed. Please try again."
   }
 }

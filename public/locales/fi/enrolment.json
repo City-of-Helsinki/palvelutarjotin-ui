@@ -103,6 +103,6 @@
     "enrolText": "Ovatko haluamasi ajat täynnä? Ilmoittaudu jonoon, jos haluat tietoa peruutuspaikoista.",
     "submit": "Lähetä ilmoittautuminen jonoon",
     "success": "Olet ilmoittautumassa tapahtuman jonotuslistalle. Lähetämme sinulle erillisen viestin viimeistään päivää ennen tapahtuma-aikaa, jos tapahtumaan aukeaa peruutuspaikkoja.",
-    "error": "Something went wrong"
+    "error": "Ilmoittautumisesi jonoon epäonnistui. Kokeilethan uudestaan."
   }
 }

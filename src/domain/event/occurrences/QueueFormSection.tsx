@@ -42,7 +42,7 @@ const QueueFormSection: React.FC<{
         variables: {
           input: {
             ...getQueuePayload({
-              pEventId: event.id,
+              pEventId: event.pEvent.id,
               values,
             }),
             captchaKey: token,
