@@ -33,7 +33,9 @@
     "downloadToCalendar": "Ladda ner till kalendern",
     "showAllLocationEvents": "Visa alla evenemang på platsen",
     "labelStartDateFilter": "Startdatum för händelsefilter",
+    "labelStartDateFilterDatepicker": "Välja startdatum för händelsefilter",
     "labelEndDateFilter": "Slutdatum för händelsefilter",
+    "labelEndDateFilterDatepicker": "Välja slutdatum för händelsefilter",
     "eventIsFree": "Gratis",
     "enrolmentStartsLabel": "Registrering",
     "enrolmentStartsAt": "Registreringen börjar {{date}} kl. {{time}}"

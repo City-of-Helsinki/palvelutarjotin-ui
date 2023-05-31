@@ -33,7 +33,9 @@
     "downloadToCalendar": "Import to calendar...",
     "showAllLocationEvents": "Show all events of this location",
     "labelStartDateFilter": "Start date of occurrences filter",
+    "labelStartDateFilterDatepicker": "Pick a start date of occurrences filter",
     "labelEndDateFilter": "End date of occurrences filter",
+    "labelEndDateFilterDatepicker": "Pick an end date of occurrences filter",
     "eventIsFree": "Free",
     "enrolmentStartsLabel": "Enrolment",
     "enrolmentStartsAt": "Enrolments start {{date}} at {{time}}"
