@@ -1,14 +1,18 @@
 import classNames from 'classnames';
+import format from 'date-fns/format';
+import isValid from 'date-fns/isValid';
 import { FieldProps } from 'formik';
-import { TextInputProps } from 'hds-react';
+import { DateInput, DateInputProps } from 'hds-react';
 import { useTranslation } from 'next-i18next';
 import React from 'react';
 
-import Datepicker from '../../datepicker/Datepicker';
 import { invalidFieldClass } from '../constants';
 import { getErrorText } from '../utils';
 
-type Props = FieldProps & Omit<TextInputProps, 'form'>;
+// Helsinki services will always use d.M.yyyy format: https://hds.hel.fi/foundation/guidelines/data-formats
+export const DATE_FORMAT = 'd.M.yyyy';
+
+type Props = FieldProps & Omit<DateInputProps, 'form'>;
 
 const InputField: React.FC<Props> = (props) => {
   const { t } = useTranslation();
@@ -19,6 +23,11 @@ const InputField: React.FC<Props> = (props) => {
     helperText,
     ...rest
   } = props;
+  const [inputValue, setInputValue] = React.useState(
+    field.value && isValid(new Date(field.value))
+      ? format(new Date(field.value), DATE_FORMAT)
+      : ''
+  );
   const errorText = getErrorText(errors, touched, name, t);
 
   const handleBlur = React.useCallback(() => {
@@ -29,25 +38,39 @@ const InputField: React.FC<Props> = (props) => {
     });
   }, [name, onBlur]);
 
-  const handleChange = (val?: Date | null) => {
-    onChange({
-      target: {
-        id: name,
-        value: val,
-      },
-    });
+  const handleChange = (value: string, valueAsDate: Date) => {
+    setInputValue(value);
+    // TODO: the value could be validated against the min and max dates set to the date input,
+    // but while it's only available by manually writing the input and we don't have to restrict
+    // the range anyhow, the validator was left out.
+    if (isValid(valueAsDate)) {
+      onChange({
+        target: {
+          id: name,
+          value: valueAsDate,
+        },
+      });
+    } else if (value === '') {
+      onChange({
+        target: {
+          id: name,
+          value: null,
+        },
+      });
+    }
   };
 
   return (
-    <Datepicker
+    <DateInput
       {...field}
       {...rest}
       id={name}
       onChange={handleChange}
       onBlur={handleBlur}
-      helperText={errorText || helperText}
-      invalidText={errorText}
+      helperText={helperText}
+      errorText={errorText}
       className={classNames(className, { [invalidFieldClass]: errorText })}
+      value={inputValue}
     />
   );
 };

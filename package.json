@@ -26,7 +26,6 @@
   },
   "dependencies": {
     "@apollo/client": "^3.7.14",
-    "@datepicker-react/hooks": "^2.8.4",
     "@jonkoops/matomo-tracker-react": "^0.7.0",
     "@reduxjs/toolkit": "^1.9.5",
     "@sentry/browser": "^7.53.1",

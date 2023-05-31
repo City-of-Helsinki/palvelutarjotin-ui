@@ -1,10 +1,13 @@
 import classNames from 'classnames';
-import { Button, IconPen } from 'hds-react';
+import format from 'date-fns/format';
+import isValid from 'date-fns/isValid';
+import { Button, DateInput, IconPen } from 'hds-react';
 import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import styles from './dateFilter.module.scss';
-import Datepicker from '../../../common/components/datepicker/Datepicker';
+import { DATE_FORMAT } from '../../../common/components/form/fields/DateInputField';
+import useLocale from '../../../hooks/useLocale';
 
 export interface DateFilterProps {
   dateFiltersChanged: boolean;
@@ -28,9 +31,20 @@ const DateFilter: React.FC<DateFilterProps> = ({
   endDate,
 }) => {
   const { t } = useTranslation();
-
+  const locale = useLocale();
   const startDateFilterId = 'date-start-filter';
   const endDateFilterId = 'date-end-filter';
+
+  const getDateInputValue = (dateInputValue: Date) =>
+    dateInputValue && isValid(dateInputValue)
+      ? format(dateInputValue, DATE_FORMAT)
+      : '';
+
+  const getDateInputOnChangeHandler =
+    (fieldValueSetter: (date?: Date | null) => void) =>
+    (inputValue: string, valueAsDate: Date) => {
+      if (valueAsDate > new Date()) fieldValueSetter(valueAsDate);
+    };
 
   return (
     <>
@@ -53,10 +67,16 @@ const DateFilter: React.FC<DateFilterProps> = ({
         <label className={styles.srOnly} htmlFor={startDateFilterId}>
           {t('event:occurrenceList.labelStartDateFilter')}
         </label>
-        <Datepicker
+        <DateInput
           id={startDateFilterId}
-          value={startDate}
-          onChange={setStartFilterDate}
+          value={getDateInputValue(startDate)}
+          onChange={getDateInputOnChangeHandler(setStartFilterDate)}
+          minDate={new Date()}
+          language={locale}
+          openButtonAriaLabel={t(
+            'event:occurrenceList.labelStartDateFilterDatepicker'
+          )}
+          disableConfirmation
         />
       </div>
       <span className={styles.dateSeparator} aria-hidden>
@@ -70,10 +90,16 @@ const DateFilter: React.FC<DateFilterProps> = ({
         <label className={styles.srOnly} htmlFor={endDateFilterId}>
           {t('event:occurrenceList.labelEndDateFilter')}
         </label>
-        <Datepicker
+        <DateInput
           id={endDateFilterId}
-          value={endDate}
-          onChange={setEndFilterDate}
+          value={getDateInputValue(endDate)}
+          onChange={getDateInputOnChangeHandler(setEndFilterDate)}
+          minDate={startDate ?? new Date()}
+          language={locale}
+          openButtonAriaLabel={t(
+            'event:occurrenceList.labelEndDateFilterDatepicker'
+          )}
+          disableConfirmation
         />
       </div>
     </>

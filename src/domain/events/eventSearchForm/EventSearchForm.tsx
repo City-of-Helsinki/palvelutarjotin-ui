@@ -14,6 +14,7 @@ import PlaceSelectorField from '../../../common/components/form/fields/PlaceSele
 import TextInputField from '../../../common/components/form/fields/TextInputField';
 import { Option as DropdownOption } from '../../../common/components/multiSelectDropdown/MultiSelectDropdown';
 import { EVENT_LANGUAGES } from '../../../constants';
+import useLocale from '../../../hooks/useLocale';
 import {
   BOOKABLE_TO_SCHOOL_LOCATION_ID,
   KEYWORD_QUERY_PARAMS,
@@ -74,6 +75,7 @@ const EventSearchForm = ({
   onReset,
   filterActive,
 }: Props): React.ReactElement => {
+  const locale = useLocale();
   const { t } = useTranslation();
   const languageOptions = React.useMemo(
     () =>
@@ -113,6 +115,7 @@ const EventSearchForm = ({
       enableReinitialize={true}
     >
       {({ handleSubmit, values, dirty, resetForm }) => {
+        const startDate = values.date ?? new Date();
         return (
           <form
             className={classNames(styles.eventSearchForm)}
@@ -171,21 +174,28 @@ const EventSearchForm = ({
                   />
                   <Field
                     hideLabel
+                    disableConfirmation
                     name="date"
                     className={styles.datePicker}
                     component={DateInputField}
-                    labelText={t('events:search.labelDate')}
+                    language={locale}
+                    label={t('events:search.labelDate')}
                     placeholder={t('events:search.labelDate')}
+                    initialMonth={startDate}
+                    minDate={new Date()}
                     maxDate={values.endDate}
                   />
                   <Field
                     hideLabel
+                    disableConfirmation
                     name="endDate"
                     className={styles.datePicker}
                     component={DateInputField}
-                    labelText={t('events:search.labelEndDate')}
+                    language={locale}
+                    label={t('events:search.labelEndDate')}
                     placeholder={t('events:search.labelEndDate')}
-                    minDate={values.date}
+                    initialMonth={startDate}
+                    minDate={startDate}
                   />
                 </div>
               )}
