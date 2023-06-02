@@ -32,28 +32,34 @@ export default function Table<D extends Record<string, unknown>>({
     <div className={styles.tableWrapper}>
       <table {...getTableProps({ className: styles.table })}>
         <thead>
-          {headerGroups.map((headerGroup) => (
-            <tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map((column: ExtendedHeaderGroup<D>) => {
-                const { style, className } = column;
-                return (
-                  <th
-                    {...column.getHeaderProps()}
-                    {...{
-                      style,
-                      className,
-                      'aria-hidden': column['aria-hidden'],
-                    }}
-                  >
-                    {column.render('Header')}
-                  </th>
-                );
-              })}
+          {headerGroups.map((headerGroup, index) => (
+            <tr
+              {...headerGroup.getHeaderGroupProps()}
+              key={`headerGroups-row-${index}`}
+            >
+              {headerGroup.headers.map(
+                (column: ExtendedHeaderGroup<D>, index) => {
+                  const { style, className } = column;
+                  return (
+                    <th
+                      {...column.getHeaderProps()}
+                      {...{
+                        style,
+                        className,
+                        'aria-hidden': column['aria-hidden'],
+                      }}
+                      key={`table-header-col-${index}`}
+                    >
+                      {column.render('Header')}
+                    </th>
+                  );
+                }
+              )}
             </tr>
           ))}
         </thead>
         <tbody {...getTableBodyProps()}>
-          {rows.map((row: ExtendedRow<D>, i) => {
+          {rows.map((row: ExtendedRow<D>, index) => {
             prepareRow(row);
 
             const handleClick = (event: React.MouseEvent) => {
@@ -90,8 +96,9 @@ export default function Table<D extends Record<string, unknown>>({
                   onClick={handleClick}
                   onKeyDown={handleKeyDown}
                   tabIndex={onRowClick ? 0 : -1}
+                  key={`table-body-row-${index}`}
                 >
-                  {row.cells.map((cell: ExtendedCell<D>) => {
+                  {row.cells.map((cell: ExtendedCell<D>, index) => {
                     const { className, style } = cell.column;
                     return (
                       <td
@@ -101,6 +108,7 @@ export default function Table<D extends Record<string, unknown>>({
                           style,
                           'aria-hidden': cell.column['aria-hidden'],
                         }}
+                        key={`table-body-col-${index}`}
                       >
                         {cell.render('Cell')}
                       </td>

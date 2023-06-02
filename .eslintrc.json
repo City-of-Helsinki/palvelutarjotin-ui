@@ -1,5 +1,6 @@
 {
   "extends": [
+    "next",
     "react-app",
     "plugin:prettier/recommended",
     "plugin:import/errors",
