@@ -8,18 +8,13 @@
   --background-color-cell: var(--color-white);
   --background-color-cell-header: var(--color-black-10);
   --background-color-active-row: var(--enrolmentFormBackgroundColor);
-
   --border-color-cell: var(--color-black-10);
-
   --color-cell: var(--color-black-90);
   --color-cell-header: var(--color-black-90);
-
   --fontsize-cell: var(--fontsize-body-l);
   --fontsize-cell-header: var(--fontsize-body-l);
-
   --margin-bottom-table: var(--spacing-m);
   --spacing-cell: var(--spacing-m) var(--spacing-xs);
-
   --expanded-row-border-color: var(--color-black-30);
 
   width: 100%;
@@ -82,12 +77,6 @@
           padding: 0;
           width: var(--spacing-2-xl);
           border-bottom: none;
-        }
-      }
-
-      & {
-        td {
-          border-bottom: 1px solid var(--border-color-cell);
         }
       }
     }

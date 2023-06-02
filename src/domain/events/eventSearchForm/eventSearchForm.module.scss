@@ -2,23 +2,19 @@
 
 .eventSearchForm {
   --background-color-container: var(--color-black-10);
-
   --color-background-button-supplementary-hover: transparent;
   --color-background-button-supplementary-hover-focus: transparent;
-
   --fontsize-title: var(--fontsize-heading-s);
-
   --fontweight-clear-button: 500;
-
   --grid-gap: var(--spacing-l);
   --grid-gap-mobile: var(--spacing-s);
-
   --padding-container: var(--spacing-l) 0;
-
   --width-button: 17.625rem;
 
-  background-color: var(--background-color-container);
-  padding: var(--padding-container);
+  // background-color: var(--background-color-container);
+  // padding: var(--padding-container);
+  padding: 0;
+  background-color: transparent;
 }
 
 .filtersRow3 {
@@ -37,11 +33,6 @@
   @include respond_above(md) {
     grid-template-columns: 1fr 1fr 1fr 1fr;
   }
-}
-
-.eventSearchForm {
-  padding: 0;
-  background-color: transparent;
 }
 
 .resetButton {
@@ -64,6 +55,18 @@
   }
 }
 
+.searchInput {
+  input {
+    border: none !important;
+  }
+
+  &Compact {
+    input {
+      padding-right: 150px !important;
+    }
+  }
+}
+
 .datePicker {
   & > div > input {
     border: none !important;
@@ -83,18 +86,6 @@
   h2 {
     margin: 0;
     font-size: var(--fontsize-title);
-  }
-}
-
-.searchInput {
-  input {
-    border: none !important;
-  }
-
-  &Compact {
-    input {
-      padding-right: 150px !important;
-    }
   }
 }
 

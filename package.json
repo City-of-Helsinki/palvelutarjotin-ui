@@ -134,6 +134,7 @@
     "standard-version": "^9.5.0",
     "stylelint": "^15.6.2",
     "stylelint-config-recommended-scss": "^12.0.0",
+    "stylelint-config-standard-scss": "^9.0.0",
     "stylelint-no-unused-selectors": "^1.0.40",
     "stylelint-scss": "^5.0.0",
     "testcafe": "^2.6.1",
@@ -144,9 +145,11 @@
   "lint-staged": {
     "src/**/*.{tsx,ts}": [
       "eslint --fix",
-      "stylelint --fix",
       "prettier --write",
       "yarn test:staged"
+    ],
+    "src/**/*.scss": [
+      "stylelint --fix"
     ]
   }
 }
