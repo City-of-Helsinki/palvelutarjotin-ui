@@ -13,5 +13,11 @@
         "ignoreProperties": ["composes", "compose-with"]
       }
     ]
-  }
+  },
+  "overrides": [
+    {
+      "files": ["**/*.scss"],
+      "customSyntax": "postcss-scss"
+    }
+  ]
 }

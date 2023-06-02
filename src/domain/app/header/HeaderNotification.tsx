@@ -2,8 +2,8 @@ import isFuture from 'date-fns/isFuture';
 import isPast from 'date-fns/isPast';
 import isSameDay from 'date-fns/isSameDay';
 import { Notification, NotificationType } from 'hds-react';
+import { useTranslation } from 'next-i18next';
 import * as React from 'react';
-import { useTranslation } from 'react-i18next';
 import useLocalStorage from 'react-use/lib/useLocalStorage';
 
 import ExternalLink from '../../../common/components/externalLink/ExternalLink';

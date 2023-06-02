@@ -98,44 +98,52 @@ exports[`Footer matches snapshot 1`] = `
       >
         <a
           aria-label="Saavutettavuusseloste"
-          class="LinkBase-module_link__djxNm i__imported_hds_link_0 LinkBase-module_linkM__Hz4Zc i__imported_hds_link__medium_7 LinkBase-module_disableVisitedStyles__S6UjE i__imported_hds_link__disable_visited_styles_5 Link-module_link__ysKHd FooterItem-module_item__1i8Z8 footerLink"
+          class="LinkBase-module_link__djxNm LinkBase_hds-link__4Kjdj LinkBase-module_linkM__Hz4Zc LinkBase_hds-link--medium__bHZ5t LinkBase-module_disableVisitedStyles__S6UjE LinkBase_hds-link--disable-visited-styles__cQcea Link-module_link__ysKHd FooterItem-module_item__1i8Z8 footerLink"
           href="/saavutettavuusseloste"
         >
           <span>
-            Saavutettavuusseloste
+            <span>
+              Saavutettavuusseloste
+            </span>
           </span>
         </a>
         <a
           aria-label="Käyttöehdot"
-          class="LinkBase-module_link__djxNm i__imported_hds_link_0 LinkBase-module_linkM__Hz4Zc i__imported_hds_link__medium_7 LinkBase-module_disableVisitedStyles__S6UjE i__imported_hds_link__disable_visited_styles_5 Link-module_link__ysKHd FooterItem-module_item__1i8Z8 footerLink"
+          class="LinkBase-module_link__djxNm LinkBase_hds-link__4Kjdj LinkBase-module_linkM__Hz4Zc LinkBase_hds-link--medium__bHZ5t LinkBase-module_disableVisitedStyles__S6UjE LinkBase_hds-link--disable-visited-styles__cQcea Link-module_link__ysKHd FooterItem-module_item__1i8Z8 footerLink"
           href="/kayttoehdot"
         >
           <span>
-            Käyttöehdot
+            <span>
+              Käyttöehdot
+            </span>
           </span>
         </a>
         <a
           aria-label="Anna palautetta"
-          class="LinkBase-module_link__djxNm i__imported_hds_link_0 LinkBase-module_linkM__Hz4Zc i__imported_hds_link__medium_7 LinkBase-module_disableVisitedStyles__S6UjE i__imported_hds_link__disable_visited_styles_5 Link-module_link__ysKHd FooterItem-module_item__1i8Z8 footerLink"
+          class="LinkBase-module_link__djxNm LinkBase_hds-link__4Kjdj LinkBase-module_linkM__Hz4Zc LinkBase_hds-link--medium__bHZ5t LinkBase-module_disableVisitedStyles__S6UjE LinkBase_hds-link--disable-visited-styles__cQcea Link-module_link__ysKHd FooterItem-module_item__1i8Z8 footerLink"
           href="/palaute"
         >
           <span>
-            Anna palautetta
+            <span>
+              Anna palautetta
+            </span>
           </span>
         </a>
         <a
           aria-label="Palveluntarjoajille. Avautuu uudessa välilehdessä. Avautuu uudella sivustolla."
-          class="LinkBase-module_link__djxNm i__imported_hds_link_0 LinkBase-module_linkM__Hz4Zc i__imported_hds_link__medium_7 LinkBase-module_disableVisitedStyles__S6UjE i__imported_hds_link__disable_visited_styles_5 Link-module_link__ysKHd FooterItem-module_item__1i8Z8 footerLink"
+          class="LinkBase-module_link__djxNm LinkBase_hds-link__4Kjdj LinkBase-module_linkM__Hz4Zc LinkBase_hds-link--medium__bHZ5t LinkBase-module_disableVisitedStyles__S6UjE LinkBase_hds-link--disable-visited-styles__cQcea Link-module_link__ysKHd FooterItem-module_item__1i8Z8 footerLink"
           href="https://provider.kultus.fi"
           rel="noopener noreferrer"
           target="_blank"
         >
           <span>
-            Palveluntarjoajille
+            <span>
+              Palveluntarjoajille
+            </span>
           </span>
           <svg
             aria-hidden="true"
-            class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik LinkBase-module_icon__-LloU i__imported_icon_1 LinkBase-module_verticalAlignSmallOrMediumIcon__0SjrX i__imported_vertical_align_small_or_medium_icon_3"
+            class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik LinkBase-module_icon__-LloU LinkBase_icon__neXZz LinkBase-module_verticalAlignSmallOrMediumIcon__0SjrX LinkBase_vertical-align-small-or-medium-icon__wxjmq"
             role="img"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
@@ -145,11 +153,10 @@ exports[`Footer matches snapshot 1`] = `
               fill-rule="evenodd"
             >
               <path
-                d="M0 0h24v24H0z"
-              />
-              <path
-                d="M10 3v2H5v14h14v-5h2v7H3V3h7zm11 0v8h-2V6.413l-7 7.001L10.586 12l6.999-7H13V3h8z"
+                clip-rule="evenodd"
+                d="M5 3V19H21V21H3V3H5ZM21 3V12H19V6.413L9.91421 15.5L8.5 14.0858L17.585 5H12V3H21Z"
                 fill="currentColor"
+                fill-rule="evenodd"
               />
             </g>
           </svg>

@@ -59,13 +59,15 @@ const mocks = [
                   children: {
                     __typename:
                       'HierarchicalContentNodeToContentNodeChildrenConnection',
+                    edges: [],
                     // child node are rendered under dropdown
-                    nodes: menuItem?.children?.map((childItem) =>
-                      fakePage({
-                        title: childItem.title,
-                        uri: childItem.uri,
-                      })
-                    ),
+                    nodes:
+                      menuItem?.children?.map((childItem) =>
+                        fakePage({
+                          title: childItem.title,
+                          uri: childItem.uri,
+                        })
+                      ) ?? [],
                   },
                 }),
               },

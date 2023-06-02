@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { FieldProps } from 'formik';
+import { useTranslation } from 'next-i18next';
 import * as React from 'react';
-import { useTranslation } from 'react-i18next';
 
 import UnitPlaceSelector from '../../../../domain/place/unitSelector/UnitPlaceSelector';
 import { invalidFieldClass } from '../constants';

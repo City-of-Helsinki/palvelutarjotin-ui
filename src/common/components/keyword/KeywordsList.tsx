@@ -1,7 +1,7 @@
 import { UrlObject } from 'url';
 
+import { useTranslation } from 'next-i18next';
 import * as React from 'react';
-import { useTranslation } from 'react-i18next';
 
 import Keyword from './Keyword';
 import styles from './keyword.module.scss';

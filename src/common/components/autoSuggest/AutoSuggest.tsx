@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { IconCheck, IconCross } from 'hds-react';
+import { useTranslation } from 'next-i18next';
 import * as React from 'react';
-import { useTranslation } from 'react-i18next';
 
 import {
   ACCESSIBILITY_EVENT_TYPE,

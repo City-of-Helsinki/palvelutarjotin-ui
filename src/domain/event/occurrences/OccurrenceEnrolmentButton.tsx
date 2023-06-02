@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { IconAngleUp, Button } from 'hds-react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
-import { useTranslation } from 'react-i18next';
 
 import EnrolmentError from './EnrolmentError';
 import styles from './occurrences.module.scss';

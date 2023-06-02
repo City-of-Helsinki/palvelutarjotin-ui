@@ -1,7 +1,7 @@
 import { Field, Formik, FormikHelpers } from 'formik';
 import { Button } from 'hds-react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
-import { useTranslation } from 'react-i18next';
 
 import { NewsletterGroupId, NewsletterSubscribeFormFields } from './constants';
 import styles from './newsletterSubscribeForm.module.scss';

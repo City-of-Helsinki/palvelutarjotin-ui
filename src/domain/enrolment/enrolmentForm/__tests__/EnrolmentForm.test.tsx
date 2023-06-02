@@ -90,15 +90,23 @@ test('renders form and user can fill it and submit and form is saved to local st
       name: /Paikka ei ole listalla/i,
     })
   );
-  await userEvent.type(
-    screen.getByRole('textbox', { name: /päiväkoti \/ koulu \/ oppilaitos/i }),
-    'Testikoulu'
+  await act(
+    async () =>
+      await userEvent.type(
+        screen.getByRole('textbox', {
+          name: /päiväkoti \/ koulu \/ oppilaitos/i,
+        }),
+        'Testikoulu'
+      )
   );
   await userEvent.type(screen.getByRole('textbox', { name: /ryhmä/i }), '4a');
 
   // select grade from dropdown
-  await userEvent.click(
-    screen.getByRole('button', { name: /luokka-aste \*/i })
+  await act(
+    async () =>
+      await userEvent.click(
+        screen.getByRole('button', { name: /luokka-aste \*/i })
+      )
   );
 
   await userEvent.click(screen.getByRole('option', { name: /4\. luokka/i }));

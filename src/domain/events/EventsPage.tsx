@@ -1,7 +1,7 @@
 import { NetworkStatus } from '@apollo/client';
 import { Koros } from 'hds-react';
 import Head from 'next/head';
-import Link from 'next/link';
+import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 import React, { ReactElement } from 'react';
@@ -126,7 +126,8 @@ const PopularKeywords: React.FC = () => {
           <h2>{t('events:titlePopularEventCategories')}</h2>
           <div className={styles.keywordsList}>
             {popularKeywords.map((keyword) => (
-              <Link
+              <NextLink
+                legacyBehavior
                 key={keyword.id}
                 href={{
                   pathname: ROUTES.EVENTS_SEARCH,
@@ -135,7 +136,7 @@ const PopularKeywords: React.FC = () => {
               >
                 {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
                 <a>{localizedString(keyword.name, locale)}</a>
-              </Link>
+              </NextLink>
             ))}
           </div>
         </Container>

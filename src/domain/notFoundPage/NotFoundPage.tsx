@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import NextLink from 'next/link';
 import { useTranslation, Trans } from 'next-i18next';
 import React, { ReactElement } from 'react';
 
@@ -9,10 +9,10 @@ interface RootLinkProps {
 }
 
 const RootLink = ({ children }: RootLinkProps) => (
-  <Link href="/">
+  <NextLink legacyBehavior href="/">
     {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
     <a>{children}</a>
-  </Link>
+  </NextLink>
 );
 
 const NotFoundPage = (): ReactElement => {

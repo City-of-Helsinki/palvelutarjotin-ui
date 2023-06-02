@@ -111,6 +111,7 @@ test('renders with sidebar layout when sidebar has content', async () => {
         },
         internalHrefOrigins,
         utils: {
+          ...rhhcDefaultConfig.utils,
           getIsHrefExternal: mockedGetIsHrefExternal,
           getRoutedInternalHref: mockedGetRoutedInternalHref,
         },

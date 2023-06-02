@@ -2,7 +2,7 @@ import { useApolloClient } from '@apollo/client';
 import isSameDay from 'date-fns/isSameDay';
 import { Button, IconLocation, IconClock, IconGlyphEuro } from 'hds-react';
 import { capitalize } from 'lodash';
-import Link from 'next/link';
+import NextLink from 'next/link';
 import { useTranslation } from 'next-i18next';
 import React from 'react';
 
@@ -166,11 +166,15 @@ const OccurrenceInfo: React.FC<{
     <>
       {/* TODO: functionality for these buttons */}
       <CalendarButton event={event} occurrence={occurrence} />
-      <Link href={`/?places=${placeId || eventLocationId}`} passHref>
+      <NextLink
+        legacyBehavior
+        href={`/?places=${placeId || eventLocationId}`}
+        passHref
+      >
         <Button iconLeft={<IconLocation />} variant="supplementary">
           {t('event:occurrenceList.showAllLocationEvents')}
         </Button>
-      </Link>
+      </NextLink>
       {/* Move map links down a bit show they would be 
       closer to location info shown in left column  */}
       <div style={{ height: '50px' }} />

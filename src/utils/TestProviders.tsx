@@ -19,6 +19,7 @@ const mockRouter: NextRouter = {
   route: '/',
   asPath: '/',
   query: {},
+  forward: jest.fn(() => Promise.resolve(true)),
   push: jest.fn(() => Promise.resolve(true)),
   replace: jest.fn(() => Promise.resolve(true)),
   reload: jest.fn(() => Promise.resolve(true)),

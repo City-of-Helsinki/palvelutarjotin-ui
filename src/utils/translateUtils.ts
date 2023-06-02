@@ -19,6 +19,6 @@ export const translateValue = (
           prefix.endsWith('.') ? toCamelCase(value) : toPascalCase(value)
         }`
       : toCamelCase(value),
-    options
+    options ?? {}
   );
 };
