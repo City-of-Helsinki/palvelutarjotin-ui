@@ -36,19 +36,9 @@ exports[`user can select multiple occurrences and enrol to them with enrolment f
   "isSubmitting": false,
   "isValid": true,
   "isValidating": false,
-  "submitCount": 1,
+  "submitCount": 0,
   "touched": {
-    "hasEmailNotification": true,
     "hasSmsNotification": true,
-    "isMandatoryAdditionalInformationRequired": true,
-    "isSameResponsiblePerson": true,
-    "isSharingDataAccepted": true,
-    "language": true,
-    "person": {
-      "emailAddress": true,
-      "name": true,
-      "phoneNumber": true,
-    },
     "studyGroup": {
       "amountOfAdult": true,
       "extraNeeds": true,
@@ -59,11 +49,7 @@ exports[`user can select multiple occurrences and enrol to them with enrolment f
         "name": true,
         "phoneNumber": true,
       },
-      "studyLevels": [
-        true,
-        true,
-      ],
-      "unitId": true,
+      "studyLevels": true,
       "unitName": true,
     },
   },
@@ -139,7 +125,7 @@ exports[`user can select single occurrences and enrol to it with enrolment form 
   "isSubmitting": false,
   "isValid": true,
   "isValidating": false,
-  "submitCount": 2,
+  "submitCount": 1,
   "touched": {
     "hasEmailNotification": true,
     "hasSmsNotification": true,

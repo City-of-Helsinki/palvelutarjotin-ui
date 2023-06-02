@@ -109,46 +109,37 @@ exports[`Header matches snapshot 1`] = `
               style="top: 10px; min-width: 190px;"
             >
               <a
+                class="Menu-module_item__3yQdE "
                 href="/"
+                lang="fi"
               >
-                <a
-                  class="Menu-module_item__3yQdE "
-                  lang="fi"
+                <span
+                  class="NavigationItem-module_label__1UsXG button_hds-button__label__3r3Mi"
                 >
-                  <span
-                    class="NavigationItem-module_label__1UsXG button_hds-button__label__3r3Mi"
-                  >
-                    Suomeksi
-                  </span>
-                </a>
+                  Suomeksi
+                </span>
               </a>
               <a
+                class="Menu-module_item__3yQdE "
                 href="/"
+                lang="sv"
               >
-                <a
-                  class="Menu-module_item__3yQdE "
-                  lang="sv"
+                <span
+                  class="NavigationItem-module_label__1UsXG button_hds-button__label__3r3Mi"
                 >
-                  <span
-                    class="NavigationItem-module_label__1UsXG button_hds-button__label__3r3Mi"
-                  >
-                    På svenska
-                  </span>
-                </a>
+                  På svenska
+                </span>
               </a>
               <a
+                class="Menu-module_item__3yQdE "
                 href="/"
+                lang="en"
               >
-                <a
-                  class="Menu-module_item__3yQdE "
-                  lang="en"
+                <span
+                  class="NavigationItem-module_label__1UsXG button_hds-button__label__3r3Mi"
                 >
-                  <span
-                    class="NavigationItem-module_label__1UsXG button_hds-button__label__3r3Mi"
-                  >
-                    In English
-                  </span>
-                </a>
+                  In English
+                </span>
               </a>
             </div>
           </div>
@@ -287,46 +278,37 @@ exports[`Header matches snapshot 1`] = `
                   style="top: 10px; min-width: 190px;"
                 >
                   <a
+                    class="Menu-module_item__3yQdE "
                     href="/"
+                    lang="fi"
                   >
-                    <a
-                      class="Menu-module_item__3yQdE "
-                      lang="fi"
+                    <span
+                      class="NavigationItem-module_label__1UsXG button_hds-button__label__3r3Mi"
                     >
-                      <span
-                        class="NavigationItem-module_label__1UsXG button_hds-button__label__3r3Mi"
-                      >
-                        Suomeksi
-                      </span>
-                    </a>
+                      Suomeksi
+                    </span>
                   </a>
                   <a
+                    class="Menu-module_item__3yQdE "
                     href="/"
+                    lang="sv"
                   >
-                    <a
-                      class="Menu-module_item__3yQdE "
-                      lang="sv"
+                    <span
+                      class="NavigationItem-module_label__1UsXG button_hds-button__label__3r3Mi"
                     >
-                      <span
-                        class="NavigationItem-module_label__1UsXG button_hds-button__label__3r3Mi"
-                      >
-                        På svenska
-                      </span>
-                    </a>
+                      På svenska
+                    </span>
                   </a>
                   <a
+                    class="Menu-module_item__3yQdE "
                     href="/"
+                    lang="en"
                   >
-                    <a
-                      class="Menu-module_item__3yQdE "
-                      lang="en"
+                    <span
+                      class="NavigationItem-module_label__1UsXG button_hds-button__label__3r3Mi"
                     >
-                      <span
-                        class="NavigationItem-module_label__1UsXG button_hds-button__label__3r3Mi"
-                      >
-                        In English
-                      </span>
-                    </a>
+                      In English
+                    </span>
                   </a>
                 </div>
               </div>
@@ -449,46 +431,37 @@ exports[`navigation renders menus and dropdown menus 1`] = `
                 style="top: 10px; min-width: 190px;"
               >
                 <a
+                  class="Menu-module_item__3yQdE "
                   href="/"
+                  lang="fi"
                 >
-                  <a
-                    class="Menu-module_item__3yQdE "
-                    lang="fi"
+                  <span
+                    class="NavigationItem-module_label__1UsXG button_hds-button__label__3r3Mi"
                   >
-                    <span
-                      class="NavigationItem-module_label__1UsXG button_hds-button__label__3r3Mi"
-                    >
-                      Suomeksi
-                    </span>
-                  </a>
+                    Suomeksi
+                  </span>
                 </a>
                 <a
+                  class="Menu-module_item__3yQdE "
                   href="/"
+                  lang="sv"
                 >
-                  <a
-                    class="Menu-module_item__3yQdE "
-                    lang="sv"
+                  <span
+                    class="NavigationItem-module_label__1UsXG button_hds-button__label__3r3Mi"
                   >
-                    <span
-                      class="NavigationItem-module_label__1UsXG button_hds-button__label__3r3Mi"
-                    >
-                      På svenska
-                    </span>
-                  </a>
+                    På svenska
+                  </span>
                 </a>
                 <a
+                  class="Menu-module_item__3yQdE "
                   href="/"
+                  lang="en"
                 >
-                  <a
-                    class="Menu-module_item__3yQdE "
-                    lang="en"
+                  <span
+                    class="NavigationItem-module_label__1UsXG button_hds-button__label__3r3Mi"
                   >
-                    <span
-                      class="NavigationItem-module_label__1UsXG button_hds-button__label__3r3Mi"
-                    >
-                      In English
-                    </span>
-                  </a>
+                    In English
+                  </span>
                 </a>
               </div>
             </div>
@@ -606,104 +579,83 @@ exports[`navigation renders menus and dropdown menus 1`] = `
                     role="region"
                   >
                     <a
+                      class="Menu-module_item__3yQdE "
                       href="/cms-page/helsinki-liikkuu"
+                      lang="fi"
                     >
-                      <a
-                        class="Menu-module_item__3yQdE "
-                        lang="fi"
+                      <span
+                        class="NavigationItem-module_label__1UsXG button_hds-button__label__3r3Mi"
                       >
-                        <span
-                          class="NavigationItem-module_label__1UsXG button_hds-button__label__3r3Mi"
-                        >
-                          Mikä Kultus?
-                        </span>
-                      </a>
+                        Mikä Kultus?
+                      </span>
                     </a>
                     <a
+                      class="Menu-module_item__3yQdE "
                       href="/cms-page/helsinki-liikkuu/alisivu"
+                      lang="fi"
                     >
-                      <a
-                        class="Menu-module_item__3yQdE "
-                        lang="fi"
+                      <span
+                        class="NavigationItem-module_label__1UsXG button_hds-button__label__3r3Mi"
                       >
-                        <span
-                          class="NavigationItem-module_label__1UsXG button_hds-button__label__3r3Mi"
-                        >
-                          Mikä Kultus alisivu1
-                        </span>
-                      </a>
+                        Mikä Kultus alisivu1
+                      </span>
                     </a>
                     <a
+                      class="Menu-module_item__3yQdE "
                       href="/cms-page/helsinki-liikkuu/alisivu"
+                      lang="fi"
                     >
-                      <a
-                        class="Menu-module_item__3yQdE "
-                        lang="fi"
+                      <span
+                        class="NavigationItem-module_label__1UsXG button_hds-button__label__3r3Mi"
                       >
-                        <span
-                          class="NavigationItem-module_label__1UsXG button_hds-button__label__3r3Mi"
-                        >
-                          Mikä Kultus alisivu2
-                        </span>
-                      </a>
+                        Mikä Kultus alisivu2
+                      </span>
                     </a>
                   </div>
                 </div>
                 <a
+                  class="NavigationItem-module_rowItem__2QxRz"
                   href="/cms-page"
+                  lang="fi"
                 >
-                  <a
-                    class="NavigationItem-module_rowItem__2QxRz"
-                    lang="fi"
+                  <span
+                    class="NavigationItem-module_label__1UsXG button_hds-button__label__3r3Mi"
                   >
-                    <span
-                      class="NavigationItem-module_label__1UsXG button_hds-button__label__3r3Mi"
-                    >
-                      Helsinki liikkuu
-                    </span>
-                  </a>
+                    Helsinki liikkuu
+                  </span>
                 </a>
                 <a
+                  class="NavigationItem-module_rowItem__2QxRz"
                   href="/cms-page"
+                  lang="fi"
                 >
-                  <a
-                    class="NavigationItem-module_rowItem__2QxRz"
-                    lang="fi"
+                  <span
+                    class="NavigationItem-module_label__1UsXG button_hds-button__label__3r3Mi"
                   >
-                    <span
-                      class="NavigationItem-module_label__1UsXG button_hds-button__label__3r3Mi"
-                    >
-                      Kulttuurikasvatus
-                    </span>
-                  </a>
+                    Kulttuurikasvatus
+                  </span>
                 </a>
                 <a
+                  class="NavigationItem-module_rowItem__2QxRz"
                   href="/cms-page"
+                  lang="fi"
                 >
-                  <a
-                    class="NavigationItem-module_rowItem__2QxRz"
-                    lang="fi"
+                  <span
+                    class="NavigationItem-module_label__1UsXG button_hds-button__label__3r3Mi"
                   >
-                    <span
-                      class="NavigationItem-module_label__1UsXG button_hds-button__label__3r3Mi"
-                    >
-                      Oppimateriaalit
-                    </span>
-                  </a>
+                    Oppimateriaalit
+                  </span>
                 </a>
                 <a
+                  class="NavigationItem-module_rowItem__2QxRz"
                   href="/cms-page"
+                  lang="fi"
                 >
-                  <a
-                    class="NavigationItem-module_rowItem__2QxRz"
-                    lang="fi"
+                  <span
+                    class="NavigationItem-module_label__1UsXG button_hds-button__label__3r3Mi"
                   >
-                    <span
-                      class="NavigationItem-module_label__1UsXG button_hds-button__label__3r3Mi"
-                    >
-                      Kultus sivu
-                    </span>
-                  </a>
+                    Kultus sivu
+                  </span>
                 </a>
               </nav>
               <div
@@ -773,46 +725,37 @@ exports[`navigation renders menus and dropdown menus 1`] = `
                     role="region"
                   >
                     <a
+                      class="Menu-module_item__3yQdE "
                       href="/"
+                      lang="fi"
                     >
-                      <a
-                        class="Menu-module_item__3yQdE "
-                        lang="fi"
+                      <span
+                        class="NavigationItem-module_label__1UsXG button_hds-button__label__3r3Mi"
                       >
-                        <span
-                          class="NavigationItem-module_label__1UsXG button_hds-button__label__3r3Mi"
-                        >
-                          Suomeksi
-                        </span>
-                      </a>
+                        Suomeksi
+                      </span>
                     </a>
                     <a
+                      class="Menu-module_item__3yQdE "
                       href="/"
+                      lang="sv"
                     >
-                      <a
-                        class="Menu-module_item__3yQdE "
-                        lang="sv"
+                      <span
+                        class="NavigationItem-module_label__1UsXG button_hds-button__label__3r3Mi"
                       >
-                        <span
-                          class="NavigationItem-module_label__1UsXG button_hds-button__label__3r3Mi"
-                        >
-                          På svenska
-                        </span>
-                      </a>
+                        På svenska
+                      </span>
                     </a>
                     <a
+                      class="Menu-module_item__3yQdE "
                       href="/"
+                      lang="en"
                     >
-                      <a
-                        class="Menu-module_item__3yQdE "
-                        lang="en"
+                      <span
+                        class="NavigationItem-module_label__1UsXG button_hds-button__label__3r3Mi"
                       >
-                        <span
-                          class="NavigationItem-module_label__1UsXG button_hds-button__label__3r3Mi"
-                        >
-                          In English
-                        </span>
-                      </a>
+                        In English
+                      </span>
                     </a>
                   </div>
                 </div>

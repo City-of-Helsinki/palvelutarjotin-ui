@@ -181,19 +181,15 @@ test('user can select single occurrences and enrol to it with enrolment form', a
     `"25.9.2020 pe12:30 – 13:30suomi, englantifi, enKirjasto30 / 30Näytä lisätiedot"`
   );
 
-  await act(
-    async () =>
-      await userEvent.click(
-        within(rows[1]).getByRole('button', {
-          name: /näytä tapahtuma-ajan lisätiedot/i,
-        })
-      )
+  await act(() =>
+    userEvent.click(
+      within(rows[1]).getByRole('button', {
+        name: /näytä tapahtuma-ajan lisätiedot/i,
+      })
+    )
   );
 
-  await act(
-    async () =>
-      await userEvent.click(await screen.findByText(/varaustiedustelu/i))
-  );
+  await act(() => userEvent.click(screen.getByText(/varaustiedustelu/i)));
 
   await screen.findByRole('heading', { name: 'Ilmoittajan tiedot' });
 
@@ -213,14 +209,14 @@ test('user can select single occurrences and enrol to it with enrolment form', a
         JSON.parse(localStorage.getItem(FORM_NAMES.ENROLMENT_FORM)!)
       ).toMatchSnapshot()
     );
-  }
 
-  await waitFor(() => {
-    expect(getRecommendedEventsQueryVariables()).toEqual({
-      unitIds: [null],
-      studyLevels: ['kultus:55', 'kultus:56'],
+    await waitFor(() => {
+      expect(getRecommendedEventsQueryVariables()).toEqual({
+        unitIds: [null],
+        studyLevels: ['kultus:55', 'kultus:56'],
+      });
     });
-  });
+  }
 
   await waitFor(() => {
     expect(enrolOccurrenceMock).toHaveBeenCalledWith({
@@ -279,27 +275,22 @@ test('user can select multiple occurrences and enrol to them with enrolment form
   expect(rows[3].textContent).toMatchInlineSnapshot(
     `"26.9.2020 la14:20 – 15:20suomi, englantifi, enKirjasto30 / 30Näytä lisätiedot"`
   );
-  await act(
-    async () =>
-      await userEvent.click(
-        within(rows[1]).getByRole('checkbox', {
-          name: 'Valitse tapahtuma-aika',
-        })
-      )
+  await act(() =>
+    userEvent.click(
+      within(rows[1]).getByRole('checkbox', {
+        name: 'Valitse tapahtuma-aika',
+      })
+    )
   );
-  await act(
-    async () =>
-      await userEvent.click(
-        within(rows[2]).getByRole('checkbox', {
-          name: 'Valitse tapahtuma-aika',
-        })
-      )
+  await act(() =>
+    userEvent.click(
+      within(rows[2]).getByRole('checkbox', {
+        name: 'Valitse tapahtuma-aika',
+      })
+    )
   );
-  await act(
-    async () =>
-      await userEvent.click(
-        await screen.findByRole('button', { name: 'Ilmoittaudu' })
-      )
+  await act(() =>
+    userEvent.click(screen.getByRole('button', { name: 'Ilmoittaudu' }))
   );
 
   await fillForm();
@@ -353,11 +344,10 @@ async function testErrorNotification({
   submitButtonName?: RegExp | string;
 }) {
   // test that error notification works
-  await act(
-    async () =>
-      await userEvent.click(
-        enrolmentForm.getByRole('button', { name: submitButtonName })
-      )
+  await act(() =>
+    userEvent.click(
+      enrolmentForm.getByRole('button', { name: submitButtonName })
+    )
   );
   const alertContainer = await enrolmentForm.findByRole('alert');
   await waitFor(() =>
@@ -367,13 +357,12 @@ async function testErrorNotification({
     /hyväksyn tietojeni jakamisen tapahtuman järjestäjän kanssa/i
   );
 
-  await act(
-    async () =>
-      await userEvent.click(
-        enrolmentForm.getByRole('checkbox', {
-          name: /hyväksyn tietojeni jakamisen tapahtuman järjestäjän kanssa/i,
-        })
-      )
+  await act(() =>
+    userEvent.click(
+      enrolmentForm.getByRole('checkbox', {
+        name: /hyväksyn tietojeni jakamisen tapahtuman järjestäjän kanssa/i,
+      })
+    )
   );
   await act(() => wait(500));
   await waitFor(() => {
@@ -394,143 +383,119 @@ async function fillForm({
     expect(screen.getByTestId('enrolment-form')).toBeInTheDocument();
   });
   const enrolmentForm = within(screen.getByTestId('enrolment-form'));
-  await act(
-    async () =>
-      await userEvent.type(
-        enrolmentForm.getByLabelText(/nimi/i),
-        'Nimi Niminen'
-      )
+  await act(() =>
+    userEvent.type(
+      enrolmentForm.getByRole('textbox', {
+        name: /nimi \*/i,
+      }),
+      'Nimi Niminen'
+    )
   );
 
-  await act(
-    async () =>
-      await userEvent.type(
-        enrolmentForm.getByLabelText(/sähköpostiosoite/i),
-        'testi@testi.fi'
-      )
+  await act(() =>
+    userEvent.type(
+      enrolmentForm.getByRole('textbox', {
+        name: /sähköpostiosoite \*/i,
+      }),
+      'testi@testi.fi'
+    )
   );
-  await act(
-    async () =>
-      await userEvent.type(
-        enrolmentForm.getByLabelText(/puhelinnumero/i),
-        '123321123'
-      )
-  );
-
-  await act(
-    async () =>
-      await userEvent.click(
-        enrolmentForm.getByLabelText(/paikka ei ole listalla/i)
-      )
+  await act(() =>
+    userEvent.type(
+      enrolmentForm.getByRole('textbox', {
+        name: /puhelinnumero \*/i,
+      }),
+      '123321123'
+    )
   );
 
-  await act(
-    async () =>
-      await userEvent.type(
-        enrolmentForm.getByLabelText(/päiväkoti \/ koulu \/ oppilaitos/i),
-        'Testikoulu'
-      )
+  await act(() =>
+    userEvent.click(enrolmentForm.getByLabelText(/paikka ei ole listalla/i))
   );
-  await act(
-    async () =>
-      await userEvent.type(enrolmentForm.getByLabelText(/ryhmä/i), '4a')
+
+  await act(() =>
+    userEvent.type(
+      enrolmentForm.getByLabelText(/päiväkoti \/ koulu \/ oppilaitos/i),
+      'Testikoulu'
+    )
   );
+  await act(() => userEvent.type(enrolmentForm.getByLabelText(/ryhmä/i), '4a'));
 
   // select grade from dropdown
 
   const gradeButton = enrolmentForm.getByRole('button', {
     name: /luokka-aste/i,
   });
-  await act(
-    async () =>
-      await userEvent.click(
-        await within(gradeButton?.parentElement!).findByText(/valitse/i)
-      )
+
+  await act(() =>
+    userEvent.click(within(gradeButton?.parentElement!).getByText(/valitse/i))
   );
 
-  const grade1 = await within(gradeButton?.parentElement!).findByRole(
-    'option',
-    {
-      name: /2\. luokka/i,
-    }
-  );
-  const grade2 = await within(gradeButton?.parentElement!).findByRole(
-    'option',
-    {
-      name: /4\. luokka/i,
-    }
-  );
+  const grade2 = within(gradeButton?.parentElement!).getByRole('option', {
+    name: /2\. luokka/i,
+  });
+  const grade4 = within(gradeButton?.parentElement!).getByRole('option', {
+    name: /4\. luokka/i,
+  });
 
-  await act(async () => await userEvent.click(grade1));
-  await act(async () => await userEvent.click(grade2));
+  await act(() => userEvent.click(grade2));
+  await act(() => userEvent.click(grade4));
   // close dropdown
-  await act(async () => await userEvent.click(gradeButton));
+  await act(() => userEvent.click(gradeButton));
 
-  await act(
-    async () =>
-      await userEvent.type(enrolmentForm.getByLabelText(/lapsia/i), '10')
+  await act(() =>
+    userEvent.type(enrolmentForm.getByLabelText(/lapsia/i), '10')
   );
-  await act(
-    async () =>
-      await userEvent.type(enrolmentForm.getByLabelText(/aikuisia/i), '2')
+
+  await act(() =>
+    userEvent.type(enrolmentForm.getByLabelText(/aikuisia/i), '2')
   );
 
   expect(
     enrolmentForm.getByRole('checkbox', { name: /sama kuin ilmoittaja/i })
   ).toBeChecked();
 
-  await act(
-    async () =>
-      await userEvent.click(
-        enrolmentForm.getByRole('checkbox', { name: /sähköpostilla/i })
-      )
+  await act(() =>
+    userEvent.click(
+      enrolmentForm.getByRole('checkbox', { name: /sähköpostilla/i })
+    )
   );
 
-  await act(
-    async () =>
-      await userEvent.click(enrolmentForm.getByText(/tekstiviestillä/i))
+  await act(() => userEvent.click(enrolmentForm.getByText(/tekstiviestillä/i)));
+
+  await act(() =>
+    userEvent.click(
+      enrolmentForm.getByRole('button', { name: /Ilmoitusten kieli/ })
+    )
   );
 
-  await act(
-    async () =>
-      await userEvent.click(
-        enrolmentForm.getByRole('button', { name: /Ilmoitusten kieli/ })
-      )
+  const suomi = await enrolmentForm.findByRole(
+    'option',
+    { name: /suomi/i },
+    { timeout: 3000 }
   );
-
-  await act(
-    async () =>
-      await userEvent.click(
-        await enrolmentForm.findByRole(
-          'option',
-          { name: /suomi/i },
-          { timeout: 3000 }
-        )
-      )
-  );
-  await act(
-    async () =>
-      await userEvent.type(
-        enrolmentForm.getByRole('textbox', { name: additionalInfoName }),
-        'Lisätietoja ilmoittautumiseen'
-      )
+  await act(() => userEvent.click(suomi));
+  await act(() =>
+    userEvent.type(
+      enrolmentForm.getByRole('textbox', { name: additionalInfoName }),
+      'Lisätietoja ilmoittautumiseen'
+    )
   );
 
   // test that error notification works
   if (testConfirmation) {
     await testErrorNotification({ enrolmentForm, submitButtonName });
   } else {
-    await userEvent.click(
-      enrolmentForm.getByRole('checkbox', {
-        name: /hyväksyn tietojeni jakamisen tapahtuman järjestäjän kanssa/i,
-      })
+    await act(() =>
+      userEvent.click(
+        enrolmentForm.getByRole('checkbox', {
+          name: /hyväksyn tietojeni jakamisen tapahtuman järjestäjän kanssa/i,
+        })
+      )
     );
   }
 
-  await act(
-    async () =>
-      await userEvent.click(
-        enrolmentForm.getByRole('button', { name: submitButtonName })
-      )
+  userEvent.click(
+    enrolmentForm.getByRole('button', { name: submitButtonName })
   );
 }

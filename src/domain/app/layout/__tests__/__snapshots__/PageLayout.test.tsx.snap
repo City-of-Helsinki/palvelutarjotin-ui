@@ -112,46 +112,37 @@ exports[`PageLayout matches snapshot 1`] = `
                 style="top: 10px; min-width: 190px;"
               >
                 <a
+                  class="Menu-module_item__3yQdE "
                   href="/"
+                  lang="fi"
                 >
-                  <a
-                    class="Menu-module_item__3yQdE "
-                    lang="fi"
+                  <span
+                    class="NavigationItem-module_label__1UsXG button_hds-button__label__3r3Mi"
                   >
-                    <span
-                      class="NavigationItem-module_label__1UsXG button_hds-button__label__3r3Mi"
-                    >
-                      Suomeksi
-                    </span>
-                  </a>
+                    Suomeksi
+                  </span>
                 </a>
                 <a
+                  class="Menu-module_item__3yQdE "
                   href="/"
+                  lang="sv"
                 >
-                  <a
-                    class="Menu-module_item__3yQdE "
-                    lang="sv"
+                  <span
+                    class="NavigationItem-module_label__1UsXG button_hds-button__label__3r3Mi"
                   >
-                    <span
-                      class="NavigationItem-module_label__1UsXG button_hds-button__label__3r3Mi"
-                    >
-                      På svenska
-                    </span>
-                  </a>
+                    På svenska
+                  </span>
                 </a>
                 <a
+                  class="Menu-module_item__3yQdE "
                   href="/"
+                  lang="en"
                 >
-                  <a
-                    class="Menu-module_item__3yQdE "
-                    lang="en"
+                  <span
+                    class="NavigationItem-module_label__1UsXG button_hds-button__label__3r3Mi"
                   >
-                    <span
-                      class="NavigationItem-module_label__1UsXG button_hds-button__label__3r3Mi"
-                    >
-                      In English
-                    </span>
-                  </a>
+                    In English
+                  </span>
                 </a>
               </div>
             </div>
@@ -290,46 +281,37 @@ exports[`PageLayout matches snapshot 1`] = `
                     style="top: 10px; min-width: 190px;"
                   >
                     <a
+                      class="Menu-module_item__3yQdE "
                       href="/"
+                      lang="fi"
                     >
-                      <a
-                        class="Menu-module_item__3yQdE "
-                        lang="fi"
+                      <span
+                        class="NavigationItem-module_label__1UsXG button_hds-button__label__3r3Mi"
                       >
-                        <span
-                          class="NavigationItem-module_label__1UsXG button_hds-button__label__3r3Mi"
-                        >
-                          Suomeksi
-                        </span>
-                      </a>
+                        Suomeksi
+                      </span>
                     </a>
                     <a
+                      class="Menu-module_item__3yQdE "
                       href="/"
+                      lang="sv"
                     >
-                      <a
-                        class="Menu-module_item__3yQdE "
-                        lang="sv"
+                      <span
+                        class="NavigationItem-module_label__1UsXG button_hds-button__label__3r3Mi"
                       >
-                        <span
-                          class="NavigationItem-module_label__1UsXG button_hds-button__label__3r3Mi"
-                        >
-                          På svenska
-                        </span>
-                      </a>
+                        På svenska
+                      </span>
                     </a>
                     <a
+                      class="Menu-module_item__3yQdE "
                       href="/"
+                      lang="en"
                     >
-                      <a
-                        class="Menu-module_item__3yQdE "
-                        lang="en"
+                      <span
+                        class="NavigationItem-module_label__1UsXG button_hds-button__label__3r3Mi"
                       >
-                        <span
-                          class="NavigationItem-module_label__1UsXG button_hds-button__label__3r3Mi"
-                        >
-                          In English
-                        </span>
-                      </a>
+                        In English
+                      </span>
                     </a>
                   </div>
                 </div>

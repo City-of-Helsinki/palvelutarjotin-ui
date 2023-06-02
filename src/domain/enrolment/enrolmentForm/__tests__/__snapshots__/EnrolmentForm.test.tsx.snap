@@ -90,7 +90,7 @@ exports[`renders form and user can fill it and submit and form is saved to local
       "person": {
         "emailAddress": "testi@testi.fi",
         "name": "Nimi Niminen",
-        "phoneNumber": "123321123123321123",
+        "phoneNumber": "123321123",
       },
       "studyLevels": [
         "GRADE_4",
@@ -125,7 +125,7 @@ exports[`renders form and user can fill it and submit and form is saved to local
       "person": {
         "emailAddress": "testi@testi.fi",
         "name": "Nimi Niminen",
-        "phoneNumber": "123321123123321123",
+        "phoneNumber": "123321123",
       },
       "studyLevels": [
         "GRADE_4",

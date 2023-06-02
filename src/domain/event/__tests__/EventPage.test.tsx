@@ -634,17 +634,31 @@ it('filters occurrence list correctly when sate filters are selected', async () 
   renderComponent();
   await waitForRequestsToComplete();
 
-  await userEvent.click(
-    screen.getByLabelText(eventMessages.occurrenceList.labelStartDateFilter)
+  await act(() =>
+    userEvent.click(
+      screen.getByRole('button', {
+        name: eventMessages.occurrenceList.labelStartDateFilterDatepicker,
+      })
+    )
   );
-  await userEvent.click(
-    screen.getByRole('button', { name: 'Valitse 28.7.2020' })
+  userEvent.click(
+    screen.getByRole('button', {
+      name: /heinäkuu 28/i,
+    })
   );
-  await userEvent.click(
-    screen.getByLabelText(eventMessages.occurrenceList.labelEndDateFilter)
+  await act(() =>
+    userEvent.click(
+      screen.getByRole('button', {
+        name: eventMessages.occurrenceList.labelEndDateFilterDatepicker,
+      })
+    )
   );
-  await userEvent.click(
-    screen.getByRole('button', { name: 'Valitse 29.7.2020' })
+  await act(() =>
+    userEvent.click(
+      screen.getByRole('button', {
+        name: /heinäkuu 29/i,
+      })
+    )
   );
 
   const tableRows = screen.getAllByRole('row');
