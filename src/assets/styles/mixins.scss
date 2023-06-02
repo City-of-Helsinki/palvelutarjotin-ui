@@ -1,18 +1,25 @@
 @mixin placeholder($_color) {
   /* Chrome/Opera/Safari */
-  &::-webkit-input-placeholder {
+  /* stylelint-disable-next-line selector-pseudo-element-no-unknown */
+  &::input-placeholder {
     color: $_color;
   }
+
   /* Firefox 19+ */
-  &::-moz-placeholder {
+  /* stylelint-disable-next-line selector-pseudo-element-no-unknown */
+  &::placeholder {
     color: $_color;
   }
+
   /* IE 10+ */
-  &:-ms-input-placeholder {
+  /* stylelint-disable-next-line selector-pseudo-class-no-unknown */
+  &:input-placeholder {
     color: $_color;
   }
+
   /* Firefox 18- */
-  &:-moz-placeholder {
+  /* stylelint-disable-next-line selector-pseudo-class-no-unknown */
+  &:placeholder {
     color: $_color;
   }
 }

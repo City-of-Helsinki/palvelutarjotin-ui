@@ -1,5 +1,6 @@
 .root {
   --icon-width: 1.5rem;
+
   composes: hds-text-input from 'hds-core/lib/components/text-input/text-input.css';
 }
 
@@ -8,7 +9,7 @@
 }
 
 .hiddenLabel {
-  composes: hiddenFromScreen from 'hds-core/lib/utils/helpers.css';
+  composes: hiddenfromscreen from 'hds-core/lib/utils/helpers.css';
 }
 
 .inputWrapper {

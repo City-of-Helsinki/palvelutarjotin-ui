@@ -50,6 +50,7 @@
 .korosTop {
   fill: var(--color-white);
   position: relative;
+
   // HACK: "transform: translateZ(0)" is a magic trick for removing subpixel
   // horizontal line under Koros on at least Google Chrome, see bug ticket
   // https://helsinkisolutionoffice.atlassian.net/browse/HDS-1628

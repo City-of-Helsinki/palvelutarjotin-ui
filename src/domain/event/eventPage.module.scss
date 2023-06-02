@@ -3,11 +3,12 @@
 
 .eventPage {
   --enrol-button-width: 250px;
+
   display: block;
   z-index: 1;
 
   @include respond-above(sm) {
-    box-shadow: rgb(0 0 0 / 24%) 0px 3px 8px;
+    box-shadow: rgb(0 0 0 / 24%) 0 3px 8px;
     padding: 1rem var(--spacing-2-xl);
     background-color: var(--color-white);
   }
@@ -99,6 +100,7 @@ h2.enrolmentHeader {
   display: flex;
   justify-content: space-between;
   align-items: center;
+
   button {
     --background-color: var(--color-engel);
     --background-color-hover: var(--color-engel-dark);

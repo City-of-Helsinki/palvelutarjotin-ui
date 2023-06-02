@@ -2,12 +2,11 @@
 
 .eventList {
   --fontsize-heading: var(--fontsize-heading-s);
-
   --grid-gap-event-cards-wrapper: var(--spacing-s);
-
   --margin-top-event-list: var(--spacing-l);
 
   margin-top: var(--margin-top-event-list);
+
   h2 {
     font-size: var(--fontsize-heading);
 

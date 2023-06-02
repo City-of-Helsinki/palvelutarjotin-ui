@@ -1,27 +1,19 @@
 .menuDropdown {
   --background-color-menu: var(--color-white);
   --background-color-menu-item-focus: var(--color-fog);
-
   --border-color-button: var(--color-white);
   --border-color-button-focus: var(--color-white);
   --border-bottom-color-menu-item: var(--color-black-10);
-
   --color-button: var(--color-black);
-
   --fontsize-button: var(--fontsize-body-m);
   --fontsize-menu-item: var(--fontsize-body-m);
-
   --fontweight-menu-item: normal;
   --fontweight-menu-item-selected: 600;
-
   --margin-left-icon-angle: var(--spacing-xs);
-
   --margin-right-button-icon: var(--spacing-xs);
   --margin-right-menu-item-icon: var(--spacing-xs);
-
   --size-button-icon: var(--spacing-layout-xs);
   --size-button-angle-icon: var(--spacing-layout-xs);
-
   --spacing-button: var(--spacing-2-xs);
   --spacing-menu-item: var(--spacing-xs);
 
@@ -77,9 +69,9 @@
     top: 100%;
     right: 0;
     background-color: var(--background-color-menu);
-    box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 6px 0 rgb(0 0 0 / 20%);
     z-index: 1000;
-    min-width: -webkit-fill-available;
+    min-width: fill-available;
   }
 }
 
