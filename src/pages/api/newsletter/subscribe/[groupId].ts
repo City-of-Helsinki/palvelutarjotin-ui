@@ -1,11 +1,11 @@
-import axios, { AxiosError } from 'axios';
+import { AxiosError, isAxiosError } from 'axios';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 import { addSubscriber } from '../../../../clients/gruppo/lib/subscribers';
 import { isFeatureEnabled } from '../../../../utils/featureFlags';
 
 const axiosErrorHandler = (res: NextApiResponse, err: AxiosError | Error) => {
-  if (axios.isAxiosError(err) && err.response) {
+  if (isAxiosError(err) && err.response) {
     res.status(err.response.status).json(err.response.data);
   } else {
     res

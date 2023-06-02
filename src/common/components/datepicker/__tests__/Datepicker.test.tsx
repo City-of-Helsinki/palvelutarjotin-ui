@@ -85,7 +85,7 @@ describe('<Datepicker />', () => {
     // selected date receives focus asynchronously, lets wait it to happen
     await waitFor(() => expect(currentDayButton).toHaveFocus());
 
-    pressKey({ key: 'ArrowDown' });
+    act(() => pressKey({ key: 'ArrowDown' }));
 
     await waitFor(() =>
       expect(

@@ -22,7 +22,7 @@ export default function getValidationSchema({
     language: Yup.string().required(VALIDATION_MESSAGE_KEYS.STRING_REQUIRED),
     person: Yup.object().when(
       ['isSameResponsiblePerson'],
-      (isSameResponsiblePerson: boolean, schema: Yup.AnyObjectSchema) => {
+      (isSameResponsiblePerson, schema: Yup.AnyObjectSchema) => {
         return isSameResponsiblePerson
           ? schema
           : schema.shape({
@@ -37,8 +37,8 @@ export default function getValidationSchema({
     ),
     studyGroup: Yup.object().when(
       ['isMandatoryAdditionalInformationRequired'],
-      ((
-        isMandatoryAdditionalInformationRequired: boolean,
+      (
+        isMandatoryAdditionalInformationRequired,
         schema: Yup.AnyObjectSchema
       ) => {
         const validateSumOfSizePair = (
@@ -99,7 +99,7 @@ export default function getValidationSchema({
             }),
             unitName: Yup.string().when(
               ['unitId'],
-              (unitId: string, schema: Yup.StringSchema) => {
+              (unitId, schema: Yup.StringSchema) => {
                 if (!unitId) {
                   return schema.required(
                     VALIDATION_MESSAGE_KEYS.STRING_REQUIRED
@@ -110,7 +110,7 @@ export default function getValidationSchema({
             ),
             unitId: Yup.string().when(
               ['unitName'],
-              (unitName: string, schema: Yup.StringSchema) => {
+              (unitName, schema: Yup.StringSchema) => {
                 if (!unitName) {
                   return schema
                     .nullable()
@@ -125,29 +125,25 @@ export default function getValidationSchema({
             // NOTE: GroupSize is (currently) the amount of children
             groupSize: Yup.number()
               .required(VALIDATION_MESSAGE_KEYS.NUMBER_REQUIRED)
-              .when(
-                ['amountOfAdult'],
-                (sizePair: number, schema: Yup.NumberSchema) =>
-                  validateSumOfSizePair(
-                    sizePair,
-                    schema,
-                    VALIDATION_MESSAGE_KEYS.STUDYGROUP_MIN_CHILDREN_WITH_ADULTS,
-                    VALIDATION_MESSAGE_KEYS.STUDYGROUP_MAX_WITH_ADULTS,
-                    VALIDATION_MESSAGE_KEYS.STUDYGROUP_MAX_CHILDREN_WITH_ADULTS
-                  )
+              .when(['amountOfAdult'], (sizePair, schema: Yup.NumberSchema) =>
+                validateSumOfSizePair(
+                  sizePair as unknown as number,
+                  schema,
+                  VALIDATION_MESSAGE_KEYS.STUDYGROUP_MIN_CHILDREN_WITH_ADULTS,
+                  VALIDATION_MESSAGE_KEYS.STUDYGROUP_MAX_WITH_ADULTS,
+                  VALIDATION_MESSAGE_KEYS.STUDYGROUP_MAX_CHILDREN_WITH_ADULTS
+                )
               ),
             amountOfAdult: Yup.number()
               .required(VALIDATION_MESSAGE_KEYS.NUMBER_REQUIRED)
-              .when(
-                ['groupSize'],
-                (sizePair: number, schema: Yup.NumberSchema) =>
-                  validateSumOfSizePair(
-                    sizePair,
-                    schema,
-                    VALIDATION_MESSAGE_KEYS.STUDYGROUP_MIN_CHILDREN_WITH_ADULTS,
-                    VALIDATION_MESSAGE_KEYS.STUDYGROUP_MAX_WITH_CHILDREN,
-                    VALIDATION_MESSAGE_KEYS.STUDYGROUP_MAX_CHILDREN_WITH_ADULTS
-                  )
+              .when(['groupSize'], (sizePair, schema: Yup.NumberSchema) =>
+                validateSumOfSizePair(
+                  sizePair as unknown as number,
+                  schema,
+                  VALIDATION_MESSAGE_KEYS.STUDYGROUP_MIN_CHILDREN_WITH_ADULTS,
+                  VALIDATION_MESSAGE_KEYS.STUDYGROUP_MAX_WITH_CHILDREN,
+                  VALIDATION_MESSAGE_KEYS.STUDYGROUP_MAX_CHILDREN_WITH_ADULTS
+                )
               ),
             extraNeeds: isMandatoryAdditionalInformationRequired
               ? Yup.string().required(VALIDATION_MESSAGE_KEYS.STRING_REQUIRED)
@@ -163,7 +159,7 @@ export default function getValidationSchema({
         );
         // For some reason typescript complains event though it is correct
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      }) as any
+      }
     ),
   });
 }

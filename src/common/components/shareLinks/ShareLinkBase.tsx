@@ -1,4 +1,5 @@
-import { stringify } from 'query-string';
+import { stringify } from 'querystring';
+
 import React, { ReactNode } from 'react';
 
 export interface ShareLinkBaseProps {

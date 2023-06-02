@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import { Button, IconLocation } from 'hds-react';
 import times from 'lodash/times';
-import Link from 'next/link';
+import NextLink from 'next/link';
 import { TFunction, useTranslation } from 'next-i18next';
 import React from 'react';
 
@@ -38,7 +38,7 @@ const EventCard: React.FC<Props> = ({ event, link }) => {
   const keywords = [...event.keywords, ...event.audience];
 
   return (
-    <Link href={link}>
+    <NextLink legacyBehavior href={link}>
       <a
         className={styles.eventCard}
         // TODO: should we use this? maybe not, the screen reader might not read everything
@@ -66,7 +66,7 @@ const EventCard: React.FC<Props> = ({ event, link }) => {
           <KeywordsList keywords={keywords} itemType="button" />
         </div>
       </a>
-    </Link>
+    </NextLink>
   );
 };
 

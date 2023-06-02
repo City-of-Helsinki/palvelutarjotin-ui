@@ -1,8 +1,8 @@
 import { ParsedUrlQuery } from 'querystring';
 
 import { useRouter } from 'next/router';
+import { useTranslation } from 'next-i18next';
 import * as React from 'react';
-import { useTranslation } from 'react-i18next';
 import useLocalStorage from 'react-use/lib/useLocalStorage';
 
 import { EVENT_LIST_PAGE_SIZE, EVENT_SORT_OPTIONS } from './constants';

@@ -1,5 +1,5 @@
 import { IconInfoCircle, IconFaceSmile } from 'hds-react';
-import Link from 'next/link';
+import NextLink from 'next/link';
 import { useTranslation } from 'next-i18next';
 import React from 'react';
 
@@ -105,9 +105,9 @@ const OrganisationInfo: React.FC<{
     <div>
       <p className={styles.organisation}>{organisation}</p>
       <p className={styles.organisationLink}>
-        <Link href={organisationSearchUrl} passHref>
+        <NextLink legacyBehavior href={organisationSearchUrl} passHref>
           {t('event:organisation.showAllOrganisationEvents')}
-        </Link>
+        </NextLink>
       </p>
       {contactPerson && (
         <div className={styles.contactInfo}>

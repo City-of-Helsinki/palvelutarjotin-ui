@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import classNames from 'classnames';
 import { Notification, IconArrowLeft, Button, IconAngleUp } from 'hds-react';
-import Link from 'next/link';
+import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 import React, { ReactElement } from 'react';
@@ -223,11 +223,14 @@ const EventHero: React.FC<{
   return (
     <div className={styles.eventHero}>
       <Container className={styles.backButtonContainer}>
-        <Link href={{ pathname: returnPath, search: remainingQueryString }}>
+        <NextLink
+          legacyBehavior
+          href={{ pathname: returnPath, search: remainingQueryString }}
+        >
           <a aria-label={t('common:buttonBack')}>
             <IconArrowLeft size="m" />
           </a>
-        </Link>
+        </NextLink>
       </Container>
       <EventImage
         imageUrl={imageUrl}

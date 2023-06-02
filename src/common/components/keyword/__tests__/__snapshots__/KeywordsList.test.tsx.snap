@@ -7,137 +7,182 @@ exports[`renders list of keywords as links with correct hrefs 1`] = `
   >
     <li>
       <a
-        aria-label="Hae tapahtumia avainsanalla Vaikuttaminen ja osallisuus"
-        class="keyword"
         href="/search?categories=kultus%3A1"
       >
-        Vaikuttaminen ja osallisuus
+        <a
+          aria-label="Hae tapahtumia avainsanalla Vaikuttaminen ja osallisuus"
+          class="keyword"
+        >
+          Vaikuttaminen ja osallisuus
+        </a>
       </a>
     </li>
     <li>
       <a
-        aria-label="Hae tapahtumia avainsanalla Teatteri, tanssi ja sirkus"
-        class="keyword"
         href="/search?categories=kultus%3A2"
       >
-        Teatteri, tanssi ja sirkus
+        <a
+          aria-label="Hae tapahtumia avainsanalla Teatteri, tanssi ja sirkus"
+          class="keyword"
+        >
+          Teatteri, tanssi ja sirkus
+        </a>
       </a>
     </li>
     <li>
       <a
-        aria-label="Hae tapahtumia avainsanalla Musiikki"
-        class="keyword"
         href="/search?categories=kultus%3A3"
       >
-        Musiikki
+        <a
+          aria-label="Hae tapahtumia avainsanalla Musiikki"
+          class="keyword"
+        >
+          Musiikki
+        </a>
       </a>
     </li>
     <li>
       <a
-        aria-label="Hae tapahtumia avainsanalla Sanataide ja kirjallisuus"
-        class="keyword"
         href="/search?categories=kultus%3A4"
       >
-        Sanataide ja kirjallisuus
+        <a
+          aria-label="Hae tapahtumia avainsanalla Sanataide ja kirjallisuus"
+          class="keyword"
+        >
+          Sanataide ja kirjallisuus
+        </a>
       </a>
     </li>
     <li>
       <a
-        aria-label="Hae tapahtumia avainsanalla Tiede"
-        class="keyword"
         href="/search?categories=kultus%3A5"
       >
-        Tiede
+        <a
+          aria-label="Hae tapahtumia avainsanalla Tiede"
+          class="keyword"
+        >
+          Tiede
+        </a>
       </a>
     </li>
     <li>
       <a
-        aria-label="Hae tapahtumia avainsanalla Valmistava opetus"
-        class="keyword"
         href="/search?targetGroups=kultus%3A11"
       >
-        Valmistava opetus
+        <a
+          aria-label="Hae tapahtumia avainsanalla Valmistava opetus"
+          class="keyword"
+        >
+          Valmistava opetus
+        </a>
       </a>
     </li>
     <li>
       <a
-        aria-label="Hae tapahtumia avainsanalla 1.–2. luokat"
-        class="keyword"
         href="/search?targetGroups=kultus%3A12"
       >
-        1.–2. luokat
+        <a
+          aria-label="Hae tapahtumia avainsanalla 1.–2. luokat"
+          class="keyword"
+        >
+          1.–2. luokat
+        </a>
       </a>
     </li>
     <li>
       <a
-        aria-label="Hae tapahtumia avainsanalla 3.–6. luokat"
-        class="keyword"
         href="/search?targetGroups=kultus%3A13"
       >
-        3.–6. luokat
+        <a
+          aria-label="Hae tapahtumia avainsanalla 3.–6. luokat"
+          class="keyword"
+        >
+          3.–6. luokat
+        </a>
       </a>
     </li>
     <li>
       <a
-        aria-label="Hae tapahtumia avainsanalla 7.–9. luokat"
-        class="keyword"
         href="/search?targetGroups=kultus%3A14"
       >
-        7.–9. luokat
+        <a
+          aria-label="Hae tapahtumia avainsanalla 7.–9. luokat"
+          class="keyword"
+        >
+          7.–9. luokat
+        </a>
       </a>
     </li>
     <li>
       <a
-        aria-label="Hae tapahtumia avainsanalla lukio ja ammatillinen opetus"
-        class="keyword"
         href="/search?targetGroups=kultus%3A15"
       >
-        Lukio ja ammatillinen opetus
+        <a
+          aria-label="Hae tapahtumia avainsanalla lukio ja ammatillinen opetus"
+          class="keyword"
+        >
+          Lukio ja ammatillinen opetus
+        </a>
       </a>
     </li>
     <li>
       <a
-        aria-label="Hae tapahtumia avainsanalla Työpaja"
-        class="keyword"
         href="/search?additionalCriteria=kultus%3A6"
       >
-        Työpaja
+        <a
+          aria-label="Hae tapahtumia avainsanalla Työpaja"
+          class="keyword"
+        >
+          Työpaja
+        </a>
       </a>
     </li>
     <li>
       <a
-        aria-label="Hae tapahtumia avainsanalla Luento"
-        class="keyword"
         href="/search?additionalCriteria=kultus%3A7"
       >
-        Luento
+        <a
+          aria-label="Hae tapahtumia avainsanalla Luento"
+          class="keyword"
+        >
+          Luento
+        </a>
       </a>
     </li>
     <li>
       <a
-        aria-label="Hae tapahtumia avainsanalla Luontokoulu"
-        class="keyword"
         href="/search?additionalCriteria=kultus%3A8"
       >
-        Luontokoulu
+        <a
+          aria-label="Hae tapahtumia avainsanalla Luontokoulu"
+          class="keyword"
+        >
+          Luontokoulu
+        </a>
       </a>
     </li>
     <li>
       <a
-        aria-label="Hae tapahtumia avainsanalla Kirjastovierailu"
-        class="keyword"
         href="/search?additionalCriteria=kultus%3A9"
       >
-        Kirjastovierailu
+        <a
+          aria-label="Hae tapahtumia avainsanalla Kirjastovierailu"
+          class="keyword"
+        >
+          Kirjastovierailu
+        </a>
       </a>
     </li>
     <li>
       <a
-        aria-label="Hae tapahtumia avainsanalla Konsertti"
-        class="keyword"
         href="/search?additionalCriteria=kultus%3A10"
       >
-        Konsertti
+        <a
+          aria-label="Hae tapahtumia avainsanalla Konsertti"
+          class="keyword"
+        >
+          Konsertti
+        </a>
       </a>
     </li>
   </ul>

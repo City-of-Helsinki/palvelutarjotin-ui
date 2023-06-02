@@ -24,10 +24,13 @@ const translations = {
   newsletter,
 };
 
+// eslint-disable-next-line import/no-named-as-default-member
 i18n.use(intervalPlural);
+// eslint-disable-next-line import/no-named-as-default-member
 i18n.use(initReactI18next).init({
   lng: 'fi',
   fallbackLng: 'fi',
+  returnNull: false,
   resources: {
     fi: translations,
   },

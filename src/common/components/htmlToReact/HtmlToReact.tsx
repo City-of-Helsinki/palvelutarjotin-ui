@@ -1,6 +1,6 @@
 import { Element } from 'domhandler/lib/node';
 import createDOMPurify from 'dompurify';
-import parse, { domToReact } from 'html-react-parser';
+import parse, { DOMNode, domToReact } from 'html-react-parser';
 import React, { useMemo } from 'react';
 
 function getIsomorphicDOMPurifier() {
@@ -40,7 +40,7 @@ const HtmlToReact: React.FC<Props> = ({
       {parse(sanitizedHtml, {
         replace: (domNode) => {
           if (domNode instanceof Element && domNode.name === 'p') {
-            return <P>{domToReact(domNode.children)}</P>;
+            return <P>{domToReact(domNode.children as DOMNode[])}</P>;
           }
           return domNode;
         },

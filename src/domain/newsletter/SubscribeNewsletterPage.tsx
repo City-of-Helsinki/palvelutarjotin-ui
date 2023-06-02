@@ -1,9 +1,9 @@
 import axios from 'axios';
 import { FormikHelpers } from 'formik';
 import { IconLinkExternal, Notification } from 'hds-react';
-import Link from 'next/link';
+import NextLink from 'next/link';
+import { Trans, useTranslation } from 'next-i18next';
 import * as React from 'react';
-import { Trans, useTranslation } from 'react-i18next';
 
 import { NewsletterSubscribeFormFields } from './newsletterSubscribeForm/constants';
 import NewsletterSubscribeForm, {
@@ -25,13 +25,13 @@ const PrivacyStatementLink = ({
   url: string;
   children?: React.ReactNode;
 } & React.HTMLProps<HTMLAnchorElement>) => (
-  <Link href={url} passHref>
+  <NextLink legacyBehavior href={url} passHref>
     {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
     <a {...rest}>
       {children}
       <IconLinkExternal className={styles.privacyStatementIcon} />
     </a>
-  </Link>
+  </NextLink>
 );
 
 const SubscribeNewsletterPage: React.FC = () => {
@@ -67,7 +67,9 @@ const SubscribeNewsletterPage: React.FC = () => {
   };
 
   return (
-    <PageWrapper title={t('newsletter:subscribeNewsletterPage.pageTitle')}>
+    <PageWrapper
+      title={t('newsletter:subscribeNewsletterPage.pageTitle') ?? undefined}
+    >
       <div className={styles.subscribeNewsletter}>
         <Container>
           <h2>{t('newsletter:subscribeNewsletterPage.pageTitle')}</h2>

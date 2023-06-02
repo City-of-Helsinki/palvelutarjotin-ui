@@ -208,7 +208,7 @@ const Link: React.FC<CustomLinkProps> = ({
   ...rest
 }) => {
   return (
-    <NextLink href={href} locale={locale}>
+    <NextLink legacyBehavior href={href} locale={locale}>
       <a {...rest}>{children}</a>
     </NextLink>
   );

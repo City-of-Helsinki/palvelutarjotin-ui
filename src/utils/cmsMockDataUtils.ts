@@ -1,4 +1,4 @@
-import faker from 'faker';
+import { faker } from '@faker-js/faker';
 import merge from 'lodash/merge';
 
 import {
@@ -11,7 +11,7 @@ import {
   Seo,
 } from '../generated/graphql-cms';
 
-const generateUri = () => faker.random.words().split(' ').join('/');
+const generateUri = () => faker.word.words().split(' ').join('/');
 
 export const fakePage = (
   overrides?: Partial<Page>,
@@ -19,18 +19,18 @@ export const fakePage = (
 ): Page => {
   return merge<Page, typeof overrides>(
     {
-      id: faker.datatype.uuid(),
+      id: faker.string.uuid(),
       uri: generateUri(),
       link: generateUri(),
-      title: faker.random.words(),
-      lead: faker.random.word(),
+      title: faker.word.words(),
+      lead: faker.word.words(),
       slug: generateUri(),
-      content: faker.random.words(),
-      databaseId: faker.datatype.number(),
+      content: faker.word.words(),
+      databaseId: faker.number.int(),
       isFrontPage: false,
       isPostsPage: false,
       isPrivacyPage: false,
-      pageId: faker.datatype.number(),
+      pageId: faker.number.int(),
       language: fakeLanguage({ code: LanguageCodeEnum.Fi }),
       seo: fakeSEO(),
       contentTypeName: 'attachment',
@@ -73,14 +73,14 @@ export const fakePost = (
 ): Post => {
   return merge<Post, typeof overrides>(
     {
-      id: faker.datatype.uuid(),
-      postId: faker.datatype.number(),
+      id: faker.string.uuid(),
+      postId: faker.number.int(),
       uri: generateUri(),
-      title: faker.random.words(),
-      lead: faker.random.word(),
+      title: faker.word.words(),
+      lead: faker.word.words(),
       slug: generateUri(),
-      content: faker.random.words(),
-      databaseId: faker.datatype.number(),
+      content: faker.word.words(),
+      databaseId: faker.number.int(),
       language: fakeLanguage({ code: LanguageCodeEnum.Fi }),
       seo: fakeSEO(),
       contentTypeName: 'attachment',
@@ -113,14 +113,14 @@ export const fakePost = (
 export const fakeMediaItem = (overrides?: Partial<MediaItem>): MediaItem => {
   return merge<MediaItem, typeof overrides>(
     {
-      id: faker.datatype.uuid(),
-      title: faker.random.words(),
-      mediaItemId: faker.datatype.number(),
-      databaseId: faker.datatype.number(),
+      id: faker.string.uuid(),
+      title: faker.word.words(),
+      mediaItemId: faker.number.int(),
+      databaseId: faker.number.int(),
       mediaItemUrl: faker.internet.url(),
       link: faker.internet.url(),
-      altText: faker.random.words(),
-      mimeType: faker.random.word(),
+      altText: faker.word.words(),
+      mimeType: faker.system.commonFileType(),
       uri: faker.internet.url(),
       contentTypeName: 'attachment',
       isContentNode: false,
@@ -136,12 +136,12 @@ export const fakeSEO = (overrides?: Partial<Seo>): Seo => {
     {
       canonicalUrl: faker.internet.url(),
       description: faker.lorem.text(),
-      title: faker.random.words(),
-      twitterDescription: faker.random.words(),
-      twitterTitle: faker.random.words(),
-      openGraphType: faker.random.word(),
-      openGraphDescription: faker.random.words(),
-      openGraphTitle: faker.random.words(),
+      title: faker.word.words(),
+      twitterDescription: faker.word.words(),
+      twitterTitle: faker.word.words(),
+      openGraphType: faker.word.words(),
+      openGraphDescription: faker.word.words(),
+      openGraphTitle: faker.word.words(),
       __typename: 'SEO',
     },
     overrides
@@ -151,14 +151,14 @@ export const fakeSEO = (overrides?: Partial<Seo>): Seo => {
 export const fakeLanguage = (overrides?: Partial<Language>): Language => {
   const languageCode =
     overrides?.code ??
-    faker.random.arrayElement([
+    faker.helpers.arrayElement([
       LanguageCodeEnum.En,
       LanguageCodeEnum.Fi,
       LanguageCodeEnum.Sv,
     ]);
   return merge<Language, typeof overrides>(
     {
-      id: faker.datatype.uuid(),
+      id: faker.string.uuid(),
       code: languageCode,
       locale: languageCode.toLowerCase(),
       slug: languageCode.toLowerCase(),
@@ -177,8 +177,8 @@ export const fakeNotification = (
 ): Notification => {
   return merge<Notification, typeof overrides>(
     {
-      title: faker.random.words(),
-      content: `<p>${faker.random.words()}</p>`,
+      title: faker.word.words(),
+      content: `<p>${faker.word.words()}</p>`,
       level: 'info',
       endDate: '',
       linkText: '',

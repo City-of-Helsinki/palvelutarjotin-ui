@@ -17,31 +17,33 @@ exports[`SubscribeNewsletterPage renders correctly 1`] = `
             <p>
               Tilaamalla Kultus-uutiskirjeen hyväksyn, että lähettämäni tiedot tallennetaan Kulttuuri- ja vapaa-aika toimialan Gruppo-tilaajarekisteriin. Uutiskirjeen tilauksen voi perua milloin tahansa. 
               <a
-                aria-label="Näytä rekisteriseloste. Avautuu uudessa välilehdessä"
                 href="https://hkih.production.geniem.io/uploads/sites/5/2022/11/739f5edc-rekisteriseloste-kultus.fi_.pdf"
-                rel="noopener noreferrer"
-                target="_blank"
               >
-                Rekisteriselosteet
-                <svg
-                  class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik privacyStatementIcon"
-                  role="img"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
+                <a
+                  aria-label="Näytä rekisteriseloste. Avautuu uudessa välilehdessä"
+                  rel="noopener noreferrer"
+                  target="_blank"
                 >
-                  <g
-                    fill="none"
-                    fill-rule="evenodd"
+                  Rekisteriselosteet
+                  <svg
+                    class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik privacyStatementIcon"
+                    role="img"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
-                    <path
-                      d="M0 0h24v24H0z"
-                    />
-                    <path
-                      d="M10 3v2H5v14h14v-5h2v7H3V3h7zm11 0v8h-2V6.413l-7 7.001L10.586 12l6.999-7H13V3h8z"
-                      fill="currentColor"
-                    />
-                  </g>
-                </svg>
+                    <g
+                      fill="none"
+                      fill-rule="evenodd"
+                    >
+                      <path
+                        clip-rule="evenodd"
+                        d="M5 3V19H21V21H3V3H5ZM21 3V12H19V6.413L9.91421 15.5L8.5 14.0858L17.585 5H12V3H21Z"
+                        fill="currentColor"
+                        fill-rule="evenodd"
+                      />
+                    </g>
+                  </svg>
+                </a>
               </a>
               .
             </p>
@@ -74,7 +76,6 @@ exports[`SubscribeNewsletterPage renders correctly 1`] = `
                   <span
                     class="RequiredIndicator-module_indicator__Pt7GX text-input_hds-text-input__required__2K-Bs"
                   >
-                     
                     *
                   </span>
                 </label>
@@ -82,28 +83,26 @@ exports[`SubscribeNewsletterPage renders correctly 1`] = `
                   class="Select-module_wrapper__1WQXs"
                 >
                   <div
-                    class="SelectedItems-module_selectedItems__2m24K SelectedItems-module_itemsHidden__2ewH3"
+                    class="SelectedItems-module_selectedItems__2m24K SelectedItems-module_itemsHidden__2ewH3 SelectedItems-module_truncateFirstChild__192oz"
                   >
                     <div
-                      class="Tag-module_tag__3bo5S tag_hds-tag__3MKf3 SelectedItems-module_tag__13n3H SelectedItems-module_hidden__2hyRx"
-                      id="hds-tag-10"
+                      class="Tag-module_tag__3bo5S tag_hds-tag__3MKf3 SelectedItems-module_tag__13n3H"
+                      id="hds-tag-7"
                       role="button"
                       tabindex="0"
                     >
                       <span
-                        aria-labelledby="groups-label hds-tag-10-label"
-                        class="Tag-module_label__zCgFr tag_hds-tag__label__I6mc8"
-                        id="hds-tag-10-label"
+                        aria-labelledby="groups-label hds-tag-7-label"
+                        class="Tag-module_label__zCgFr tag_hds-tag__label__I6mc8 SelectedItems-module_tagLabel__3qEgh"
+                        id="hds-tag-7-label"
                       >
-                        <span
-                          aria-hidden="false"
-                        >
+                        <span>
                           Alakouluille
                         </span>
                       </span>
                       <button
-                        class="Tag-module_deleteButton__1diMR tag_hds-tag__delete-button__33Tgz"
-                        id="hds-tag-10-delete-button"
+                        class="Tag-module_deleteButton__1diMR tag_hds-tag__delete-button__33Tgz tag_hds-tag__delete-button__33Tgz"
+                        id="hds-tag-7-delete-button"
                         tabindex="-1"
                         type="button"
                       >
@@ -132,24 +131,22 @@ exports[`SubscribeNewsletterPage renders correctly 1`] = `
                     </div>
                     <div
                       class="Tag-module_tag__3bo5S tag_hds-tag__3MKf3 SelectedItems-module_tag__13n3H SelectedItems-module_hidden__2hyRx"
-                      id="hds-tag-11"
+                      id="hds-tag-8"
                       role="button"
                       tabindex="-1"
                     >
                       <span
-                        aria-labelledby="groups-label hds-tag-11-label"
-                        class="Tag-module_label__zCgFr tag_hds-tag__label__I6mc8"
-                        id="hds-tag-11-label"
+                        aria-labelledby="groups-label hds-tag-8-label"
+                        class="Tag-module_label__zCgFr tag_hds-tag__label__I6mc8 SelectedItems-module_tagLabel__3qEgh"
+                        id="hds-tag-8-label"
                       >
-                        <span
-                          aria-hidden="false"
-                        >
+                        <span>
                           Varhaiskasvatukselle
                         </span>
                       </span>
                       <button
-                        class="Tag-module_deleteButton__1diMR tag_hds-tag__delete-button__33Tgz"
-                        id="hds-tag-11-delete-button"
+                        class="Tag-module_deleteButton__1diMR tag_hds-tag__delete-button__33Tgz tag_hds-tag__delete-button__33Tgz"
+                        id="hds-tag-8-delete-button"
                         tabindex="-1"
                         type="button"
                       >
@@ -178,24 +175,22 @@ exports[`SubscribeNewsletterPage renders correctly 1`] = `
                     </div>
                     <div
                       class="Tag-module_tag__3bo5S tag_hds-tag__3MKf3 SelectedItems-module_tag__13n3H SelectedItems-module_hidden__2hyRx"
-                      id="hds-tag-12"
+                      id="hds-tag-9"
                       role="button"
                       tabindex="-1"
                     >
                       <span
-                        aria-labelledby="groups-label hds-tag-12-label"
-                        class="Tag-module_label__zCgFr tag_hds-tag__label__I6mc8"
-                        id="hds-tag-12-label"
+                        aria-labelledby="groups-label hds-tag-9-label"
+                        class="Tag-module_label__zCgFr tag_hds-tag__label__I6mc8 SelectedItems-module_tagLabel__3qEgh"
+                        id="hds-tag-9-label"
                       >
-                        <span
-                          aria-hidden="false"
-                        >
+                        <span>
                           Yläkouluille ja toisen asteen oppilaitoksille
                         </span>
                       </span>
                       <button
-                        class="Tag-module_deleteButton__1diMR tag_hds-tag__delete-button__33Tgz"
-                        id="hds-tag-12-delete-button"
+                        class="Tag-module_deleteButton__1diMR tag_hds-tag__delete-button__33Tgz tag_hds-tag__delete-button__33Tgz"
+                        id="hds-tag-9-delete-button"
                         tabindex="-1"
                         type="button"
                       >
@@ -226,7 +221,7 @@ exports[`SubscribeNewsletterPage renders correctly 1`] = `
                       class="SelectedItems-module_hiddenItemsCount__3MAEc"
                     >
                       +
-                      3
+                      2
                     </span>
                   </div>
                   <button
@@ -314,7 +309,6 @@ exports[`SubscribeNewsletterPage renders correctly 1`] = `
                     <span
                       class="RequiredIndicator-module_indicator__Pt7GX text-input_hds-text-input__required__2K-Bs"
                     >
-                       
                       *
                     </span>
                   </label>
@@ -341,7 +335,6 @@ exports[`SubscribeNewsletterPage renders correctly 1`] = `
                     <span
                       class="RequiredIndicator-module_indicator__Pt7GX text-input_hds-text-input__required__2K-Bs"
                     >
-                       
                       *
                     </span>
                   </label>
@@ -376,7 +369,6 @@ exports[`SubscribeNewsletterPage renders correctly 1`] = `
                     <span
                       class="RequiredIndicator-module_indicator__Pt7GX text-input_hds-text-input__required__2K-Bs"
                     >
-                       
                       *
                     </span>
                   </label>
