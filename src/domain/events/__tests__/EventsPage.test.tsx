@@ -159,8 +159,12 @@ test('renders search form and events list with correct information', async () =>
 
   expect(screen.queryByLabelText('Alueet')).toBeInTheDocument();
   expect(screen.queryByLabelText('Paikat')).toBeInTheDocument();
-  expect(screen.queryByLabelText('Alkaen')).toBeInTheDocument();
-  expect(screen.queryByLabelText('Päättyen')).toBeInTheDocument();
+  expect(
+    screen.queryByRole('textbox', { name: /alkaen/i })
+  ).toBeInTheDocument();
+  expect(
+    screen.queryByRole('textbox', { name: /päättyen/i })
+  ).toBeInTheDocument();
   expect(
     screen.queryByRole('button', { name: 'Hae tapahtumia' })
   ).toBeInTheDocument();
