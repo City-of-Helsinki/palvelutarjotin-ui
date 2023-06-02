@@ -2,7 +2,6 @@ import * as Yup from 'yup';
 
 import { VALIDATION_MESSAGE_KEYS } from '../../app/forms/constants';
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export default function getValidationSchema({
   maxGroupSize,
   minGroupSize,
@@ -22,7 +21,7 @@ export default function getValidationSchema({
     language: Yup.string().required(VALIDATION_MESSAGE_KEYS.STRING_REQUIRED),
     person: Yup.object().when(
       ['isSameResponsiblePerson'],
-      (isSameResponsiblePerson, schema: Yup.AnyObjectSchema) => {
+      ([isSameResponsiblePerson], schema: Yup.AnyObjectSchema) => {
         return isSameResponsiblePerson
           ? schema
           : schema.shape({
@@ -38,7 +37,7 @@ export default function getValidationSchema({
     studyGroup: Yup.object().when(
       ['isMandatoryAdditionalInformationRequired'],
       (
-        isMandatoryAdditionalInformationRequired,
+        [isMandatoryAdditionalInformationRequired],
         schema: Yup.AnyObjectSchema
       ) => {
         const validateSumOfSizePair = (
@@ -97,37 +96,29 @@ export default function getValidationSchema({
                 .required(VALIDATION_MESSAGE_KEYS.STRING_REQUIRED)
                 .email(VALIDATION_MESSAGE_KEYS.EMAIL),
             }),
-            unitName: Yup.string().when(
-              ['unitId'],
-              (unitId, schema: Yup.StringSchema) => {
-                if (!unitId) {
-                  return schema.required(
-                    VALIDATION_MESSAGE_KEYS.STRING_REQUIRED
-                  );
-                }
-                return schema;
+            unitName: Yup.string().when(['unitId'], ([unitId], schema) => {
+              if (!unitId) {
+                return schema.required(VALIDATION_MESSAGE_KEYS.STRING_REQUIRED);
               }
-            ),
-            unitId: Yup.string().when(
-              ['unitName'],
-              (unitName, schema: Yup.StringSchema) => {
-                if (!unitName) {
-                  return schema
-                    .nullable()
-                    .required(VALIDATION_MESSAGE_KEYS.STRING_REQUIRED);
-                }
-                return schema.nullable();
+              return schema;
+            }),
+            unitId: Yup.string().when(['unitName'], ([unitName], schema) => {
+              if (!unitName) {
+                return schema
+                  .nullable()
+                  .required(VALIDATION_MESSAGE_KEYS.STRING_REQUIRED);
               }
-            ),
+              return schema.default(null).nullable();
+            }),
             groupName: Yup.string().required(
               VALIDATION_MESSAGE_KEYS.STRING_REQUIRED
             ),
             // NOTE: GroupSize is (currently) the amount of children
             groupSize: Yup.number()
               .required(VALIDATION_MESSAGE_KEYS.NUMBER_REQUIRED)
-              .when(['amountOfAdult'], (sizePair, schema: Yup.NumberSchema) =>
+              .when(['amountOfAdult'], ([sizePair], schema) =>
                 validateSumOfSizePair(
-                  sizePair as unknown as number,
+                  sizePair,
                   schema,
                   VALIDATION_MESSAGE_KEYS.STUDYGROUP_MIN_CHILDREN_WITH_ADULTS,
                   VALIDATION_MESSAGE_KEYS.STUDYGROUP_MAX_WITH_ADULTS,
@@ -136,9 +127,9 @@ export default function getValidationSchema({
               ),
             amountOfAdult: Yup.number()
               .required(VALIDATION_MESSAGE_KEYS.NUMBER_REQUIRED)
-              .when(['groupSize'], (sizePair, schema: Yup.NumberSchema) =>
+              .when(['groupSize'], ([sizePair], schema) =>
                 validateSumOfSizePair(
-                  sizePair as unknown as number,
+                  sizePair,
                   schema,
                   VALIDATION_MESSAGE_KEYS.STUDYGROUP_MIN_CHILDREN_WITH_ADULTS,
                   VALIDATION_MESSAGE_KEYS.STUDYGROUP_MAX_WITH_CHILDREN,
@@ -154,11 +145,9 @@ export default function getValidationSchema({
           },
           [
             ['groupSize', 'amountOfAdult'],
-            ['unitId', 'unitName'],
+            ['unitName', 'unitId'],
           ]
         );
-        // For some reason typescript complains event though it is correct
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
       }
     ),
   });
