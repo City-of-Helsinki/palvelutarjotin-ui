@@ -24,7 +24,7 @@ Testing environment:
 
 ## Requirements
 
-- Node 16.x
+- Node 20.x
 - Yarn
 - Git
 - Docker
