@@ -23,6 +23,8 @@ export const enterKeyPressHelper = (): boolean =>
 export const escKeyPressHelper = (): boolean =>
   fireEvent.keyDown(document, { code: 27, key: 'Escape' });
 
+export const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
+
 const customRender: CustomRender = (
   ui,
   { mocks = [], store = reduxStore, path = '/', query = {}, router = {} } = {}

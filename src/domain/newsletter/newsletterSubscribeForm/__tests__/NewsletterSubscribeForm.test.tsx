@@ -1,5 +1,4 @@
 import * as React from 'react';
-import wait from 'waait';
 
 import {
   render,
@@ -7,7 +6,7 @@ import {
   userEvent,
   waitFor,
   configure,
-  act,
+  sleep,
 } from '../../../../utils/testUtils';
 import { NewsletterGroupId, NewsletterSubscribeFormFields } from '../constants';
 import NewsLetterSubscribeForm, {
@@ -40,34 +39,25 @@ const getData = (
 });
 
 const fillupForm = async (values = defaultFillValues) => {
-  await act(
-    async () =>
-      await userEvent.type(
-        screen.getByRole('textbox', {
-          name: /etunimi \*/i,
-        }),
-        firstName
-      )
+  await userEvent.type(
+    screen.getByRole('textbox', {
+      name: /etunimi \*/i,
+    }),
+    firstName
   );
 
-  await act(
-    async () =>
-      await userEvent.type(
-        screen.getByRole('textbox', {
-          name: /sukunimi \*/i,
-        }),
-        lastName
-      )
+  await userEvent.type(
+    screen.getByRole('textbox', {
+      name: /sukunimi \*/i,
+    }),
+    lastName
   );
 
-  await act(
-    async () =>
-      await userEvent.type(
-        screen.getByRole('textbox', {
-          name: /sähköposti \*/i,
-        }),
-        email
-      )
+  await userEvent.type(
+    screen.getByRole('textbox', {
+      name: /sähköposti \*/i,
+    }),
+    email
   );
 };
 
@@ -82,52 +72,41 @@ describe('NewsLetterSubscribeForm', () => {
       />
     );
 
-    await act(
-      async () =>
-        await userEvent.click(
-          screen.getByRole('button', { name: /tilaan uutiskirjeen \*/i })
-        )
+    await userEvent.click(
+      screen.getByRole('button', { name: /tilaan uutiskirjeen \*/i })
     );
-    await act(
-      async () =>
-        await userEvent.click(
-          screen.getByRole('option', {
-            name: /alakouluille/i,
-          })
-        )
+
+    await userEvent.click(
+      screen.getByRole('option', {
+        name: /alakouluille/i,
+      })
     );
-    await act(
-      async () =>
-        await userEvent.click(
-          screen.getByRole('option', {
-            name: /varhaiskasvatukselle/i,
-          })
-        )
+
+    await userEvent.click(
+      screen.getByRole('option', {
+        name: /varhaiskasvatukselle/i,
+      })
     );
-    await act(
-      async () =>
-        await userEvent.click(
-          screen.getByRole('option', {
-            name: /yläkouluille ja toisen asteen oppilaitoksille/i,
-          })
-        )
+
+    await userEvent.click(
+      screen.getByRole('option', {
+        name: /yläkouluille ja toisen asteen oppilaitoksille/i,
+      })
     );
-    await act(async () => await userEvent.tab());
+
+    await userEvent.tab();
     expect(screen.getByText(/alakouluille/i)).toBeInTheDocument();
     expect(screen.getByText(/varhaiskasvatukselle/i)).toBeInTheDocument();
     expect(
       screen.getByText(/yläkouluille ja toisen asteen oppilaitoksille/i)
     ).toBeInTheDocument();
 
-    await act(async () => await fillupForm());
+    await fillupForm();
 
-    await act(
-      async () =>
-        await userEvent.click(
-          screen.getByRole('button', {
-            name: /tilaa uutiskirje/i,
-          })
-        )
+    await userEvent.click(
+      screen.getByRole('button', {
+        name: /tilaa uutiskirje/i,
+      })
     );
 
     await waitFor(() => {
@@ -142,23 +121,22 @@ describe('NewsLetterSubscribeForm', () => {
         initialValues={defaultInitialValues}
       />
     );
-    await act(
-      async () =>
-        await userEvent.type(
-          screen.getByRole('textbox', {
-            name: /sähköposti \*/i,
-          }),
-          'not-an-email'
-        )
+
+    await userEvent.type(
+      screen.getByRole('textbox', {
+        name: /sähköposti \*/i,
+      }),
+      'not-an-email'
     );
+
     // Unfocus
-    await act(async () => await userEvent.tab());
+    await userEvent.tab();
     await waitFor(() => {
       expect(
         screen.getByText(/tämän kentän on oltava kelvollinen sähköpostiosoite/i)
       ).toBeInTheDocument();
     });
     // wait for debounce to trigger and populate localStorage
-    await act(() => wait(500));
+    await sleep(500);
   });
 });

@@ -16,7 +16,7 @@ const renderMenuDropdown = (props: MenuDropdownProps) => {
   });
 
   const clickOnToggleButton = async () => {
-    await act(async () => await userEvent.click(toggleButton));
+    await userEvent.click(toggleButton);
   };
 
   const getItems = () => screen.getAllByRole('menuitem');

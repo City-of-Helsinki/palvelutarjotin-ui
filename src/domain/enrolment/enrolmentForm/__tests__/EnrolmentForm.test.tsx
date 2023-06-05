@@ -1,6 +1,5 @@
 import { MockedResponse } from '@apollo/client/testing';
 import * as React from 'react';
-import wait from 'waait';
 
 import { FORM_NAMES } from '../../../../constants';
 import { createPlaceQueryMock } from '../../../../tests/apollo-mocks/placeMocks';
@@ -17,9 +16,9 @@ import {
   screen,
   waitFor,
   userEvent,
-  act,
   configure,
   within,
+  sleep,
 } from '../../../../utils/testUtils';
 import { defaultEnrolmentInitialValues } from '../constants';
 import EnrolmentForm, { Props } from '../EnrolmentForm';
@@ -69,90 +68,77 @@ test('renders form and user can fill it and submit and form is saved to local st
 
   await screen.findByRole('heading', { name: /ilmoittajan tiedot/i });
 
-  await act(() =>
-    userEvent.type(
-      screen.getByRole('textbox', { name: /nimi/i }),
-      'Nimi Niminen'
-    )
-  );
-  await act(() =>
-    userEvent.type(
-      screen.getByRole('textbox', { name: /sähköpostiosoite/i }),
-      'testi@testi.fi'
-    )
-  );
-  await act(() =>
-    userEvent.type(
-      screen.getByRole('textbox', { name: /puhelinnumero/i }),
-      '123321123'
-    )
-  );
-  await act(() =>
-    userEvent.click(
-      screen.getByRole('checkbox', {
-        name: /Paikka ei ole listalla/i,
-      })
-    )
+  await userEvent.type(
+    screen.getByRole('textbox', { name: /nimi/i }),
+    'Nimi Niminen'
   );
 
-  await act(() =>
-    userEvent.type(
-      screen.getByRole('textbox', {
-        name: /päiväkoti \/ koulu \/ oppilaitos/i,
-      }),
-      'Testikoulu'
-    )
+  await userEvent.type(
+    screen.getByRole('textbox', { name: /sähköpostiosoite/i }),
+    'testi@testi.fi'
   );
-  await act(() =>
-    userEvent.type(screen.getByRole('textbox', { name: /ryhmä/i }), '4a')
+
+  await userEvent.type(
+    screen.getByRole('textbox', { name: /puhelinnumero/i }),
+    '123321123'
   );
+
+  await userEvent.click(
+    screen.getByRole('checkbox', {
+      name: /Paikka ei ole listalla/i,
+    })
+  );
+
+  await userEvent.type(
+    screen.getByRole('textbox', {
+      name: /päiväkoti \/ koulu \/ oppilaitos/i,
+    }),
+    'Testikoulu'
+  );
+
+  await userEvent.type(screen.getByRole('textbox', { name: /ryhmä/i }), '4a');
 
   // select grade from dropdown
-  await act(() =>
-    userEvent.click(screen.getByRole('button', { name: /luokka-aste \*/i }))
+
+  await userEvent.click(
+    screen.getByRole('button', { name: /luokka-aste \*/i })
   );
-  await act(() =>
-    userEvent.click(screen.getByRole('option', { name: /4\. luokka/i }))
-  );
-  await act(() =>
-    userEvent.click(screen.getByRole('option', { name: /2\. luokka/i }))
-  );
+
+  await userEvent.click(screen.getByRole('option', { name: /4\. luokka/i }));
+
+  await userEvent.click(screen.getByRole('option', { name: /2\. luokka/i }));
 
   // // close dropdown
-  await act(() =>
-    userEvent.click(screen.getAllByRole('button', { name: /luokka-aste/i })[1])
+
+  await userEvent.click(
+    screen.getAllByRole('button', { name: /luokka-aste/i })[1]
   );
 
-  await act(() => userEvent.type(screen.getByLabelText(/lapsia/i), '10'));
-  await act(() => userEvent.type(screen.getByLabelText(/aikuisia/i), '2'));
+  await userEvent.type(screen.getByLabelText(/lapsia/i), '10');
+  await userEvent.type(screen.getByLabelText(/aikuisia/i), '2');
 
   expect(
     screen.getByRole('checkbox', { name: /sama kuin ilmoittaja/i })
   ).toBeChecked();
-  await act(() =>
-    userEvent.click(screen.getByRole('checkbox', { name: /sähköpostilla/i }))
+  await userEvent.click(
+    screen.getByRole('checkbox', { name: /sähköpostilla/i })
   );
-  await act(() => userEvent.click(screen.getByText(/tekstiviestillä/i)));
+  await userEvent.click(screen.getByText(/tekstiviestillä/i));
 
-  await act(() =>
-    userEvent.click(screen.getByRole('button', { name: /Ilmoitusten kieli/ }))
+  await userEvent.click(
+    screen.getByRole('button', { name: /Ilmoitusten kieli/ })
   );
-  await act(() =>
-    userEvent.click(screen.getByRole('option', { name: /suomi/i }))
-  );
+  await userEvent.click(screen.getByRole('option', { name: /suomi/i }));
 
-  await act(() =>
-    userEvent.type(
-      screen.getByRole('textbox', { name: /lisätiedot \(valinnainen\)/i }),
-      'Lisätietoja ilmoittautumiseen'
-    )
+  await userEvent.type(
+    screen.getByRole('textbox', { name: /lisätiedot \(valinnainen\)/i }),
+    'Lisätietoja ilmoittautumiseen'
   );
 
   // test that error notification works
-  await act(() =>
-    userEvent.click(
-      screen.getByRole('button', { name: /lähetä varaustiedustelu/i })
-    )
+
+  await userEvent.click(
+    screen.getByRole('button', { name: /lähetä varaustiedustelu/i })
   );
   const alertContainer = await screen.findByRole('alert');
   expect(alertContainer).toHaveTextContent(/Virhe lomakkeessa/i);
@@ -160,27 +146,23 @@ test('renders form and user can fill it and submit and form is saved to local st
     /hyväksyn tietojeni jakamisen tapahtuman järjestäjän kanssa/i
   );
 
-  await act(() =>
-    userEvent.click(
-      screen.getByRole('checkbox', {
-        name: /hyväksyn tietojeni jakamisen tapahtuman järjestäjän kanssa/i,
-      })
-    )
+  await userEvent.click(
+    screen.getByRole('checkbox', {
+      name: /hyväksyn tietojeni jakamisen tapahtuman järjestäjän kanssa/i,
+    })
   );
 
   await waitFor(() => {
     expect(screen.queryByRole('alert')).not.toBeInTheDocument();
   });
 
-  await act(() =>
-    userEvent.click(
-      screen.getByRole('button', { name: /lähetä varaustiedustelu/i })
-    )
+  await userEvent.click(
+    screen.getByRole('button', { name: /lähetä varaustiedustelu/i })
   );
 
   if (isFeatureEnabled('FORMIK_PERSIST')) {
     // wait for debounce to trigger and populate localStorage
-    await act(() => wait(500));
+    await sleep(500);
 
     expect(
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -191,7 +173,7 @@ test('renders form and user can fill it and submit and form is saved to local st
   expect(onSubmitMock).toHaveBeenCalledTimes(1);
   expect(onSubmitMock.mock.calls[0]).toMatchSnapshot();
 
-  await act(() => wait(500));
+  await sleep(500);
 });
 
 test('render and focuses error notification correctly', async () => {
@@ -199,10 +181,8 @@ test('render and focuses error notification correctly', async () => {
 
   await screen.findByRole('heading', { name: /ilmoittajan tiedot/i });
 
-  await act(() =>
-    userEvent.click(
-      screen.getByRole('button', { name: /lähetä ilmoittautuminen/i })
-    )
+  await userEvent.click(
+    screen.getByRole('button', { name: /lähetä ilmoittautuminen/i })
   );
 
   const alertContainer = await screen.findByRole('alert');
@@ -228,7 +208,7 @@ test('render and focuses error notification correctly', async () => {
 
   expect(alertContainer).toHaveFocus();
 
-  await act(() => userEvent.tab());
+  await userEvent.tab();
 
   expect(screen.getByRole('textbox', { name: /nimi/i })).toHaveFocus();
 });
@@ -248,16 +228,12 @@ describe('max group size validation of the Children and Adults -fields', () => {
     });
     await screen.findByLabelText(/lapsia/i);
     childrenCount
-      ? await act(() =>
-          userEvent.type(screen.getByLabelText(/lapsia/i), childrenCount)
-        )
-      : await act(() => userEvent.click(screen.getByLabelText(/lapsia/i)));
+      ? await userEvent.type(screen.getByLabelText(/lapsia/i), childrenCount)
+      : await userEvent.click(screen.getByLabelText(/lapsia/i));
     adultsCount
-      ? await act(() =>
-          userEvent.type(screen.getByLabelText(/aikuisia/i), adultsCount)
-        )
-      : await act(() => userEvent.click(screen.getByLabelText(/aikuisia/i)));
-    userEvent.tab();
+      ? await userEvent.type(screen.getByLabelText(/aikuisia/i), adultsCount)
+      : await userEvent.click(screen.getByLabelText(/aikuisia/i));
+    await userEvent.tab();
   };
 
   test('both of the fields are greater than the max group size', async () => {
@@ -363,10 +339,10 @@ test('mandatory additional information forces extraNeeds field to be required', 
     },
   });
   await screen.findByLabelText(/Lisätiedot/i);
-  await act(() =>
-    userEvent.click(screen.getByRole('textbox', { name: /Lisätiedot/i }))
-  );
-  userEvent.tab();
+
+  await userEvent.click(screen.getByRole('textbox', { name: /Lisätiedot/i }));
+
+  await userEvent.tab();
   await screen.findByText(/Tämä kenttä on pakollinen/i);
 });
 
@@ -377,15 +353,15 @@ test('Do not allow sms notifications if no phone number is given', async () => {
   const smsField = screen.getByLabelText(/Tekstiviestillä/i);
   expect(phoneField).not.toHaveValue();
   expect(smsField).toBeDisabled();
-  userEvent.type(phoneField, '123');
-  userEvent.tab();
+  await userEvent.type(phoneField, '123');
+  await userEvent.tab();
   await waitFor(() => {
     expect(screen.getByLabelText(/Tekstiviestillä/i)).not.toBeDisabled();
   });
-  await act(() => userEvent.click(smsField));
+  await userEvent.click(smsField);
   expect(smsField).toBeChecked();
-  userEvent.clear(phoneField);
-  userEvent.tab();
+  await userEvent.clear(phoneField);
+  await userEvent.tab();
   await waitFor(() => {
     expect(screen.getByLabelText(/Tekstiviestillä/i)).toBeDisabled();
   });
@@ -398,19 +374,19 @@ test('Allow sms notifications if any of the phone numbers are given', async () =
   const isResponsiblePersonField =
     screen.getByLabelText(/Sama kuin ilmoittaja/i);
 
-  userEvent.click(isResponsiblePersonField);
+  await userEvent.click(isResponsiblePersonField);
 
   const phoneFields = screen.queryAllByLabelText(/Puhelinnumero/i);
 
-  phoneFields.forEach(async (f) => userEvent.type(f, '123'));
+  phoneFields.forEach(async (f) => await userEvent.type(f, '123'));
   await waitFor(() => {
     expect(screen.getByLabelText(/Tekstiviestillä/i)).not.toBeDisabled();
   });
-  userEvent.clear(phoneFields[0]);
+  await userEvent.clear(phoneFields[0]);
   await waitFor(() => {
     expect(screen.getByLabelText(/Tekstiviestillä/i)).not.toBeDisabled();
   });
-  phoneFields.forEach(async (f) => userEvent.clear(f));
+  phoneFields.forEach(async (f) => await userEvent.clear(f));
   await waitFor(() => {
     expect(screen.getByLabelText(/Tekstiviestillä/i)).toBeDisabled();
   });
@@ -498,12 +474,10 @@ if (isFeatureEnabled('FORMIK_PERSIST')) {
         name: /puhelinnumero \*/i,
       })[0];
       expect(phoneInput).toHaveValue(testValues.studyGroup.person.phoneNumber);
-      await act(() =>
-        userEvent.click(
-          screen.getByRole('checkbox', {
-            name: /Paikka ei ole listalla/i,
-          })
-        )
+      await userEvent.click(
+        screen.getByRole('checkbox', {
+          name: /Paikka ei ole listalla/i,
+        })
       );
       const studyGroupUnitName = screen.getByRole('textbox', {
         name: /päiväkoti \/ koulu \/ oppilaitos/i,
@@ -531,7 +505,6 @@ if (isFeatureEnabled('FORMIK_PERSIST')) {
         name: /sama kuin ilmoittaja/i,
       });
       expect(chargeOfTheGroupCheckbox).toBeChecked();
-      await act(wait);
     });
   });
 }
@@ -566,12 +539,10 @@ describe('UnitField', () => {
     ).not.toBeInTheDocument();
 
     // When checkbox is checked
-    await act(() =>
-      userEvent.click(
-        screen.getByRole('checkbox', {
-          name: /paikka ei ole listalla/i,
-        })
-      )
+    await userEvent.click(
+      screen.getByRole('checkbox', {
+        name: /paikka ei ole listalla/i,
+      })
     );
 
     // It renders the freetext input field
@@ -581,14 +552,14 @@ describe('UnitField', () => {
 
     expect(screen.getByText(/kirjoita toimipaikan nimi/i)).toBeInTheDocument();
 
-    await act(() => userEvent.type(getUnitFieldInput(), 'Testikoulu'));
+    await userEvent.type(getUnitFieldInput(), 'Testikoulu');
 
-    userEvent.tab();
+    await userEvent.tab();
 
     expect(getUnitFieldInput()).toHaveValue('Testikoulu');
 
     // wait for network requests and state updates
-    await act(wait);
+    await sleep(500);
   });
 
   it('renders a list of schools and kindergartens in unit id field', async () => {
@@ -599,8 +570,8 @@ describe('UnitField', () => {
     });
 
     // avoid act warning by clicking the input first
-    await act(() => userEvent.click(unitFieldInput));
-    await act(() => userEvent.type(unitFieldInput, 'place'));
+    await userEvent.click(unitFieldInput);
+    await userEvent.type(unitFieldInput, 'place');
 
     // The inserted text should filter autosuggest field options
     await screen.findByText('place12');
@@ -609,12 +580,11 @@ describe('UnitField', () => {
     expect(screen.queryByText('place2')).toBeInTheDocument();
 
     // Type to unit id field
-    userEvent.clear(unitFieldInput);
+    await userEvent.clear(unitFieldInput);
 
     // avoid act warning by clicking the input first
-    userEvent.click(unitFieldInput);
-    userEvent.type(unitFieldInput, 'place12');
-    await act(async () => wait(500));
+    await userEvent.click(unitFieldInput);
+    await userEvent.type(unitFieldInput, 'place12');
 
     // The inserted text should filter autosuggest field options
     await screen.findByText('place12');
@@ -640,13 +610,12 @@ describe('UnitField', () => {
       await setupUnitFieldTest(placeMocks);
 
       // avoid act warning by clicking the input first
-      await act(() => userEvent.click(getUnitFieldInput()));
-      userEvent.type(getUnitFieldInput(), 'place12');
-      await act(async () => wait(500));
+      await userEvent.click(getUnitFieldInput());
+      await userEvent.type(getUnitFieldInput(), 'place12');
       await screen.findByText('place12');
 
       // Select an unit
-      await act(() => userEvent.click(screen.getByText('place12')));
+      await userEvent.click(screen.getByText('place12'));
 
       await waitFor(() => {
         expect(getUnitFieldInput().nextElementSibling).toHaveTextContent(
@@ -659,24 +628,24 @@ describe('UnitField', () => {
   it('clears the unit id value when a clear button is clicked', async () => {
     await setupUnitFieldTest();
 
-    await act(() => userEvent.click(getUnitFieldInput()));
-    await act(() => userEvent.type(getUnitFieldInput(), 'place12'));
+    await userEvent.click(getUnitFieldInput());
+    await userEvent.type(getUnitFieldInput(), 'place12');
 
     await screen.findByText('place12');
 
     // Select an unit
-    await act(() => userEvent.click(screen.getByText('place12')));
+    await userEvent.click(screen.getByText('place12'));
 
     expect(getUnitFieldInput().nextElementSibling).toBeDefined();
 
     // clear the selection
-    await act(() =>
-      userEvent.click(
-        screen.getByRole('button', {
-          name: /poista arvo/i,
-        })
-      )
+
+    await userEvent.click(
+      screen.getByRole('button', {
+        name: /poista arvo/i,
+      })
     );
+
     // No sibling anymore when the value is cleared
     await waitFor(() => {
       expect(getUnitFieldInput().nextElementSibling).toBe(null);
