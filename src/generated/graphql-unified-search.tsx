@@ -5,43 +5,45 @@ export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = { [_ in K]?: never };
+export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
 const defaultOptions = {} as const;
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
-  ID: string;
-  String: string;
-  Boolean: boolean;
-  Int: number;
-  Float: number;
-  DateTime: any;
-  GeoJSONCoordinates: any;
-  JSONObject: any;
-  _Any: any;
-  federation__FieldSet: any;
-  link__Import: any;
+  ID: { input: string | number; output: string; }
+  String: { input: string; output: string; }
+  Boolean: { input: boolean; output: boolean; }
+  Int: { input: number; output: number; }
+  Float: { input: number; output: number; }
+  DateTime: { input: any; output: any; }
+  GeoJSONCoordinates: { input: any; output: any; }
+  JSONObject: { input: any; output: any; }
+  _Any: { input: any; output: any; }
+  federation__FieldSet: { input: any; output: any; }
+  link__Import: { input: any; output: any; }
 };
 
 /** TODO: take this from service map / TPREK */
 export type AccessibilityProfile = {
   __typename?: 'AccessibilityProfile';
   meta?: Maybe<NodeMeta>;
-  todo?: Maybe<Scalars['String']>;
+  todo?: Maybe<Scalars['String']['output']>;
 };
 
 /** TODO: give real structure */
 export type Address = {
   __typename?: 'Address';
   city?: Maybe<LanguageString>;
-  postalCode?: Maybe<Scalars['String']>;
+  postalCode?: Maybe<Scalars['String']['output']>;
   streetAddress?: Maybe<LanguageString>;
 };
 
 export type AdministrativeDivision = {
   __typename?: 'AdministrativeDivision';
-  id?: Maybe<Scalars['ID']>;
-  municipality?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['ID']['output']>;
+  municipality?: Maybe<Scalars['String']['output']>;
   name?: Maybe<LanguageString>;
-  type?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']['output']>;
 };
 
 export enum CacheControlScope {
@@ -52,8 +54,8 @@ export enum CacheControlScope {
 /** Contact details for a person, legal entity, venue or project */
 export type ContactInfo = {
   __typename?: 'ContactInfo';
-  contactUrl?: Maybe<Scalars['String']>;
-  emailAddresses: Array<Scalars['String']>;
+  contactUrl?: Maybe<Scalars['String']['output']>;
+  emailAddresses: Array<Scalars['String']['output']>;
   phoneNumbers: Array<PhoneNumber>;
   postalAddresses: Array<Address>;
 };
@@ -72,8 +74,8 @@ export enum ContactMedium {
  */
 export type DescriptionResources = {
   __typename?: 'DescriptionResources';
-  externalLinks: Array<Scalars['String']>;
-  infoUrls: Array<Scalars['String']>;
+  externalLinks: Array<Scalars['String']['output']>;
+  infoUrls: Array<Scalars['String']['output']>;
   mediaResources: Array<MediaResource>;
 };
 
@@ -82,8 +84,8 @@ export type ElasticSearchResult = {
   __typename?: 'ElasticSearchResult';
   _shards?: Maybe<Shards>;
   hits?: Maybe<Hits>;
-  timed_out?: Maybe<Scalars['Boolean']>;
-  took?: Maybe<Scalars['Int']>;
+  timed_out?: Maybe<Scalars['Boolean']['output']>;
+  took?: Maybe<Scalars['Int']['output']>;
 };
 
 /** Information about enrolled participant(s) in an event occurrence */
@@ -91,12 +93,12 @@ export type Enrolment = {
   __typename?: 'Enrolment';
   enroller?: Maybe<Person>;
   event?: Maybe<EventOccurrence>;
-  extraInformation?: Maybe<Scalars['String']>;
+  extraInformation?: Maybe<Scalars['String']['output']>;
   meta?: Maybe<NodeMeta>;
-  overseerCount?: Maybe<Scalars['Int']>;
+  overseerCount?: Maybe<Scalars['Int']['output']>;
   overseers?: Maybe<Array<Person>>;
   participantCategory?: Maybe<KeywordString>;
-  participantCount: Scalars['Int'];
+  participantCount: Scalars['Int']['output'];
   participants?: Maybe<Array<Person>>;
   requestedMethodOfNotification?: Maybe<ContactMedium>;
   status?: Maybe<EnrolmentStatus>;
@@ -108,12 +110,12 @@ export type EnrolmentPolicy = {
   allowedParticipantCategories: Array<KeywordString>;
   enrolmentTime?: Maybe<TimeDescription>;
   /** maximum number of people who can enrol together (at the same time) */
-  maximumEnrolmentCount?: Maybe<Scalars['Int']>;
+  maximumEnrolmentCount?: Maybe<Scalars['Int']['output']>;
   meta?: Maybe<NodeMeta>;
   /** minimum number of people who can enrol together (at the same time) */
-  minimumEnrolmentCount?: Maybe<Scalars['Int']>;
-  participantMaximumAge: Scalars['Int'];
-  participantMinimumAge: Scalars['Int'];
+  minimumEnrolmentCount?: Maybe<Scalars['Int']['output']>;
+  participantMaximumAge: Scalars['Int']['output'];
+  participantMinimumAge: Scalars['Int']['output'];
   type: Array<EnrolmentPolicyType>;
 };
 
@@ -140,10 +142,10 @@ export enum EnrolmentStatus {
 export type EquipmentRequest = {
   __typename?: 'EquipmentRequest';
   deliveryLocation?: Maybe<LocationDescription>;
-  estimatedAmount?: Maybe<Scalars['Int']>;
-  extraInformation: Scalars['String'];
+  estimatedAmount?: Maybe<Scalars['Int']['output']>;
+  extraInformation: Scalars['String']['output'];
   meta?: Maybe<NodeMeta>;
-  requestedEquipment: Scalars['String'];
+  requestedEquipment: Scalars['String']['output'];
   requestedForEvent?: Maybe<Event>;
   returnLocation?: Maybe<LocationDescription>;
 };
@@ -161,7 +163,7 @@ export type Event = {
   description?: Maybe<LanguageString>;
   descriptionResources?: Maybe<DescriptionResources>;
   enrolmentPolicy?: Maybe<EnrolmentPolicy>;
-  eventDataSource?: Maybe<Scalars['String']>;
+  eventDataSource?: Maybe<Scalars['String']['output']>;
   eventLanguages: Array<UnifiedSearchLanguageEnum>;
   keywords: Array<KeywordString>;
   meta?: Maybe<NodeMeta>;
@@ -169,9 +171,9 @@ export type Event = {
   occurrences: Array<EventOccurrence>;
   organiser?: Maybe<LegalEntity>;
   pricing?: Maybe<Array<EventPricing>>;
-  published?: Maybe<Scalars['DateTime']>;
+  published?: Maybe<Scalars['DateTime']['output']>;
   publisher?: Maybe<LegalEntity>;
-  shortDescription?: Maybe<Scalars['String']>;
+  shortDescription?: Maybe<Scalars['String']['output']>;
   subEvents: Array<Event>;
   superEvent?: Maybe<Event>;
   targetAudience?: Maybe<Array<KeywordString>>;
@@ -181,19 +183,19 @@ export type EventOccurrence = {
   __typename?: 'EventOccurrence';
   /** for events where equipment is requested from the City of Helsinki */
   cityEquipmentRequests?: Maybe<Array<EquipmentRequest>>;
-  currentlyAvailableParticipantCount?: Maybe<Scalars['Int']>;
+  currentlyAvailableParticipantCount?: Maybe<Scalars['Int']['output']>;
   enrolments: Array<Enrolment>;
   /**
    * for information - for example, to guide people who are looking for
    * big or small events, or to give city officials a hint on how much
    * equipment is needed
    */
-  estimatedAttendeeCount?: Maybe<Scalars['Int']>;
+  estimatedAttendeeCount?: Maybe<Scalars['Int']['output']>;
   happensAt?: Maybe<TimeDescription>;
   location?: Maybe<LocationDescription>;
-  maximumAttendeeCount?: Maybe<Scalars['Int']>;
+  maximumAttendeeCount?: Maybe<Scalars['Int']['output']>;
   meta?: Maybe<NodeMeta>;
-  minimumAttendeeCount?: Maybe<Scalars['Int']>;
+  minimumAttendeeCount?: Maybe<Scalars['Int']['output']>;
   /** which event this is an occurrence of */
   ofEvent?: Maybe<Event>;
   status?: Maybe<EventOccurrenceStatus>;
@@ -211,7 +213,7 @@ export enum EventOccurrenceStatus {
 export type EventPricing = {
   __typename?: 'EventPricing';
   meta?: Maybe<NodeMeta>;
-  todo?: Maybe<Scalars['String']>;
+  todo?: Maybe<Scalars['String']['output']>;
 };
 
 /** CRS object properties. */
@@ -233,18 +235,18 @@ export type GeoJsonCoordinateReferenceSystem = {
 /** An object that links a geometry to properties in order to provide context. */
 export type GeoJsonFeature = GeoJsonInterface & {
   __typename?: 'GeoJSONFeature';
-  bbox?: Maybe<Array<Maybe<Scalars['Float']>>>;
+  bbox?: Maybe<Array<Maybe<Scalars['Float']['output']>>>;
   crs: GeoJsonCoordinateReferenceSystem;
   geometry?: Maybe<GeoJsonGeometryInterface>;
-  id?: Maybe<Scalars['String']>;
-  properties?: Maybe<Scalars['JSONObject']>;
+  id?: Maybe<Scalars['String']['output']>;
+  properties?: Maybe<Scalars['JSONObject']['output']>;
   type: GeoJsonType;
 };
 
 /** A set of multiple features. */
 export type GeoJsonFeatureCollection = GeoJsonInterface & {
   __typename?: 'GeoJSONFeatureCollection';
-  bbox?: Maybe<Array<Maybe<Scalars['Float']>>>;
+  bbox?: Maybe<Array<Maybe<Scalars['Float']['output']>>>;
   crs: GeoJsonCoordinateReferenceSystem;
   features: Array<GeoJsonFeature>;
   type: GeoJsonType;
@@ -253,21 +255,21 @@ export type GeoJsonFeatureCollection = GeoJsonInterface & {
 /** A set of multiple geometries, possibly of various types. */
 export type GeoJsonGeometryCollection = GeoJsonInterface & {
   __typename?: 'GeoJSONGeometryCollection';
-  bbox?: Maybe<Array<Maybe<Scalars['Float']>>>;
+  bbox?: Maybe<Array<Maybe<Scalars['Float']['output']>>>;
   crs: GeoJsonCoordinateReferenceSystem;
   geometries: Array<GeoJsonGeometryInterface>;
   type: GeoJsonType;
 };
 
 export type GeoJsonGeometryInterface = {
-  bbox?: Maybe<Array<Maybe<Scalars['Float']>>>;
-  coordinates?: Maybe<Scalars['GeoJSONCoordinates']>;
+  bbox?: Maybe<Array<Maybe<Scalars['Float']['output']>>>;
+  coordinates?: Maybe<Scalars['GeoJSONCoordinates']['output']>;
   crs: GeoJsonCoordinateReferenceSystem;
   type: GeoJsonType;
 };
 
 export type GeoJsonInterface = {
-  bbox?: Maybe<Array<Maybe<Scalars['Float']>>>;
+  bbox?: Maybe<Array<Maybe<Scalars['Float']['output']>>>;
   crs: GeoJsonCoordinateReferenceSystem;
   type: GeoJsonType;
 };
@@ -275,8 +277,8 @@ export type GeoJsonInterface = {
 /** Object describing a single connected sequence of geographical points. */
 export type GeoJsonLineString = GeoJsonGeometryInterface & GeoJsonInterface & {
   __typename?: 'GeoJSONLineString';
-  bbox?: Maybe<Array<Maybe<Scalars['Float']>>>;
-  coordinates?: Maybe<Scalars['GeoJSONCoordinates']>;
+  bbox?: Maybe<Array<Maybe<Scalars['Float']['output']>>>;
+  coordinates?: Maybe<Scalars['GeoJSONCoordinates']['output']>;
   crs: GeoJsonCoordinateReferenceSystem;
   type: GeoJsonType;
 };
@@ -284,15 +286,15 @@ export type GeoJsonLineString = GeoJsonGeometryInterface & GeoJsonInterface & {
 /** Properties for link based CRS object. */
 export type GeoJsonLinkedCrsProperties = {
   __typename?: 'GeoJSONLinkedCRSProperties';
-  href: Scalars['String'];
-  type?: Maybe<Scalars['String']>;
+  href: Scalars['String']['output'];
+  type?: Maybe<Scalars['String']['output']>;
 };
 
 /** Object describing multiple connected sequences of geographical points. */
 export type GeoJsonMultiLineString = GeoJsonGeometryInterface & GeoJsonInterface & {
   __typename?: 'GeoJSONMultiLineString';
-  bbox?: Maybe<Array<Maybe<Scalars['Float']>>>;
-  coordinates?: Maybe<Scalars['GeoJSONCoordinates']>;
+  bbox?: Maybe<Array<Maybe<Scalars['Float']['output']>>>;
+  coordinates?: Maybe<Scalars['GeoJSONCoordinates']['output']>;
   crs: GeoJsonCoordinateReferenceSystem;
   type: GeoJsonType;
 };
@@ -300,8 +302,8 @@ export type GeoJsonMultiLineString = GeoJsonGeometryInterface & GeoJsonInterface
 /** Object describing multiple geographical points. */
 export type GeoJsonMultiPoint = GeoJsonGeometryInterface & GeoJsonInterface & {
   __typename?: 'GeoJSONMultiPoint';
-  bbox?: Maybe<Array<Maybe<Scalars['Float']>>>;
-  coordinates?: Maybe<Scalars['GeoJSONCoordinates']>;
+  bbox?: Maybe<Array<Maybe<Scalars['Float']['output']>>>;
+  coordinates?: Maybe<Scalars['GeoJSONCoordinates']['output']>;
   crs: GeoJsonCoordinateReferenceSystem;
   type: GeoJsonType;
 };
@@ -309,8 +311,8 @@ export type GeoJsonMultiPoint = GeoJsonGeometryInterface & GeoJsonInterface & {
 /** Object describing multiple shapes formed by sets of geographical points. */
 export type GeoJsonMultiPolygon = GeoJsonGeometryInterface & GeoJsonInterface & {
   __typename?: 'GeoJSONMultiPolygon';
-  bbox?: Maybe<Array<Maybe<Scalars['Float']>>>;
-  coordinates?: Maybe<Scalars['GeoJSONCoordinates']>;
+  bbox?: Maybe<Array<Maybe<Scalars['Float']['output']>>>;
+  coordinates?: Maybe<Scalars['GeoJSONCoordinates']['output']>;
   crs: GeoJsonCoordinateReferenceSystem;
   type: GeoJsonType;
 };
@@ -318,14 +320,14 @@ export type GeoJsonMultiPolygon = GeoJsonGeometryInterface & GeoJsonInterface & 
 /** Properties for name based CRS object. */
 export type GeoJsonNamedCrsProperties = {
   __typename?: 'GeoJSONNamedCRSProperties';
-  name: Scalars['String'];
+  name: Scalars['String']['output'];
 };
 
 /** Object describing a single geographical point. */
 export type GeoJsonPoint = GeoJsonGeometryInterface & GeoJsonInterface & {
   __typename?: 'GeoJSONPoint';
-  bbox?: Maybe<Array<Maybe<Scalars['Float']>>>;
-  coordinates?: Maybe<Scalars['GeoJSONCoordinates']>;
+  bbox?: Maybe<Array<Maybe<Scalars['Float']['output']>>>;
+  coordinates?: Maybe<Scalars['GeoJSONCoordinates']['output']>;
   crs: GeoJsonCoordinateReferenceSystem;
   type: GeoJsonType;
 };
@@ -333,8 +335,8 @@ export type GeoJsonPoint = GeoJsonGeometryInterface & GeoJsonInterface & {
 /** Object describing a single shape formed by a set of geographical points. */
 export type GeoJsonPolygon = GeoJsonGeometryInterface & GeoJsonInterface & {
   __typename?: 'GeoJSONPolygon';
-  bbox?: Maybe<Array<Maybe<Scalars['Float']>>>;
-  coordinates?: Maybe<Scalars['GeoJSONCoordinates']>;
+  bbox?: Maybe<Array<Maybe<Scalars['Float']['output']>>>;
+  coordinates?: Maybe<Scalars['GeoJSONCoordinates']['output']>;
   crs: GeoJsonCoordinateReferenceSystem;
   type: GeoJsonType;
 };
@@ -354,14 +356,14 @@ export enum GeoJsonType {
 
 export type HitTotal = {
   __typename?: 'HitTotal';
-  relation?: Maybe<Scalars['String']>;
-  value?: Maybe<Scalars['Int']>;
+  relation?: Maybe<Scalars['String']['output']>;
+  value?: Maybe<Scalars['Int']['output']>;
 };
 
 export type Hits = {
   __typename?: 'Hits';
   hits?: Maybe<Array<Maybe<SingleHit>>>;
-  max_score?: Maybe<Scalars['Float']>;
+  max_score?: Maybe<Scalars['Float']['output']>;
   total?: Maybe<HitTotal>;
 };
 
@@ -384,73 +386,73 @@ export enum IdentificationStrength {
  */
 export type KeywordString = {
   __typename?: 'KeywordString';
-  name: Scalars['String'];
+  name: Scalars['String']['output'];
 };
 
 /** TODO: convert all String's to LanguageString's if linguistic content */
 export type LanguageString = {
   __typename?: 'LanguageString';
-  en?: Maybe<Scalars['String']>;
-  fi?: Maybe<Scalars['String']>;
-  sv?: Maybe<Scalars['String']>;
+  en?: Maybe<Scalars['String']['output']>;
+  fi?: Maybe<Scalars['String']['output']>;
+  sv?: Maybe<Scalars['String']['output']>;
 };
 
 export type LegalEntity = Organisation | Person;
 
 export type LinkedeventsPlace = {
   __typename?: 'LinkedeventsPlace';
-  _at_context?: Maybe<Scalars['String']>;
-  _at_id?: Maybe<Scalars['String']>;
-  _at_type?: Maybe<Scalars['String']>;
-  address_country?: Maybe<Scalars['String']>;
+  _at_context?: Maybe<Scalars['String']['output']>;
+  _at_id?: Maybe<Scalars['String']['output']>;
+  _at_type?: Maybe<Scalars['String']['output']>;
+  address_country?: Maybe<Scalars['String']['output']>;
   address_locality?: Maybe<LinkedeventsPlaceLocalityString>;
-  address_region?: Maybe<Scalars['String']>;
-  contact_type?: Maybe<Scalars['String']>;
-  created_time?: Maybe<Scalars['String']>;
-  custom_data?: Maybe<Scalars['String']>;
-  data_source?: Maybe<Scalars['String']>;
-  deleted?: Maybe<Scalars['Boolean']>;
+  address_region?: Maybe<Scalars['String']['output']>;
+  contact_type?: Maybe<Scalars['String']['output']>;
+  created_time?: Maybe<Scalars['String']['output']>;
+  custom_data?: Maybe<Scalars['String']['output']>;
+  data_source?: Maybe<Scalars['String']['output']>;
+  deleted?: Maybe<Scalars['Boolean']['output']>;
   description?: Maybe<LinkedeventsPlaceLocalityString>;
   divisions?: Maybe<Array<Maybe<LinkedeventsPlaceDivision>>>;
-  email?: Maybe<Scalars['String']>;
-  has_upcoming_events?: Maybe<Scalars['Boolean']>;
-  id?: Maybe<Scalars['String']>;
-  image?: Maybe<Scalars['String']>;
+  email?: Maybe<Scalars['String']['output']>;
+  has_upcoming_events?: Maybe<Scalars['Boolean']['output']>;
+  id?: Maybe<Scalars['String']['output']>;
+  image?: Maybe<Scalars['String']['output']>;
   info_url?: Maybe<LinkedeventsPlaceLocalityString>;
-  last_modified_time?: Maybe<Scalars['String']>;
-  n_events?: Maybe<Scalars['Int']>;
+  last_modified_time?: Maybe<Scalars['String']['output']>;
+  n_events?: Maybe<Scalars['Int']['output']>;
   name?: Maybe<LinkedeventsPlaceLocalityString>;
   /** Raw Linkedevents Place fields */
-  origin?: Maybe<Scalars['String']>;
-  parent?: Maybe<Scalars['String']>;
+  origin?: Maybe<Scalars['String']['output']>;
+  parent?: Maybe<Scalars['String']['output']>;
   position?: Maybe<LinkedeventsPlacePosition>;
-  post_office_box_num?: Maybe<Scalars['String']>;
-  postal_code?: Maybe<Scalars['String']>;
-  publisher?: Maybe<Scalars['String']>;
-  replaced_by?: Maybe<Scalars['String']>;
+  post_office_box_num?: Maybe<Scalars['String']['output']>;
+  postal_code?: Maybe<Scalars['String']['output']>;
+  publisher?: Maybe<Scalars['String']['output']>;
+  replaced_by?: Maybe<Scalars['String']['output']>;
   street_address?: Maybe<LinkedeventsPlaceLocalityString>;
-  telephone?: Maybe<Scalars['String']>;
+  telephone?: Maybe<Scalars['String']['output']>;
 };
 
 export type LinkedeventsPlaceDivision = {
   __typename?: 'LinkedeventsPlaceDivision';
-  municipality?: Maybe<Scalars['String']>;
+  municipality?: Maybe<Scalars['String']['output']>;
   name?: Maybe<LinkedeventsPlaceLocalityString>;
-  ocd_id?: Maybe<Scalars['String']>;
-  type?: Maybe<Scalars['String']>;
+  ocd_id?: Maybe<Scalars['String']['output']>;
+  type?: Maybe<Scalars['String']['output']>;
 };
 
 export type LinkedeventsPlaceLocalityString = {
   __typename?: 'LinkedeventsPlaceLocalityString';
-  en?: Maybe<Scalars['String']>;
-  fi?: Maybe<Scalars['String']>;
-  sv?: Maybe<Scalars['String']>;
+  en?: Maybe<Scalars['String']['output']>;
+  fi?: Maybe<Scalars['String']['output']>;
+  sv?: Maybe<Scalars['String']['output']>;
 };
 
 export type LinkedeventsPlacePosition = {
   __typename?: 'LinkedeventsPlacePosition';
-  coordinates?: Maybe<Array<Maybe<Scalars['Float']>>>;
-  type?: Maybe<Scalars['String']>;
+  coordinates?: Maybe<Array<Maybe<Scalars['Float']['output']>>>;
+  type?: Maybe<Scalars['String']['output']>;
 };
 
 /** Free-form location, not necessarily at a know venue. */
@@ -458,7 +460,7 @@ export type LocationDescription = {
   __typename?: 'LocationDescription';
   address?: Maybe<Address>;
   administrativeDivisions?: Maybe<Array<Maybe<AdministrativeDivision>>>;
-  explanation?: Maybe<Scalars['String']>;
+  explanation?: Maybe<Scalars['String']['output']>;
   geoLocation?: Maybe<GeoJsonFeature>;
   url?: Maybe<LanguageString>;
   venue?: Maybe<Venue>;
@@ -467,77 +469,77 @@ export type LocationDescription = {
 export type LocationImage = {
   __typename?: 'LocationImage';
   caption?: Maybe<LanguageString>;
-  url?: Maybe<Scalars['String']>;
+  url?: Maybe<Scalars['String']['output']>;
 };
 
 /** TODO: take this from Linked events Image type. */
 export type MediaResource = {
   __typename?: 'MediaResource';
   meta?: Maybe<NodeMeta>;
-  todo?: Maybe<Scalars['String']>;
+  todo?: Maybe<Scalars['String']['output']>;
 };
 
 export type NodeMeta = {
   __typename?: 'NodeMeta';
-  createdAt?: Maybe<Scalars['DateTime']>;
-  id: Scalars['ID'];
-  updatedAt?: Maybe<Scalars['DateTime']>;
+  createdAt?: Maybe<Scalars['DateTime']['output']>;
+  id: Scalars['ID']['output'];
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
 };
 
 export type OntologyTree = {
   __typename?: 'OntologyTree';
-  ancestorIds?: Maybe<Array<Maybe<Scalars['ID']>>>;
-  childIds?: Maybe<Array<Maybe<Scalars['ID']>>>;
-  id?: Maybe<Scalars['ID']>;
-  level?: Maybe<Scalars['Int']>;
+  ancestorIds?: Maybe<Array<Maybe<Scalars['ID']['output']>>>;
+  childIds?: Maybe<Array<Maybe<Scalars['ID']['output']>>>;
+  id?: Maybe<Scalars['ID']['output']>;
+  level?: Maybe<Scalars['Int']['output']>;
   name?: Maybe<LanguageString>;
-  parentId?: Maybe<Scalars['ID']>;
+  parentId?: Maybe<Scalars['ID']['output']>;
 };
 
 export type OntologyWord = {
   __typename?: 'OntologyWord';
-  id?: Maybe<Scalars['ID']>;
+  id?: Maybe<Scalars['ID']['output']>;
   label?: Maybe<LanguageString>;
 };
 
 export type Ontologyword = {
   __typename?: 'Ontologyword';
-  can_add_clarification?: Maybe<Scalars['Boolean']>;
-  can_add_schoolyear?: Maybe<Scalars['Boolean']>;
-  extra_searchwords_fi?: Maybe<Scalars['String']>;
-  id?: Maybe<Scalars['Int']>;
-  ontologyword_en?: Maybe<Scalars['String']>;
-  ontologyword_fi?: Maybe<Scalars['String']>;
-  ontologyword_sv?: Maybe<Scalars['String']>;
-  unit_ids?: Maybe<Array<Maybe<Scalars['Int']>>>;
+  can_add_clarification?: Maybe<Scalars['Boolean']['output']>;
+  can_add_schoolyear?: Maybe<Scalars['Boolean']['output']>;
+  extra_searchwords_fi?: Maybe<Scalars['String']['output']>;
+  id?: Maybe<Scalars['Int']['output']>;
+  ontologyword_en?: Maybe<Scalars['String']['output']>;
+  ontologyword_fi?: Maybe<Scalars['String']['output']>;
+  ontologyword_sv?: Maybe<Scalars['String']['output']>;
+  unit_ids?: Maybe<Array<Maybe<Scalars['Int']['output']>>>;
 };
 
 export type OpeningHours = {
   __typename?: 'OpeningHours';
   data?: Maybe<Array<Maybe<OpeningHoursDay>>>;
-  is_open_now_url?: Maybe<Scalars['String']>;
+  is_open_now_url?: Maybe<Scalars['String']['output']>;
   today?: Maybe<Array<Maybe<OpeningHoursTimes>>>;
-  url?: Maybe<Scalars['String']>;
+  url?: Maybe<Scalars['String']['output']>;
 };
 
 export type OpeningHoursDay = {
   __typename?: 'OpeningHoursDay';
-  date?: Maybe<Scalars['String']>;
+  date?: Maybe<Scalars['String']['output']>;
   times?: Maybe<Array<Maybe<OpeningHoursTimes>>>;
 };
 
 export type OpeningHoursTimes = {
   __typename?: 'OpeningHoursTimes';
-  endTime?: Maybe<Scalars['String']>;
-  endTimeOnNextDay?: Maybe<Scalars['Boolean']>;
-  fullDay?: Maybe<Scalars['Boolean']>;
-  resourceState?: Maybe<Scalars['String']>;
-  startTime?: Maybe<Scalars['String']>;
+  endTime?: Maybe<Scalars['String']['output']>;
+  endTimeOnNextDay?: Maybe<Scalars['Boolean']['output']>;
+  fullDay?: Maybe<Scalars['Boolean']['output']>;
+  resourceState?: Maybe<Scalars['String']['output']>;
+  startTime?: Maybe<Scalars['String']['output']>;
 };
 
 export type OrderByDistance = {
-  latitude: Scalars['Float'];
-  longitude: Scalars['Float'];
+  latitude: Scalars['Float']['input'];
+  longitude: Scalars['Float']['input'];
   order?: InputMaybe<SortOrder>;
 };
 
@@ -554,53 +556,53 @@ export type Organisation = {
 
 export type PalvelukarttaUnit = {
   __typename?: 'PalvelukarttaUnit';
-  accessibility_viewpoints?: Maybe<Scalars['String']>;
-  address_city_en?: Maybe<Scalars['String']>;
-  address_city_fi?: Maybe<Scalars['String']>;
-  address_city_sv?: Maybe<Scalars['String']>;
-  address_zip?: Maybe<Scalars['String']>;
-  call_charge_info_en?: Maybe<Scalars['String']>;
-  call_charge_info_fi?: Maybe<Scalars['String']>;
-  call_charge_info_sv?: Maybe<Scalars['String']>;
-  created_time?: Maybe<Scalars['String']>;
-  data_source_url?: Maybe<Scalars['String']>;
-  dept_id?: Maybe<Scalars['String']>;
-  desc_en?: Maybe<Scalars['String']>;
-  desc_fi?: Maybe<Scalars['String']>;
-  desc_sv?: Maybe<Scalars['String']>;
-  easting_etrs_gk25?: Maybe<Scalars['Int']>;
-  easting_etrs_tm35fin?: Maybe<Scalars['Int']>;
-  extra_searchwords_en?: Maybe<Scalars['String']>;
-  id?: Maybe<Scalars['Int']>;
-  latitude?: Maybe<Scalars['Float']>;
-  longitude?: Maybe<Scalars['Float']>;
-  manual_coordinates?: Maybe<Scalars['Boolean']>;
-  modified_time?: Maybe<Scalars['String']>;
-  name_en?: Maybe<Scalars['String']>;
-  name_fi?: Maybe<Scalars['String']>;
-  name_sv?: Maybe<Scalars['String']>;
-  northing_etrs_gk25?: Maybe<Scalars['Int']>;
-  northing_etrs_tm35fin?: Maybe<Scalars['Int']>;
-  ontologytree_ids?: Maybe<Array<Maybe<Scalars['Int']>>>;
-  ontologyword_ids?: Maybe<Array<Maybe<Scalars['Int']>>>;
+  accessibility_viewpoints?: Maybe<Scalars['String']['output']>;
+  address_city_en?: Maybe<Scalars['String']['output']>;
+  address_city_fi?: Maybe<Scalars['String']['output']>;
+  address_city_sv?: Maybe<Scalars['String']['output']>;
+  address_zip?: Maybe<Scalars['String']['output']>;
+  call_charge_info_en?: Maybe<Scalars['String']['output']>;
+  call_charge_info_fi?: Maybe<Scalars['String']['output']>;
+  call_charge_info_sv?: Maybe<Scalars['String']['output']>;
+  created_time?: Maybe<Scalars['String']['output']>;
+  data_source_url?: Maybe<Scalars['String']['output']>;
+  dept_id?: Maybe<Scalars['String']['output']>;
+  desc_en?: Maybe<Scalars['String']['output']>;
+  desc_fi?: Maybe<Scalars['String']['output']>;
+  desc_sv?: Maybe<Scalars['String']['output']>;
+  easting_etrs_gk25?: Maybe<Scalars['Int']['output']>;
+  easting_etrs_tm35fin?: Maybe<Scalars['Int']['output']>;
+  extra_searchwords_en?: Maybe<Scalars['String']['output']>;
+  id?: Maybe<Scalars['Int']['output']>;
+  latitude?: Maybe<Scalars['Float']['output']>;
+  longitude?: Maybe<Scalars['Float']['output']>;
+  manual_coordinates?: Maybe<Scalars['Boolean']['output']>;
+  modified_time?: Maybe<Scalars['String']['output']>;
+  name_en?: Maybe<Scalars['String']['output']>;
+  name_fi?: Maybe<Scalars['String']['output']>;
+  name_sv?: Maybe<Scalars['String']['output']>;
+  northing_etrs_gk25?: Maybe<Scalars['Int']['output']>;
+  northing_etrs_tm35fin?: Maybe<Scalars['Int']['output']>;
+  ontologytree_ids?: Maybe<Array<Maybe<Scalars['Int']['output']>>>;
+  ontologyword_ids?: Maybe<Array<Maybe<Scalars['Int']['output']>>>;
   ontologyword_ids_enriched?: Maybe<Array<Maybe<Ontologyword>>>;
-  org_id?: Maybe<Scalars['String']>;
-  organizer_name?: Maybe<Scalars['String']>;
-  organizer_type?: Maybe<Scalars['String']>;
+  org_id?: Maybe<Scalars['String']['output']>;
+  organizer_name?: Maybe<Scalars['String']['output']>;
+  organizer_type?: Maybe<Scalars['String']['output']>;
   /** Raw palvelukartta Unit fields */
-  origin?: Maybe<Scalars['String']>;
-  phone?: Maybe<Scalars['String']>;
-  picture_caption_en?: Maybe<Scalars['String']>;
-  picture_caption_fi?: Maybe<Scalars['String']>;
-  picture_caption_sv?: Maybe<Scalars['String']>;
-  picture_url?: Maybe<Scalars['String']>;
-  provider_type?: Maybe<Scalars['String']>;
-  street_address_en?: Maybe<Scalars['String']>;
-  street_address_fi?: Maybe<Scalars['String']>;
-  street_address_sv?: Maybe<Scalars['String']>;
-  www_en?: Maybe<Scalars['String']>;
-  www_fi?: Maybe<Scalars['String']>;
-  www_sv?: Maybe<Scalars['String']>;
+  origin?: Maybe<Scalars['String']['output']>;
+  phone?: Maybe<Scalars['String']['output']>;
+  picture_caption_en?: Maybe<Scalars['String']['output']>;
+  picture_caption_fi?: Maybe<Scalars['String']['output']>;
+  picture_caption_sv?: Maybe<Scalars['String']['output']>;
+  picture_url?: Maybe<Scalars['String']['output']>;
+  provider_type?: Maybe<Scalars['String']['output']>;
+  street_address_en?: Maybe<Scalars['String']['output']>;
+  street_address_fi?: Maybe<Scalars['String']['output']>;
+  street_address_sv?: Maybe<Scalars['String']['output']>;
+  www_en?: Maybe<Scalars['String']['output']>;
+  www_fi?: Maybe<Scalars['String']['output']>;
+  www_sv?: Maybe<Scalars['String']['output']>;
 };
 
 /** TODO: take from Profile */
@@ -609,15 +611,15 @@ export type Person = {
   contactDetails?: Maybe<ContactInfo>;
   identificationStrength?: Maybe<IdentificationStrength>;
   meta?: Maybe<NodeMeta>;
-  name?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']['output']>;
   preferredLanguages?: Maybe<Array<UnifiedSearchLanguageEnum>>;
   preferredMedium?: Maybe<ContactMedium>;
 };
 
 export type PhoneNumber = {
   __typename?: 'PhoneNumber';
-  countryCode: Scalars['String'];
-  restNumber: Scalars['String'];
+  countryCode: Scalars['String']['output'];
+  restNumber: Scalars['String']['output'];
 };
 
 export type Query = {
@@ -632,84 +634,84 @@ export type Query = {
 
 
 export type QueryAdministrativeDivisionsArgs = {
-  helsinkiCommonOnly?: InputMaybe<Scalars['Boolean']>;
+  helsinkiCommonOnly?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
 export type QueryOntologyTreeArgs = {
-  leavesOnly?: InputMaybe<Scalars['Boolean']>;
-  rootId?: InputMaybe<Scalars['ID']>;
+  leavesOnly?: InputMaybe<Scalars['Boolean']['input']>;
+  rootId?: InputMaybe<Scalars['ID']['input']>;
 };
 
 
 export type QueryOntologyWordsArgs = {
-  ids?: InputMaybe<Array<Scalars['ID']>>;
+  ids?: InputMaybe<Array<Scalars['ID']['input']>>;
 };
 
 
 export type QueryUnifiedSearchArgs = {
-  administrativeDivisionId?: InputMaybe<Scalars['ID']>;
-  administrativeDivisionIds?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
-  after?: InputMaybe<Scalars['String']>;
-  before?: InputMaybe<Scalars['String']>;
-  first?: InputMaybe<Scalars['Int']>;
-  index?: InputMaybe<Scalars['String']>;
+  administrativeDivisionId?: InputMaybe<Scalars['ID']['input']>;
+  administrativeDivisionIds?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  index?: InputMaybe<Scalars['String']['input']>;
   languages?: Array<UnifiedSearchLanguage>;
-  last?: InputMaybe<Scalars['Int']>;
-  ontology?: InputMaybe<Scalars['String']>;
-  ontologyTreeId?: InputMaybe<Scalars['ID']>;
-  ontologyTreeIds?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
-  ontologyWordIds?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
-  openAt?: InputMaybe<Scalars['String']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  ontology?: InputMaybe<Scalars['String']['input']>;
+  ontologyTreeId?: InputMaybe<Scalars['ID']['input']>;
+  ontologyTreeIds?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  ontologyWordIds?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  openAt?: InputMaybe<Scalars['String']['input']>;
   orderByDistance?: InputMaybe<OrderByDistance>;
   orderByName?: InputMaybe<OrderByName>;
-  q?: InputMaybe<Scalars['String']>;
+  q?: InputMaybe<Scalars['String']['input']>;
 };
 
 
 export type QueryUnifiedSearchCompletionSuggestionsArgs = {
-  index?: InputMaybe<Scalars['String']>;
+  index?: InputMaybe<Scalars['String']['input']>;
   languages?: Array<UnifiedSearchLanguage>;
-  prefix?: InputMaybe<Scalars['String']>;
-  size?: InputMaybe<Scalars['Int']>;
+  prefix?: InputMaybe<Scalars['String']['input']>;
+  size?: InputMaybe<Scalars['Int']['input']>;
 };
 
 export type RawJson = {
   __typename?: 'RawJSON';
-  data?: Maybe<Scalars['String']>;
+  data?: Maybe<Scalars['String']['output']>;
 };
 
 export type SearchResultConnection = {
   __typename?: 'SearchResultConnection';
-  count?: Maybe<Scalars['Int']>;
+  count?: Maybe<Scalars['Int']['output']>;
   edges: Array<SearchResultEdge>;
   /**  Elasticsearch raw results  */
   es_results?: Maybe<Array<Maybe<ElasticSearchResult>>>;
-  max_score?: Maybe<Scalars['Float']>;
+  max_score?: Maybe<Scalars['Float']['output']>;
   pageInfo?: Maybe<SearchResultPageInfo>;
 };
 
 export type SearchResultEdge = {
   __typename?: 'SearchResultEdge';
-  cursor: Scalars['String'];
+  cursor: Scalars['String']['output'];
   node: SearchResultNode;
 };
 
 export type SearchResultNode = {
   __typename?: 'SearchResultNode';
-  _score?: Maybe<Scalars['Float']>;
+  _score?: Maybe<Scalars['Float']['output']>;
   event?: Maybe<Event>;
-  id: Scalars['ID'];
+  id: Scalars['ID']['output'];
   searchCategories: Array<UnifiedSearchResultCategory>;
   venue?: Maybe<Venue>;
 };
 
 export type SearchResultPageInfo = {
   __typename?: 'SearchResultPageInfo';
-  endCursor?: Maybe<Scalars['String']>;
-  hasNextPage: Scalars['Boolean'];
-  hasPreviousPage: Scalars['Boolean'];
-  startCursor?: Maybe<Scalars['String']>;
+  endCursor?: Maybe<Scalars['String']['output']>;
+  hasNextPage: Scalars['Boolean']['output'];
+  hasPreviousPage: Scalars['Boolean']['output'];
+  startCursor?: Maybe<Scalars['String']['output']>;
 };
 
 export type SearchSuggestionConnection = {
@@ -719,19 +721,19 @@ export type SearchSuggestionConnection = {
 
 export type Shards = {
   __typename?: 'Shards';
-  failed?: Maybe<Scalars['Int']>;
-  skipped?: Maybe<Scalars['Int']>;
-  successful?: Maybe<Scalars['Int']>;
-  total?: Maybe<Scalars['Int']>;
+  failed?: Maybe<Scalars['Int']['output']>;
+  skipped?: Maybe<Scalars['Int']['output']>;
+  successful?: Maybe<Scalars['Int']['output']>;
+  total?: Maybe<Scalars['Int']['output']>;
 };
 
 export type SingleHit = {
   __typename?: 'SingleHit';
-  _id?: Maybe<Scalars['String']>;
-  _index?: Maybe<Scalars['String']>;
-  _score?: Maybe<Scalars['Float']>;
+  _id?: Maybe<Scalars['String']['output']>;
+  _index?: Maybe<Scalars['String']['output']>;
+  _score?: Maybe<Scalars['Float']['output']>;
   _source?: Maybe<RawJson>;
-  _type?: Maybe<Scalars['String']>;
+  _type?: Maybe<Scalars['String']['output']>;
 };
 
 export enum SortOrder {
@@ -741,15 +743,15 @@ export enum SortOrder {
 
 export type Suggestion = {
   __typename?: 'Suggestion';
-  label: Scalars['String'];
+  label: Scalars['String']['output'];
 };
 
 /** any kind of description answering the question "when". */
 export type TimeDescription = {
   __typename?: 'TimeDescription';
-  ending?: Maybe<Scalars['DateTime']>;
+  ending?: Maybe<Scalars['DateTime']['output']>;
   otherTime?: Maybe<TimeDescription>;
-  starting?: Maybe<Scalars['DateTime']>;
+  starting?: Maybe<Scalars['DateTime']['output']>;
 };
 
 export enum UnifiedSearchLanguage {
@@ -781,8 +783,8 @@ export enum UnifiedSearchResultCategory {
 export type Venue = {
   __typename?: 'Venue';
   accessibilityProfile?: Maybe<AccessibilityProfile>;
-  additionalInfo?: Maybe<Scalars['String']>;
-  arrivalInstructions?: Maybe<Scalars['String']>;
+  additionalInfo?: Maybe<Scalars['String']['output']>;
+  arrivalInstructions?: Maybe<Scalars['String']['output']>;
   contactDetails?: Maybe<ContactInfo>;
   description?: Maybe<LanguageString>;
   descriptionResources?: Maybe<DescriptionResources>;
@@ -803,18 +805,18 @@ export type VenueFacility = {
   __typename?: 'VenueFacility';
   categories?: Maybe<Array<KeywordString>>;
   meta?: Maybe<NodeMeta>;
-  name: Scalars['String'];
+  name: Scalars['String']['output'];
 };
 
 /** TODO: this comes from respa resource/unit types */
 export type VenueReservationPolicy = {
   __typename?: 'VenueReservationPolicy';
-  todo?: Maybe<Scalars['String']>;
+  todo?: Maybe<Scalars['String']['output']>;
 };
 
 export type _Service = {
   __typename?: '_Service';
-  sdl?: Maybe<Scalars['String']>;
+  sdl?: Maybe<Scalars['String']['output']>;
 };
 
 export enum Link__Purpose {
@@ -825,7 +827,7 @@ export enum Link__Purpose {
 }
 
 export type AdministrativeDivisionsQueryVariables = Exact<{
-  helsinkiCommonOnly?: InputMaybe<Scalars['Boolean']>;
+  helsinkiCommonOnly?: InputMaybe<Scalars['Boolean']['input']>;
 }>;
 
 

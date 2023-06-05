@@ -5,19 +5,21 @@ export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = { [_ in K]?: never };
+export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
 const defaultOptions = {} as const;
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
-  ID: string;
-  String: string;
-  Boolean: boolean;
-  Int: number;
-  Float: number;
-  Date: any;
-  DateTime: any;
-  JSONString: any;
-  Time: any;
-  Upload: any;
+  ID: { input: string | number; output: string; }
+  String: { input: string; output: string; }
+  Boolean: { input: boolean; output: boolean; }
+  Int: { input: number; output: number; }
+  Float: { input: number; output: number; }
+  Date: { input: any; output: any; }
+  DateTime: { input: any; output: any; }
+  JSONString: { input: any; output: any; }
+  Time: { input: any; output: any; }
+  Upload: { input: any; output: any; }
 };
 
 export type AddEventMutation = {
@@ -27,180 +29,180 @@ export type AddEventMutation = {
 
 export type AddEventMutationInput = {
   audience?: InputMaybe<Array<IdObjectInput>>;
-  audienceMaxAge?: InputMaybe<Scalars['String']>;
-  audienceMinAge?: InputMaybe<Scalars['String']>;
-  customData?: InputMaybe<Scalars['String']>;
-  datePublished?: InputMaybe<Scalars['String']>;
+  audienceMaxAge?: InputMaybe<Scalars['String']['input']>;
+  audienceMinAge?: InputMaybe<Scalars['String']['input']>;
+  customData?: InputMaybe<Scalars['String']['input']>;
+  datePublished?: InputMaybe<Scalars['String']['input']>;
   description: LocalisedObjectInput;
   /** Set to `true` to save event as draft version, when draft is true, event data validation will be skipped */
-  draft?: InputMaybe<Scalars['Boolean']>;
-  endTime?: InputMaybe<Scalars['String']>;
-  enrolmentEndTime?: InputMaybe<Scalars['String']>;
-  enrolmentStartTime?: InputMaybe<Scalars['String']>;
-  eventStatus?: InputMaybe<Scalars['String']>;
-  externalLinks?: InputMaybe<Array<Scalars['String']>>;
+  draft?: InputMaybe<Scalars['Boolean']['input']>;
+  endTime?: InputMaybe<Scalars['String']['input']>;
+  enrolmentEndTime?: InputMaybe<Scalars['String']['input']>;
+  enrolmentStartTime?: InputMaybe<Scalars['String']['input']>;
+  eventStatus?: InputMaybe<Scalars['String']['input']>;
+  externalLinks?: InputMaybe<Array<Scalars['String']['input']>>;
   images?: InputMaybe<Array<IdObjectInput>>;
   inLanguage?: InputMaybe<Array<IdObjectInput>>;
   infoUrl?: InputMaybe<LocalisedObjectInput>;
   keywords: Array<IdObjectInput>;
   localizationExtraInfo?: InputMaybe<LocalisedObjectInput>;
   location?: InputMaybe<IdObjectInput>;
-  maximumAttendeeCapacity?: InputMaybe<Scalars['Int']>;
-  minimumAttendeeCapacity?: InputMaybe<Scalars['Int']>;
+  maximumAttendeeCapacity?: InputMaybe<Scalars['Int']['input']>;
+  minimumAttendeeCapacity?: InputMaybe<Scalars['Int']['input']>;
   name: LocalisedObjectInput;
   offers: Array<OfferInput>;
   /** Organisation global id which the created event belongs to */
-  organisationId: Scalars['String'];
+  organisationId: Scalars['String']['input'];
   /** Palvelutarjotin event data */
   pEvent: PalvelutarjotinEventInput;
   provider?: InputMaybe<LocalisedObjectInput>;
-  providerContactInfo?: InputMaybe<Scalars['String']>;
-  remainingAttendeeCapacity?: InputMaybe<Scalars['Int']>;
+  providerContactInfo?: InputMaybe<Scalars['String']['input']>;
+  remainingAttendeeCapacity?: InputMaybe<Scalars['Int']['input']>;
   shortDescription: LocalisedObjectInput;
-  startTime: Scalars['String'];
-  subEvents?: InputMaybe<Array<Scalars['String']>>;
-  superEvent?: InputMaybe<Scalars['String']>;
-  superEventType?: InputMaybe<Scalars['String']>;
+  startTime: Scalars['String']['input'];
+  subEvents?: InputMaybe<Array<Scalars['String']['input']>>;
+  superEvent?: InputMaybe<Scalars['String']['input']>;
+  superEventType?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type AddOccurrenceMutationInput = {
-  amountOfSeats: Scalars['Int'];
-  clientMutationId?: InputMaybe<Scalars['String']>;
+  amountOfSeats: Scalars['Int']['input'];
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
   contactPersons?: InputMaybe<Array<InputMaybe<PersonNodeInput>>>;
-  endTime: Scalars['DateTime'];
+  endTime: Scalars['DateTime']['input'];
   languages: Array<InputMaybe<LanguageInput>>;
-  maxGroupSize?: InputMaybe<Scalars['Int']>;
-  minGroupSize?: InputMaybe<Scalars['Int']>;
-  pEventId: Scalars['ID'];
-  placeId?: InputMaybe<Scalars['String']>;
+  maxGroupSize?: InputMaybe<Scalars['Int']['input']>;
+  minGroupSize?: InputMaybe<Scalars['Int']['input']>;
+  pEventId: Scalars['ID']['input'];
+  placeId?: InputMaybe<Scalars['String']['input']>;
   seatType?: InputMaybe<SeatType>;
-  startTime: Scalars['DateTime'];
+  startTime: Scalars['DateTime']['input'];
 };
 
 export type AddOccurrenceMutationPayload = {
   __typename?: 'AddOccurrenceMutationPayload';
-  clientMutationId?: Maybe<Scalars['String']>;
+  clientMutationId?: Maybe<Scalars['String']['output']>;
   occurrence?: Maybe<OccurrenceNode>;
 };
 
 export type AddOrganisationMutationInput = {
-  clientMutationId?: InputMaybe<Scalars['String']>;
-  name: Scalars['String'];
-  phoneNumber?: InputMaybe<Scalars['String']>;
-  publisherId?: InputMaybe<Scalars['String']>;
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  name: Scalars['String']['input'];
+  phoneNumber?: InputMaybe<Scalars['String']['input']>;
+  publisherId?: InputMaybe<Scalars['String']['input']>;
   type: OrganisationTypeEnum;
 };
 
 export type AddOrganisationMutationPayload = {
   __typename?: 'AddOrganisationMutationPayload';
-  clientMutationId?: Maybe<Scalars['String']>;
+  clientMutationId?: Maybe<Scalars['String']['output']>;
   organisation?: Maybe<OrganisationNode>;
 };
 
 export type AddStudyGroupMutationInput = {
-  amountOfAdult?: InputMaybe<Scalars['Int']>;
-  clientMutationId?: InputMaybe<Scalars['String']>;
-  extraNeeds?: InputMaybe<Scalars['String']>;
-  groupName?: InputMaybe<Scalars['String']>;
-  groupSize: Scalars['Int'];
+  amountOfAdult?: InputMaybe<Scalars['Int']['input']>;
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  extraNeeds?: InputMaybe<Scalars['String']['input']>;
+  groupName?: InputMaybe<Scalars['String']['input']>;
+  groupSize: Scalars['Int']['input'];
   /** If person input doesn't include person id, a new person object will be created */
   person: PersonNodeInput;
-  studyLevels?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
-  unitId?: InputMaybe<Scalars['String']>;
-  unitName?: InputMaybe<Scalars['String']>;
+  studyLevels?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  unitId?: InputMaybe<Scalars['String']['input']>;
+  unitName?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type AddStudyGroupMutationPayload = {
   __typename?: 'AddStudyGroupMutationPayload';
-  clientMutationId?: Maybe<Scalars['String']>;
+  clientMutationId?: Maybe<Scalars['String']['output']>;
   studyGroup?: Maybe<StudyGroupNode>;
 };
 
 export type AddVenueMutationInput = {
-  clientMutationId?: InputMaybe<Scalars['String']>;
-  hasAreaForGroupWork: Scalars['Boolean'];
-  hasClothingStorage: Scalars['Boolean'];
-  hasIndoorPlayingArea: Scalars['Boolean'];
-  hasOutdoorPlayingArea: Scalars['Boolean'];
-  hasSnackEatingPlace: Scalars['Boolean'];
-  hasToiletNearby: Scalars['Boolean'];
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  hasAreaForGroupWork: Scalars['Boolean']['input'];
+  hasClothingStorage: Scalars['Boolean']['input'];
+  hasIndoorPlayingArea: Scalars['Boolean']['input'];
+  hasOutdoorPlayingArea: Scalars['Boolean']['input'];
+  hasSnackEatingPlace: Scalars['Boolean']['input'];
+  hasToiletNearby: Scalars['Boolean']['input'];
   /** Place id from linked event */
-  id: Scalars['ID'];
-  outdoorActivity: Scalars['Boolean'];
+  id: Scalars['ID']['input'];
+  outdoorActivity: Scalars['Boolean']['input'];
   translations?: InputMaybe<Array<InputMaybe<VenueTranslationsInput>>>;
 };
 
 export type AddVenueMutationPayload = {
   __typename?: 'AddVenueMutationPayload';
-  clientMutationId?: Maybe<Scalars['String']>;
+  clientMutationId?: Maybe<Scalars['String']['output']>;
   venue?: Maybe<VenueNode>;
 };
 
 export type ApproveEnrolmentMutationInput = {
-  clientMutationId?: InputMaybe<Scalars['String']>;
-  customMessage?: InputMaybe<Scalars['String']>;
-  enrolmentId: Scalars['ID'];
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  customMessage?: InputMaybe<Scalars['String']['input']>;
+  enrolmentId: Scalars['ID']['input'];
 };
 
 export type ApproveEnrolmentMutationPayload = {
   __typename?: 'ApproveEnrolmentMutationPayload';
-  clientMutationId?: Maybe<Scalars['String']>;
+  clientMutationId?: Maybe<Scalars['String']['output']>;
   enrolment?: Maybe<EnrolmentNode>;
 };
 
 export type CancelEnrolmentMutationInput = {
-  clientMutationId?: InputMaybe<Scalars['String']>;
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
   /** Need to be included to actually cancel the enrolment,without this token, BE only initiate thecancellation process by sending a confirmation email to teacher */
-  token?: InputMaybe<Scalars['String']>;
-  uniqueId: Scalars['ID'];
+  token?: InputMaybe<Scalars['String']['input']>;
+  uniqueId: Scalars['ID']['input'];
 };
 
 export type CancelEnrolmentMutationPayload = {
   __typename?: 'CancelEnrolmentMutationPayload';
-  clientMutationId?: Maybe<Scalars['String']>;
+  clientMutationId?: Maybe<Scalars['String']['output']>;
   enrolment?: Maybe<EnrolmentNode>;
 };
 
 export type CancelOccurrenceMutationInput = {
-  clientMutationId?: InputMaybe<Scalars['String']>;
-  id: Scalars['ID'];
-  reason?: InputMaybe<Scalars['String']>;
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  id: Scalars['ID']['input'];
+  reason?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type CancelOccurrenceMutationPayload = {
   __typename?: 'CancelOccurrenceMutationPayload';
-  clientMutationId?: Maybe<Scalars['String']>;
+  clientMutationId?: Maybe<Scalars['String']['output']>;
   occurrence?: Maybe<OccurrenceNode>;
 };
 
 export type CreateMyProfileMutationInput = {
-  clientMutationId?: InputMaybe<Scalars['String']>;
-  emailAddress: Scalars['String'];
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  emailAddress: Scalars['String']['input'];
   /** Default `fi` */
   language?: InputMaybe<Language>;
-  name: Scalars['String'];
+  name: Scalars['String']['input'];
   /** Propose a new organisation being added. Used with 3rd party organisations */
   organisationProposals?: InputMaybe<Array<InputMaybe<OrganisationProposalNodeInput>>>;
-  organisations?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
-  phoneNumber?: InputMaybe<Scalars['String']>;
-  placeIds?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  organisations?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  phoneNumber?: InputMaybe<Scalars['String']['input']>;
+  placeIds?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
 export type CreateMyProfileMutationPayload = {
   __typename?: 'CreateMyProfileMutationPayload';
-  clientMutationId?: Maybe<Scalars['String']>;
+  clientMutationId?: Maybe<Scalars['String']['output']>;
   myProfile?: Maybe<PersonNode>;
 };
 
 export type DeclineEnrolmentMutationInput = {
-  clientMutationId?: InputMaybe<Scalars['String']>;
-  customMessage?: InputMaybe<Scalars['String']>;
-  enrolmentId: Scalars['ID'];
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  customMessage?: InputMaybe<Scalars['String']['input']>;
+  enrolmentId: Scalars['ID']['input'];
 };
 
 export type DeclineEnrolmentMutationPayload = {
   __typename?: 'DeclineEnrolmentMutationPayload';
-  clientMutationId?: Maybe<Scalars['String']>;
+  clientMutationId?: Maybe<Scalars['String']['output']>;
   enrolment?: Maybe<EnrolmentNode>;
 };
 
@@ -215,52 +217,52 @@ export type DeleteImageMutation = {
 };
 
 export type DeleteOccurrenceMutationInput = {
-  clientMutationId?: InputMaybe<Scalars['String']>;
-  id: Scalars['ID'];
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  id: Scalars['ID']['input'];
 };
 
 export type DeleteOccurrenceMutationPayload = {
   __typename?: 'DeleteOccurrenceMutationPayload';
-  clientMutationId?: Maybe<Scalars['String']>;
+  clientMutationId?: Maybe<Scalars['String']['output']>;
 };
 
 export type DeleteStudyGroupMutationInput = {
-  clientMutationId?: InputMaybe<Scalars['String']>;
-  id: Scalars['ID'];
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  id: Scalars['ID']['input'];
 };
 
 export type DeleteStudyGroupMutationPayload = {
   __typename?: 'DeleteStudyGroupMutationPayload';
-  clientMutationId?: Maybe<Scalars['String']>;
+  clientMutationId?: Maybe<Scalars['String']['output']>;
 };
 
 export type DeleteVenueMutationInput = {
-  clientMutationId?: InputMaybe<Scalars['String']>;
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
   /** Place id from linked event */
-  id: Scalars['ID'];
+  id: Scalars['ID']['input'];
 };
 
 export type DeleteVenueMutationPayload = {
   __typename?: 'DeleteVenueMutationPayload';
-  clientMutationId?: Maybe<Scalars['String']>;
+  clientMutationId?: Maybe<Scalars['String']['output']>;
 };
 
 export type Division = {
   __typename?: 'Division';
-  municipality?: Maybe<Scalars['String']>;
+  municipality?: Maybe<Scalars['String']['output']>;
   name?: Maybe<LocalisedObject>;
   /** Open Civic Data ID */
-  ocdId?: Maybe<Scalars['String']>;
-  type: Scalars['String'];
+  ocdId?: Maybe<Scalars['String']['output']>;
+  type: Scalars['String']['output'];
 };
 
 export type EnrolEventQueueMutationInput = {
   /** The user response token provided by the reCAPTCHA client-side integration */
-  captchaKey?: InputMaybe<Scalars['String']>;
-  clientMutationId?: InputMaybe<Scalars['String']>;
+  captchaKey?: InputMaybe<Scalars['String']['input']>;
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
   notificationType?: InputMaybe<NotificationType>;
   /** The event that a group would like to queue to */
-  pEventId: Scalars['ID'];
+  pEventId: Scalars['ID']['input'];
   /** Leave blank if the contact person is the same with group contact person */
   person?: InputMaybe<PersonNodeInput>;
   /** Study group data */
@@ -269,48 +271,48 @@ export type EnrolEventQueueMutationInput = {
 
 export type EnrolEventQueueMutationPayload = {
   __typename?: 'EnrolEventQueueMutationPayload';
-  clientMutationId?: Maybe<Scalars['String']>;
+  clientMutationId?: Maybe<Scalars['String']['output']>;
   eventQueueEnrolment?: Maybe<EventQueueEnrolmentNode>;
 };
 
 export type EnrolOccurrenceMutationInput = {
   /** The user response token provided by the reCAPTCHA client-side integration */
-  captchaKey?: InputMaybe<Scalars['String']>;
-  clientMutationId?: InputMaybe<Scalars['String']>;
+  captchaKey?: InputMaybe<Scalars['String']['input']>;
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
   notificationType?: InputMaybe<NotificationType>;
   /** Occurrence ids of event */
-  occurrenceIds: Array<InputMaybe<Scalars['ID']>>;
+  occurrenceIds: Array<InputMaybe<Scalars['ID']['input']>>;
   /** Leave blank if the contact person is the same with group contact person */
   person?: InputMaybe<PersonNodeInput>;
   /** Should the related notifications be sent during the mutation. Default is True. */
-  sendNotifications?: InputMaybe<Scalars['Boolean']>;
+  sendNotifications?: InputMaybe<Scalars['Boolean']['input']>;
   /** Study group data */
   studyGroup: StudyGroupInput;
 };
 
 export type EnrolOccurrenceMutationPayload = {
   __typename?: 'EnrolOccurrenceMutationPayload';
-  clientMutationId?: Maybe<Scalars['String']>;
+  clientMutationId?: Maybe<Scalars['String']['output']>;
   enrolments?: Maybe<Array<Maybe<EnrolmentNode>>>;
 };
 
 export type EnrolmentNode = Node & {
   __typename?: 'EnrolmentNode';
-  enrolmentTime: Scalars['DateTime'];
+  enrolmentTime: Scalars['DateTime']['output'];
   /** The ID of the object. */
-  id: Scalars['ID'];
+  id: Scalars['ID']['output'];
   notificationType?: Maybe<NotificationType>;
   occurrence: OccurrenceNode;
   person?: Maybe<PersonNode>;
-  personDeletedAt?: Maybe<Scalars['DateTime']>;
+  personDeletedAt?: Maybe<Scalars['DateTime']['output']>;
   status?: Maybe<EnrolmentStatus>;
   studyGroup: StudyGroupNode;
-  updatedAt: Scalars['DateTime'];
+  updatedAt: Scalars['DateTime']['output'];
 };
 
 export type EnrolmentNodeConnection = {
   __typename?: 'EnrolmentNodeConnection';
-  count?: Maybe<Scalars['Int']>;
+  count?: Maybe<Scalars['Int']['output']>;
   /** Contains the nodes in this connection. */
   edges: Array<Maybe<EnrolmentNodeEdge>>;
   /** Pagination data for this connection. */
@@ -321,7 +323,7 @@ export type EnrolmentNodeConnection = {
 export type EnrolmentNodeEdge = {
   __typename?: 'EnrolmentNodeEdge';
   /** A cursor for use in pagination */
-  cursor: Scalars['String'];
+  cursor: Scalars['String']['output'];
   /** The item at the end of the edge */
   node?: Maybe<EnrolmentNode>;
 };
@@ -341,46 +343,46 @@ export type Event = {
   /** Only use this field in single event query for best performance. This field only work if `keywords` is included in the query argument */
   additionalCriteria: Array<Keyword>;
   audience: Array<Keyword>;
-  audienceMaxAge?: Maybe<Scalars['String']>;
-  audienceMinAge?: Maybe<Scalars['String']>;
+  audienceMaxAge?: Maybe<Scalars['String']['output']>;
+  audienceMinAge?: Maybe<Scalars['String']['output']>;
   /** Only use this field in single event query for best performance. This field only work if `keywords` is included in the query argument */
   categories: Array<Keyword>;
-  createdTime?: Maybe<Scalars['String']>;
-  customData?: Maybe<Scalars['String']>;
-  dataSource?: Maybe<Scalars['String']>;
-  datePublished?: Maybe<Scalars['String']>;
+  createdTime?: Maybe<Scalars['String']['output']>;
+  customData?: Maybe<Scalars['String']['output']>;
+  dataSource?: Maybe<Scalars['String']['output']>;
+  datePublished?: Maybe<Scalars['String']['output']>;
   description: LocalisedObject;
-  endTime?: Maybe<Scalars['String']>;
-  enrolmentEndTime?: Maybe<Scalars['String']>;
-  enrolmentStartTime?: Maybe<Scalars['String']>;
-  eventStatus?: Maybe<Scalars['String']>;
+  endTime?: Maybe<Scalars['String']['output']>;
+  enrolmentEndTime?: Maybe<Scalars['String']['output']>;
+  enrolmentStartTime?: Maybe<Scalars['String']['output']>;
+  eventStatus?: Maybe<Scalars['String']['output']>;
   externalLinks: Array<ExternalLink>;
-  id: Scalars['String'];
+  id: Scalars['String']['output'];
   images: Array<Image>;
   inLanguage: Array<InLanguage>;
   infoUrl?: Maybe<LocalisedObject>;
-  internalContext?: Maybe<Scalars['String']>;
-  internalId: Scalars['ID'];
-  internalType?: Maybe<Scalars['String']>;
+  internalContext?: Maybe<Scalars['String']['output']>;
+  internalId: Scalars['ID']['output'];
+  internalType?: Maybe<Scalars['String']['output']>;
   keywords: Array<Keyword>;
-  lastModifiedTime?: Maybe<Scalars['String']>;
+  lastModifiedTime?: Maybe<Scalars['String']['output']>;
   localizationExtraInfo?: Maybe<LocalisedObject>;
   location?: Maybe<Place>;
-  maximumAttendeeCapacity?: Maybe<Scalars['Int']>;
-  minimumAttendeeCapacity?: Maybe<Scalars['Int']>;
+  maximumAttendeeCapacity?: Maybe<Scalars['Int']['output']>;
+  minimumAttendeeCapacity?: Maybe<Scalars['Int']['output']>;
   name: LocalisedObject;
   offers: Array<Offer>;
   pEvent: PalvelutarjotinEventNode;
   provider?: Maybe<LocalisedObject>;
-  providerContactInfo?: Maybe<Scalars['String']>;
-  publicationStatus?: Maybe<Scalars['String']>;
-  publisher?: Maybe<Scalars['String']>;
-  remainingAttendeeCapacity?: Maybe<Scalars['Int']>;
+  providerContactInfo?: Maybe<Scalars['String']['output']>;
+  publicationStatus?: Maybe<Scalars['String']['output']>;
+  publisher?: Maybe<Scalars['String']['output']>;
+  remainingAttendeeCapacity?: Maybe<Scalars['Int']['output']>;
   shortDescription: LocalisedObject;
-  startTime?: Maybe<Scalars['String']>;
+  startTime?: Maybe<Scalars['String']['output']>;
   subEvents: Array<IdObject>;
   superEvent?: Maybe<IdObject>;
-  superEventType?: Maybe<Scalars['String']>;
+  superEventType?: Maybe<Scalars['String']['output']>;
   venue?: Maybe<VenueNode>;
 };
 
@@ -399,27 +401,27 @@ export type EventListResponse = {
 export type EventMutationResponse = {
   __typename?: 'EventMutationResponse';
   body?: Maybe<Event>;
-  resultText?: Maybe<Scalars['String']>;
-  statusCode: Scalars['Int'];
+  resultText?: Maybe<Scalars['String']['output']>;
+  statusCode: Scalars['Int']['output'];
 };
 
 export type EventQueueEnrolmentNode = Node & {
   __typename?: 'EventQueueEnrolmentNode';
-  enrolmentTime: Scalars['DateTime'];
+  enrolmentTime: Scalars['DateTime']['output'];
   /** The ID of the object. */
-  id: Scalars['ID'];
+  id: Scalars['ID']['output'];
   notificationType?: Maybe<NotificationType>;
   pEvent: PalvelutarjotinEventNode;
   person?: Maybe<PersonNode>;
-  personDeletedAt?: Maybe<Scalars['DateTime']>;
+  personDeletedAt?: Maybe<Scalars['DateTime']['output']>;
   status?: Maybe<EventQueueEnrolmentStatus>;
   studyGroup: StudyGroupNode;
-  updatedAt: Scalars['DateTime'];
+  updatedAt: Scalars['DateTime']['output'];
 };
 
 export type EventQueueEnrolmentNodeConnection = {
   __typename?: 'EventQueueEnrolmentNodeConnection';
-  count?: Maybe<Scalars['Int']>;
+  count?: Maybe<Scalars['Int']['output']>;
   /** Contains the nodes in this connection. */
   edges: Array<Maybe<EventQueueEnrolmentNodeEdge>>;
   /** Pagination data for this connection. */
@@ -430,7 +432,7 @@ export type EventQueueEnrolmentNodeConnection = {
 export type EventQueueEnrolmentNodeEdge = {
   __typename?: 'EventQueueEnrolmentNodeEdge';
   /** A cursor for use in pagination */
-  cursor: Scalars['String'];
+  cursor: Scalars['String']['output'];
   /** The item at the end of the edge */
   node?: Maybe<EventQueueEnrolmentNode>;
 };
@@ -449,9 +451,9 @@ export type EventSearchListResponse = {
 
 export type ExternalLink = {
   __typename?: 'ExternalLink';
-  language?: Maybe<Scalars['String']>;
-  link?: Maybe<Scalars['String']>;
-  name?: Maybe<Scalars['String']>;
+  language?: Maybe<Scalars['String']['output']>;
+  link?: Maybe<Scalars['String']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
 };
 
 export type ExternalPlace = {
@@ -461,36 +463,36 @@ export type ExternalPlace = {
 
 export type IdObject = {
   __typename?: 'IdObject';
-  createdTime?: Maybe<Scalars['String']>;
-  dataSource?: Maybe<Scalars['String']>;
-  id?: Maybe<Scalars['String']>;
-  internalContext?: Maybe<Scalars['String']>;
-  internalId: Scalars['ID'];
-  internalType?: Maybe<Scalars['String']>;
-  lastModifiedTime?: Maybe<Scalars['String']>;
-  publisher?: Maybe<Scalars['String']>;
+  createdTime?: Maybe<Scalars['String']['output']>;
+  dataSource?: Maybe<Scalars['String']['output']>;
+  id?: Maybe<Scalars['String']['output']>;
+  internalContext?: Maybe<Scalars['String']['output']>;
+  internalId: Scalars['ID']['output'];
+  internalType?: Maybe<Scalars['String']['output']>;
+  lastModifiedTime?: Maybe<Scalars['String']['output']>;
+  publisher?: Maybe<Scalars['String']['output']>;
 };
 
 export type IdObjectInput = {
-  internalId?: InputMaybe<Scalars['String']>;
+  internalId?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type Image = {
   __typename?: 'Image';
-  altText?: Maybe<Scalars['String']>;
-  createdTime?: Maybe<Scalars['String']>;
-  cropping?: Maybe<Scalars['String']>;
-  dataSource?: Maybe<Scalars['String']>;
-  id?: Maybe<Scalars['String']>;
-  internalContext?: Maybe<Scalars['String']>;
-  internalId: Scalars['ID'];
-  internalType?: Maybe<Scalars['String']>;
-  lastModifiedTime?: Maybe<Scalars['String']>;
-  license?: Maybe<Scalars['String']>;
-  name: Scalars['String'];
-  photographerName?: Maybe<Scalars['String']>;
-  publisher?: Maybe<Scalars['String']>;
-  url: Scalars['String'];
+  altText?: Maybe<Scalars['String']['output']>;
+  createdTime?: Maybe<Scalars['String']['output']>;
+  cropping?: Maybe<Scalars['String']['output']>;
+  dataSource?: Maybe<Scalars['String']['output']>;
+  id?: Maybe<Scalars['String']['output']>;
+  internalContext?: Maybe<Scalars['String']['output']>;
+  internalId: Scalars['ID']['output'];
+  internalType?: Maybe<Scalars['String']['output']>;
+  lastModifiedTime?: Maybe<Scalars['String']['output']>;
+  license?: Maybe<Scalars['String']['output']>;
+  name: Scalars['String']['output'];
+  photographerName?: Maybe<Scalars['String']['output']>;
+  publisher?: Maybe<Scalars['String']['output']>;
+  url: Scalars['String']['output'];
 };
 
 export type ImageListResponse = {
@@ -502,40 +504,40 @@ export type ImageListResponse = {
 export type ImageMutationResponse = {
   __typename?: 'ImageMutationResponse';
   body?: Maybe<Image>;
-  resultText?: Maybe<Scalars['String']>;
-  statusCode: Scalars['Int'];
+  resultText?: Maybe<Scalars['String']['output']>;
+  statusCode: Scalars['Int']['output'];
 };
 
 export type InLanguage = {
   __typename?: 'InLanguage';
-  createdTime?: Maybe<Scalars['String']>;
-  dataSource?: Maybe<Scalars['String']>;
-  id?: Maybe<Scalars['String']>;
-  internalContext?: Maybe<Scalars['String']>;
-  internalId: Scalars['ID'];
-  internalType?: Maybe<Scalars['String']>;
-  lastModifiedTime?: Maybe<Scalars['String']>;
+  createdTime?: Maybe<Scalars['String']['output']>;
+  dataSource?: Maybe<Scalars['String']['output']>;
+  id?: Maybe<Scalars['String']['output']>;
+  internalContext?: Maybe<Scalars['String']['output']>;
+  internalId: Scalars['ID']['output'];
+  internalType?: Maybe<Scalars['String']['output']>;
+  lastModifiedTime?: Maybe<Scalars['String']['output']>;
   name?: Maybe<LocalisedObject>;
-  publisher?: Maybe<Scalars['String']>;
-  translationAvailable?: Maybe<Scalars['Boolean']>;
+  publisher?: Maybe<Scalars['String']['output']>;
+  translationAvailable?: Maybe<Scalars['Boolean']['output']>;
 };
 
 export type Keyword = {
   __typename?: 'Keyword';
-  aggregate?: Maybe<Scalars['Boolean']>;
-  altLabels?: Maybe<Array<Maybe<Scalars['String']>>>;
-  createdTime?: Maybe<Scalars['String']>;
-  dataSource?: Maybe<Scalars['String']>;
-  deprecated?: Maybe<Scalars['Boolean']>;
-  id?: Maybe<Scalars['String']>;
-  image?: Maybe<Scalars['Int']>;
-  internalContext?: Maybe<Scalars['String']>;
-  internalId: Scalars['ID'];
-  internalType?: Maybe<Scalars['String']>;
-  lastModifiedTime?: Maybe<Scalars['String']>;
-  nEvents?: Maybe<Scalars['Int']>;
+  aggregate?: Maybe<Scalars['Boolean']['output']>;
+  altLabels?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  createdTime?: Maybe<Scalars['String']['output']>;
+  dataSource?: Maybe<Scalars['String']['output']>;
+  deprecated?: Maybe<Scalars['Boolean']['output']>;
+  id?: Maybe<Scalars['String']['output']>;
+  image?: Maybe<Scalars['Int']['output']>;
+  internalContext?: Maybe<Scalars['String']['output']>;
+  internalId: Scalars['ID']['output'];
+  internalType?: Maybe<Scalars['String']['output']>;
+  lastModifiedTime?: Maybe<Scalars['String']['output']>;
+  nEvents?: Maybe<Scalars['Int']['output']>;
   name?: Maybe<LocalisedObject>;
-  publisher?: Maybe<Scalars['ID']>;
+  publisher?: Maybe<Scalars['ID']['output']>;
 };
 
 export type KeywordListResponse = {
@@ -546,17 +548,17 @@ export type KeywordListResponse = {
 
 export type KeywordSet = {
   __typename?: 'KeywordSet';
-  createdTime?: Maybe<Scalars['String']>;
-  dataSource?: Maybe<Scalars['String']>;
-  id?: Maybe<Scalars['String']>;
-  internalContext?: Maybe<Scalars['String']>;
-  internalId: Scalars['ID'];
-  internalType?: Maybe<Scalars['String']>;
+  createdTime?: Maybe<Scalars['String']['output']>;
+  dataSource?: Maybe<Scalars['String']['output']>;
+  id?: Maybe<Scalars['String']['output']>;
+  internalContext?: Maybe<Scalars['String']['output']>;
+  internalId: Scalars['ID']['output'];
+  internalType?: Maybe<Scalars['String']['output']>;
   keywords: Array<Keyword>;
-  lastModifiedTime?: Maybe<Scalars['String']>;
+  lastModifiedTime?: Maybe<Scalars['String']['output']>;
   name?: Maybe<LocalisedObject>;
-  publisher?: Maybe<Scalars['String']>;
-  usage?: Maybe<Scalars['String']>;
+  publisher?: Maybe<Scalars['String']['output']>;
+  usage?: Maybe<Scalars['String']['output']>;
 };
 
 /** An enumeration. */
@@ -575,13 +577,13 @@ export enum Language {
 }
 
 export type LanguageInput = {
-  id?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type LanguageNode = Node & {
   __typename?: 'LanguageNode';
-  id: Scalars['ID'];
-  name: Scalars['String'];
+  id: Scalars['ID']['output'];
+  name: Scalars['String']['output'];
 };
 
 export type LanguageNodeConnection = {
@@ -596,41 +598,41 @@ export type LanguageNodeConnection = {
 export type LanguageNodeEdge = {
   __typename?: 'LanguageNodeEdge';
   /** A cursor for use in pagination */
-  cursor: Scalars['String'];
+  cursor: Scalars['String']['output'];
   /** The item at the end of the edge */
   node?: Maybe<LanguageNode>;
 };
 
 export type LocalisedObject = {
   __typename?: 'LocalisedObject';
-  en?: Maybe<Scalars['String']>;
-  fi?: Maybe<Scalars['String']>;
-  sv?: Maybe<Scalars['String']>;
+  en?: Maybe<Scalars['String']['output']>;
+  fi?: Maybe<Scalars['String']['output']>;
+  sv?: Maybe<Scalars['String']['output']>;
 };
 
 export type LocalisedObjectInput = {
-  en?: InputMaybe<Scalars['String']>;
-  fi?: InputMaybe<Scalars['String']>;
-  sv?: InputMaybe<Scalars['String']>;
+  en?: InputMaybe<Scalars['String']['input']>;
+  fi?: InputMaybe<Scalars['String']['input']>;
+  sv?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type MassApproveEnrolmentsMutationInput = {
-  clientMutationId?: InputMaybe<Scalars['String']>;
-  customMessage?: InputMaybe<Scalars['String']>;
-  enrolmentIds: Array<InputMaybe<Scalars['ID']>>;
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  customMessage?: InputMaybe<Scalars['String']['input']>;
+  enrolmentIds: Array<InputMaybe<Scalars['ID']['input']>>;
 };
 
 export type MassApproveEnrolmentsMutationPayload = {
   __typename?: 'MassApproveEnrolmentsMutationPayload';
-  clientMutationId?: Maybe<Scalars['String']>;
+  clientMutationId?: Maybe<Scalars['String']['output']>;
   enrolments: Array<Maybe<EnrolmentNode>>;
 };
 
 export type Meta = {
   __typename?: 'Meta';
-  count?: Maybe<Scalars['Int']>;
-  next?: Maybe<Scalars['String']>;
-  previous?: Maybe<Scalars['String']>;
+  count?: Maybe<Scalars['Int']['output']>;
+  next?: Maybe<Scalars['String']['output']>;
+  previous?: Maybe<Scalars['String']['output']>;
 };
 
 export type Mutation = {
@@ -654,6 +656,7 @@ export type Mutation = {
   enrolEventQueue?: Maybe<EnrolEventQueueMutationPayload>;
   enrolOccurrence?: Maybe<EnrolOccurrenceMutationPayload>;
   massApproveEnrolments?: Maybe<MassApproveEnrolmentsMutationPayload>;
+  pickEnrolmentFromQueue?: Maybe<PickEnrolmentFromQueueMutationPayload>;
   /** Using this mutation will update event publication status and also set the `start_time`, `end_time` of linkedEvent */
   publishEventMutation?: Maybe<PublishEventMutation>;
   unenrolEventQueue?: Maybe<UnenrolEventQueueMutationPayload>;
@@ -725,12 +728,12 @@ export type MutationDeclineEnrolmentArgs = {
 
 
 export type MutationDeleteEventMutationArgs = {
-  eventId: Scalars['String'];
+  eventId: Scalars['String']['input'];
 };
 
 
 export type MutationDeleteImageMutationArgs = {
-  imageId: Scalars['String'];
+  imageId: Scalars['String']['input'];
 };
 
 
@@ -761,6 +764,11 @@ export type MutationEnrolOccurrenceArgs = {
 
 export type MutationMassApproveEnrolmentsArgs = {
   input: MassApproveEnrolmentsMutationInput;
+};
+
+
+export type MutationPickEnrolmentFromQueueArgs = {
+  input: PickEnrolmentFromQueueMutationInput;
 };
 
 
@@ -836,7 +844,7 @@ export type MutationUploadImageMutationArgs = {
 /** An object with an ID */
 export type Node = {
   /** The ID of the object. */
-  id: Scalars['ID'];
+  id: Scalars['ID']['output'];
 };
 
 /** An enumeration. */
@@ -849,10 +857,10 @@ export enum NotificationTemplateLanguage {
 export type NotificationTemplateNode = Node & {
   __typename?: 'NotificationTemplateNode';
   /** The ID of the object. */
-  id: Scalars['ID'];
-  preview?: Maybe<Scalars['String']>;
+  id: Scalars['ID']['output'];
+  preview?: Maybe<Scalars['String']['output']>;
   translations: Array<Maybe<NotificationTranslationType>>;
-  type: Scalars['String'];
+  type: Scalars['String']['output'];
 };
 
 /** An enumeration. */
@@ -878,18 +886,18 @@ export enum NotificationTemplateType {
 
 export type NotificationTemplateWithContext = {
   __typename?: 'NotificationTemplateWithContext';
-  customContextPreviewHtml?: Maybe<Scalars['String']>;
-  customContextPreviewText?: Maybe<Scalars['String']>;
+  customContextPreviewHtml?: Maybe<Scalars['String']['output']>;
+  customContextPreviewText?: Maybe<Scalars['String']['output']>;
   template?: Maybe<NotificationTemplateNode>;
 };
 
 export type NotificationTranslationType = {
   __typename?: 'NotificationTranslationType';
-  bodyHtml?: Maybe<Scalars['String']>;
-  bodyText?: Maybe<Scalars['String']>;
+  bodyHtml?: Maybe<Scalars['String']['output']>;
+  bodyText?: Maybe<Scalars['String']['output']>;
   languageCode: NotificationTemplateLanguage;
-  preview?: Maybe<Scalars['String']>;
-  subject?: Maybe<Scalars['String']>;
+  preview?: Maybe<Scalars['String']['output']>;
+  subject?: Maybe<Scalars['String']['output']>;
 };
 
 /** An enumeration. */
@@ -901,66 +909,66 @@ export enum NotificationType {
 
 export type OccurrenceNode = Node & {
   __typename?: 'OccurrenceNode';
-  amountOfSeats: Scalars['Int'];
-  cancelled: Scalars['Boolean'];
+  amountOfSeats: Scalars['Int']['output'];
+  cancelled: Scalars['Boolean']['output'];
   contactPersons: PersonNodeConnection;
-  createdAt: Scalars['DateTime'];
-  endTime: Scalars['DateTime'];
+  createdAt: Scalars['DateTime']['output'];
+  endTime: Scalars['DateTime']['output'];
   enrolments: EnrolmentNodeConnection;
   /** The ID of the object. */
-  id: Scalars['ID'];
+  id: Scalars['ID']['output'];
   languages: LanguageNodeConnection;
   /** Only use this field in single event query for best performance. */
   linkedEvent?: Maybe<Event>;
-  maxGroupSize?: Maybe<Scalars['Int']>;
-  minGroupSize?: Maybe<Scalars['Int']>;
+  maxGroupSize?: Maybe<Scalars['Int']['output']>;
+  minGroupSize?: Maybe<Scalars['Int']['output']>;
   pEvent?: Maybe<PalvelutarjotinEventNode>;
-  placeId: Scalars['String'];
-  remainingSeats: Scalars['Int'];
+  placeId: Scalars['String']['output'];
+  remainingSeats: Scalars['Int']['output'];
   seatType: OccurrenceSeatType;
-  seatsApproved: Scalars['Int'];
-  seatsTaken: Scalars['Int'];
-  startTime: Scalars['DateTime'];
+  seatsApproved: Scalars['Int']['output'];
+  seatsTaken: Scalars['Int']['output'];
+  startTime: Scalars['DateTime']['output'];
   studyGroups: StudyGroupNodeConnection;
-  updatedAt: Scalars['DateTime'];
+  updatedAt: Scalars['DateTime']['output'];
 };
 
 
 export type OccurrenceNodeContactPersonsArgs = {
-  after?: InputMaybe<Scalars['String']>;
-  before?: InputMaybe<Scalars['String']>;
-  first?: InputMaybe<Scalars['Int']>;
-  last?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
 export type OccurrenceNodeEnrolmentsArgs = {
-  after?: InputMaybe<Scalars['String']>;
-  before?: InputMaybe<Scalars['String']>;
-  first?: InputMaybe<Scalars['Int']>;
-  last?: InputMaybe<Scalars['Int']>;
-  occurrenceId?: InputMaybe<Scalars['ID']>;
-  offset?: InputMaybe<Scalars['Int']>;
-  status?: InputMaybe<Scalars['String']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  occurrenceId?: InputMaybe<Scalars['ID']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  status?: InputMaybe<Scalars['String']['input']>;
 };
 
 
 export type OccurrenceNodeLanguagesArgs = {
-  after?: InputMaybe<Scalars['String']>;
-  before?: InputMaybe<Scalars['String']>;
-  first?: InputMaybe<Scalars['Int']>;
-  last?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
 export type OccurrenceNodeStudyGroupsArgs = {
-  after?: InputMaybe<Scalars['String']>;
-  before?: InputMaybe<Scalars['String']>;
-  first?: InputMaybe<Scalars['Int']>;
-  last?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
 };
 
 export type OccurrenceNodeConnection = {
@@ -975,7 +983,7 @@ export type OccurrenceNodeConnection = {
 export type OccurrenceNodeEdge = {
   __typename?: 'OccurrenceNodeEdge';
   /** A cursor for use in pagination */
-  cursor: Scalars['String'];
+  cursor: Scalars['String']['output'];
   /** The item at the end of the edge */
   node?: Maybe<OccurrenceNode>;
 };
@@ -992,35 +1000,35 @@ export type Offer = {
   __typename?: 'Offer';
   description?: Maybe<LocalisedObject>;
   infoUrl?: Maybe<LocalisedObject>;
-  isFree?: Maybe<Scalars['Boolean']>;
+  isFree?: Maybe<Scalars['Boolean']['output']>;
   price?: Maybe<LocalisedObject>;
 };
 
 export type OfferInput = {
   description?: InputMaybe<LocalisedObjectInput>;
   infoUrl?: InputMaybe<LocalisedObjectInput>;
-  isFree?: InputMaybe<Scalars['Boolean']>;
+  isFree?: InputMaybe<Scalars['Boolean']['input']>;
   price?: InputMaybe<LocalisedObjectInput>;
 };
 
 export type OrganisationNode = Node & {
   __typename?: 'OrganisationNode';
   /** The ID of the object. */
-  id: Scalars['ID'];
-  name: Scalars['String'];
+  id: Scalars['ID']['output'];
+  name: Scalars['String']['output'];
   persons: PersonNodeConnection;
-  phoneNumber: Scalars['String'];
-  publisherId: Scalars['String'];
+  phoneNumber: Scalars['String']['output'];
+  publisherId: Scalars['String']['output'];
   type: OrganisationType;
 };
 
 
 export type OrganisationNodePersonsArgs = {
-  after?: InputMaybe<Scalars['String']>;
-  before?: InputMaybe<Scalars['String']>;
-  first?: InputMaybe<Scalars['Int']>;
-  last?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
 };
 
 export type OrganisationNodeConnection = {
@@ -1035,7 +1043,7 @@ export type OrganisationNodeConnection = {
 export type OrganisationNodeEdge = {
   __typename?: 'OrganisationNodeEdge';
   /** A cursor for use in pagination */
-  cursor: Scalars['String'];
+  cursor: Scalars['String']['output'];
   /** The item at the end of the edge */
   node?: Maybe<OrganisationNode>;
 };
@@ -1043,11 +1051,11 @@ export type OrganisationNodeEdge = {
 export type OrganisationProposalNode = Node & {
   __typename?: 'OrganisationProposalNode';
   applicant: PersonNode;
-  description: Scalars['String'];
+  description: Scalars['String']['output'];
   /** The ID of the object. */
-  id: Scalars['ID'];
-  name: Scalars['String'];
-  phoneNumber: Scalars['String'];
+  id: Scalars['ID']['output'];
+  name: Scalars['String']['output'];
+  phoneNumber: Scalars['String']['output'];
 };
 
 export type OrganisationProposalNodeConnection = {
@@ -1062,15 +1070,15 @@ export type OrganisationProposalNodeConnection = {
 export type OrganisationProposalNodeEdge = {
   __typename?: 'OrganisationProposalNodeEdge';
   /** A cursor for use in pagination */
-  cursor: Scalars['String'];
+  cursor: Scalars['String']['output'];
   /** The item at the end of the edge */
   node?: Maybe<OrganisationProposalNode>;
 };
 
 export type OrganisationProposalNodeInput = {
-  description?: InputMaybe<Scalars['String']>;
-  name: Scalars['String'];
-  phoneNumber?: InputMaybe<Scalars['String']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  name: Scalars['String']['input'];
+  phoneNumber?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** An enumeration. */
@@ -1090,185 +1098,185 @@ export enum OrganisationTypeEnum {
 export type PageInfo = {
   __typename?: 'PageInfo';
   /** When paginating forwards, the cursor to continue. */
-  endCursor?: Maybe<Scalars['String']>;
+  endCursor?: Maybe<Scalars['String']['output']>;
   /** When paginating forwards, are there more items? */
-  hasNextPage: Scalars['Boolean'];
+  hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
-  hasPreviousPage: Scalars['Boolean'];
+  hasPreviousPage: Scalars['Boolean']['output'];
   /** When paginating backwards, the cursor to continue. */
-  startCursor?: Maybe<Scalars['String']>;
+  startCursor?: Maybe<Scalars['String']['output']>;
 };
 
 export type PaginatedType = {
   __typename?: 'PaginatedType';
-  hasNextPage?: Maybe<Scalars['Boolean']>;
-  hasPreviousPage?: Maybe<Scalars['Boolean']>;
-  page?: Maybe<Scalars['Int']>;
-  pageSize?: Maybe<Scalars['Int']>;
-  pages?: Maybe<Scalars['Int']>;
-  totalCount?: Maybe<Scalars['Int']>;
+  hasNextPage?: Maybe<Scalars['Boolean']['output']>;
+  hasPreviousPage?: Maybe<Scalars['Boolean']['output']>;
+  page?: Maybe<Scalars['Int']['output']>;
+  pageSize?: Maybe<Scalars['Int']['output']>;
+  pages?: Maybe<Scalars['Int']['output']>;
+  totalCount?: Maybe<Scalars['Int']['output']>;
 };
 
 export type PalvelutarjotinEventInput = {
-  autoAcceptance?: InputMaybe<Scalars['Boolean']>;
-  contactEmail?: InputMaybe<Scalars['String']>;
-  contactPersonId?: InputMaybe<Scalars['ID']>;
-  contactPhoneNumber?: InputMaybe<Scalars['String']>;
-  enrolmentEndDays?: InputMaybe<Scalars['Int']>;
-  enrolmentStart?: InputMaybe<Scalars['DateTime']>;
-  externalEnrolmentUrl?: InputMaybe<Scalars['String']>;
-  mandatoryAdditionalInformation?: InputMaybe<Scalars['Boolean']>;
-  neededOccurrences: Scalars['Int'];
+  autoAcceptance?: InputMaybe<Scalars['Boolean']['input']>;
+  contactEmail?: InputMaybe<Scalars['String']['input']>;
+  contactPersonId?: InputMaybe<Scalars['ID']['input']>;
+  contactPhoneNumber?: InputMaybe<Scalars['String']['input']>;
+  enrolmentEndDays?: InputMaybe<Scalars['Int']['input']>;
+  enrolmentStart?: InputMaybe<Scalars['DateTime']['input']>;
+  externalEnrolmentUrl?: InputMaybe<Scalars['String']['input']>;
+  mandatoryAdditionalInformation?: InputMaybe<Scalars['Boolean']['input']>;
+  neededOccurrences: Scalars['Int']['input'];
   translations?: InputMaybe<Array<InputMaybe<PalvelutarjotinEventTranslationsInput>>>;
 };
 
 export type PalvelutarjotinEventNode = Node & {
   __typename?: 'PalvelutarjotinEventNode';
-  autoAcceptance: Scalars['Boolean'];
+  autoAcceptance: Scalars['Boolean']['output'];
   /** Translated field in the language defined in request ACCEPT-LANGUAGE header  */
-  autoAcceptanceMessage?: Maybe<Scalars['String']>;
-  contactEmail: Scalars['String'];
-  contactInfoDeletedAt?: Maybe<Scalars['DateTime']>;
+  autoAcceptanceMessage?: Maybe<Scalars['String']['output']>;
+  contactEmail: Scalars['String']['output'];
+  contactInfoDeletedAt?: Maybe<Scalars['DateTime']['output']>;
   contactPerson?: Maybe<PersonNode>;
-  contactPhoneNumber: Scalars['String'];
-  createdAt: Scalars['DateTime'];
-  enrolmentEndDays?: Maybe<Scalars['Int']>;
-  enrolmentStart?: Maybe<Scalars['DateTime']>;
-  externalEnrolmentUrl?: Maybe<Scalars['String']>;
+  contactPhoneNumber: Scalars['String']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  enrolmentEndDays?: Maybe<Scalars['Int']['output']>;
+  enrolmentStart?: Maybe<Scalars['DateTime']['output']>;
+  externalEnrolmentUrl?: Maybe<Scalars['String']['output']>;
   /** The ID of the object. */
-  id: Scalars['ID'];
-  lastOccurrenceDatetime?: Maybe<Scalars['DateTime']>;
-  linkedEventId: Scalars['String'];
-  mandatoryAdditionalInformation: Scalars['Boolean'];
-  neededOccurrences: Scalars['Int'];
-  nextOccurrenceDatetime?: Maybe<Scalars['DateTime']>;
+  id: Scalars['ID']['output'];
+  lastOccurrenceDatetime?: Maybe<Scalars['DateTime']['output']>;
+  linkedEventId: Scalars['String']['output'];
+  mandatoryAdditionalInformation: Scalars['Boolean']['output'];
+  neededOccurrences: Scalars['Int']['output'];
+  nextOccurrenceDatetime?: Maybe<Scalars['DateTime']['output']>;
   occurrences?: Maybe<OccurrenceNodeConnection>;
   organisation?: Maybe<OrganisationNode>;
   queuedEnrolments: EventQueueEnrolmentNodeConnection;
   translations?: Maybe<Array<Maybe<PalvelutarjotinEventTranslationType>>>;
-  updatedAt: Scalars['DateTime'];
+  updatedAt: Scalars['DateTime']['output'];
 };
 
 
 export type PalvelutarjotinEventNodeOccurrencesArgs = {
-  after?: InputMaybe<Scalars['String']>;
-  before?: InputMaybe<Scalars['String']>;
-  cancelled?: InputMaybe<Scalars['Boolean']>;
-  date?: InputMaybe<Scalars['Date']>;
-  enrollable?: InputMaybe<Scalars['Boolean']>;
-  first?: InputMaybe<Scalars['Int']>;
-  last?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
-  pEvent?: InputMaybe<Scalars['ID']>;
-  time?: InputMaybe<Scalars['Time']>;
-  upcoming?: InputMaybe<Scalars['Boolean']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  cancelled?: InputMaybe<Scalars['Boolean']['input']>;
+  date?: InputMaybe<Scalars['Date']['input']>;
+  enrollable?: InputMaybe<Scalars['Boolean']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  pEvent?: InputMaybe<Scalars['ID']['input']>;
+  time?: InputMaybe<Scalars['Time']['input']>;
+  upcoming?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
 export type PalvelutarjotinEventNodeQueuedEnrolmentsArgs = {
-  after?: InputMaybe<Scalars['String']>;
-  before?: InputMaybe<Scalars['String']>;
-  first?: InputMaybe<Scalars['Int']>;
-  last?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
-  pEventId?: InputMaybe<Scalars['ID']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  pEventId?: InputMaybe<Scalars['ID']['input']>;
 };
 
 export type PalvelutarjotinEventTranslationType = {
   __typename?: 'PalvelutarjotinEventTranslationType';
-  autoAcceptanceMessage: Scalars['String'];
+  autoAcceptanceMessage: Scalars['String']['output'];
   languageCode: Language;
 };
 
 export type PalvelutarjotinEventTranslationsInput = {
   /** A custom message included in notification template when auto acceptance is set on. */
-  autoAcceptanceMessage?: InputMaybe<Scalars['String']>;
+  autoAcceptanceMessage?: InputMaybe<Scalars['String']['input']>;
   languageCode: Language;
 };
 
 export type PersonNode = Node & {
   __typename?: 'PersonNode';
-  createdAt: Scalars['DateTime'];
-  emailAddress: Scalars['String'];
+  createdAt: Scalars['DateTime']['output'];
+  emailAddress: Scalars['String']['output'];
   enrolmentSet: EnrolmentNodeConnection;
   eventqueueenrolmentSet: EventQueueEnrolmentNodeConnection;
   /** The ID of the object. */
-  id: Scalars['ID'];
-  isStaff: Scalars['Boolean'];
+  id: Scalars['ID']['output'];
+  isStaff: Scalars['Boolean']['output'];
   language: Language;
-  name: Scalars['String'];
+  name: Scalars['String']['output'];
   occurrences: OccurrenceNodeConnection;
   organisationproposalSet: OrganisationProposalNodeConnection;
   organisations: OrganisationNodeConnection;
-  phoneNumber: Scalars['String'];
-  placeIds: Array<Scalars['String']>;
+  phoneNumber: Scalars['String']['output'];
+  placeIds: Array<Scalars['String']['output']>;
   studygroupSet: StudyGroupNodeConnection;
-  updatedAt: Scalars['DateTime'];
+  updatedAt: Scalars['DateTime']['output'];
 };
 
 
 export type PersonNodeEnrolmentSetArgs = {
-  after?: InputMaybe<Scalars['String']>;
-  before?: InputMaybe<Scalars['String']>;
-  first?: InputMaybe<Scalars['Int']>;
-  last?: InputMaybe<Scalars['Int']>;
-  occurrenceId?: InputMaybe<Scalars['ID']>;
-  offset?: InputMaybe<Scalars['Int']>;
-  status?: InputMaybe<Scalars['String']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  occurrenceId?: InputMaybe<Scalars['ID']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  status?: InputMaybe<Scalars['String']['input']>;
 };
 
 
 export type PersonNodeEventqueueenrolmentSetArgs = {
-  after?: InputMaybe<Scalars['String']>;
-  before?: InputMaybe<Scalars['String']>;
-  first?: InputMaybe<Scalars['Int']>;
-  last?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
-  pEventId?: InputMaybe<Scalars['ID']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  pEventId?: InputMaybe<Scalars['ID']['input']>;
 };
 
 
 export type PersonNodeOccurrencesArgs = {
-  after?: InputMaybe<Scalars['String']>;
-  before?: InputMaybe<Scalars['String']>;
-  cancelled?: InputMaybe<Scalars['Boolean']>;
-  date?: InputMaybe<Scalars['Date']>;
-  enrollable?: InputMaybe<Scalars['Boolean']>;
-  first?: InputMaybe<Scalars['Int']>;
-  last?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
-  pEvent?: InputMaybe<Scalars['ID']>;
-  time?: InputMaybe<Scalars['Time']>;
-  upcoming?: InputMaybe<Scalars['Boolean']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  cancelled?: InputMaybe<Scalars['Boolean']['input']>;
+  date?: InputMaybe<Scalars['Date']['input']>;
+  enrollable?: InputMaybe<Scalars['Boolean']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  pEvent?: InputMaybe<Scalars['ID']['input']>;
+  time?: InputMaybe<Scalars['Time']['input']>;
+  upcoming?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
 export type PersonNodeOrganisationproposalSetArgs = {
-  after?: InputMaybe<Scalars['String']>;
-  before?: InputMaybe<Scalars['String']>;
-  first?: InputMaybe<Scalars['Int']>;
-  last?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
 export type PersonNodeOrganisationsArgs = {
-  after?: InputMaybe<Scalars['String']>;
-  before?: InputMaybe<Scalars['String']>;
-  first?: InputMaybe<Scalars['Int']>;
-  last?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
-  type?: InputMaybe<Scalars['String']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  type?: InputMaybe<Scalars['String']['input']>;
 };
 
 
 export type PersonNodeStudygroupSetArgs = {
-  after?: InputMaybe<Scalars['String']>;
-  before?: InputMaybe<Scalars['String']>;
-  first?: InputMaybe<Scalars['Int']>;
-  last?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
 };
 
 export type PersonNodeConnection = {
@@ -1283,49 +1291,61 @@ export type PersonNodeConnection = {
 export type PersonNodeEdge = {
   __typename?: 'PersonNodeEdge';
   /** A cursor for use in pagination */
-  cursor: Scalars['String'];
+  cursor: Scalars['String']['output'];
   /** The item at the end of the edge */
   node?: Maybe<PersonNode>;
 };
 
 export type PersonNodeInput = {
-  emailAddress: Scalars['String'];
-  id?: InputMaybe<Scalars['ID']>;
+  emailAddress: Scalars['String']['input'];
+  id?: InputMaybe<Scalars['ID']['input']>;
   /** Default `fi` */
   language?: InputMaybe<Language>;
-  name: Scalars['String'];
-  phoneNumber?: InputMaybe<Scalars['String']>;
-  placeIds?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  name: Scalars['String']['input'];
+  phoneNumber?: InputMaybe<Scalars['String']['input']>;
+  placeIds?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type PickEnrolmentFromQueueMutationInput = {
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  eventQueueEnrolmentId: Scalars['ID']['input'];
+  occurrenceId: Scalars['ID']['input'];
+};
+
+export type PickEnrolmentFromQueueMutationPayload = {
+  __typename?: 'PickEnrolmentFromQueueMutationPayload';
+  clientMutationId?: Maybe<Scalars['String']['output']>;
+  enrolment?: Maybe<EnrolmentNode>;
 };
 
 export type Place = {
   __typename?: 'Place';
-  addressCountry?: Maybe<Scalars['String']>;
+  addressCountry?: Maybe<Scalars['String']['output']>;
   addressLocality?: Maybe<LocalisedObject>;
-  addressRegion?: Maybe<Scalars['String']>;
-  contactType?: Maybe<Scalars['String']>;
-  createdTime?: Maybe<Scalars['String']>;
-  customData?: Maybe<Scalars['String']>;
-  dataSource?: Maybe<Scalars['String']>;
-  deleted?: Maybe<Scalars['Boolean']>;
-  description?: Maybe<Scalars['String']>;
+  addressRegion?: Maybe<Scalars['String']['output']>;
+  contactType?: Maybe<Scalars['String']['output']>;
+  createdTime?: Maybe<Scalars['String']['output']>;
+  customData?: Maybe<Scalars['String']['output']>;
+  dataSource?: Maybe<Scalars['String']['output']>;
+  deleted?: Maybe<Scalars['Boolean']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
   divisions?: Maybe<Array<Maybe<Division>>>;
-  email?: Maybe<Scalars['String']>;
-  id?: Maybe<Scalars['String']>;
-  image?: Maybe<Scalars['Int']>;
+  email?: Maybe<Scalars['String']['output']>;
+  id?: Maybe<Scalars['String']['output']>;
+  image?: Maybe<Scalars['Int']['output']>;
   infoUrl?: Maybe<LocalisedObject>;
-  internalContext?: Maybe<Scalars['String']>;
-  internalId: Scalars['ID'];
-  internalType?: Maybe<Scalars['String']>;
-  lastModifiedTime?: Maybe<Scalars['String']>;
-  nEvents?: Maybe<Scalars['Int']>;
+  internalContext?: Maybe<Scalars['String']['output']>;
+  internalId: Scalars['ID']['output'];
+  internalType?: Maybe<Scalars['String']['output']>;
+  lastModifiedTime?: Maybe<Scalars['String']['output']>;
+  nEvents?: Maybe<Scalars['Int']['output']>;
   name?: Maybe<LocalisedObject>;
-  parent?: Maybe<Scalars['ID']>;
+  parent?: Maybe<Scalars['ID']['output']>;
   position?: Maybe<PlacePosition>;
-  postOfficeBoxNum?: Maybe<Scalars['String']>;
-  postalCode?: Maybe<Scalars['String']>;
-  publisher?: Maybe<Scalars['String']>;
-  replacedBy?: Maybe<Scalars['String']>;
+  postOfficeBoxNum?: Maybe<Scalars['String']['output']>;
+  postalCode?: Maybe<Scalars['String']['output']>;
+  publisher?: Maybe<Scalars['String']['output']>;
+  replacedBy?: Maybe<Scalars['String']['output']>;
   streetAddress?: Maybe<LocalisedObject>;
   telephone?: Maybe<LocalisedObject>;
 };
@@ -1338,8 +1358,8 @@ export type PlaceListResponse = {
 
 export type PlacePosition = {
   __typename?: 'PlacePosition';
-  coordinates: Array<Scalars['Float']>;
-  type: Scalars['String'];
+  coordinates: Array<Scalars['Float']['output']>;
+  type: Scalars['String']['output'];
 };
 
 export type PlaceSearchListResponse = {
@@ -1355,39 +1375,39 @@ export type PublishEventMutation = {
 
 export type PublishEventMutationInput = {
   audience?: InputMaybe<Array<IdObjectInput>>;
-  audienceMaxAge?: InputMaybe<Scalars['String']>;
-  audienceMinAge?: InputMaybe<Scalars['String']>;
-  customData?: InputMaybe<Scalars['String']>;
-  datePublished?: InputMaybe<Scalars['String']>;
+  audienceMaxAge?: InputMaybe<Scalars['String']['input']>;
+  audienceMinAge?: InputMaybe<Scalars['String']['input']>;
+  customData?: InputMaybe<Scalars['String']['input']>;
+  datePublished?: InputMaybe<Scalars['String']['input']>;
   description: LocalisedObjectInput;
-  endTime?: InputMaybe<Scalars['String']>;
-  enrolmentEndTime?: InputMaybe<Scalars['String']>;
-  enrolmentStartTime?: InputMaybe<Scalars['String']>;
-  eventStatus?: InputMaybe<Scalars['String']>;
-  externalLinks?: InputMaybe<Array<Scalars['String']>>;
-  id: Scalars['String'];
+  endTime?: InputMaybe<Scalars['String']['input']>;
+  enrolmentEndTime?: InputMaybe<Scalars['String']['input']>;
+  enrolmentStartTime?: InputMaybe<Scalars['String']['input']>;
+  eventStatus?: InputMaybe<Scalars['String']['input']>;
+  externalLinks?: InputMaybe<Array<Scalars['String']['input']>>;
+  id: Scalars['String']['input'];
   images?: InputMaybe<Array<IdObjectInput>>;
   inLanguage?: InputMaybe<Array<IdObjectInput>>;
   infoUrl?: InputMaybe<LocalisedObjectInput>;
   keywords: Array<IdObjectInput>;
   localizationExtraInfo?: InputMaybe<LocalisedObjectInput>;
   location?: InputMaybe<IdObjectInput>;
-  maximumAttendeeCapacity?: InputMaybe<Scalars['Int']>;
-  minimumAttendeeCapacity?: InputMaybe<Scalars['Int']>;
+  maximumAttendeeCapacity?: InputMaybe<Scalars['Int']['input']>;
+  minimumAttendeeCapacity?: InputMaybe<Scalars['Int']['input']>;
   name: LocalisedObjectInput;
   offers: Array<OfferInput>;
   /** Organisation global id which the created event belongs to */
-  organisationId: Scalars['String'];
+  organisationId: Scalars['String']['input'];
   /** Palvelutarjotin event data */
   pEvent?: InputMaybe<PalvelutarjotinEventInput>;
   provider?: InputMaybe<LocalisedObjectInput>;
-  providerContactInfo?: InputMaybe<Scalars['String']>;
-  remainingAttendeeCapacity?: InputMaybe<Scalars['Int']>;
+  providerContactInfo?: InputMaybe<Scalars['String']['input']>;
+  remainingAttendeeCapacity?: InputMaybe<Scalars['Int']['input']>;
   shortDescription: LocalisedObjectInput;
-  startTime?: InputMaybe<Scalars['String']>;
-  subEvents?: InputMaybe<Array<Scalars['String']>>;
-  superEvent?: InputMaybe<Scalars['String']>;
-  superEventType?: InputMaybe<Scalars['String']>;
+  startTime?: InputMaybe<Scalars['String']['input']>;
+  subEvents?: InputMaybe<Array<Scalars['String']['input']>>;
+  superEvent?: InputMaybe<Scalars['String']['input']>;
+  superEventType?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type Query = {
@@ -1435,91 +1455,91 @@ export type Query = {
 
 
 export type QueryCancellingEnrolmentArgs = {
-  id: Scalars['ID'];
+  id: Scalars['ID']['input'];
 };
 
 
 export type QueryEnrolmentArgs = {
-  id: Scalars['ID'];
+  id: Scalars['ID']['input'];
 };
 
 
 export type QueryEnrolmentSummaryArgs = {
-  after?: InputMaybe<Scalars['String']>;
-  before?: InputMaybe<Scalars['String']>;
-  first?: InputMaybe<Scalars['Int']>;
-  last?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
-  organisationId: Scalars['ID'];
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  organisationId: Scalars['ID']['input'];
   status?: InputMaybe<EnrolmentStatus>;
 };
 
 
 export type QueryEventArgs = {
-  id: Scalars['ID'];
-  include?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  id: Scalars['ID']['input'];
+  include?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
 
 export type QueryEventQueueEnrolmentArgs = {
-  id: Scalars['ID'];
+  id: Scalars['ID']['input'];
 };
 
 
 export type QueryEventQueueEnrolmentsArgs = {
-  after?: InputMaybe<Scalars['String']>;
-  before?: InputMaybe<Scalars['String']>;
-  first?: InputMaybe<Scalars['Int']>;
-  last?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
-  pEventId?: InputMaybe<Scalars['ID']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  pEventId?: InputMaybe<Scalars['ID']['input']>;
 };
 
 
 export type QueryEventsArgs = {
-  allOngoingAnd?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
-  allOngoingOr?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
-  division?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
-  end?: InputMaybe<Scalars['String']>;
-  inLanguage?: InputMaybe<Scalars['String']>;
-  include?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
-  isFree?: InputMaybe<Scalars['Boolean']>;
-  keyword?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
-  keywordAnd?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
-  keywordNot?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
-  language?: InputMaybe<Scalars['String']>;
-  location?: InputMaybe<Scalars['String']>;
-  nearbyDistance?: InputMaybe<Scalars['Float']>;
-  nearbyPlaceId?: InputMaybe<Scalars['ID']>;
-  organisationId?: InputMaybe<Scalars['String']>;
-  page?: InputMaybe<Scalars['Int']>;
-  pageSize?: InputMaybe<Scalars['Int']>;
-  publicationStatus?: InputMaybe<Scalars['String']>;
-  publisher?: InputMaybe<Scalars['ID']>;
-  showAll?: InputMaybe<Scalars['Boolean']>;
-  sort?: InputMaybe<Scalars['String']>;
-  start?: InputMaybe<Scalars['String']>;
-  superEvent?: InputMaybe<Scalars['ID']>;
-  superEventType?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
-  text?: InputMaybe<Scalars['String']>;
-  translation?: InputMaybe<Scalars['String']>;
+  allOngoingAnd?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  allOngoingOr?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  division?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  end?: InputMaybe<Scalars['String']['input']>;
+  inLanguage?: InputMaybe<Scalars['String']['input']>;
+  include?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  isFree?: InputMaybe<Scalars['Boolean']['input']>;
+  keyword?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  keywordAnd?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  keywordNot?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  language?: InputMaybe<Scalars['String']['input']>;
+  location?: InputMaybe<Scalars['String']['input']>;
+  nearbyDistance?: InputMaybe<Scalars['Float']['input']>;
+  nearbyPlaceId?: InputMaybe<Scalars['ID']['input']>;
+  organisationId?: InputMaybe<Scalars['String']['input']>;
+  page?: InputMaybe<Scalars['Int']['input']>;
+  pageSize?: InputMaybe<Scalars['Int']['input']>;
+  publicationStatus?: InputMaybe<Scalars['String']['input']>;
+  publisher?: InputMaybe<Scalars['ID']['input']>;
+  showAll?: InputMaybe<Scalars['Boolean']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+  start?: InputMaybe<Scalars['String']['input']>;
+  superEvent?: InputMaybe<Scalars['ID']['input']>;
+  superEventType?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  text?: InputMaybe<Scalars['String']['input']>;
+  translation?: InputMaybe<Scalars['String']['input']>;
 };
 
 
 export type QueryEventsSearchArgs = {
-  include?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
-  input: Scalars['String'];
+  include?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  input: Scalars['String']['input'];
 };
 
 
 export type QueryImageArgs = {
-  id: Scalars['ID'];
+  id: Scalars['ID']['input'];
 };
 
 
 export type QueryKeywordArgs = {
-  id: Scalars['ID'];
+  id: Scalars['ID']['input'];
 };
 
 
@@ -1529,146 +1549,146 @@ export type QueryKeywordSetArgs = {
 
 
 export type QueryKeywordsArgs = {
-  dataSource?: InputMaybe<Scalars['String']>;
-  page?: InputMaybe<Scalars['Int']>;
-  pageSize?: InputMaybe<Scalars['Int']>;
-  showAllKeywords?: InputMaybe<Scalars['Boolean']>;
-  sort?: InputMaybe<Scalars['String']>;
-  text?: InputMaybe<Scalars['String']>;
+  dataSource?: InputMaybe<Scalars['String']['input']>;
+  page?: InputMaybe<Scalars['Int']['input']>;
+  pageSize?: InputMaybe<Scalars['Int']['input']>;
+  showAllKeywords?: InputMaybe<Scalars['Boolean']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+  text?: InputMaybe<Scalars['String']['input']>;
 };
 
 
 export type QueryLanguageArgs = {
-  id: Scalars['ID'];
+  id: Scalars['ID']['input'];
 };
 
 
 export type QueryLanguagesArgs = {
-  after?: InputMaybe<Scalars['String']>;
-  before?: InputMaybe<Scalars['String']>;
-  first?: InputMaybe<Scalars['Int']>;
-  last?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
 export type QueryNotificationTemplateArgs = {
-  context: Scalars['JSONString'];
+  context: Scalars['JSONString']['input'];
   language: Language;
   templateType?: InputMaybe<NotificationTemplateType>;
 };
 
 
 export type QueryOccurrenceArgs = {
-  id: Scalars['ID'];
+  id: Scalars['ID']['input'];
 };
 
 
 export type QueryOccurrencesArgs = {
-  after?: InputMaybe<Scalars['String']>;
-  before?: InputMaybe<Scalars['String']>;
-  cancelled?: InputMaybe<Scalars['Boolean']>;
-  date?: InputMaybe<Scalars['Date']>;
-  enrollable?: InputMaybe<Scalars['Boolean']>;
-  first?: InputMaybe<Scalars['Int']>;
-  last?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
-  pEvent?: InputMaybe<Scalars['ID']>;
-  time?: InputMaybe<Scalars['Time']>;
-  upcoming?: InputMaybe<Scalars['Boolean']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  cancelled?: InputMaybe<Scalars['Boolean']['input']>;
+  date?: InputMaybe<Scalars['Date']['input']>;
+  enrollable?: InputMaybe<Scalars['Boolean']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  pEvent?: InputMaybe<Scalars['ID']['input']>;
+  time?: InputMaybe<Scalars['Time']['input']>;
+  upcoming?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
 export type QueryOrganisationArgs = {
-  id: Scalars['ID'];
+  id: Scalars['ID']['input'];
 };
 
 
 export type QueryOrganisationsArgs = {
-  after?: InputMaybe<Scalars['String']>;
-  before?: InputMaybe<Scalars['String']>;
-  first?: InputMaybe<Scalars['Int']>;
-  last?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
-  type?: InputMaybe<Scalars['String']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  type?: InputMaybe<Scalars['String']['input']>;
 };
 
 
 export type QueryPersonArgs = {
-  id: Scalars['ID'];
+  id: Scalars['ID']['input'];
 };
 
 
 export type QueryPersonsArgs = {
-  after?: InputMaybe<Scalars['String']>;
-  before?: InputMaybe<Scalars['String']>;
-  first?: InputMaybe<Scalars['Int']>;
-  last?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
 export type QueryPlaceArgs = {
-  id: Scalars['ID'];
+  id: Scalars['ID']['input'];
 };
 
 
 export type QueryPlacesArgs = {
-  dataSource?: InputMaybe<Scalars['String']>;
-  divisions?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
-  page?: InputMaybe<Scalars['Int']>;
-  pageSize?: InputMaybe<Scalars['Int']>;
-  showAllPlaces?: InputMaybe<Scalars['Boolean']>;
-  sort?: InputMaybe<Scalars['String']>;
-  text?: InputMaybe<Scalars['String']>;
+  dataSource?: InputMaybe<Scalars['String']['input']>;
+  divisions?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  page?: InputMaybe<Scalars['Int']['input']>;
+  pageSize?: InputMaybe<Scalars['Int']['input']>;
+  showAllPlaces?: InputMaybe<Scalars['Boolean']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+  text?: InputMaybe<Scalars['String']['input']>;
 };
 
 
 export type QueryPlacesSearchArgs = {
-  include?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
-  input: Scalars['String'];
+  include?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  input: Scalars['String']['input'];
 };
 
 
 export type QueryPopularKultusKeywordsArgs = {
-  amount?: InputMaybe<Scalars['Int']>;
-  showAllKeywords?: InputMaybe<Scalars['Boolean']>;
+  amount?: InputMaybe<Scalars['Int']['input']>;
+  showAllKeywords?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
 export type QueryStudyLevelArgs = {
-  id: Scalars['ID'];
+  id: Scalars['ID']['input'];
 };
 
 
 export type QueryStudyLevelsArgs = {
-  after?: InputMaybe<Scalars['String']>;
-  before?: InputMaybe<Scalars['String']>;
-  first?: InputMaybe<Scalars['Int']>;
-  last?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
 export type QueryUpcomingEventsArgs = {
-  include?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
-  page?: InputMaybe<Scalars['Int']>;
-  pageSize?: InputMaybe<Scalars['Int']>;
+  include?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  page?: InputMaybe<Scalars['Int']['input']>;
+  pageSize?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
 export type QueryVenueArgs = {
-  id: Scalars['ID'];
+  id: Scalars['ID']['input'];
 };
 
 
 export type QueryVenuesArgs = {
-  after?: InputMaybe<Scalars['String']>;
-  before?: InputMaybe<Scalars['String']>;
-  first?: InputMaybe<Scalars['Int']>;
-  last?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
 };
 
 /** An enumeration. */
@@ -1685,86 +1705,86 @@ export type ServiceUnitNameListResponse = {
 
 export type ServiceUnitNode = {
   __typename?: 'ServiceUnitNode';
-  id: Scalars['ID'];
+  id: Scalars['ID']['output'];
   name?: Maybe<LocalisedObject>;
 };
 
 export type StudyGroupInput = {
-  amountOfAdult?: InputMaybe<Scalars['Int']>;
-  extraNeeds?: InputMaybe<Scalars['String']>;
-  groupName?: InputMaybe<Scalars['String']>;
-  groupSize: Scalars['Int'];
+  amountOfAdult?: InputMaybe<Scalars['Int']['input']>;
+  extraNeeds?: InputMaybe<Scalars['String']['input']>;
+  groupName?: InputMaybe<Scalars['String']['input']>;
+  groupSize: Scalars['Int']['input'];
   /** If person input doesn't include person id, a new person object will be created */
   person: PersonNodeInput;
-  studyLevels?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
-  unitId?: InputMaybe<Scalars['String']>;
-  unitName?: InputMaybe<Scalars['String']>;
+  studyLevels?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  unitId?: InputMaybe<Scalars['String']['input']>;
+  unitName?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type StudyGroupNode = Node & {
   __typename?: 'StudyGroupNode';
-  amountOfAdult: Scalars['Int'];
-  createdAt: Scalars['DateTime'];
+  amountOfAdult: Scalars['Int']['output'];
+  createdAt: Scalars['DateTime']['output'];
   enrolments: EnrolmentNodeConnection;
-  extraNeeds: Scalars['String'];
-  groupName: Scalars['String'];
-  groupSize: Scalars['Int'];
+  extraNeeds: Scalars['String']['output'];
+  groupName: Scalars['String']['output'];
+  groupSize: Scalars['Int']['output'];
   /** The ID of the object. */
-  id: Scalars['ID'];
+  id: Scalars['ID']['output'];
   occurrences: OccurrenceNodeConnection;
   person?: Maybe<PersonNode>;
-  personDeletedAt?: Maybe<Scalars['DateTime']>;
+  personDeletedAt?: Maybe<Scalars['DateTime']['output']>;
   queuedEnrolments: EventQueueEnrolmentNodeConnection;
   studyLevels: StudyLevelNodeConnection;
   unit?: Maybe<UnitNode>;
-  unitId?: Maybe<Scalars['String']>;
-  unitName: Scalars['String'];
-  updatedAt: Scalars['DateTime'];
+  unitId?: Maybe<Scalars['String']['output']>;
+  unitName: Scalars['String']['output'];
+  updatedAt: Scalars['DateTime']['output'];
 };
 
 
 export type StudyGroupNodeEnrolmentsArgs = {
-  after?: InputMaybe<Scalars['String']>;
-  before?: InputMaybe<Scalars['String']>;
-  first?: InputMaybe<Scalars['Int']>;
-  last?: InputMaybe<Scalars['Int']>;
-  occurrenceId?: InputMaybe<Scalars['ID']>;
-  offset?: InputMaybe<Scalars['Int']>;
-  status?: InputMaybe<Scalars['String']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  occurrenceId?: InputMaybe<Scalars['ID']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  status?: InputMaybe<Scalars['String']['input']>;
 };
 
 
 export type StudyGroupNodeOccurrencesArgs = {
-  after?: InputMaybe<Scalars['String']>;
-  before?: InputMaybe<Scalars['String']>;
-  cancelled?: InputMaybe<Scalars['Boolean']>;
-  date?: InputMaybe<Scalars['Date']>;
-  enrollable?: InputMaybe<Scalars['Boolean']>;
-  first?: InputMaybe<Scalars['Int']>;
-  last?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
-  pEvent?: InputMaybe<Scalars['ID']>;
-  time?: InputMaybe<Scalars['Time']>;
-  upcoming?: InputMaybe<Scalars['Boolean']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  cancelled?: InputMaybe<Scalars['Boolean']['input']>;
+  date?: InputMaybe<Scalars['Date']['input']>;
+  enrollable?: InputMaybe<Scalars['Boolean']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  pEvent?: InputMaybe<Scalars['ID']['input']>;
+  time?: InputMaybe<Scalars['Time']['input']>;
+  upcoming?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
 export type StudyGroupNodeQueuedEnrolmentsArgs = {
-  after?: InputMaybe<Scalars['String']>;
-  before?: InputMaybe<Scalars['String']>;
-  first?: InputMaybe<Scalars['Int']>;
-  last?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
-  pEventId?: InputMaybe<Scalars['ID']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  pEventId?: InputMaybe<Scalars['ID']['input']>;
 };
 
 
 export type StudyGroupNodeStudyLevelsArgs = {
-  after?: InputMaybe<Scalars['String']>;
-  before?: InputMaybe<Scalars['String']>;
-  first?: InputMaybe<Scalars['Int']>;
-  last?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
 };
 
 export type StudyGroupNodeConnection = {
@@ -1779,18 +1799,18 @@ export type StudyGroupNodeConnection = {
 export type StudyGroupNodeEdge = {
   __typename?: 'StudyGroupNodeEdge';
   /** A cursor for use in pagination */
-  cursor: Scalars['String'];
+  cursor: Scalars['String']['output'];
   /** The item at the end of the edge */
   node?: Maybe<StudyGroupNode>;
 };
 
 export type StudyLevelNode = Node & {
   __typename?: 'StudyLevelNode';
-  id: Scalars['ID'];
+  id: Scalars['ID']['output'];
   /** Translated field in the language defined in request ACCEPT-LANGUAGE header  */
-  label?: Maybe<Scalars['String']>;
+  label?: Maybe<Scalars['String']['output']>;
   /** Used to make a hierarchy between study levels. */
-  level: Scalars['Int'];
+  level: Scalars['Int']['output'];
   translations: Array<StudyLevelTranslationType>;
 };
 
@@ -1806,42 +1826,42 @@ export type StudyLevelNodeConnection = {
 export type StudyLevelNodeEdge = {
   __typename?: 'StudyLevelNodeEdge';
   /** A cursor for use in pagination */
-  cursor: Scalars['String'];
+  cursor: Scalars['String']['output'];
   /** The item at the end of the edge */
   node?: Maybe<StudyLevelNode>;
 };
 
 export type StudyLevelTranslationType = {
   __typename?: 'StudyLevelTranslationType';
-  label: Scalars['String'];
+  label: Scalars['String']['output'];
   languageCode: Language;
 };
 
 export type UnenrolEventQueueMutationInput = {
-  clientMutationId?: InputMaybe<Scalars['String']>;
-  pEventId: Scalars['ID'];
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  pEventId: Scalars['ID']['input'];
   /** Study group id */
-  studyGroupId: Scalars['ID'];
+  studyGroupId: Scalars['ID']['input'];
 };
 
 export type UnenrolEventQueueMutationPayload = {
   __typename?: 'UnenrolEventQueueMutationPayload';
-  clientMutationId?: Maybe<Scalars['String']>;
+  clientMutationId?: Maybe<Scalars['String']['output']>;
   pEvent?: Maybe<PalvelutarjotinEventNode>;
   studyGroup?: Maybe<StudyGroupNode>;
 };
 
 export type UnenrolOccurrenceMutationInput = {
-  clientMutationId?: InputMaybe<Scalars['String']>;
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
   /** Occurrence id of event */
-  occurrenceId: Scalars['ID'];
+  occurrenceId: Scalars['ID']['input'];
   /** Study group id */
-  studyGroupId: Scalars['ID'];
+  studyGroupId: Scalars['ID']['input'];
 };
 
 export type UnenrolOccurrenceMutationPayload = {
   __typename?: 'UnenrolOccurrenceMutationPayload';
-  clientMutationId?: Maybe<Scalars['String']>;
+  clientMutationId?: Maybe<Scalars['String']['output']>;
   occurrence?: Maybe<OccurrenceNode>;
   studyGroup?: Maybe<StudyGroupNode>;
 };
@@ -1854,8 +1874,8 @@ export type UnpublishEventMutation = {
 };
 
 export type UpdateEnrolmentMutationInput = {
-  clientMutationId?: InputMaybe<Scalars['String']>;
-  enrolmentId: Scalars['ID'];
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  enrolmentId: Scalars['ID']['input'];
   notificationType?: InputMaybe<NotificationType>;
   /** Leave blank if the contact person is the same with group contact person */
   person?: InputMaybe<PersonNodeInput>;
@@ -1865,7 +1885,7 @@ export type UpdateEnrolmentMutationInput = {
 
 export type UpdateEnrolmentMutationPayload = {
   __typename?: 'UpdateEnrolmentMutationPayload';
-  clientMutationId?: Maybe<Scalars['String']>;
+  clientMutationId?: Maybe<Scalars['String']['output']>;
   enrolment?: Maybe<EnrolmentNode>;
 };
 
@@ -1876,41 +1896,41 @@ export type UpdateEventMutation = {
 
 export type UpdateEventMutationInput = {
   audience?: InputMaybe<Array<IdObjectInput>>;
-  audienceMaxAge?: InputMaybe<Scalars['String']>;
-  audienceMinAge?: InputMaybe<Scalars['String']>;
-  customData?: InputMaybe<Scalars['String']>;
-  datePublished?: InputMaybe<Scalars['String']>;
+  audienceMaxAge?: InputMaybe<Scalars['String']['input']>;
+  audienceMinAge?: InputMaybe<Scalars['String']['input']>;
+  customData?: InputMaybe<Scalars['String']['input']>;
+  datePublished?: InputMaybe<Scalars['String']['input']>;
   description: LocalisedObjectInput;
   /** Set to `true` to save event as draft version, when draft is true, event data validation will be skipped */
-  draft?: InputMaybe<Scalars['Boolean']>;
-  endTime?: InputMaybe<Scalars['String']>;
-  enrolmentEndTime?: InputMaybe<Scalars['String']>;
-  enrolmentStartTime?: InputMaybe<Scalars['String']>;
-  eventStatus?: InputMaybe<Scalars['String']>;
-  externalLinks?: InputMaybe<Array<Scalars['String']>>;
-  id: Scalars['String'];
+  draft?: InputMaybe<Scalars['Boolean']['input']>;
+  endTime?: InputMaybe<Scalars['String']['input']>;
+  enrolmentEndTime?: InputMaybe<Scalars['String']['input']>;
+  enrolmentStartTime?: InputMaybe<Scalars['String']['input']>;
+  eventStatus?: InputMaybe<Scalars['String']['input']>;
+  externalLinks?: InputMaybe<Array<Scalars['String']['input']>>;
+  id: Scalars['String']['input'];
   images?: InputMaybe<Array<IdObjectInput>>;
   inLanguage?: InputMaybe<Array<IdObjectInput>>;
   infoUrl?: InputMaybe<LocalisedObjectInput>;
   keywords: Array<IdObjectInput>;
   localizationExtraInfo?: InputMaybe<LocalisedObjectInput>;
   location?: InputMaybe<IdObjectInput>;
-  maximumAttendeeCapacity?: InputMaybe<Scalars['Int']>;
-  minimumAttendeeCapacity?: InputMaybe<Scalars['Int']>;
+  maximumAttendeeCapacity?: InputMaybe<Scalars['Int']['input']>;
+  minimumAttendeeCapacity?: InputMaybe<Scalars['Int']['input']>;
   name: LocalisedObjectInput;
   offers: Array<OfferInput>;
   /** Organisation global id which the created event belongs to */
-  organisationId: Scalars['String'];
+  organisationId: Scalars['String']['input'];
   /** Palvelutarjotin event data */
   pEvent?: InputMaybe<PalvelutarjotinEventInput>;
   provider?: InputMaybe<LocalisedObjectInput>;
-  providerContactInfo?: InputMaybe<Scalars['String']>;
-  remainingAttendeeCapacity?: InputMaybe<Scalars['Int']>;
+  providerContactInfo?: InputMaybe<Scalars['String']['input']>;
+  remainingAttendeeCapacity?: InputMaybe<Scalars['Int']['input']>;
   shortDescription: LocalisedObjectInput;
-  startTime: Scalars['String'];
-  subEvents?: InputMaybe<Array<Scalars['String']>>;
-  superEvent?: InputMaybe<Scalars['String']>;
-  superEventType?: InputMaybe<Scalars['String']>;
+  startTime: Scalars['String']['input'];
+  subEvents?: InputMaybe<Array<Scalars['String']['input']>>;
+  superEvent?: InputMaybe<Scalars['String']['input']>;
+  superEventType?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type UpdateImageMutation = {
@@ -1919,121 +1939,121 @@ export type UpdateImageMutation = {
 };
 
 export type UpdateImageMutationInput = {
-  altText?: InputMaybe<Scalars['String']>;
-  cropping?: InputMaybe<Scalars['String']>;
-  id: Scalars['String'];
+  altText?: InputMaybe<Scalars['String']['input']>;
+  cropping?: InputMaybe<Scalars['String']['input']>;
+  id: Scalars['String']['input'];
   /** Following GraphQL file upload specs here: https://github.com/jaydenseric/graphql-multipart-request-spec */
-  image?: InputMaybe<Scalars['Upload']>;
-  license?: InputMaybe<Scalars['String']>;
-  name: Scalars['String'];
-  photographerName?: InputMaybe<Scalars['String']>;
+  image?: InputMaybe<Scalars['Upload']['input']>;
+  license?: InputMaybe<Scalars['String']['input']>;
+  name: Scalars['String']['input'];
+  photographerName?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type UpdateMyProfileMutationInput = {
-  clientMutationId?: InputMaybe<Scalars['String']>;
-  emailAddress?: InputMaybe<Scalars['String']>;
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  emailAddress?: InputMaybe<Scalars['String']['input']>;
   /** Default `fi` */
   language?: InputMaybe<Language>;
-  name?: InputMaybe<Scalars['String']>;
-  phoneNumber?: InputMaybe<Scalars['String']>;
-  placeIds?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  phoneNumber?: InputMaybe<Scalars['String']['input']>;
+  placeIds?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
 export type UpdateMyProfileMutationPayload = {
   __typename?: 'UpdateMyProfileMutationPayload';
-  clientMutationId?: Maybe<Scalars['String']>;
+  clientMutationId?: Maybe<Scalars['String']['output']>;
   myProfile?: Maybe<PersonNode>;
 };
 
 export type UpdateOccurrenceMutationInput = {
-  amountOfSeats?: InputMaybe<Scalars['Int']>;
-  clientMutationId?: InputMaybe<Scalars['String']>;
+  amountOfSeats?: InputMaybe<Scalars['Int']['input']>;
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
   /** Should include all contact persons of the occurrence, missing contact persons will be removed during mutation */
   contactPersons?: InputMaybe<Array<InputMaybe<PersonNodeInput>>>;
-  endTime?: InputMaybe<Scalars['DateTime']>;
-  id: Scalars['ID'];
+  endTime?: InputMaybe<Scalars['DateTime']['input']>;
+  id: Scalars['ID']['input'];
   /** If present, should include all languages of the occurrence */
   languages: Array<InputMaybe<LanguageInput>>;
-  maxGroupSize?: InputMaybe<Scalars['Int']>;
-  minGroupSize?: InputMaybe<Scalars['Int']>;
-  pEventId?: InputMaybe<Scalars['ID']>;
-  placeId?: InputMaybe<Scalars['String']>;
+  maxGroupSize?: InputMaybe<Scalars['Int']['input']>;
+  minGroupSize?: InputMaybe<Scalars['Int']['input']>;
+  pEventId?: InputMaybe<Scalars['ID']['input']>;
+  placeId?: InputMaybe<Scalars['String']['input']>;
   seatType?: InputMaybe<SeatType>;
-  startTime?: InputMaybe<Scalars['DateTime']>;
+  startTime?: InputMaybe<Scalars['DateTime']['input']>;
 };
 
 export type UpdateOccurrenceMutationPayload = {
   __typename?: 'UpdateOccurrenceMutationPayload';
-  clientMutationId?: Maybe<Scalars['String']>;
+  clientMutationId?: Maybe<Scalars['String']['output']>;
   occurrence?: Maybe<OccurrenceNode>;
 };
 
 export type UpdateOrganisationMutationInput = {
-  clientMutationId?: InputMaybe<Scalars['String']>;
-  id: Scalars['ID'];
-  name?: InputMaybe<Scalars['String']>;
-  phoneNumber?: InputMaybe<Scalars['String']>;
-  publisherId?: InputMaybe<Scalars['String']>;
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  id: Scalars['ID']['input'];
+  name?: InputMaybe<Scalars['String']['input']>;
+  phoneNumber?: InputMaybe<Scalars['String']['input']>;
+  publisherId?: InputMaybe<Scalars['String']['input']>;
   type?: InputMaybe<OrganisationTypeEnum>;
 };
 
 export type UpdateOrganisationMutationPayload = {
   __typename?: 'UpdateOrganisationMutationPayload';
-  clientMutationId?: Maybe<Scalars['String']>;
+  clientMutationId?: Maybe<Scalars['String']['output']>;
   organisation?: Maybe<OrganisationNode>;
 };
 
 export type UpdatePersonMutationInput = {
-  clientMutationId?: InputMaybe<Scalars['String']>;
-  emailAddress?: InputMaybe<Scalars['String']>;
-  id: Scalars['ID'];
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  emailAddress?: InputMaybe<Scalars['String']['input']>;
+  id: Scalars['ID']['input'];
   language?: InputMaybe<Language>;
-  name?: InputMaybe<Scalars['String']>;
-  phoneNumber?: InputMaybe<Scalars['String']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  phoneNumber?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type UpdatePersonMutationPayload = {
   __typename?: 'UpdatePersonMutationPayload';
-  clientMutationId?: Maybe<Scalars['String']>;
+  clientMutationId?: Maybe<Scalars['String']['output']>;
   person?: Maybe<PersonNode>;
 };
 
 export type UpdateStudyGroupMutationInput = {
-  amountOfAdult?: InputMaybe<Scalars['Int']>;
-  clientMutationId?: InputMaybe<Scalars['String']>;
-  extraNeeds?: InputMaybe<Scalars['String']>;
-  groupName?: InputMaybe<Scalars['String']>;
-  groupSize?: InputMaybe<Scalars['Int']>;
-  id: Scalars['ID'];
+  amountOfAdult?: InputMaybe<Scalars['Int']['input']>;
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  extraNeeds?: InputMaybe<Scalars['String']['input']>;
+  groupName?: InputMaybe<Scalars['String']['input']>;
+  groupSize?: InputMaybe<Scalars['Int']['input']>;
+  id: Scalars['ID']['input'];
   person?: InputMaybe<PersonNodeInput>;
-  studyLevels?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
-  unitId?: InputMaybe<Scalars['String']>;
-  unitName?: InputMaybe<Scalars['String']>;
+  studyLevels?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  unitId?: InputMaybe<Scalars['String']['input']>;
+  unitName?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type UpdateStudyGroupMutationPayload = {
   __typename?: 'UpdateStudyGroupMutationPayload';
-  clientMutationId?: Maybe<Scalars['String']>;
+  clientMutationId?: Maybe<Scalars['String']['output']>;
   studyGroup?: Maybe<StudyGroupNode>;
 };
 
 export type UpdateVenueMutationInput = {
-  clientMutationId?: InputMaybe<Scalars['String']>;
-  hasAreaForGroupWork?: InputMaybe<Scalars['Boolean']>;
-  hasClothingStorage?: InputMaybe<Scalars['Boolean']>;
-  hasIndoorPlayingArea?: InputMaybe<Scalars['Boolean']>;
-  hasOutdoorPlayingArea?: InputMaybe<Scalars['Boolean']>;
-  hasSnackEatingPlace?: InputMaybe<Scalars['Boolean']>;
-  hasToiletNearby?: InputMaybe<Scalars['Boolean']>;
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  hasAreaForGroupWork?: InputMaybe<Scalars['Boolean']['input']>;
+  hasClothingStorage?: InputMaybe<Scalars['Boolean']['input']>;
+  hasIndoorPlayingArea?: InputMaybe<Scalars['Boolean']['input']>;
+  hasOutdoorPlayingArea?: InputMaybe<Scalars['Boolean']['input']>;
+  hasSnackEatingPlace?: InputMaybe<Scalars['Boolean']['input']>;
+  hasToiletNearby?: InputMaybe<Scalars['Boolean']['input']>;
   /** Place id from linked event */
-  id: Scalars['ID'];
-  outdoorActivity?: InputMaybe<Scalars['Boolean']>;
+  id: Scalars['ID']['input'];
+  outdoorActivity?: InputMaybe<Scalars['Boolean']['input']>;
   translations?: InputMaybe<Array<InputMaybe<VenueTranslationsInput>>>;
 };
 
 export type UpdateVenueMutationPayload = {
   __typename?: 'UpdateVenueMutationPayload';
-  clientMutationId?: Maybe<Scalars['String']>;
+  clientMutationId?: Maybe<Scalars['String']['output']>;
   venue?: Maybe<VenueNode>;
 };
 
@@ -2043,28 +2063,28 @@ export type UploadImageMutation = {
 };
 
 export type UploadImageMutationInput = {
-  altText?: InputMaybe<Scalars['String']>;
-  cropping?: InputMaybe<Scalars['String']>;
+  altText?: InputMaybe<Scalars['String']['input']>;
+  cropping?: InputMaybe<Scalars['String']['input']>;
   /** Following GraphQL file upload specs here: https://github.com/jaydenseric/graphql-multipart-request-spec */
-  image?: InputMaybe<Scalars['Upload']>;
-  license?: InputMaybe<Scalars['String']>;
-  name: Scalars['String'];
-  photographerName?: InputMaybe<Scalars['String']>;
+  image?: InputMaybe<Scalars['Upload']['input']>;
+  license?: InputMaybe<Scalars['String']['input']>;
+  name: Scalars['String']['input'];
+  photographerName?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type VenueNode = Node & {
   __typename?: 'VenueNode';
   /** Translated field in the language defined in request ACCEPT-LANGUAGE header  */
-  description?: Maybe<Scalars['String']>;
-  hasAreaForGroupWork: Scalars['Boolean'];
-  hasClothingStorage: Scalars['Boolean'];
-  hasIndoorPlayingArea: Scalars['Boolean'];
-  hasOutdoorPlayingArea: Scalars['Boolean'];
-  hasSnackEatingPlace: Scalars['Boolean'];
-  hasToiletNearby: Scalars['Boolean'];
+  description?: Maybe<Scalars['String']['output']>;
+  hasAreaForGroupWork: Scalars['Boolean']['output'];
+  hasClothingStorage: Scalars['Boolean']['output'];
+  hasIndoorPlayingArea: Scalars['Boolean']['output'];
+  hasOutdoorPlayingArea: Scalars['Boolean']['output'];
+  hasSnackEatingPlace: Scalars['Boolean']['output'];
+  hasToiletNearby: Scalars['Boolean']['output'];
   /** place_id from linkedEvent */
-  id: Scalars['ID'];
-  outdoorActivity: Scalars['Boolean'];
+  id: Scalars['ID']['output'];
+  outdoorActivity: Scalars['Boolean']['output'];
   translations: Array<VenueTranslationType>;
 };
 
@@ -2080,19 +2100,19 @@ export type VenueNodeConnection = {
 export type VenueNodeEdge = {
   __typename?: 'VenueNodeEdge';
   /** A cursor for use in pagination */
-  cursor: Scalars['String'];
+  cursor: Scalars['String']['output'];
   /** The item at the end of the edge */
   node?: Maybe<VenueNode>;
 };
 
 export type VenueTranslationType = {
   __typename?: 'VenueTranslationType';
-  description: Scalars['String'];
+  description: Scalars['String']['output'];
   languageCode: Language;
 };
 
 export type VenueTranslationsInput = {
-  description?: InputMaybe<Scalars['String']>;
+  description?: InputMaybe<Scalars['String']['input']>;
   languageCode: Language;
 };
 
@@ -2114,9 +2134,9 @@ export type OfferFieldsFragment = { __typename?: 'Offer', isFree?: boolean | nul
 export type EventFieldsFragment = { __typename?: 'Event', id: string, internalId: string, startTime?: string | null, name: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null }, shortDescription: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null }, description: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null }, images: Array<{ __typename?: 'Image', id?: string | null, internalId: string, license?: string | null, name: string, url: string, cropping?: string | null, photographerName?: string | null, altText?: string | null }>, infoUrl?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null, offers: Array<{ __typename?: 'Offer', isFree?: boolean | null, description?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null, price?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null, infoUrl?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null }>, pEvent: { __typename?: 'PalvelutarjotinEventNode', autoAcceptance: boolean, id: string, enrolmentEndDays?: number | null, enrolmentStart?: any | null, externalEnrolmentUrl?: string | null, neededOccurrences: number, contactPhoneNumber: string, contactEmail: string, mandatoryAdditionalInformation: boolean, nextOccurrenceDatetime?: any | null, lastOccurrenceDatetime?: any | null, organisation?: { __typename?: 'OrganisationNode', id: string, name: string } | null, contactPerson?: { __typename?: 'PersonNode', id: string, name: string } | null, occurrences?: { __typename?: 'OccurrenceNodeConnection', edges: Array<{ __typename?: 'OccurrenceNodeEdge', node?: { __typename?: 'OccurrenceNode', id: string, amountOfSeats: number, seatsTaken: number, seatType: OccurrenceSeatType, remainingSeats: number, minGroupSize?: number | null, maxGroupSize?: number | null, cancelled: boolean, startTime: any, endTime: any, placeId: string, pEvent?: { __typename?: 'PalvelutarjotinEventNode', id: string } | null, languages: { __typename?: 'LanguageNodeConnection', edges: Array<{ __typename?: 'LanguageNodeEdge', node?: { __typename?: 'LanguageNode', id: string, name: string } | null } | null> } } | null } | null> } | null, nextOccurrence?: { __typename?: 'OccurrenceNodeConnection', edges: Array<{ __typename?: 'OccurrenceNodeEdge', node?: { __typename?: 'OccurrenceNode', id: string, startTime: any, endTime: any } | null } | null> } | null }, inLanguage: Array<{ __typename?: 'InLanguage', id?: string | null, internalId: string, name?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null }>, audience: Array<{ __typename?: 'Keyword', id?: string | null, internalId: string, name?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null }>, keywords: Array<{ __typename?: 'Keyword', id?: string | null, internalId: string, name?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null }>, location?: { __typename?: 'Place', id?: string | null, internalId: string, name?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null, streetAddress?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null, addressLocality?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null, telephone?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null } | null, venue?: { __typename?: 'VenueNode', id: string, hasClothingStorage: boolean, hasSnackEatingPlace: boolean, outdoorActivity: boolean, hasToiletNearby: boolean, hasAreaForGroupWork: boolean, hasIndoorPlayingArea: boolean, hasOutdoorPlayingArea: boolean, translations: Array<{ __typename?: 'VenueTranslationType', languageCode: Language, description: string }> } | null, additionalCriteria: Array<{ __typename?: 'Keyword', id?: string | null, internalId: string, name?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null }>, categories: Array<{ __typename?: 'Keyword', id?: string | null, internalId: string, name?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null }> };
 
 export type EventQueryVariables = Exact<{
-  id: Scalars['ID'];
-  include?: InputMaybe<Array<InputMaybe<Scalars['String']>> | InputMaybe<Scalars['String']>>;
-  upcomingOccurrencesOnly?: InputMaybe<Scalars['Boolean']>;
+  id: Scalars['ID']['input'];
+  include?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>> | InputMaybe<Scalars['String']['input']>>;
+  upcomingOccurrencesOnly?: InputMaybe<Scalars['Boolean']['input']>;
 }>;
 
 
@@ -2136,35 +2156,35 @@ export type MetaFieldsFragment = { __typename?: 'Meta', count?: number | null, n
 export type EventsFieldsFragment = { __typename?: 'Event', id: string, internalId: string, startTime?: string | null, name: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null }, shortDescription: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null }, description: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null }, images: Array<{ __typename?: 'Image', id?: string | null, internalId: string, license?: string | null, name: string, url: string, cropping?: string | null, photographerName?: string | null, altText?: string | null }>, infoUrl?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null, offers: Array<{ __typename?: 'Offer', isFree?: boolean | null, description?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null, price?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null, infoUrl?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null }>, pEvent: { __typename?: 'PalvelutarjotinEventNode', id: string, nextOccurrenceDatetime?: any | null, lastOccurrenceDatetime?: any | null, nextOccurrence?: { __typename?: 'OccurrenceNodeConnection', edges: Array<{ __typename?: 'OccurrenceNodeEdge', node?: { __typename?: 'OccurrenceNode', id: string, startTime: any, endTime: any } | null } | null> } | null, organisation?: { __typename?: 'OrganisationNode', id: string, name: string } | null }, inLanguage: Array<{ __typename?: 'InLanguage', id?: string | null, internalId: string, name?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null }>, audience: Array<{ __typename?: 'Keyword', id?: string | null, internalId: string, name?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null }>, keywords: Array<{ __typename?: 'Keyword', id?: string | null, internalId: string, name?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null }>, location?: { __typename?: 'Place', id?: string | null, internalId: string, name?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null, streetAddress?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null, addressLocality?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null, telephone?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null } | null };
 
 export type EventsQueryVariables = Exact<{
-  division?: InputMaybe<Array<InputMaybe<Scalars['String']>> | InputMaybe<Scalars['String']>>;
-  allOngoingAnd?: InputMaybe<Array<InputMaybe<Scalars['String']>> | InputMaybe<Scalars['String']>>;
-  end?: InputMaybe<Scalars['String']>;
-  include?: InputMaybe<Array<InputMaybe<Scalars['String']>> | InputMaybe<Scalars['String']>>;
-  inLanguage?: InputMaybe<Scalars['String']>;
-  isFree?: InputMaybe<Scalars['Boolean']>;
-  keyword?: InputMaybe<Array<InputMaybe<Scalars['String']>> | InputMaybe<Scalars['String']>>;
-  keywordNot?: InputMaybe<Array<InputMaybe<Scalars['String']>> | InputMaybe<Scalars['String']>>;
-  language?: InputMaybe<Scalars['String']>;
-  location?: InputMaybe<Scalars['String']>;
-  page?: InputMaybe<Scalars['Int']>;
-  pageSize?: InputMaybe<Scalars['Int']>;
-  publisher?: InputMaybe<Scalars['ID']>;
-  sort?: InputMaybe<Scalars['String']>;
-  start?: InputMaybe<Scalars['String']>;
-  superEvent?: InputMaybe<Scalars['ID']>;
-  superEventType?: InputMaybe<Array<InputMaybe<Scalars['String']>> | InputMaybe<Scalars['String']>>;
-  text?: InputMaybe<Scalars['String']>;
-  translation?: InputMaybe<Scalars['String']>;
-  organisationId?: InputMaybe<Scalars['String']>;
+  division?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>> | InputMaybe<Scalars['String']['input']>>;
+  allOngoingAnd?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>> | InputMaybe<Scalars['String']['input']>>;
+  end?: InputMaybe<Scalars['String']['input']>;
+  include?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>> | InputMaybe<Scalars['String']['input']>>;
+  inLanguage?: InputMaybe<Scalars['String']['input']>;
+  isFree?: InputMaybe<Scalars['Boolean']['input']>;
+  keyword?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>> | InputMaybe<Scalars['String']['input']>>;
+  keywordNot?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>> | InputMaybe<Scalars['String']['input']>>;
+  language?: InputMaybe<Scalars['String']['input']>;
+  location?: InputMaybe<Scalars['String']['input']>;
+  page?: InputMaybe<Scalars['Int']['input']>;
+  pageSize?: InputMaybe<Scalars['Int']['input']>;
+  publisher?: InputMaybe<Scalars['ID']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+  start?: InputMaybe<Scalars['String']['input']>;
+  superEvent?: InputMaybe<Scalars['ID']['input']>;
+  superEventType?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>> | InputMaybe<Scalars['String']['input']>>;
+  text?: InputMaybe<Scalars['String']['input']>;
+  translation?: InputMaybe<Scalars['String']['input']>;
+  organisationId?: InputMaybe<Scalars['String']['input']>;
 }>;
 
 
 export type EventsQuery = { __typename?: 'Query', events?: { __typename?: 'EventListResponse', meta: { __typename?: 'Meta', count?: number | null, next?: string | null, previous?: string | null }, data: Array<{ __typename?: 'Event', id: string, internalId: string, startTime?: string | null, name: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null }, shortDescription: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null }, description: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null }, images: Array<{ __typename?: 'Image', id?: string | null, internalId: string, license?: string | null, name: string, url: string, cropping?: string | null, photographerName?: string | null, altText?: string | null }>, infoUrl?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null, offers: Array<{ __typename?: 'Offer', isFree?: boolean | null, description?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null, price?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null, infoUrl?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null }>, pEvent: { __typename?: 'PalvelutarjotinEventNode', id: string, nextOccurrenceDatetime?: any | null, lastOccurrenceDatetime?: any | null, nextOccurrence?: { __typename?: 'OccurrenceNodeConnection', edges: Array<{ __typename?: 'OccurrenceNodeEdge', node?: { __typename?: 'OccurrenceNode', id: string, startTime: any, endTime: any } | null } | null> } | null, organisation?: { __typename?: 'OrganisationNode', id: string, name: string } | null }, inLanguage: Array<{ __typename?: 'InLanguage', id?: string | null, internalId: string, name?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null }>, audience: Array<{ __typename?: 'Keyword', id?: string | null, internalId: string, name?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null }>, keywords: Array<{ __typename?: 'Keyword', id?: string | null, internalId: string, name?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null }>, location?: { __typename?: 'Place', id?: string | null, internalId: string, name?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null, streetAddress?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null, addressLocality?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null, telephone?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null } | null }> } | null };
 
 export type UpcomingEventsQueryVariables = Exact<{
-  page?: InputMaybe<Scalars['Int']>;
-  pageSize?: InputMaybe<Scalars['Int']>;
-  include?: InputMaybe<Array<InputMaybe<Scalars['String']>> | InputMaybe<Scalars['String']>>;
+  page?: InputMaybe<Scalars['Int']['input']>;
+  pageSize?: InputMaybe<Scalars['Int']['input']>;
+  include?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>> | InputMaybe<Scalars['String']['input']>>;
 }>;
 
 
@@ -2173,7 +2193,7 @@ export type UpcomingEventsQuery = { __typename?: 'Query', upcomingEvents?: { __t
 export type ImageFieldsFragment = { __typename?: 'Image', id?: string | null, internalId: string, license?: string | null, name: string, url: string, cropping?: string | null, photographerName?: string | null, altText?: string | null };
 
 export type ImageQueryVariables = Exact<{
-  id: Scalars['ID'];
+  id: Scalars['ID']['input'];
 }>;
 
 
@@ -2182,19 +2202,19 @@ export type ImageQuery = { __typename?: 'Query', image?: { __typename?: 'Image',
 export type KeywordFieldsFragment = { __typename?: 'Keyword', id?: string | null, internalId: string, name?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null };
 
 export type KeywordQueryVariables = Exact<{
-  id: Scalars['ID'];
+  id: Scalars['ID']['input'];
 }>;
 
 
 export type KeywordQuery = { __typename?: 'Query', keyword?: { __typename?: 'Keyword', id?: string | null, internalId: string, name?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null } | null };
 
 export type KeywordsQueryVariables = Exact<{
-  dataSource?: InputMaybe<Scalars['String']>;
-  page?: InputMaybe<Scalars['Int']>;
-  pageSize?: InputMaybe<Scalars['Int']>;
-  showAllKeywords?: InputMaybe<Scalars['Boolean']>;
-  sort?: InputMaybe<Scalars['String']>;
-  text?: InputMaybe<Scalars['String']>;
+  dataSource?: InputMaybe<Scalars['String']['input']>;
+  page?: InputMaybe<Scalars['Int']['input']>;
+  pageSize?: InputMaybe<Scalars['Int']['input']>;
+  showAllKeywords?: InputMaybe<Scalars['Boolean']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+  text?: InputMaybe<Scalars['String']['input']>;
 }>;
 
 
@@ -2208,8 +2228,8 @@ export type KeywordSetQueryVariables = Exact<{
 export type KeywordSetQuery = { __typename?: 'Query', keywordSet?: { __typename?: 'KeywordSet', internalId: string, keywords: Array<{ __typename?: 'Keyword', id?: string | null, internalId: string, name?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null }>, name?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null } | null };
 
 export type PopularKeywordsQueryVariables = Exact<{
-  amount?: InputMaybe<Scalars['Int']>;
-  showAllKeywords?: InputMaybe<Scalars['Boolean']>;
+  amount?: InputMaybe<Scalars['Int']['input']>;
+  showAllKeywords?: InputMaybe<Scalars['Boolean']['input']>;
 }>;
 
 
@@ -2220,22 +2240,22 @@ export type LanguageFieldsFragment = { __typename?: 'LanguageNode', id: string, 
 export type OccurrenceFieldsFragment = { __typename?: 'OccurrenceNode', id: string, amountOfSeats: number, seatsTaken: number, seatType: OccurrenceSeatType, remainingSeats: number, minGroupSize?: number | null, maxGroupSize?: number | null, cancelled: boolean, startTime: any, endTime: any, placeId: string, pEvent?: { __typename?: 'PalvelutarjotinEventNode', id: string } | null, languages: { __typename?: 'LanguageNodeConnection', edges: Array<{ __typename?: 'LanguageNodeEdge', node?: { __typename?: 'LanguageNode', id: string, name: string } | null } | null> } };
 
 export type OccurrenceQueryVariables = Exact<{
-  id: Scalars['ID'];
+  id: Scalars['ID']['input'];
 }>;
 
 
 export type OccurrenceQuery = { __typename?: 'Query', occurrence?: { __typename?: 'OccurrenceNode', id: string, amountOfSeats: number, seatsTaken: number, seatType: OccurrenceSeatType, remainingSeats: number, minGroupSize?: number | null, maxGroupSize?: number | null, cancelled: boolean, startTime: any, endTime: any, placeId: string, pEvent?: { __typename?: 'PalvelutarjotinEventNode', id: string } | null, languages: { __typename?: 'LanguageNodeConnection', edges: Array<{ __typename?: 'LanguageNodeEdge', node?: { __typename?: 'LanguageNode', id: string, name: string } | null } | null> } } | null };
 
 export type OccurrencesQueryVariables = Exact<{
-  after?: InputMaybe<Scalars['String']>;
-  before?: InputMaybe<Scalars['String']>;
-  first?: InputMaybe<Scalars['Int']>;
-  last?: InputMaybe<Scalars['Int']>;
-  cancelled?: InputMaybe<Scalars['Boolean']>;
-  pEvent?: InputMaybe<Scalars['ID']>;
-  orderBy?: InputMaybe<Array<InputMaybe<Scalars['String']>> | InputMaybe<Scalars['String']>>;
-  upcoming?: InputMaybe<Scalars['Boolean']>;
-  enrollable?: InputMaybe<Scalars['Boolean']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  cancelled?: InputMaybe<Scalars['Boolean']['input']>;
+  pEvent?: InputMaybe<Scalars['ID']['input']>;
+  orderBy?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>> | InputMaybe<Scalars['String']['input']>>;
+  upcoming?: InputMaybe<Scalars['Boolean']['input']>;
+  enrollable?: InputMaybe<Scalars['Boolean']['input']>;
 }>;
 
 
@@ -2248,20 +2268,20 @@ export type PersonFieldsFragment = { __typename?: 'PersonNode', id: string, emai
 export type PlaceFieldsFragment = { __typename?: 'Place', id?: string | null, internalId: string, name?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null, streetAddress?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null, addressLocality?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null, telephone?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null };
 
 export type PlaceQueryVariables = Exact<{
-  id: Scalars['ID'];
+  id: Scalars['ID']['input'];
 }>;
 
 
 export type PlaceQuery = { __typename?: 'Query', place?: { __typename?: 'Place', id?: string | null, internalId: string, name?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null, streetAddress?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null, addressLocality?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null, telephone?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null } | null };
 
 export type PlacesQueryVariables = Exact<{
-  dataSource?: InputMaybe<Scalars['String']>;
-  divisions?: InputMaybe<Array<InputMaybe<Scalars['String']>> | InputMaybe<Scalars['String']>>;
-  page?: InputMaybe<Scalars['Int']>;
-  pageSize?: InputMaybe<Scalars['Int']>;
-  showAllPlaces?: InputMaybe<Scalars['Boolean']>;
-  sort?: InputMaybe<Scalars['String']>;
-  text?: InputMaybe<Scalars['String']>;
+  dataSource?: InputMaybe<Scalars['String']['input']>;
+  divisions?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>> | InputMaybe<Scalars['String']['input']>>;
+  page?: InputMaybe<Scalars['Int']['input']>;
+  pageSize?: InputMaybe<Scalars['Int']['input']>;
+  showAllPlaces?: InputMaybe<Scalars['Boolean']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+  text?: InputMaybe<Scalars['String']['input']>;
 }>;
 
 
@@ -2282,7 +2302,7 @@ export type StudyLevelsQueryVariables = Exact<{ [key: string]: never; }>;
 export type StudyLevelsQuery = { __typename?: 'Query', studyLevels?: { __typename?: 'StudyLevelNodeConnection', edges: Array<{ __typename?: 'StudyLevelNodeEdge', node?: { __typename?: 'StudyLevelNode', id: string, label?: string | null, level: number, translations: Array<{ __typename?: 'StudyLevelTranslationType', languageCode: Language, label: string }> } | null } | null> } | null };
 
 export type StudyLevelQueryVariables = Exact<{
-  id: Scalars['ID'];
+  id: Scalars['ID']['input'];
 }>;
 
 
@@ -2291,7 +2311,7 @@ export type StudyLevelQuery = { __typename?: 'Query', studyLevel?: { __typename?
 export type VenueFieldsFragment = { __typename?: 'VenueNode', id: string, hasClothingStorage: boolean, hasSnackEatingPlace: boolean, outdoorActivity: boolean, hasToiletNearby: boolean, hasAreaForGroupWork: boolean, hasIndoorPlayingArea: boolean, hasOutdoorPlayingArea: boolean, translations: Array<{ __typename?: 'VenueTranslationType', languageCode: Language, description: string }> };
 
 export type VenueQueryVariables = Exact<{
-  id: Scalars['ID'];
+  id: Scalars['ID']['input'];
 }>;
 
 
