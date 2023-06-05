@@ -3,6 +3,8 @@ import * as Sentry from '@sentry/browser';
 import { LoadingSpinner } from 'hds-react';
 import type { AppProps as NextAppProps } from 'next/app';
 import NextError from 'next/error';
+import Head from 'next/head';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { appWithTranslation, SSRConfig, useTranslation } from 'next-i18next';
 import React, { ErrorInfo } from 'react';
@@ -92,6 +94,16 @@ const MyApp = ({ Component, pageProps }: AppProps<CustomPageProps>) => {
         },
         next: t('common:button.next'),
         previous: t('common:button.previous'),
+      },
+      components: {
+        ...rhhcDefaultConfig.components,
+        Head: (props: any) => <Head {...props} />,
+        Link: ({ href, ...props }: any) => (
+          <Link href={href || ''} {...props} />
+        ),
+        EventCardContent: (props: any) => <div>TODO: EventCardContent</div>,
+        ArticleCardContent: (props: any) => <div>TODO: ArticleCardContent</div>,
+        VenueCardContent: (props: any) => <div>TODO: VenueCardContent</div>,
       },
       utils: {
         ...rhhcDefaultConfig.utils,

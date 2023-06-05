@@ -21,6 +21,7 @@ import {
   MenuQueryVariables,
   PageIdType,
   PageFieldsFragment,
+  Page,
 } from '../../generated/graphql-cms';
 import { createCmsApolloClient } from '../../headless-cms/cmsApolloClient';
 import CmsPage from '../../headless-cms/components/CmsPage';
@@ -35,7 +36,7 @@ import { Language } from '../../types';
 import { isFeatureEnabled } from '../../utils/featureFlags';
 
 const NextCmsPage: NextPage<{
-  page: PageFieldsFragment;
+  page: Page;
   breadcrumbs: Breadcrumb[];
   collections?: GeneralCollectionType[];
 }> = (props) => <CmsPage {...props} />;
