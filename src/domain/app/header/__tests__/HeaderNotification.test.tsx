@@ -1,6 +1,5 @@
 import { advanceTo } from 'jest-date-mock';
 import * as React from 'react';
-import wait from 'waait';
 
 import {
   Notification,
@@ -9,10 +8,10 @@ import {
 import { fakeNotification } from '../../../../utils/cmsMockDataUtils';
 import {
   render,
-  act,
   screen,
   userEvent,
   waitFor,
+  sleep,
 } from '../../../../utils/testUtils';
 import HeaderNotification, {
   NOTIFICATION_STORAGE_KEY,
@@ -57,7 +56,7 @@ it('matches snapshot', async () => {
     content: 'Notification content',
     linkText: 'link text',
   });
-  await act(() => wait(0));
+  await sleep(100);
 
   expect(container).toMatchSnapshot();
 });
@@ -81,14 +80,12 @@ it('renders notification data correctly', async () => {
   screen.getByRole('link', {
     name: /Linkki sivustolle avautuu uudessa välilehdessä/i,
   });
-  await act(() => wait(100));
-  await act(
-    async () =>
-      await userEvent.click(
-        screen.getByRole('button', {
-          name: 'Sulje huomiotiedote',
-        })
-      )
+  await sleep(100);
+
+  await userEvent.click(
+    screen.getByRole('button', {
+      name: 'Sulje huomiotiedote',
+    })
   );
 
   await waitFor(() => {
@@ -104,23 +101,20 @@ it('saves notification state to local storage', async () => {
   const localStorageObject = JSON.parse(
     localStorage.getItem(NOTIFICATION_STORAGE_KEY) as string
   );
-  await act(() => wait(100));
+  await sleep(100);
 
   expect(localStorageObject).toEqual({
     isVisible: true,
     closedNotificationHash: null,
   });
 
-  await act(
-    async () =>
-      await userEvent.click(
-        screen.getByRole('button', {
-          name: 'Sulje huomiotiedote',
-        })
-      )
+  await userEvent.click(
+    screen.getByRole('button', {
+      name: 'Sulje huomiotiedote',
+    })
   );
 
-  await act(() => wait(100));
+  await sleep(100);
 
   const localStorageObjectAfterClosing = JSON.parse(
     localStorage.getItem(NOTIFICATION_STORAGE_KEY) as string
@@ -208,7 +202,7 @@ it("doesn't render notification if startDate is in the future", async () => {
     title,
   });
 
-  await act(() => wait(100));
+  await sleep(100);
   expect(screen.queryByText(title)).not.toBeInTheDocument();
 });
 
@@ -219,7 +213,7 @@ it("doesn't render notification if endDate is in the past", async () => {
     title,
   });
 
-  await act(() => wait(100));
+  await sleep(100);
   expect(screen.queryByText(title)).not.toBeInTheDocument();
 });
 
@@ -231,6 +225,6 @@ it('renders notification if startDate is in the past and endDate is in the futur
     title,
   });
 
-  await act(() => wait(100));
+  await sleep(100);
   await screen.findByText(title);
 });

@@ -3,8 +3,6 @@ import userEvent from '@testing-library/user-event';
 import { advanceTo } from 'jest-date-mock';
 import capitalize from 'lodash/capitalize';
 import React from 'react';
-import { act } from 'react-dom/test-utils';
-import wait from 'waait';
 
 import enrolmentMessages from '../../../../public/locales/fi/enrolment.json';
 import eventMessages from '../../../../public/locales/fi/event.json';
@@ -41,6 +39,7 @@ import {
   waitFor,
   within,
   CustomRenderOptions,
+  sleep,
 } from '../../../utils/testUtils';
 import { ROUTES } from '../../app/routes/constants';
 import { ENROLMENT_URL_PARAMS } from '../../enrolment/constants';
@@ -463,17 +462,17 @@ it('hides seats left column header when event has external enrolment', async () 
     `"15.7.2020 – 17.7.2020suomi, ruotsi, englantifi, sv, enSoukan kirjastoNäytä lisätiedot"`
   );
 
-  await act(
-    async () =>
-      await userEvent.click(
-        within(tableRows[1]).getByRole('button', {
-          name: /näytä tapahtuma-ajan lisätiedot/i,
-        })
-      )
+  await userEvent.click(
+    within(tableRows[1]).getByRole('button', {
+      name: /näytä tapahtuma-ajan lisätiedot/i,
+    })
   );
-  screen.getByRole('link', {
-    name: /ilmoittaudu avautuu uudessa välilehdessä/i,
-  });
+
+  await waitFor(() =>
+    screen.getByRole('link', {
+      name: /ilmoittaudu avautuu uudessa välilehdessä/i,
+    })
+  );
 });
 
 it('selecting enrolments works and buttons have correct texts', async () => {
@@ -495,7 +494,7 @@ it('selecting enrolments works and buttons have correct texts', async () => {
     )
   ).toHaveLength(3);
 
-  await act(async () => await userEvent.click(occurrenceEnrolmentButtons[0]));
+  await userEvent.click(occurrenceEnrolmentButtons[0]);
 
   expect(occurrenceEnrolmentButtons[0]).toBeChecked();
 
@@ -503,21 +502,18 @@ it('selecting enrolments works and buttons have correct texts', async () => {
   // -> new query is needed
   occurrenceEnrolmentButtons = getOccurrenceCheckboxes();
 
-  await act(async () => await userEvent.click(occurrenceEnrolmentButtons[1]));
+  await userEvent.click(occurrenceEnrolmentButtons[1]);
 
   expect(occurrenceEnrolmentButtons[1]).toBeChecked();
 
   occurrenceEnrolmentButtons = getOccurrenceCheckboxes();
 
-  await act(async () => await userEvent.click(occurrenceEnrolmentButtons[2]));
+  await userEvent.click(occurrenceEnrolmentButtons[2]);
 
-  await act(
-    async () =>
-      await userEvent.click(
-        screen.getByRole('button', {
-          name: eventMessages.occurrenceList.loadMoreOccurrences,
-        })
-      )
+  await userEvent.click(
+    screen.getByRole('button', {
+      name: eventMessages.occurrenceList.loadMoreOccurrences,
+    })
   );
 
   // should be 3 buttons with valittu text and not disabled
@@ -634,31 +630,32 @@ it('filters occurrence list correctly when sate filters are selected', async () 
   renderComponent();
   await waitForRequestsToComplete();
 
-  await act(() =>
-    userEvent.click(
-      screen.getByRole('button', {
-        name: eventMessages.occurrenceList.labelStartDateFilterDatepicker,
-      })
-    )
+  await userEvent.click(
+    screen.getByRole('button', {
+      name: eventMessages.occurrenceList.labelStartDateFilterDatepicker,
+    })
   );
-  userEvent.click(
+
+  await sleep(100);
+
+  await userEvent.click(
     screen.getByRole('button', {
       name: /heinäkuu 28/i,
     })
   );
-  await act(() =>
-    userEvent.click(
-      screen.getByRole('button', {
-        name: eventMessages.occurrenceList.labelEndDateFilterDatepicker,
-      })
-    )
+
+  await userEvent.click(
+    screen.getByRole('button', {
+      name: eventMessages.occurrenceList.labelEndDateFilterDatepicker,
+    })
   );
-  await act(() =>
-    userEvent.click(
-      screen.getByRole('button', {
-        name: /heinäkuu 29/i,
-      })
-    )
+
+  await sleep(100);
+
+  await userEvent.click(
+    screen.getByRole('button', {
+      name: /heinäkuu 29/i,
+    })
   );
 
   const tableRows = screen.getAllByRole('row');
@@ -757,7 +754,7 @@ it('hides enrolment button when enrolment is not required', async () => {
     path: `/fi${ROUTES.EVENT_DETAILS.replace(':id', data.id)}`,
   });
 
-  await act(wait);
+  await sleep(500);
 
   expect(
     screen.queryByRole('button', { name: 'Ilmoittaudu' })

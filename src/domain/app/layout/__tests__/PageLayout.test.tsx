@@ -1,7 +1,5 @@
 import { MockedResponse } from '@apollo/client/testing';
 import React from 'react';
-import { act } from 'react-dom/test-utils';
-import wait from 'waait';
 
 import { NotificationDocument } from '../../../../generated/graphql-cms';
 import { fakeNotification } from '../../../../utils/cmsMockDataUtils';
@@ -11,6 +9,7 @@ import {
   within,
   userEvent,
   waitFor,
+  sleep,
 } from '../../../../utils/testUtils';
 import PageLayout from '../PageLayout';
 
@@ -62,15 +61,12 @@ it('renders notification and it can be closed', async () => {
   within(notification).getByText(notificationContent);
   within(notification).getByText(notificationTitle);
 
-  await act(
-    async () =>
-      await userEvent.click(
-        within(notification).getByRole('button', {
-          name: 'Sulje huomiotiedote',
-        })
-      )
+  await userEvent.click(
+    within(notification).getByRole('button', {
+      name: 'Sulje huomiotiedote',
+    })
   );
-
+  await sleep(100);
   await waitFor(() => {
     expect(
       screen.queryByRole('region', {
@@ -102,7 +98,7 @@ it("doesn't render notification when there are none", async () => {
     }
   );
 
-  await act(() => wait(100));
+  await sleep(100);
 
   const notification = screen.queryByRole('region', {
     name: /notification/i,

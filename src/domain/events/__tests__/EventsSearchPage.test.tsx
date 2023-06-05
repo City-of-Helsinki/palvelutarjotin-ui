@@ -25,7 +25,6 @@ import {
   userEvent,
   fireEvent,
   waitFor,
-  act,
 } from '../../../utils/testUtils';
 import { EVENT_SORT_OPTIONS } from '../constants';
 import EventsSearchPage, { EVENT_SORT_STORAGE_KEY } from '../EventsSearchPage';
@@ -176,12 +175,7 @@ test('renders search form and events list with correct information', async () =>
   ).not.toBeInTheDocument();
 
   // expand search panel
-  await act(
-    async () =>
-      await userEvent.click(
-        screen.getByRole('button', { name: /muokkaa hakua/i })
-      )
-  );
+  await userEvent.click(screen.getByRole('button', { name: /muokkaa hakua/i }));
 
   expect(
     screen.queryByRole('button', { name: /piilota lisäkentät/i })
@@ -271,13 +265,10 @@ test('search form is in advanced state if advanced search parameters are used', 
   testAdvancedSearchIsVisible();
 
   // hides advanced search
-  await act(
-    async () =>
-      await userEvent.click(
-        screen.getByRole('button', {
-          name: /piilota lisäkentät/i,
-        })
-      )
+  await userEvent.click(
+    screen.getByRole('button', {
+      name: /piilota lisäkentät/i,
+    })
   );
 
   testAdvancedSearchNotVisible();
@@ -343,13 +334,10 @@ test('saves sort state to local storage', async () => {
   });
   // Expand the sort selector
   const toggleButton = await screen.findByText(/ajankohtaista/i);
-  await act(async () => await userEvent.click(toggleButton));
+  await userEvent.click(toggleButton);
 
-  await act(
-    async () =>
-      await userEvent.click(
-        screen.getByRole('option', { name: /viimeksi muokattu/i })
-      )
+  await userEvent.click(
+    screen.getByRole('option', { name: /viimeksi muokattu/i })
   );
 
   const localStorageObject = JSON.parse(

@@ -63,7 +63,7 @@ describe('<AutoSuggest />', () => {
 
     const input = screen.getByLabelText(labelText);
 
-    await act(async () => await userEvent.type(input, 'testi'));
+    await userEvent.type(input, 'testi');
 
     expect(setInputValue.mock.calls).toEqual([
       ['t'],
@@ -77,7 +77,7 @@ describe('<AutoSuggest />', () => {
   it('shows autocomplete list when using arrow key', async () => {
     renderAutoSuggest({ options });
 
-    await act(async () => await userEvent.tab());
+    await userEvent.tab();
 
     fireEvent.keyDown(document.activeElement || document.body, {
       key: 'ArrowDown',
@@ -93,7 +93,7 @@ describe('<AutoSuggest />', () => {
   it('show focused autocomplete item correctly and calls onChange when item selected', async () => {
     const { onChange } = renderAutoSuggest({ options });
 
-    await act(async () => await userEvent.tab());
+    await userEvent.tab();
 
     act(() => keyDown('ArrowDown'));
 
@@ -139,7 +139,7 @@ describe('<AutoSuggest />', () => {
 
     const input = screen.getByLabelText(labelText);
 
-    await act(async () => await userEvent.click(input));
+    await userEvent.click(input);
 
     const selectedOption = screen.getByRole('option', {
       name: options[2].label,

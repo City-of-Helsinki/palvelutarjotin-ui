@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { Formik, Field, useFormikContext } from 'formik';
+import { Formik, Field, useFormikContext, Form } from 'formik';
 import { Button, Checkbox, Notification, IconAngleUp } from 'hds-react';
 import isEmpty from 'lodash/isEmpty';
 import { useTranslation } from 'next-i18next';
@@ -74,21 +74,20 @@ const EnrolmentForm: React.FC<Props> = ({
         handleSubmit,
         touched,
         submitCount,
-        values,
+        values: {
+          isSameResponsiblePerson,
+          isMandatoryAdditionalInformationRequired,
+        },
         dirty,
         resetForm,
       }) => {
-        const {
-          isSameResponsiblePerson,
-          isMandatoryAdditionalInformationRequired,
-        } = values;
         const showErrorNotification = !isEmpty(errors) && !!submitCount;
         const errorLabelKeys = keyify(errors)
           .map((path) => nameToLabelPath[path])
           .filter((i) => i);
 
         return (
-          <form
+          <Form
             className={styles.enrolmentForm}
             onSubmit={handleSubmit}
             data-testid="enrolment-form"
@@ -379,7 +378,7 @@ const EnrolmentForm: React.FC<Props> = ({
                 {t('enrolment:enrolmentForm.buttonCancelAndCloseForm')}
               </Button>
             </div>
-          </form>
+          </Form>
         );
       }}
     </Formik>

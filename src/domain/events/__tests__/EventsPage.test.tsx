@@ -2,7 +2,6 @@ import { MockedResponse } from '@apollo/client/testing';
 import { advanceTo, clear } from 'jest-date-mock';
 import capitalize from 'lodash/capitalize';
 import React from 'react';
-import wait from 'waait';
 
 import {
   Event,
@@ -21,9 +20,9 @@ import {
 import {
   render,
   screen,
-  act,
   configure,
   userEvent,
+  sleep,
 } from '../../../utils/testUtils';
 import { ROUTES } from '../../app/routes/constants';
 import EventsPage from '../EventsPage';
@@ -141,7 +140,7 @@ test('renders search form and events list with correct information', async () =>
   advanceTo(testDate);
   render(<EventsPage />, { mocks });
 
-  await act(wait);
+  await sleep(500);
 
   expect(
     screen.queryByRole('heading', {

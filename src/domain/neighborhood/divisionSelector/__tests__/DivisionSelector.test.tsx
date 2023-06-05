@@ -2,7 +2,6 @@ import { IconStar } from 'hds-react';
 import React from 'react';
 
 import {
-  act,
   render,
   screen,
   userEvent,
@@ -49,22 +48,16 @@ const defaultProps = {
 test('should filter division options', async () => {
   render(<DivisionSelector {...defaultProps} />);
 
-  await act(
-    async () =>
-      await userEvent.click(
-        screen.getByRole('button', { name: defaultProps.title })
-      )
+  await userEvent.click(
+    screen.getByRole('button', { name: defaultProps.title })
   );
 
-  await act(
-    async () =>
-      await userEvent.type(
-        screen.getByRole('textbox', {
-          name: /kirjoita hakusana/i,
-        }),
-        // uppercase to test case insesitivity
-        searchWord.toUpperCase()
-      )
+  await userEvent.type(
+    screen.getByRole('textbox', {
+      name: /kirjoita hakusana/i,
+    }),
+    // uppercase to test case insesitivity
+    searchWord.toUpperCase()
   );
 
   await waitFor(() => {
