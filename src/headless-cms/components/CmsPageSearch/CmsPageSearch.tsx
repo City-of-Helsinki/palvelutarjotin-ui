@@ -12,6 +12,7 @@ import {
   PageType,
 } from 'react-helsinki-headless-cms';
 
+import styles from './cmsPageSearch.module.scss';
 import HtmlToReact from '../../../common/components/htmlToReact/HtmlToReact';
 import Container from '../../../domain/app/layout/Container';
 import { getCmsPagePath } from '../../../domain/app/routes/utils';
@@ -68,7 +69,10 @@ const CmsPageSearch: React.FC<{
             after: pageInfo?.endCursor,
           },
         });
-      } catch (e) {}
+      } catch (e) {
+        // eslint-disable-next-line no-console
+        console.error(e);
+      }
     }
   };
 
@@ -99,6 +103,7 @@ const CmsPageSearch: React.FC<{
       {Head && <PageMeta headComponent={Head} page={page as PageType} />}
       <Container>
         <SearchPageContent
+          className={styles.searchPageContent}
           customContent={customContent}
           items={subPages as PageType[]}
           onSearch={(freeSearch, tags) => {

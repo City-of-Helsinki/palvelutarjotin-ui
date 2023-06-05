@@ -9,12 +9,12 @@ import {
 
 import CmsPageSearch from './CmsPageSearch/CmsPageSearch';
 import { getCmsCollectionList } from './utils';
-import { Page, PageQuery } from '../../generated/graphql-cms';
+import { Page } from '../../generated/graphql-cms';
 
 export const SEARCH_PANEL_TRESHOLD = 2;
 
 const CmsPage: React.FC<{
-  page: PageQuery['page'];
+  page: Page;
   breadcrumbs: Breadcrumb[];
   collections?: GeneralCollectionType[];
   hideHero?: boolean;
@@ -36,7 +36,7 @@ const CmsPage: React.FC<{
 
   if (showSearch) {
     // TODO: Implement this with from ArchivePage from RHHC to get better layout
-    return <CmsPageSearch page={page as Page} />;
+    return <CmsPageSearch page={page} />;
   }
 
   return (
