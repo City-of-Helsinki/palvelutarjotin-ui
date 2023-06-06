@@ -1,4 +1,4 @@
-import { act, fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import * as React from 'react';
 
@@ -95,31 +95,31 @@ describe('<AutoSuggest />', () => {
 
     await userEvent.tab();
 
-    act(() => keyDown('ArrowDown'));
+    await keyDown('ArrowDown');
 
     expect(
       screen.queryByRole('option', { name: options[0].label })
     ).toHaveClass('isFocused');
 
-    act(() => keyDown('ArrowDown'));
+    await keyDown('ArrowDown');
 
     expect(
       screen.queryByRole('option', { name: options[1].label })
     ).toHaveClass('isFocused');
 
-    act(() => keyDown('ArrowDown'));
+    await keyDown('ArrowDown');
 
     expect(
       screen.queryByRole('option', { name: options[2].label })
     ).toHaveClass('isFocused');
 
-    act(() => keyDown('ArrowUp'));
+    await keyDown('ArrowUp');
 
     expect(
       screen.queryByRole('option', { name: options[1].label })
     ).toHaveClass('isFocused');
 
-    act(() => keyDown('Enter'));
+    await keyDown('Enter');
 
     expect(onChange).toHaveBeenCalledWith(options[1]);
 
