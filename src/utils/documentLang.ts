@@ -1,4 +1,3 @@
-// eslint-disable-next-line @next/next/no-document-import-in-page
 import { DocumentProps } from 'next/document';
 
 import { DEFAULT_LANGUAGE, SUPPORTED_LANGUAGES } from '../constants';

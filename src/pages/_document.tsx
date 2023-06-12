@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-sync-scripts */
 import * as Sentry from '@sentry/browser';
 import jsdom from 'jsdom';
 import Document, {
