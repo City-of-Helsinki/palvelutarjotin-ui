@@ -21,7 +21,7 @@ type Props = SelectProps<Option> &
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       value: any,
       shouldValidate?: boolean | undefined
-    ) => void;
+    ) => Promise<void>;
   };
 
 const DropdownField: React.FC<Props> = ({
@@ -43,7 +43,7 @@ const DropdownField: React.FC<Props> = ({
       ? val.map((item) => item.value)
       : val.value;
     if (setFieldValue) {
-      setFieldValue(name, value);
+      (async () => await setFieldValue(name, value))();
     } else {
       onChange({
         target: {

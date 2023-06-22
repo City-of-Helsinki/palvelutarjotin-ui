@@ -113,7 +113,8 @@ const getNotificationHash = (notification: NotificationNode) => {
     'startDate',
   ] as const;
   const combinedString = stringKeys.reduce(
-    (combinedString, current) => combinedString + notification[current] ?? '',
+    (combinedString, current) =>
+      (combinedString ?? '') + (notification[current] ?? ''),
     ''
   );
   return hash(combinedString);

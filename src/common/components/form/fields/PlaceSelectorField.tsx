@@ -31,7 +31,7 @@ const PlaceSelectorField: React.FC<Props> = ({
   const handleChange = (val: Option | Option[]) => {
     const value = Array.isArray(val) ? val.map((item) => item) : val;
     if (setFieldValue) {
-      setFieldValue(name, value);
+      (async () => await setFieldValue(name, value))();
     } else {
       onChange({
         target: {
