@@ -31,7 +31,7 @@ const DivisionSelectorField: React.FC<Props> = ({
   const handleChange = (val: Option | Option[]) => {
     const value = !Array.isArray(val) ? [val] : val;
     if (setFieldValue) {
-      setFieldValue(name, value);
+      (async () => await setFieldValue(name, value))();
     } else {
       onChange({
         target: {
