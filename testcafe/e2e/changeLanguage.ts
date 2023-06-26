@@ -6,6 +6,17 @@ import { getEnvUrl } from '../utils/settings';
 
 fixture('Events page').page(getEnvUrl('fi'));
 
+test('Load the main page', async (t) => {
+  await t
+    .expect(
+      screen.getByRole('heading', {
+        name: /Hyvinvointia retkistä ja elämyksistä/i,
+      }).exists
+    )
+    .ok();
+});
+
+// FIXME: does not work after dependency update because the HDS sets the pathname in wrong position
 test('Changing language on events page', async (t) => {
   await t
     .expect(

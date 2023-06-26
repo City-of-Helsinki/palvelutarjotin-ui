@@ -17,7 +17,7 @@
     "test:coverage": "jest --watchAll=false --coverage",
     "test:staged": "cross-env SASS_PATH=./src/assets/styles jest --findRelatedTests",
     "ci": "jest --verbose --coverage --runInBand",
-    "browser-test": "testcafe \"chrome --window-size='1920,1080'\" testcafe/e2e/",
+    "browser-test": "testcafe \"chrome --window-size='1920,1080'\" testcafe/e2e/ --live --dev",
     "browser-test:ci": "testcafe \"chrome:headless --disable-gpu --window-size='1920,1080'\" --screenshots takeOnFails=true,path=report,fullPage=true --video report testcafe/e2e/",
     "release": "standard-version"
   },
