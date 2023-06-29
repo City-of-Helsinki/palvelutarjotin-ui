@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.3.1](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/v2.3.0...v2.3.1) (2023-06-29)
+
+### Updates
+
+- the Node has been updated to v. 20.
+- all the dependencies has been updated to the latest, so also all the existing code needed some migration.
+
+### Bug Fixes
+
+- cms page generation for pages with a search feature for subpages ([100adf3](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/100adf3c09dbdc1c39b0f1574dc1df3fedacb12f))
+- **datepicker:** replace custom date picker with the HDS date input ([021cf94](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/021cf9415c751f80181674342b0e74523064d38e))
+- enrolment form value set async calls must be awaited ([ecba27d](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/ecba27dca21e3f1189fa1abec27e0ac57406ed9c))
+- eslint configuration ([6ac7b25](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/6ac7b2530c568879ca9bc2e6493b22afb404645f))
+- eslint configuration ([a113e66](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/a113e66010a397f02ab1612a74f9fc5ecefb29da))
+- setFieldValue types and usage ([f776972](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/f7769723fb3440327cecc839aa598b6e68ede82a))
+- **stylelint:** scss files configuration and format ([b5883ba](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/b5883ba94535123a4da4f34cf0f36cda63c83c74))
+- trivial test mock bug ([59d28e8](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/59d28e869dd00fa814e044ebc1749813626dc6d2))
+- yup validation schema ([92b99f6](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/92b99f600c224ad9c95699eeb52c4a7a88892abd))
+
 ### [2.3.0](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/v2.2.0...v2.3.0) (2023-05-10)
 
 - event queue enrolments ([#278](https://github.com/City-of-Helsinki/palvelutarjotin-ui/pull/278))
