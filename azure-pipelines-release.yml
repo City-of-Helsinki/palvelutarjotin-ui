@@ -7,7 +7,7 @@ trigger:
   batch: true
   tags:
     include:
-      - release-*
+      - palvelutarjotin-ui-v*
   paths:
     exclude:
     - README.md

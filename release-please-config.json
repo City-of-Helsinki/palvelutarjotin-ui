@@ -1,0 +1,13 @@
+{
+  "bootstrap-sha": "fad7e0516df0a54a765a04b196c8fcfa692a6fc6",
+  "sequential-calls": true,
+  "packages": {
+    ".": {
+      "release-type": "node",
+      "package-name": "palvelutarjotin-ui"
+    }
+  },
+  "plugins": [
+    "sentence-case"
+  ]
+}
