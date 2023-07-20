@@ -1,6 +1,6 @@
-import handler from '../readiness';
+import handler from '../version';
 
-test('readiness response', async () => {
+test('version response', async () => {
   const req = {};
   const json = jest.fn();
   const status = jest.fn(() => {
