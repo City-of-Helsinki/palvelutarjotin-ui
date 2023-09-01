@@ -326,6 +326,11 @@ const QueueFormContainer: React.FC<{
       {showQueueForm ? (
         <div className={styles.enrolmentFormContainer}>
           <div className={styles.enrolmentFormSection} ref={queueFormRef}>
+            <QueueFormSection
+              event={event}
+              onCloseForm={() => setShowQueueForm(false)}
+              onQueue={handleOnQueue}
+            />
             <div className={styles.closeQueueFormButtonWrapper}>
               <div className={styles.enrolmentText}>
                 {t('enrolment:queue.enrolText')}
@@ -338,11 +343,6 @@ const QueueFormContainer: React.FC<{
                 {t('enrolment:enrolmentForm.buttonCancelAndCloseForm')}
               </Button>
             </div>
-            <QueueFormSection
-              event={event}
-              onCloseForm={() => setShowQueueForm(false)}
-              onQueue={handleOnQueue}
-            />
           </div>
         </div>
       ) : (
