@@ -976,3 +976,124 @@ describe('back button', () => {
     expect(backLink).toHaveAttribute('href', '/');
   });
 });
+
+describe('event queue enrolment form', () => {
+  it('is visible when the internal enrolments has already begun', async () => {
+    renderComponent();
+    await waitForRequestsToComplete();
+    expect(
+      screen.getByRole('heading', {
+        name: /jonoon ilmoittautuminen/i,
+      })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('button', {
+        name: /ilmoittaudu jonoon/i,
+      })
+    ).toBeInTheDocument();
+  });
+
+  it('is hidden when the internal enrolments has not yet begun', async () => {
+    const today = new Date();
+    const tomorrow = new Date(today);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    const eventStillNotEnrollable =
+      createEventQueryMockIncludeLanguageAndAudience({
+        ...eventData,
+        id: data.id,
+        pEvent: fakePEvent({
+          ...eventData.pEvent,
+          enrolmentStart: tomorrow,
+        }),
+      });
+    const [, ...mocks] = apolloMocks;
+    renderComponent({ mocks: [eventStillNotEnrollable, ...mocks] });
+    await waitForRequestsToComplete();
+    expect(
+      screen.queryByRole('heading', {
+        name: /jonoon ilmoittautuminen/i,
+      })
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole('button', {
+        name: /ilmoittaudu jonoon/i,
+      })
+    ).not.toBeInTheDocument();
+  });
+
+  it('is hidden when there are no enrolments for the event', async () => {
+    const eventWithoutEnrolments =
+      createEventQueryMockIncludeLanguageAndAudience({
+        ...eventData,
+        id: data.id,
+        pEvent: fakePEvent({
+          ...eventData.pEvent,
+          externalEnrolmentUrl: null,
+          enrolmentStart: null,
+        }),
+      });
+    const [, ...mocks] = apolloMocks;
+    renderComponent({ mocks: [eventWithoutEnrolments, ...mocks] });
+    await waitForRequestsToComplete();
+    expect(
+      screen.queryByRole('heading', {
+        name: /jonoon ilmoittautuminen/i,
+      })
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole('button', {
+        name: /ilmoittaudu jonoon/i,
+      })
+    ).not.toBeInTheDocument();
+  });
+
+  it('is hidden when the enrolments are handled externally', async () => {
+    const eventWithoutEnrolments =
+      createEventQueryMockIncludeLanguageAndAudience({
+        ...eventData,
+        id: data.id,
+        pEvent: fakePEvent({
+          ...eventData.pEvent,
+          externalEnrolmentUrl: 'https://external.enrolments.url',
+        }),
+      });
+    const [, ...mocks] = apolloMocks;
+    renderComponent({ mocks: [eventWithoutEnrolments, ...mocks] });
+    await waitForRequestsToComplete();
+    expect(
+      screen.queryByRole('heading', {
+        name: /jonoon ilmoittautuminen/i,
+      })
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole('button', {
+        name: /ilmoittaudu jonoon/i,
+      })
+    ).not.toBeInTheDocument();
+  });
+
+  it('is hidden when there are no occurrences for the event', async () => {
+    const eventWithoutOccurrences =
+      createEventQueryMockIncludeLanguageAndAudience({
+        ...eventData,
+        id: data.id,
+        pEvent: fakePEvent({
+          ...eventData.pEvent,
+          occurrences: undefined,
+        }),
+      });
+    const [, ...mocks] = apolloMocks;
+    renderComponent({ mocks: [eventWithoutOccurrences, ...mocks] });
+    await screen.findByText(/tapahtumalla ei ole tapahtuma-aikoja/i);
+    expect(
+      screen.queryByRole('heading', {
+        name: /jonoon ilmoittautuminen/i,
+      })
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole('button', {
+        name: /ilmoittaudu jonoon/i,
+      })
+    ).not.toBeInTheDocument();
+  });
+});
