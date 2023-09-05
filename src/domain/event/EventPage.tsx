@@ -14,7 +14,7 @@ import EventPageMeta from './eventPageMeta/EventPageMeta';
 import EnrolmentFormSection from './occurrences/EnrolmentFormSection';
 import Occurrences from './occurrences/OccurrencesTable';
 import QueueFormSection from './occurrences/QueueFormSection';
-import { getEventFields } from './utils';
+import { getEventFields, shouldEventSupportQueueEnrolments } from './utils';
 import LoadingSpinner from '../../common/components/loadingSpinner/LoadingSpinner';
 import ShareLinks from '../../common/components/shareLinks/ShareLinks';
 import {
@@ -115,6 +115,9 @@ const EventPage = (): ReactElement => {
     neededOccurrences > 1 &&
     isEnrolmentStarted(event);
 
+  // Show the queue controls only when the enrolments has started and they are handled internally
+  const isQueueEnrolmentAvailable = shouldEventSupportQueueEnrolments(event);
+
   return (
     <PageWrapper title={eventName || t('event:pageTitle')}>
       <LoadingSpinner isLoading={loading}>
@@ -191,12 +194,14 @@ const EventPage = (): ReactElement => {
                   showEnrolmentForm={showEnrolmentButton}
                 />
               )}
-              <QueueFormContainer
-                event={eventData.event}
-                handleOnQueue={handleOnQueue}
-                setShowQueueForm={setShowQueueForm}
-                showQueueForm={showQueueForm}
-              />
+              {isQueueEnrolmentAvailable && (
+                <QueueFormContainer
+                  event={eventData.event}
+                  handleOnQueue={handleOnQueue}
+                  setShowQueueForm={setShowQueueForm}
+                  showQueueForm={showQueueForm}
+                />
+              )}
               <div className={styles.sharePart}>
                 <div></div>
                 <div>
