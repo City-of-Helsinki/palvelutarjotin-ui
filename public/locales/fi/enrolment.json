@@ -97,8 +97,11 @@
   },
   "title": "Ilmoittaudu tapahtumaan",
   "titleEnquiry": "Varaustiedustelu tapahtumaan",
+  "enrolment": {
+    "title": "Ilmoittautuminen"
+  },
   "queue": {
-    "title": "Ilmoittautuminen",
+    "title": "Jonoon ilmoittautuminen",
     "enrol": "Ilmoittaudu jonoon",
     "enrolText": "Ovatko haluamasi ajat täynnä? Ilmoittaudu jonoon, jos haluat tietoa peruutuspaikoista.",
     "submit": "Lähetä ilmoittautuminen jonoon",

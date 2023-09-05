@@ -97,8 +97,11 @@
   },
   "title": "Enrol for the event",
   "titleEnquiry": "Enquiry for the event",
+  "enrolment": {
+    "title": "Enrolment"
+  },
   "queue": {
-    "title": "Enrolment",
+    "title": "Queue enrolment",
     "enrol": "Enrol to queue",
     "enrolText": "Is the event fully booked? Enroll to queue if you are interested in cancellations.",
     "submit": "Submit your enrolment to queue",

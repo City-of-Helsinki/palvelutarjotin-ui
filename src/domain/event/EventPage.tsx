@@ -153,12 +153,9 @@ const EventPage = (): ReactElement => {
                 />
               )}
               <EventBasicInfo event={eventData.event} />
-              <QueueFormContainer
-                event={eventData.event}
-                handleOnQueue={handleOnQueue}
-                setShowQueueForm={setShowQueueForm}
-                showQueueForm={showQueueForm}
-              />
+              <h2 className={styles.enrolmentHeader}>
+                {t('enrolment:enrolment.title')}
+              </h2>
               {occurrences && (
                 <div
                   className={styles.occurrencesContainer}
@@ -194,6 +191,12 @@ const EventPage = (): ReactElement => {
                   showEnrolmentForm={showEnrolmentButton}
                 />
               )}
+              <QueueFormContainer
+                event={eventData.event}
+                handleOnQueue={handleOnQueue}
+                setShowQueueForm={setShowQueueForm}
+                showQueueForm={showQueueForm}
+              />
               <div className={styles.sharePart}>
                 <div></div>
                 <div>
