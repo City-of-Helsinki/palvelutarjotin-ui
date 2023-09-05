@@ -98,8 +98,11 @@
   },
   "title": "Anmäl dig till evenemanget",
   "titleEnquiry": "Bokningsförfrågan till evenemanget",
+  "enrolment": {
+    "title": "Anmälning"
+  },
   "queue": {
-    "title": "Anmälning",
+    "title": "Köanmälning",
     "enrol": "Anmäl dig i kö",
     "enrolText": "Är de önskade tiderna fullbokade? Ställ dig i kö om du vill få information om avbokningar.",
     "submit": "Skicka anmälan för att köa",
