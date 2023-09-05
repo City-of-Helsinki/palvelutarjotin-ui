@@ -21,6 +21,7 @@ import {
 import { Language } from '../../types';
 import getLocalisedString from '../../utils/getLocalisedString';
 import { formatIntoTime, formatLocalizedDate } from '../../utils/time/format';
+import { isEnrolmentStarted } from '../occurrence/utils';
 
 export const getEventPlaceholderImage = (id: string): string => {
   const numbers = id.match(/\d+/g);
@@ -168,4 +169,20 @@ export const getEnrolmentType = (
     return EnrolmentType.Internal;
   }
   return EnrolmentType.Unenrollable;
+};
+
+/**
+ * Does the event support enrolling in the queue?
+ * 1. Are the enrolments handled internally in the Kultus
+ * 2. Has the enrolment started already
+ */
+export const shouldEventSupportQueueEnrolments = (
+  event?: EventFieldsFragment | null
+) => {
+  if (!event?.pEvent) return false;
+  const hasInternalEnrolments =
+    getEnrolmentType(event.pEvent) === EnrolmentType.Internal;
+  const hasEnrolmentStarted = isEnrolmentStarted(event);
+  // Show the queue controls only when the enrolments has started and they are handled internally
+  return hasInternalEnrolments && hasEnrolmentStarted;
 };
