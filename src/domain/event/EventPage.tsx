@@ -156,9 +156,7 @@ const EventPage = (): ReactElement => {
                 />
               )}
               <EventBasicInfo event={eventData.event} />
-              <h2 className={styles.enrolmentHeader}>
-                {t('enrolment:enrolment.title')}
-              </h2>
+
               {occurrences && (
                 <div
                   className={styles.occurrencesContainer}
