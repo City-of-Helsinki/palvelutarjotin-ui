@@ -175,6 +175,7 @@ export const getEnrolmentType = (
  * Does the event support enrolling in the queue?
  * 1. Are the enrolments handled internally in the Kultus
  * 2. Has the enrolment started already
+ * 3. Are there any occurrences for the event
  */
 export const shouldEventSupportQueueEnrolments = (
   event?: EventFieldsFragment | null
@@ -183,6 +184,6 @@ export const shouldEventSupportQueueEnrolments = (
   const hasInternalEnrolments =
     getEnrolmentType(event.pEvent) === EnrolmentType.Internal;
   const hasEnrolmentStarted = isEnrolmentStarted(event);
-  // Show the queue controls only when the enrolments has started and they are handled internally
-  return hasInternalEnrolments && hasEnrolmentStarted;
+  const hasOccurrences = event.pEvent.occurrences?.edges?.length;
+  return hasInternalEnrolments && hasEnrolmentStarted && hasOccurrences;
 };
