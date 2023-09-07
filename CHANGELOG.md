@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.3.2](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/palvelutarjotin-ui-v2.3.1...palvelutarjotin-ui-v2.3.2) (2023-09-07)
+
+### Bug Fixes
+
+- Version, release and build information PT-1652 ([#284](https://github.com/City-of-Helsinki/palvelutarjotin-ui/issues/284)) ([a568070](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/a5680709588151aef137b1ffe6631a868d4c17bf))
+
+### Refactoring
+
+- Moved the event enrolment queue component below the occurrences table.
+
 ### [2.3.1](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/v2.3.0...v2.3.1) (2023-06-29)
 
 ### Updates
