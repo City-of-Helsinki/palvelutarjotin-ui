@@ -173,9 +173,9 @@ export const getEnrolmentType = (
 
 /**
  * Does the event support enrolling in the queue?
- * 1. Are the enrolments handled internally in the Kultus
- * 2. Has the enrolment started already
- * 3. Are there any occurrences for the event
+ * @return True if enrolments are handled internally in Kultus,
+ * the enrolment has started and there is at least one occurrence
+ * for the event, otherwise False.
  */
 export const shouldEventSupportQueueEnrolments = (
   event?: EventFieldsFragment | null
