@@ -41,7 +41,7 @@
     "express": "^4.18.2",
     "file-saver": "^2.0.5",
     "formik": "^2.4.0",
-    "graphql": "^16.6.0",
+    "graphql": "^16.8.1",
     "graphql-tag": "^2.12.6",
     "hds-core": "^2.15.0",
     "hds-react": "^2.15.0",
