@@ -28,7 +28,7 @@
         "labelName": "Name",
         "labelPhoneNumber": "Phone number"
       },
-      "helperExtraNeeds": "Add here if you want to tell the organizer something else relevant to your group",
+      "helperExtraNeeds": "Please add here if you wish to provide any other essential information about your group (e.g., information relevant to language skills or accessibility that may be necessary for the organizer). Please refrain from sharing information that violates privacy, thank you.",
       "helperGroupName": "Unique name of the group, for example: 4a",
       "labelAmountOfAdult": "Adults",
       "labelExtraNeedsOptional": "Additional information (optional)",
