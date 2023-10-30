@@ -28,7 +28,7 @@
         "labelName": "Nimi",
         "labelPhoneNumber": "Puhelinnumero"
       },
-      "helperExtraNeeds": "Lisää tähän, jos haluat kertoa järjestäjälle jotain muuta olennaista ryhmästänne",
+      "helperExtraNeeds": "Lisää tähän, jos haluat kertoa jotain muuta olennaista ryhmästänne (esim. kielitaitoon tai esteettömyyteen liittyviä järjestäjälle tarpeellisia tietoja). Ethän ilmoita sellaisia tietoja, jotka loukkaavat yksityisyyden suojaa, kiitos.",
       "helperGroupName": "Ryhmän yksilöivä nimi, esimerkiksi: 4a",
       "labelAmountOfAdult": "Aikuisia",
       "labelExtraNeedsOptional": "Lisätiedot (valinnainen)",

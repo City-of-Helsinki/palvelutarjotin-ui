@@ -28,7 +28,7 @@
         "labelName": "Namn",
         "labelPhoneNumber": "Telefonnummer"
       },
-      "helperExtraNeeds": "Ytterligare relevant info till arrangören om din grupp",
+      "helperExtraNeeds": "Vill du berätta något annat viktigt om din grupp (t.ex. nödvändig information för arrangören relaterad till språkkunskaper eller tillgänglighet)? Vänligen lämna inte information som bryter mot integritetsskyddet, tack.",
       "helperGroupName": "Gruppens unika namn, t.ex. 4a",
       "labelAmountOfAdult": "Vuxna",
       "labelExtraNeedsOptional": "Ytterligare information (valfri)",
