@@ -1,3 +1,4 @@
+import { isApolloError } from '@apollo/client';
 import { omit } from 'lodash';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
@@ -14,7 +15,10 @@ import useLocale from '../../../hooks/useLocale';
 import { saveDataForRecommendedEventsQuery } from '../../../utils/recommendedEventsUtils';
 import { assertUnreachable } from '../../../utils/typescript.utils';
 import { ROUTES } from '../../app/routes/constants';
-import { ENROLMENT_URL_PARAMS } from '../../enrolment/constants';
+import {
+  ENROLMENT_ERRORS,
+  ENROLMENT_URL_PARAMS,
+} from '../../enrolment/constants';
 import {
   EnrolmentFormFields,
   defaultEnrolmentInitialValues,
@@ -68,9 +72,20 @@ const EnrolmentFormSection: React.FC<{
       });
       onEnrol?.();
     } catch (e) {
-      toast(t('enrolment:errors.createFailed'), {
-        type: toast.TYPE.ERROR,
-      });
+      const isNotEnoughCapacityError =
+        e instanceof Error &&
+        isApolloError(e) &&
+        e.graphQLErrors[0]?.extensions?.code ===
+          ENROLMENT_ERRORS.NOT_ENOUGH_CAPACITY_ERROR;
+
+      toast(
+        isNotEnoughCapacityError
+          ? t('enrolment:errors.createFailedBecauseNotEnoughCapacity')
+          : t('enrolment:errors.createFailed'),
+        {
+          type: toast.TYPE.ERROR,
+        }
+      );
     }
   };
 
