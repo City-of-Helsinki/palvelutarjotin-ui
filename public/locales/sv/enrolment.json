@@ -56,6 +56,7 @@
   },
   "errors": {
     "createFailed": "Misslyckades med att skapa registrering",
+    "createFailedBecauseNotEnoughCapacity": "Tyvärr är evenemanget redan fullbokat. Du kan försöka anmäla dig till ett annat evenemang.",
     "label": {
       "enrolmentClosedError": "Registreringen avslutades",
       "enrolmentNotStartedError": "Registreringen har inte öppnats",

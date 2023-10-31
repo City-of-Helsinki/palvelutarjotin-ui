@@ -56,6 +56,7 @@
   },
   "errors": {
     "createFailed": "Ilmoittautumisen luominen epäonnistui",
+    "createFailedBecauseNotEnoughCapacity": "Valitettavasti tapahtuma on ehtinyt jo täyttyä. Voit koittaa ilmoittautua toiseen tapahtumaan.",
     "label": {
       "enrolmentClosedError": "Ilmoittautuminen päättynyt",
       "enrolmentNotStartedError": "Ilmoitautuminen ei ole avautunut",
