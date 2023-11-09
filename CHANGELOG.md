@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.4.0](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/palvelutarjotin-ui-v2.3.2...palvelutarjotin-ui-v2.4.0) (2023-11-09)
+
+
+### Features
+
+* Add specific toast error message for event full when enrolling ([05cfa19](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/05cfa19e1021002ab6f9a1feb1b72b10cd7d8b1f))
+* Update extra needs field's helper text ([7d90aa7](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/7d90aa7020cc9458a8c66f7fd910875c8bd88257))
+
+
+### Bug Fixes
+
+* **toast:** Automatically close toast error messages after 10s ([a7567e3](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/a7567e380d79d9a82eff286032eb2886682cd6e6))
+
 ## [2.3.2](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/palvelutarjotin-ui-v2.3.1...palvelutarjotin-ui-v2.3.2) (2023-09-07)
 
 ### Bug Fixes
