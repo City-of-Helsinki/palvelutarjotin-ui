@@ -4,6 +4,7 @@ import { useTranslation } from 'next-i18next';
 import React from 'react';
 import { toast } from 'react-toastify';
 
+import { TOAST_AUTO_CLOSE_DURATION_MS } from '../../../constants';
 import {
   EventFieldsFragment,
   useEnrolEventQueueMutation,
@@ -61,6 +62,7 @@ const QueueFormSection: React.FC<{
     } catch (e) {
       toast(t('enrolment:queue.error'), {
         type: toast.TYPE.ERROR,
+        autoClose: TOAST_AUTO_CLOSE_DURATION_MS,
       });
     }
   };

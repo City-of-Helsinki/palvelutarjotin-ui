@@ -63,3 +63,5 @@ export const DEFAULT_FOOTER_MENU_NAME: Record<Language, string> = {
     process.env.NEXT_PUBLIC_CMS_FOOTER_MENU_NAME_SV ??
     'Palvelutarjotin-UI Footer (SV)',
 };
+
+export const TOAST_AUTO_CLOSE_DURATION_MS = 10_000;
