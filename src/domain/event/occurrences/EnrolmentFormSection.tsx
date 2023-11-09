@@ -5,6 +5,7 @@ import { useTranslation } from 'next-i18next';
 import React from 'react';
 import { toast } from 'react-toastify';
 
+import { TOAST_AUTO_CLOSE_DURATION_MS } from '../../../constants';
 import {
   OccurrenceFieldsFragment,
   EventFieldsFragment,
@@ -84,6 +85,7 @@ const EnrolmentFormSection: React.FC<{
           : t('enrolment:errors.createFailed'),
         {
           type: toast.TYPE.ERROR,
+          autoClose: TOAST_AUTO_CLOSE_DURATION_MS,
         }
       );
     }
