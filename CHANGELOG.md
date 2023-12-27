@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.4.1](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/palvelutarjotin-ui-v2.4.0...palvelutarjotin-ui-v2.4.1) (2023-12-27)
+
+
+### Bug Fixes
+
+* Header logo should use a pointer as a cursor ([8dae542](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/8dae5427d5b1401db87f1cda8299730cc9774401))
+
 ## [2.4.0](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/palvelutarjotin-ui-v2.3.2...palvelutarjotin-ui-v2.4.0) (2023-11-09)
 
 
