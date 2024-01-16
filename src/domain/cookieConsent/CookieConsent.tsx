@@ -23,7 +23,7 @@ const CookieConsent: React.FC<Props> = ({ appName, allowLanguageSwitch }) => {
   const { getAllConsents } = useCookies();
   const { pushInstruction } = useMatomo();
 
-  const onLanguageChange = React.useCallback(
+  const onLanguageChange = useCallback(
     (newLang: string) => {
       if (allowLanguageSwitch) {
         setLanguage(newLang as ContentSource['currentLanguage']);
