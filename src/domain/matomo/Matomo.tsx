@@ -46,11 +46,10 @@ function TrackPageViews(): null {
       return consents[cookieId];
     };
 
-    //if enabled, should be callled before each trackPage instruction
     if (getConsentStatus('matomo')) {
-      pushInstruction('requireCookieConsent');
-    } else {
       pushInstruction('setCookieConsentGiven');
+    } else {
+      pushInstruction('forgetCookieConsentGiven');
     }
 
     trackPageView({
