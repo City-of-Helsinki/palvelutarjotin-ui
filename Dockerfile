@@ -77,12 +77,13 @@ ENV NEWSLETTER_APIKEY=$NEWSLETTER_APIKEY
 # Use non-root user
 USER appuser
 
-# Copy build folder from stage 1
-COPY --from=staticbuilder --chown=appuser:appuser /app/.next /app/.next
-
-# Copy next.js config
-COPY --chown=appuser:appuser next.config.js /app/
-COPY --chown=appuser:appuser next-i18next.config.js /app/
+# Automatically leverage output traces to reduce image size
+# https://nextjs.org/docs/advanced-features/output-file-tracing
+# copy only the necessary files for a production deployment including select files in node_modules.
+COPY --from=builder --chown=appuser:appuser /app/.next/standalone .
+COPY --from=builder --chown=appuser:appuser /app/.next/static ./.next/static
+COPY --from=builder --chown=appuser:appuser /app/public ./public
+RUN cp -r /app/.next/ /app/.next_orig/
 
 # Copy public package.json and yarn.lock files
 COPY --chown=appuser:appuser public package.json yarn.lock /app/
@@ -93,13 +94,9 @@ RUN yarn install --production --frozen-lockfile && yarn cache clean --force
 # Copy public folder
 COPY --chown=appuser:appuser public /app/public
 
-# Copy i18.ts, start.mjs and server.mjs files
-COPY --chown=appuser:appuser src/start.mjs src/server.mjs /app/src/
-
 # Expose port
 EXPOSE $PORT
 
-# Start ssr server
-CMD ["yarn", "start"]
-
+# Start nextjs server
+CMD ["node", "./server.js"]
 

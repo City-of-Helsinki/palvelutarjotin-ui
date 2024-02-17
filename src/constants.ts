@@ -1,5 +1,3 @@
-import { Language } from 'react-helsinki-headless-cms';
-
 export const IS_CLIENT = typeof window !== 'undefined';
 
 export enum FORM_NAMES {
@@ -52,7 +50,7 @@ export const ADMIN_EMAIL = {
   sv: 'kultus@hel.fi',
 };
 
-export const DEFAULT_FOOTER_MENU_NAME: Record<Language, string> = {
+export const DEFAULT_FOOTER_MENU_NAME: Record<SUPPORTED_LANGUAGES, string> = {
   fi:
     process.env.NEXT_PUBLIC_CMS_FOOTER_MENU_NAME_FI ??
     'Palvelutarjotin-UI Footer (FI)',
