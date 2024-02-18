@@ -89,7 +89,7 @@ export type AddOrganisationMutationInput = {
   clientMutationId?: InputMaybe<Scalars['String']['input']>;
   name: Scalars['String']['input'];
   phoneNumber?: InputMaybe<Scalars['String']['input']>;
-  publisherId?: InputMaybe<Scalars['String']['input']>;
+  publisherId: Scalars['String']['input'];
   type: OrganisationTypeEnum;
 };
 
@@ -880,6 +880,7 @@ export enum NotificationTemplateType {
   OccurrenceEnrolmentSms = 'OCCURRENCE_ENROLMENT_SMS',
   OccurrenceUnenrolment = 'OCCURRENCE_UNENROLMENT',
   OccurrenceUnenrolmentSms = 'OCCURRENCE_UNENROLMENT_SMS',
+  OccurrenceUpcomingSms = 'OCCURRENCE_UPCOMING_SMS',
   PersonMyprofileAccepted = 'PERSON_MYPROFILE_ACCEPTED',
   PersonMyprofileCreation = 'PERSON_MYPROFILE_CREATION'
 }
@@ -1016,7 +1017,7 @@ export type OrganisationNode = Node & {
   /** The ID of the object. */
   id: Scalars['ID']['output'];
   name: Scalars['String']['output'];
-  persons: PersonNodeConnection;
+  persons?: Maybe<PersonNodeConnection>;
   phoneNumber: Scalars['String']['output'];
   publisherId: Scalars['String']['output'];
   type: OrganisationType;

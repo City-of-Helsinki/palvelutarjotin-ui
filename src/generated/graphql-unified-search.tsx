@@ -23,12 +23,51 @@ export type Scalars = {
   link__Import: { input: any; output: any; }
 };
 
-/** TODO: take this from service map / TPREK */
-export type AccessibilityProfile = {
-  __typename?: 'AccessibilityProfile';
-  meta?: Maybe<NodeMeta>;
-  todo?: Maybe<Scalars['String']['output']>;
+export type Accessibility = {
+  __typename?: 'Accessibility';
+  email?: Maybe<Scalars['String']['output']>;
+  phone?: Maybe<Scalars['String']['output']>;
+  sentences: Array<AccessibilitySentence>;
+  shortcomings: Array<AccessibilityShortcoming>;
+  viewpoints: Array<AccessibilityViewpoint>;
+  www?: Maybe<Scalars['String']['output']>;
 };
+
+export enum AccessibilityProfile {
+  HearingAid = 'hearing_aid',
+  ReducedMobility = 'reduced_mobility',
+  Rollator = 'rollator',
+  Stroller = 'stroller',
+  VisuallyImpaired = 'visually_impaired',
+  Wheelchair = 'wheelchair'
+}
+
+export type AccessibilitySentence = {
+  __typename?: 'AccessibilitySentence';
+  sentence?: Maybe<LanguageString>;
+  sentenceGroup?: Maybe<LanguageString>;
+  sentenceGroupName?: Maybe<Scalars['String']['output']>;
+};
+
+export type AccessibilityShortcoming = {
+  __typename?: 'AccessibilityShortcoming';
+  count?: Maybe<Scalars['Int']['output']>;
+  profile: AccessibilityProfile;
+};
+
+export type AccessibilityViewpoint = {
+  __typename?: 'AccessibilityViewpoint';
+  id: Scalars['ID']['output'];
+  name: LanguageString;
+  shortages: Array<LanguageString>;
+  value: AccessibilityViewpointValue;
+};
+
+export enum AccessibilityViewpointValue {
+  Green = 'green',
+  Red = 'red',
+  Unknown = 'unknown'
+}
 
 /** TODO: give real structure */
 export type Address = {
@@ -382,7 +421,7 @@ export enum IdentificationStrength {
 
 /**
  * TODO: merge all free tags, categories, and keywords
- * KEYWORDS ARE GIVEN FROM events-proxy (https://tapahtumat-proxy.test.kuva.hel.ninja/proxy/graphql)
+ * KEYWORDS ARE GIVEN FROM events-proxy (https://events-graphql-proxy.test.hel.ninja/proxy/graphql)
  */
 export type KeywordString = {
   __typename?: 'KeywordString';
@@ -463,7 +502,7 @@ export type LocationDescription = {
   explanation?: Maybe<Scalars['String']['output']>;
   geoLocation?: Maybe<GeoJsonFeature>;
   url?: Maybe<LanguageString>;
-  venue?: Maybe<Venue>;
+  venue?: Maybe<UnifiedSearchVenue>;
 };
 
 export type LocationImage = {
@@ -622,6 +661,20 @@ export type PhoneNumber = {
   restNumber: Scalars['String']['output'];
 };
 
+export enum ProviderType {
+  Association = 'ASSOCIATION',
+  ContractSchool = 'CONTRACT_SCHOOL',
+  Municipality = 'MUNICIPALITY',
+  OtherProductionMethod = 'OTHER_PRODUCTION_METHOD',
+  PaymentCommitment = 'PAYMENT_COMMITMENT',
+  PrivateCompany = 'PRIVATE_COMPANY',
+  PurchasedService = 'PURCHASED_SERVICE',
+  SelfProduced = 'SELF_PRODUCED',
+  SupportedOperations = 'SUPPORTED_OPERATIONS',
+  UnknownProductionMethod = 'UNKNOWN_PRODUCTION_METHOD',
+  VoucherService = 'VOUCHER_SERVICE'
+}
+
 export type Query = {
   __typename?: 'Query';
   _service: _Service;
@@ -650,27 +703,28 @@ export type QueryOntologyWordsArgs = {
 
 
 export type QueryUnifiedSearchArgs = {
-  administrativeDivisionId?: InputMaybe<Scalars['ID']['input']>;
   administrativeDivisionIds?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
   after?: InputMaybe<Scalars['String']['input']>;
-  before?: InputMaybe<Scalars['String']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
-  index?: InputMaybe<Scalars['String']['input']>;
+  index?: InputMaybe<UnifiedSearchIndex>;
   languages?: Array<UnifiedSearchLanguage>;
-  last?: InputMaybe<Scalars['Int']['input']>;
+  mustHaveReservableResource?: InputMaybe<Scalars['Boolean']['input']>;
   ontology?: InputMaybe<Scalars['String']['input']>;
-  ontologyTreeId?: InputMaybe<Scalars['ID']['input']>;
-  ontologyTreeIds?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
-  ontologyWordIds?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  ontologyTreeIdOrSets?: InputMaybe<Array<Array<Scalars['ID']['input']>>>;
+  ontologyWordIdOrSets?: InputMaybe<Array<Array<Scalars['ID']['input']>>>;
   openAt?: InputMaybe<Scalars['String']['input']>;
+  orderByAccessibilityProfile?: InputMaybe<AccessibilityProfile>;
   orderByDistance?: InputMaybe<OrderByDistance>;
   orderByName?: InputMaybe<OrderByName>;
-  q?: InputMaybe<Scalars['String']['input']>;
+  providerTypes?: InputMaybe<Array<InputMaybe<ProviderType>>>;
+  serviceOwnerTypes?: InputMaybe<Array<InputMaybe<ServiceOwnerType>>>;
+  targetGroups?: InputMaybe<Array<InputMaybe<TargetGroup>>>;
+  text?: InputMaybe<Scalars['String']['input']>;
 };
 
 
 export type QueryUnifiedSearchCompletionSuggestionsArgs = {
-  index?: InputMaybe<Scalars['String']['input']>;
+  index?: InputMaybe<UnifiedSearchIndex>;
   languages?: Array<UnifiedSearchLanguage>;
   prefix?: InputMaybe<Scalars['String']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
@@ -681,11 +735,17 @@ export type RawJson = {
   data?: Maybe<Scalars['String']['output']>;
 };
 
+export type Reservation = {
+  __typename?: 'Reservation';
+  externalReservationUrl?: Maybe<LanguageString>;
+  reservable?: Maybe<Scalars['Boolean']['output']>;
+};
+
 export type SearchResultConnection = {
   __typename?: 'SearchResultConnection';
   count?: Maybe<Scalars['Int']['output']>;
   edges: Array<SearchResultEdge>;
-  /**  Elasticsearch raw results  */
+  /** Elasticsearch raw results */
   es_results?: Maybe<Array<Maybe<ElasticSearchResult>>>;
   max_score?: Maybe<Scalars['Float']['output']>;
   pageInfo?: Maybe<SearchResultPageInfo>;
@@ -703,7 +763,7 @@ export type SearchResultNode = {
   event?: Maybe<Event>;
   id: Scalars['ID']['output'];
   searchCategories: Array<UnifiedSearchResultCategory>;
-  venue?: Maybe<Venue>;
+  venue?: Maybe<UnifiedSearchVenue>;
 };
 
 export type SearchResultPageInfo = {
@@ -718,6 +778,31 @@ export type SearchSuggestionConnection = {
   __typename?: 'SearchSuggestionConnection';
   suggestions: Array<Maybe<Suggestion>>;
 };
+
+export type ServiceOwner = {
+  __typename?: 'ServiceOwner';
+  name?: Maybe<LanguageString>;
+  providerType?: Maybe<ProviderType>;
+  type?: Maybe<ServiceOwnerType>;
+};
+
+export enum ServiceOwnerType {
+  MunicipalService = 'MUNICIPAL_SERVICE',
+  NotDisplayed = 'NOT_DISPLAYED',
+  PrivateContractSchool = 'PRIVATE_CONTRACT_SCHOOL',
+  PrivateService = 'PRIVATE_SERVICE',
+  PurchasedService = 'PURCHASED_SERVICE',
+  ServiceByJointMunicipalAuthority = 'SERVICE_BY_JOINT_MUNICIPAL_AUTHORITY',
+  ServiceByMunicipallyOwnedCompany = 'SERVICE_BY_MUNICIPALLY_OWNED_COMPANY',
+  ServiceByMunicipalGroupEntity = 'SERVICE_BY_MUNICIPAL_GROUP_ENTITY',
+  ServiceByOtherMunicipality = 'SERVICE_BY_OTHER_MUNICIPALITY',
+  ServiceByRegionalCooperationOrganization = 'SERVICE_BY_REGIONAL_COOPERATION_ORGANIZATION',
+  ServiceByWellbeingArea = 'SERVICE_BY_WELLBEING_AREA',
+  StateContractSchool = 'STATE_CONTRACT_SCHOOL',
+  StateService = 'STATE_SERVICE',
+  SupportedOperations = 'SUPPORTED_OPERATIONS',
+  VoucherService = 'VOUCHER_SERVICE'
+}
 
 export type Shards = {
   __typename?: 'Shards';
@@ -746,6 +831,17 @@ export type Suggestion = {
   label: Scalars['String']['output'];
 };
 
+export enum TargetGroup {
+  Associations = 'ASSOCIATIONS',
+  ChildrenAndFamilies = 'CHILDREN_AND_FAMILIES',
+  Disabled = 'DISABLED',
+  ElderlyPeople = 'ELDERLY_PEOPLE',
+  Enterprises = 'ENTERPRISES',
+  Immigrants = 'IMMIGRANTS',
+  Individuals = 'INDIVIDUALS',
+  Youth = 'YOUTH'
+}
+
 /** any kind of description answering the question "when". */
 export type TimeDescription = {
   __typename?: 'TimeDescription';
@@ -753,6 +849,15 @@ export type TimeDescription = {
   otherTime?: Maybe<TimeDescription>;
   starting?: Maybe<Scalars['DateTime']['output']>;
 };
+
+export enum UnifiedSearchIndex {
+  AdministrativeDivision = 'administrative_division',
+  Event = 'event',
+  HelsinkiCommonAdministrativeDivision = 'helsinki_common_administrative_division',
+  Location = 'location',
+  OntologyTree = 'ontology_tree',
+  OntologyWord = 'ontology_word'
+}
 
 export enum UnifiedSearchLanguage {
   English = 'ENGLISH',
@@ -780,9 +885,11 @@ export enum UnifiedSearchResultCategory {
  * respa unit or resource, service map unit, beta.kultus venue, linked
  * events place, Kukkuu venue
  */
-export type Venue = {
-  __typename?: 'Venue';
-  accessibilityProfile?: Maybe<AccessibilityProfile>;
+export type UnifiedSearchVenue = {
+  __typename?: 'UnifiedSearchVenue';
+  accessibility?: Maybe<Accessibility>;
+  /** Accessibility shortcoming for a specific accessibility profile. */
+  accessibilityShortcomingFor?: Maybe<AccessibilityShortcoming>;
   additionalInfo?: Maybe<Scalars['String']['output']>;
   arrivalInstructions?: Maybe<Scalars['String']['output']>;
   contactDetails?: Maybe<ContactInfo>;
@@ -796,8 +903,20 @@ export type Venue = {
   name?: Maybe<LanguageString>;
   ontologyWords?: Maybe<Array<Maybe<OntologyWord>>>;
   openingHours?: Maybe<OpeningHours>;
-  partOf?: Maybe<Venue>;
-  reservationPolicy?: Maybe<VenueReservationPolicy>;
+  partOf?: Maybe<UnifiedSearchVenue>;
+  reservation?: Maybe<Reservation>;
+  serviceOwner?: Maybe<ServiceOwner>;
+  targetGroups?: Maybe<Array<Maybe<TargetGroup>>>;
+};
+
+
+/**
+ * A place that forms a unit and can be used for some specific purpose -
+ * respa unit or resource, service map unit, beta.kultus venue, linked
+ * events place, Kukkuu venue
+ */
+export type UnifiedSearchVenueAccessibilityShortcomingForArgs = {
+  profile?: InputMaybe<AccessibilityProfile>;
 };
 
 /** TODO: combine beta.kultus Venue stuff with respa equipment type */
@@ -806,12 +925,6 @@ export type VenueFacility = {
   categories?: Maybe<Array<KeywordString>>;
   meta?: Maybe<NodeMeta>;
   name: Scalars['String']['output'];
-};
-
-/** TODO: this comes from respa resource/unit types */
-export type VenueReservationPolicy = {
-  __typename?: 'VenueReservationPolicy';
-  todo?: Maybe<Scalars['String']['output']>;
 };
 
 export type _Service = {
