@@ -1,4 +1,4 @@
-import { Navigation, IconGlobe } from 'hds-react';
+import { IconGlobe } from 'hds-react';
 import NextLink, { LinkProps } from 'next/link';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
@@ -76,7 +76,7 @@ const Header: React.FC = () => {
 
   return (
     <div>
-      <Navigation
+      {/* <Navigation
         menuOpen={menuOpen}
         onMenuToggle={toggleMenu}
         menuToggleAriaLabel={t('header:menuToggleAriaLabel')}
@@ -166,7 +166,7 @@ const Header: React.FC = () => {
             })}
           </Navigation.LanguageSelector>
         </Navigation.Actions>
-      </Navigation>
+      </Navigation> */}
       <HeaderNotification />
     </div>
   );

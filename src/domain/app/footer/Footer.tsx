@@ -21,6 +21,7 @@ const FooterSection = (): React.ReactElement => {
       <Footer.Base
         copyrightHolder={t('footer:copyrightText')}
         copyrightText={t('footer:allRightsReservedText')}
+        logo={<>Kultus</>}
       >
         {!loading &&
           data?.menu?.menuItems?.nodes?.map((navigationItem) => {
@@ -30,12 +31,12 @@ const FooterSection = (): React.ReactElement => {
                 ? `/${locale}${navigationItem?.connectedNode.node.link}`
                 : navigationItem?.path;
             return (
-              <Footer.Item
+              <Footer.Link
                 className={styles.footerLink}
                 key={navigationItem?.id}
                 as={Link}
                 href={href || ''}
-                label={navigationItem?.label}
+                label={navigationItem?.label ?? undefined}
               />
             );
           })}

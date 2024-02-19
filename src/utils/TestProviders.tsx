@@ -7,6 +7,7 @@ import {
   ConfigProvider as RHHCConfigProvider,
   defaultConfig as rhhcDefaultConfig,
   Config as RHHCConfig,
+  LanguageCodeEnum,
 } from 'react-helsinki-headless-cms';
 import { Provider } from 'react-redux';
 
@@ -89,7 +90,7 @@ function getRHHCConfig(apolloClient: ApolloClient<object>) {
       openInNewTabAriaLabel: 'Avautuu uudessa välilehdessä.',
       openInExternalDomainAriaLabel: 'Avautuu uudella sivustolla.',
     },
-    currentLanguageCode: 'fi',
+    currentLanguageCode: 'fi' as LanguageCodeEnum,
     apolloClient,
   } as RHHCConfig;
 }
