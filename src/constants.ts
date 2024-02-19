@@ -62,4 +62,16 @@ export const DEFAULT_FOOTER_MENU_NAME: Record<SUPPORTED_LANGUAGES, string> = {
     'Palvelutarjotin-UI Footer (SV)',
 };
 
+export const DEFAULT_HEADER_MENU_NAME: Record<SUPPORTED_LANGUAGES, string> = {
+  fi:
+    process.env.NEXT_PUBLIC_CMS_HEADER_MENU_NAME_FI ??
+    'Palvelutarjotin all UIs Header (FI)',
+  en:
+    process.env.NEXT_PUBLIC_CMS_HEADER_MENU_NAME_EN ??
+    'Palvelutarjotin all UIs Header (EN)',
+  sv:
+    process.env.NEXT_PUBLIC_CMS_HEADER_MENU_NAME_SV ??
+    'Palvelutarjotin all UIs Header (SV)',
+};
+
 export const TOAST_AUTO_CLOSE_DURATION_MS = 10_000;

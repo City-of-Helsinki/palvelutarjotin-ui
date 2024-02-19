@@ -1,46 +1,47 @@
-//import { Navigation, IconGlobe } from 'hds-react';
-import NextLink, { LinkProps } from 'next/link';
 import { useRouter } from 'next/router';
-import { useTranslation } from 'next-i18next';
-import React from 'react';
+import React, { useCallback } from 'react';
 
-import styles from './header.module.scss';
-import HeaderNotification from './HeaderNotification';
-import { SUPPORTED_LANGUAGES } from '../../../constants';
-import {
-  MenuNodeIdTypeEnum,
-  CmsMenuPageFieldsFragment,
-  PageIdType,
-  useMenuQuery,
-  usePageQuery,
-} from '../../../generated/graphql-cms';
+import { PageIdType, usePageQuery } from '../../../generated/graphql-cms';
 import { useCMSClient } from '../../../headless-cms/cmsApolloContext';
-import { MENU_NAME } from '../../../headless-cms/constants';
 import { stripLocaleFromUri } from '../../../headless-cms/utils';
 import useLocale from '../../../hooks/useLocale';
-import { OptionType } from '../../../types';
 import { isFeatureEnabled } from '../../../utils/featureFlags';
 import { skipFalsyType } from '../../../utils/typescript.utils';
-import { MAIN_CONTENT_ID } from '../layout/PageLayout';
 import { PATHNAMES, ROUTES } from '../routes/constants';
 import { getCmsPagePath } from '../routes/utils';
-import { MenuItem, Navigation } from 'react-helsinki-headless-cms';
-import { useLanguagesQuery } from 'react-helsinki-headless-cms/apollo';
+import {
+  MenuItem,
+  Navigation,
+  Language as RHHCLanguage,
+  LanguageCodeEnum,
+} from 'react-helsinki-headless-cms';
+import {
+  useLanguagesQuery,
+  useMenuQuery,
+} from 'react-helsinki-headless-cms/apollo';
+import { DEFAULT_HEADER_MENU_NAME } from '../../../constants';
+import { ParsedUrlQuery } from 'querystring';
+import stringifyUrlObject from '../../../utils/stringifyUrlObject';
 
 const Header: React.FC = () => {
-  const { t } = useTranslation();
-  const locale = useLocale();
   const router = useRouter();
   const isCmsPage = router.pathname === PATHNAMES.CMS_PAGE;
-
-  const [menuOpen, setMenuOpen] = React.useState(false);
-  const toggleMenu = () => setMenuOpen(!menuOpen);
-  const closeMenu = () => setMenuOpen(false);
 
   const { menu } = useCmsMenuItems();
   const languageOptions = useCmsLanguageOptions({ skip: !isCmsPage });
 
   const languagesQuery = useLanguagesQuery();
+
+  const getCurrentParsedUrlQuery = useCallback(
+    () => ({
+      ...router.query,
+      ...(window
+        ? Object.fromEntries(new URLSearchParams(window.location.search))
+        : {}),
+    }),
+    [router.query]
+  );
+
   const languages = languagesQuery.data?.languages?.filter(skipFalsyType);
 
   const getIsItemActive = (menuItem: MenuItem): boolean => {
@@ -51,9 +52,10 @@ const Header: React.FC = () => {
     );
   };
 
-  const getPathnameForLanguage = (language: any): string => {
-    // const languageCode = language.code ?? LanguageCodeEnum.Fi;
-    return '';
+  const getPathnameForLanguage = (language: RHHCLanguage): string => {
+    const languageCode = language.code ?? LanguageCodeEnum.Fi;
+    console.log(languageCode, isCmsPage);
+    return isCmsPage ? getCmsHref(languageCode) : getOriginHref(languageCode);
   };
 
   const goToPage =
@@ -61,7 +63,6 @@ const Header: React.FC = () => {
     (event?: React.MouseEvent<HTMLAnchorElement> | Event) => {
       event?.preventDefault();
       router.push(pathname);
-      closeMenu();
     };
 
   const getCmsHref = (lang: string) => {
@@ -72,7 +73,24 @@ const Header: React.FC = () => {
     return getCmsPagePath(nav?.uri ? stripLocaleFromUri(nav?.uri) : '');
   };
 
-  const logoLang = locale === 'sv' ? 'sv' : 'fi';
+  const getOriginHref = (language: LanguageCodeEnum): string => {
+    return getLocalizedCmsItemUrl(
+      router.pathname,
+      getCurrentParsedUrlQuery(),
+      language
+    ).toLocaleLowerCase();
+  };
+
+  const getLocalizedCmsItemUrl = (
+    pathname: string,
+    query: ParsedUrlQuery,
+    locale: LanguageCodeEnum
+  ): string => {
+    return `${`/${locale}`}${stringifyUrlObject({
+      query: query,
+      pathname,
+    })}`;
+  };
 
   return (
     <Navigation
@@ -119,21 +137,14 @@ const useCmsMenuItems = () => {
     client: cmsClient,
     skip: !isFeatureEnabled('HEADLESS_CMS') || !locale,
     variables: {
-      id: MENU_NAME.Header,
-      idType: MenuNodeIdTypeEnum.Name,
+      id: DEFAULT_HEADER_MENU_NAME[locale],
+      menuIdentifiersOnly: true,
     },
   });
 
   return {
-    navigationData,
-    cmsMenuLoading,
     menu: navigationData?.menu,
   };
-};
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const isPageNode = (node?: any): node is CmsMenuPageFieldsFragment => {
-  return Boolean(node && 'title' in node);
 };
 
 export default Header;
