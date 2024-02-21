@@ -96,7 +96,6 @@ const mocks: MockedResponse[] = [
       query: EventsDocument,
       variables: {
         include: ['keywords', 'location', 'audience', 'in_language'],
-        keywordAnd: [],
         text: '',
         inLanguage: '',
         location: '',
@@ -285,7 +284,7 @@ test('search form is in advanced state if advanced search parameters are used', 
           variables: {
             ...mocks[0].request.variables,
             text: searchText,
-            keywordAnd: ['categories=kultus%3A13'],
+            keywordOrSet1: ['categories=kultus%3A13'],
           },
         },
       },
@@ -335,7 +334,7 @@ test('renders filter tag when category not found in pre defined list', async () 
           variables: {
             include: ['keywords', 'location', 'audience', 'in_language'],
             text: '',
-            keywordAnd: [categoryId],
+            keywordOrSet1: [categoryId],
             inLanguage: '',
             location: '',
             start: 'now',
