@@ -96,7 +96,7 @@ const mocks: MockedResponse[] = [
       query: EventsDocument,
       variables: {
         include: ['keywords', 'location', 'audience', 'in_language'],
-        keyword: [],
+        keywordAnd: [],
         text: '',
         inLanguage: '',
         location: '',
@@ -222,7 +222,19 @@ test('renders search form and events list with correct information', async () =>
 test('search form is compact state when only text parameter is used', async () => {
   advanceTo(testDate);
   const searchText = 'hakusana';
-  render(<EventsSearchPage />, { mocks, query: { text: searchText } });
+  render(<EventsSearchPage />, {
+    mocks: [
+      {
+        ...mocks[0],
+        request: {
+          ...mocks[0].request,
+          variables: { ...mocks[0].request.variables, text: searchText },
+        },
+      },
+      ...mocks.slice(1),
+    ],
+    query: { text: searchText },
+  });
 
   const textInput = await screen.findByRole('textbox', {
     name: /hae tapahtumia/i,
@@ -235,7 +247,19 @@ test('search form is compact state when only text parameter is used', async () =
 test('search form expands when text input is focused', async () => {
   advanceTo(testDate);
   const searchText = 'hakusana';
-  render(<EventsSearchPage />, { mocks, query: { text: searchText } });
+  render(<EventsSearchPage />, {
+    mocks: [
+      {
+        ...mocks[0],
+        request: {
+          ...mocks[0].request,
+          variables: { ...mocks[0].request.variables, text: searchText },
+        },
+      },
+      ...mocks.slice(1),
+    ],
+    query: { text: searchText },
+  });
 
   const textInput = await screen.findByRole('textbox', {
     name: /hae tapahtumia/i,
@@ -253,7 +277,33 @@ test('search form is in advanced state if advanced search parameters are used', 
   advanceTo(testDate);
   const searchText = 'hakusana';
   render(<EventsSearchPage />, {
-    mocks,
+    mocks: [
+      {
+        ...mocks[0],
+        request: {
+          ...mocks[0].request,
+          variables: {
+            ...mocks[0].request.variables,
+            text: searchText,
+            keywordAnd: ['categories=kultus%3A13'],
+          },
+        },
+      },
+      {
+        request: {
+          query: KeywordDocument,
+          variables: {
+            id: 'categories=kultus%3A13',
+          },
+        },
+        result: {
+          data: {
+            keyword: null,
+          },
+        },
+      },
+      ...mocks.slice(1),
+    ],
     query: { text: searchText, categories: 'categories=kultus%3A13' },
   });
 
@@ -279,6 +329,29 @@ test('renders filter tag when category not found in pre defined list', async () 
   render(<EventsSearchPage />, {
     mocks: [
       ...mocks,
+      {
+        request: {
+          query: EventsDocument,
+          variables: {
+            include: ['keywords', 'location', 'audience', 'in_language'],
+            text: '',
+            keywordAnd: [categoryId],
+            inLanguage: '',
+            location: '',
+            start: 'now',
+            pageSize: 10,
+            sort: 'start_time',
+            end: null,
+            organisationId: '',
+            division: '',
+          },
+        },
+        result: {
+          data: {
+            events: fakeEvents(4, eventMocks),
+          },
+        },
+      },
       {
         request: {
           query: KeywordSetDocument,
@@ -328,7 +401,21 @@ test('renders filter tag when category not found in pre defined list', async () 
 
 test('saves sort state to local storage', async () => {
   advanceTo(testDate);
-  render(<EventsSearchPage />, { mocks });
+  render(<EventsSearchPage />, {
+    mocks: [
+      {
+        ...mocks[0],
+        request: {
+          ...mocks[0].request,
+          variables: {
+            ...mocks[0].request.variables,
+            sort: '-last_modified_time',
+          },
+        },
+      },
+      ...mocks,
+    ],
+  });
   await waitFor(() => {
     expect(screen.getByText(/järjestys/i)).toBeInTheDocument();
   });
