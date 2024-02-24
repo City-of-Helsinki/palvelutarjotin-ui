@@ -1,6 +1,6 @@
 import { NormalizedCacheObject } from '@apollo/client';
 import * as Sentry from '@sentry/browser';
-import { LoadingSpinner } from 'hds-react';
+import LoadingSpinner from '../common/components/loadingSpinner/LoadingSpinner';
 import type { AppProps as NextAppProps } from 'next/app';
 import NextError from 'next/error';
 import Head from 'next/head';
@@ -10,7 +10,6 @@ import { appWithTranslation, SSRConfig, useTranslation } from 'next-i18next';
 import React, { ErrorInfo } from 'react';
 import {
   Config,
-  ModuleItemTypeEnum,
   ConfigProvider as RHHCConfigProvider,
   defaultConfig as rhhcDefaultConfig,
 } from 'react-helsinki-headless-cms';
@@ -29,9 +28,8 @@ import FocusToTop from '../FocusToTop';
 import { useCmsApollo } from '../headless-cms/cmsApolloClient';
 import CMSApolloProvider from '../headless-cms/cmsApolloContext';
 import AppConfig from '../headless-cms/config';
-import { getRoutedInternalHref } from '../headless-cms/utils';
+import { stripLocaleFromUri } from '../headless-cms/utils';
 import useLocale from '../hooks/useLocale';
-import { getCmsPath } from '../utils/getCmsPath';
 import getLanguageCode from '../utils/getCurrentLanguageCode';
 
 const CMS_API_DOMAIN = AppConfig.cmsOrigin;
@@ -111,7 +109,13 @@ const MyApp = ({ Component, pageProps }: AppProps<CustomPageProps>) => {
       utils: {
         ...rhhcDefaultConfig.utils,
         getIsHrefExternal,
-        getRoutedInternalHref,
+        // this does not work anymore with article type as type is never passed to the function in new hcrc implementation
+        getRoutedInternalHref: (link?: string | null) => {
+          console.log(111, link);
+          return `/${locale.toLowerCase()}${getCmsPagePath(
+            stripLocaleFromUri(link ?? '')
+          )}`;
+        },
       },
       internalHrefOrigins: CMS_API_DOMAIN ? [CMS_API_DOMAIN] : [],
       apolloClient: cmsApolloClient,
@@ -139,7 +143,7 @@ const MyApp = ({ Component, pageProps }: AppProps<CustomPageProps>) => {
             <FocusToTop />
             {router.isFallback ? (
               <Center>
-                <LoadingSpinner />
+                <LoadingSpinner isLoading={router.isFallback} />
               </Center>
             ) : pageProps.error ? (
               <NextError

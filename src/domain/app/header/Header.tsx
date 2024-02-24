@@ -26,6 +26,7 @@ import { getCmsPagePath } from '../routes/utils';
 
 const Header: React.FC = () => {
   const router = useRouter();
+  const locale = useLocale();
   const isCmsPage = router.pathname === PATHNAMES.CMS_PAGE;
 
   const { menu } = useCmsMenuItems();
@@ -46,13 +47,17 @@ const Header: React.FC = () => {
   const languages = languagesQuery.data?.languages?.filter(skipFalsyType);
 
   const getIsItemActive = (menuItem: MenuItem): boolean => {
-    const pathWithoutTrailingSlash = (menuItem.path ?? '').replace(/\/$/, '');
     return (
       typeof window !== 'undefined' &&
-      window.location.pathname.includes(getCmsHref(pathWithoutTrailingSlash))
+      window.location.pathname.includes(
+        `/${locale}${getCmsPagePath(
+          stripLocaleFromUri(menuItem.path ?? '')
+        )}`.replace(/\/$/, '')
+      )
     );
   };
 
+  // on language switch item click
   const getPathnameForLanguage = (language: RHHCLanguage): string => {
     const languageCode = language.code ?? LanguageCodeEnum.Fi;
     return isCmsPage ? getCmsHref(languageCode) : getOriginHref(languageCode);
@@ -67,10 +72,11 @@ const Header: React.FC = () => {
 
   const getCmsHref = (lang: string) => {
     const nav = languageOptions?.find((languageOption) => {
-      return languageOption.locale?.toLowerCase() === lang;
+      return languageOption.locale?.toLowerCase() === lang.toLowerCase();
     });
-
-    return getCmsPagePath(nav?.uri ? stripLocaleFromUri(nav?.uri) : '');
+    return `/${lang.toLowerCase()}${getCmsPagePath(
+      stripLocaleFromUri(nav?.uri ?? '')
+    )}`;
   };
 
   const getOriginHref = (language: LanguageCodeEnum): string => {
