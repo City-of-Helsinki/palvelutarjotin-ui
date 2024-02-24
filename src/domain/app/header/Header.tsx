@@ -54,7 +54,6 @@ const Header: React.FC = () => {
 
   const getPathnameForLanguage = (language: RHHCLanguage): string => {
     const languageCode = language.code ?? LanguageCodeEnum.Fi;
-    console.log(languageCode, isCmsPage);
     return isCmsPage ? getCmsHref(languageCode) : getOriginHref(languageCode);
   };
 

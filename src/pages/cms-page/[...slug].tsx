@@ -10,7 +10,11 @@ import {
   GeneralCollectionType,
 } from 'react-helsinki-headless-cms';
 
-import { ALL_I18N_NAMESPACES } from '../../constants';
+import {
+  ALL_I18N_NAMESPACES,
+  DEFAULT_HEADER_MENU_NAME,
+  SUPPORTED_LANGUAGES,
+} from '../../constants';
 import {
   MenuNodeIdTypeEnum,
   PageDocument,
@@ -34,6 +38,7 @@ import {
 } from '../../headless-cms/utils';
 import { Language } from '../../types';
 import { isFeatureEnabled } from '../../utils/featureFlags';
+import useLocale from '../../hooks/useLocale';
 
 const NextCmsPage: NextPage<{
   page: Page;
@@ -124,6 +129,7 @@ export async function getStaticProps(
 
 const getProps = async (context: GetStaticPropsContext) => {
   const cmsClient = createCmsApolloClient();
+  //const locale = useLocale();
 
   // These breadcrumb uris are used to fetch all the parent pages of the current page
   // so that all the childrens of parent page can be figured out and sub page navigations can be formed
@@ -136,7 +142,9 @@ const getProps = async (context: GetStaticPropsContext) => {
   await cmsClient.query<MenuQuery, MenuQueryVariables>({
     query: MenuDocument,
     variables: {
-      id: MENU_NAME.Header,
+      id: DEFAULT_HEADER_MENU_NAME[
+        (context.locale as SUPPORTED_LANGUAGES) ?? SUPPORTED_LANGUAGES.FI
+      ],
       idType: MenuNodeIdTypeEnum.Name,
     },
   });

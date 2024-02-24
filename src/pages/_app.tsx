@@ -10,6 +10,7 @@ import { appWithTranslation, SSRConfig, useTranslation } from 'next-i18next';
 import React, { ErrorInfo } from 'react';
 import {
   Config,
+  ModuleItemTypeEnum,
   ConfigProvider as RHHCConfigProvider,
   defaultConfig as rhhcDefaultConfig,
 } from 'react-helsinki-headless-cms';
@@ -25,13 +26,13 @@ import { store } from '../domain/app/store';
 import CookieConsent from '../domain/cookieConsent/CookieConsent';
 import MatomoTracker from '../domain/matomo/Matomo';
 import FocusToTop from '../FocusToTop';
-import { LanguageCodeEnum } from '../generated/graphql-cms';
 import { useCmsApollo } from '../headless-cms/cmsApolloClient';
 import CMSApolloProvider from '../headless-cms/cmsApolloContext';
 import AppConfig from '../headless-cms/config';
 import { getRoutedInternalHref } from '../headless-cms/utils';
 import useLocale from '../hooks/useLocale';
 import getLanguageCode from '../utils/getCurrentLanguageCode';
+import { getCmsPath } from '../utils/getCmsPath';
 
 const CMS_API_DOMAIN = AppConfig.cmsOrigin;
 const APP_DOMAIN = AppConfig.origin;
@@ -65,6 +66,7 @@ const MyApp = ({ Component, pageProps }: AppProps<CustomPageProps>) => {
   const locale = useLocale();
   const { t } = useTranslation();
   const cmsApolloClient = useCmsApollo(pageProps.initialApolloState);
+
   const rhhcConfig = React.useMemo(
     (): Config => ({
       ...rhhcDefaultConfig,
