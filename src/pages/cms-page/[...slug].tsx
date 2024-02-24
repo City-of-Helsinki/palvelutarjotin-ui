@@ -29,14 +29,12 @@ import {
 } from '../../generated/graphql-cms';
 import { createCmsApolloClient } from '../../headless-cms/cmsApolloClient';
 import CmsPage from '../../headless-cms/components/CmsPage';
-import { MENU_NAME } from '../../headless-cms/constants';
 import {
   getAllMenuPages,
   getSlugFromUri,
   getUriID,
   slugsToUriSegments,
 } from '../../headless-cms/utils';
-import useLocale from '../../hooks/useLocale';
 import { Language } from '../../types';
 import { isFeatureEnabled } from '../../utils/featureFlags';
 

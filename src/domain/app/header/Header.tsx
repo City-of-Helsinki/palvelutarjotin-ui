@@ -27,6 +27,10 @@ import { getCmsPagePath } from '../routes/utils';
 const Header: React.FC = () => {
   const router = useRouter();
   const locale = useLocale();
+  const localePath =
+    locale !== LanguageCodeEnum.Fi.toLowerCase()
+      ? `/${locale.toLowerCase()}`
+      : '';
   const isCmsPage = router.pathname === PATHNAMES.CMS_PAGE;
 
   const { menu } = useCmsMenuItems();
@@ -50,7 +54,7 @@ const Header: React.FC = () => {
     return (
       typeof window !== 'undefined' &&
       window.location.pathname.includes(
-        `/${locale}${getCmsPagePath(
+        `${localePath}${getCmsPagePath(
           stripLocaleFromUri(menuItem.path ?? '')
         )}`.replace(/\/$/, '')
       )
@@ -60,7 +64,9 @@ const Header: React.FC = () => {
   // on language switch item click
   const getPathnameForLanguage = (language: RHHCLanguage): string => {
     const languageCode = language.code ?? LanguageCodeEnum.Fi;
-    return isCmsPage ? getCmsHref(languageCode) : getOriginHref(languageCode);
+    return isCmsPage
+      ? getCmsHref(languageCode.toLowerCase())
+      : getOriginHref(languageCode);
   };
 
   const goToPage =
@@ -72,11 +78,14 @@ const Header: React.FC = () => {
 
   const getCmsHref = (lang: string) => {
     const nav = languageOptions?.find((languageOption) => {
-      return languageOption.locale?.toLowerCase() === lang.toLowerCase();
+      return languageOption.locale?.toLowerCase() === lang;
     });
-    return `/${lang.toLowerCase()}${getCmsPagePath(
-      stripLocaleFromUri(nav?.uri ?? '')
-    )}`;
+
+    // if no translated url found, redirect to root
+    if (!nav) {
+      return `/${lang}`;
+    }
+    return `/${lang}${getCmsPagePath(stripLocaleFromUri(nav?.uri ?? ''))}`;
   };
 
   const getOriginHref = (language: LanguageCodeEnum): string => {
@@ -92,7 +101,9 @@ const Header: React.FC = () => {
     query: ParsedUrlQuery,
     locale: LanguageCodeEnum
   ): string => {
-    return `${`/${locale}`}${stringifyUrlObject({
+    const path =
+      locale !== LanguageCodeEnum.Fi ? `/${locale.toLowerCase()}` : '';
+    return `${path}${stringifyUrlObject({
       query: query,
       pathname,
     })}`;
