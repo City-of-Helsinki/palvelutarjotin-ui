@@ -150,6 +150,11 @@ export function getRoutedInternalHref(
     return getCmsPagePath(link);
   }
   return link ?? '#';
+
+  /*const getRoutedInternalHref = (
+    link?: string | null,
+    type?: ModuleItemTypeEnum
+  ): string => getCmsPath(link ?? '');*/
 }
 
 /**
