@@ -36,9 +36,9 @@ import {
   getUriID,
   slugsToUriSegments,
 } from '../../headless-cms/utils';
+import useLocale from '../../hooks/useLocale';
 import { Language } from '../../types';
 import { isFeatureEnabled } from '../../utils/featureFlags';
-import useLocale from '../../hooks/useLocale';
 
 const NextCmsPage: NextPage<{
   page: Page;
