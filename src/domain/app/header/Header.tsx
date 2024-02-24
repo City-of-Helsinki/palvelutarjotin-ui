@@ -1,14 +1,7 @@
+import { ParsedUrlQuery } from 'querystring';
+
 import { useRouter } from 'next/router';
 import React, { useCallback } from 'react';
-
-import { PageIdType, usePageQuery } from '../../../generated/graphql-cms';
-import { useCMSClient } from '../../../headless-cms/cmsApolloContext';
-import { stripLocaleFromUri } from '../../../headless-cms/utils';
-import useLocale from '../../../hooks/useLocale';
-import { isFeatureEnabled } from '../../../utils/featureFlags';
-import { skipFalsyType } from '../../../utils/typescript.utils';
-import { PATHNAMES, ROUTES } from '../routes/constants';
-import { getCmsPagePath } from '../routes/utils';
 import {
   MenuItem,
   Navigation,
@@ -19,9 +12,17 @@ import {
   useLanguagesQuery,
   useMenuQuery,
 } from 'react-helsinki-headless-cms/apollo';
+
 import { DEFAULT_HEADER_MENU_NAME } from '../../../constants';
-import { ParsedUrlQuery } from 'querystring';
+import { PageIdType, usePageQuery } from '../../../generated/graphql-cms';
+import { useCMSClient } from '../../../headless-cms/cmsApolloContext';
+import { stripLocaleFromUri } from '../../../headless-cms/utils';
+import useLocale from '../../../hooks/useLocale';
+import { isFeatureEnabled } from '../../../utils/featureFlags';
 import stringifyUrlObject from '../../../utils/stringifyUrlObject';
+import { skipFalsyType } from '../../../utils/typescript.utils';
+import { PATHNAMES, ROUTES } from '../routes/constants';
+import { getCmsPagePath } from '../routes/utils';
 
 const Header: React.FC = () => {
   const router = useRouter();

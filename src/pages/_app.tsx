@@ -31,8 +31,8 @@ import CMSApolloProvider from '../headless-cms/cmsApolloContext';
 import AppConfig from '../headless-cms/config';
 import { getRoutedInternalHref } from '../headless-cms/utils';
 import useLocale from '../hooks/useLocale';
-import getLanguageCode from '../utils/getCurrentLanguageCode';
 import { getCmsPath } from '../utils/getCmsPath';
+import getLanguageCode from '../utils/getCurrentLanguageCode';
 
 const CMS_API_DOMAIN = AppConfig.cmsOrigin;
 const APP_DOMAIN = AppConfig.origin;
