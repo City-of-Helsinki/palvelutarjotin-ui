@@ -57,7 +57,7 @@
     "react-content-loader": "^6.2.1",
     "react-dom": "^18.2.0",
     "react-i18next": "^12.3.1",
-    "react-helsinki-headless-cms": "1.0.0-alpha255",
+    "react-helsinki-headless-cms": "1.0.0-alpha257",
     "react-redux": "^8.0.5",
     "react-table": "^7.8.0",
     "react-toastify": "^9.1.3",

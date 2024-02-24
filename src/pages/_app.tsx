@@ -10,6 +10,7 @@ import { appWithTranslation, SSRConfig, useTranslation } from 'next-i18next';
 import React, { ErrorInfo } from 'react';
 import {
   Config,
+  LanguageCodeEnum,
   ConfigProvider as RHHCConfigProvider,
   defaultConfig as rhhcDefaultConfig,
 } from 'react-helsinki-headless-cms';
@@ -111,10 +112,14 @@ const MyApp = ({ Component, pageProps }: AppProps<CustomPageProps>) => {
         getIsHrefExternal,
         // this does not work anymore with article type as type is never passed to the function in new hcrc implementation
         getRoutedInternalHref: (link?: string | null) => {
-          console.log(111, link);
-          return `/${locale.toLowerCase()}${getCmsPagePath(
+          // menu nav items, not breadcrumb
+          const localePath =
+            locale !== LanguageCodeEnum.Fi.toLowerCase()
+              ? `/${locale.toLowerCase()}`
+              : '';
+          return `${localePath}${getCmsPagePath(
             stripLocaleFromUri(link ?? '')
-          )}`;
+          )}`.replace(/\/$/, '');
         },
       },
       internalHrefOrigins: CMS_API_DOMAIN ? [CMS_API_DOMAIN] : [],
