@@ -1,6 +1,5 @@
 import { NormalizedCacheObject } from '@apollo/client';
 import * as Sentry from '@sentry/browser';
-import LoadingSpinner from '../common/components/loadingSpinner/LoadingSpinner';
 import type { AppProps as NextAppProps } from 'next/app';
 import NextError from 'next/error';
 import Head from 'next/head';
@@ -18,6 +17,7 @@ import { Provider } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
 
 import nextI18nextConfig from '../../next-i18next.config';
+import LoadingSpinner from '../common/components/loadingSpinner/LoadingSpinner';
 import '../assets/styles/main.scss';
 import CmsPageLayout from '../domain/app/layout/CmsPageLayout';
 import PageLayout from '../domain/app/layout/PageLayout';
@@ -110,7 +110,8 @@ const MyApp = ({ Component, pageProps }: AppProps<CustomPageProps>) => {
       utils: {
         ...rhhcDefaultConfig.utils,
         getIsHrefExternal,
-        // this does not work anymore with article type as type is never passed to the function in new hcrc implementation
+        // this does not work anymore with
+        // article type as type is never passed to the function in new hcrc implementation
         getRoutedInternalHref: (link?: string | null) => {
           // menu nav items, not breadcrumb
           const localePath =
@@ -125,7 +126,7 @@ const MyApp = ({ Component, pageProps }: AppProps<CustomPageProps>) => {
       internalHrefOrigins: CMS_API_DOMAIN ? [CMS_API_DOMAIN] : [],
       apolloClient: cmsApolloClient,
     }),
-    [t, cmsApolloClient]
+    [t, cmsApolloClient, locale]
   );
   React.useEffect(() => {
     const html = document.querySelector('html');

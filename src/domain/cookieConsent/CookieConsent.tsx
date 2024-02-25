@@ -129,7 +129,7 @@ const CookieConsent: React.FC<Props> = ({ appName, allowLanguageSwitch }) => {
       },
       focusTargetSelector: MAIN_CONTENT_ID,
     }),
-    [t, language, appName, onLanguageChange]
+    [t, language, appName, onLanguageChange, handleMatomoUpdate]
   );
 
   if (!showCookieConsentModal) return null;
