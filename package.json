@@ -8,7 +8,7 @@
     "dev": "next dev",
     "build": "next build",
     "build-fast": "cross-env NEXTJS_IGNORE_TYPECHECK=1 NEXTJS_IGNORE_ESLINT=1 NEXTJS_DISABLE_SENTRY=1 NEXTJS_SENTRY_UPLOAD_DRY_RUN=1 next build",
-    "start": "cross-env NODE_ENV=production node src/start.mjs",
+    "start": "next start",
     "lint": "eslint --ext js,ts,tsx src",
     "codegen": "cross-env DOTENV_CONFIG_PATH=\"./.env.local\" graphql-codegen -r dotenv/config --config codegen.yml",
     "format:code": "eslint --ext js,ts,tsx src --fix",
