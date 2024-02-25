@@ -150,7 +150,7 @@ const useCmsLanguageOptions = ({ skip = false }: { skip?: boolean } = {}) => {
 const useCmsMenuItems = () => {
   const locale = useLocale();
   const cmsClient = useCMSClient();
-  const { data: navigationData, loading: cmsMenuLoading } = useMenuQuery({
+  const { data: navigationData } = useMenuQuery({
     client: cmsClient,
     skip: !isFeatureEnabled('HEADLESS_CMS') || !locale,
     variables: {

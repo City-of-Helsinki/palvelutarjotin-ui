@@ -3,9 +3,9 @@ import { useTranslation } from 'next-i18next';
 import React from 'react';
 import { Link } from 'react-helsinki-headless-cms';
 import { useMenuQuery } from 'react-helsinki-headless-cms/apollo';
-import { resetFocusId } from '../../../common/components/resetFocus/ResetFocus';
 
 import styles from './footer.module.scss';
+import { resetFocusId } from '../../../common/components/resetFocus/ResetFocus';
 import { DEFAULT_FOOTER_MENU_NAME } from '../../../constants';
 import useLocale from '../../../hooks/useLocale';
 
