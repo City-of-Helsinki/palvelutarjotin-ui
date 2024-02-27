@@ -8,19 +8,16 @@ import {
   Language as RHHCLanguage,
   LanguageCodeEnum,
 } from 'react-helsinki-headless-cms';
-import {
-  useLanguagesQuery,
-  useMenuQuery,
-} from 'react-helsinki-headless-cms/apollo';
+import { useMenuQuery } from 'react-helsinki-headless-cms/apollo';
 
 import { DEFAULT_HEADER_MENU_NAME } from '../../../constants';
 import { PageIdType, usePageQuery } from '../../../generated/graphql-cms';
 import { useCMSClient } from '../../../headless-cms/cmsApolloContext';
+import { HARDCODED_LANGUAGES } from '../../../headless-cms/constants';
 import { stripLocaleFromUri } from '../../../headless-cms/utils';
 import useLocale from '../../../hooks/useLocale';
 import { isFeatureEnabled } from '../../../utils/featureFlags';
 import stringifyUrlObject from '../../../utils/stringifyUrlObject';
-import { skipFalsyType } from '../../../utils/typescript.utils';
 import { PATHNAMES, ROUTES } from '../routes/constants';
 import { getCmsPagePath } from '../routes/utils';
 
@@ -36,8 +33,6 @@ const Header: React.FC = () => {
   const { menu } = useCmsMenuItems();
   const languageOptions = useCmsLanguageOptions({ skip: !isCmsPage });
 
-  const languagesQuery = useLanguagesQuery();
-
   const getCurrentParsedUrlQuery = useCallback(
     () => ({
       ...router.query,
@@ -47,8 +42,6 @@ const Header: React.FC = () => {
     }),
     [router.query]
   );
-
-  const languages = languagesQuery.data?.languages?.filter(skipFalsyType);
 
   const getIsItemActive = (menuItem: MenuItem): boolean => {
     return (
@@ -101,8 +94,7 @@ const Header: React.FC = () => {
     query: ParsedUrlQuery,
     locale: LanguageCodeEnum
   ): string => {
-    const path =
-      locale !== LanguageCodeEnum.Fi ? `/${locale.toLowerCase()}` : '';
+    const path = `/${locale.toLowerCase()}`;
     return `${path}${stringifyUrlObject({
       query: query,
       pathname,
@@ -111,7 +103,7 @@ const Header: React.FC = () => {
 
   return (
     <Navigation
-      languages={languages}
+      languages={HARDCODED_LANGUAGES}
       menu={menu}
       onTitleClick={goToPage(ROUTES.HOME)}
       getIsItemActive={getIsItemActive}

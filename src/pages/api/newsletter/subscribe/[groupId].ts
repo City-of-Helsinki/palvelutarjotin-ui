@@ -35,8 +35,6 @@ const NewsletterEndpoint = async (
     Unsubscribing (also via a POST -method) from the newsletter is done via Gruppo's own email templates.
     The details needs to be fetched (via a GET -method) when deciding, 
     whether to show or not to show the unsubscribe and account deletion links
-    
-    When the available methods changes, they also need to be activated from the routes of server.mjs -file.
   */
 
   switch (method) {
