@@ -73,6 +73,9 @@ export const QUERY_EVENTS = gql`
     $inLanguage: String
     $isFree: Boolean
     $keyword: [String]
+    $keywordOrSet1: [String]
+    $keywordOrSet2: [String]
+    $keywordOrSet3: [String]
     $keywordNot: [String]
     $language: String
     $location: String
@@ -95,6 +98,9 @@ export const QUERY_EVENTS = gql`
       inLanguage: $inLanguage
       isFree: $isFree
       keyword: $keyword
+      keywordOrSet1: $keywordOrSet1
+      keywordOrSet2: $keywordOrSet2
+      keywordOrSet3: $keywordOrSet3
       keywordNot: $keywordNot
       language: $language
       location: $location
