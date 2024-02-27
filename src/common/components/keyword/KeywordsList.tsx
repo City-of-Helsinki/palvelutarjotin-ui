@@ -32,8 +32,8 @@ const KeywordsList: React.FC<KeywordsListProps> = ({
 
   return (
     <ul className={styles.keywordsList}>
-      {keywordsPropArr.map((k) => (
-        <li key={k.id}>
+      {keywordsPropArr.map((k, i) => (
+        <li key={`${i}-${k.id}`}>
           <Keyword
             href={{ pathname: ROUTES.EVENTS_SEARCH, query: k.query }}
             keyword={k.label}
