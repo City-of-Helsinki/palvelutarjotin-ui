@@ -2181,6 +2181,9 @@ export type EventsQueryVariables = Exact<{
   isFree?: InputMaybe<Scalars['Boolean']['input']>;
   keyword?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>> | InputMaybe<Scalars['String']['input']>>;
   keywordAnd?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>> | InputMaybe<Scalars['String']['input']>>;
+  keywordOrSet1?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>> | InputMaybe<Scalars['String']['input']>>;
+  keywordOrSet2?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>> | InputMaybe<Scalars['String']['input']>>;
+  keywordOrSet3?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>> | InputMaybe<Scalars['String']['input']>>;
   keywordNot?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>> | InputMaybe<Scalars['String']['input']>>;
   language?: InputMaybe<Scalars['String']['input']>;
   location?: InputMaybe<Scalars['String']['input']>;
@@ -2818,7 +2821,7 @@ export type EnrolEventQueueMutationHookResult = ReturnType<typeof useEnrolEventQ
 export type EnrolEventQueueMutationResult = Apollo.MutationResult<EnrolEventQueueMutation>;
 export type EnrolEventQueueMutationOptions = Apollo.BaseMutationOptions<EnrolEventQueueMutation, EnrolEventQueueMutationVariables>;
 export const EventsDocument = gql`
-    query Events($division: [String], $allOngoingAnd: [String], $end: String, $include: [String], $inLanguage: String, $isFree: Boolean, $keyword: [String], $keywordAnd: [String], $keywordNot: [String], $language: String, $location: String, $page: Int, $pageSize: Int, $publisher: ID, $sort: String, $start: String, $superEvent: ID, $superEventType: [String], $text: String, $translation: String, $organisationId: String) {
+    query Events($division: [String], $allOngoingAnd: [String], $end: String, $include: [String], $inLanguage: String, $isFree: Boolean, $keyword: [String], $keywordAnd: [String], $keywordOrSet1: [String], $keywordOrSet2: [String], $keywordOrSet3: [String], $keywordNot: [String], $language: String, $location: String, $page: Int, $pageSize: Int, $publisher: ID, $sort: String, $start: String, $superEvent: ID, $superEventType: [String], $text: String, $translation: String, $organisationId: String) {
   events(
     division: $division
     allOngoingAnd: $allOngoingAnd
@@ -2828,6 +2831,9 @@ export const EventsDocument = gql`
     isFree: $isFree
     keyword: $keyword
     keywordAnd: $keywordAnd
+    keywordOrSet1: $keywordOrSet1
+    keywordOrSet2: $keywordOrSet2
+    keywordOrSet3: $keywordOrSet3
     keywordNot: $keywordNot
     language: $language
     location: $location
@@ -2873,6 +2879,9 @@ ${EventsFieldsFragmentDoc}`;
  *      isFree: // value for 'isFree'
  *      keyword: // value for 'keyword'
  *      keywordAnd: // value for 'keywordAnd'
+ *      keywordOrSet1: // value for 'keywordOrSet1'
+ *      keywordOrSet2: // value for 'keywordOrSet2'
+ *      keywordOrSet3: // value for 'keywordOrSet3'
  *      keywordNot: // value for 'keywordNot'
  *      language: // value for 'language'
  *      location: // value for 'location'
