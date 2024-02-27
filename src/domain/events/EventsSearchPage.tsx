@@ -120,14 +120,26 @@ export const useEventsSearch = () => {
     [router.query]
   );
 
-  const { text, division, end, inLanguage, start, keyword, location, isFree } =
-    variables;
+  const {
+    text,
+    division,
+    end,
+    inLanguage,
+    start,
+    keywordOrSet1,
+    keywordOrSet2,
+    keywordOrSet3,
+    location,
+    isFree,
+  } = variables;
 
   const filterActive =
     !!text?.length ||
     !!division?.length ||
     !!inLanguage?.length ||
-    !!keyword?.length ||
+    !!keywordOrSet1?.length ||
+    !!keywordOrSet2?.length ||
+    !!keywordOrSet3?.length ||
     !!location ||
     !!end ||
     !!isFree ||

@@ -89,7 +89,7 @@ export type AddOrganisationMutationInput = {
   clientMutationId?: InputMaybe<Scalars['String']['input']>;
   name: Scalars['String']['input'];
   phoneNumber?: InputMaybe<Scalars['String']['input']>;
-  publisherId?: InputMaybe<Scalars['String']['input']>;
+  publisherId: Scalars['String']['input'];
   type: OrganisationTypeEnum;
 };
 
@@ -880,6 +880,7 @@ export enum NotificationTemplateType {
   OccurrenceEnrolmentSms = 'OCCURRENCE_ENROLMENT_SMS',
   OccurrenceUnenrolment = 'OCCURRENCE_UNENROLMENT',
   OccurrenceUnenrolmentSms = 'OCCURRENCE_UNENROLMENT_SMS',
+  OccurrenceUpcomingSms = 'OCCURRENCE_UPCOMING_SMS',
   PersonMyprofileAccepted = 'PERSON_MYPROFILE_ACCEPTED',
   PersonMyprofileCreation = 'PERSON_MYPROFILE_CREATION'
 }
@@ -1016,7 +1017,7 @@ export type OrganisationNode = Node & {
   /** The ID of the object. */
   id: Scalars['ID']['output'];
   name: Scalars['String']['output'];
-  persons: PersonNodeConnection;
+  persons?: Maybe<PersonNodeConnection>;
   phoneNumber: Scalars['String']['output'];
   publisherId: Scalars['String']['output'];
   type: OrganisationType;
@@ -1508,6 +1509,9 @@ export type QueryEventsArgs = {
   keyword?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   keywordAnd?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   keywordNot?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  keywordOrSet1?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  keywordOrSet2?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  keywordOrSet3?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   language?: InputMaybe<Scalars['String']['input']>;
   location?: InputMaybe<Scalars['String']['input']>;
   nearbyDistance?: InputMaybe<Scalars['Float']['input']>;
@@ -2163,6 +2167,9 @@ export type EventsQueryVariables = Exact<{
   inLanguage?: InputMaybe<Scalars['String']['input']>;
   isFree?: InputMaybe<Scalars['Boolean']['input']>;
   keyword?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>> | InputMaybe<Scalars['String']['input']>>;
+  keywordOrSet1?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>> | InputMaybe<Scalars['String']['input']>>;
+  keywordOrSet2?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>> | InputMaybe<Scalars['String']['input']>>;
+  keywordOrSet3?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>> | InputMaybe<Scalars['String']['input']>>;
   keywordNot?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>> | InputMaybe<Scalars['String']['input']>>;
   language?: InputMaybe<Scalars['String']['input']>;
   location?: InputMaybe<Scalars['String']['input']>;
@@ -2797,7 +2804,7 @@ export type EnrolEventQueueMutationHookResult = ReturnType<typeof useEnrolEventQ
 export type EnrolEventQueueMutationResult = Apollo.MutationResult<EnrolEventQueueMutation>;
 export type EnrolEventQueueMutationOptions = Apollo.BaseMutationOptions<EnrolEventQueueMutation, EnrolEventQueueMutationVariables>;
 export const EventsDocument = gql`
-    query Events($division: [String], $allOngoingAnd: [String], $end: String, $include: [String], $inLanguage: String, $isFree: Boolean, $keyword: [String], $keywordNot: [String], $language: String, $location: String, $page: Int, $pageSize: Int, $publisher: ID, $sort: String, $start: String, $superEvent: ID, $superEventType: [String], $text: String, $translation: String, $organisationId: String) {
+    query Events($division: [String], $allOngoingAnd: [String], $end: String, $include: [String], $inLanguage: String, $isFree: Boolean, $keyword: [String], $keywordOrSet1: [String], $keywordOrSet2: [String], $keywordOrSet3: [String], $keywordNot: [String], $language: String, $location: String, $page: Int, $pageSize: Int, $publisher: ID, $sort: String, $start: String, $superEvent: ID, $superEventType: [String], $text: String, $translation: String, $organisationId: String) {
   events(
     division: $division
     allOngoingAnd: $allOngoingAnd
@@ -2806,6 +2813,9 @@ export const EventsDocument = gql`
     inLanguage: $inLanguage
     isFree: $isFree
     keyword: $keyword
+    keywordOrSet1: $keywordOrSet1
+    keywordOrSet2: $keywordOrSet2
+    keywordOrSet3: $keywordOrSet3
     keywordNot: $keywordNot
     language: $language
     location: $location
@@ -2850,6 +2860,9 @@ ${EventsFieldsFragmentDoc}`;
  *      inLanguage: // value for 'inLanguage'
  *      isFree: // value for 'isFree'
  *      keyword: // value for 'keyword'
+ *      keywordOrSet1: // value for 'keywordOrSet1'
+ *      keywordOrSet2: // value for 'keywordOrSet2'
+ *      keywordOrSet3: // value for 'keywordOrSet3'
  *      keywordNot: // value for 'keywordNot'
  *      language: // value for 'language'
  *      location: // value for 'location'
