@@ -9,6 +9,11 @@ import {
   CollectionType,
   GeneralCollectionType,
 } from 'react-helsinki-headless-cms';
+import {
+  MenuDocument,
+  MenuQuery,
+  MenuQueryVariables,
+} from 'react-helsinki-headless-cms/apollo';
 
 import {
   ALL_I18N_NAMESPACES,
@@ -16,13 +21,9 @@ import {
   SUPPORTED_LANGUAGES,
 } from '../../constants';
 import {
-  MenuNodeIdTypeEnum,
   PageDocument,
   PageQuery,
   PageQueryVariables,
-  MenuDocument,
-  MenuQuery,
-  MenuQueryVariables,
   PageIdType,
   PageFieldsFragment,
   Page,
@@ -143,7 +144,7 @@ const getProps = async (context: GetStaticPropsContext) => {
       id: DEFAULT_HEADER_MENU_NAME[
         (context.locale as SUPPORTED_LANGUAGES) ?? SUPPORTED_LANGUAGES.FI
       ],
-      idType: MenuNodeIdTypeEnum.Name,
+      menuIdentifiersOnly: true,
     },
   });
 
