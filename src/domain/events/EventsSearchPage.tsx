@@ -126,7 +126,9 @@ export const useEventsSearch = () => {
     end,
     inLanguage,
     start,
-    keywordAnd,
+    keywordOrSet1,
+    keywordOrSet2,
+    keywordOrSet3,
     location,
     isFree,
   } = variables;
@@ -135,7 +137,9 @@ export const useEventsSearch = () => {
     !!text?.length ||
     !!division?.length ||
     !!inLanguage?.length ||
-    !!keywordAnd?.length ||
+    !!keywordOrSet1?.length ||
+    !!keywordOrSet2?.length ||
+    !!keywordOrSet3?.length ||
     !!location ||
     !!end ||
     !!isFree ||

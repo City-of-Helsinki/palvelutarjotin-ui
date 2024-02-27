@@ -46,35 +46,50 @@ export const getEventFilterVariables = (
     include: ['keywords', 'location', 'audience', 'in_language'],
     text: search ?? '',
     inLanguage: getTextFromDict(query, 'inLanguage', undefined),
-    keywordAnd: getKeywordsToQuery(query),
     start: getDateString(query.date) || 'now',
     end: getDateString(query.endDate),
     location: getTextFromDict(query, 'places', undefined),
     organisationId: getTextFromDict(query, 'organisation', undefined),
     division: getTextFromDict(query, 'divisions', undefined),
     isFree: query.isFree === 'true' ? true : undefined,
+    ...getKeywordsToQuery(query),
     ...options,
   };
+};
+
+type KeywordOrSetSearchVariablesType = {
+  keywordOrSet1?: string[];
+  keywordOrSet2?: string[];
+  keywordOrSet3?: string[];
 };
 
 const getKeywordsToQuery = (keywords: {
   [KEYWORD_QUERY_PARAMS.CATEGORIES]?: string | string[];
   [KEYWORD_QUERY_PARAMS.TARGET_GROUPS]?: string | string[];
   [KEYWORD_QUERY_PARAMS.ADDITIONAL_CRITERIA]?: string | string[];
-}): string[] => {
+}): KeywordOrSetSearchVariablesType => {
   return [
     keywords[KEYWORD_QUERY_PARAMS.CATEGORIES],
     keywords[KEYWORD_QUERY_PARAMS.TARGET_GROUPS],
     keywords[KEYWORD_QUERY_PARAMS.ADDITIONAL_CRITERIA],
-  ].reduce<string[]>((prev, next) => {
-    if (Array.isArray(next)) {
-      return [...prev, ...next];
-    }
-    if (next) {
-      return [...prev, next];
-    }
-    return prev;
-  }, []);
+  ].reduce<KeywordOrSetSearchVariablesType>(
+    (result, groupKeywords, currentIndex) => {
+      if (Array.isArray(groupKeywords)) {
+        return {
+          ...result,
+          [`keywordOrSet${currentIndex + 1}`]: groupKeywords,
+        };
+      }
+      if (groupKeywords) {
+        return {
+          ...result,
+          [`keywordOrSet${currentIndex + 1}`]: [groupKeywords],
+        };
+      }
+      return result;
+    },
+    {}
+  );
 };
 
 const getDateString = (date?: string | string[]): string | null => {
