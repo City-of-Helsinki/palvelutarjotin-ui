@@ -29,8 +29,13 @@ import FocusToTop from '../FocusToTop';
 import { useCmsApollo } from '../headless-cms/cmsApolloClient';
 import CMSApolloProvider from '../headless-cms/cmsApolloContext';
 import AppConfig from '../headless-cms/config';
+import { HARDCODED_LANGUAGES } from '../headless-cms/constants';
 import { stripLocaleFromUri } from '../headless-cms/utils';
 import useLocale from '../hooks/useLocale';
+import {
+  NavigationProvider,
+  NavigationProviderProps,
+} from '../navigationProvider';
 import getLanguageCode from '../utils/getCurrentLanguageCode';
 
 const CMS_API_DOMAIN = AppConfig.cmsOrigin;
@@ -58,7 +63,8 @@ export type CustomPageProps = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   error: any;
   initialApolloState: NormalizedCacheObject;
-} & SSRConfig;
+} & SSRConfig &
+  NavigationProviderProps;
 
 const MyApp = ({ Component, pageProps }: AppProps<CustomPageProps>) => {
   const router = useRouter();
@@ -135,12 +141,6 @@ const MyApp = ({ Component, pageProps }: AppProps<CustomPageProps>) => {
     }
   }, [locale]);
 
-  const PageLayoutComponent = [getCmsPagePath(''), getCmsArticlePath('')].some(
-    (path) => router.route.startsWith(path)
-  )
-    ? CmsPageLayout
-    : PageLayout;
-
   return (
     <ErrorBoundary>
       <RHHCConfigProvider config={rhhcConfig}>
@@ -157,10 +157,17 @@ const MyApp = ({ Component, pageProps }: AppProps<CustomPageProps>) => {
               />
             ) : (
               <CMSApolloProvider value={cmsApolloClient}>
-                <PageLayoutComponent {...pageProps}>
-                  <Component {...pageProps} />
-                  <CookieConsent appName={t('common:appName')} />
-                </PageLayoutComponent>
+                <NavigationProvider
+                  headerMenu={pageProps.headerMenu}
+                  headerUniversalBarMenu={undefined}
+                  footerMenu={undefined}
+                  languages={HARDCODED_LANGUAGES}
+                >
+                  <PageLayoutProvider {...pageProps}>
+                    <Component {...pageProps} />
+                    <CookieConsent appName={t('common:appName')} />
+                  </PageLayoutProvider>
+                </NavigationProvider>
               </CMSApolloProvider>
             )}
             <ToastContainer position="top-right" />
@@ -169,6 +176,22 @@ const MyApp = ({ Component, pageProps }: AppProps<CustomPageProps>) => {
       </RHHCConfigProvider>
     </ErrorBoundary>
   );
+};
+
+const PageLayoutProvider = ({
+  children,
+  ...pageProps
+}: {
+  children: React.ReactNode;
+}) => {
+  const { route } = useRouter();
+  const PageLayoutComponent = [getCmsPagePath(''), getCmsArticlePath('')].some(
+    (path) => route.startsWith(path)
+  )
+    ? CmsPageLayout
+    : PageLayout;
+
+  return <PageLayoutComponent {...pageProps}>{children}</PageLayoutComponent>;
 };
 
 class ErrorBoundary extends React.Component<{ children?: React.ReactNode }> {

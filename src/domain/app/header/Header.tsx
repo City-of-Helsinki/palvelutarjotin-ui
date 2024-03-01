@@ -13,9 +13,9 @@ import { useMenuQuery } from 'react-helsinki-headless-cms/apollo';
 import { DEFAULT_HEADER_MENU_NAME } from '../../../constants';
 import { PageIdType, usePageQuery } from '../../../generated/graphql-cms';
 import { useCMSClient } from '../../../headless-cms/cmsApolloContext';
-import { HARDCODED_LANGUAGES } from '../../../headless-cms/constants';
 import { stripLocaleFromUri } from '../../../headless-cms/utils';
 import useLocale from '../../../hooks/useLocale';
+import { useNavigationContext } from '../../../navigationProvider/NavigationContext';
 import { isFeatureEnabled } from '../../../utils/featureFlags';
 import stringifyUrlObject from '../../../utils/stringifyUrlObject';
 import { PATHNAMES, ROUTES } from '../routes/constants';
@@ -29,8 +29,13 @@ const Header: React.FC = () => {
       ? `/${locale.toLowerCase()}`
       : '';
   const isCmsPage = router.pathname === PATHNAMES.CMS_PAGE;
-
-  const { menu } = useCmsMenuItems();
+  const { headerMenu: headerMenuFromContext, languages } =
+    useNavigationContext();
+  const { menu: headerMenu } = useCmsMenuItems({
+    skip: !!headerMenuFromContext,
+  }) ?? {
+    menu: headerMenuFromContext || undefined,
+  };
   const languageOptions = useCmsLanguageOptions({ skip: !isCmsPage });
 
   const getCurrentParsedUrlQuery = useCallback(
@@ -81,14 +86,6 @@ const Header: React.FC = () => {
     return `/${lang}${getCmsPagePath(stripLocaleFromUri(nav?.uri ?? ''))}`;
   };
 
-  const getOriginHref = (language: LanguageCodeEnum): string => {
-    return getLocalizedCmsItemUrl(
-      router.pathname,
-      getCurrentParsedUrlQuery(),
-      language
-    ).toLocaleLowerCase();
-  };
-
   const getLocalizedCmsItemUrl = (
     pathname: string,
     query: ParsedUrlQuery,
@@ -101,10 +98,18 @@ const Header: React.FC = () => {
     })}`;
   };
 
+  const getOriginHref = (language: LanguageCodeEnum): string => {
+    return getLocalizedCmsItemUrl(
+      router.pathname,
+      getCurrentParsedUrlQuery(),
+      language
+    ).toLocaleLowerCase();
+  };
+
   return (
     <Navigation
-      languages={HARDCODED_LANGUAGES}
-      menu={menu}
+      languages={languages}
+      menu={headerMenu}
       onTitleClick={goToPage(ROUTES.HOME)}
       getIsItemActive={getIsItemActive}
       getPathnameForLanguage={getPathnameForLanguage}
@@ -139,12 +144,12 @@ const useCmsLanguageOptions = ({ skip = false }: { skip?: boolean } = {}) => {
     : [];
 };
 
-const useCmsMenuItems = () => {
+export const useCmsMenuItems = ({ skip = false }: { skip?: boolean }) => {
   const locale = useLocale();
   const cmsClient = useCMSClient();
   const { data: navigationData } = useMenuQuery({
     client: cmsClient,
-    skip: !isFeatureEnabled('HEADLESS_CMS') || !locale,
+    skip: skip || !isFeatureEnabled('HEADLESS_CMS') || !locale,
     variables: {
       id: DEFAULT_HEADER_MENU_NAME[locale],
       menuIdentifiersOnly: true,
