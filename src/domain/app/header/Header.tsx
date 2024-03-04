@@ -7,6 +7,7 @@ import {
   Navigation,
   Language as RHHCLanguage,
   LanguageCodeEnum,
+  Menu,
 } from 'react-helsinki-headless-cms';
 import { useMenuQuery } from 'react-helsinki-headless-cms/apollo';
 
@@ -105,6 +106,10 @@ const Header: React.FC = () => {
       language
     ).toLocaleLowerCase();
   };
+
+  // console.log({ headerMenu });
+
+  // return <div>{JSON.stringify(headerMenu)}</div>;
 
   return (
     <Navigation

@@ -30,14 +30,13 @@ import {
 } from '../../generated/graphql-cms';
 import { createCmsApolloClient } from '../../headless-cms/cmsApolloClient';
 import CmsPage from '../../headless-cms/components/CmsPage';
+import { getAllPages } from '../../headless-cms/service';
 import {
-  getAllMenuPages,
   getSlugFromUri,
   getUriID,
   slugsToUriSegments,
 } from '../../headless-cms/utils';
 import { Language } from '../../types';
-import { isFeatureEnabled } from '../../utils/featureFlags';
 
 const NextCmsPage: NextPage<{
   page: Page;
@@ -46,23 +45,28 @@ const NextCmsPage: NextPage<{
 }> = (props) => <CmsPage {...props} />;
 
 export async function getStaticPaths() {
-  const pages = await getAllMenuPages();
-
-  if (isFeatureEnabled('HEADLESS_CMS') && pages?.length) {
+  const cmsClient = createCmsApolloClient();
+  // Do not prerender any static pages when in preview environment
+  // (faster builds, but slower initial page load)
+  if (process.env.SKIP_BUILD_STATIC_GENERATION) {
     return {
-      paths: pages.map((page) => {
-        return {
-          params: {
-            slug: getSlugFromUri(page.uri),
-          },
-          locale: page.locale,
-        };
-      }),
-      fallback: true,
+      paths: [],
+      fallback: 'blocking',
     };
   }
 
-  return { paths: [], fallback: false };
+  const pagePageInfos = await getAllPages(cmsClient);
+  const paths = pagePageInfos
+    .map((pageInfo) => ({
+      params: { slug: getSlugFromUri(pageInfo.uri) },
+      locale: pageInfo.locale,
+    }))
+    // Remove the pages without a slug
+    .filter((entry) => entry.params.slug && entry.params.slug.length);
+  return {
+    paths,
+    fallback: 'blocking',
+  };
 }
 
 type ResultProps =
