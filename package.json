@@ -19,8 +19,7 @@
     "test:staged": "cross-env SASS_PATH=./src/assets/styles jest --findRelatedTests",
     "ci": "jest --verbose --coverage --runInBand",
     "browser-test": "testcafe \"chrome --window-size='1920,1080'\" testcafe/e2e/ --live --dev",
-    "browser-test:ci": "testcafe \"chrome:headless --disable-gpu --window-size='1920,1080'\" --screenshots takeOnFails=true,path=report,fullPage=true --video report testcafe/e2e/",
-    "release": "standard-version"
+    "browser-test:ci": "testcafe \"chrome:headless --disable-gpu --window-size='1920,1080'\" --screenshots takeOnFails=true,path=report,fullPage=true --video report testcafe/e2e/"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -125,7 +124,6 @@
     "next-server": "^9.0.5",
     "prettier": "^2.8.8",
     "react-test-renderer": "^18.2.0",
-    "standard-version": "^9.5.0",
     "stylelint": "^15.6.2",
     "stylelint-config-recommended-scss": "^12.0.0",
     "stylelint-config-standard-scss": "^9.0.0",
