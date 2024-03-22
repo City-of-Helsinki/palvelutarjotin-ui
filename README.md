@@ -147,15 +147,26 @@ Note: if storybook is needed, find the deleted files from git log.
 
 (Deploys a new version of Storybook. Storybook is used for development and there's no CI/CD pipeline set up.
 
-To verify deployment, open [https://city-of-helsinki.github.io/palvelutarjotin-ui/](https://city-of-helsinki.github.io/palvelutarjotin-ui/) and check that everything is looking ok.)
+To verify deployment,
+open [https://city-of-helsinki.github.io/palvelutarjotin-ui/](https://city-of-helsinki.github.io/palvelutarjotin-ui/)
+and check that everything is looking ok.)
 
 ## Versioning
 
-This project uses [Standard Version](https://github.com/conventional-changelog/standard-version) with [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/)
+This project uses [Release Please](https://github.com/googleapis/release-please)
+with [Conventional Commits](https://www.conventionalcommits.org/) and
+[Semantic Versioning](https://semver.org/).
 
-To make a new release, run:
+To create a new release, merge changes through a pull request to the master branch
+with commit title starting with:
 
-`yarn release`
+- "feat" (raises minor version in major.minor.patch version number)
+- "fix" (raises patch version in major.minor.patch version number)
+- "feat!" (raises major version in major.minor.patch version number)
+- "fix!" (raises major version in major.minor.patch version number)
+
+And then merge the release-please pull request that should've been created
+by the release-please action having been run in GitHub.
 
 ## Browser tests
 
