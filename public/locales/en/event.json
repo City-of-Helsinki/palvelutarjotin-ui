@@ -65,7 +65,7 @@
     "labelLanguages": "Event languages"
   },
   "shareLinks": {
-    "title": "Jaa tapahtuma"
+    "title": "Share Event"
   },
   "info": {
     "textCalendarLinkDescription": "{{description}} Read more: {{link}}"

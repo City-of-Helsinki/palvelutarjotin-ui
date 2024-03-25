@@ -65,7 +65,7 @@
     "labelLanguages": "Tapahtuman kielet"
   },
   "shareLinks": {
-    "title": "Share Event"
+    "title": "Jaa tapahtuma"
   },
   "info": {
     "textCalendarLinkDescription": "{{description}} Lue lisää: {{link}}"
