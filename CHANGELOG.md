@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.5.0](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/palvelutarjotin-ui-v2.4.1...palvelutarjotin-ui-v2.5.0) (2024-03-25)
+
+
+### Features
+
+* Use keywordAnd-filter in events list query for keywords ([d66806f](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/d66806ff1cb786c0323debc8b7a110f217539ecc))
+
+
+### Bug Fixes
+
+* Fix "Share Event" translation (en & fi translations were swapped) ([f625a55](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/f625a55a87a83ec39814f6ad88b458b3999fb50c))
+* Matomo update logic ([#302](https://github.com/City-of-Helsinki/palvelutarjotin-ui/issues/302)) ([7c48c0f](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/7c48c0f1eddfbbd25533586d016bde4eb006bf72))
+
 ## [2.4.1](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/palvelutarjotin-ui-v2.4.0...palvelutarjotin-ui-v2.4.1) (2023-12-27)
 
 
