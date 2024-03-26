@@ -68,7 +68,20 @@ const PageMeta: React.FC<Props> = ({
           <link key={locale} rel="alternate" hrefLang={locale} href={path} />
         ))}
         <link rel="canonical" href={canonical} />
-        <link rel="icon" href="/favicon.ico" />
+        <link
+          rel="icon"
+          href="/hds-favicon-kit/favicon-32x32.ico"
+          sizes="any"
+        />
+        <link
+          rel="icon"
+          href="/hds-favicon-kit/favicon.svg"
+          type="image/svg+xml"
+        />
+        <link
+          rel="apple-touch-icon"
+          href="/hds-favicon-kit/apple-touch-icon.png"
+        />
       </Head>
     </>
   );

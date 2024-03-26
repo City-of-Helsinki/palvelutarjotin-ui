@@ -6,9 +6,9 @@ import FacebookShareLink from './FacebookShareLink';
 import LinkedInShareLink from './LinkedInShareLink';
 import styles from './shareLinks.module.scss';
 import TwitterShareLink from './TwitterShareLink';
-import IconLink from '../../../icons/IconLink';
 import isClient from '../../../utils/isClient';
 import CopyButton from '../copyButton/CopyButton';
+import { IconLink } from 'hds-react';
 
 export interface ShareLinksProps {
   title: string;

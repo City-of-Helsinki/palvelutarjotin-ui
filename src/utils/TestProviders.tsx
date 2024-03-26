@@ -1,6 +1,6 @@
 import { ApolloClient, useApolloClient } from '@apollo/client';
 import { MockedProvider } from '@apollo/client/testing';
-import { RouterContext } from 'next/dist/shared/lib/router-context';
+import { RouterContext } from 'next/dist/shared/lib/router-context.shared-runtime';
 import { NextRouter } from 'next/router';
 import React from 'react';
 import {
@@ -89,7 +89,7 @@ function getRHHCConfig(apolloClient: ApolloClient<object>) {
       openInNewTabAriaLabel: 'Avautuu uudessa välilehdessä.',
       openInExternalDomainAriaLabel: 'Avautuu uudella sivustolla.',
     },
-    currentLanguageCode: 'fi',
+    currentLanguageCode: 'FI',
     apolloClient,
   } as RHHCConfig;
 }

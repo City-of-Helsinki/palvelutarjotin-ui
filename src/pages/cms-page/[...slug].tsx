@@ -9,23 +9,27 @@ import {
   CollectionType,
   GeneralCollectionType,
 } from 'react-helsinki-headless-cms';
-
-import { ALL_I18N_NAMESPACES } from '../../constants';
 import {
-  MenuNodeIdTypeEnum,
-  PageDocument,
-  PageQuery,
-  PageQueryVariables,
   MenuDocument,
   MenuQuery,
   MenuQueryVariables,
+} from 'react-helsinki-headless-cms/apollo';
+
+import {
+  ALL_I18N_NAMESPACES,
+  DEFAULT_HEADER_MENU_NAME,
+  SUPPORTED_LANGUAGES,
+} from '../../constants';
+import {
+  PageDocument,
+  PageQuery,
+  PageQueryVariables,
   PageIdType,
   PageFieldsFragment,
   Page,
 } from '../../generated/graphql-cms';
 import { createCmsApolloClient } from '../../headless-cms/cmsApolloClient';
 import CmsPage from '../../headless-cms/components/CmsPage';
-import { MENU_NAME } from '../../headless-cms/constants';
 import {
   getAllMenuPages,
   getSlugFromUri,
@@ -124,6 +128,7 @@ export async function getStaticProps(
 
 const getProps = async (context: GetStaticPropsContext) => {
   const cmsClient = createCmsApolloClient();
+  //const locale = useLocale();
 
   // These breadcrumb uris are used to fetch all the parent pages of the current page
   // so that all the childrens of parent page can be figured out and sub page navigations can be formed
@@ -136,8 +141,10 @@ const getProps = async (context: GetStaticPropsContext) => {
   await cmsClient.query<MenuQuery, MenuQueryVariables>({
     query: MenuDocument,
     variables: {
-      id: MENU_NAME.Header,
-      idType: MenuNodeIdTypeEnum.Name,
+      id: DEFAULT_HEADER_MENU_NAME[
+        (context.locale as SUPPORTED_LANGUAGES) ?? SUPPORTED_LANGUAGES.FI
+      ],
+      menuIdentifiersOnly: true,
     },
   });
 

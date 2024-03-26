@@ -24,22 +24,19 @@ exports[`SubscribeNewsletterPage renders correctly 1`] = `
               >
                 Rekisteriselosteet
                 <svg
+                  aria-hidden="true"
+                  aria-label="link-external"
                   class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik privacyStatementIcon"
                   role="img"
                   viewBox="0 0 24 24"
                   xmlns="http://www.w3.org/2000/svg"
                 >
-                  <g
-                    fill="none"
+                  <path
+                    clip-rule="evenodd"
+                    d="M5 3V19H21V21H3V3H5ZM21 3V12H19V6.413L9.91421 15.5L8.5 14.0858L17.585 5H12V3H21Z"
+                    fill="currentColor"
                     fill-rule="evenodd"
-                  >
-                    <path
-                      clip-rule="evenodd"
-                      d="M5 3V19H21V21H3V3H5ZM21 3V12H19V6.413L9.91421 15.5L8.5 14.0858L17.585 5H12V3H21Z"
-                      fill="currentColor"
-                      fill-rule="evenodd"
-                    />
-                  </g>
+                  />
                 </svg>
               </a>
               .
@@ -90,7 +87,7 @@ exports[`SubscribeNewsletterPage renders correctly 1`] = `
                     >
                       <span
                         aria-labelledby="groups-label hds-tag-7-label"
-                        class="Tag-module_label__zCgFr tag_hds-tag__label__I6mc8 SelectedItems-module_tagLabel__3qEgh"
+                        class="Tag-module_label__zCgFr undefined SelectedItems-module_tagLabel__3qEgh"
                         id="hds-tag-7-label"
                       >
                         <span>
@@ -98,31 +95,25 @@ exports[`SubscribeNewsletterPage renders correctly 1`] = `
                         </span>
                       </span>
                       <button
-                        class="Tag-module_deleteButton__1diMR tag_hds-tag__delete-button__33Tgz tag_hds-tag__delete-button__33Tgz"
+                        class="Tag-module_deleteButton__1diMR tag_hds-tag__delete-button__33Tgz"
                         id="hds-tag-7-delete-button"
                         tabindex="-1"
                         type="button"
                       >
                         <svg
                           aria-hidden="true"
+                          aria-label="cross"
                           class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
                           role="img"
                           viewBox="0 0 24 24"
                           xmlns="http://www.w3.org/2000/svg"
                         >
-                          <g
-                            fill="none"
+                          <path
+                            clip-rule="evenodd"
+                            d="M18 7.5L13.5 12L18 16.5L16.5 18L12 13.5L7.5 18L6 16.5L10.5 12L6 7.5L7.5 6L12 10.5L16.5 6L18 7.5Z"
+                            fill="currentColor"
                             fill-rule="evenodd"
-                          >
-                            <rect
-                              height="24"
-                              width="24"
-                            />
-                            <polygon
-                              fill="currentColor"
-                              points="18 7.5 13.5 12 18 16.5 16.5 18 12 13.5 7.5 18 6 16.5 10.5 12 6 7.5 7.5 6 12 10.5 16.5 6"
-                            />
-                          </g>
+                          />
                         </svg>
                       </button>
                     </div>
@@ -134,7 +125,7 @@ exports[`SubscribeNewsletterPage renders correctly 1`] = `
                     >
                       <span
                         aria-labelledby="groups-label hds-tag-8-label"
-                        class="Tag-module_label__zCgFr tag_hds-tag__label__I6mc8 SelectedItems-module_tagLabel__3qEgh"
+                        class="Tag-module_label__zCgFr undefined SelectedItems-module_tagLabel__3qEgh"
                         id="hds-tag-8-label"
                       >
                         <span>
@@ -142,31 +133,25 @@ exports[`SubscribeNewsletterPage renders correctly 1`] = `
                         </span>
                       </span>
                       <button
-                        class="Tag-module_deleteButton__1diMR tag_hds-tag__delete-button__33Tgz tag_hds-tag__delete-button__33Tgz"
+                        class="Tag-module_deleteButton__1diMR tag_hds-tag__delete-button__33Tgz"
                         id="hds-tag-8-delete-button"
                         tabindex="-1"
                         type="button"
                       >
                         <svg
                           aria-hidden="true"
+                          aria-label="cross"
                           class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
                           role="img"
                           viewBox="0 0 24 24"
                           xmlns="http://www.w3.org/2000/svg"
                         >
-                          <g
-                            fill="none"
+                          <path
+                            clip-rule="evenodd"
+                            d="M18 7.5L13.5 12L18 16.5L16.5 18L12 13.5L7.5 18L6 16.5L10.5 12L6 7.5L7.5 6L12 10.5L16.5 6L18 7.5Z"
+                            fill="currentColor"
                             fill-rule="evenodd"
-                          >
-                            <rect
-                              height="24"
-                              width="24"
-                            />
-                            <polygon
-                              fill="currentColor"
-                              points="18 7.5 13.5 12 18 16.5 16.5 18 12 13.5 7.5 18 6 16.5 10.5 12 6 7.5 7.5 6 12 10.5 16.5 6"
-                            />
-                          </g>
+                          />
                         </svg>
                       </button>
                     </div>
@@ -178,7 +163,7 @@ exports[`SubscribeNewsletterPage renders correctly 1`] = `
                     >
                       <span
                         aria-labelledby="groups-label hds-tag-9-label"
-                        class="Tag-module_label__zCgFr tag_hds-tag__label__I6mc8 SelectedItems-module_tagLabel__3qEgh"
+                        class="Tag-module_label__zCgFr undefined SelectedItems-module_tagLabel__3qEgh"
                         id="hds-tag-9-label"
                       >
                         <span>
@@ -186,31 +171,25 @@ exports[`SubscribeNewsletterPage renders correctly 1`] = `
                         </span>
                       </span>
                       <button
-                        class="Tag-module_deleteButton__1diMR tag_hds-tag__delete-button__33Tgz tag_hds-tag__delete-button__33Tgz"
+                        class="Tag-module_deleteButton__1diMR tag_hds-tag__delete-button__33Tgz"
                         id="hds-tag-9-delete-button"
                         tabindex="-1"
                         type="button"
                       >
                         <svg
                           aria-hidden="true"
+                          aria-label="cross"
                           class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
                           role="img"
                           viewBox="0 0 24 24"
                           xmlns="http://www.w3.org/2000/svg"
                         >
-                          <g
-                            fill="none"
+                          <path
+                            clip-rule="evenodd"
+                            d="M18 7.5L13.5 12L18 16.5L16.5 18L12 13.5L7.5 18L6 16.5L10.5 12L6 7.5L7.5 6L12 10.5L16.5 6L18 7.5Z"
+                            fill="currentColor"
                             fill-rule="evenodd"
-                          >
-                            <rect
-                              height="24"
-                              width="24"
-                            />
-                            <polygon
-                              fill="currentColor"
-                              points="18 7.5 13.5 12 18 16.5 16.5 18 12 13.5 7.5 18 6 16.5 10.5 12 6 7.5 7.5 6 12 10.5 16.5 6"
-                            />
-                          </g>
+                          />
                         </svg>
                       </button>
                     </div>
@@ -226,24 +205,19 @@ exports[`SubscribeNewsletterPage renders correctly 1`] = `
                     type="button"
                   >
                     <svg
+                      aria-hidden="true"
+                      aria-label="cross-circle"
                       class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
                       role="img"
                       viewBox="0 0 24 24"
                       xmlns="http://www.w3.org/2000/svg"
                     >
-                      <g
-                        fill="none"
+                      <path
+                        clip-rule="evenodd"
+                        d="M12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2ZM12 4C7.58172 4 4 7.58172 4 12C4 16.4183 7.58172 20 12 20C16.4183 20 20 16.4183 20 12C20 7.58172 16.4183 4 12 4ZM15 7.5L16.5 9L13.5 12L16.5 15L15 16.5L12 13.5L9 16.5L7.5 15L10.5 12L7.5 9L9 7.5L12 10.5L15 7.5Z"
+                        fill="currentColor"
                         fill-rule="evenodd"
-                      >
-                        <rect
-                          height="24"
-                          width="24"
-                        />
-                        <path
-                          d="M12,2 C17.5228475,2 22,6.4771525 22,12 C22,17.5228475 17.5228475,22 12,22 C6.4771525,22 2,17.5228475 2,12 C2,6.4771525 6.4771525,2 12,2 Z M12,4 C7.581722,4 4,7.581722 4,12 C4,16.418278 7.581722,20 12,20 C16.418278,20 20,16.418278 20,12 C20,7.581722 16.418278,4 12,4 Z M15,7.5 L16.5,9 L13.5,12 L16.5,15 L15,16.5 L12,13.5 L9,16.5 L7.5,15 L10.5,12 L7.5,9 L9,7.5 L12,10.5 L15,7.5 Z"
-                          fill="currentColor"
-                        />
-                      </g>
+                      />
                     </svg>
                   </button>
                   <button
@@ -257,23 +231,18 @@ exports[`SubscribeNewsletterPage renders correctly 1`] = `
                   >
                     <svg
                       aria-hidden="true"
+                      aria-label="angle-down"
                       class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik Select-module_angleIcon__2-9AD"
                       role="img"
                       viewBox="0 0 24 24"
                       xmlns="http://www.w3.org/2000/svg"
                     >
-                      <g
-                        fill="none"
+                      <path
+                        clip-rule="evenodd"
+                        d="M12 13.5L17 8.5L18.5 10L12 16.5L5.5 10L7 8.5L12 13.5Z"
+                        fill="currentColor"
                         fill-rule="evenodd"
-                      >
-                        <path
-                          d="M0 0h24v24H0z"
-                        />
-                        <path
-                          d="M12 13.5l5-5 1.5 1.5-6.5 6.5L5.5 10 7 8.5z"
-                          fill="currentColor"
-                        />
-                      </g>
+                      />
                     </svg>
                   </button>
                   <ul

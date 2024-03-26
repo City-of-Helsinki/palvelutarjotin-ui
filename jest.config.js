@@ -32,8 +32,6 @@ module.exports = {
   coveragePathIgnorePatterns: [
     '<rootDir>/src/generated/',
     '<rootDir>/src/pages/',
-    '<rootDir>/src/server.mjs',
-    '<rootDir>/src/start.mjs',
     '<rootDir>/src/domain/app/apollo/configureApollo.tsx',
     '<rootDir>/src/utils/testUtils.ts',
   ],

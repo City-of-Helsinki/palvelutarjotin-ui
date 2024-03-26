@@ -24,7 +24,7 @@ export function getCmsCollectionList(
         withDots: collection.items.length < 4 ? false : true,
       }}
       type="grid"
-      cards={getCollectionCards(collection as GeneralCollectionType).map(
+      cards={getCollectionCards(collection as GeneralCollectionType, []).map(
         (item) => (
           <Card
             key={`card-${item.id}`}
@@ -32,7 +32,7 @@ export function getCmsCollectionList(
             clampText={true}
             withShadow={true}
             hasLink={true}
-            url={getCollectionItemUrl(item)}
+            url={getCollectionItemUrl(item as PageType)}
             // imageLabel={item.featuredImage?.node?.title ?? ''}
             // imageUrl={item.featuredImage?.node?.mediaItemUrl ?? ''}
           />
@@ -42,7 +42,7 @@ export function getCmsCollectionList(
   ));
 }
 
-export function getCollectionItemUrl(item: PageType | ArticleType): string {
+export function getCollectionItemUrl(item?: PageType | ArticleType): string {
   if (!item) {
     return '#';
   }

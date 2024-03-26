@@ -1,4 +1,4 @@
-import { IconTwitter } from 'hds-react';
+import { IconX } from 'hds-react';
 import { useTranslation } from 'next-i18next';
 import React from 'react';
 
@@ -18,7 +18,7 @@ const TwitterShareLink: React.FC<ShareLinkProps> = ({ sharedLink }) => {
       queryParameters={queryParameters}
       windowName={linkLabel}
       linkLabel={linkLabel}
-      icon={<IconTwitter />}
+      icon={<IconX />}
     />
   );
 };

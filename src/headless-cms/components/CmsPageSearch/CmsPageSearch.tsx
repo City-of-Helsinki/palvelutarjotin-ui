@@ -10,10 +10,10 @@ import {
   PageMeta,
   PageMainContent,
   PageType,
+  HtmlToReact,
 } from 'react-helsinki-headless-cms';
 
 import styles from './cmsPageSearch.module.scss';
-import HtmlToReact from '../../../common/components/htmlToReact/HtmlToReact';
 import Container from '../../../domain/app/layout/Container';
 import { getCmsPagePath } from '../../../domain/app/routes/utils';
 import { getEventPlaceholderImage } from '../../../domain/event/utils';
