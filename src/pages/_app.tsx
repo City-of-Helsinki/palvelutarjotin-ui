@@ -87,9 +87,17 @@ const MyApp = ({ Component, pageProps }: AppProps<CustomPageProps>) => {
 
   return (
     <>
+      <Header theme={theme}>
+        <Header.UniversalBar primaryLinkText={'123'} primaryLinkHref="#">
+          <Header.Link href="#uutiset" label={'123'} />
+          <Header.Link href="#uutiset" label={'123'} />
+          <Header.Link href="#uutiset" label={'123'} />
+          <Header.Link href="#uutiset" label={'123'} />
+        </Header.UniversalBar>
+      </Header>
       <Tabs theme={theme2}>
         <Tabs.TabList className="example-tablist">
-          <Tabs.Tab>Daycar1111e</Tabs.Tab>
+          <Tabs.Tab>Daycare</Tabs.Tab>
           <Tabs.Tab>Pre-school</Tabs.Tab>
           <Tabs.Tab>Basic education</Tabs.Tab>
           <Tabs.Tab>Upper secondary</Tabs.Tab>
