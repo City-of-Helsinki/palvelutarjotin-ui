@@ -1,11 +1,25 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
-import { NextPage, NextPageContext } from 'next';
+import { NextPage } from 'next';
+import dynamic from 'next/dynamic';
 import React from 'react';
 
-import withApollo from '../domain/app/apollo/configureApollo';
-import EventsPage from '../domain/events/EventsPage';
-import getLocalizationProps from '../utils/getLocalizationProps';
+const HeaderWrapper = dynamic(
+  () =>
+    import('../temp/temporaryTestComponents').then((mod) => mod.HeaderWrapper),
+  { ssr: false }
+);
 
-const Events: NextPage = () => null;
+const TabsWrapper = dynamic(
+  () =>
+    import('../temp/temporaryTestComponents').then((mod) => mod.TabsWrapper),
+  { ssr: false }
+);
+
+const Events: NextPage = () => (
+  <>
+    <HeaderWrapper />
+    <TabsWrapper />
+  </>
+);
 
 export default Events;

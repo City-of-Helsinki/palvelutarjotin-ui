@@ -22,7 +22,9 @@ const NEXTJS_SENTRY_DEBUG = trueEnv.includes(
 const NEXTJS_SENTRY_TRACING = trueEnv.includes(
   process.env?.NEXTJS_SENTRY_TRACING ?? 'false'
 );
-module.exports = {
+
+/** @type {import('next').NextConfig} */
+const nextConfig = {
   reactStrictMode: true,
   i18n,
   sassOptions: {
@@ -123,3 +125,5 @@ module.exports = {
     return config;
   },
 };
+
+module.exports = nextConfig;
