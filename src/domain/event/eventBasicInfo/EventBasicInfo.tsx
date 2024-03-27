@@ -45,7 +45,7 @@ const EventBasicInfo: React.FC<EventBasicInfoProps> = ({ event }) => {
           text={description}
           className={styles.description}
         />
-        {keywords && <KeywordsList keywords={keywords} />}
+        {keywords && <KeywordsList id="keywords" keywords={keywords} />}
         <EventCategorisation event={event} />
       </div>
       <div className={styles.infoRight}>

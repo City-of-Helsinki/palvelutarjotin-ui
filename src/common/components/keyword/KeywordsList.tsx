@@ -17,11 +17,13 @@ import { Language } from '../../../types';
 import getLocalisedString from '../../../utils/getLocalisedString';
 
 type KeywordsListProps = {
+  id: string;
   keywords: KeywordFieldsFragment[];
   itemType?: 'button' | 'link';
 };
 
 const KeywordsList: React.FC<KeywordsListProps> = ({
+  id,
   keywords,
   itemType = 'link',
 }) => {
@@ -33,7 +35,7 @@ const KeywordsList: React.FC<KeywordsListProps> = ({
   return (
     <ul className={styles.keywordsList}>
       {keywordsPropArr.map((k) => (
-        <li key={k.id}>
+        <li key={`${id}-${k.id}`}>
           <Keyword
             href={{ pathname: ROUTES.EVENTS_SEARCH, query: k.query }}
             keyword={k.label}

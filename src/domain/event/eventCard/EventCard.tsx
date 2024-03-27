@@ -63,7 +63,11 @@ const EventCard: React.FC<Props> = ({ event, link }) => {
             <EventTime event={event} />
             <EventPlaceInfo event={event} />
           </div>
-          <KeywordsList keywords={keywords} itemType="button" />
+          <KeywordsList
+            id={`keywords-${id}`}
+            keywords={keywords}
+            itemType="button"
+          />
         </div>
       </a>
     </NextLink>
