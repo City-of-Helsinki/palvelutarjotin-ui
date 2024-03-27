@@ -32,6 +32,7 @@ import AppConfig from '../headless-cms/config';
 import { stripLocaleFromUri } from '../headless-cms/utils';
 import useLocale from '../hooks/useLocale';
 import getLanguageCode from '../utils/getCurrentLanguageCode';
+import { Header, Tabs } from 'hds-react';
 
 const CMS_API_DOMAIN = AppConfig.cmsOrigin;
 const APP_DOMAIN = AppConfig.origin;
@@ -57,156 +58,53 @@ export type AppProps<P = any> = {
 export type CustomPageProps = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   error: any;
-  initialApolloState: NormalizedCacheObject;
 } & SSRConfig;
 
 const MyApp = ({ Component, pageProps }: AppProps<CustomPageProps>) => {
-  const router = useRouter();
-  const locale = useLocale();
-  const { t } = useTranslation();
-  const cmsApolloClient = useCmsApollo(pageProps.initialApolloState);
+  const theme = {
+    '--color-focus-outline': 'var(--color-metro-dark)',
+    '--header-color': 'var(--color-black)',
+    '--header-max-width': '1220px',
+    '--header-focus-outline-color': 'var(--color-metro-dark)',
+    '--actionbar-background-color': 'var(--color-engel)',
+    '--nav-background-color': 'var(--color-engel-light)',
+    '--nav-mobile-menu-background-color': 'var(--color-engel-light)',
+    '--nav-border-color': 'var(--color-black)',
+    '--nav-link-hover-color': 'var(--color-black)',
+    '--universal-bar-background-color': 'var(--color-black-20)',
+    '--nav-link-dropdown-background-color': 'var(--color-engel-light)',
+    '--nav-button-background-color': 'var(--color-black-20)',
+    '--nav-button-hover-background-color': 'var(--color-black-40)',
+    '--nav-drop-down-icon-color': 'var(--color-black)',
+    '--header-background-color': 'var(--color-engel-light)',
+    '--logo-height': '50px',
+  };
 
-  const rhhcConfig = React.useMemo(
-    (): Config => ({
-      ...rhhcDefaultConfig,
-      siteName: t('common:appName'),
-      currentLanguageCode: getLanguageCode(locale),
-      copy: {
-        breadcrumbNavigationLabel: t(
-          'common:breadcrumb.breadcrumbNavigationLabel'
-        ),
-        breadcrumbListLabel: t('common:breadcrumb.breadcrumbListLabel'),
-        menuToggleAriaLabel: t('common:menu.toggle'),
-        skipToContentLabel: t('common:linkSkipToContent'),
-        openInExternalDomainAriaLabel: t('common:srOnly.opensInAnExternalSite'),
-        openInNewTabAriaLabel: t('common:srOnly.opensInANewTab'),
-        closeButtonLabelText: t('common:button.close'),
-        loadMoreButtonLabelText: t('cms:archiveSearch.searchButtonLabelText'),
-        showAllText: t('common:button.showAll'),
-        archiveSearch: {
-          title: '', // t('cms:archiveSearch.title'),
-          searchTextPlaceholder: t('cms:archiveSearch.searchTextPlaceholder'),
-          searchButtonLabelText: t('cms:archiveSearch.searchButtonLabelText'),
-          loadMoreButtonLabelText: t(
-            'cms:archiveSearch.loadMoreButtonLabelText'
-          ),
-          noResultsText: t('cms:archiveSearch.noResultsText'),
-          noResultsTitle: t('cms:archiveSearch.noResultsTitle'),
-          clearAll: t('cms:archiveSearch.buttonClearFilters'),
-        },
-        next: t('common:button.next'),
-        previous: t('common:button.previous'),
-      },
-      components: {
-        ...rhhcDefaultConfig.components,
-        Head: (props: any) => <Head {...props} />,
-        Link: ({ href, ...props }: any) => (
-          <Link href={href || ''} {...props} />
-        ),
-        EventCardContent: (props: any) => <div>TODO: EventCardContent</div>,
-        ArticleCardContent: (props: any) => <div>TODO: ArticleCardContent</div>,
-        VenueCardContent: (props: any) => <div>TODO: VenueCardContent</div>,
-      },
-      utils: {
-        ...rhhcDefaultConfig.utils,
-        getIsHrefExternal,
-        // this does not work anymore with
-        // article type as type is never passed to the function in new hcrc implementation
-        getRoutedInternalHref: (link?: string | null) => {
-          // menu nav items, not breadcrumb
-          const localePath =
-            locale !== LanguageCodeEnum.Fi.toLowerCase()
-              ? `/${locale.toLowerCase()}`
-              : '';
-          return `${localePath}${getCmsPagePath(
-            stripLocaleFromUri(link ?? '')
-          )}`.replace(/\/$/, '');
-        },
-      },
-      internalHrefOrigins: CMS_API_DOMAIN ? [CMS_API_DOMAIN] : [],
-      apolloClient: cmsApolloClient,
-    }),
-    [t, cmsApolloClient, locale]
-  );
-  React.useEffect(() => {
-    const html = document.querySelector('html');
-    if (html) {
-      html.setAttribute('lang', locale);
-    }
-  }, [locale]);
-
-  const PageLayoutComponent = [getCmsPagePath(''), getCmsArticlePath('')].some(
-    (path) => router.route.startsWith(path)
-  )
-    ? CmsPageLayout
-    : PageLayout;
+  const theme2 = {
+    '--tab-color': 'var(--color-black-90)',
+    '--tab-active-border-color': 'var(--color-metro)',
+  };
 
   return (
-    <ErrorBoundary>
-      <RHHCConfigProvider config={rhhcConfig}>
-        <Provider store={store}>
-          <MatomoTracker>
-            <FocusToTop />
-            {router.isFallback ? (
-              <Center>
-                <LoadingSpinner isLoading={router.isFallback} />
-              </Center>
-            ) : pageProps.error ? (
-              <NextError
-                statusCode={pageProps.error.networkError?.statusCode ?? 400}
-              />
-            ) : (
-              <CMSApolloProvider value={cmsApolloClient}>
-                <PageLayoutComponent {...pageProps}>
-                  <Component {...pageProps} />
-                  <CookieConsent appName={t('common:appName')} />
-                </PageLayoutComponent>
-              </CMSApolloProvider>
-            )}
-            <ToastContainer position="top-right" />
-          </MatomoTracker>
-        </Provider>
-      </RHHCConfigProvider>
-    </ErrorBoundary>
-  );
-};
+    <>
+      <Tabs theme={theme2}>
+        <Tabs.TabList className="example-tablist">
+          <Tabs.Tab>Daycar1111e</Tabs.Tab>
+          <Tabs.Tab>Pre-school</Tabs.Tab>
+          <Tabs.Tab>Basic education</Tabs.Tab>
+          <Tabs.Tab>Upper secondary</Tabs.Tab>
+          <Tabs.Tab>University</Tabs.Tab>
+        </Tabs.TabList>
 
-class ErrorBoundary extends React.Component<{ children?: React.ReactNode }> {
-  componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    if (process.env.NODE_ENV !== 'production') {
-      // eslint-disable-next-line no-console
-      console.log(error);
-    }
-
-    Sentry.withScope((scope) => {
-      scope.setExtra('componentStack', errorInfo.componentStack);
-
-      Sentry.captureException(error);
-    });
-
-    super.componentDidCatch?.(error, errorInfo);
-  }
-
-  render() {
-    return this.props.children;
-  }
-}
-
-const Center: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
-  return (
-    <div
-      style={{
-        width: '100vw',
-        height: '100vh',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-      }}
-    >
-      {children}
-    </div>
+        <Tabs.TabPanel>
+          A pre-school is an educational establishment offering early childhood
+          education to children before they begin compulsory education at
+          primary school.
+        </Tabs.TabPanel>
+      </Tabs>
+    </>
   );
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export default appWithTranslation(MyApp as any, nextI18nextConfig as any);
+export default MyApp;
