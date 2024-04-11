@@ -1,32 +1,5 @@
-.navigation {
-  .navigationItem {
-    color: var(--navigation-item-color) !important;
-  }
-
-  .addEventItem {
-    margin-left: auto !important;
-
-    &.hidden {
-      visibility: hidden;
-    }
-
-    svg {
-      margin-right: var(--spacing-xs);
-    }
-  }
-
-  .navigationItemLabel {
-    display: flex;
-    align-items: center;
-  }
-
-  .languageSelector {
-    position: absolute;
-    right: var(--spacing-5-xl);
-
-    & > div {
-      left: unset;
-      right: 0;
-    }
+.header {
+  button {
+    margin: 0 0 0 var(--spacing-s) !important;
   }
 }

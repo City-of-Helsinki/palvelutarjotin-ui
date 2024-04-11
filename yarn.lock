@@ -6876,10 +6876,10 @@ hds-core@3.5.0:
   resolved "https://registry.yarnpkg.com/hds-core/-/hds-core-3.5.0.tgz#8b7491806a2603af7cf7fdce8383cf22b4291c7b"
   integrity sha512-4T2FOIuiy/7s7UcoAh1pEM4RuneNQCyYrUY6uJkF1X3oJdvFclmBiEqpKK4ijlsSz1gEaHCQlpKiZQraT909Vw==
 
-hds-design-tokens@^3.5.0:
-  version "3.5.0"
-  resolved "https://registry.yarnpkg.com/hds-design-tokens/-/hds-design-tokens-3.5.0.tgz#fd33aef3076f03c28df181d1030c667c3ce4657e"
-  integrity sha512-UOoe2svjom2AA0W0VS+PrxEticdYo2IoSLa7Ok2VNmxNuQkljwncechlA/0qyXzim95QfnQdrpjeyaoOzmH6rQ==
+hds-design-tokens@^3.6.0:
+  version "3.6.0"
+  resolved "https://registry.yarnpkg.com/hds-design-tokens/-/hds-design-tokens-3.6.0.tgz#8dbf10d6483ba7341cbb7de2423824a00e427e4e"
+  integrity sha512-c7P/te2EtTty0SByYycC46BXJE2T/WDO0et/MD8HvNn23mjypxwJ5/QD7oY8iTahbJNZRW+MuaBwGKz++rH3zA==
 
 hds-react@^3.5.0:
   version "3.5.0"
@@ -10318,12 +10318,12 @@ react-fast-compare@^3.0.1:
   resolved "https://registry.yarnpkg.com/react-fast-compare/-/react-fast-compare-3.2.2.tgz#929a97a532304ce9fee4bcae44234f1ce2c21d49"
   integrity sha512-nsO+KSNgo1SbJqJEYRE9ERzo7YtYbou/OqjSQKxV7jcKox7+usiUVZOAC+XnDOABXggQTno0Y1CpVnuWEc1boQ==
 
-react-helsinki-headless-cms@1.0.0-alpha257:
-  version "1.0.0-alpha257"
-  resolved "https://registry.yarnpkg.com/react-helsinki-headless-cms/-/react-helsinki-headless-cms-1.0.0-alpha257.tgz#02292b159489a8488869ac4b68ddd8e7e8999f0b"
-  integrity sha512-xjiPLuGW8rjnYaK6LCnhFsqAveyvJTNzcniPwb4IKadzp1acXVwYBaqe82lLAPJNNyMs71ggbmlATeoNRvORFw==
+react-helsinki-headless-cms@1.0.0-alpha270:
+  version "1.0.0-alpha270"
+  resolved "https://registry.yarnpkg.com/react-helsinki-headless-cms/-/react-helsinki-headless-cms-1.0.0-alpha270.tgz#5379e270d0658e6156bb3c215482b7038872c939"
+  integrity sha512-HK+x0tQyZbA1Y2HRU0Caxd6yEupD2clEfExNMPmtYkhffCttkw7BVV/AjTbhEIhBjvn+1okYKDhiOo7xu4tOKQ==
   dependencies:
-    hds-design-tokens "^3.5.0"
+    hds-design-tokens "^3.6.0"
     html-entities "^2.4.0"
     html-react-parser "^4.2.9"
     isomorphic-dompurify "^1.8.0"

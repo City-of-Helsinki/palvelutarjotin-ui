@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+import { IconLink } from 'hds-react';
 import { useTranslation } from 'next-i18next';
 import React from 'react';
 
@@ -8,7 +9,6 @@ import styles from './shareLinks.module.scss';
 import TwitterShareLink from './TwitterShareLink';
 import isClient from '../../../utils/isClient';
 import CopyButton from '../copyButton/CopyButton';
-import { IconLink } from 'hds-react';
 
 export interface ShareLinksProps {
   title: string;

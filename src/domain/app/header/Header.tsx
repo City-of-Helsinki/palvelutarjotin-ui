@@ -20,6 +20,7 @@ import { isFeatureEnabled } from '../../../utils/featureFlags';
 import stringifyUrlObject from '../../../utils/stringifyUrlObject';
 import { PATHNAMES, ROUTES } from '../routes/constants';
 import { getCmsPagePath } from '../routes/utils';
+import styles from './header.module.scss';
 
 const Header: React.FC = () => {
   const router = useRouter();
@@ -104,6 +105,7 @@ const Header: React.FC = () => {
   return (
     <Navigation
       languages={HARDCODED_LANGUAGES}
+      className={styles.header}
       menu={menu}
       onTitleClick={goToPage(ROUTES.HOME)}
       getIsItemActive={getIsItemActive}
