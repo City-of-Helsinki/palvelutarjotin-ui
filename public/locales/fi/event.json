@@ -11,6 +11,8 @@
   "eventCard": {
     "ariaLabelOpenEvent": "Siirry tapahtumaan: {{eventName}}",
     "free": "Maksuton",
+    "queueingAllowed": "Jonotus sallittu",
+    "queueingNotAllowed": "Ei jonotusta",
     "noUpcomingOccurrences": "Ei tulevia tapahtuma-aikoja",
     "startTime": {
       "other": "{{date}} klo {{time}}",

@@ -11,6 +11,8 @@
   "eventCard": {
     "ariaLabelOpenEvent": "Gå till evenemang: {{eventName}}",
     "free": "Gratis",
+    "queueingAllowed": "Kö tillåts",
+    "queueingNotAllowed": "Ingen kö",
     "noUpcomingOccurrences": "Inga kommande händelser",
     "startTime": {
       "other": "{{date}} kl. {{time}}",

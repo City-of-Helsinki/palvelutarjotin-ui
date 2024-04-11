@@ -28,6 +28,7 @@ exports[`user can select multiple occurrences and enrol to them with enrolment f
         "name": "",
         "phoneNumber": "",
       },
+      "preferredTimes": "",
       "studyLevels": [],
       "unitId": "",
       "unitName": "",
@@ -59,6 +60,7 @@ exports[`user can select multiple occurrences and enrol to them with enrolment f
         "name": true,
         "phoneNumber": true,
       },
+      "preferredTimes": true,
       "studyLevels": [
         true,
         true,
@@ -92,6 +94,7 @@ exports[`user can select multiple occurrences and enrol to them with enrolment f
         "name": "Nimi Niminen",
         "phoneNumber": "123321123",
       },
+      "preferredTimes": "",
       "studyLevels": [
         "GRADE_2",
         "GRADE_4",
@@ -131,6 +134,7 @@ exports[`user can select single occurrences and enrol to it with enrolment form 
         "name": "",
         "phoneNumber": "",
       },
+      "preferredTimes": "",
       "studyLevels": [],
       "unitId": "",
       "unitName": "",
@@ -162,6 +166,7 @@ exports[`user can select single occurrences and enrol to it with enrolment form 
         "name": true,
         "phoneNumber": true,
       },
+      "preferredTimes": true,
       "studyLevels": [
         true,
         true,
@@ -195,6 +200,7 @@ exports[`user can select single occurrences and enrol to it with enrolment form 
         "name": "Nimi Niminen",
         "phoneNumber": "123321123",
       },
+      "preferredTimes": "",
       "studyLevels": [
         "GRADE_2",
         "GRADE_4",

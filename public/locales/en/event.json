@@ -11,6 +11,8 @@
   "eventCard": {
     "ariaLabelOpenEvent": "Go to event: {{eventName}}",
     "free": "Free",
+    "queueingAllowed": "Queueing allowed",
+    "queueingNotAllowed": "No queueing",
     "noUpcomingOccurrences": "No upcoming occurrences",
     "startTime": {
       "other": "{{date}} at {{time}}",
