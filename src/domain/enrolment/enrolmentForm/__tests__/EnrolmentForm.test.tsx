@@ -414,6 +414,7 @@ if (isFeatureEnabled('FORMIK_PERSIST')) {
         amountOfAdult: '1',
         studyLevels: [StudyLevel.Grade_1],
         extraNeeds: 'extra needs',
+        preferredTimes: 'preferred times',
       },
       person: {
         name: '',

@@ -227,6 +227,7 @@ test('user can select single occurrences and enrol to it with enrolment form', a
             extraNeeds: 'Lisätietoja ilmoittautumiseen',
             groupName: '4a',
             groupSize: 10,
+            preferredTimes: '',
             unitId: null,
             unitName: 'Testikoulu',
             person: {
@@ -316,6 +317,7 @@ test('user can select multiple occurrences and enrol to them with enrolment form
             extraNeeds: 'Lisätietoja ilmoittautumiseen',
             groupName: '4a',
             groupSize: 10,
+            preferredTimes: '',
             unitId: null,
             unitName: 'Testikoulu',
             person: {

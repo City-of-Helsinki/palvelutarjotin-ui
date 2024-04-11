@@ -46,7 +46,7 @@ const EnrolmentForm: React.FC<Props> = ({
   onSubmit,
   submitting,
   onCloseForm,
-  minGroupSize = 10,
+  minGroupSize,
   maxGroupSize = 20,
   actionType = 'enrolment',
 }) => {
@@ -59,6 +59,7 @@ const EnrolmentForm: React.FC<Props> = ({
     label: translateValue('common:languages.', level, t),
     value: level,
   }));
+  const isQueueEnrolment = actionType === 'queue';
 
   return (
     <Formik
@@ -67,6 +68,7 @@ const EnrolmentForm: React.FC<Props> = ({
       validationSchema={getValidationSchema({
         minGroupSize: minGroupSize || 1,
         maxGroupSize,
+        isQueueEnrolment,
       })}
     >
       {({
@@ -286,6 +288,21 @@ const EnrolmentForm: React.FC<Props> = ({
               />
             </FormGroup>
 
+            {isQueueEnrolment && (
+              <FormGroup>
+                <Field
+                  helperText={t(
+                    'enrolment:enrolmentForm.studyGroup.helperPreferredTimes'
+                  )}
+                  label={t(nameToLabelPath['studyGroup.preferredTimes'])}
+                  component={TextAreaField}
+                  name="studyGroup.preferredTimes"
+                  required={isQueueEnrolment}
+                  aria-required={isQueueEnrolment}
+                />
+              </FormGroup>
+            )}
+
             <div className={styles.divider} />
 
             <h2>{t('enrolment:enrolmentForm.titleNotifications')}</h2>
@@ -359,16 +376,14 @@ const EnrolmentForm: React.FC<Props> = ({
                 disabled={submitting}
                 className={classNames(
                   enquiry ? styles.enquiryButton : styles.enrolButton,
-                  actionType === 'queue' && styles.queueButton
+                  isQueueEnrolment && styles.queueButton
                 )}
               >
                 {actionType === 'enrolment' &&
-                  t(
-                    `enrolment:enrolmentForm.buttonSubmit${
-                      enquiry ? 'Enquiry' : ''
-                    }`
-                  )}
-                {actionType === 'queue' && t('enrolment:queue.submit')}
+                  (enquiry
+                    ? t('enrolment:enrolmentForm.buttonSubmitEnquiry')
+                    : t('enrolment:enrolmentForm.buttonSubmit'))}
+                {isQueueEnrolment && t('enrolment:queue.submit')}
               </Button>
               <Button
                 onClick={onCloseForm}

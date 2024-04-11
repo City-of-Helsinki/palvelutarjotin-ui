@@ -92,6 +92,7 @@ export const getEventFields = (
         autoAcceptance: event.pEvent?.autoAcceptance,
         isMandatoryAdditionalInformationRequired:
           !!event.pEvent?.mandatoryAdditionalInformation,
+        isQueueingAllowed: event.pEvent?.isQueueingAllowed,
         occurrences:
           event.pEvent?.occurrences?.edges.map(
             (edge) => edge?.node as OccurrenceFieldsFragment
@@ -173,17 +174,23 @@ export const getEnrolmentType = (
 
 /**
  * Does the event support enrolling in the queue?
- * @return True if enrolments are handled internally in Kultus,
- * the enrolment has started and there is at least one occurrence
- * for the event, otherwise False.
+ * @return True if queueing to event is allowed, enrolments are handled
+ * internally in Kultus, the enrolment has started and there is at least one
+ * occurrence for the event, otherwise False.
  */
 export const shouldEventSupportQueueEnrolments = (
   event?: EventFieldsFragment | null
 ) => {
   if (!event?.pEvent) return false;
+  const isQueueingAllowed = event.pEvent.isQueueingAllowed;
   const hasInternalEnrolments =
     getEnrolmentType(event.pEvent) === EnrolmentType.Internal;
   const hasEnrolmentStarted = isEnrolmentStarted(event);
   const hasOccurrences = event.pEvent.occurrences?.edges?.length;
-  return hasInternalEnrolments && hasEnrolmentStarted && hasOccurrences;
+  return (
+    isQueueingAllowed &&
+    hasInternalEnrolments &&
+    hasEnrolmentStarted &&
+    hasOccurrences
+  );
 };
