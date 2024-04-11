@@ -10,6 +10,7 @@ import {
 } from 'react-helsinki-headless-cms';
 import { useMenuQuery } from 'react-helsinki-headless-cms/apollo';
 
+import styles from './header.module.scss';
 import { DEFAULT_HEADER_MENU_NAME } from '../../../constants';
 import { PageIdType, usePageQuery } from '../../../generated/graphql-cms';
 import { useCMSClient } from '../../../headless-cms/cmsApolloContext';
@@ -20,7 +21,6 @@ import { isFeatureEnabled } from '../../../utils/featureFlags';
 import stringifyUrlObject from '../../../utils/stringifyUrlObject';
 import { PATHNAMES, ROUTES } from '../routes/constants';
 import { getCmsPagePath } from '../routes/utils';
-import styles from './header.module.scss';
 
 const Header: React.FC = () => {
   const router = useRouter();
