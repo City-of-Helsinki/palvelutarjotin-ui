@@ -17,10 +17,12 @@ const EventImage: React.FC<EventImageProps> = ({
   const { t } = useTranslation();
 
   return (
-    <div
-      className={styles.imageContainer}
-      style={{ backgroundImage: `url('${imageUrl}')` }}
-    >
+    <div className={styles.imageContainer}>
+      <img
+        className={styles.eventImage}
+        src={imageUrl}
+        alt={imageAltText ?? undefined}
+      />
       {photographerName && (
         <div className={styles.photographerText}>
           {t('event:photographerText', {

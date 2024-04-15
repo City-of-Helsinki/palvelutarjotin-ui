@@ -14,5 +14,11 @@
     right: 0;
     background-color: var(--photographer-background-color);
     padding: var(--spacing-2-xs);
+    overflow: hidden;
+  }
+
+  .eventImage {
+    display: block;
+    width: 100%;
   }
 }

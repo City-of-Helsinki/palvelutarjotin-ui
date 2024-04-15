@@ -344,6 +344,12 @@ it('renders page and event information correctly', async () => {
     `${ROUTES.EVENTS_SEARCH}?organisation=${data.organisationId}`
   );
 
+  // Event image should have correct src url
+  const eventImage = screen.queryByRole('img', {
+    name: data.fakeAltText,
+  });
+  expect(eventImage).toHaveAttribute('src', eventData.images?.[0].url);
+
   // All keywords should be found in the document
   data.keywords.forEach((keyword) => {
     expect(
