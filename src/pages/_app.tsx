@@ -1,6 +1,7 @@
 import { NormalizedCacheObject } from '@apollo/client';
 import * as Sentry from '@sentry/browser';
 import type { AppProps as NextAppProps } from 'next/app';
+import dynamic from 'next/dynamic';
 import NextError from 'next/error';
 import Head from 'next/head';
 import Link from 'next/link';
@@ -31,7 +32,6 @@ import AppConfig from '../headless-cms/config';
 import { stripLocaleFromUri } from '../headless-cms/utils';
 import useLocale from '../hooks/useLocale';
 import getLanguageCode from '../utils/getCurrentLanguageCode';
-import dynamic from 'next/dynamic';
 import '../styles/globals.scss';
 
 const CMS_API_DOMAIN = AppConfig.cmsOrigin;

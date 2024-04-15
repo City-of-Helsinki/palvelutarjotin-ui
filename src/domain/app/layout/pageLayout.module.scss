@@ -15,6 +15,7 @@
   flex-direction: column;
   background-color: var(--background-color-body);
   padding: var(--padding-body);
+  flex: 1;
 
   @include respond-below(sm) {
     opacity: 1;

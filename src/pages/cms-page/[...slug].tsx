@@ -3,6 +3,7 @@
 import { NormalizedCacheObject } from '@apollo/client';
 import { BreadcrumbListItem } from 'hds-react';
 import { GetStaticPropsContext, GetStaticPropsResult, NextPage } from 'next';
+import dynamic from 'next/dynamic';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import {
   getCollections,
@@ -29,7 +30,6 @@ import {
   Page,
 } from '../../generated/graphql-cms';
 import { createCmsApolloClient } from '../../headless-cms/cmsApolloClient';
-import CmsPage from '../../headless-cms/components/CmsPage';
 import {
   getAllMenuPages,
   getSlugFromUri,
@@ -39,11 +39,16 @@ import {
 import { Language } from '../../types';
 import { isFeatureEnabled } from '../../utils/featureFlags';
 
+const DynamicCmsPageWithNoSSR = dynamic(
+  () => import('../../headless-cms/components/CmsPage'),
+  { ssr: false, loading: () => <div style={{ height: '100vh' }} /> }
+);
+
 const NextCmsPage: NextPage<{
   page: Page;
   breadcrumbs: BreadcrumbListItem[];
   collections?: GeneralCollectionType[];
-}> = (props) => <CmsPage {...props} />;
+}> = (props) => <DynamicCmsPageWithNoSSR {...props} />;
 
 export async function getStaticPaths() {
   const pages = await getAllMenuPages();
