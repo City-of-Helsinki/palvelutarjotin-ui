@@ -23,7 +23,6 @@ import CmsPageLayout from '../domain/app/layout/CmsPageLayout';
 import PageLayout from '../domain/app/layout/PageLayout';
 import { getCmsArticlePath, getCmsPagePath } from '../domain/app/routes/utils';
 import { store } from '../domain/app/store';
-import CookieConsent from '../domain/cookieConsent/CookieConsent';
 import MatomoTracker from '../domain/matomo/Matomo';
 import FocusToTop from '../FocusToTop';
 import { useCmsApollo } from '../headless-cms/cmsApolloClient';
@@ -32,6 +31,8 @@ import AppConfig from '../headless-cms/config';
 import { stripLocaleFromUri } from '../headless-cms/utils';
 import useLocale from '../hooks/useLocale';
 import getLanguageCode from '../utils/getCurrentLanguageCode';
+import dynamic from 'next/dynamic';
+import '../styles/globals.scss';
 
 const CMS_API_DOMAIN = AppConfig.cmsOrigin;
 const APP_DOMAIN = AppConfig.origin;
@@ -65,6 +66,11 @@ const MyApp = ({ Component, pageProps }: AppProps<CustomPageProps>) => {
   const locale = useLocale();
   const { t } = useTranslation();
   const cmsApolloClient = useCmsApollo(pageProps.initialApolloState);
+
+  const DynamicCookieConsentWithNoSSR = dynamic(
+    () => import('../domain/cookieConsent/CookieConsent'),
+    { ssr: false }
+  );
 
   const rhhcConfig = React.useMemo(
     (): Config => ({
@@ -159,7 +165,9 @@ const MyApp = ({ Component, pageProps }: AppProps<CustomPageProps>) => {
               <CMSApolloProvider value={cmsApolloClient}>
                 <PageLayoutComponent {...pageProps}>
                   <Component {...pageProps} />
-                  <CookieConsent appName={t('common:appName')} />
+                  <DynamicCookieConsentWithNoSSR
+                    appName={t('common:appName')}
+                  />
                 </PageLayoutComponent>
               </CMSApolloProvider>
             )}
