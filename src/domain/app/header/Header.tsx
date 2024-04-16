@@ -21,6 +21,7 @@ import { isFeatureEnabled } from '../../../utils/featureFlags';
 import stringifyUrlObject from '../../../utils/stringifyUrlObject';
 import { PATHNAMES, ROUTES } from '../routes/constants';
 import { getCmsPagePath } from '../routes/utils';
+import HeaderNotification from './HeaderNotification';
 
 const Header: React.FC = () => {
   const router = useRouter();
@@ -32,6 +33,7 @@ const Header: React.FC = () => {
   const isCmsPage = router.pathname === PATHNAMES.CMS_PAGE;
 
   const { menu } = useCmsMenuItems();
+
   const languageOptions = useCmsLanguageOptions({ skip: !isCmsPage });
 
   const getCurrentParsedUrlQuery = useCallback(
@@ -103,14 +105,17 @@ const Header: React.FC = () => {
   };
 
   return (
-    <Navigation
-      languages={HARDCODED_LANGUAGES}
-      className={styles.header}
-      menu={menu}
-      onTitleClick={goToPage(ROUTES.HOME)}
-      getIsItemActive={getIsItemActive}
-      getPathnameForLanguage={getPathnameForLanguage}
-    />
+    <div>
+      <Navigation
+        languages={HARDCODED_LANGUAGES}
+        className={styles.header}
+        menu={menu}
+        onTitleClick={goToPage(ROUTES.HOME)}
+        getIsItemActive={getIsItemActive}
+        getPathnameForLanguage={getPathnameForLanguage}
+      />
+      <HeaderNotification />
+    </div>
   );
 };
 
@@ -143,9 +148,7 @@ const useCmsLanguageOptions = ({ skip = false }: { skip?: boolean } = {}) => {
 
 const useCmsMenuItems = () => {
   const locale = useLocale();
-  const cmsClient = useCMSClient();
-  const { data: navigationData } = useMenuQuery({
-    client: cmsClient,
+  const { data: navigationData, loading } = useMenuQuery({
     skip: !isFeatureEnabled('HEADLESS_CMS') || !locale,
     variables: {
       id: DEFAULT_HEADER_MENU_NAME[locale],

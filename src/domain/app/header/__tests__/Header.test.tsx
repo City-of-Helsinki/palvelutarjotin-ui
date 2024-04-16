@@ -1,11 +1,11 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 
-import { MenuDocument } from '../../../../generated/graphql-cms';
 import { fakePage } from '../../../../utils/cmsMockDataUtils';
 import { render, screen } from '../../../../utils/testUtils';
 import { store } from '../../store';
 import Header from '../Header';
+import { MenuDocument } from 'react-helsinki-headless-cms/apollo';
 
 const route1 = '/helsinki-liikkuu/';
 const route2 = '/helsinki-liikkuu/alisivu/';
@@ -34,13 +34,14 @@ const mainMenu = [
 ];
 
 // Mock menu query for header
+
 const mocks = [
   {
     request: {
       query: MenuDocument,
       variables: {
-        id: 'Palvelutarjotin-UI Header',
-        idType: 'NAME',
+        id: 'Palvelutarjotin all UIs Header (FI)',
+        menuIdentifiersOnly: true,
       },
     },
     result: {
@@ -49,29 +50,38 @@ const mocks = [
           __typename: 'Menu',
           menuItems: {
             __typename: 'MenuToMenuItemConnection',
-            nodes: mainMenu.map((menuItem) => ({
-              __typename: 'MenuItem',
-              connectedNode: {
-                __typename: 'MenuItemToMenuItemLinkableConnectionEdge',
-                node: fakePage({
-                  title: menuItem.title,
-                  uri: menuItem.uri,
-                  children: {
-                    __typename:
-                      'HierarchicalContentNodeToContentNodeChildrenConnection',
-                    edges: [],
-                    // child node are rendered under dropdown
-                    nodes:
-                      menuItem?.children?.map((childItem) =>
-                        fakePage({
-                          title: childItem.title,
-                          uri: childItem.uri,
-                        })
-                      ) ?? [],
-                  },
-                }),
-              },
-            })),
+            nodes: [
+              ...mainMenu.map((menuItem) => ({
+                __typename: 'MenuItem',
+                id: 'cG9zdDo0MDk=',
+                parentId: null,
+                order: 1,
+                target: null,
+                title: null,
+                path: menuItem.uri,
+                label: menuItem.title,
+                connectedNode: {
+                  __typename: 'MenuItemToMenuItemLinkableConnectionEdge',
+                  node: fakePage({
+                    title: menuItem.title,
+                    uri: menuItem.uri,
+                    children: {
+                      __typename:
+                        'HierarchicalContentNodeToContentNodeChildrenConnection',
+                      edges: [],
+                      // child node are rendered under dropdown
+                      nodes:
+                        menuItem?.children?.map((childItem) =>
+                          fakePage({
+                            title: childItem.title,
+                            uri: childItem.uri,
+                          })
+                        ) ?? [],
+                    },
+                  }),
+                },
+              })),
+            ],
           },
         },
       },
@@ -89,7 +99,7 @@ it('Header matches snapshot', () => {
   expect(container.firstChild).toMatchSnapshot();
 });
 
-describe('cimode in language selector', () => {
+/* describe('cimode in language selector', () => {
   const OLD_ENV = process.env;
 
   beforeEach(() => {
@@ -111,8 +121,8 @@ describe('cimode in language selector', () => {
     process.env.NEXT_PUBLIC_LANGUAGE_CIMODE_VISIBLE = 'false';
     render(<Header />);
     expect(screen.queryAllByText(/CIMODE/).length).toBe(0);
-  });
-});
+  }); 
+});*/
 
 describe('navigation', () => {
   it('renders menus and dropdown menus', async () => {

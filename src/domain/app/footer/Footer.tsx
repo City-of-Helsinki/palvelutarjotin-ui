@@ -15,6 +15,7 @@ const FooterSection = (): React.ReactElement => {
   const { data, loading } = useMenuQuery({
     variables: {
       id: DEFAULT_FOOTER_MENU_NAME[locale],
+      menuIdentifiersOnly: true,
     },
   });
 
