@@ -1,5 +1,9 @@
+body {
+  margin: 0 !important;
+}
+
 :root {
-  /*hcrc styles*/
+  /* hcrc styles */
   --hcrc-color-link-show-all: var(--color-coat-of-arms);
   --hcrc-color-archive-search-bg: var(--color-theme-background);
   --hcrc-color-archive-search-btn: var(--color-coat-of-arms);
