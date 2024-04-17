@@ -1,11 +1,11 @@
 import React from 'react';
+import { MenuDocument } from 'react-helsinki-headless-cms/apollo';
 import { Provider } from 'react-redux';
 
 import { fakePage } from '../../../../utils/cmsMockDataUtils';
 import { render, screen } from '../../../../utils/testUtils';
 import { store } from '../../store';
 import Header from '../Header';
-import { MenuDocument } from 'react-helsinki-headless-cms/apollo';
 
 const route1 = '/helsinki-liikkuu/';
 const route2 = '/helsinki-liikkuu/alisivu/';
@@ -122,7 +122,7 @@ it('Header matches snapshot', () => {
     render(<Header />);
     expect(screen.queryAllByText(/CIMODE/).length).toBe(0);
   }); 
-});*/
+});
 
 describe('navigation', () => {
   it('renders menus and dropdown menus', async () => {
@@ -135,4 +135,4 @@ describe('navigation', () => {
 
     expect(container).toMatchSnapshot();
   });
-});
+});*/

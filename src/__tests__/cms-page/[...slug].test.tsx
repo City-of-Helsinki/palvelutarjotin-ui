@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 
 import { screen } from '@testing-library/react';
-import { getPage } from 'next-page-tester';
+// import { getPage } from 'next-page-tester';
 
 import {
   MenuQuery,
@@ -77,11 +77,11 @@ describe.skip('CMS Page', () => {
       page,
     });
 
-    (
-      await getPage({
+    /* (
+       await getPage({
         route: `/cms-page${route1}`,
-      })
-    ).render();
+      }) 
+    ).render();*/
 
     mainMenu.forEach(testMenuItem);
     subMenuItems.forEach(testMenuItem);
@@ -103,11 +103,11 @@ describe.skip('CMS Page', () => {
       page,
     });
 
-    (
-      await getPage({
+    /* (
+     await getPage({
         route: `/cms-page${route2}`,
       })
-    ).render();
+    ).render(); */
 
     mainMenu.forEach(testMenuItem);
     subMenuItems.forEach(testMenuItem);
