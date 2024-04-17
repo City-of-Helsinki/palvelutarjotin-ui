@@ -28,6 +28,7 @@ exports[`renders form and user can fill it and submit and form is saved to local
         "name": "",
         "phoneNumber": "",
       },
+      "preferredTimes": "",
       "studyLevels": [],
       "unitId": "",
       "unitName": "",
@@ -59,6 +60,7 @@ exports[`renders form and user can fill it and submit and form is saved to local
         "name": true,
         "phoneNumber": true,
       },
+      "preferredTimes": true,
       "studyLevels": [
         true,
         true,
@@ -92,6 +94,7 @@ exports[`renders form and user can fill it and submit and form is saved to local
         "name": "Nimi Niminen",
         "phoneNumber": "123321123",
       },
+      "preferredTimes": "",
       "studyLevels": [
         "GRADE_4",
         "GRADE_2",
@@ -127,6 +130,7 @@ exports[`renders form and user can fill it and submit and form is saved to local
         "name": "Nimi Niminen",
         "phoneNumber": "123321123",
       },
+      "preferredTimes": "",
       "studyLevels": [
         "GRADE_4",
         "GRADE_2",

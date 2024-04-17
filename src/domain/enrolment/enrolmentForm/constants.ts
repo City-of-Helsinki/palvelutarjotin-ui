@@ -23,6 +23,7 @@ export type EnrolmentFormFields = {
     amountOfAdult: string;
     studyLevels: string[];
     extraNeeds: string;
+    preferredTimes: string;
   };
 };
 
@@ -51,6 +52,7 @@ export const defaultEnrolmentInitialValues: EnrolmentFormFields = {
     amountOfAdult: '',
     studyLevels: [],
     extraNeeds: '',
+    preferredTimes: '',
   },
 };
 
@@ -68,6 +70,8 @@ export const nameToLabelPath: Record<string, string> = {
   'studyGroup.studyLevels':
     'enrolment:enrolmentForm.studyGroup.labelStudyLevel',
   'studyGroup.extraNeeds': 'enrolment:enrolmentForm.studyGroup.labelExtraNeeds',
+  'studyGroup.preferredTimes':
+    'enrolment:enrolmentForm.studyGroup.labelPreferredTimes',
   'studyGroup.extraNeedsOptional':
     'enrolment:enrolmentForm.studyGroup.labelExtraNeedsOptional',
   hasEmailNotification: 'enrolment:enrolmentForm.labelHasEmailNotification',

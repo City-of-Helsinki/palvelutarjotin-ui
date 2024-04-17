@@ -10,6 +10,7 @@ export const QUERY_EVENT = gql`
     neededOccurrences
     contactPhoneNumber
     contactEmail
+    isQueueingAllowed
     mandatoryAdditionalInformation
     organisation {
       id

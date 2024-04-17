@@ -2,13 +2,17 @@ import * as Yup from 'yup';
 
 import { VALIDATION_MESSAGE_KEYS } from '../../app/forms/constants';
 
+type EnrolmentFormValidationSchemaProps = {
+  minGroupSize: number;
+  maxGroupSize: number;
+  isQueueEnrolment: boolean;
+};
+
 export default function getValidationSchema({
   maxGroupSize,
   minGroupSize,
-}: {
-  minGroupSize: number;
-  maxGroupSize: number;
-}) {
+  isQueueEnrolment,
+}: EnrolmentFormValidationSchemaProps) {
   return Yup.object().shape({
     hasEmailNotification: Yup.bool().oneOf(
       [true],
@@ -137,6 +141,9 @@ export default function getValidationSchema({
                 )
               ),
             extraNeeds: isMandatoryAdditionalInformationRequired
+              ? Yup.string().required(VALIDATION_MESSAGE_KEYS.STRING_REQUIRED)
+              : Yup.string(),
+            preferredTimes: isQueueEnrolment
               ? Yup.string().required(VALIDATION_MESSAGE_KEYS.STRING_REQUIRED)
               : Yup.string(),
             studyLevels: Yup.array()

@@ -1,4 +1,9 @@
-import { IconInfoCircle, IconFaceSmile } from 'hds-react';
+import {
+  IconInfoCircle,
+  IconFaceSmile,
+  IconLock,
+  IconLockOpen,
+} from 'hds-react';
 import NextLink from 'next/link';
 import { useTranslation } from 'next-i18next';
 import React from 'react';
@@ -14,6 +19,26 @@ import addUrlSlashes from '../../../utils/addUrlSlashes';
 import { ROUTES } from '../../app/routes/constants';
 import { getEventFields } from '../utils';
 
+const QueueingAllowed: React.FC = () => {
+  const { t } = useTranslation();
+  return (
+    <div>
+      <IconLockOpen />
+      <p>{t('event:eventCard.queueingAllowed')}</p>
+    </div>
+  );
+};
+
+const QueueingNotAllowed: React.FC = () => {
+  const { t } = useTranslation();
+  return (
+    <div>
+      <IconLock />
+      <p>{t('event:eventCard.queueingNotAllowed')}</p>
+    </div>
+  );
+};
+
 interface EventBasicInfoProps {
   event: EventFieldsFragment;
 }
@@ -27,6 +52,7 @@ const EventBasicInfo: React.FC<EventBasicInfoProps> = ({ event }) => {
     eventName,
     shortDescription,
     isEventFree,
+    isQueueingAllowed,
     organisation,
     organisationId,
     contactEmail,
@@ -56,6 +82,7 @@ const EventBasicInfo: React.FC<EventBasicInfoProps> = ({ event }) => {
             <p>{t('event:eventCard.free')}</p>
           </div>
         )}
+        {isQueueingAllowed ? <QueueingAllowed /> : <QueueingNotAllowed />}
         {infoUrl && (
           <div>
             <IconInfoCircle />
