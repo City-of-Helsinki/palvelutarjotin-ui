@@ -2,11 +2,11 @@
 
 .imageContainer {
   --photographer-background-color: rgb(255 255 255 / 40%);
-
   position: absolute;
   width: 100%;
   height: var(--hero-height, 500px);
   top: 0;
+  overflow: hidden;
 
   .photographerText {
     position: absolute;
@@ -14,7 +14,6 @@
     right: 0;
     background-color: var(--photographer-background-color);
     padding: var(--spacing-2-xs);
-    overflow: hidden;
   }
 
   .eventImage {
