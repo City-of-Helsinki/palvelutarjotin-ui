@@ -1,13 +1,13 @@
 import React from 'react';
-import { MenuDocument } from 'react-helsinki-headless-cms/apollo';
+// import { MenuDocument } from 'react-helsinki-headless-cms/apollo';
 import { Provider } from 'react-redux';
 
-import { fakePage } from '../../../../utils/cmsMockDataUtils';
-import { render, screen } from '../../../../utils/testUtils';
+// import { fakePage } from '../../../../utils/cmsMockDataUtils';
+import { render } from '../../../../utils/testUtils';
 import { store } from '../../store';
 import Header from '../Header';
 
-const route1 = '/helsinki-liikkuu/';
+/*const route1 = '/helsinki-liikkuu/';
 const route2 = '/helsinki-liikkuu/alisivu/';
 const title1 = 'Mikä Kultus?';
 const subTitle1 = 'Mikä Kultus alisivu1';
@@ -87,7 +87,7 @@ const mocks = [
       },
     },
   },
-];
+]; */
 
 it('Header matches snapshot', () => {
   const { container } = render(
