@@ -7,11 +7,11 @@
   place-content: flex-start;
   grid-template-columns: var(--spacing-s) 1fr var(--spacing-s);
 
-  @include respond-between(sm, xlg) {
+  @include respond-between(m, xxl) {
     grid-template-columns: 1fr 10fr 1fr;
   }
 
-  @include respond-above(xlg) {
+  @include respond-above(xxl) {
     grid-template-columns: 1fr minmax(auto, $containerMaxWidth) 1fr;
   }
 
@@ -20,13 +20,13 @@
   }
 
   &.xsmall {
-    @include respond-above(sm) {
+    @include respond-above(m) {
       grid-template-columns: 1fr minmax(auto, $containerXSmallMaxWidth) 1fr;
     }
   }
 
   &.small {
-    @include respond-above(sm) {
+    @include respond-above(m) {
       grid-template-columns: 1fr minmax(auto, $containerSmallMaxWidth) 1fr;
     }
   }

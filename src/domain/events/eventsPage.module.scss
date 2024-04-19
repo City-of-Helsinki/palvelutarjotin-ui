@@ -5,7 +5,7 @@
   padding: var(--spacing-layout-xs);
   margin-bottom: var(--spacing-layout-s) !important;
 
-  @include respond_above(md) {
+  @include respond_above(l) {
     padding: var(--spacing-layout-l);
   }
 }

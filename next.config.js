@@ -90,6 +90,19 @@ module.exports = {
       };
     }
 
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      '~hds-core': path.resolve(__dirname, './node_modules/hds-core'),
+      '~hds-design-tokens': path.resolve(
+        __dirname,
+        './node_modules/hds-design-tokens'
+      ),
+      '~react-toastify': path.resolve(
+        __dirname,
+        './node_modules/react-toastify'
+      ),
+    };
+
     // https://docs.sentry.io/platforms/javascript/guides/nextjs/configuration/tree-shaking/
     config.plugins.push(
       new webpack.DefinePlugin({
