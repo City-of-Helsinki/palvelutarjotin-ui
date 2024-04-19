@@ -1,31 +1,35 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
 import { NormalizedCacheObject } from '@apollo/client';
+import { BreadcrumbListItem } from 'hds-react';
 import { GetStaticPropsContext, GetStaticPropsResult, NextPage } from 'next';
+import dynamic from 'next/dynamic';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import {
-  Breadcrumb,
   getCollections,
   CollectionType,
   GeneralCollectionType,
 } from 'react-helsinki-headless-cms';
-
-import { ALL_I18N_NAMESPACES } from '../../constants';
 import {
-  MenuNodeIdTypeEnum,
-  PageDocument,
-  PageQuery,
-  PageQueryVariables,
   MenuDocument,
   MenuQuery,
   MenuQueryVariables,
+} from 'react-helsinki-headless-cms/apollo';
+
+import {
+  ALL_I18N_NAMESPACES,
+  DEFAULT_HEADER_MENU_NAME,
+  SUPPORTED_LANGUAGES,
+} from '../../constants';
+import {
+  PageDocument,
+  PageQuery,
+  PageQueryVariables,
   PageIdType,
   PageFieldsFragment,
   Page,
 } from '../../generated/graphql-cms';
 import { createCmsApolloClient } from '../../headless-cms/cmsApolloClient';
-import CmsPage from '../../headless-cms/components/CmsPage';
-import { MENU_NAME } from '../../headless-cms/constants';
 import {
   getAllMenuPages,
   getSlugFromUri,
@@ -35,11 +39,16 @@ import {
 import { Language } from '../../types';
 import { isFeatureEnabled } from '../../utils/featureFlags';
 
+const DynamicCmsPageWithNoSSR = dynamic(
+  () => import('../../headless-cms/components/CmsPage'),
+  { ssr: false, loading: () => <div style={{ height: '100vh' }} /> }
+);
+
 const NextCmsPage: NextPage<{
   page: Page;
-  breadcrumbs: Breadcrumb[];
+  breadcrumbs: BreadcrumbListItem[];
   collections?: GeneralCollectionType[];
-}> = (props) => <CmsPage {...props} />;
+}> = (props) => <DynamicCmsPageWithNoSSR {...props} />;
 
 export async function getStaticPaths() {
   const pages = await getAllMenuPages();
@@ -65,7 +74,7 @@ type ResultProps =
   | {
       initialApolloState: NormalizedCacheObject;
       page: PageFieldsFragment;
-      breadcrumbs: Breadcrumb[];
+      breadcrumbs: BreadcrumbListItem[];
       collections?: CollectionType[];
     }
   | {
@@ -124,6 +133,7 @@ export async function getStaticProps(
 
 const getProps = async (context: GetStaticPropsContext) => {
   const cmsClient = createCmsApolloClient();
+  //const locale = useLocale();
 
   // These breadcrumb uris are used to fetch all the parent pages of the current page
   // so that all the childrens of parent page can be figured out and sub page navigations can be formed
@@ -136,8 +146,10 @@ const getProps = async (context: GetStaticPropsContext) => {
   await cmsClient.query<MenuQuery, MenuQueryVariables>({
     query: MenuDocument,
     variables: {
-      id: MENU_NAME.Header,
-      idType: MenuNodeIdTypeEnum.Name,
+      id: DEFAULT_HEADER_MENU_NAME[
+        (context.locale as SUPPORTED_LANGUAGES) ?? SUPPORTED_LANGUAGES.FI
+      ],
+      menuIdentifiersOnly: true,
     },
   });
 
@@ -172,7 +184,7 @@ const getProps = async (context: GetStaticPropsContext) => {
   const currentPage = pageData.page;
 
   const breadcrumbs = pages.map((page) => ({
-    link: page?.link ?? '',
+    path: page?.link ?? '',
     title: page?.title ?? '',
   }));
 

@@ -1,9 +1,9 @@
+import { BreadcrumbListItem } from 'hds-react';
 import { useTranslation } from 'next-i18next';
 import React from 'react';
 import {
   PageContent as RHHCPageContent,
   PageContentProps,
-  Breadcrumb,
   GeneralCollectionType,
 } from 'react-helsinki-headless-cms';
 
@@ -17,7 +17,7 @@ import { stripLocaleFromUri } from '../utils';
 
 const CmsArticle: React.FC<{
   article: ArticleQuery['post'];
-  breadcrumbs: Breadcrumb[];
+  breadcrumbs: BreadcrumbListItem[];
   collections?: GeneralCollectionType[];
 }> = ({ article, breadcrumbs, collections = [] }) => {
   const { t } = useTranslation();
@@ -30,7 +30,7 @@ const CmsArticle: React.FC<{
   const extendedBreadCrumbs = [
     {
       title: t('cms:linkFrontPage'),
-      link: '/',
+      path: '/',
     },
     ...breadcrumbs,
   ];

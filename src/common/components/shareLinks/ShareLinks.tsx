@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+import { IconLink } from 'hds-react';
 import { useTranslation } from 'next-i18next';
 import React from 'react';
 
@@ -6,7 +7,6 @@ import FacebookShareLink from './FacebookShareLink';
 import LinkedInShareLink from './LinkedInShareLink';
 import styles from './shareLinks.module.scss';
 import TwitterShareLink from './TwitterShareLink';
-import IconLink from '../../../icons/IconLink';
 import isClient from '../../../utils/isClient';
 import CopyButton from '../copyButton/CopyButton';
 

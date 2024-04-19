@@ -1,7 +1,7 @@
 import { NormalizedCacheObject } from '@apollo/client';
 import * as Sentry from '@sentry/browser';
-import { LoadingSpinner } from 'hds-react';
 import type { AppProps as NextAppProps } from 'next/app';
+import dynamic from 'next/dynamic';
 import NextError from 'next/error';
 import Head from 'next/head';
 import Link from 'next/link';
@@ -10,6 +10,7 @@ import { appWithTranslation, SSRConfig, useTranslation } from 'next-i18next';
 import React, { ErrorInfo } from 'react';
 import {
   Config,
+  LanguageCodeEnum,
   ConfigProvider as RHHCConfigProvider,
   defaultConfig as rhhcDefaultConfig,
 } from 'react-helsinki-headless-cms';
@@ -17,20 +18,21 @@ import { Provider } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
 
 import nextI18nextConfig from '../../next-i18next.config';
+import LoadingSpinner from '../common/components/loadingSpinner/LoadingSpinner';
 import '../assets/styles/main.scss';
 import CmsPageLayout from '../domain/app/layout/CmsPageLayout';
 import PageLayout from '../domain/app/layout/PageLayout';
 import { getCmsArticlePath, getCmsPagePath } from '../domain/app/routes/utils';
 import { store } from '../domain/app/store';
-import CookieConsent from '../domain/cookieConsent/CookieConsent';
 import MatomoTracker from '../domain/matomo/Matomo';
 import FocusToTop from '../FocusToTop';
-import { LanguageCodeEnum } from '../generated/graphql-cms';
 import { useCmsApollo } from '../headless-cms/cmsApolloClient';
 import CMSApolloProvider from '../headless-cms/cmsApolloContext';
 import AppConfig from '../headless-cms/config';
-import { getRoutedInternalHref } from '../headless-cms/utils';
+import { stripLocaleFromUri } from '../headless-cms/utils';
 import useLocale from '../hooks/useLocale';
+import getLanguageCode from '../utils/getCurrentLanguageCode';
+import '../styles/globals.scss';
 
 const CMS_API_DOMAIN = AppConfig.cmsOrigin;
 const APP_DOMAIN = AppConfig.origin;
@@ -64,11 +66,17 @@ const MyApp = ({ Component, pageProps }: AppProps<CustomPageProps>) => {
   const locale = useLocale();
   const { t } = useTranslation();
   const cmsApolloClient = useCmsApollo(pageProps.initialApolloState);
+
+  const DynamicCookieConsentWithNoSSR = dynamic(
+    () => import('../domain/cookieConsent/CookieConsent'),
+    { ssr: false }
+  );
+
   const rhhcConfig = React.useMemo(
     (): Config => ({
       ...rhhcDefaultConfig,
       siteName: t('common:appName'),
-      currentLanguageCode: LanguageCodeEnum.Fi,
+      currentLanguageCode: getLanguageCode(locale),
       copy: {
         breadcrumbNavigationLabel: t(
           'common:breadcrumb.breadcrumbNavigationLabel'
@@ -108,12 +116,23 @@ const MyApp = ({ Component, pageProps }: AppProps<CustomPageProps>) => {
       utils: {
         ...rhhcDefaultConfig.utils,
         getIsHrefExternal,
-        getRoutedInternalHref,
+        // this does not work anymore with
+        // article type as type is never passed to the function in new hcrc implementation
+        getRoutedInternalHref: (link?: string | null) => {
+          // menu nav items, not breadcrumb
+          const localePath =
+            locale !== LanguageCodeEnum.Fi.toLowerCase()
+              ? `/${locale.toLowerCase()}`
+              : '';
+          return `${localePath}${getCmsPagePath(
+            stripLocaleFromUri(link ?? '')
+          )}`.replace(/\/$/, '');
+        },
       },
       internalHrefOrigins: CMS_API_DOMAIN ? [CMS_API_DOMAIN] : [],
       apolloClient: cmsApolloClient,
     }),
-    [t, cmsApolloClient]
+    [t, cmsApolloClient, locale]
   );
   React.useEffect(() => {
     const html = document.querySelector('html');
@@ -136,7 +155,7 @@ const MyApp = ({ Component, pageProps }: AppProps<CustomPageProps>) => {
             <FocusToTop />
             {router.isFallback ? (
               <Center>
-                <LoadingSpinner />
+                <LoadingSpinner isLoading={router.isFallback} />
               </Center>
             ) : pageProps.error ? (
               <NextError
@@ -146,7 +165,9 @@ const MyApp = ({ Component, pageProps }: AppProps<CustomPageProps>) => {
               <CMSApolloProvider value={cmsApolloClient}>
                 <PageLayoutComponent {...pageProps}>
                   <Component {...pageProps} />
-                  <CookieConsent appName={t('common:appName')} />
+                  <DynamicCookieConsentWithNoSSR
+                    appName={t('common:appName')}
+                  />
                 </PageLayoutComponent>
               </CMSApolloProvider>
             )}

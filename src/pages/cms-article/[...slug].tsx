@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
 import { NormalizedCacheObject } from '@apollo/client';
+import { BreadcrumbListItem } from 'hds-react';
 import { GetStaticPropsContext, GetStaticPropsResult, NextPage } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import {
-  Breadcrumb,
   getCollections,
   CollectionType,
   GeneralCollectionType,
@@ -24,7 +24,7 @@ import { Language } from '../../types';
 
 const NextCmsArticle: NextPage<{
   article: PostFieldsFragment;
-  breadcrumbs: Breadcrumb[];
+  breadcrumbs: BreadcrumbListItem[];
   collections?: GeneralCollectionType[];
 }> = (props) => <CmsArticle {...props} />;
 
@@ -36,7 +36,7 @@ type ResultProps =
   | {
       initialApolloState: NormalizedCacheObject;
       article: PostFieldsFragment;
-      breadcrumbs: Breadcrumb[];
+      breadcrumbs: BreadcrumbListItem[];
       collections?: CollectionType[];
     }
   | {

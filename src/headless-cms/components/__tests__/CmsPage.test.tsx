@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 
 import {
+  LanguageCodeEnum,
   ConfigProvider as RHHCConfigProvider,
   defaultConfig as rhhcDefaultConfig,
 } from 'react-helsinki-headless-cms';
@@ -103,7 +104,7 @@ test('renders with sidebar layout when sidebar has content', async () => {
     <RHHCConfigProvider
       config={{
         ...rhhcDefaultConfig,
-        currentLanguageCode: 'fi',
+        currentLanguageCode: LanguageCodeEnum.Fi,
         copy: {
           ...rhhcDefaultConfig.copy,
           openInNewTabAriaLabel: 'Avautuu uudessa välilehdessä.',

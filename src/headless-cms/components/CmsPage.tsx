@@ -1,9 +1,9 @@
+import { BreadcrumbListItem } from 'hds-react';
 import { useTranslation } from 'next-i18next';
 import React from 'react';
 import {
   PageContent as RHHCPageContent,
   PageContentProps,
-  Breadcrumb,
   GeneralCollectionType,
 } from 'react-helsinki-headless-cms';
 
@@ -15,7 +15,7 @@ export const SEARCH_PANEL_TRESHOLD = 2;
 
 const CmsPage: React.FC<{
   page: Page;
-  breadcrumbs: Breadcrumb[];
+  breadcrumbs: BreadcrumbListItem[];
   collections?: GeneralCollectionType[];
   hideHero?: boolean;
 }> = ({ page, breadcrumbs, collections = [], hideHero = true }) => {
@@ -29,7 +29,7 @@ const CmsPage: React.FC<{
   const extendedBreadCrumbs = [
     {
       title: t('cms:linkFrontPage'),
-      link: '/',
+      path: '/',
     },
     ...breadcrumbs,
   ];

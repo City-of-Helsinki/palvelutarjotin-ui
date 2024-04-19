@@ -22,8 +22,18 @@ exports[`renders meta elements 1`] = `
     rel="canonical"
   />
   <link
-    href="/favicon.ico"
+    href="/hds-favicon-kit/favicon-32x32.ico"
     rel="icon"
+    sizes="any"
+  />
+  <link
+    href="/hds-favicon-kit/favicon.svg"
+    rel="icon"
+    type="image/svg+xml"
+  />
+  <link
+    href="/hds-favicon-kit/apple-touch-icon.png"
+    rel="apple-touch-icon"
   />
 </div>
 `;

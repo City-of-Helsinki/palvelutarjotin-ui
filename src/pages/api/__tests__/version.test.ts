@@ -3,14 +3,14 @@ import type { NextApiResponse } from 'next';
 import handler from '../version';
 
 test('version response', async () => {
-  const req = undefined;
+  const req: any = {};
   const json = jest.fn();
   const status = jest.fn(() => {
     return {
       json,
     };
   });
-  const res = {
+  const res: any = {
     status,
   };
 

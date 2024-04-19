@@ -1,36 +1,58 @@
 # =======================================
-FROM helsinkitest/node:20-slim as appbase
+FROM registry.access.redhat.com/ubi9/nodejs-20 AS appbase
 # =======================================
 
-# Use non-root user
-USER appuser
 
-# Yarn
-ENV YARN_VERSION 1.22.4
-RUN yarn policies set-version $YARN_VERSION
+# install yarn
+USER root
+RUN curl --silent --location https://dl.yarnpkg.com/rpm/yarn.repo | tee /etc/yum.repos.d/yarn.repo
+RUN yum -y install yarn
 
-# Install dependencies
-COPY --chown=appuser:appuser package.json yarn.lock /app/
-RUN yarn && yarn cache clean --force
+RUN yum update -y && \
+    yum install -y rsync
 
-# Copy all files
-COPY --chown=appuser:appuser . .
+WORKDIR /workspace-install
+
+COPY --chown=default:root yarn.lock ./
+
+WORKDIR /docker-context
+COPY --chown=default:root . /docker-context
+
+# mount type bind is not supported on current version (4.10.35) of OpenShift build
+# RUN --mount=type=bind,source=./,target=/docker-context \
+RUN rsync -amv \
+    --chown=default:root \
+    --exclude='node_modules' \
+    --exclude='*/node_modules' \
+    --include='package.json' \
+    --include='*/' --exclude='*' \
+    /docker-context/ /workspace-install/;
+
+RUN chown -R default:root .
+
+# remove rsync, unused dependencies, and clean yum cache
+RUN yum remove -y rsync && \
+    yum autoremove -y && \
+    yum clean all && \
+    rm -rf /var/cache/yum
+
 
 # =============================
-FROM appbase as development
+FROM appbase AS development
 # =============================
 
-# Use non-root user
-USER appuser
+# Set NODE_ENV to development in the development container
+ARG NODE_ENV=development
+ENV NODE_ENV $NODE_ENV
 
-# copy all files
-COPY --chown=appuser:appuser . .
+# copy in our source code last, as it changes the most
+COPY --chown=default:root . .
 
 # Bake package.json start command into the image
 CMD ["yarn", "dev"]
 
 # ===================================
-FROM appbase as staticbuilder
+FROM appbase AS staticbuilder
 # ===================================
 # Set environmental variables (when building image on GitLab CI) 
 # specified in gitlab-ci.yml file  
@@ -55,17 +77,30 @@ ARG NEXT_PUBLIC_MATOMO_SRC_URL
 ARG NEXT_PUBLIC_MATOMO_TRACKER_URL
 ARG NEXT_PUBLIC_MATOMO_ENABLED
 
-# Use non-root user
-USER appuser
+# CMS
+ARG NEXT_PUBLIC_CMS_TERMS_OF_SERVICE_SLUG_FI
+ARG NEXT_PUBLIC_CMS_TERMS_OF_SERVICE_SLUG_EN
+ARG NEXT_PUBLIC_CMS_TERMS_OF_SERVICE_SLUG_SV
+ARG NEXT_PUBLIC_CMS_HEADER_MENU_NAME_FI
+ARG NEXT_PUBLIC_CMS_HEADER_MENU_NAME_EN
+ARG NEXT_PUBLIC_CMS_HEADER_MENU_NAME_SV
+ARG NEXT_PUBLIC_CMS_FOOTER_MENU_NAME_FI
+ARG NEXT_PUBLIC_CMS_FOOTER_MENU_NAME_EN
+ARG NEXT_PUBLIC_CMS_FOOTER_MENU_NAME_SV
+
+WORKDIR /app
 
 # copy all files
-COPY --chown=appuser:appuser . .
+COPY --chown=default:root . .
+COPY --from=appbase --chown=default:root /workspace-install ./
+
+RUN yarn install --immutable --inline-builds
 
 # Build application
 RUN yarn build
 
 # ==========================================
-FROM helsinkitest/node:20-slim AS production
+FROM staticbuilder AS production
 # ==========================================
 
 ARG NEXT_PUBLIC_CAPTCHA_KEY
@@ -74,32 +109,35 @@ ARG NEWSLETTER_APIKEY
 ENV NEWSLETTER_BASE_URL=$NEWSLETTER_BASE_URL
 ENV NEWSLETTER_APIKEY=$NEWSLETTER_APIKEY
 
-# Use non-root user
-USER appuser
+WORKDIR /app
 
-# Copy build folder from stage 1
-COPY --from=staticbuilder --chown=appuser:appuser /app/.next /app/.next
+ENV PATH $PATH:/app/node_modules/.bin
+ENV NODE_ENV production
 
-# Copy next.js config
-COPY --chown=appuser:appuser next.config.js /app/
-COPY --chown=appuser:appuser next-i18next.config.js /app/
-
+# Automatically leverage output traces to reduce image size
+# https://nextjs.org/docs/advanced-features/output-file-tracing
+# copy only the necessary files for a production deployment including select files in node_modules.
+# Copy the configuration files to the apps/project root
+COPY --from=staticbuilder --chown=default:root /app/next.config.js \
+    /app/next-i18next.config.js \
+    /app/package.json \
+    /app/
+COPY --from=staticbuilder --chown=default:root /app/.next/standalone .
+COPY --from=staticbuilder --chown=default:root /app/.next/static ./.next/static
+COPY --from=staticbuilder --chown=default:root /app/public ./public
+# RUN cp -r /app/.next/ /app/.next_orig/
 # Copy public package.json and yarn.lock files
-COPY --chown=appuser:appuser public package.json yarn.lock /app/
+COPY --chown=default:root public package.json yarn.lock /app/
 
-# Install production dependencies
-RUN yarn install --production --frozen-lockfile && yarn cache clean --force
-
-# Copy public folder
-COPY --chown=appuser:appuser public /app/public
-
-# Copy i18.ts, start.mjs and server.mjs files
-COPY --chown=appuser:appuser src/start.mjs src/server.mjs /app/src/
+# OpenShift write access to Next cache folder
+USER root
+RUN chgrp -R 0 /app/.next/server/pages && chmod g+w -R /app/.next/server/pages
+USER default
 
 # Expose port
 EXPOSE $PORT
 
-# Start ssr server
-CMD ["yarn", "start"]
+# Start nextjs server
+CMD ["node", "./server.js"]
 
 

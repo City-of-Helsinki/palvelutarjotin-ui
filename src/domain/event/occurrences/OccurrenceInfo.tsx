@@ -1,6 +1,6 @@
 import { useApolloClient } from '@apollo/client';
 import isSameDay from 'date-fns/isSameDay';
-import { Button, IconLocation, IconClock, IconGlyphEuro } from 'hds-react';
+import { Button, IconLocation, IconClock, IconEuroSign } from 'hds-react';
 import { capitalize } from 'lodash';
 import NextLink from 'next/link';
 import { useTranslation } from 'next-i18next';
@@ -128,7 +128,7 @@ const OccurrenceInfo: React.FC<{
   const occurrencePriceInfoSection = () => (
     <>
       <div>
-        <IconGlyphEuro />
+        <IconEuroSign />
       </div>
       <div>
         <div className={styles.infoTitle}>

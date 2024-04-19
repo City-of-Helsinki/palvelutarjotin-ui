@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 
 import { screen } from '@testing-library/react';
-import { getPage } from 'next-page-tester';
+// import { getPage } from 'next-page-tester';
 
 import {
   MenuQuery,
@@ -66,7 +66,7 @@ const page2 = {
   menuItems: subSubMenuItems,
 };
 
-// next-page-tester doesn't support next v12 yet. PR here: https://github.com/toomuchdesign/next-page-tester/issues/281
+// next-page-tester is deprecated & incompatible with next v13, README suggests using browser testing instead
 describe.skip('CMS Page', () => {
   it('renders cms page with navigation and sub menu and content', async () => {
     const page = {
@@ -77,11 +77,11 @@ describe.skip('CMS Page', () => {
       page,
     });
 
-    (
-      await getPage({
+    /* (
+       await getPage({
         route: `/cms-page${route1}`,
-      })
-    ).render();
+      }) 
+    ).render();*/
 
     mainMenu.forEach(testMenuItem);
     subMenuItems.forEach(testMenuItem);
@@ -103,11 +103,11 @@ describe.skip('CMS Page', () => {
       page,
     });
 
-    (
-      await getPage({
+    /* (
+     await getPage({
         route: `/cms-page${route2}`,
       })
-    ).render();
+    ).render(); */
 
     mainMenu.forEach(testMenuItem);
     subMenuItems.forEach(testMenuItem);
