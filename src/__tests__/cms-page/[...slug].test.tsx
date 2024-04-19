@@ -66,7 +66,7 @@ const page2 = {
   menuItems: subSubMenuItems,
 };
 
-// next-page-tester doesn't support next v12 yet. PR here: https://github.com/toomuchdesign/next-page-tester/issues/281
+// next-page-tester is deprecated & incompatible with next v13, README suggests using browser testing instead
 describe.skip('CMS Page', () => {
   it('renders cms page with navigation and sub menu and content', async () => {
     const page = {
