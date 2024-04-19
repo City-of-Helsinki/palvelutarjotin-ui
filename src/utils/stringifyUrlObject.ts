@@ -9,24 +9,14 @@ const queryToString = (
   query: Record<string, unknown> | string | undefined,
   usedQueryParts: string[]
 ) => {
-  if (!query) {
-    return;
-  }
-
-  if (typeof query === 'string') {
+  if (!query || typeof query === 'string') {
     return query;
   }
 
-  const queryWithoutUsed = Object.entries(query).reduce((acc, [key, value]) => {
-    if (usedQueryParts.includes(key)) {
-      return acc;
-    }
-
-    return {
-      ...acc,
-      [key]: value,
-    };
-  }, {});
+  const usedQueryPartsSet = new Set(Object.keys(usedQueryParts));
+  const queryWithoutUsed = Object.fromEntries(
+    Object.entries(query).filter(([key]) => !usedQueryPartsSet.has(key))
+  );
 
   const queryAsString = queryString.stringify(queryWithoutUsed);
 
