@@ -22,7 +22,7 @@
   grid-gap: var(--spacing-s);
   margin-bottom: var(--spacing-s);
 
-  @include respond_above(sm) {
+  @include respond_above(m) {
     grid-template-columns: 1fr auto;
     grid-gap: var(--spacing-l);
   }

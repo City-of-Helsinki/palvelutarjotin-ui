@@ -6,7 +6,7 @@
   .rowWith2Columns {
     display: grid;
 
-    @include respond_above(sm) {
+    @include respond_above(m) {
       grid-template-columns: 1fr 1fr;
       grid-gap: var(--spacing-layout-s);
     }
@@ -16,7 +16,7 @@
     display: grid;
     grid-gap: var(--spacing-layout-s);
 
-    @include respond_above(sm) {
+    @include respond_above(m) {
       grid-template-columns: 1fr 1fr 1fr;
     }
   }

@@ -30,7 +30,7 @@
         padding: var(--spacing-cell);
         border-bottom: 1px solid var(--border-color-cell);
 
-        @include respond-above(md) {
+        @include respond-above(l) {
           &:nth-child(2) {
             padding-left: 0;
           }
@@ -62,7 +62,7 @@
         text-align: left;
         padding: var(--spacing-cell);
 
-        @include respond-above(md) {
+        @include respond-above(l) {
           &:nth-child(2) {
             padding-left: 0;
           }
@@ -91,7 +91,7 @@
         background-color: var(--background-color-active-row);
         border-bottom: 1px solid var(--border-color-cell);
 
-        @include respond-above(md) {
+        @include respond-above(l) {
           padding: var(--spacing-m) var(--spacing-2-xl) !important;
         }
       }

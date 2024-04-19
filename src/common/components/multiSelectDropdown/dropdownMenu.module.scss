@@ -7,7 +7,7 @@
   z-index: 1;
   position: relative;
 
-  @include respond_above(sm) {
+  @include respond_above(m) {
     position: absolute;
     top: 100%;
     left: 0;
@@ -16,7 +16,7 @@
   }
 
   .dropdownMenuWrapper {
-    @include respond_above(sm) {
+    @include respond_above(m) {
       max-height: 18.35rem;
       overflow: auto;
     }

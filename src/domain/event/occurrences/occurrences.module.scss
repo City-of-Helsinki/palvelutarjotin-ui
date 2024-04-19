@@ -17,7 +17,7 @@
     grid-template-columns: auto 1fr;
     align-items: center;
 
-    @include respond-above(sm) {
+    @include respond-above(m) {
       margin: 0 var(--spacing-2-xl);
     }
   }
@@ -30,7 +30,7 @@
   }
 
   .enrolmentNotification {
-    @include respond-above(sm) {
+    @include respond-above(m) {
       margin: 0 var(--spacing-2-xl);
       width: auto;
     }
@@ -49,7 +49,7 @@
     display: grid;
     grid-template-columns: 3fr 2fr;
 
-    @include respond-above(md) {
+    @include respond-above(l) {
       grid-template-columns: 4fr 2fr;
     }
   }
