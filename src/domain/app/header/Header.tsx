@@ -10,7 +10,6 @@ import {
 } from 'react-helsinki-headless-cms';
 import { useMenuQuery } from 'react-helsinki-headless-cms/apollo';
 
-import styles from './header.module.scss';
 import HeaderNotification from './HeaderNotification';
 import { DEFAULT_HEADER_MENU_NAME } from '../../../constants';
 import { PageIdType, usePageQuery } from '../../../generated/graphql-cms';
@@ -108,7 +107,6 @@ const Header: React.FC = () => {
     <div>
       <Navigation
         languages={HARDCODED_LANGUAGES}
-        className={styles.header}
         menu={menu}
         onTitleClick={goToPage(ROUTES.HOME)}
         getIsItemActive={getIsItemActive}

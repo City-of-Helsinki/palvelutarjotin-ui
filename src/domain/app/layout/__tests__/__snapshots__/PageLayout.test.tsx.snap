@@ -6,7 +6,7 @@ exports[`PageLayout matches snapshot 1`] = `
 >
   <div>
     <header
-      class="hds-header Header-module_header__291GF header"
+      class="hds-header Header-module_header__291GF"
       style="--header-max-width: var(--breakpoint-xl);"
     >
       <div
