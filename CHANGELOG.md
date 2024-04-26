@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://www.conventionalcommits.org/) for commit guidelines.
 
+## [2.6.0](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/palvelutarjotin-ui-v2.5.0...palvelutarjotin-ui-v2.6.0) (2024-04-26)
+
+
+### Features
+
+* Add pEvent.isQueueingAllowed & studyGroup.preferredTimes support ([302bd02](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/302bd02690a0c47dac81c52fa56bdfdb53af9711))
+* Upgrade to HDS v3.7 & RHHC v1.0.0-alpha273 that uses HDS V3.7 ([#304](https://github.com/City-of-Helsinki/palvelutarjotin-ui/issues/304)) ([c64b314](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/c64b314d5b4bc2f4a95251c5cb158032b2f85dad))
+
+
+### Bug Fixes
+
+* Css image hero bug ([#315](https://github.com/City-of-Helsinki/palvelutarjotin-ui/issues/315)) ([889bf00](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/889bf0020c8d5ce184aac3f13a6498c73f7d9024))
+
 ## [2.5.0](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/palvelutarjotin-ui-v2.4.1...palvelutarjotin-ui-v2.5.0) (2024-03-25)
 
 
