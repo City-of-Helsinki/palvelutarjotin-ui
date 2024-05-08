@@ -1,8 +1,8 @@
 import type { NextApiResponse } from 'next';
 
-import handler from '../version';
+import handler from '../readiness';
 
-test('version response', async () => {
+test('readiness response', async () => {
   const req: any = {};
   const json = jest.fn();
   const status = jest.fn(() => {
