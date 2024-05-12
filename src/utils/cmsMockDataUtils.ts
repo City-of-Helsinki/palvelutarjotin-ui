@@ -54,6 +54,12 @@ export const fakePage = (
         __typename: 'NodeWithFeaturedImageToMediaItemConnectionEdge',
       },
       children: {
+        pageInfo: {
+          hasNextPage: false,
+          hasPreviousPage: false,
+          startCursor: '',
+          endCursor: '',
+        },
         edges: [],
         nodes: [],
         __typename: 'HierarchicalContentNodeToContentNodeChildrenConnection',
@@ -62,6 +68,7 @@ export const fakePage = (
       __typename: 'Page',
       sidebar: [],
       modules: [],
+      isComment: false,
     },
     overrides
   );
@@ -105,6 +112,9 @@ export const fakePost = (
       },
       __typename: 'Post',
       isSticky: false,
+      isComment: false,
+      isFrontPage: false,
+      isPostsPage: false,
     },
     overrides
   );
@@ -126,6 +136,9 @@ export const fakeMediaItem = (overrides?: Partial<MediaItem>): MediaItem => {
       isContentNode: false,
       isTermNode: false,
       __typename: 'MediaItem',
+      isComment: false,
+      isFrontPage: false,
+      isPostsPage: false,
     },
     overrides
   );

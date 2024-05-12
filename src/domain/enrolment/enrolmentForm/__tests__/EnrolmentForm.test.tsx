@@ -564,7 +564,26 @@ describe('UnitField', () => {
   });
 
   it('renders a list of schools and kindergartens in unit id field', async () => {
-    await setupUnitFieldTest();
+    await setupUnitFieldTest([
+      createSchoolsAndKindergartensListQueryMock(
+        10,
+        [
+          { id: 'test:place1', name: fakeLocalizedObject('place1') },
+          { id: 'test:place2', name: fakeLocalizedObject('place2') },
+          { id: 'test:place12', name: fakeLocalizedObject('place12') },
+          { id: 'test:place123', name: fakeLocalizedObject('place123') },
+        ],
+        'place'
+      ),
+      createSchoolsAndKindergartensListQueryMock(
+        10,
+        [
+          { id: 'test:place12', name: fakeLocalizedObject('place12') },
+          { id: 'test:place123', name: fakeLocalizedObject('place123') },
+        ],
+        'place12'
+      ),
+    ]);
 
     const unitFieldInput = screen.getByRole('textbox', {
       name: /päiväkoti \/ koulu \/ oppilaitos/i,
@@ -608,7 +627,17 @@ describe('UnitField', () => {
   ])(
     'shows the unit text in a autosuggest div next to the input (%p)',
     async (placeMocks) => {
-      await setupUnitFieldTest(placeMocks);
+      await setupUnitFieldTest([
+        ...(placeMocks ?? []),
+        createSchoolsAndKindergartensListQueryMock(
+          10,
+          [
+            { id: 'test:place12', name: fakeLocalizedObject('place12') },
+            { id: 'test:place123', name: fakeLocalizedObject('place123') },
+          ],
+          'place12'
+        ),
+      ]);
 
       // avoid act warning by clicking the input first
       await userEvent.click(getUnitFieldInput());
@@ -627,7 +656,18 @@ describe('UnitField', () => {
   );
 
   it('clears the unit id value when a clear button is clicked', async () => {
-    await setupUnitFieldTest();
+    await setupUnitFieldTest([
+      createSchoolsAndKindergartensListQueryMock(
+        10,
+        [
+          { id: 'test:place1', name: fakeLocalizedObject('place1') },
+          { id: 'test:place2', name: fakeLocalizedObject('place2') },
+          { id: 'test:place12', name: fakeLocalizedObject('place12') },
+          { id: 'test:place123', name: fakeLocalizedObject('place123') },
+        ],
+        'place12'
+      ),
+    ]);
 
     await userEvent.click(getUnitFieldInput());
     await userEvent.type(getUnitFieldInput(), 'place12');

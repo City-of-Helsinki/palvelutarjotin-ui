@@ -47,12 +47,14 @@ const UnitPlaceSelector: React.FC<Props> = ({
   const locale = useLocale();
   const { t } = useTranslation();
   const [inputValue, setInputValue] = React.useState('');
-  const searchValue = useDebounce(inputValue, 100);
-
+  const searchValue = useDebounce(inputValue, 500);
   const apolloClient = useApolloClient();
 
   const { data: unitsData, loading } = useSchoolsAndKindergartensListQuery({
     skip: !searchValue,
+    variables: {
+      search: searchValue,
+    },
   });
 
   const optionLabelToString = (option: AutoSuggestOption, locale: Language) => {
@@ -71,15 +73,10 @@ const UnitPlaceSelector: React.FC<Props> = ({
   };
 
   const placeOptions =
-    unitsData?.schoolsAndKindergartensList?.data
-      .map((place) => ({
-        label: getOptionLabel(place as Place),
-        value: place.id || '',
-      }))
-      // Filter the results with a search value!
-      .filter((place) =>
-        place.label.toLowerCase().includes(searchValue.toLowerCase())
-      ) || [];
+    unitsData?.schoolsAndKindergartensList?.data.map((place) => ({
+      label: getOptionLabel(place as Place),
+      value: place.id || '',
+    })) || [];
 
   const handleBlur = (
     option: AutoSuggestOption | AutoSuggestOption[] | null
