@@ -230,6 +230,12 @@ describe('getAllMenuPages', () => {
                       node: fakePage({
                         language: fakeLanguage({ code: LanguageCodeEnum.Fi }),
                         children: {
+                          pageInfo: {
+                            hasNextPage: false,
+                            hasPreviousPage: false,
+                            startCursor: '',
+                            endCursor: '',
+                          },
                           edges: [],
                           nodes: [fakePage({ id: 'child1' })],
                         },
@@ -252,6 +258,12 @@ describe('getAllMenuPages', () => {
             page: fakePage({
               uri: nestedChildPageUris[0],
               children: {
+                pageInfo: {
+                  hasNextPage: false,
+                  hasPreviousPage: false,
+                  startCursor: '',
+                  endCursor: '',
+                },
                 edges: [],
                 nodes: [
                   fakePage({
@@ -268,6 +280,12 @@ describe('getAllMenuPages', () => {
             page: fakePage({
               uri: nestedChildPageUris[1],
               children: {
+                pageInfo: {
+                  hasNextPage: false,
+                  hasPreviousPage: false,
+                  startCursor: '',
+                  endCursor: '',
+                },
                 edges: [],
                 nodes: [
                   fakePage({
@@ -284,6 +302,12 @@ describe('getAllMenuPages', () => {
             page: fakePage({
               uri: nestedChildPageUris[2],
               children: {
+                pageInfo: {
+                  hasNextPage: false,
+                  hasPreviousPage: false,
+                  startCursor: '',
+                  endCursor: '',
+                },
                 edges: [],
                 nodes: [fakePage()],
               },

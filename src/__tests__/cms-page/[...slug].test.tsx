@@ -176,6 +176,12 @@ const initMocks = ({ page }: { page: Partial<Page> }) => {
               title: page.title,
               content: page.content,
               children: {
+                pageInfo: {
+                  hasNextPage: false,
+                  hasPreviousPage: false,
+                  startCursor: '',
+                  endCursor: '',
+                },
                 nodes,
                 edges: nodes.map((node) => ({ node })),
               },
@@ -194,6 +200,12 @@ const initMocks = ({ page }: { page: Partial<Page> }) => {
               title: page.title,
               content: page.content,
               children: {
+                pageInfo: {
+                  hasNextPage: false,
+                  hasPreviousPage: false,
+                  startCursor: '',
+                  endCursor: '',
+                },
                 nodes,
                 edges: nodes.map((node) => ({ node })),
               },
