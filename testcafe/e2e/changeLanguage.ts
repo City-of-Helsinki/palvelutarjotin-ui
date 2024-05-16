@@ -26,11 +26,7 @@ test('Changing language on events page', async (t) => {
     )
     .ok();
 
-  await t
-    .click(header.languageSelector)
-    .click(header.languageSelectorItemSv)
-    .expect(getPathname())
-    .eql('/sv');
+  await t.click(header.languageSelectorItemSv).expect(getPathname()).eql('/sv');
 
   await t
     .expect(
