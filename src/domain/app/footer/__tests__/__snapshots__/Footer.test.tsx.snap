@@ -100,7 +100,7 @@ exports[`Footer matches snapshot 1`] = `
             </span>
             <a
               class="LinkBase-module_link__djxNm LinkBase_hds-link__4Kjdj LinkBase-module_linkM__Hz4Zc LinkBase_hds-link--medium__bHZ5t LinkBase-module_disableVisitedStyles__S6UjE LinkBase_hds-link--disable-visited-styles__cQcea Link-module_link__ysKHd FooterLink-module_item__3Ig3B FooterLink-module_base__bzKoj footerLink"
-              href="/saavutettavuusseloste"
+              href="/cms-page/saavutettavuusseloste"
             >
               <span
                 class="LinkBase-module_content__Y4oQw"
@@ -118,7 +118,7 @@ exports[`Footer matches snapshot 1`] = `
             </span>
             <a
               class="LinkBase-module_link__djxNm LinkBase_hds-link__4Kjdj LinkBase-module_linkM__Hz4Zc LinkBase_hds-link--medium__bHZ5t LinkBase-module_disableVisitedStyles__S6UjE LinkBase_hds-link--disable-visited-styles__cQcea Link-module_link__ysKHd FooterLink-module_item__3Ig3B FooterLink-module_base__bzKoj footerLink"
-              href="/kayttoehdot"
+              href="/cms-page/kayttoehdot"
             >
               <span
                 class="LinkBase-module_content__Y4oQw"
@@ -136,7 +136,7 @@ exports[`Footer matches snapshot 1`] = `
             </span>
             <a
               class="LinkBase-module_link__djxNm LinkBase_hds-link__4Kjdj LinkBase-module_linkM__Hz4Zc LinkBase_hds-link--medium__bHZ5t LinkBase-module_disableVisitedStyles__S6UjE LinkBase_hds-link--disable-visited-styles__cQcea Link-module_link__ysKHd FooterLink-module_item__3Ig3B FooterLink-module_base__bzKoj footerLink"
-              href="/palaute"
+              href="/cms-page/palaute"
             >
               <span
                 class="LinkBase-module_content__Y4oQw"

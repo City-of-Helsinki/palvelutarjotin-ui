@@ -1,20 +1,20 @@
-import { ModuleItemTypeEnum } from 'react-helsinki-headless-cms';
+import {
+  ModuleItemTypeEnum,
+  LanguageCodeEnum,
+} from 'react-helsinki-headless-cms';
+import {
+  MenuDocument,
+  MenuQueryVariables,
+  MenuQuery,
+} from 'react-helsinki-headless-cms/apollo';
 
 import { createCmsApolloClient } from './cmsApolloClient';
 import AppConfig from './config';
-import { MENU_NAME } from './constants';
-import { getCmsArticlePath, getCmsPagePath } from '../domain/app/routes/utils';
 import {
-  MenuDocument,
-  MenuNodeIdTypeEnum,
-  MenuQuery,
-  MenuQueryVariables,
-  Page,
-  PageDocument,
-  PageIdType,
-  PageQuery,
-  PageQueryVariables,
-} from '../generated/graphql-cms';
+  DEFAULT_FOOTER_MENU_NAME,
+  DEFAULT_HEADER_MENU_NAME,
+} from '../constants';
+import { getCmsArticlePath, getCmsPagePath } from '../domain/app/routes/utils';
 import { Language } from '../types';
 
 export const getUriID = (slugs: string[], locale: Language): string => {
@@ -59,84 +59,118 @@ export const slugsToUriSegments = (slugs: string[]): string[] => {
   });
 };
 
-type PageInfo = { uri: string; slug: string; locale: string };
+export type PageInfo = { uri: string; slug: string; locale: Language };
 
-// Recursively go through all child pages from menu query
-// and return
-export const getAllMenuPages = async (): Promise<PageInfo[]> => {
-  const pageInfos: PageInfo[] = [];
-  const cmsClient = createCmsApolloClient();
-  const { data: navigationData } = await cmsClient.query<
-    MenuQuery,
-    MenuQueryVariables
-  >({
-    query: MenuDocument,
-    variables: {
-      id: MENU_NAME.Header,
-      idType: MenuNodeIdTypeEnum.Name,
-    },
-  });
+/**
+ * A valid Page object from MenuQuery
+ * i.e. the needed fields are not null or undefined.
+ */
+type ValidPage = {
+  __typename: 'Page';
+  uri: string;
+  slug: string;
+  language: {
+    code: LanguageCodeEnum;
+  };
+};
 
-  const menuItemPromises = navigationData.menu?.menuItems?.nodes?.map(
-    (menuItem) => getPageChildren(menuItem?.connectedNode?.node as Page)
+/** Mapping from LanguageCodeEnum to Language. */
+const LANGUAGE_CODE_ENUM_TO_LANGUAGE = {
+  [LanguageCodeEnum.En]: 'en',
+  [LanguageCodeEnum.Fi]: 'fi',
+  [LanguageCodeEnum.Sv]: 'sv',
+} as const satisfies Record<LanguageCodeEnum, Language>;
+
+/** Is node from MenuQuery a valid Page object? */
+const isValidPage = (node: unknown): node is ValidPage => {
+  return Boolean(
+    typeof node === 'object' &&
+      node !== null &&
+      '__typename' in node &&
+      node.__typename === 'Page' &&
+      'uri' in node &&
+      'slug' in node &&
+      'language' in node &&
+      typeof node.language === 'object' &&
+      node.language !== null &&
+      'code' in node.language &&
+      typeof node.uri === 'string' &&
+      typeof node.slug === 'string' &&
+      typeof node.language.code === 'string' &&
+      Object.values<string>(LanguageCodeEnum).includes(node.language.code)
   );
+};
 
-  if (menuItemPromises) {
-    await Promise.all(menuItemPromises);
+/** Convert a valid Page object to PageInfo. */
+const nodeToPageInfo = (node: ValidPage): PageInfo => {
+  return {
+    uri: node.uri,
+    slug: node.slug,
+    locale: LANGUAGE_CODE_ENUM_TO_LANGUAGE[node.language.code],
+  };
+};
+
+/** Get all PageInfo objects from a Page and its translations recursively. */
+const getPageInfosFromNode = (node: unknown): PageInfo[] => {
+  const result: PageInfo[] = [];
+  if (isValidPage(node)) {
+    result.push(nodeToPageInfo(node));
+    if ('translations' in node && Array.isArray(node.translations)) {
+      for (const translatedNode of node.translations) {
+        result.concat(getPageInfosFromNode(translatedNode));
+      }
+    }
   }
+  return result;
+};
 
-  return pageInfos;
+/** Get all unique menu pages from headless CMS for all languages. */
+export const getAllMenuPages = async (): Promise<PageInfo[]> => {
+  // Slug to page info mapping to avoid duplicates. Slugs must be unique i.e.
+  // slug should be able to be used to identify a page in a specific language.
+  const slugToPageInfo: Record<string, PageInfo> = {};
+  const cmsClient = createCmsApolloClient();
 
-  async function getPageChildren(node?: Page): Promise<unknown> {
-    if (node) addPageToPageInfosArray(node);
-    if (node?.children?.nodes?.length) {
-      return Promise.all(
-        node.children.nodes.map(async (page) => {
-          if (page?.id) {
-            const { data: childPage } = await cmsClient.query<
-              PageQuery,
-              PageQueryVariables
-            >({
-              query: PageDocument,
-              variables: {
-                id: page.id,
-                idType: PageIdType.Id,
-              },
-            });
-            return getPageChildren(childPage.page as Page);
-          }
-        })
-      );
+  const menuIds = [
+    ...Object.values(DEFAULT_HEADER_MENU_NAME),
+    ...Object.values(DEFAULT_FOOTER_MENU_NAME),
+  ];
+
+  // Go through both header and footer menus in all languages
+  for (const menuId of menuIds) {
+    const { data: navigationData } = await cmsClient.query<
+      MenuQuery,
+      MenuQueryVariables
+    >({
+      query: MenuDocument,
+      variables: {
+        id: menuId,
+        menuIdentifiersOnly: false,
+      },
+      fetchPolicy: 'no-cache',
+    });
+
+    const nodes = navigationData.menu?.menuItems?.nodes?.map(
+      (menuItem) => menuItem?.connectedNode?.node
+    );
+
+    // Get pages from the menu and their translations
+    const pageInfos = nodes?.map(getPageInfosFromNode).flat() ?? [];
+
+    for (const pageInfo of pageInfos) {
+      slugToPageInfo[pageInfo.slug] = pageInfo;
     }
   }
 
-  function addPageToPageInfosArray(node: Page) {
-    if (node.uri && node.slug && node.language?.code) {
-      pageInfos.push({
-        uri: node.uri,
-        locale: node.language.code.toLowerCase(),
-        slug: node.slug,
-      });
-      node.translations?.forEach((translation) => {
-        if (
-          translation?.uri &&
-          translation.slug &&
-          translation.language?.code
-        ) {
-          const {
-            uri,
-            slug,
-            language: { code },
-          } = translation;
-          pageInfos.push({
-            uri,
-            slug,
-            locale: code.toLocaleLowerCase(),
-          });
-        }
-      });
-    }
-  }
+  // Return unique pages ordered by slug for predictability
+  return (
+    Object.keys(slugToPageInfo)
+      // Use localeCompare because of sonarcloud's typescript:S2871
+      // ("Provide a compare function that depends on String.localeCompare,
+      // to reliably sort elements alphabetically").
+      .sort((a, b) => a.localeCompare(b))
+      .map((key) => slugToPageInfo[key])
+  );
 };
 
 export function getRoutedInternalHref(
@@ -150,11 +184,6 @@ export function getRoutedInternalHref(
     return getCmsPagePath(link);
   }
   return link ?? '#';
-
-  /*const getRoutedInternalHref = (
-    link?: string | null,
-    type?: ModuleItemTypeEnum
-  ): string => getCmsPath(link ?? '');*/
 }
 
 /**

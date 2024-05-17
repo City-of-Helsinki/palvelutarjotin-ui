@@ -1,19 +1,16 @@
 import { dequal } from 'dequal';
 import { graphql } from 'msw';
-
 import {
-  LanguageCodeEnum,
-  MenuNodeIdTypeEnum,
   MenuQuery,
   MenuQueryVariables,
-  PageIdType,
-  PageQuery,
-  PageQueryVariables,
-} from '../../generated/graphql-cms';
+} from 'react-helsinki-headless-cms/apollo';
+
+import {
+  allMockedMenuPages,
+  menuQueryMocks,
+} from '../../tests/apollo-mocks/menuMocks';
 import { server } from '../../tests/msw/server';
 import { Language } from '../../types';
-import { fakePage, fakeLanguage } from '../../utils/cmsMockDataUtils';
-import { MENU_NAME } from '../constants';
 import {
   getUriID,
   stripLocaleFromUri,
@@ -210,138 +207,18 @@ describe('uriToBreadcrumbs', () => {
 });
 
 describe('getAllMenuPages', () => {
-  it('recursively fetches all children pages', async () => {
-    const nestedChildPageUris = ['/child1/', '/child2/', '/child3/'];
-    const mocks = {
-      Menu: [
-        {
-          variables: {
-            id: MENU_NAME.Header,
-            idType: MenuNodeIdTypeEnum.Name,
-          },
-          response: {
-            menu: {
-              menuItems: {
-                nodes: [
-                  {
-                    __typename: 'MenuItem',
-                    connectedNode: {
-                      __typename: 'MenuItemToMenuItemLinkableConnectionEdge',
-                      node: fakePage({
-                        language: fakeLanguage({ code: LanguageCodeEnum.Fi }),
-                        children: {
-                          pageInfo: {
-                            hasNextPage: false,
-                            hasPreviousPage: false,
-                            startCursor: '',
-                            endCursor: '',
-                          },
-                          edges: [],
-                          nodes: [fakePage({ id: 'child1' })],
-                        },
-                        __typename: 'Page',
-                      }),
-                    },
-                  },
-                ],
-                __typename: 'MenuToMenuItemConnection',
-              },
-              __typename: 'Menu',
-            },
-          } as MenuQuery,
-        },
-      ],
-      Page: [
-        {
-          variables: { id: 'child1', idType: PageIdType.Id },
-          response: {
-            page: fakePage({
-              uri: nestedChildPageUris[0],
-              children: {
-                pageInfo: {
-                  hasNextPage: false,
-                  hasPreviousPage: false,
-                  startCursor: '',
-                  endCursor: '',
-                },
-                edges: [],
-                nodes: [
-                  fakePage({
-                    id: 'child2',
-                  }),
-                ],
-              },
-            }),
-          },
-        },
-        {
-          variables: { id: 'child2', idType: PageIdType.Id },
-          response: {
-            page: fakePage({
-              uri: nestedChildPageUris[1],
-              children: {
-                pageInfo: {
-                  hasNextPage: false,
-                  hasPreviousPage: false,
-                  startCursor: '',
-                  endCursor: '',
-                },
-                edges: [],
-                nodes: [
-                  fakePage({
-                    id: 'child3',
-                  }),
-                ],
-              },
-            }),
-          },
-        },
-        {
-          variables: { id: 'child3', idType: PageIdType.Id },
-          response: {
-            page: fakePage({
-              uri: nestedChildPageUris[2],
-              children: {
-                pageInfo: {
-                  hasNextPage: false,
-                  hasPreviousPage: false,
-                  startCursor: '',
-                  endCursor: '',
-                },
-                edges: [],
-                nodes: [fakePage()],
-              },
-            }),
-          },
-        },
-      ],
-    };
+  it('fetches all unique pages in all languages', async () => {
     server.use(
-      graphql.query<MenuQuery, MenuQueryVariables>('Menu', (req, res, ctx) => {
-        const data = mocks.Menu.find(({ variables }) => {
+      graphql.query<MenuQuery, MenuQueryVariables>('menu', (req, res, ctx) => {
+        const data = menuQueryMocks.find(({ variables }) => {
           return dequal(variables, req.variables);
         });
         return data ? res(ctx.data(data.response)) : res(ctx.data({}));
-      }),
-      graphql.query<PageQuery, PageQueryVariables>('Page', (req, res, ctx) => {
-        const { response } =
-          mocks.Page.find(({ variables }) => {
-            return dequal(variables, req.variables);
-          }) ?? {};
-        return response
-          ? res(ctx.data(response))
-          : res(ctx.data({ page: fakePage() }));
       })
     );
 
     const pages = await getAllMenuPages();
-    expect(pages).toHaveLength(15);
-
-    // Pages should include all the child pages
-    expect(pages).toEqual(
-      expect.arrayContaining(
-        nestedChildPageUris.map((uri) => expect.objectContaining({ uri }))
-      )
-    );
+    expect(pages).toHaveLength(allMockedMenuPages.length);
+    expect(pages).toStrictEqual(allMockedMenuPages);
   });
 });
