@@ -8,6 +8,10 @@ import styles from './footer.module.scss';
 import { resetFocusId } from '../../../common/components/resetFocus/ResetFocus';
 import { DEFAULT_FOOTER_MENU_NAME } from '../../../constants';
 import useLocale from '../../../hooks/useLocale';
+import {
+  getIsHrefExternal,
+  getRoutedInternalHrefForLocale,
+} from '../../../pages/_app';
 
 const FooterSection = (): React.ReactElement => {
   const { t } = useTranslation();
@@ -41,17 +45,16 @@ const FooterSection = (): React.ReactElement => {
       >
         {!loading &&
           data?.menu?.menuItems?.nodes?.map((navigationItem) => {
-            const href =
-              navigationItem?.connectedNode?.node &&
-              'link' in navigationItem.connectedNode.node
-                ? `/${locale}${navigationItem?.connectedNode.node.link}`
-                : navigationItem?.path;
+            const path = navigationItem?.path ?? '';
+            const href = getIsHrefExternal(path)
+              ? path
+              : getRoutedInternalHrefForLocale(locale, path);
             return (
               <Footer.Link
                 className={styles.footerLink}
                 key={navigationItem?.id}
                 as={Link}
-                href={href || ''}
+                href={href}
                 label={navigationItem?.label || undefined}
               />
             );

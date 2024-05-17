@@ -10,7 +10,6 @@ import { appWithTranslation, SSRConfig, useTranslation } from 'next-i18next';
 import React, { ErrorInfo } from 'react';
 import {
   Config,
-  LanguageCodeEnum,
   ConfigProvider as RHHCConfigProvider,
   defaultConfig as rhhcDefaultConfig,
 } from 'react-helsinki-headless-cms';
@@ -31,6 +30,7 @@ import CMSApolloProvider from '../headless-cms/cmsApolloContext';
 import AppConfig from '../headless-cms/config';
 import { stripLocaleFromUri } from '../headless-cms/utils';
 import useLocale from '../hooks/useLocale';
+import { Language } from '../types';
 import getLanguageCode from '../utils/getCurrentLanguageCode';
 import '../styles/globals.scss';
 
@@ -45,9 +45,20 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 const internalHrefOrigins = [APP_DOMAIN, CMS_API_DOMAIN];
-const getIsHrefExternal = (href: string) => {
+export const getIsHrefExternal = (href: string) => {
   if (href?.startsWith('/')) return false;
   return !internalHrefOrigins.some((origin) => href?.includes(origin));
+};
+
+export const getRoutedInternalHrefForLocale = (
+  locale: Language,
+  link?: string | null
+) => {
+  // menu nav items, not breadcrumb
+  const localePath = locale !== 'fi' ? `/${locale}` : '';
+  return `${localePath}${getCmsPagePath(
+    stripLocaleFromUri(link ?? '')
+  )}`.replace(/\/$/, '');
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -118,16 +129,8 @@ const MyApp = ({ Component, pageProps }: AppProps<CustomPageProps>) => {
         getIsHrefExternal,
         // this does not work anymore with
         // article type as type is never passed to the function in new hcrc implementation
-        getRoutedInternalHref: (link?: string | null) => {
-          // menu nav items, not breadcrumb
-          const localePath =
-            locale !== LanguageCodeEnum.Fi.toLowerCase()
-              ? `/${locale.toLowerCase()}`
-              : '';
-          return `${localePath}${getCmsPagePath(
-            stripLocaleFromUri(link ?? '')
-          )}`.replace(/\/$/, '');
-        },
+        getRoutedInternalHref: (link?: string | null) =>
+          getRoutedInternalHrefForLocale(locale, link),
       },
       internalHrefOrigins: CMS_API_DOMAIN ? [CMS_API_DOMAIN] : [],
       apolloClient: cmsApolloClient,

@@ -9,7 +9,7 @@ class AppConfig {
   static get cmsGraphqlEndpoint() {
     return getEnvOrError(
       process.env.NEXT_PUBLIC_CMS_BASE_URL,
-      'NEXT_PUBLIC_CMS_GRAPHQL_ENDPOINT'
+      'NEXT_PUBLIC_CMS_BASE_URL'
     );
   }
   static get cmsOrigin() {

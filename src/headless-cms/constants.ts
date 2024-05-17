@@ -1,11 +1,4 @@
-//TODO: still used for the breadcrumb but contradicts with the current Navigation logic with localized menus?
-
 import { Language, LanguageCodeEnum } from 'react-helsinki-headless-cms';
-
-export enum MENU_NAME {
-  Header = 'Palvelutarjotin-UI Header',
-  Footer = 'Palvelutarjotin-UI Footer',
-}
 
 /**
  * This is just a mock of list of Languages.

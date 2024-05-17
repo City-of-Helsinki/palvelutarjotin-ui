@@ -11,6 +11,7 @@ import fetch from 'cross-fetch';
 import merge from 'lodash/merge';
 import { useMemo } from 'react';
 
+import AppConfig from './config';
 import { rewriteInternalURLs } from './utils';
 
 let cmsApolloClient: ApolloClient<NormalizedCacheObject>;
@@ -56,9 +57,7 @@ export const createCmsApolloClient =
     });
 
     const httpLink = new HttpLink({
-      uri:
-        process.env.NEXT_PUBLIC_CMS_BASE_URL ??
-        'https://kultus.content.api.hel.fi/graphql',
+      uri: AppConfig.cmsGraphqlEndpoint,
       fetch,
     });
 
