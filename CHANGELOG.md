@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://www.conventionalcommits.org/) for commit guidelines.
 
+## [2.7.0](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/palvelutarjotin-ui-v2.6.0...palvelutarjotin-ui-v2.7.0) (2024-05-18)
+
+
+### Features
+
+* Unit place selector search filter parameter ([172fc33](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/172fc338825da989a0971d53a3d56ff0c977485c))
+
+
+### Bug Fixes
+
+* GetAllMenuPages, footer CMS page links, remove obsolete menus ([854f32d](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/854f32dfd660e01ed03431bc41b80c4d1418d73f))
+
 ## [2.6.0](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/palvelutarjotin-ui-v2.5.0...palvelutarjotin-ui-v2.6.0) (2024-04-26)
 
 
