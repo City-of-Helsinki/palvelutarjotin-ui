@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://www.conventionalcommits.org/) for commit guidelines.
 
+## [2.8.0](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/palvelutarjotin-ui-v2.7.0...palvelutarjotin-ui-v2.8.0) (2024-07-01)
+
+
+### Features
+
+* Use keywordOrSet-filter in events list query for keywords ([fcea3c1](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/fcea3c188d2426ea668b79b99b8f497d6908f358))
+
 ## [2.7.0](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/palvelutarjotin-ui-v2.6.0...palvelutarjotin-ui-v2.7.0) (2024-05-18)
 
 
