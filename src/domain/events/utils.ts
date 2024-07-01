@@ -63,34 +63,20 @@ type KeywordOrSetSearchVariablesType = {
   keywordOrSet3?: string[];
 };
 
+const toArray = (
+  value: string | string[] | null | undefined
+): string[] | undefined =>
+  Array.isArray(value) ? value : value ? [value] : undefined;
+
 const getKeywordsToQuery = (keywords: {
   [KEYWORD_QUERY_PARAMS.CATEGORIES]?: string | string[];
   [KEYWORD_QUERY_PARAMS.TARGET_GROUPS]?: string | string[];
   [KEYWORD_QUERY_PARAMS.ADDITIONAL_CRITERIA]?: string | string[];
-}): KeywordOrSetSearchVariablesType => {
-  return [
-    keywords[KEYWORD_QUERY_PARAMS.CATEGORIES],
-    keywords[KEYWORD_QUERY_PARAMS.TARGET_GROUPS],
-    keywords[KEYWORD_QUERY_PARAMS.ADDITIONAL_CRITERIA],
-  ].reduce<KeywordOrSetSearchVariablesType>(
-    (result, groupKeywords, currentIndex) => {
-      if (Array.isArray(groupKeywords)) {
-        return {
-          ...result,
-          [`keywordOrSet${currentIndex + 1}`]: groupKeywords,
-        };
-      }
-      if (groupKeywords) {
-        return {
-          ...result,
-          [`keywordOrSet${currentIndex + 1}`]: [groupKeywords],
-        };
-      }
-      return result;
-    },
-    {}
-  );
-};
+}): KeywordOrSetSearchVariablesType => ({
+  keywordOrSet1: toArray(keywords[KEYWORD_QUERY_PARAMS.CATEGORIES]),
+  keywordOrSet2: toArray(keywords[KEYWORD_QUERY_PARAMS.TARGET_GROUPS]),
+  keywordOrSet3: toArray(keywords[KEYWORD_QUERY_PARAMS.ADDITIONAL_CRITERIA]),
+});
 
 const getDateString = (date?: string | string[]): string | null => {
   return typeof date === 'string' && isValidDate(new Date(date))
