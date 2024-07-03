@@ -8,7 +8,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 Production environment:
 
-- https://kultus.fi/
+- https://kultus.hel.fi/
 - Triggered by creation of release-\* tag, e.g. `release-v0.1.0`
   - Needs to be manually approved in pipeline to be deployed
 

@@ -12,7 +12,7 @@ const footerMenu = [
   { title: 'Saavutettavuusseloste', uri: '/saavutettavuusseloste' },
   { title: 'Käyttöehdot', uri: '/kayttoehdot' },
   { title: 'Anna palautetta', uri: '/palaute' },
-  { title: 'Palveluntarjoajille', uri: 'https://provider.kultus.fi' },
+  { title: 'Palveluntarjoajille', uri: 'https://kultus-admin.hel.fi' },
 ];
 
 // Mock menu query for header
