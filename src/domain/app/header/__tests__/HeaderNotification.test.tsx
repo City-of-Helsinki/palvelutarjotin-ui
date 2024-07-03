@@ -50,7 +50,7 @@ beforeEach(() => {
 
 it('matches snapshot', async () => {
   const { container } = renderComponent({
-    linkUrl: 'https://kultus.fi',
+    linkUrl: 'https://kultus.hel.fi',
     level: 'info',
     title: 'Notification title',
     content: 'Notification content',
@@ -64,7 +64,7 @@ it('matches snapshot', async () => {
 it('renders notification data correctly', async () => {
   const title = 'Notification title';
   const content = 'Notification content';
-  const linkUrl = 'https://kultus.fi';
+  const linkUrl = 'https://kultus.hel.fi';
   const linkText = 'Linkki sivustolle';
   renderComponent({
     startDate: new Date(2020, 6, 10).toISOString(),
