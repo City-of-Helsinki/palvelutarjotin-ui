@@ -34,6 +34,8 @@ module.exports = {
       'kultus.content.api.hel.fi',
       'hkih.stage.geniem',
       'kultus.hkih.stage.geniem.io',
+      'app-staging.hkih.hion.dev',
+      'kultus.app-staging.hkih.hion.dev',
     ],
   },
   env: {
