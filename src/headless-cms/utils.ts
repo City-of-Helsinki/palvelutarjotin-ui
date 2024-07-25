@@ -200,3 +200,28 @@ export function rewriteInternalURLs(
   }
   return JSON.parse(jsonText);
 }
+
+/** Known non-CMS pages without trailing slash. */
+const KNOWN_NON_CMS_PAGES = [
+  '', // root without slash
+  '/search',
+  '/newsletter',
+];
+
+export const isInternalHrefCmsPage = (link?: string | null) => {
+  const linkWithoutLocale = removeTrailingSlash(stripLocaleFromUri(link ?? ''));
+  return !KNOWN_NON_CMS_PAGES.includes(linkWithoutLocale);
+};
+
+export const getRoutedInternalHrefForLocale = (
+  locale: Language,
+  link?: string | null
+) => {
+  // menu nav items, not breadcrumb
+  const localePath = locale !== 'fi' ? `/${locale}` : '';
+  const linkWithoutLocale = stripLocaleFromUri(link ?? '');
+  const resolvedLink = isInternalHrefCmsPage(link)
+    ? getCmsPagePath(linkWithoutLocale)
+    : linkWithoutLocale;
+  return removeTrailingSlash(`${localePath}${resolvedLink}`).replace(/^$/, '/'); // "" -> "/"
+};
