@@ -28,9 +28,8 @@ import FocusToTop from '../FocusToTop';
 import { useCmsApollo } from '../headless-cms/cmsApolloClient';
 import CMSApolloProvider from '../headless-cms/cmsApolloContext';
 import AppConfig from '../headless-cms/config';
-import { stripLocaleFromUri } from '../headless-cms/utils';
+import { getRoutedInternalHrefForLocale } from '../headless-cms/utils';
 import useLocale from '../hooks/useLocale';
-import { Language } from '../types';
 import getLanguageCode from '../utils/getCurrentLanguageCode';
 import '../styles/globals.scss';
 
@@ -48,17 +47,6 @@ const internalHrefOrigins = [APP_DOMAIN, CMS_API_DOMAIN];
 export const getIsHrefExternal = (href: string) => {
   if (href?.startsWith('/')) return false;
   return !internalHrefOrigins.some((origin) => href?.includes(origin));
-};
-
-export const getRoutedInternalHrefForLocale = (
-  locale: Language,
-  link?: string | null
-) => {
-  // menu nav items, not breadcrumb
-  const localePath = locale !== 'fi' ? `/${locale}` : '';
-  return `${localePath}${getCmsPagePath(
-    stripLocaleFromUri(link ?? '')
-  )}`.replace(/\/$/, '');
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

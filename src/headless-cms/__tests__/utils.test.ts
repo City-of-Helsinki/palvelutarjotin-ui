@@ -19,6 +19,8 @@ import {
   removeTrailingSlash,
   slugsToUriSegments,
   uriToBreadcrumbs,
+  isInternalHrefCmsPage,
+  getRoutedInternalHrefForLocale,
 } from '../utils';
 
 describe('getUriID', () => {
@@ -220,5 +222,97 @@ describe('getAllMenuPages', () => {
     const pages = await getAllMenuPages();
     expect(pages).toHaveLength(allMockedMenuPages.length);
     expect(pages).toStrictEqual(allMockedMenuPages);
+  });
+});
+
+describe('getRoutedInternalHrefForLocale', () => {
+  test.each<{ locale: Language; link?: string | null; expected: string }>([
+    // English locale with CMS page
+    { locale: 'en', link: '/slug1', expected: '/en/cms-page/slug1' },
+    { locale: 'en', link: '/slug1/', expected: '/en/cms-page/slug1' },
+    { locale: 'en', link: '/en/slug1', expected: '/en/cms-page/slug1' },
+    { locale: 'en', link: '/fi/slug1', expected: '/en/cms-page/slug1' },
+    { locale: 'en', link: '/sv/slug1', expected: '/en/cms-page/slug1' },
+    { locale: 'en', link: '/en/slug1/', expected: '/en/cms-page/slug1' },
+    { locale: 'en', link: '/fi/slug1/', expected: '/en/cms-page/slug1' },
+    { locale: 'en', link: '/sv/slug1/', expected: '/en/cms-page/slug1' },
+    // Swedish locale with CMS page
+    { locale: 'sv', link: '/slug1', expected: '/sv/cms-page/slug1' },
+    { locale: 'sv', link: '/slug1/', expected: '/sv/cms-page/slug1' },
+    { locale: 'sv', link: '/en/slug1', expected: '/sv/cms-page/slug1' },
+    { locale: 'sv', link: '/fi/slug1', expected: '/sv/cms-page/slug1' },
+    { locale: 'sv', link: '/sv/slug1', expected: '/sv/cms-page/slug1' },
+    { locale: 'sv', link: '/en/slug1/', expected: '/sv/cms-page/slug1' },
+    { locale: 'sv', link: '/fi/slug1/', expected: '/sv/cms-page/slug1' },
+    { locale: 'sv', link: '/sv/slug1/', expected: '/sv/cms-page/slug1' },
+    // Finnish locale (special case) with CMS page
+    { locale: 'fi', link: '/slug1', expected: '/cms-page/slug1' },
+    { locale: 'fi', link: '/slug1/', expected: '/cms-page/slug1' },
+    { locale: 'fi', link: '/en/slug1', expected: '/cms-page/slug1' },
+    { locale: 'fi', link: '/fi/slug1', expected: '/cms-page/slug1' },
+    { locale: 'fi', link: '/sv/slug1', expected: '/cms-page/slug1' },
+    { locale: 'fi', link: '/en/slug1/', expected: '/cms-page/slug1' },
+    { locale: 'fi', link: '/fi/slug1/', expected: '/cms-page/slug1' },
+    { locale: 'fi', link: '/sv/slug1/', expected: '/cms-page/slug1' },
+    // English locale with known non-CMS pages
+    { locale: 'en', link: '/newsletter', expected: '/en/newsletter' },
+    { locale: 'en', link: '/newsletter/', expected: '/en/newsletter' },
+    { locale: 'en', link: '', expected: '/en' },
+    { locale: 'en', link: '/', expected: '/en' },
+    { locale: 'en', link: '/search', expected: '/en/search' },
+    { locale: 'en', link: '/search/', expected: '/en/search' },
+    // Swedish locale with known non-CMS pages
+    { locale: 'sv', link: '/newsletter', expected: '/sv/newsletter' },
+    { locale: 'sv', link: '/newsletter/', expected: '/sv/newsletter' },
+    { locale: 'sv', link: '', expected: '/sv' },
+    { locale: 'sv', link: '/', expected: '/sv' },
+    { locale: 'sv', link: '/search', expected: '/sv/search' },
+    { locale: 'sv', link: '/en/search/', expected: '/sv/search' },
+    // Finnish locale (special case) with known non-CMS pages
+    { locale: 'fi', link: '/en/newsletter/', expected: '/newsletter' },
+    { locale: 'fi', link: '/en/newsletter/', expected: '/newsletter' },
+    { locale: 'fi', link: '', expected: '/' },
+    { locale: 'fi', link: '/', expected: '/' },
+    { locale: 'fi', link: '/en/search', expected: '/search' },
+    { locale: 'fi', link: '/search/', expected: '/search' },
+  ])(
+    'getRoutedInternalHrefForLocale($locale, $link) returns $expected',
+    ({ locale, link, expected }) => {
+      expect(getRoutedInternalHrefForLocale(locale, link)).toBe(expected);
+    }
+  );
+});
+
+describe('isInternalHrefCmsPage', () => {
+  test.each<{ link?: string | null; expected: boolean }>([
+    { link: '/slug1', expected: true },
+    { link: '/slug1/', expected: true },
+    { link: '/en/slug1', expected: true },
+    { link: '/fi/slug1', expected: true },
+    { link: '/sv/slug1', expected: true },
+    { link: '/sv/slug1/', expected: true },
+    // /newsletter/ is not a CMS page
+    { link: '/newsletter', expected: false },
+    { link: '/newsletter/', expected: false },
+    { link: '/en/newsletter', expected: false },
+    { link: '/en/newsletter/', expected: false },
+    { link: '/fi/newsletter', expected: false },
+    { link: '/fi/newsletter/', expected: false },
+    { link: '/sv/newsletter', expected: false },
+    { link: '/sv/newsletter/', expected: false },
+    // /search/ is not a CMS page
+    { link: '/search', expected: false },
+    { link: '/search/', expected: false },
+    { link: '/en/search', expected: false },
+    { link: '/en/search/', expected: false },
+    { link: '/fi/search', expected: false },
+    { link: '/fi/search/', expected: false },
+    { link: '/sv/search', expected: false },
+    { link: '/sv/search/', expected: false },
+    // root is not a CMS page
+    { link: '', expected: false },
+    { link: '/', expected: false },
+  ])('isInternalHrefCmsPage($link) returns $expected', ({ link, expected }) => {
+    expect(isInternalHrefCmsPage(link)).toBe(expected);
   });
 });
