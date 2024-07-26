@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://www.conventionalcommits.org/) for commit guidelines.
 
+## [2.9.0](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/palvelutarjotin-ui-v2.8.0...palvelutarjotin-ui-v2.9.0) (2024-07-26)
+
+
+### Features
+
+* Use new CMS url https://kultus.app-staging.hkih.hion.dev/ ([a6ac716](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/a6ac716ed9e80e9e259b3d35883c09d24d9162df))
+
+
+### Bug Fixes
+
+* Resolving internal URLs to known non-CMS pages e.g. /newsletter/ ([e765b2d](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/e765b2d6fcf680a9decff00cd54f22daf8f10385))
+
 ## [2.8.0](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/palvelutarjotin-ui-v2.7.0...palvelutarjotin-ui-v2.8.0) (2024-07-01)
 
 
