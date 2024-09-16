@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://www.conventionalcommits.org/) for commit guidelines.
 
+## [2.10.0](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/palvelutarjotin-ui-v2.9.0...palvelutarjotin-ui-v2.10.0) (2024-09-16)
+
+
+### Features
+
+* Change domain to hel.fi ([4ba9ded](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/4ba9deddeb71f9d2d275c8ca075ffb0214d13664))
+
 ## [2.9.0](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/palvelutarjotin-ui-v2.8.0...palvelutarjotin-ui-v2.9.0) (2024-07-26)
 
 
