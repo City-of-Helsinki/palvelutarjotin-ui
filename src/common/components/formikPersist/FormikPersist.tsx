@@ -55,7 +55,7 @@ const FormikPersist = ({
 
   const saveForm = React.useCallback(
     (data: FormikProps<Record<string, unknown>>) => {
-      debouncedSaveForm(data);
+      debouncedSaveForm({ ...data, errors: {} });
     },
     [debouncedSaveForm]
   );
@@ -67,9 +67,6 @@ const FormikPersist = ({
   }, [formik, saveForm]);
 
   React.useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    let timeout: any;
-
     const storedFormikState = isSessionStorage
       ? window.sessionStorage.getItem(name)
       : window.localStorage.getItem(name);
@@ -81,14 +78,8 @@ const FormikPersist = ({
       storedFormikStateObject &&
       objectStructureMatches(initialValues, storedFormikStateObject.values)
     ) {
-      formik.setFormikState(JSON.parse(storedFormikState));
-
-      // Validate form after setting state
-      timeout = setTimeout(() => {
-        formik.validateForm();
-      });
+      formik.setValues(storedFormikStateObject.values, true);
     }
-    return () => clearTimeout(timeout);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
