@@ -3,8 +3,8 @@ import * as Yup from 'yup';
 import { VALIDATION_MESSAGE_KEYS } from '../../app/forms/constants';
 
 type EnrolmentFormValidationSchemaProps = {
-  minGroupSize: number;
-  maxGroupSize: number;
+  minGroupSize?: number;
+  maxGroupSize?: number;
   isQueueEnrolment: boolean;
 };
 
@@ -55,10 +55,12 @@ export default function getValidationSchema({
           // The used validation error message will be the same for both the fields.
           // This is also preventing negative param.max to occur in validation.
           if (
-            !sizePair ||
-            sizePair < 0 ||
-            sizePair < minGroupSize ||
-            sizePair > maxGroupSize
+            minGroupSize &&
+            maxGroupSize &&
+            (!sizePair ||
+              sizePair < 0 ||
+              sizePair < minGroupSize ||
+              sizePair > maxGroupSize)
           ) {
             return (
               schema
@@ -78,13 +80,17 @@ export default function getValidationSchema({
             );
           }
 
-          // After the field pair is given, count how many seats are left
-          // and use that as max limit.
-          // The used validation error message will be unique for both the fields.
-          return schema.max(maxGroupSize - sizePair, (param) => ({
-            max: param.max,
-            key: fieldMaxLimitValidationMessage,
-          }));
+          if (maxGroupSize && sizePair) {
+            // After the field pair is given, count how many seats are left
+            // and use that as max limit.
+            // The used validation error message will be unique for both the fields.
+            return schema.max(maxGroupSize - sizePair, (param) => ({
+              max: param.max,
+              key: fieldMaxLimitValidationMessage,
+            }));
+          }
+
+          return schema;
         };
 
         return schema.shape(
