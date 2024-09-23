@@ -47,7 +47,7 @@ const EnrolmentForm: React.FC<Props> = ({
   submitting,
   onCloseForm,
   minGroupSize,
-  maxGroupSize = 20,
+  maxGroupSize,
   actionType = 'enrolment',
 }) => {
   const { t } = useTranslation();

@@ -215,8 +215,8 @@ test('render and focuses error notification correctly', async () => {
 
 describe('max group size validation of the Children and Adults -fields', () => {
   const createEnrolmentForm = async (
-    childrenCount: string,
-    adultsCount: string,
+    childrenCount: string | undefined,
+    adultsCount: string | undefined,
     minGroupSize: number | undefined = 10,
     maxGroupSize: number | undefined = 20
   ) => {
@@ -328,6 +328,13 @@ describe('max group size validation of the Children and Adults -fields', () => {
           /Lasten ja aikuisten yhteislukumäärän tulee olla vähintään 1/i
         )
       ).toHaveLength(2);
+    });
+  });
+
+  test('The field is still required when the limits are unset', async () => {
+    await createEnrolmentForm(undefined, undefined, undefined, undefined);
+    await waitFor(() => {
+      expect(screen.getAllByText(/Tämä kenttä on pakollinen/i)).toHaveLength(2);
     });
   });
 });
