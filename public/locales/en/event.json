@@ -1,8 +1,8 @@
 {
   "enrolmentConfirmation": {
     "sentBy": {
-      "email": "We will send you a confirmation email. Please also check your junk mail folder for messages. Please note that the sites are still in development. If you do not receive any registration mail at all, please contact the event organizer.",
-      "emailSms": "We will send you a confirmation email and text message. Please also check your junk mail folder for messages. Please note that the sites are still in development. If you do not receive any registration mail at all, please contact the event organizer.",
+      "email": "We will send you a confirmation by email. If you do not receive an email related to registration, please check your spam folder. If you can't find the message there either, please contact the event organizer.",
+      "emailSms": "We will send you a confirmation email and text message. If you do not receive an email related to registration, please check your spam folder. If you can't find the message there either, please contact the event organizer.",
       "sms": "We will send you a confirmation via SMS."
     },
     "title": "Registration sent",

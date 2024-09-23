@@ -1,8 +1,8 @@
 {
   "enrolmentConfirmation": {
     "sentBy": {
-      "email": "Vi skickar dig en bekräftelse via e-post. OBS! Tjänsten är fortfarande i utvecklingsfasen, och kommunikationsproblem har identifierats. Kontrollera även din skräppost för meddelanden. Om du inte får någon e-post om din anmälan, kontakta arrangören av evenemanget.",
-      "emailSms": "Vi skickar dig en bekräftelse via e-post. OBS! Tjänsten är fortfarande i utvecklingsfasen, och kommunikationsproblem har identifierats. Kontrollera även din skräppost för meddelanden. Om du inte får någon e-post om din anmälan, kontakta arrangören av evenemanget.",
+      "email": "Vi skickar en bekräftelse till dig via e-post. Om du inte får något e-postmeddelande om registrering, kontrollera din skräppostmapp. Om du inte hittar meddelandet där heller, vänligen kontakta arrangören av evenemanget.",
+      "emailSms": "Vi skickar dig en bekräftelse via e-post och SMS. Om du inte får något e-postmeddelande om registrering, kontrollera din skräppostmapp. Om du inte hittar meddelandet där heller, vänligen kontakta arrangören av evenemanget.",
       "sms": "Vi skickar en bekräftelse via SMS."
     },
     "title": "Registrering skickad",
