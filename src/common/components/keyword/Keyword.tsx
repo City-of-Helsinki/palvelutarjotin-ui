@@ -1,5 +1,6 @@
 import { UrlObject } from 'url';
 
+import classNames from 'classnames';
 import capitalize from 'lodash/capitalize';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
@@ -7,39 +8,92 @@ import * as React from 'react';
 
 import styles from './keyword.module.scss';
 
-type KeywordProps = {
+export type KeywordProps = {
   keyword: string | JSX.Element;
-  href: string | UrlObject;
-  itemType: 'button' | 'link';
+  href: string | UrlObject | null;
+  itemType: 'button' | 'link' | 'static';
+  color?: 'grey' | 'black' | 'green' | 'red' | 'yellow';
 };
 
-const Keyword: React.FC<KeywordProps> = ({
+type NavigationKeywordProps = Omit<KeywordProps, 'itemType' | 'color'> & {
+  href: string | UrlObject;
+};
+
+const KeywordLink: React.FC<NavigationKeywordProps> = ({
   href,
-  keyword,
-  itemType = 'link',
+  keyword: label,
   ...rest
 }) => {
-  const router = useRouter();
-  const label = typeof keyword === 'string' ? capitalize(keyword) : keyword;
-  const handleButtonClick = (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
-    e.preventDefault();
-    router.push(href);
-  };
-
-  return itemType === 'link' ? (
+  return (
     <NextLink legacyBehavior href={href}>
       {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
       <a className={styles.keyword} {...rest}>
         {label}
       </a>
     </NextLink>
-  ) : itemType === 'button' ? (
+  );
+};
+
+const KeywordButton: React.FC<NavigationKeywordProps> = ({
+  href,
+  keyword: label,
+  ...rest
+}) => {
+  const router = useRouter();
+
+  const handleButtonClick = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    e.preventDefault();
+    router.push(href);
+  };
+  return (
     <button className={styles.keyword} onClick={handleButtonClick} {...rest}>
       {label}
     </button>
-  ) : null;
+  );
+};
+
+const Keyword: React.FC<KeywordProps> = ({
+  itemType = 'link',
+  keyword,
+  href,
+  color = 'grey',
+  ...rest
+}) => {
+  const label = typeof keyword === 'string' ? capitalize(keyword) : keyword;
+
+  if (itemType === 'link') {
+    if (!href) {
+      throw new Error("When itemType is set to 'link', the 'href' is required");
+    }
+    return <KeywordLink keyword={label} href={href} {...rest} />;
+  } else if (itemType === 'button') {
+    if (!href) {
+      throw new Error(
+        "When itemType is set to 'button', the 'href' is required"
+      );
+    }
+    return <KeywordButton keyword={label} href={href} {...rest} />;
+  } else if (itemType === 'static') {
+    if (href) {
+      throw new Error(
+        "When itemType is set to 'static', the 'href' should be set to null."
+      );
+    }
+    return (
+      <button
+        className={classNames(styles.keyword, {
+          [styles[`keyword-${color}`]]: true,
+        })}
+        {...rest}
+      >
+        {label}
+      </button>
+    );
+  }
+
+  return null;
 };
 
 export default Keyword;

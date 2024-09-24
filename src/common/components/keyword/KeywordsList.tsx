@@ -3,6 +3,9 @@ import { UrlObject } from 'url';
 import { useTranslation } from 'next-i18next';
 import * as React from 'react';
 
+import EnrolmentStatusKeyword, {
+  EnrolmentStatusKeywordPropsType,
+} from './EnrolmentStatusKeyword';
 import Keyword from './Keyword';
 import styles from './keyword.module.scss';
 import { ROUTES } from '../../../domain/app/routes/constants';
@@ -19,11 +22,13 @@ import getLocalisedString from '../../../utils/getLocalisedString';
 type KeywordsListProps = {
   keywords: KeywordFieldsFragment[];
   itemType?: 'button' | 'link';
+  enrolmentStatus?: EnrolmentStatusKeywordPropsType['enrolmentStatus'];
 };
 
 const KeywordsList: React.FC<KeywordsListProps> = ({
   keywords,
   itemType = 'link',
+  enrolmentStatus,
 }) => {
   const locale = useLocale();
   const { t } = useTranslation();
@@ -32,6 +37,9 @@ const KeywordsList: React.FC<KeywordsListProps> = ({
 
   return (
     <ul className={styles.keywordsList}>
+      {enrolmentStatus && (
+        <EnrolmentStatusKeyword enrolmentStatus={enrolmentStatus} />
+      )}
       {keywordsPropArr.map((k, i) => (
         <li key={`${i}-${k.id}`}>
           <Keyword

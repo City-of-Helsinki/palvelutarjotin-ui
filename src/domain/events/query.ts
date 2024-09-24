@@ -45,6 +45,9 @@ export const QUERY_EVENTS = gql`
         id
         name
       }
+      enrolmentStart
+      externalEnrolmentUrl
+      hasSpaceForEnrolments
     }
     inLanguage {
       id
