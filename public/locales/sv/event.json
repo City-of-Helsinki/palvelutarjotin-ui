@@ -76,6 +76,11 @@
     "deleteDateFilter": "Ta bort filter"
   },
   "keywords": {
-    "labelKeywordLink": "Sök evenemang med ett sökord {{keyword}}"
+    "labelKeywordLink": "Sök evenemang med ett sökord {{keyword}}",
+    "enrolmentStatus": {
+      "externally_unknown": "Registrering på en annan sida",
+      "free_space_available": "Platser kvar",
+      "full": "Full"
+    }
   }
 }

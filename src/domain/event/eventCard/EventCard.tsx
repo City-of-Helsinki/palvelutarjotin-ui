@@ -2,10 +2,11 @@
 import { Button, IconLocation } from 'hds-react';
 import times from 'lodash/times';
 import NextLink from 'next/link';
-import { TFunction, useTranslation } from 'next-i18next';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import styles from './eventCard.module.scss';
+import { getEventEnrolmentStatus, getOccurrenceDateStr } from './utils';
 import KeywordsList from '../../../common/components/keyword/KeywordsList';
 import SkeletonLoader from '../../../common/components/skeletonLoader/SkeletonLoader';
 import {
@@ -14,12 +15,9 @@ import {
 } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
 import IconClock from '../../../icons/IconClock';
-import { Language } from '../../../types';
 import getLocalisedString from '../../../utils/getLocalisedString';
-import { formatDateRange } from '../../../utils/time/format';
-import { isMultidayOccurrence } from '../../occurrence/utils';
 import PlaceText from '../../place/placeText/PlaceText';
-import { getEventPlaceholderImage, getEventStartTimeStr } from '../utils';
+import { getEventPlaceholderImage } from '../utils';
 
 interface Props {
   event: EventsFieldsFragment;
@@ -36,6 +34,7 @@ const EventCard: React.FC<Props> = ({ event, link }) => {
   );
   const image = event.images[0]?.url;
   const keywords = [...event.keywords, ...event.audience];
+  const enrolmentStatus = getEventEnrolmentStatus(event);
 
   return (
     <NextLink legacyBehavior href={link}>
@@ -63,7 +62,11 @@ const EventCard: React.FC<Props> = ({ event, link }) => {
             <EventTime event={event} />
             <EventPlaceInfo event={event} />
           </div>
-          <KeywordsList keywords={keywords} itemType="button" />
+          <KeywordsList
+            keywords={keywords}
+            itemType="button"
+            enrolmentStatus={enrolmentStatus}
+          />
         </div>
       </a>
     </NextLink>
@@ -164,21 +167,6 @@ const OccurrenceTime: React.FC<{
       {getOccurrenceDateStr(occurrence, locale, t)}
     </li>
   );
-};
-
-export const getOccurrenceDateStr = (
-  occurrence: { startTime: string; endTime: string },
-  locale: Language,
-  t: TFunction
-): string | null => {
-  if (isMultidayOccurrence(occurrence)) {
-    return formatDateRange(
-      new Date(occurrence.startTime),
-      new Date(occurrence.endTime)
-    );
-  }
-
-  return getEventStartTimeStr(new Date(occurrence.startTime), locale, t);
 };
 
 export default EventCard;

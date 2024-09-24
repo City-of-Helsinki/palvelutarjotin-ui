@@ -10,6 +10,24 @@
   padding: 0 var(--spacing-s);
   text-decoration: none;
 }
+.keyword-red {
+  background-color: var(--color-brick);
+  color: white;
+}
+
+.keyword-green {
+  background-color: var(--color-copper-dark);
+  color: white;
+}
+
+.keyword-black {
+  background-color: var(--color-black-90);
+  color: var(--color-black-10);
+}
+
+.keyword-yellow {
+  background-color: var(--color-summer);
+}
 
 .keywordsList {
   padding: 0;

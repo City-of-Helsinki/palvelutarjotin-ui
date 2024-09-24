@@ -76,6 +76,11 @@
     "deleteDateFilter": "Poista rajaus"
   },
   "keywords": {
-    "labelKeywordLink": "Hae tapahtumia avainsanalla {{keyword}}"
+    "labelKeywordLink": "Hae tapahtumia avainsanalla {{keyword}}",
+    "enrolmentStatus": {
+      "externally_unknown": "Ilmoittautuminen muulla sivustolla",
+      "free_space_available": "Paikkoja jäljellä",
+      "full": "Täynnä"
+    }
   }
 }

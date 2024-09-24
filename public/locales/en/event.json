@@ -76,6 +76,11 @@
     "deleteDateFilter": "Poista rajaus"
   },
   "keywords": {
-    "labelKeywordLink": "Search events with keyword {{keyword}}"
+    "labelKeywordLink": "Search events with keyword {{keyword}}",
+    "enrolmentStatus": {
+      "externally_unknown": "Registration on another site",
+      "free_space_available": "Spaces left",
+      "full": "Full"
+    }
   }
 }
