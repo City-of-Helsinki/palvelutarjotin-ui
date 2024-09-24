@@ -81,9 +81,13 @@
   .arrowWrapper {
     display: flex;
     align-self: center;
+    margin-bottom: 2px;
+
+    &.focused {
+      border: var(--color-coat-of-arms) solid 3px;
+    }
 
     svg {
-      margin-left: 0.75rem;
       pointer-events: none;
     }
   }

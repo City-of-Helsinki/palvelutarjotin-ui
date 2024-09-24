@@ -20,7 +20,7 @@ button {
   cursor: pointer;
 
   &:focus {
-    outline: 2px solid $focusOutline;
+    outline: 3px solid $focusOutline;
   }
 }
 
