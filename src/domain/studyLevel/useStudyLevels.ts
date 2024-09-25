@@ -37,7 +37,7 @@ export default function useStudyLevels(): StudyLevelsState {
           return {
             label:
               count === 10
-                ? t('enrolment:studyLevel.tuva')
+                ? t('enrolment:studyLevel.grade_10')
                 : t('enrolment:studyLevel.grade_with_count', { count: count }),
             value: level,
           };
