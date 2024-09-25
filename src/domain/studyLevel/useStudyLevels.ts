@@ -35,7 +35,10 @@ export default function useStudyLevels(): StudyLevelsState {
         const count = Number(level.split('_')[1]);
         if (count > 3) {
           return {
-            label: t('enrolment:studyLevel.grade_with_count', { count: count }),
+            label:
+              count === 10
+                ? t('enrolment:studyLevel.grade_10')
+                : t('enrolment:studyLevel.grade_with_count', { count: count }),
             value: level,
           };
         }
