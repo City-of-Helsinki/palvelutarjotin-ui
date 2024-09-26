@@ -73,7 +73,7 @@
     "textCalendarLinkDescription": "{{description}} Read more: {{link}}"
   },
   "filters": {
-    "deleteDateFilter": "Poista rajaus"
+    "deleteDateFilter": "Remove filter"
   },
   "keywords": {
     "labelKeywordLink": "Search events with keyword {{keyword}}",
