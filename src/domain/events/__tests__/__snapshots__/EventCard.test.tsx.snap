@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders multiday occurrence time correctly 1`] = `
+exports[`EventCard List of occurrences renders multiday occurrence time correctly 1`] = `
 <div>
   <a
     class="eventCard"
