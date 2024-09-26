@@ -10,8 +10,62 @@ import {
   fakeOccurrences,
   fakePEvent,
 } from '../../../utils/mockDataUtils';
-import { render, screen, userEvent, waitFor } from '../../../utils/testUtils';
+import {
+  act,
+  render,
+  screen,
+  userEvent,
+  waitFor,
+} from '../../../utils/testUtils';
 import EventCard from '../../event/eventCard/EventCard';
+
+const emptyKeywordSetRequestMocks = [
+  {
+    request: {
+      query: graphql.KeywordSetDocument,
+      variables: {
+        setType: 'TARGET_GROUP',
+      },
+    },
+    result: {
+      data: { keywordSet: null },
+    },
+  },
+  {
+    request: {
+      query: graphql.KeywordSetDocument,
+      variables: {
+        setType: 'CATEGORY',
+      },
+    },
+    result: {
+      data: { keywordSet: null },
+    },
+  },
+  {
+    request: {
+      query: graphql.KeywordSetDocument,
+      variables: {
+        setType: 'ADDITIONAL_CRITERIA',
+      },
+    },
+    result: {
+      data: { keywordSet: null },
+    },
+  },
+];
+
+const getPlaceRequestMock = (id: string) => ({
+  request: {
+    query: graphql.PlaceDocument,
+    variables: {
+      id,
+    },
+  },
+  result: {
+    data: null,
+  },
+});
 
 describe('EventCard', () => {
   describe('List of occurrences', () => {
@@ -70,6 +124,8 @@ describe('EventCard', () => {
             },
           },
         },
+        ...emptyKeywordSetRequestMocks,
+        getPlaceRequestMock(event.location?.id!),
       ];
 
       render(<EventCard event={event} link={'#'} />, { mocks: apolloMocks });
@@ -81,14 +137,20 @@ describe('EventCard', () => {
       expect(screen.queryByText(/21.9 klo 10:20/)).not.toBeInTheDocument();
       expect(screen.queryByText(/22.10 klo 12:40/)).not.toBeInTheDocument();
 
-      await userEvent.click(
-        screen.getByRole('button', {
-          name: /\+ muita tapahtuma-aikoja/i,
-        })
-      );
+      await act(async () => {
+        await userEvent.click(
+          await screen.findByRole('button', {
+            name: /\+ muita tapahtuma-aikoja/i,
+          })
+        );
+      });
 
       await waitFor(() => {
         expect(screen.queryByTestId('loading-spinner')).not.toBeInTheDocument();
+      });
+
+      await screen.findByRole('button', {
+        name: /piilota muut ajat/i,
       });
 
       await waitFor(() => {
@@ -110,7 +172,13 @@ describe('EventCard', () => {
         <EventCard
           event={event}
           link={`fi/event/${event.pEvent.linkedEventId}`}
-        />
+        />,
+        {
+          mocks: [
+            ...emptyKeywordSetRequestMocks,
+            getPlaceRequestMock(event.location?.id!),
+          ],
+        }
       );
 
       expect(
@@ -183,6 +251,8 @@ describe('EventCard', () => {
             },
           },
         },
+        ...emptyKeywordSetRequestMocks,
+        getPlaceRequestMock(event.location?.id!),
       ];
 
       const { container } = render(<EventCard event={event} link={'#'} />, {
@@ -193,14 +263,22 @@ describe('EventCard', () => {
         expect(screen.getByText('20.9.2020 – 22.9.2020')).toBeInTheDocument();
       });
 
-      await userEvent.click(
-        screen.getByRole('button', {
-          name: /\+ muita tapahtuma-aikoja/i,
-        })
-      );
+      await act(async () => {
+        await userEvent.click(
+          await screen.findByRole('button', {
+            name: /\+ muita tapahtuma-aikoja/i,
+          })
+        );
+      });
+
       await waitFor(() => {
         expect(screen.queryByTestId('loading-spinner')).not.toBeInTheDocument();
       });
+
+      await screen.findByRole('button', {
+        name: /piilota muut ajat/i,
+      });
+
       screen.getByText('21.10.2020 – 28.10.2020');
       screen.getByText('22.11.2020 – 25.11.2020');
 
@@ -219,7 +297,12 @@ describe('EventCard', () => {
           enrolmentEndDays: 10,
         }),
       });
-      render(<EventCard event={event} link={'#'} />);
+      render(<EventCard event={event} link={'#'} />, {
+        mocks: [
+          ...emptyKeywordSetRequestMocks,
+          getPlaceRequestMock(event.location?.id!),
+        ],
+      });
       await waitFor(() => {
         expect(screen.getByText(/huomenna klo 10:30/i)).toBeInTheDocument();
       });
