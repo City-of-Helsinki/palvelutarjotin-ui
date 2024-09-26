@@ -307,6 +307,7 @@ export const fakePEvent = (
   lastOccurrenceDatetime: '',
   mandatoryAdditionalInformation: false,
   nextOccurrence: fakeOccurrences(1, [fakeOccurrence()]),
+  hasSpaceForEnrolments: null,
   __typename: 'PalvelutarjotinEventNode',
   ...overrides,
 });
