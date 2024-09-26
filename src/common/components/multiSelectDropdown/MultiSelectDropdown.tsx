@@ -59,6 +59,7 @@ const MultiSelectDropdown: React.FC<MultiselectDropdownProps> = ({
   const inputPlaceholderText =
     inputPlaceholder || t('common:multiSelectDropdown.inputPlaceholder');
   const [internalInput, setInternalInput] = React.useState('');
+  const [focusStyles, setFocusStyles] = React.useState(false);
   const input = inputValue !== undefined ? inputValue : internalInput;
 
   const dropdown = React.useRef<HTMLDivElement | null>(null);
@@ -88,6 +89,8 @@ const MultiSelectDropdown: React.FC<MultiselectDropdownProps> = ({
     [setInputValue]
   );
 
+  const handleToggleFocusStyles = () => setFocusStyles((prev) => !prev);
+
   const {
     focusedIndex,
     setup: setupKeyboardNav,
@@ -114,6 +117,9 @@ const MultiSelectDropdown: React.FC<MultiselectDropdownProps> = ({
         case 'Enter':
           if (isToggleButtonFocused()) {
             handleToggleButtonClick();
+          } else {
+            setIsMenuOpen(false);
+            setFocusToToggleButton();
           }
           event.preventDefault();
       }
@@ -124,7 +130,6 @@ const MultiSelectDropdown: React.FC<MultiselectDropdownProps> = ({
   const isComponentFocused = () => {
     const active = document.activeElement;
     const current = dropdown.current;
-
     return !!current?.contains(active);
   };
 
@@ -158,7 +163,6 @@ const MultiSelectDropdown: React.FC<MultiselectDropdownProps> = ({
   const isToggleButtonFocused = () => {
     const active = document.activeElement;
     const current = toggleButton.current;
-
     return !!current?.contains(active);
   };
 
@@ -293,6 +297,8 @@ const MultiSelectDropdown: React.FC<MultiselectDropdownProps> = ({
         className={styles.toggleButton}
         onClick={handleToggleButtonClick}
         ref={toggleButton}
+        onFocus={handleToggleFocusStyles}
+        onBlur={handleToggleFocusStyles}
       >
         <div className={styles.iconWrapper}>{icon}</div>
         <div className={styles.title}>
@@ -305,7 +311,12 @@ const MultiSelectDropdown: React.FC<MultiselectDropdownProps> = ({
             <div className={styles.placeholder}>{title}</div>
           )}
         </div>
-        <div className={styles.arrowWrapper}>
+        <div
+          className={classNames(
+            styles.arrowWrapper,
+            focusStyles ? styles.focused : ''
+          )}
+        >
           {isMenuOpen ? <IconAngleUp /> : <IconAngleDown />}
         </div>
       </button>
