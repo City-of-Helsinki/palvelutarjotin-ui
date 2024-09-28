@@ -79,7 +79,8 @@
     "previous": "Föregående"
   },
   "menu": {
-    "menuToggleAriaLabel": "öppna menyn"
+    "menuButtonLabel": "Meny",
+    "menuToggleAriaLabel": "Öppna menyn"
   },
   "breadcrumb": {
     "breadcrumbNavigationLabel": "Brödsmula navigation",

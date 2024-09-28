@@ -80,7 +80,8 @@
     "previous": "Edelliset"
   },
   "menu": {
-    "menuToggleAriaLabel": "avaa valikko"
+    "menuButtonLabel": "Valikko",
+    "menuToggleAriaLabel": "Avaa valikko"
   },
   "breadcrumb": {
     "breadcrumbNavigationLabel": "Leivänmurunavigointi",

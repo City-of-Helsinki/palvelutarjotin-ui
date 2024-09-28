@@ -81,7 +81,8 @@ const MyApp = ({ Component, pageProps }: AppProps<CustomPageProps>) => {
           'common:breadcrumb.breadcrumbNavigationLabel'
         ),
         breadcrumbListLabel: t('common:breadcrumb.breadcrumbListLabel'),
-        menuToggleAriaLabel: t('common:menu.toggle'),
+        menuToggleAriaLabel: t('common:menu.menuToggleAriaLabel'),
+        menuButtonLabel: t('common:menu.menuButtonLabel'),
         skipToContentLabel: t('common:linkSkipToContent'),
         openInExternalDomainAriaLabel: t('common:srOnly.opensInAnExternalSite'),
         openInNewTabAriaLabel: t('common:srOnly.opensInANewTab'),
@@ -101,6 +102,10 @@ const MyApp = ({ Component, pageProps }: AppProps<CustomPageProps>) => {
         },
         next: t('common:button.next'),
         previous: t('common:button.previous'),
+      },
+      customCopy: {
+        loadMoreButtonVariant: 'primary',
+        loadMoreButtonTheme: 'coat',
       },
       components: {
         ...rhhcDefaultConfig.components,
