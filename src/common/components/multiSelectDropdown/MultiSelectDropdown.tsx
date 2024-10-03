@@ -223,6 +223,19 @@ const MultiSelectDropdown: React.FC<MultiselectDropdownProps> = ({
     }
   };
 
+  const handleEnterKeyPress = (
+    event: React.KeyboardEvent<HTMLInputElement>
+  ) => {
+    const val = event.currentTarget.value;
+    if (event.key === 'Enter') {
+      if (val === SELECT_ALL) {
+        handleClear();
+      } else {
+        toggleOption(val);
+      }
+    }
+  };
+
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     handleInputValueChange(event.target.value);
   };
@@ -283,6 +296,7 @@ const MultiSelectDropdown: React.FC<MultiselectDropdownProps> = ({
           label={option.text}
           name={checkboxName}
           onChange={handleValueChange}
+          onKeyDown={handleEnterKeyPress}
           value={option.value}
         />
       </ScrollIntoViewWithFocus>
