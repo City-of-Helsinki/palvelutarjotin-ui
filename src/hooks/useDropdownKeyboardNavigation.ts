@@ -78,6 +78,10 @@ const useDropdownKeyboardNavigation = ({
           setFocusedIndex(-1);
           event.preventDefault();
           break;
+        case 'Enter':
+          setFocusedIndex(-1);
+          event.preventDefault();
+          break;
       }
     },
     [
