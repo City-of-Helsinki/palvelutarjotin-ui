@@ -110,6 +110,10 @@ test('renders with sidebar layout when sidebar has content', async () => {
           openInNewTabAriaLabel: 'Avautuu uudessa välilehdessä.',
           openInExternalDomainAriaLabel: 'Avautuu uudella sivustolla.',
         },
+        customCopy: {
+          loadMoreButtonVariant: 'primary',
+          loadMoreButtonTheme: 'coat',
+        },
         internalHrefOrigins,
         utils: {
           ...rhhcDefaultConfig.utils,

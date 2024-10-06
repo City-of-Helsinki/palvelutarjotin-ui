@@ -80,7 +80,8 @@
     "previous": "Previous"
   },
   "menu": {
-    "menuToggleAriaLabel": "toggle menu"
+    "menuButtonLabel": "Menu",
+    "menuToggleAriaLabel": "Toggle menu"
   },
   "breadcrumb": {
     "breadcrumbNavigationLabel": "Breadcrumb navigation",
