@@ -25,7 +25,7 @@ import {
 import useDebounce from '../../../hooks/useDebounce';
 import { useCMSClient } from '../../cmsApolloContext';
 
-const BLOCK_SIZE = 10;
+const BLOCK_SIZE = 9;
 const SEARCH_DEBOUNCE_TIME = 500;
 
 const CmsPageSearch: React.FC<{
