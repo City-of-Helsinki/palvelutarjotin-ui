@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://www.conventionalcommits.org/) for commit guidelines.
 
+## [2.11.0](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/palvelutarjotin-ui-v2.10.0...palvelutarjotin-ui-v2.11.0) (2024-10-08)
+
+
+### Features
+
+* Enrolment status in event card ([44b7636](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/44b76365e7c4c9cf3cc23ab64003dac0367a2529))
+
+
+### Bug Fixes
+
+* Categories dropdown keyboard navigation ([#330](https://github.com/City-of-Helsinki/palvelutarjotin-ui/issues/330)) ([3625d27](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/3625d27feb8b3d4ce6c9c89b3522cf349d062817))
+* Date filter translation ([ba04d79](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/ba04d79ca0010048f782659f5a4775dd0c039c6d))
+* Group size field validation when no limits are set ([6524c7c](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/6524c7c4b1fe93e6cba32877aba91dc055bdd4f5))
+* Improve dropdown navigation ([#335](https://github.com/City-of-Helsinki/palvelutarjotin-ui/issues/335)) ([62f4108](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/62f41084c1639441fcdd96e54366f298fa0cf5ab))
+* Load more button styles configs ([#334](https://github.com/City-of-Helsinki/palvelutarjotin-ui/issues/334)) ([8085f74](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/8085f746e6f9df5ac8177904d86322ddf0cf3d05))
+* Set CMS page search size to better fit on grid implementation ([714b79b](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/714b79ba648354835fadf120a9627625bc4f459d))
+* Suggested translations update ([#331](https://github.com/City-of-Helsinki/palvelutarjotin-ui/issues/331)) ([2633114](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/26331149099904ade41a0023d8d7fa348daa0d6d))
+* Update enrolment confirmation messages ([c8c2930](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/c8c2930ccb64109461ee65c8713362d3ac3af117))
+* Use only the values of a persisted form state when initializing a form with FormikPersist ([9cfe223](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/9cfe22391cd33c494c6405cb87f5f5f377233dc3))
+
 ## [2.10.0](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/palvelutarjotin-ui-v2.9.0...palvelutarjotin-ui-v2.10.0) (2024-09-16)
 
 
