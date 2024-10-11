@@ -6,7 +6,7 @@ import isNumber from 'lodash/isNumber';
 import {
   EventFieldsFragment,
   OccurrenceFieldsFragment,
-  OccurrenceSeatType,
+  OccurrencesOccurrenceSeatTypeChoices,
 } from '../../generated/graphql';
 import { assertUnreachable } from '../../utils/typescript.utils';
 
@@ -14,10 +14,10 @@ export const hasOccurrenceSpace = (
   occurrence: OccurrenceFieldsFragment
 ): boolean => {
   switch (occurrence.seatType) {
-    case OccurrenceSeatType.ChildrenCount:
+    case OccurrencesOccurrenceSeatTypeChoices.ChildrenCount:
       const minGroupSize = occurrence?.minGroupSize || 0;
       return minGroupSize <= getAmountOfSeatsLeft(occurrence);
-    case OccurrenceSeatType.EnrolmentCount:
+    case OccurrencesOccurrenceSeatTypeChoices.EnrolmentCount:
       return occurrence.remainingSeats > 0;
     default:
       return assertUnreachable(occurrence.seatType);

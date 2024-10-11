@@ -300,7 +300,7 @@ export type EnrolOccurrenceMutationPayload = {
 export type EnrolmentNode = Node & {
   __typename?: 'EnrolmentNode';
   enrolmentTime: Scalars['DateTime']['output'];
-  /** The ID of the object. */
+  /** The ID of the object */
   id: Scalars['ID']['output'];
   notificationType?: Maybe<NotificationType>;
   occurrence: OccurrenceNode;
@@ -409,7 +409,7 @@ export type EventMutationResponse = {
 export type EventQueueEnrolmentNode = Node & {
   __typename?: 'EventQueueEnrolmentNode';
   enrolmentTime: Scalars['DateTime']['output'];
-  /** The ID of the object. */
+  /** The ID of the object */
   id: Scalars['ID']['output'];
   notificationType?: Maybe<NotificationType>;
   pEvent: PalvelutarjotinEventNode;
@@ -844,7 +844,7 @@ export type MutationUploadImageMutationArgs = {
 
 /** An object with an ID */
 export type Node = {
-  /** The ID of the object. */
+  /** The ID of the object */
   id: Scalars['ID']['output'];
 };
 
@@ -857,7 +857,7 @@ export enum NotificationTemplateLanguage {
 
 export type NotificationTemplateNode = Node & {
   __typename?: 'NotificationTemplateNode';
-  /** The ID of the object. */
+  /** The ID of the object */
   id: Scalars['ID']['output'];
   preview?: Maybe<Scalars['String']['output']>;
   translations: Array<Maybe<NotificationTranslationType>>;
@@ -917,7 +917,7 @@ export type OccurrenceNode = Node & {
   createdAt: Scalars['DateTime']['output'];
   endTime: Scalars['DateTime']['output'];
   enrolments: EnrolmentNodeConnection;
-  /** The ID of the object. */
+  /** The ID of the object */
   id: Scalars['ID']['output'];
   languages: LanguageNodeConnection;
   /** Only use this field in single event query for best performance. */
@@ -927,7 +927,7 @@ export type OccurrenceNode = Node & {
   pEvent?: Maybe<PalvelutarjotinEventNode>;
   placeId: Scalars['String']['output'];
   remainingSeats: Scalars['Int']['output'];
-  seatType: OccurrenceSeatType;
+  seatType: OccurrencesOccurrenceSeatTypeChoices;
   seatsApproved: Scalars['Int']['output'];
   seatsTaken: Scalars['Int']['output'];
   startTime: Scalars['DateTime']['output'];
@@ -952,7 +952,7 @@ export type OccurrenceNodeEnrolmentsArgs = {
   last?: InputMaybe<Scalars['Int']['input']>;
   occurrenceId?: InputMaybe<Scalars['ID']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
-  status?: InputMaybe<Scalars['String']['input']>;
+  status?: InputMaybe<EnrolmentStatus>;
 };
 
 
@@ -991,7 +991,7 @@ export type OccurrenceNodeEdge = {
 };
 
 /** An enumeration. */
-export enum OccurrenceSeatType {
+export enum OccurrencesOccurrenceSeatTypeChoices {
   /** children count */
   ChildrenCount = 'CHILDREN_COUNT',
   /** enrolment count */
@@ -1015,13 +1015,13 @@ export type OfferInput = {
 
 export type OrganisationNode = Node & {
   __typename?: 'OrganisationNode';
-  /** The ID of the object. */
+  /** The ID of the object */
   id: Scalars['ID']['output'];
   name: Scalars['String']['output'];
   persons?: Maybe<PersonNodeConnection>;
   phoneNumber: Scalars['String']['output'];
   publisherId: Scalars['String']['output'];
-  type: OrganisationType;
+  type: OrganisationsOrganisationTypeChoices;
 };
 
 
@@ -1054,7 +1054,7 @@ export type OrganisationProposalNode = Node & {
   __typename?: 'OrganisationProposalNode';
   applicant: PersonNode;
   description: Scalars['String']['output'];
-  /** The ID of the object. */
+  /** The ID of the object */
   id: Scalars['ID']['output'];
   name: Scalars['String']['output'];
   phoneNumber: Scalars['String']['output'];
@@ -1083,16 +1083,16 @@ export type OrganisationProposalNodeInput = {
   phoneNumber?: InputMaybe<Scalars['String']['input']>;
 };
 
-/** An enumeration. */
-export enum OrganisationType {
-  /** Provider */
+export enum OrganisationTypeEnum {
   Provider = 'PROVIDER',
-  /** Käyttäjä */
   User = 'USER'
 }
 
-export enum OrganisationTypeEnum {
+/** An enumeration. */
+export enum OrganisationsOrganisationTypeChoices {
+  /** Provider */
   Provider = 'PROVIDER',
+  /** Käyttäjä */
   User = 'USER'
 }
 
@@ -1148,7 +1148,7 @@ export type PalvelutarjotinEventNode = Node & {
   externalEnrolmentUrl?: Maybe<Scalars['String']['output']>;
   /** Determines whether any upcoming occurrence has any space left for new enrolments. */
   hasSpaceForEnrolments?: Maybe<Scalars['Boolean']['output']>;
-  /** The ID of the object. */
+  /** The ID of the object */
   id: Scalars['ID']['output'];
   isQueueingAllowed: Scalars['Boolean']['output'];
   lastOccurrenceDatetime?: Maybe<Scalars['DateTime']['output']>;
@@ -1207,7 +1207,7 @@ export type PersonNode = Node & {
   emailAddress: Scalars['String']['output'];
   enrolmentSet: EnrolmentNodeConnection;
   eventqueueenrolmentSet: EventQueueEnrolmentNodeConnection;
-  /** The ID of the object. */
+  /** The ID of the object */
   id: Scalars['ID']['output'];
   isStaff: Scalars['Boolean']['output'];
   language: Language;
@@ -1229,7 +1229,7 @@ export type PersonNodeEnrolmentSetArgs = {
   last?: InputMaybe<Scalars['Int']['input']>;
   occurrenceId?: InputMaybe<Scalars['ID']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
-  status?: InputMaybe<Scalars['String']['input']>;
+  status?: InputMaybe<EnrolmentStatus>;
 };
 
 
@@ -1273,7 +1273,7 @@ export type PersonNodeOrganisationsArgs = {
   first?: InputMaybe<Scalars['Int']['input']>;
   last?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
-  type?: InputMaybe<Scalars['String']['input']>;
+  type?: InputMaybe<OrganisationsOrganisationTypeChoices>;
 };
 
 
@@ -1621,7 +1621,7 @@ export type QueryOrganisationsArgs = {
   first?: InputMaybe<Scalars['Int']['input']>;
   last?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
-  type?: InputMaybe<Scalars['String']['input']>;
+  type?: InputMaybe<OrganisationsOrganisationTypeChoices>;
 };
 
 
@@ -1745,7 +1745,7 @@ export type StudyGroupNode = Node & {
   extraNeeds: Scalars['String']['output'];
   groupName: Scalars['String']['output'];
   groupSize: Scalars['Int']['output'];
-  /** The ID of the object. */
+  /** The ID of the object */
   id: Scalars['ID']['output'];
   occurrences: OccurrenceNodeConnection;
   person?: Maybe<PersonNode>;
@@ -1768,7 +1768,7 @@ export type StudyGroupNodeEnrolmentsArgs = {
   last?: InputMaybe<Scalars['Int']['input']>;
   occurrenceId?: InputMaybe<Scalars['ID']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
-  status?: InputMaybe<Scalars['String']['input']>;
+  status?: InputMaybe<EnrolmentStatus>;
 };
 
 
@@ -2144,13 +2144,13 @@ export type EnrolOccurrenceMutation = { __typename?: 'Mutation', enrolOccurrence
 
 export type EnrolmentFieldsFragment = { __typename?: 'EnrolmentNode', id: string, notificationType?: NotificationType | null, enrolmentTime: any, status?: EnrolmentStatus | null, person?: { __typename?: 'PersonNode', id: string, emailAddress: string, name: string, phoneNumber: string, language: Language } | null, studyGroup: { __typename?: 'StudyGroupNode', id: string, unitId?: string | null, unitName: string, groupSize: number, amountOfAdult: number, groupName: string, extraNeeds: string, unit?: { __typename?: 'ExternalPlace', name?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null } | { __typename?: 'Place', internalId: string, id?: string | null, name?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null } | null, studyLevels: { __typename?: 'StudyLevelNodeConnection', edges: Array<{ __typename?: 'StudyLevelNodeEdge', node?: { __typename?: 'StudyLevelNode', id: string, label?: string | null, level: number, translations: Array<{ __typename?: 'StudyLevelTranslationType', languageCode: Language, label: string }> } | null } | null> }, person?: { __typename?: 'PersonNode', id: string, emailAddress: string, name: string, phoneNumber: string, language: Language } | null } };
 
-export type PEventFieldsFragment = { __typename?: 'PalvelutarjotinEventNode', autoAcceptance: boolean, id: string, enrolmentEndDays?: number | null, enrolmentStart?: any | null, externalEnrolmentUrl?: string | null, neededOccurrences: number, contactPhoneNumber: string, contactEmail: string, isQueueingAllowed: boolean, mandatoryAdditionalInformation: boolean, nextOccurrenceDatetime?: any | null, lastOccurrenceDatetime?: any | null, organisation?: { __typename?: 'OrganisationNode', id: string, name: string } | null, contactPerson?: { __typename?: 'PersonNode', id: string, name: string } | null, occurrences?: { __typename?: 'OccurrenceNodeConnection', edges: Array<{ __typename?: 'OccurrenceNodeEdge', node?: { __typename?: 'OccurrenceNode', id: string, amountOfSeats: number, seatsTaken: number, seatType: OccurrenceSeatType, remainingSeats: number, minGroupSize?: number | null, maxGroupSize?: number | null, cancelled: boolean, startTime: any, endTime: any, placeId: string, pEvent?: { __typename?: 'PalvelutarjotinEventNode', id: string } | null, languages: { __typename?: 'LanguageNodeConnection', edges: Array<{ __typename?: 'LanguageNodeEdge', node?: { __typename?: 'LanguageNode', id: string, name: string } | null } | null> } } | null } | null> } | null, nextOccurrence?: { __typename?: 'OccurrenceNodeConnection', edges: Array<{ __typename?: 'OccurrenceNodeEdge', node?: { __typename?: 'OccurrenceNode', id: string, startTime: any, endTime: any } | null } | null> } | null };
+export type PEventFieldsFragment = { __typename?: 'PalvelutarjotinEventNode', autoAcceptance: boolean, id: string, enrolmentEndDays?: number | null, enrolmentStart?: any | null, externalEnrolmentUrl?: string | null, neededOccurrences: number, contactPhoneNumber: string, contactEmail: string, isQueueingAllowed: boolean, mandatoryAdditionalInformation: boolean, nextOccurrenceDatetime?: any | null, lastOccurrenceDatetime?: any | null, organisation?: { __typename?: 'OrganisationNode', id: string, name: string } | null, contactPerson?: { __typename?: 'PersonNode', id: string, name: string } | null, occurrences?: { __typename?: 'OccurrenceNodeConnection', edges: Array<{ __typename?: 'OccurrenceNodeEdge', node?: { __typename?: 'OccurrenceNode', id: string, amountOfSeats: number, seatsTaken: number, seatType: OccurrencesOccurrenceSeatTypeChoices, remainingSeats: number, minGroupSize?: number | null, maxGroupSize?: number | null, cancelled: boolean, startTime: any, endTime: any, placeId: string, pEvent?: { __typename?: 'PalvelutarjotinEventNode', id: string } | null, languages: { __typename?: 'LanguageNodeConnection', edges: Array<{ __typename?: 'LanguageNodeEdge', node?: { __typename?: 'LanguageNode', id: string, name: string } | null } | null> } } | null } | null> } | null, nextOccurrence?: { __typename?: 'OccurrenceNodeConnection', edges: Array<{ __typename?: 'OccurrenceNodeEdge', node?: { __typename?: 'OccurrenceNode', id: string, startTime: any, endTime: any } | null } | null> } | null };
 
 export type LocalisedFieldsFragment = { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null };
 
 export type OfferFieldsFragment = { __typename?: 'Offer', isFree?: boolean | null, description?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null, price?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null, infoUrl?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null };
 
-export type EventFieldsFragment = { __typename?: 'Event', id: string, internalId: string, startTime?: string | null, name: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null }, shortDescription: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null }, description: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null }, images: Array<{ __typename?: 'Image', id?: string | null, internalId: string, license?: string | null, name: string, url: string, cropping?: string | null, photographerName?: string | null, altText?: string | null }>, infoUrl?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null, offers: Array<{ __typename?: 'Offer', isFree?: boolean | null, description?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null, price?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null, infoUrl?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null }>, pEvent: { __typename?: 'PalvelutarjotinEventNode', autoAcceptance: boolean, id: string, enrolmentEndDays?: number | null, enrolmentStart?: any | null, externalEnrolmentUrl?: string | null, neededOccurrences: number, contactPhoneNumber: string, contactEmail: string, isQueueingAllowed: boolean, mandatoryAdditionalInformation: boolean, nextOccurrenceDatetime?: any | null, lastOccurrenceDatetime?: any | null, organisation?: { __typename?: 'OrganisationNode', id: string, name: string } | null, contactPerson?: { __typename?: 'PersonNode', id: string, name: string } | null, occurrences?: { __typename?: 'OccurrenceNodeConnection', edges: Array<{ __typename?: 'OccurrenceNodeEdge', node?: { __typename?: 'OccurrenceNode', id: string, amountOfSeats: number, seatsTaken: number, seatType: OccurrenceSeatType, remainingSeats: number, minGroupSize?: number | null, maxGroupSize?: number | null, cancelled: boolean, startTime: any, endTime: any, placeId: string, pEvent?: { __typename?: 'PalvelutarjotinEventNode', id: string } | null, languages: { __typename?: 'LanguageNodeConnection', edges: Array<{ __typename?: 'LanguageNodeEdge', node?: { __typename?: 'LanguageNode', id: string, name: string } | null } | null> } } | null } | null> } | null, nextOccurrence?: { __typename?: 'OccurrenceNodeConnection', edges: Array<{ __typename?: 'OccurrenceNodeEdge', node?: { __typename?: 'OccurrenceNode', id: string, startTime: any, endTime: any } | null } | null> } | null }, inLanguage: Array<{ __typename?: 'InLanguage', id?: string | null, internalId: string, name?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null }>, audience: Array<{ __typename?: 'Keyword', id?: string | null, internalId: string, name?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null }>, keywords: Array<{ __typename?: 'Keyword', id?: string | null, internalId: string, name?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null }>, location?: { __typename?: 'Place', id?: string | null, internalId: string, name?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null, streetAddress?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null, addressLocality?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null, telephone?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null } | null, venue?: { __typename?: 'VenueNode', id: string, hasClothingStorage: boolean, hasSnackEatingPlace: boolean, outdoorActivity: boolean, hasToiletNearby: boolean, hasAreaForGroupWork: boolean, hasIndoorPlayingArea: boolean, hasOutdoorPlayingArea: boolean, translations: Array<{ __typename?: 'VenueTranslationType', languageCode: Language, description: string }> } | null, additionalCriteria: Array<{ __typename?: 'Keyword', id?: string | null, internalId: string, name?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null }>, categories: Array<{ __typename?: 'Keyword', id?: string | null, internalId: string, name?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null }> };
+export type EventFieldsFragment = { __typename?: 'Event', id: string, internalId: string, startTime?: string | null, name: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null }, shortDescription: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null }, description: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null }, images: Array<{ __typename?: 'Image', id?: string | null, internalId: string, license?: string | null, name: string, url: string, cropping?: string | null, photographerName?: string | null, altText?: string | null }>, infoUrl?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null, offers: Array<{ __typename?: 'Offer', isFree?: boolean | null, description?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null, price?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null, infoUrl?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null }>, pEvent: { __typename?: 'PalvelutarjotinEventNode', autoAcceptance: boolean, id: string, enrolmentEndDays?: number | null, enrolmentStart?: any | null, externalEnrolmentUrl?: string | null, neededOccurrences: number, contactPhoneNumber: string, contactEmail: string, isQueueingAllowed: boolean, mandatoryAdditionalInformation: boolean, nextOccurrenceDatetime?: any | null, lastOccurrenceDatetime?: any | null, organisation?: { __typename?: 'OrganisationNode', id: string, name: string } | null, contactPerson?: { __typename?: 'PersonNode', id: string, name: string } | null, occurrences?: { __typename?: 'OccurrenceNodeConnection', edges: Array<{ __typename?: 'OccurrenceNodeEdge', node?: { __typename?: 'OccurrenceNode', id: string, amountOfSeats: number, seatsTaken: number, seatType: OccurrencesOccurrenceSeatTypeChoices, remainingSeats: number, minGroupSize?: number | null, maxGroupSize?: number | null, cancelled: boolean, startTime: any, endTime: any, placeId: string, pEvent?: { __typename?: 'PalvelutarjotinEventNode', id: string } | null, languages: { __typename?: 'LanguageNodeConnection', edges: Array<{ __typename?: 'LanguageNodeEdge', node?: { __typename?: 'LanguageNode', id: string, name: string } | null } | null> } } | null } | null> } | null, nextOccurrence?: { __typename?: 'OccurrenceNodeConnection', edges: Array<{ __typename?: 'OccurrenceNodeEdge', node?: { __typename?: 'OccurrenceNode', id: string, startTime: any, endTime: any } | null } | null> } | null }, inLanguage: Array<{ __typename?: 'InLanguage', id?: string | null, internalId: string, name?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null }>, audience: Array<{ __typename?: 'Keyword', id?: string | null, internalId: string, name?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null }>, keywords: Array<{ __typename?: 'Keyword', id?: string | null, internalId: string, name?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null }>, location?: { __typename?: 'Place', id?: string | null, internalId: string, name?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null, streetAddress?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null, addressLocality?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null, telephone?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null } | null, venue?: { __typename?: 'VenueNode', id: string, hasClothingStorage: boolean, hasSnackEatingPlace: boolean, outdoorActivity: boolean, hasToiletNearby: boolean, hasAreaForGroupWork: boolean, hasIndoorPlayingArea: boolean, hasOutdoorPlayingArea: boolean, translations: Array<{ __typename?: 'VenueTranslationType', languageCode: Language, description: string }> } | null, additionalCriteria: Array<{ __typename?: 'Keyword', id?: string | null, internalId: string, name?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null }>, categories: Array<{ __typename?: 'Keyword', id?: string | null, internalId: string, name?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null }> };
 
 export type EventQueryVariables = Exact<{
   id: Scalars['ID']['input'];
@@ -2159,7 +2159,7 @@ export type EventQueryVariables = Exact<{
 }>;
 
 
-export type EventQuery = { __typename?: 'Query', event?: { __typename?: 'Event', id: string, internalId: string, startTime?: string | null, name: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null }, shortDescription: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null }, description: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null }, images: Array<{ __typename?: 'Image', id?: string | null, internalId: string, license?: string | null, name: string, url: string, cropping?: string | null, photographerName?: string | null, altText?: string | null }>, infoUrl?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null, offers: Array<{ __typename?: 'Offer', isFree?: boolean | null, description?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null, price?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null, infoUrl?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null }>, pEvent: { __typename?: 'PalvelutarjotinEventNode', autoAcceptance: boolean, id: string, enrolmentEndDays?: number | null, enrolmentStart?: any | null, externalEnrolmentUrl?: string | null, neededOccurrences: number, contactPhoneNumber: string, contactEmail: string, isQueueingAllowed: boolean, mandatoryAdditionalInformation: boolean, nextOccurrenceDatetime?: any | null, lastOccurrenceDatetime?: any | null, organisation?: { __typename?: 'OrganisationNode', id: string, name: string } | null, contactPerson?: { __typename?: 'PersonNode', id: string, name: string } | null, occurrences?: { __typename?: 'OccurrenceNodeConnection', edges: Array<{ __typename?: 'OccurrenceNodeEdge', node?: { __typename?: 'OccurrenceNode', id: string, amountOfSeats: number, seatsTaken: number, seatType: OccurrenceSeatType, remainingSeats: number, minGroupSize?: number | null, maxGroupSize?: number | null, cancelled: boolean, startTime: any, endTime: any, placeId: string, pEvent?: { __typename?: 'PalvelutarjotinEventNode', id: string } | null, languages: { __typename?: 'LanguageNodeConnection', edges: Array<{ __typename?: 'LanguageNodeEdge', node?: { __typename?: 'LanguageNode', id: string, name: string } | null } | null> } } | null } | null> } | null, nextOccurrence?: { __typename?: 'OccurrenceNodeConnection', edges: Array<{ __typename?: 'OccurrenceNodeEdge', node?: { __typename?: 'OccurrenceNode', id: string, startTime: any, endTime: any } | null } | null> } | null }, inLanguage: Array<{ __typename?: 'InLanguage', id?: string | null, internalId: string, name?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null }>, audience: Array<{ __typename?: 'Keyword', id?: string | null, internalId: string, name?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null }>, keywords: Array<{ __typename?: 'Keyword', id?: string | null, internalId: string, name?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null }>, location?: { __typename?: 'Place', id?: string | null, internalId: string, name?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null, streetAddress?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null, addressLocality?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null, telephone?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null } | null, venue?: { __typename?: 'VenueNode', id: string, hasClothingStorage: boolean, hasSnackEatingPlace: boolean, outdoorActivity: boolean, hasToiletNearby: boolean, hasAreaForGroupWork: boolean, hasIndoorPlayingArea: boolean, hasOutdoorPlayingArea: boolean, translations: Array<{ __typename?: 'VenueTranslationType', languageCode: Language, description: string }> } | null, additionalCriteria: Array<{ __typename?: 'Keyword', id?: string | null, internalId: string, name?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null }>, categories: Array<{ __typename?: 'Keyword', id?: string | null, internalId: string, name?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null }> } | null };
+export type EventQuery = { __typename?: 'Query', event?: { __typename?: 'Event', id: string, internalId: string, startTime?: string | null, name: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null }, shortDescription: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null }, description: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null }, images: Array<{ __typename?: 'Image', id?: string | null, internalId: string, license?: string | null, name: string, url: string, cropping?: string | null, photographerName?: string | null, altText?: string | null }>, infoUrl?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null, offers: Array<{ __typename?: 'Offer', isFree?: boolean | null, description?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null, price?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null, infoUrl?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null }>, pEvent: { __typename?: 'PalvelutarjotinEventNode', autoAcceptance: boolean, id: string, enrolmentEndDays?: number | null, enrolmentStart?: any | null, externalEnrolmentUrl?: string | null, neededOccurrences: number, contactPhoneNumber: string, contactEmail: string, isQueueingAllowed: boolean, mandatoryAdditionalInformation: boolean, nextOccurrenceDatetime?: any | null, lastOccurrenceDatetime?: any | null, organisation?: { __typename?: 'OrganisationNode', id: string, name: string } | null, contactPerson?: { __typename?: 'PersonNode', id: string, name: string } | null, occurrences?: { __typename?: 'OccurrenceNodeConnection', edges: Array<{ __typename?: 'OccurrenceNodeEdge', node?: { __typename?: 'OccurrenceNode', id: string, amountOfSeats: number, seatsTaken: number, seatType: OccurrencesOccurrenceSeatTypeChoices, remainingSeats: number, minGroupSize?: number | null, maxGroupSize?: number | null, cancelled: boolean, startTime: any, endTime: any, placeId: string, pEvent?: { __typename?: 'PalvelutarjotinEventNode', id: string } | null, languages: { __typename?: 'LanguageNodeConnection', edges: Array<{ __typename?: 'LanguageNodeEdge', node?: { __typename?: 'LanguageNode', id: string, name: string } | null } | null> } } | null } | null> } | null, nextOccurrence?: { __typename?: 'OccurrenceNodeConnection', edges: Array<{ __typename?: 'OccurrenceNodeEdge', node?: { __typename?: 'OccurrenceNode', id: string, startTime: any, endTime: any } | null } | null> } | null }, inLanguage: Array<{ __typename?: 'InLanguage', id?: string | null, internalId: string, name?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null }>, audience: Array<{ __typename?: 'Keyword', id?: string | null, internalId: string, name?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null }>, keywords: Array<{ __typename?: 'Keyword', id?: string | null, internalId: string, name?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null }>, location?: { __typename?: 'Place', id?: string | null, internalId: string, name?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null, streetAddress?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null, addressLocality?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null, telephone?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null } | null, venue?: { __typename?: 'VenueNode', id: string, hasClothingStorage: boolean, hasSnackEatingPlace: boolean, outdoorActivity: boolean, hasToiletNearby: boolean, hasAreaForGroupWork: boolean, hasIndoorPlayingArea: boolean, hasOutdoorPlayingArea: boolean, translations: Array<{ __typename?: 'VenueTranslationType', languageCode: Language, description: string }> } | null, additionalCriteria: Array<{ __typename?: 'Keyword', id?: string | null, internalId: string, name?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null }>, categories: Array<{ __typename?: 'Keyword', id?: string | null, internalId: string, name?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null }> } | null };
 
 export type EnrolEventQueueMutationVariables = Exact<{
   input: EnrolEventQueueMutationInput;
@@ -2260,14 +2260,14 @@ export type PopularKeywordsQuery = { __typename?: 'Query', popularKultusKeywords
 
 export type LanguageFieldsFragment = { __typename?: 'LanguageNode', id: string, name: string };
 
-export type OccurrenceFieldsFragment = { __typename?: 'OccurrenceNode', id: string, amountOfSeats: number, seatsTaken: number, seatType: OccurrenceSeatType, remainingSeats: number, minGroupSize?: number | null, maxGroupSize?: number | null, cancelled: boolean, startTime: any, endTime: any, placeId: string, pEvent?: { __typename?: 'PalvelutarjotinEventNode', id: string } | null, languages: { __typename?: 'LanguageNodeConnection', edges: Array<{ __typename?: 'LanguageNodeEdge', node?: { __typename?: 'LanguageNode', id: string, name: string } | null } | null> } };
+export type OccurrenceFieldsFragment = { __typename?: 'OccurrenceNode', id: string, amountOfSeats: number, seatsTaken: number, seatType: OccurrencesOccurrenceSeatTypeChoices, remainingSeats: number, minGroupSize?: number | null, maxGroupSize?: number | null, cancelled: boolean, startTime: any, endTime: any, placeId: string, pEvent?: { __typename?: 'PalvelutarjotinEventNode', id: string } | null, languages: { __typename?: 'LanguageNodeConnection', edges: Array<{ __typename?: 'LanguageNodeEdge', node?: { __typename?: 'LanguageNode', id: string, name: string } | null } | null> } };
 
 export type OccurrenceQueryVariables = Exact<{
   id: Scalars['ID']['input'];
 }>;
 
 
-export type OccurrenceQuery = { __typename?: 'Query', occurrence?: { __typename?: 'OccurrenceNode', id: string, amountOfSeats: number, seatsTaken: number, seatType: OccurrenceSeatType, remainingSeats: number, minGroupSize?: number | null, maxGroupSize?: number | null, cancelled: boolean, startTime: any, endTime: any, placeId: string, pEvent?: { __typename?: 'PalvelutarjotinEventNode', id: string } | null, languages: { __typename?: 'LanguageNodeConnection', edges: Array<{ __typename?: 'LanguageNodeEdge', node?: { __typename?: 'LanguageNode', id: string, name: string } | null } | null> } } | null };
+export type OccurrenceQuery = { __typename?: 'Query', occurrence?: { __typename?: 'OccurrenceNode', id: string, amountOfSeats: number, seatsTaken: number, seatType: OccurrencesOccurrenceSeatTypeChoices, remainingSeats: number, minGroupSize?: number | null, maxGroupSize?: number | null, cancelled: boolean, startTime: any, endTime: any, placeId: string, pEvent?: { __typename?: 'PalvelutarjotinEventNode', id: string } | null, languages: { __typename?: 'LanguageNodeConnection', edges: Array<{ __typename?: 'LanguageNodeEdge', node?: { __typename?: 'LanguageNode', id: string, name: string } | null } | null> } } | null };
 
 export type OccurrencesQueryVariables = Exact<{
   after?: InputMaybe<Scalars['String']['input']>;
@@ -2282,7 +2282,7 @@ export type OccurrencesQueryVariables = Exact<{
 }>;
 
 
-export type OccurrencesQuery = { __typename?: 'Query', occurrences?: { __typename?: 'OccurrenceNodeConnection', pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, hasPreviousPage: boolean, startCursor?: string | null, endCursor?: string | null }, edges: Array<{ __typename?: 'OccurrenceNodeEdge', cursor: string, node?: { __typename?: 'OccurrenceNode', id: string, amountOfSeats: number, seatsTaken: number, seatType: OccurrenceSeatType, remainingSeats: number, minGroupSize?: number | null, maxGroupSize?: number | null, cancelled: boolean, startTime: any, endTime: any, placeId: string, pEvent?: { __typename?: 'PalvelutarjotinEventNode', id: string } | null, languages: { __typename?: 'LanguageNodeConnection', edges: Array<{ __typename?: 'LanguageNodeEdge', node?: { __typename?: 'LanguageNode', id: string, name: string } | null } | null> } } | null } | null> } | null };
+export type OccurrencesQuery = { __typename?: 'Query', occurrences?: { __typename?: 'OccurrenceNodeConnection', pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, hasPreviousPage: boolean, startCursor?: string | null, endCursor?: string | null }, edges: Array<{ __typename?: 'OccurrenceNodeEdge', cursor: string, node?: { __typename?: 'OccurrenceNode', id: string, amountOfSeats: number, seatsTaken: number, seatType: OccurrencesOccurrenceSeatTypeChoices, remainingSeats: number, minGroupSize?: number | null, maxGroupSize?: number | null, cancelled: boolean, startTime: any, endTime: any, placeId: string, pEvent?: { __typename?: 'PalvelutarjotinEventNode', id: string } | null, languages: { __typename?: 'LanguageNodeConnection', edges: Array<{ __typename?: 'LanguageNodeEdge', node?: { __typename?: 'LanguageNode', id: string, name: string } | null } | null> } } | null } | null> } | null };
 
 export type OrganisationFieldsFragment = { __typename?: 'OrganisationNode', id: string, name: string };
 

@@ -9,7 +9,7 @@ import eventMessages from '../../../../public/locales/fi/event.json';
 import occurrenceMessages from '../../../../public/locales/fi/occurrence.json';
 import {
   Language,
-  OccurrenceSeatType,
+  OccurrencesOccurrenceSeatTypeChoices,
   VenueNode,
   Event,
   NotificationType,
@@ -116,7 +116,7 @@ const occurrences = [
     amountOfSeats: 1,
     remainingSeats: 0,
     seatsTaken: 1,
-    seatType: OccurrenceSeatType.EnrolmentCount,
+    seatType: OccurrencesOccurrenceSeatTypeChoices.EnrolmentCount,
   },
   {
     startTime: '2020-07-27T09:00:00+00:00',
