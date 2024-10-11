@@ -10,7 +10,7 @@ import {
   OccurrenceFieldsFragment,
   EventFieldsFragment,
   useEnrolOccurrenceMutation,
-  OccurrenceSeatType,
+  OccurrencesOccurrenceSeatTypeChoices,
 } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
 import { saveDataForRecommendedEventsQuery } from '../../../utils/recommendedEventsUtils';
@@ -112,7 +112,7 @@ const EnrolmentFormSection: React.FC<{
       maxGroupSize: Math.min(
         ...occurrences.map((item) => {
           switch (item.seatType) {
-            case OccurrenceSeatType.ChildrenCount:
+            case OccurrencesOccurrenceSeatTypeChoices.ChildrenCount:
               return Math.min(
                 Math.min(
                   item?.maxGroupSize ?? item.amountOfSeats,
@@ -120,7 +120,7 @@ const EnrolmentFormSection: React.FC<{
                 ),
                 getAmountOfSeatsLeft(item)
               );
-            case OccurrenceSeatType.EnrolmentCount:
+            case OccurrencesOccurrenceSeatTypeChoices.EnrolmentCount:
               return item?.maxGroupSize || 0;
             default:
               return assertUnreachable(item.seatType);
