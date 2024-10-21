@@ -48,6 +48,8 @@ ENV NODE_ENV $NODE_ENV
 # copy in our source code last, as it changes the most
 COPY --chown=default:root . .
 
+RUN yarn install --immutable --inline-builds
+
 # Bake package.json start command into the image
 CMD ["yarn", "dev"]
 
