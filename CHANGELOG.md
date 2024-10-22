@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://www.conventionalcommits.org/) for commit guidelines.
 
+## [2.11.1](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/palvelutarjotin-ui-v2.11.0...palvelutarjotin-ui-v2.11.1) (2024-10-22)
+
+
+### Bug Fixes
+
+* Development stage of Dockerfile, add volume mappings for compose ([58b4efa](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/58b4efad4054416ee7e295dbe2dcc650c5b85df9))
+* Update types after backend PR City-of-Helsinki/palvelutarjotin[#364](https://github.com/City-of-Helsinki/palvelutarjotin-ui/issues/364) ([1c333ef](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/1c333efad260bb03b4fbccf2171356751a4ab20b))
+
 ## [2.11.0](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/palvelutarjotin-ui-v2.10.0...palvelutarjotin-ui-v2.11.0) (2024-10-08)
 
 
