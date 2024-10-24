@@ -2,7 +2,10 @@ import { MockedResponse } from '@apollo/client/testing';
 import * as React from 'react';
 
 import { FORM_NAMES } from '../../../../constants';
-import { createPlaceQueryMock } from '../../../../tests/apollo-mocks/placeMocks';
+import {
+  createNotFoundPlaceQueryMock,
+  createPlaceQueryMock,
+} from '../../../../tests/apollo-mocks/placeMocks';
 // eslint-disable-next-line max-len
 import { createSchoolsAndKindergartensListQueryMock } from '../../../../tests/apollo-mocks/schoolsAndKindergartensListMock';
 import { createStudyLevelsQueryMock } from '../../../../tests/apollo-mocks/studyLevelsMocks';
@@ -623,19 +626,23 @@ describe('UnitField', () => {
     });
   });
 
-  it.each<MockedResponse[] | undefined>([
-    [
-      createPlaceQueryMock({
+  it.each([
+    {
+      placeMock: createPlaceQueryMock({
         id: 'test:place12',
         name: fakeLocalizedObject('place12'),
       }),
-    ],
-    undefined,
+      expectedText: 'place12',
+    },
+    {
+      placeMock: createNotFoundPlaceQueryMock('test:place12'),
+      expectedText: 'unitPlaceSelector.noPlaceFoundError',
+    },
   ])(
     'shows the unit text in a autosuggest div next to the input (%p)',
-    async (placeMocks) => {
+    async ({ placeMock, expectedText }) => {
       await setupUnitFieldTest([
-        ...(placeMocks ?? []),
+        placeMock,
         createSchoolsAndKindergartensListQueryMock(
           10,
           [
@@ -656,7 +663,7 @@ describe('UnitField', () => {
 
       await waitFor(() => {
         expect(getUnitFieldInput().nextElementSibling).toHaveTextContent(
-          placeMocks ? 'place12' : 'unitPlaceSelector.noPlaceFoundError'
+          expectedText
         );
       });
     }
@@ -664,6 +671,10 @@ describe('UnitField', () => {
 
   it('clears the unit id value when a clear button is clicked', async () => {
     await setupUnitFieldTest([
+      createPlaceQueryMock({
+        id: 'test:place12',
+        name: fakeLocalizedObject('place12'),
+      }),
       createSchoolsAndKindergartensListQueryMock(
         10,
         [
