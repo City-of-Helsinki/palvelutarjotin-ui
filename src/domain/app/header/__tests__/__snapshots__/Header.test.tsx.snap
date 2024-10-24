@@ -29,6 +29,7 @@ exports[`Header matches snapshot 1`] = `
             aria-label="Helsingin kaupunki"
             class="HeaderActionBar-module_titleAndLogoContainer__2LEAb HeaderActionBar-module_logo__2r2T0"
             href="#"
+            role="link"
           >
             <span
               class="HeaderActionBarLogo-module_logoWrapper__8NgfS"
