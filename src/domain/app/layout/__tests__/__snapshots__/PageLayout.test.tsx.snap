@@ -32,6 +32,7 @@ exports[`PageLayout matches snapshot 1`] = `
               aria-label="Helsingin kaupunki"
               class="HeaderActionBar-module_titleAndLogoContainer__2LEAb HeaderActionBar-module_logo__2r2T0"
               href="#"
+              role="link"
             >
               <span
                 class="HeaderActionBarLogo-module_logoWrapper__8NgfS"
@@ -123,7 +124,8 @@ exports[`PageLayout matches snapshot 1`] = `
     class="Footer-module_footer__1aD3T footer"
   >
     <div
-      class="Koros-module_koros__1r3rg Footer-module_koros__Orx_W Footer-module_basic__2VejY"
+      class="Koros-module_koros__1r3rg Footer-module_koros__Orx_W"
+      style="height: 15px;"
     >
       <svg
         aria-hidden="true"
