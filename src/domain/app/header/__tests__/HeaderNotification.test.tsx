@@ -11,7 +11,6 @@ import {
   screen,
   userEvent,
   waitFor,
-  sleep,
 } from '../../../../utils/testUtils';
 import HeaderNotification, {
   NOTIFICATION_STORAGE_KEY,
@@ -56,8 +55,8 @@ it('matches snapshot', async () => {
     content: 'Notification content',
     linkText: 'link text',
   });
-  await sleep(100);
 
+  await screen.findByRole('heading', { name: 'Notification title' });
   expect(container).toMatchSnapshot();
 });
 
@@ -76,14 +75,13 @@ it('renders notification data correctly', async () => {
   });
 
   await screen.findByText(title);
-  screen.getByText(content);
-  screen.getByRole('link', {
+  await screen.findByText(content);
+  await screen.findByRole('link', {
     name: /Linkki sivustolle avautuu uudessa välilehdessä/i,
   });
-  await sleep(100);
 
   await userEvent.click(
-    screen.getByRole('button', {
+    await screen.findByRole('button', {
       name: 'Sulje huomiotiedote',
     })
   );
@@ -98,14 +96,10 @@ it('saves notification state to local storage', async () => {
 
   await screen.findByText(notificationContent);
 
-  const localStorageObject = JSON.parse(
-    localStorage.getItem(NOTIFICATION_STORAGE_KEY) as string
-  );
-  await sleep(100);
-
-  expect(localStorageObject).toEqual({
-    isVisible: true,
-    closedNotificationHash: null,
+  await waitFor(() => {
+    expect(
+      JSON.parse(localStorage.getItem(NOTIFICATION_STORAGE_KEY) ?? '')
+    ).toMatchObject({ isVisible: true, closedNotificationHash: null });
   });
 
   await userEvent.click(
@@ -114,10 +108,14 @@ it('saves notification state to local storage', async () => {
     })
   );
 
-  await sleep(100);
+  await waitFor(() => {
+    expect(
+      JSON.parse(localStorage.getItem(NOTIFICATION_STORAGE_KEY) ?? '')
+    ).not.toMatchObject({ isVisible: true, closedNotificationHash: null });
+  });
 
   const localStorageObjectAfterClosing = JSON.parse(
-    localStorage.getItem(NOTIFICATION_STORAGE_KEY) as string
+    localStorage.getItem(NOTIFICATION_STORAGE_KEY) ?? ''
   );
 
   expect(localStorageObjectAfterClosing).toMatchInlineSnapshot(`
@@ -127,7 +125,9 @@ it('saves notification state to local storage', async () => {
     }
   `);
 
-  expect(screen.queryByText(notificationContent)).not.toBeInTheDocument();
+  await waitFor(() => {
+    expect(screen.queryByText(notificationContent)).not.toBeInTheDocument();
+  });
 });
 
 it('render notification even if title is missing', async () => {
@@ -159,11 +159,12 @@ it('renders default notification if level is low', async () => {
     name: /notification/i,
   });
 
+  expect(notification.className).toContain('Notification-module_notification');
   expect(notification.className).not.toContain('Notification-module_error');
   expect(notification.className).not.toContain('Notification-module_alert');
 });
 
-it('renders aler-level notification if level is info', async () => {
+it('renders alert-level notification if level is info', async () => {
   renderComponent({
     level: 'info',
   });
@@ -202,8 +203,9 @@ it("doesn't render notification if startDate is in the future", async () => {
     title,
   });
 
-  await sleep(100);
-  expect(screen.queryByText(title)).not.toBeInTheDocument();
+  await waitFor(() => {
+    expect(screen.queryByText(title)).not.toBeInTheDocument();
+  });
 });
 
 it("doesn't render notification if endDate is in the past", async () => {
@@ -213,8 +215,9 @@ it("doesn't render notification if endDate is in the past", async () => {
     title,
   });
 
-  await sleep(100);
-  expect(screen.queryByText(title)).not.toBeInTheDocument();
+  await waitFor(() => {
+    expect(screen.queryByText(title)).not.toBeInTheDocument();
+  });
 });
 
 it('renders notification if startDate is in the past and endDate is in the future', async () => {
@@ -225,6 +228,5 @@ it('renders notification if startDate is in the past and endDate is in the futur
     title,
   });
 
-  await sleep(100);
   await screen.findByText(title);
 });
