@@ -1,4 +1,5 @@
 import { MockedResponse } from '@apollo/client/testing';
+import { waitFor } from '@testing-library/react';
 import { advanceTo, clear } from 'jest-date-mock';
 import capitalize from 'lodash/capitalize';
 import React from 'react';
@@ -8,6 +9,7 @@ import {
   PopularKeywordsDocument,
   UpcomingEventsDocument,
 } from '../../../generated/graphql';
+import { emptyKeywordSetRequestMocks } from '../../../tests/apollo-mocks/keywordSetMocks';
 import {
   fakePEvent,
   fakeLocalizedObject,
@@ -17,13 +19,7 @@ import {
   fakeKeywords,
   fakeUpcomingEvents,
 } from '../../../utils/mockDataUtils';
-import {
-  render,
-  screen,
-  configure,
-  userEvent,
-  sleep,
-} from '../../../utils/testUtils';
+import { render, screen, configure, userEvent } from '../../../utils/testUtils';
 import { ROUTES } from '../../app/routes/constants';
 import EventsPage from '../EventsPage';
 
@@ -97,6 +93,7 @@ const eventMocks: Partial<Event>[] = [
 ];
 
 const mocks: MockedResponse[] = [
+  ...emptyKeywordSetRequestMocks,
   {
     request: {
       query: UpcomingEventsDocument,
@@ -140,51 +137,55 @@ test('renders search form and events list with correct information', async () =>
   advanceTo(testDate);
   render(<EventsPage />, { mocks });
 
-  await sleep(500);
-
   expect(
-    screen.queryByRole('heading', {
+    await screen.findByRole('heading', {
       name: 'Hyvinvointia retkistä ja elämyksistä',
     })
   ).toBeInTheDocument();
-  expect(screen.queryByLabelText('Hae tapahtumia')).toBeInTheDocument();
-  expect(
-    screen.queryByLabelText('Kielet', { selector: 'button' })
-  ).not.toBeInTheDocument();
+  expect(await screen.findByLabelText('Hae tapahtumia')).toBeInTheDocument();
+  await waitFor(() => {
+    expect(
+      screen.queryByLabelText('Kielet', { selector: 'button' })
+    ).not.toBeInTheDocument();
+  });
 
   await userEvent.click(
     screen.getByRole('button', { name: /tarkennettu haku/i })
   );
 
-  expect(screen.queryByLabelText('Alueet')).toBeInTheDocument();
-  expect(screen.queryByLabelText('Paikat')).toBeInTheDocument();
+  expect(await screen.findByLabelText('Alueet')).toBeInTheDocument();
+  expect(await screen.findByLabelText('Paikat')).toBeInTheDocument();
   expect(
-    screen.queryByRole('textbox', { name: /alkaen/i })
+    await screen.findByRole('textbox', { name: /alkaen/i })
   ).toBeInTheDocument();
   expect(
-    screen.queryByRole('textbox', { name: /päättyen/i })
+    await screen.findByRole('textbox', { name: /päättyen/i })
   ).toBeInTheDocument();
   expect(
-    screen.queryByRole('button', { name: 'Hae tapahtumia' })
+    await screen.findByRole('button', { name: 'Hae tapahtumia' })
   ).toBeInTheDocument();
 
   expect(
-    screen.queryByRole('heading', { name: 'Tulevat tapahtumat' })
+    await screen.findByRole('heading', { name: 'Tulevat tapahtumat' })
   ).toBeInTheDocument();
 
   // one event has no upcoming occurrences
-  expect(screen.queryByText('Ei tulevia tapahtuma-aikoja')).toBeInTheDocument();
+  expect(
+    await screen.findByText('Ei tulevia tapahtuma-aikoja')
+  ).toBeInTheDocument();
 
-  eventMocks.forEach((event) => {
+  for (const event of eventMocks) {
     if (!event?.name?.fi) {
       throw new Error('Event name is missing');
     }
     if (!event?.shortDescription?.fi) {
       throw new Error('Event description is missing');
     }
-    expect(screen.queryByText(event.name.fi)).toBeInTheDocument();
-    expect(screen.queryByText(event.shortDescription.fi)).toBeInTheDocument();
-  });
+    expect(await screen.findByText(event.name.fi)).toBeInTheDocument();
+    expect(
+      await screen.findByText(event.shortDescription.fi)
+    ).toBeInTheDocument();
+  }
 
   for (const keyword of popularKultusKeywords) {
     const popularKeywordLink = await screen.findByRole('link', {
@@ -196,14 +197,16 @@ test('renders search form and events list with correct information', async () =>
     );
   }
 
-  keywords.forEach((keyword) => {
+  for (const keyword of keywords) {
     if (!keyword?.name?.fi) {
       throw new Error('keyword name is missing');
     }
-    expect(screen.getAllByText(capitalize(keyword.name.fi))).toHaveLength(4);
-  });
+    expect(
+      await screen.findAllByText(capitalize(keyword.name.fi))
+    ).toHaveLength(4);
+  }
 
   expect(
-    screen.queryByRole('button', { name: 'Näytä lisää' })
+    await screen.findByRole('button', { name: 'Näytä lisää' })
   ).toBeInTheDocument();
 });
