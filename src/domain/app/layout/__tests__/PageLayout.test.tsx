@@ -2,6 +2,7 @@ import { MockedResponse } from '@apollo/client/testing';
 import React from 'react';
 
 import { NotificationDocument } from '../../../../generated/graphql-cms';
+import { emptyMenuQueryMocks } from '../../../../tests/apollo-mocks/menuMocks';
 import { fakeNotification } from '../../../../utils/cmsMockDataUtils';
 import {
   render,
@@ -9,64 +10,71 @@ import {
   within,
   userEvent,
   waitFor,
-  sleep,
 } from '../../../../utils/testUtils';
 import PageLayout from '../PageLayout';
 
-const mocks: MockedResponse[] = [];
+const notificationContent = 'Notification content';
+const notificationTitle = 'Notification title';
+
+const createMocks = (
+  notificationTitle: string,
+  notificationContent: string
+): MockedResponse[] => [
+  ...emptyMenuQueryMocks,
+  {
+    request: {
+      query: NotificationDocument,
+      variables: {
+        language: 'fi',
+      },
+    },
+    result: {
+      data: {
+        notification: fakeNotification({
+          title: notificationTitle,
+          content: notificationContent,
+        }),
+      },
+    },
+  },
+];
+
+const mocksWithNonEmptyNotification = createMocks(
+  notificationTitle,
+  `<p>${notificationContent}</p>`
+);
+const mocksWithEmptyNotification = createMocks('', '');
 
 it('PageLayout matches snapshot', () => {
   const { container } = render(
     <PageLayout>
       <div>Page layout children</div>
     </PageLayout>,
-    { mocks }
+    { mocks: mocksWithNonEmptyNotification }
   );
   expect(container.firstChild).toMatchSnapshot();
 });
 
 it('renders notification and it can be closed', async () => {
-  const notificationContent = 'Notification content';
-  const notificationTitle = 'Notification title';
   render(
     <PageLayout>
       <div>Page layout children</div>
     </PageLayout>,
-    {
-      mocks: [
-        {
-          request: {
-            query: NotificationDocument,
-            variables: {
-              language: 'fi',
-            },
-          },
-          result: {
-            data: {
-              notification: fakeNotification({
-                title: notificationTitle,
-                content: `<p>${notificationContent}</p>`,
-              }),
-            },
-          },
-        },
-      ],
-    }
+    { mocks: mocksWithNonEmptyNotification }
   );
 
   const notification = await screen.findByRole('region', {
     name: /notification/i,
   });
 
-  within(notification).getByText(notificationContent);
-  within(notification).getByText(notificationTitle);
+  await within(notification).findByText(notificationContent);
+  await within(notification).findByText(notificationTitle);
 
   await userEvent.click(
-    within(notification).getByRole('button', {
+    await within(notification).findByRole('button', {
       name: 'Sulje huomiotiedote',
     })
   );
-  await sleep(100);
   await waitFor(() => {
     expect(
       screen.queryByRole('region', {
@@ -81,27 +89,12 @@ it("doesn't render notification when there are none", async () => {
     <PageLayout>
       <div>Page layout children</div>
     </PageLayout>,
-    {
-      mocks: [
-        {
-          request: {
-            query: NotificationDocument,
-          },
-          result: {
-            data: {
-              // notification with empty title and content won't be rendered
-              notification: fakeNotification({ title: '', content: '' }),
-            },
-          },
-        },
-      ],
-    }
+    { mocks: mocksWithEmptyNotification }
   );
 
-  await sleep(100);
-
-  const notification = screen.queryByRole('region', {
-    name: /notification/i,
+  await waitFor(() => {
+    expect(
+      screen.queryByRole('region', { name: /notification/i })
+    ).not.toBeInTheDocument();
   });
-  expect(notification).not.toBeInTheDocument();
 });
