@@ -1,6 +1,8 @@
-import '@testing-library/jest-dom';
 import { TextEncoder, TextDecoder } from 'util';
 
+import '@testing-library/jest-dom';
+
+import { loadErrorMessages, loadDevMessages } from '@apollo/client/dev';
 import dotenv from 'dotenv';
 import { toHaveNoViolations } from 'jest-axe';
 import './tests/initI18n';
@@ -15,6 +17,10 @@ global.TextEncoder = TextEncoder;
 global.TextDecoder = TextDecoder as any;
 
 dotenv.config({ path: '.env' });
+
+// Load error messages for Apollo client so it's easier to debug errors
+loadDevMessages();
+loadErrorMessages();
 
 // Mock the ICS create event that fails during the tests
 jest.mock('ics', () => jest.fn());

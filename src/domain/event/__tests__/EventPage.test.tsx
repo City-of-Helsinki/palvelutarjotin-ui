@@ -16,9 +16,11 @@ import {
 } from '../../../generated/graphql';
 import * as graphqlFuncs from '../../../generated/graphql';
 import { createEventQueryMockIncludeLanguageAndAudience } from '../../../tests/apollo-mocks/eventMocks';
+import { emptyKeywordSetRequestMocks } from '../../../tests/apollo-mocks/keywordSetMocks';
 import { createPlaceQueryMock } from '../../../tests/apollo-mocks/placeMocks';
 // eslint-disable-next-line max-len
 import { createSchoolsAndKindergartensListQueryMock } from '../../../tests/apollo-mocks/schoolsAndKindergartensListMock';
+import { createStudyLevelsQueryMock } from '../../../tests/apollo-mocks/studyLevelsMocks';
 import { createVenueQueryMock } from '../../../tests/apollo-mocks/venueMocks';
 import {
   fakeImage,
@@ -39,7 +41,6 @@ import {
   waitFor,
   within,
   CustomRenderOptions,
-  sleep,
 } from '../../../utils/testUtils';
 import { ROUTES } from '../../app/routes/constants';
 import { ENROLMENT_URL_PARAMS } from '../../enrolment/constants';
@@ -225,6 +226,8 @@ const apolloMocks = [
     { id: 'test:place12', name: fakeLocalizedObject('place12') },
     { id: 'test:place123', name: fakeLocalizedObject('place123') },
   ]),
+  createStudyLevelsQueryMock(),
+  ...emptyKeywordSetRequestMocks,
 ];
 
 const renderComponent = (options?: CustomRenderOptions) => {
@@ -443,6 +446,7 @@ it('hides seats left column header when event has external enrolment', async () 
         name: fakeLocalizedObject(data.placeName),
       }),
       createVenueQueryMock({ id: data.placeId, ...venueData }),
+      ...emptyKeywordSetRequestMocks,
     ],
   });
 
@@ -636,8 +640,6 @@ it('filters occurrence list correctly when sate filters are selected', async () 
     })
   );
 
-  await sleep(100);
-
   await userEvent.click(
     screen.getByRole('button', {
       name: /heinäkuu 28/i,
@@ -649,8 +651,6 @@ it('filters occurrence list correctly when sate filters are selected', async () 
       name: eventMessages.occurrenceList.labelEndDateFilterDatepicker,
     })
   );
-
-  await sleep(100);
 
   await userEvent.click(
     screen.getByRole('button', {
@@ -726,6 +726,7 @@ it('informs when there are no occurrences in future', async () => {
           occurrences: fakeOccurrences(0),
         }),
       }),
+      ...apolloMocks.slice(1),
     ],
     query: { eventId: eventData.id },
     path: `/fi${ROUTES.EVENT_DETAILS.replace(':id', data.id)}`,
@@ -749,12 +750,13 @@ it('hides enrolment button when enrolment is not required', async () => {
           occurrences: fakeOccurrences(1),
         }),
       }),
+      ...apolloMocks.slice(1),
     ],
     query: { eventId: eventData.id },
     path: `/fi${ROUTES.EVENT_DETAILS.replace(':id', data.id)}`,
   });
 
-  await sleep(500);
+  await screen.findByRole('heading', { name: 'Testitapahtuma' });
 
   expect(
     screen.queryByRole('button', { name: 'Ilmoittaudu' })
@@ -777,6 +779,7 @@ it('shows external enrolment link in occurrence row when event has external enro
           enrolmentStart: null,
         }),
       }),
+      ...apolloMocks.slice(1),
     ],
     query: { eventId: eventData.id },
     path: `/fi${ROUTES.EVENT_DETAILS.replace(':id', data.id)}`,
@@ -806,6 +809,7 @@ it('shows inquire registration button when no autoacceptance', async () => {
           occurrences: fakeOccurrences(1),
         }),
       }),
+      ...apolloMocks.slice(1),
     ],
     query: { eventId: eventData.id },
     path: `/fi${ROUTES.EVENT_DETAILS.replace(':id', data.id)}`,
@@ -834,6 +838,7 @@ it('shows normal enrolment button when autoacceptance is on', async () => {
           occurrences: fakeOccurrences(1),
         }),
       }),
+      ...apolloMocks.slice(1),
     ],
     query: { eventId: eventData.id },
     path: `/fi${ROUTES.EVENT_DETAILS.replace(':id', data.id)}`,
@@ -873,10 +878,9 @@ it('does not render organisation section when organisation is not given', async 
         }),
       }),
     });
-  const [, ...mocks] = apolloMocks;
 
   render(<EventPage />, {
-    mocks: [eventWithoutOrganisationMock, ...mocks],
+    mocks: [eventWithoutOrganisationMock, ...apolloMocks.slice(1)],
     query: { eventId: eventData.id },
     path: `/fi${ROUTES.EVENT_DETAILS.replace(':id', data.id)}`,
   });
@@ -923,6 +927,7 @@ it('shows inquire registration notification after enrolment is done', async () =
           occurrences: fakeOccurrences(1),
         }),
       }),
+      ...apolloMocks.slice(1),
     ],
     path: `/fi/${ROUTES.EVENT_DETAILS.replace(':id', data.id)}?${
       ENROLMENT_URL_PARAMS.ENROLMENT_CREATED
@@ -1006,8 +1011,9 @@ describe('event queue enrolment form', () => {
           enrolmentStart: tomorrow,
         }),
       });
-    const [, ...mocks] = apolloMocks;
-    renderComponent({ mocks: [eventStillNotEnrollable, ...mocks] });
+    renderComponent({
+      mocks: [eventStillNotEnrollable, ...apolloMocks.slice(1)],
+    });
     await waitForRequestsToComplete();
     expect(
       screen.queryByRole('heading', {
@@ -1032,8 +1038,9 @@ describe('event queue enrolment form', () => {
           enrolmentStart: null,
         }),
       });
-    const [, ...mocks] = apolloMocks;
-    renderComponent({ mocks: [eventWithoutEnrolments, ...mocks] });
+    renderComponent({
+      mocks: [eventWithoutEnrolments, ...apolloMocks.slice(1)],
+    });
     await waitForRequestsToComplete();
     expect(
       screen.queryByRole('heading', {
@@ -1057,8 +1064,9 @@ describe('event queue enrolment form', () => {
           externalEnrolmentUrl: 'https://external.enrolments.url',
         }),
       });
-    const [, ...mocks] = apolloMocks;
-    renderComponent({ mocks: [eventWithoutEnrolments, ...mocks] });
+    renderComponent({
+      mocks: [eventWithoutEnrolments, ...apolloMocks.slice(1)],
+    });
     await waitForRequestsToComplete();
     expect(
       screen.queryByRole('heading', {
@@ -1079,11 +1087,20 @@ describe('event queue enrolment form', () => {
         id: data.id,
         pEvent: fakePEvent({
           ...eventData.pEvent,
-          occurrences: undefined,
+          occurrences: {
+            __typename: 'OccurrenceNodeConnection',
+            edges: [],
+            pageInfo: {
+              __typename: 'PageInfo',
+              hasNextPage: false,
+              hasPreviousPage: false,
+            },
+          },
         }),
       });
-    const [, ...mocks] = apolloMocks;
-    renderComponent({ mocks: [eventWithoutOccurrences, ...mocks] });
+    renderComponent({
+      mocks: [eventWithoutOccurrences, ...apolloMocks.slice(1)],
+    });
     await screen.findByText(/tapahtumalla ei ole tapahtuma-aikoja/i);
     expect(
       screen.queryByRole('heading', {
