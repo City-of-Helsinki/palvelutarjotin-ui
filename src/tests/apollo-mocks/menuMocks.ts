@@ -13,7 +13,7 @@ import enFooterMenu from '../fixtures/menus/Palvelutarjotin-UI Footer (EN)';
 import fiFooterMenu from '../fixtures/menus/Palvelutarjotin-UI Footer (FI)';
 import svFooterMenu from '../fixtures/menus/Palvelutarjotin-UI Footer (SV)';
 
-const menuIdToMenuData = {
+export const menuIdToMockMenuData = {
   [DEFAULT_HEADER_MENU_NAME['en']]: enHeaderMenu,
   [DEFAULT_HEADER_MENU_NAME['fi']]: fiHeaderMenu,
   [DEFAULT_HEADER_MENU_NAME['sv']]: svHeaderMenu,
@@ -23,7 +23,7 @@ const menuIdToMenuData = {
 } as const;
 
 /** Menu query mocks for English, Finnish and Swedish. */
-export const menuQueryMocks = Object.entries(menuIdToMenuData).map(
+export const menuQueryMocks = Object.entries(menuIdToMockMenuData).map(
   ([id, menu]) => ({
     variables: { id, menuIdentifiersOnly: false },
     response: menu,
@@ -33,7 +33,7 @@ export const menuQueryMocks = Object.entries(menuIdToMenuData).map(
 const generateEmptyMenuQueryMocks = (
   menuIdentifiersOnly: boolean
 ): MockedResponse[] => {
-  return Object.keys(menuIdToMenuData).map((id) => ({
+  return Object.keys(menuIdToMockMenuData).map((id) => ({
     request: {
       query: MenuDocument,
       variables: { id, menuIdentifiersOnly },

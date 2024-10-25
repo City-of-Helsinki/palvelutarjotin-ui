@@ -1,8 +1,14 @@
+import { MockedResponse } from '@apollo/client/testing';
 import React from 'react';
 // import { MenuDocument } from 'react-helsinki-headless-cms/apollo';
+import { MenuDocument } from 'react-helsinki-headless-cms/apollo';
 import { Provider } from 'react-redux';
 
 // import { fakePage } from '../../../../utils/cmsMockDataUtils';
+import { DEFAULT_HEADER_MENU_NAME } from '../../../../constants';
+import { NotificationDocument } from '../../../../generated/graphql-cms';
+import { menuIdToMockMenuData } from '../../../../tests/apollo-mocks/menuMocks';
+import { fakeNotification } from '../../../../utils/cmsMockDataUtils';
 import { render } from '../../../../utils/testUtils';
 import { store } from '../../store';
 import Header from '../Header';
@@ -89,11 +95,46 @@ const mocks = [
   },
 ]; */
 
+const headerMenuMock: MockedResponse = {
+  request: {
+    query: MenuDocument,
+    variables: {
+      id: DEFAULT_HEADER_MENU_NAME['fi'],
+      menuIdentifiersOnly: true,
+    },
+  },
+  result: {
+    data: {
+      menu: menuIdToMockMenuData[DEFAULT_HEADER_MENU_NAME['fi']],
+    },
+  },
+};
+
+const notificationMock: MockedResponse = {
+  request: {
+    query: NotificationDocument,
+    variables: {
+      language: 'fi',
+    },
+  },
+  result: {
+    data: {
+      notification: fakeNotification({
+        title: 'Notification title',
+        content: '<p>Notification content</p>',
+      }),
+    },
+  },
+};
+
+const mocks: MockedResponse[] = [headerMenuMock, notificationMock];
+
 it('Header matches snapshot', () => {
   const { container } = render(
     <Provider store={store}>
       <Header />
-    </Provider>
+    </Provider>,
+    { mocks }
   );
 
   expect(container.firstChild).toMatchSnapshot();
