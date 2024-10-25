@@ -3,6 +3,7 @@ import { advanceTo } from 'jest-date-mock';
 import React from 'react';
 
 import * as graphql from '../../../generated/graphql';
+import { emptyKeywordSetRequestMocks } from '../../../tests/apollo-mocks/keywordSetMocks';
 import {
   fakeEvent,
   fakeKeyword,
@@ -18,42 +19,6 @@ import {
   waitFor,
 } from '../../../utils/testUtils';
 import EventCard from '../../event/eventCard/EventCard';
-
-const emptyKeywordSetRequestMocks = [
-  {
-    request: {
-      query: graphql.KeywordSetDocument,
-      variables: {
-        setType: 'TARGET_GROUP',
-      },
-    },
-    result: {
-      data: { keywordSet: null },
-    },
-  },
-  {
-    request: {
-      query: graphql.KeywordSetDocument,
-      variables: {
-        setType: 'CATEGORY',
-      },
-    },
-    result: {
-      data: { keywordSet: null },
-    },
-  },
-  {
-    request: {
-      query: graphql.KeywordSetDocument,
-      variables: {
-        setType: 'ADDITIONAL_CRITERIA',
-      },
-    },
-    result: {
-      data: { keywordSet: null },
-    },
-  },
-];
 
 const getPlaceRequestMock = (id: string) => ({
   request: {

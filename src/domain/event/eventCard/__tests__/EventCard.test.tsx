@@ -1,4 +1,5 @@
 import * as graphql from '../../../../generated/graphql';
+import { emptyKeywordSetRequestMocks } from '../../../../tests/apollo-mocks/keywordSetMocks';
 import {
   fakeEvent,
   fakeOccurrences,
@@ -60,42 +61,6 @@ const eventWithoutEnrolmentSystem = fakeEvent({
     occurrences: fakeOccurrences(2),
   }),
 });
-
-const emptyKeywordSetRequestMocks = [
-  {
-    request: {
-      query: graphql.KeywordSetDocument,
-      variables: {
-        setType: 'TARGET_GROUP',
-      },
-    },
-    result: {
-      data: { keywordSet: null },
-    },
-  },
-  {
-    request: {
-      query: graphql.KeywordSetDocument,
-      variables: {
-        setType: 'CATEGORY',
-      },
-    },
-    result: {
-      data: { keywordSet: null },
-    },
-  },
-  {
-    request: {
-      query: graphql.KeywordSetDocument,
-      variables: {
-        setType: 'ADDITIONAL_CRITERIA',
-      },
-    },
-    result: {
-      data: { keywordSet: null },
-    },
-  },
-];
 
 const getPlaceRequestMock = (id: string) => ({
   request: {
