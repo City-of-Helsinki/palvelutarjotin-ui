@@ -1,3 +1,6 @@
+import { MockedResponse } from '@apollo/client/testing';
+import { MenuDocument } from 'react-helsinki-headless-cms/apollo';
+
 import {
   DEFAULT_FOOTER_MENU_NAME,
   DEFAULT_HEADER_MENU_NAME,
@@ -26,6 +29,28 @@ export const menuQueryMocks = Object.entries(menuIdToMenuData).map(
     response: menu,
   })
 );
+
+const generateEmptyMenuQueryMocks = (
+  menuIdentifiersOnly: boolean
+): MockedResponse[] => {
+  return Object.keys(menuIdToMenuData).map((id) => ({
+    request: {
+      query: MenuDocument,
+      variables: { id, menuIdentifiersOnly },
+    },
+    result: {
+      data: {
+        menu: null,
+      },
+    },
+  }));
+};
+
+/** Empty menu query mocks for English, Finnish and Swedish. */
+export const emptyMenuQueryMocks: MockedResponse[] = [
+  ...generateEmptyMenuQueryMocks(true),
+  ...generateEmptyMenuQueryMocks(false),
+];
 
 /** All menu pages when querying the mocked menu queries. */
 export const allMockedMenuPages: PageInfo[] = [
