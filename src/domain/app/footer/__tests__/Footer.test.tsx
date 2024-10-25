@@ -40,6 +40,7 @@ const menuMock = {
             label: menuItem.title,
             order: index,
             target: '',
+            parentId: null,
           })),
         },
       },
