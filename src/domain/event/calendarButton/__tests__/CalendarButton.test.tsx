@@ -4,20 +4,20 @@ import { render, screen, waitFor } from '@testing-library/react';
 import * as ICS from 'ics';
 import React from 'react';
 
-import {
-  EventFieldsFragment,
-  OccurrenceFieldsFragment,
-} from '../../../../generated/graphql';
+import { OccurrenceFieldsFragment } from '../../../../generated/graphql';
 import { createPlaceQueryMock } from '../../../../tests/apollo-mocks/placeMocks';
 import {
   fakeEvent,
   fakeLocalizedObject,
+  fakePlace,
 } from '../../../../utils/mockDataUtils';
 import CalendarButton from '../CalendarButton';
 
 const placeId = 'placeid-234324';
 
-const eventMock = fakeEvent() as EventFieldsFragment;
+const eventMock = fakeEvent({
+  location: fakePlace({ id: placeId }),
+});
 
 const mocks = [
   createPlaceQueryMock({
