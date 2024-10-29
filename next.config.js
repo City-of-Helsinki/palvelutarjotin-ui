@@ -92,6 +92,13 @@ module.exports = {
       };
     }
 
+    // https://webpack.js.org/configuration/watch/#watchoptions
+    config.watchOptions = {
+      poll: 1000, // Check for changes every second
+      aggregateTimeout: 300, // Delay 0.3s before rebuilding to group changes
+      ignored: ['**/node_modules'],
+    };
+
     config.resolve.alias = {
       ...config.resolve.alias,
       '~hds-core': path.resolve(__dirname, './node_modules/hds-core'),

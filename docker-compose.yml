@@ -4,6 +4,8 @@ services:
     build:
       context: .
       target: ${DOCKER_TARGET:-development}
+    environment:
+      - WATCHPACK_POLLING=${WATCHPACK_POLLING:-true}
     volumes:
       # Share local directory to enable development with hot reloading
       - .:/app
