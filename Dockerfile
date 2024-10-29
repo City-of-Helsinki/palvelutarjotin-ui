@@ -45,6 +45,15 @@ FROM appbase AS development
 ARG NODE_ENV=development
 ENV NODE_ENV $NODE_ENV
 
+# Enable hot reload by default by polling for file changes.
+#
+# NOTE: Can be disabled by setting WATCHPACK_POLLING=false in file `.env`
+#       if hot reload works on your system without polling to save CPU time.
+ARG WATCHPACK_POLLING=true
+ENV WATCHPACK_POLLING=${WATCHPACK_POLLING}
+
+WORKDIR /app
+
 # copy in our source code last, as it changes the most
 COPY --chown=default:root . .
 
