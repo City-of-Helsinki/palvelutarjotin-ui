@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://www.conventionalcommits.org/) for commit guidelines.
 
+## [2.11.2](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/palvelutarjotin-ui-v2.11.1...palvelutarjotin-ui-v2.11.2) (2024-10-31)
+
+
+### Bug Fixes
+
+* Hot reload in docker development by using polling & correct workdir ([2381b2d](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/2381b2d287ffae13ce50b9fe63ccf02754cdd076))
+* Many warnings when running tests by resolving conflicting packages ([225a4b1](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/225a4b1509c10273041e847ea085e4399b29c017))
+
 ## [2.11.1](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/palvelutarjotin-ui-v2.11.0...palvelutarjotin-ui-v2.11.1) (2024-10-22)
 
 
