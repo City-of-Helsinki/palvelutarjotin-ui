@@ -36,12 +36,10 @@ import '../styles/globals.scss';
 const CMS_API_DOMAIN = AppConfig.cmsOrigin;
 const APP_DOMAIN = AppConfig.origin;
 
-if (process.env.NODE_ENV === 'production') {
-  Sentry.init({
-    dsn: process.env.NEXT_PUBLIC_SENTRY_DSN,
-    environment: process.env.NEXT_PUBLIC_ENVIRONMENT,
-  });
-}
+Sentry.init({
+  dsn: process.env.NEXT_PUBLIC_SENTRY_DSN,
+  environment: process.env.NEXT_PUBLIC_ENVIRONMENT,
+});
 
 const internalHrefOrigins = [APP_DOMAIN, CMS_API_DOMAIN];
 export const getIsHrefExternal = (href: string) => {
