@@ -2,6 +2,8 @@
 
 .tableWrapper {
   max-width: 100%;
+  overflow-x: auto;
+  white-space: nowrap;
 }
 
 .table {
@@ -15,6 +17,7 @@
   --fontsize-cell-header: var(--fontsize-body-l);
   --margin-bottom-table: var(--spacing-m);
   --spacing-cell: var(--spacing-m) var(--spacing-xs);
+  --spacing-cell-mobile: var(--spacing-xs) var(--spacing-xs);
   --expanded-row-border-color: var(--color-black-30);
 
   width: 100%;
@@ -27,10 +30,11 @@
         font-size: var(--fontsize-cell-header);
         font-weight: normal;
         text-align: left;
-        padding: var(--spacing-cell);
+        padding: var(--spacing-cell-mobile);
         border-bottom: 1px solid var(--border-color-cell);
 
         @include respond-above(l) {
+          padding: var(--spacing-cell);
           &:nth-child(2) {
             padding-left: 0;
           }
@@ -60,9 +64,10 @@
         font-size: var(--fontsize-cell);
         font-weight: normal;
         text-align: left;
-        padding: var(--spacing-cell);
+        padding: var(--spacing-cell-mobile);
 
         @include respond-above(l) {
+          padding: var(--spacing-cell);
           &:nth-child(2) {
             padding-left: 0;
           }
