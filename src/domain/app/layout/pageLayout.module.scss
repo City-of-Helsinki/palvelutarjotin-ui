@@ -3,6 +3,7 @@
 .pageLayout {
   --background-color-body: #f7f6f6;
   --padding-body: 0 0 10rem;
+  --padding-body-mobile: 0 0 2rem;
 
   min-height: 100vh;
   width: 100%;
@@ -20,6 +21,7 @@
   @include respond-below(m) {
     opacity: 1;
     transition: visibility 0.2s, opacity 0.2s;
+    padding: var(--padding-body-mobile);
 
     &.mobileMenuOpen {
       opacity: 0;

@@ -104,7 +104,7 @@ const Header: React.FC = () => {
   };
 
   return (
-    <div>
+    <>
       <Navigation
         languages={HARDCODED_LANGUAGES}
         menu={menu}
@@ -113,7 +113,7 @@ const Header: React.FC = () => {
         getPathnameForLanguage={getPathnameForLanguage}
       />
       <HeaderNotification />
-    </div>
+    </>
   );
 };
 
