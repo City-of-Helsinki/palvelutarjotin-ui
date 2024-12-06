@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://www.conventionalcommits.org/) for commit guidelines.
 
+## [2.11.3](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/palvelutarjotin-ui-v2.11.2...palvelutarjotin-ui-v2.11.3) (2024-12-06)
+
+
+### Bug Fixes
+
+* Event mobile layout ([c4be1f5](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/c4be1f5834fdd682015fd6b81c21483229d2d2e0))
+* Hds 3.11 and new hcrc alpha 307 ([333f404](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/333f404e9cf67d6fd15a0b5bd0fd2b6cd2bc63d5))
+
 ## [2.11.2](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/palvelutarjotin-ui-v2.11.1...palvelutarjotin-ui-v2.11.2) (2024-10-31)
 
 
