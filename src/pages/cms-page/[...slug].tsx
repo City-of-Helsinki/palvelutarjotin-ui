@@ -51,6 +51,13 @@ const NextCmsPage: NextPage<{
 }> = (props) => <DynamicCmsPageWithNoSSR {...props} />;
 
 export async function getStaticPaths() {
+  if (process.env.SKIP_BUILD_STATIC_GENERATION) {
+    return {
+      paths: [],
+      fallback: 'blocking',
+    };
+  }
+
   const pages = await getAllMenuPages();
 
   if (isFeatureEnabled('HEADLESS_CMS') && pages?.length) {
