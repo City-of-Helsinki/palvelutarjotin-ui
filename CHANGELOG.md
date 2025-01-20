@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://www.conventionalcommits.org/) for commit guidelines.
 
+## [2.12.0](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/palvelutarjotin-ui-v2.11.3...palvelutarjotin-ui-v2.12.0) (2025-01-20)
+
+
+### Features
+
+* Skip build static generation with env-variable ([9534815](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/95348159e006230bdf2e05f13885a60aace6e973))
+
 ## [2.11.3](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/palvelutarjotin-ui-v2.11.2...palvelutarjotin-ui-v2.11.3) (2024-12-06)
 
 
