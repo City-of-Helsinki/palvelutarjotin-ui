@@ -24,6 +24,7 @@ const NEXTJS_SENTRY_TRACING = trueEnv.includes(
 );
 module.exports = {
   reactStrictMode: true,
+  staticPageGenerationTimeout: 1000 * 60 * 2, // 2 minutes
   i18n,
   sassOptions: {
     includePaths: [path.join(__dirname, 'src/assets/styles')],
