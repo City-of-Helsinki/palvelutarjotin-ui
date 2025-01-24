@@ -91,7 +91,7 @@ const CmsPageSearch: React.FC<{
     customContent: <HtmlToReact>{item?.lead || ''}</HtmlToReact>,
     url: getCmsPagePath(item?.uri ?? ''),
     imageUrl:
-      item?.featuredImage?.node?.mediaItemUrl || getEventPlaceholderImage(''),
+      item?.featuredImage?.node?.medium_large || getEventPlaceholderImage(''),
   });
 
   const customContent = (
@@ -114,9 +114,17 @@ const CmsPageSearch: React.FC<{
           }}
           largeFirstItem={false}
           createLargeCard={(item) => (
-            <LargeCard {...getCardProps(item as PageType)} />
+            <LargeCard
+              key={`large-card-${item?.id}`}
+              {...getCardProps(item as PageType)}
+            />
           )}
-          createCard={(item) => <Card {...getCardProps(item as PageType)} />}
+          createCard={(item) => (
+            <Card
+              key={`card-${item?.id}`}
+              {...getCardProps(item as PageType)}
+            />
+          )}
           hasMore={hasMoreToLoad}
           isLoading={isLoading || isLoadingMore}
         />
