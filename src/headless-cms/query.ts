@@ -86,6 +86,10 @@ export const PAGE_QUERY = gql`
         node {
           altText
           mediaItemUrl
+          photographerName
+          medium_large: sourceUrl(size: MEDIUM_LARGE)
+          medium: sourceUrl(size: MEDIUM)
+          thumbnail: sourceUrl(size: THUMBNAIL)
         }
       }
     }
@@ -106,6 +110,10 @@ export const PAGE_QUERY = gql`
         node {
           altText
           mediaItemUrl
+          photographerName
+          medium_large: sourceUrl(size: MEDIUM_LARGE)
+          medium: sourceUrl(size: MEDIUM)
+          thumbnail: sourceUrl(size: THUMBNAIL)
         }
       }
     }
@@ -136,6 +144,10 @@ export const PAGE_QUERY = gql`
         mimeType
         title
         uri
+        photographerName
+        medium_large: sourceUrl(size: MEDIUM_LARGE)
+        medium: sourceUrl(size: MEDIUM)
+        thumbnail: sourceUrl(size: THUMBNAIL)
       }
     }
     sidebar {
@@ -282,6 +294,10 @@ export const POST_QUERY = gql`
         mimeType
         title
         uri
+        photographerName
+        medium_large: sourceUrl(size: MEDIUM_LARGE)
+        medium: sourceUrl(size: MEDIUM)
+        thumbnail: sourceUrl(size: THUMBNAIL)
       }
     }
     modules {
@@ -339,6 +355,10 @@ export const POSTS_QUERY = gql`
             node {
               altText
               mediaItemUrl
+              photographerName
+              medium_large: sourceUrl(size: MEDIUM_LARGE)
+              medium: sourceUrl(size: MEDIUM)
+              thumbnail: sourceUrl(size: THUMBNAIL)
             }
           }
         }
