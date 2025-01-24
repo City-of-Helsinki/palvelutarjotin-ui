@@ -91,7 +91,7 @@ const CmsPageSearch: React.FC<{
     customContent: <HtmlToReact>{item?.lead || ''}</HtmlToReact>,
     url: getCmsPagePath(item?.uri ?? ''),
     imageUrl:
-      item?.featuredImage?.node?.mediaItemUrl || getEventPlaceholderImage(''),
+      item?.featuredImage?.node?.medium_large || getEventPlaceholderImage(''),
   });
 
   const customContent = (
