@@ -114,17 +114,18 @@ RUN yarn build
 # ==========================================
 FROM staticbuilder AS production
 # ==========================================
-
+ARG PORT
 ARG NEXT_PUBLIC_CAPTCHA_KEY
 ARG NEWSLETTER_BASE_URL
 ARG NEWSLETTER_APIKEY
 ENV NEWSLETTER_BASE_URL=$NEWSLETTER_BASE_URL
 ENV NEWSLETTER_APIKEY=$NEWSLETTER_APIKEY
-
-WORKDIR /app
-
 ENV PATH $PATH:/app/node_modules/.bin
 ENV NODE_ENV production
+ENV PORT $PORT
+ENV NEXT_TELEMETRY_DISABLED 1
+
+WORKDIR /app
 
 # Automatically leverage output traces to reduce image size
 # https://nextjs.org/docs/advanced-features/output-file-tracing
@@ -133,13 +134,11 @@ ENV NODE_ENV production
 COPY --from=staticbuilder --chown=default:root /app/next.config.js \
     /app/next-i18next.config.js \
     /app/package.json \
+    /app/yarn.lock \
     /app/
 COPY --from=staticbuilder --chown=default:root /app/.next/standalone .
 COPY --from=staticbuilder --chown=default:root /app/.next/static ./.next/static
 COPY --from=staticbuilder --chown=default:root /app/public ./public
-# RUN cp -r /app/.next/ /app/.next_orig/
-# Copy public package.json and yarn.lock files
-COPY --chown=default:root public package.json yarn.lock /app/
 
 # OpenShift write access to Next cache folder
 USER root
