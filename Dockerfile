@@ -101,10 +101,13 @@ ARG NEXT_PUBLIC_CMS_FOOTER_MENU_NAME_EN
 ARG NEXT_PUBLIC_CMS_FOOTER_MENU_NAME_SV
 
 WORKDIR /app
+USER root
 
 # copy all files
 COPY --chown=default:root . .
 COPY --from=appbase --chown=default:root /workspace-install ./
+
+USER default
 
 RUN yarn install --immutable --inline-builds
 
@@ -114,6 +117,9 @@ RUN yarn build
 # ==========================================
 FROM staticbuilder AS production
 # ==========================================
+
+USER default
+
 ARG PORT
 ARG NEXT_PUBLIC_CAPTCHA_KEY
 ARG NEWSLETTER_BASE_URL
