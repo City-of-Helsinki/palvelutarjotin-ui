@@ -114,9 +114,17 @@ const CmsPageSearch: React.FC<{
           }}
           largeFirstItem={false}
           createLargeCard={(item) => (
-            <LargeCard {...getCardProps(item as PageType)} />
+            <LargeCard
+              key={`large-card-${item?.id}`}
+              {...getCardProps(item as PageType)}
+            />
           )}
-          createCard={(item) => <Card {...getCardProps(item as PageType)} />}
+          createCard={(item) => (
+            <Card
+              key={`card-${item?.id}`}
+              {...getCardProps(item as PageType)}
+            />
+          )}
           hasMore={hasMoreToLoad}
           isLoading={isLoading || isLoadingMore}
         />
