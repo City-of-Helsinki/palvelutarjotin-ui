@@ -51,29 +51,36 @@ const NextCmsPage: NextPage<{
 }> = (props) => <DynamicCmsPageWithNoSSR {...props} />;
 
 export async function getStaticPaths() {
-  if (process.env.SKIP_BUILD_STATIC_GENERATION) {
-    return {
-      paths: [],
-      fallback: 'blocking',
-    };
+  if (isFeatureEnabled('HEADLESS_CMS')) {
+    if (process.env.SKIP_BUILD_STATIC_GENERATION === 'true') {
+      // eslint-disable-next-line no-console
+      console.info('Skipping static generation for cms pages.');
+      return {
+        paths: [],
+        fallback: 'blocking',
+      };
+    }
+
+    const pages = await getAllMenuPages();
+
+    if (pages?.length) {
+      // eslint-disable-next-line no-console
+      console.info('Generating static cms pages.');
+      return {
+        paths: pages.map((page) => {
+          return {
+            params: {
+              slug: getSlugFromUri(page.uri),
+            },
+            locale: page.locale,
+          };
+        }),
+        fallback: true,
+      };
+    }
   }
-
-  const pages = await getAllMenuPages();
-
-  if (isFeatureEnabled('HEADLESS_CMS') && pages?.length) {
-    return {
-      paths: pages.map((page) => {
-        return {
-          params: {
-            slug: getSlugFromUri(page.uri),
-          },
-          locale: page.locale,
-        };
-      }),
-      fallback: true,
-    };
-  }
-
+  // eslint-disable-next-line no-console
+  console.warn('No Headless CMS enabled.');
   return { paths: [], fallback: false };
 }
 
