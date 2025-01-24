@@ -28,15 +28,27 @@ class AppConfig {
     return '/';
   }
 
+  /**
+   * URL rewrite mapping for internal URLs.
+   * Replace the URL with the value in the mapping.
+   * If the URL is a CMS URL for pages, articles or other content,
+   * except not for files, the URL should be rewritten to the internal URL.
+   *
+   * Some examples taht are valid:
+   * - https://kultus.content.api.hel.fi/fi/
+   * - https://kultus.content.api.hel.fi/sv/
+   * - https://kultus.content.api.hel.fi/en/
+   * - https://kultus.content.api.hel.fi/fi/asdas/asdas
+   * - https://kultus.content.api.hel.fi/fi/something/
+   *
+   * Examples that are invalid:
+   * - https://kultus.content.api.hel.fi/fi/app/images
+   * - https://kultus.content.api.hel.fi/sv/app/pictures
+   * - https://kultus.content.api.hel.fi/en/app/files
+   */
   static get URLRewriteMapping() {
     return {
-      //   [AppConfig.linkedEventsEventEndpoint]: ROUTES.COURSES.replace(
-      //     '/[eventId]',
-      //     ''
-      //   ),
-      //   [`${AppConfig.cmsOrigin}[/fi|/en|/sv]*${AppConfig.cmsArticlesContextPath}`]:
-      //     ROUTES.ARTICLES.replace('/[...slug]', ''),
-      [`${AppConfig.cmsOrigin}[/fi|/en|/sv]*${AppConfig.cmsPagesContextPath}`]:
+      [`${AppConfig.cmsOrigin}[/fi|/en|/sv]*${AppConfig.cmsPagesContextPath}((?!app)[^/])*$`]:
         '/cms-page/',
     };
   }
