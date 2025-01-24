@@ -89,6 +89,10 @@ function getRHHCConfig(apolloClient: ApolloClient<object>) {
       openInNewTabAriaLabel: 'Avautuu uudessa välilehdessä.',
       openInExternalDomainAriaLabel: 'Avautuu uudella sivustolla.',
     },
+    meta: {
+      ...rhhcDefaultConfig.meta,
+      manifestUrl: '/hds-favicon-kit/manifest.webmanifest',
+    },
     currentLanguageCode: 'FI',
     apolloClient,
   } as RHHCConfig;

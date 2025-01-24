@@ -165,7 +165,7 @@ test('renders form and user can fill it and submit and form is saved to local st
 
   if (isFeatureEnabled('FORMIK_PERSIST')) {
     // wait for debounce to trigger and populate localStorage
-    await sleep(500);
+    await sleep(1000);
 
     expect(
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
