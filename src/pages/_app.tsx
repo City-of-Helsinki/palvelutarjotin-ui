@@ -117,6 +117,10 @@ const MyApp = ({ Component, pageProps }: AppProps<CustomPageProps>) => {
         ArticleCardContent: (props: any) => <div>TODO: ArticleCardContent</div>,
         VenueCardContent: (props: any) => <div>TODO: VenueCardContent</div>,
       },
+      meta: {
+        ...rhhcDefaultConfig.meta,
+        manifestUrl: '/hds-favicon-kit/manifest.webmanifest',
+      },
       utils: {
         ...rhhcDefaultConfig.utils,
         getIsHrefExternal,
