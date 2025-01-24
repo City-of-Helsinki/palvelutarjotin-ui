@@ -121,6 +121,12 @@ const MyApp = ({ Component, pageProps }: AppProps<CustomPageProps>) => {
         ...rhhcDefaultConfig.meta,
         manifestUrl: '/hds-favicon-kit/manifest.webmanifest',
       },
+      fallbackImageUrls: [
+        '/static/images/event_placeholder_A.jpg',
+        '/static/images/event_placeholder_B.jpg',
+        '/static/images/event_placeholder_C.jpg',
+        '/static/images/event_placeholder_D.jpg',
+      ],
       utils: {
         ...rhhcDefaultConfig.utils,
         getIsHrefExternal,
