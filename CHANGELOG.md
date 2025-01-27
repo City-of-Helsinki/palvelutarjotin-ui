@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://www.conventionalcommits.org/) for commit guidelines.
 
+## [2.12.1](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/palvelutarjotin-ui-v2.12.0...palvelutarjotin-ui-v2.12.1) (2025-01-27)
+
+
+### Bug Fixes
+
+* Check SKIP_BUILD_STATIC_GENERATION properly ([b8d9ddc](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/b8d9ddc8dac1c63d9dd2cb2900e422a6eb5dd6c6))
+* Cms search unique component key ([3fd7047](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/3fd70471c204e01d88bac2f3430cf48f215a19a3))
+* Configure HCRC fallback image urls ([70f3558](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/70f3558661b55606c554ff98fba0d5ba6537e8e7))
+* **docker:** Local docker compose environment ([a5068a7](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/a5068a736064bc5abefec62cf8f969f58bde4c7b))
+* Hcrc v1 major ([5e6abea](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/5e6abea92694fefaedac3b98fb96ab5903d637cb))
+* Increase staticPageGenerationTimeout ([7476246](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/7476246cc836163ddbea359d4bc2e63281476854))
+* The CMS image URLs should not be rewritten to internal URLs ([d5c08d4](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/d5c08d4717d48f2367140410348cccbd85b6b3d3))
+* Update CMS graphql schemas to support medium sized images ([482f808](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/482f808ad34d610610c864fcd9e7d10d9620c082))
+* Use medium large image in cms search instead of full ([04459d6](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/04459d69031b55c18231b95ca060dbc17661508a))
+* Use root in production stage before copying files ([6b915c3](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/6b915c3361ac761316ffd4f4b79d8ae1fc2378c2))
+* Webmanifest favicon path ([33febb3](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/33febb36cb746d7afe2043b2c439057694ca368f))
+* Webmanifest HRCR-config ([33febb3](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/33febb36cb746d7afe2043b2c439057694ca368f))
+* Webmanifest path ([33febb3](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/33febb36cb746d7afe2043b2c439057694ca368f))
+
 ## [2.12.0](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/palvelutarjotin-ui-v2.11.3...palvelutarjotin-ui-v2.12.0) (2025-01-20)
 
 
