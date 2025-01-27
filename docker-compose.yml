@@ -41,6 +41,7 @@ services:
       - NEXT_PUBLIC_ENVIRONMENT=${DOCKER_TARGET:-development}
     volumes:
       # Share local directory to enable development with hot reloading
+      # NOTE: the volume mapping will break the production-stage build!
       - .:/app
       # Prevent sharing the following directories between host and container
       # to avoid ownership and/or platform issues:

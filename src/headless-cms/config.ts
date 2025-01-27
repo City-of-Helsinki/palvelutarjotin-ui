@@ -34,7 +34,7 @@ class AppConfig {
    * If the URL is a CMS URL for pages, articles or other content,
    * except not for files, the URL should be rewritten to the internal URL.
    *
-   * Some examples taht are valid:
+   * Some examples that are valid:
    * - https://kultus.content.api.hel.fi/fi/
    * - https://kultus.content.api.hel.fi/sv/
    * - https://kultus.content.api.hel.fi/en/
