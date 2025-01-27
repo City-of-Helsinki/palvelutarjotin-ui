@@ -1,5 +1,5 @@
 # =======================================
-FROM registry.access.redhat.com/ubi9/nodejs-20 AS appbase
+FROM registry.access.redhat.com/ubi9/nodejs-20 AS deps
 # =======================================
 
 
@@ -38,7 +38,7 @@ RUN yum remove -y rsync && \
 
 
 # =============================
-FROM appbase AS development
+FROM deps AS development
 # =============================
 
 # Set NODE_ENV to development in the development container
@@ -63,7 +63,7 @@ RUN yarn install --immutable --inline-builds
 CMD ["yarn", "dev"]
 
 # ===================================
-FROM appbase AS staticbuilder
+FROM deps AS staticbuilder
 # ===================================
 # Set environmental variables (when building image on GitLab CI) 
 # specified in gitlab-ci.yml file  
@@ -105,9 +105,8 @@ USER root
 
 # copy all files
 COPY --chown=default:root . .
-COPY --from=appbase --chown=default:root /workspace-install ./
+COPY --from=deps --chown=default:root /workspace-install ./
 
-USER default
 
 RUN yarn install --immutable --inline-builds
 
@@ -153,8 +152,7 @@ USER default
 
 # Expose port
 EXPOSE $PORT
-
 # Start nextjs server
-CMD ["node", "./server.js"]
+CMD ["node", "/app/server.js"]
 
 
