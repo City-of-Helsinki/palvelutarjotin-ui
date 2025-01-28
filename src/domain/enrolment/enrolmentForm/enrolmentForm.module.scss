@@ -2,7 +2,8 @@
 
 .enrolmentForm {
   padding: var(--spacing-layout-s) var(--spacing-layout-xs);
-
+  white-space: normal;
+  
   .rowWith2Columns {
     display: grid;
 
