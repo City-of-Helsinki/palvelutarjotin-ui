@@ -5,6 +5,7 @@
   --date-filter-width: 160px;
   --inactive-date-filter-color: lightgrey;
 
+  white-space: normal;
   margin-top: var(--spacing-m);
 
   .occurrencesTitle {
@@ -99,6 +100,7 @@
   .infoSection {
     display: grid;
     grid-template-columns: auto 1fr;
+    white-space: normal;
 
     p {
       margin: 0;
