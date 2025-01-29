@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://www.conventionalcommits.org/) for commit guidelines.
 
+## [2.12.2](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/palvelutarjotin-ui-v2.12.1...palvelutarjotin-ui-v2.12.2) (2025-01-29)
+
+
+### Bug Fixes
+
+* **style:** White-space wrapping in enrolment form and event details ([5b5a721](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/5b5a721c95f3106ca80d8bb400488921ef5df7a6))
+
 ## [2.12.1](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/palvelutarjotin-ui-v2.12.0...palvelutarjotin-ui-v2.12.1) (2025-01-27)
 
 
