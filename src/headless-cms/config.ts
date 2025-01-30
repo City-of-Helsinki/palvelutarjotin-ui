@@ -48,8 +48,9 @@ class AppConfig {
    */
   static get URLRewriteMapping() {
     return {
-      [`${AppConfig.cmsOrigin}[/fi|/en|/sv]*${AppConfig.cmsPagesContextPath}(?!app/)`]:
-        '/cms-page/',
+      [`^${AppConfig.cmsOrigin}/(fi|en|sv)(${AppConfig.cmsPagesContextPath}.*)?$`]:
+        '/$1/cms-page$2',
+      [`^${AppConfig.cmsOrigin}/$`]: '/cms-page/',
     };
   }
 }
