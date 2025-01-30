@@ -11,6 +11,7 @@ import {
 } from '../../tests/apollo-mocks/menuMocks';
 import { server } from '../../tests/msw/server';
 import { Language } from '../../types';
+import AppConfig from '../config';
 import {
   getUriID,
   stripLocaleFromUri,
@@ -21,6 +22,7 @@ import {
   uriToBreadcrumbs,
   isInternalHrefCmsPage,
   getRoutedInternalHrefForLocale,
+  rewriteInternalURLs,
 } from '../utils';
 
 describe('getUriID', () => {
@@ -314,5 +316,56 @@ describe('isInternalHrefCmsPage', () => {
     { link: '/', expected: false },
   ])('isInternalHrefCmsPage($link) returns $expected', ({ link, expected }) => {
     expect(isInternalHrefCmsPage(link)).toBe(expected);
+  });
+});
+
+describe('rewriteInternalURLs', () => {
+  test.each([
+    {
+      source: { link: 'https://kultus.content.api.hel.fi/fi/' },
+      target: { link: '/cms-page/' },
+    },
+    {
+      source: { link: 'https://kultus.content.api.hel.fi/sv/' },
+      target: { link: '/cms-page/' },
+    },
+    {
+      source: { link: 'https://kultus.content.api.hel.fi/en/' },
+      target: { link: '/cms-page/' },
+    },
+    {
+      source: { link: 'https://kultus.content.api.hel.fi/fi/asdas/asdas' },
+      target: { link: '/cms-page/asdas/asdas' },
+    },
+    {
+      source: { link: 'https://kultus.content.api.hel.fi/fi/something/' },
+      target: { link: '/cms-page/something/' },
+    },
+    {
+      source: { link: 'https://kultus.content.api.hel.fi/fi/something/' },
+      target: { link: '/cms-page/something/' },
+    },
+  ])('rewriteInternalURLs($source) returns $target', ({ source, target }) => {
+    jest
+      .spyOn(AppConfig, 'cmsOrigin', 'get')
+      .mockReturnValue('https://kultus.content.api.hel.fi');
+    expect(rewriteInternalURLs(source)).toStrictEqual(target);
+  });
+
+  test.each([
+    {
+      link: 'https://kultus.content.api.hel.fi/app/images',
+    },
+    {
+      link: 'https://kultus.content.api.hel.fi/app/pictures',
+    },
+    {
+      link: 'https://kultus.content.api.hel.fi/app/files',
+    },
+  ])('rewriteInternalURLs should not rewrite $link', (source) => {
+    jest
+      .spyOn(AppConfig, 'cmsOrigin', 'get')
+      .mockReturnValue('https://kultus.content.api.hel.fi');
+    expect(rewriteInternalURLs(source)).toStrictEqual(source);
   });
 });
