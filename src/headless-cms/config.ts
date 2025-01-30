@@ -42,13 +42,13 @@ class AppConfig {
    * - https://kultus.content.api.hel.fi/fi/something/
    *
    * Examples that are invalid:
-   * - https://kultus.content.api.hel.fi/fi/app/images
-   * - https://kultus.content.api.hel.fi/sv/app/pictures
-   * - https://kultus.content.api.hel.fi/en/app/files
+   * - https://kultus.content.api.hel.fi/app/images
+   * - https://kultus.content.api.hel.fi/app/pictures
+   * - https://kultus.content.api.hel.fi/app/files
    */
   static get URLRewriteMapping() {
     return {
-      [`${AppConfig.cmsOrigin}[/fi|/en|/sv]*${AppConfig.cmsPagesContextPath}((?!app)[^/])*$`]:
+      [`${AppConfig.cmsOrigin}[/fi|/en|/sv]*${AppConfig.cmsPagesContextPath}(?!app/)`]:
         '/cms-page/',
     };
   }
