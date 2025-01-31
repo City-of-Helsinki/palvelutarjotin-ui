@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://www.conventionalcommits.org/) for commit guidelines.
 
+## [2.12.3](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/palvelutarjotin-ui-v2.12.2...palvelutarjotin-ui-v2.12.3) (2025-01-31)
+
+
+### Bug Fixes
+
+* Cms rewriting rule ([8f40746](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/8f40746975541fa3444484377616554c270d9594))
+
 ## [2.12.2](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/palvelutarjotin-ui-v2.12.1...palvelutarjotin-ui-v2.12.2) (2025-01-29)
 
 
