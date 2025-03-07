@@ -193,12 +193,22 @@ export function getRoutedInternalHref(
  */
 export function rewriteInternalURLs(
   apolloResponseData: Record<string, unknown>
-): typeof JSON.parse {
-  let jsonText = JSON.stringify(apolloResponseData);
-  for (const [search, replace] of Object.entries(AppConfig.URLRewriteMapping)) {
-    jsonText = jsonText.replace(new RegExp(search, 'g'), replace);
-  }
-  return JSON.parse(jsonText);
+): Record<string, unknown> {
+  const replacer = (key: string, value: unknown) => {
+    if (typeof value === 'string') {
+      for (const { regex, replace, skip } of AppConfig.URLRewriteMapping) {
+        const re = new RegExp(regex, 'g');
+        if (re.test(value)) {
+          if (skip) {
+            return value;
+          }
+          return value.replace(re, replace);
+        }
+      }
+    }
+    return value;
+  };
+  return JSON.parse(JSON.stringify(apolloResponseData, replacer));
 }
 
 /** Known non-CMS pages without trailing slash. */

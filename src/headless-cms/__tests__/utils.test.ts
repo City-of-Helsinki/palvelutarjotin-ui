@@ -323,27 +323,46 @@ describe('rewriteInternalURLs', () => {
   test.each([
     {
       source: { link: 'https://kultus.content.api.hel.fi/fi/' },
-      target: { link: '/cms-page/' },
+      target: { link: '/fi/cms-page/' },
     },
     {
       source: { link: 'https://kultus.content.api.hel.fi/sv/' },
-      target: { link: '/cms-page/' },
+      target: { link: '/sv/cms-page/' },
     },
     {
       source: { link: 'https://kultus.content.api.hel.fi/en/' },
-      target: { link: '/cms-page/' },
+      target: { link: '/en/cms-page/' },
     },
     {
       source: { link: 'https://kultus.content.api.hel.fi/fi/asdas/asdas' },
-      target: { link: '/cms-page/asdas/asdas' },
+      target: { link: '/fi/cms-page/asdas/asdas' },
     },
     {
       source: { link: 'https://kultus.content.api.hel.fi/fi/something/' },
-      target: { link: '/cms-page/something/' },
+      target: { link: '/fi/cms-page/something/' },
     },
     {
-      source: { link: 'https://kultus.content.api.hel.fi/fi/something/' },
-      target: { link: '/cms-page/something/' },
+      source: { link: 'https://kultus.content.api.hel.fi/fi/something/more' },
+      target: { link: '/fi/cms-page/something/more' },
+    },
+    {
+      source: {
+        link: 'https://kultus.content.api.hel.fi/oppimateriaalit/alakoulu/',
+      },
+      target: { link: '/cms-page/oppimateriaalit/alakoulu/' },
+    },
+    {
+      source: { link: 'https://kultus.content.api.hel.fi/oppimateriaalit/' },
+      target: { link: '/cms-page/oppimateriaalit/' },
+    },
+    {
+      source: {
+        // eslint-disable-next-line max-len
+        link: 'https://kultus.content.api.hel.fi/oppimateriaalit/alakoulu/mediakasvatuksen-oppimateriaalit-huippula-palvelussa/',
+      },
+      target: {
+        link: '/cms-page/oppimateriaalit/alakoulu/mediakasvatuksen-oppimateriaalit-huippula-palvelussa/',
+      },
     },
   ])('rewriteInternalURLs($source) returns $target', ({ source, target }) => {
     jest
