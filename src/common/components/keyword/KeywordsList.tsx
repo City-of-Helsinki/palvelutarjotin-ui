@@ -23,12 +23,14 @@ type KeywordsListProps = {
   keywords: KeywordFieldsFragment[];
   itemType?: 'button' | 'link';
   enrolmentStatus?: EnrolmentStatusKeywordPropsType['enrolmentStatus'];
+  identifier: string;
 };
 
 const KeywordsList: React.FC<KeywordsListProps> = ({
   keywords,
   itemType = 'link',
   enrolmentStatus,
+  identifier,
 }) => {
   const locale = useLocale();
   const { t } = useTranslation();
@@ -36,12 +38,14 @@ const KeywordsList: React.FC<KeywordsListProps> = ({
   const keywordsPropArr = getKeywordsProps(keywords, keywordOptions, locale);
 
   return (
-    <ul className={styles.keywordsList}>
+    <ul className={styles.keywordsList} key={`keywordlist-${identifier}`}>
       {enrolmentStatus && (
-        <EnrolmentStatusKeyword enrolmentStatus={enrolmentStatus} />
+        <li key={`enrolmentStatusKeyword-${identifier}`}>
+          <EnrolmentStatusKeyword enrolmentStatus={enrolmentStatus} />
+        </li>
       )}
       {keywordsPropArr.map((k, i) => (
-        <li key={`${i}-${k.id}`}>
+        <li key={`keyword-${identifier}${i}-${k.id}`}>
           <Keyword
             href={{ pathname: ROUTES.EVENTS_SEARCH, query: k.query }}
             keyword={k.label}

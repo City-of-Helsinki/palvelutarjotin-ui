@@ -106,6 +106,7 @@ const mocks: MockedResponse[] = [
 it('renders list of keywords as links with correct hrefs', async () => {
   const { container } = render(
     <KeywordsList
+      identifier="test-identifier"
       keywords={[
         ...categoryKeywords,
         ...targetGroupKeywords,
