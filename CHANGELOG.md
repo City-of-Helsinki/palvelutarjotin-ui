@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://www.conventionalcommits.org/) for commit guidelines.
 
+## [2.12.4](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/palvelutarjotin-ui-v2.12.3...palvelutarjotin-ui-v2.12.4) (2025-03-07)
+
+
+### Bug Fixes
+
+* Rehydration issue in event cards keywords and enrolment statuses ([9e5df14](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/9e5df14f10603e45b6a89c5543f7b6ab698b6cd3))
+
 ## [2.12.3](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/palvelutarjotin-ui-v2.12.2...palvelutarjotin-ui-v2.12.3) (2025-01-31)
 
 
