@@ -66,6 +66,7 @@ const EventCard: React.FC<Props> = ({ event, link }) => {
             keywords={keywords}
             itemType="button"
             enrolmentStatus={enrolmentStatus}
+            identifier={event.id}
           />
         </div>
       </a>
