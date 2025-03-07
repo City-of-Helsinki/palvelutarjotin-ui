@@ -345,6 +345,25 @@ describe('rewriteInternalURLs', () => {
       source: { link: 'https://kultus.content.api.hel.fi/fi/something/more' },
       target: { link: '/fi/cms-page/something/more' },
     },
+    {
+      source: {
+        link: 'https://kultus.content.api.hel.fi/oppimateriaalit/alakoulu/',
+      },
+      target: { link: '/cms-page/oppimateriaalit/alakoulu/' },
+    },
+    {
+      source: { link: 'https://kultus.content.api.hel.fi/oppimateriaalit/' },
+      target: { link: '/cms-page/oppimateriaalit/' },
+    },
+    {
+      source: {
+        // eslint-disable-next-line max-len
+        link: 'https://kultus.content.api.hel.fi/oppimateriaalit/alakoulu/mediakasvatuksen-oppimateriaalit-huippula-palvelussa/',
+      },
+      target: {
+        link: '/cms-page/oppimateriaalit/alakoulu/mediakasvatuksen-oppimateriaalit-huippula-palvelussa/',
+      },
+    },
   ])('rewriteInternalURLs($source) returns $target', ({ source, target }) => {
     jest
       .spyOn(AppConfig, 'cmsOrigin', 'get')

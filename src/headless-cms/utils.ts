@@ -196,12 +196,13 @@ export function rewriteInternalURLs(
 ): Record<string, unknown> {
   const replacer = (key: string, value: unknown) => {
     if (typeof value === 'string') {
-      for (const [search, replace] of Object.entries(
-        AppConfig.URLRewriteMapping
-      )) {
-        const regex = new RegExp(search, 'g');
-        if (regex.test(value)) {
-          return value.replace(regex, replace);
+      for (const { regex, replace, skip } of AppConfig.URLRewriteMapping) {
+        const re = new RegExp(regex, 'g');
+        if (re.test(value)) {
+          if (skip) {
+            return value;
+          }
+          return value.replace(re, replace);
         }
       }
     }
