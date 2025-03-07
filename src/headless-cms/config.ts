@@ -47,11 +47,29 @@ class AppConfig {
    * - https://kultus.content.api.hel.fi/app/files
    */
   static get URLRewriteMapping() {
-    return {
-      [`^${AppConfig.cmsOrigin}/(fi|en|sv)(${AppConfig.cmsPagesContextPath}.*)?$`]:
-        '/$1/cms-page$2',
-      [`^${AppConfig.cmsOrigin}/$`]: '/cms-page/',
-    };
+    return [
+      // Exclusionary rule: URLs that should *not* be rewritten
+      {
+        regex: `^${AppConfig.cmsOrigin}/app/`,
+        replace: '', // We don't need a replacement for exclusions.
+        skip: true,
+      },
+      // Matches URLs with a locale prefix (fi, en, sv)
+      {
+        regex: `^${AppConfig.cmsOrigin}/(fi|en|sv)(.*)$`,
+        replace: '/$1/cms-page$2',
+      },
+      // Matches root page
+      {
+        regex: `^${AppConfig.cmsOrigin}/$`,
+        replace: '/cms-page/',
+      },
+      // Matches URLs without a locale prefix (other paths)
+      {
+        regex: `^${AppConfig.cmsOrigin}/(.*)$`,
+        replace: '/cms-page/$1',
+      },
+    ];
   }
 }
 
