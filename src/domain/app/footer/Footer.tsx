@@ -7,9 +7,9 @@ import { useMenuQuery } from 'react-helsinki-headless-cms/apollo';
 import styles from './footer.module.scss';
 import { resetFocusId } from '../../../common/components/resetFocus/ResetFocus';
 import { DEFAULT_FOOTER_MENU_NAME } from '../../../constants';
+import { getIsHrefExternal } from '../../../headless-cms/useRHHCConfig';
 import { getRoutedInternalHrefForLocale } from '../../../headless-cms/utils';
 import useLocale from '../../../hooks/useLocale';
-import { getIsHrefExternal } from '../../../pages/_app';
 
 const FooterSection = (): React.ReactElement => {
   const { t } = useTranslation();

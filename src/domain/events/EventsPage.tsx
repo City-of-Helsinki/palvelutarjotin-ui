@@ -182,6 +182,7 @@ export const useUpcomingEvents = ({ variables }: UseUpcomingEventsOptions) => {
   } = useUpcomingEventsQuery({
     variables,
     notifyOnNetworkStatusChange: true,
+    ssr: false,
   });
   const events = eventsData?.upcomingEvents?.data;
   const eventsCount = eventsData?.upcomingEvents?.pageInfo.totalCount;
