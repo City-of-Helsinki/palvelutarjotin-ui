@@ -8,11 +8,11 @@ import {
 } from 'react-helsinki-headless-cms';
 
 import { getCmsCollectionList } from './utils';
-import PageMeta from '../../common/components/meta/PageMeta';
-import { SUPPORTED_LANGUAGES } from '../../constants';
-import { getCmsArticlePath } from '../../domain/app/routes/utils';
-import { ArticleQuery, Post } from '../../generated/graphql-cms';
-import { Language } from '../../types';
+import PageMeta from '../../../common/components/meta/PageMeta';
+import { SUPPORTED_LANGUAGES } from '../../../constants';
+import { ArticleQuery, Post } from '../../../generated/graphql-cms';
+import { Language } from '../../../types';
+import { getCmsArticlePath } from '../../app/routes/utils';
 import { stripLocaleFromUri } from '../utils';
 
 const CmsArticle: React.FC<{

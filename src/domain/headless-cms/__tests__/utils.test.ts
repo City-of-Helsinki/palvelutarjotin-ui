@@ -8,9 +8,9 @@ import {
 import {
   allMockedMenuPages,
   menuQueryMocks,
-} from '../../tests/apollo-mocks/menuMocks';
-import { server } from '../../tests/msw/server';
-import { Language } from '../../types';
+} from '../../../tests/apollo-mocks/menuMocks';
+import { server } from '../../../tests/msw/server';
+import { Language } from '../../../types';
 import AppConfig from '../config';
 import {
   getUriID,

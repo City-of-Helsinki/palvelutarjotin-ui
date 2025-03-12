@@ -1,10 +1,10 @@
-import { NextPage, NextPageContext } from 'next';
+import { GetStaticProps, GetStaticPropsContext, NextPage } from 'next';
 import React from 'react';
 
+import { CommonPropsService } from '../../domain/app/ssr/serverSidePropsService';
 import SubscribeNewsletterPage from '../../domain/newsletter/SubscribeNewsletterPage';
 import NotFoundPage from '../../domain/notFoundPage/NotFoundPage';
 import { isFeatureEnabled } from '../../utils/featureFlags';
-import getLocalizationProps from '../../utils/getLocalizationProps';
 
 const SubscribeNewsLetter: NextPage = () =>
   isFeatureEnabled('NEWSLETTER') ? (
@@ -13,7 +13,10 @@ const SubscribeNewsLetter: NextPage = () =>
     <NotFoundPage />
   );
 
-SubscribeNewsLetter.getInitialProps = async ({ locale }: NextPageContext) =>
-  getLocalizationProps(locale);
+export const getStaticProps: GetStaticProps = async (
+  context: GetStaticPropsContext
+) => {
+  return await CommonPropsService.getCommonStaticProps(context);
+};
 
 export default SubscribeNewsLetter;

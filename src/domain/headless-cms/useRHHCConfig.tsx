@@ -10,8 +10,8 @@ import {
 
 import AppConfig from './config';
 import { getRoutedInternalHrefForLocale } from './utils';
-import useLocale from '../hooks/useLocale';
-import getLanguageCode from '../utils/getCurrentLanguageCode';
+import useLocale from '../../hooks/useLocale';
+import getLanguageCode from '../../utils/getCurrentLanguageCode';
 
 const CMS_API_DOMAIN = AppConfig.cmsOrigin;
 const APP_DOMAIN = AppConfig.origin;
@@ -24,8 +24,10 @@ export const getIsHrefExternal = (href: string) => {
 
 export const useRHHCConfig = ({
   cmsApolloClient,
+  eventsApolloClient,
 }: {
   cmsApolloClient: ApolloClient<NormalizedCacheObject>;
+  eventsApolloClient?: ApolloClient<NormalizedCacheObject>;
 }) => {
   const locale = useLocale();
   const { t } = useTranslation();
@@ -95,7 +97,8 @@ export const useRHHCConfig = ({
       },
       internalHrefOrigins: CMS_API_DOMAIN ? [CMS_API_DOMAIN] : [],
       apolloClient: cmsApolloClient,
+      eventsApolloClient,
     }),
-    [t, cmsApolloClient, locale]
+    [t, cmsApolloClient, eventsApolloClient, locale]
   );
 };

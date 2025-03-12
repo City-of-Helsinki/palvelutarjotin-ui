@@ -5,7 +5,7 @@ import {
   DEFAULT_FOOTER_MENU_NAME,
   DEFAULT_HEADER_MENU_NAME,
 } from '../../constants';
-import { PageInfo } from '../../headless-cms/utils';
+import { PageInfo } from '../../domain/headless-cms/utils';
 import enHeaderMenu from '../fixtures/menus/Palvelutarjotin all UIs Header (EN)';
 import fiHeaderMenu from '../fixtures/menus/Palvelutarjotin all UIs Header (FI)';
 import svHeaderMenu from '../fixtures/menus/Palvelutarjotin all UIs Header (SV)';

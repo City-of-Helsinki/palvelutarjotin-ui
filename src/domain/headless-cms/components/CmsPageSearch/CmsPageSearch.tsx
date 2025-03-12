@@ -14,16 +14,16 @@ import {
 } from 'react-helsinki-headless-cms';
 
 import styles from './cmsPageSearch.module.scss';
-import Container from '../../../domain/app/layout/Container';
-import { getCmsPagePath } from '../../../domain/app/routes/utils';
-import { getEventPlaceholderImage } from '../../../domain/event/utils';
 import {
   Page,
   PageIdType,
   useSubPagesSearchQuery,
-} from '../../../generated/graphql-cms';
-import useDebounce from '../../../hooks/useDebounce';
-import { useCMSClient } from '../../cmsApolloContext';
+} from '../../../../generated/graphql-cms';
+import useDebounce from '../../../../hooks/useDebounce';
+import Container from '../../../app/layout/Container';
+import { getCmsPagePath } from '../../../app/routes/utils';
+import { getEventPlaceholderImage } from '../../../event/utils';
+import { useCMSApolloClient } from '../../apollo/apolloClient';
 
 const BLOCK_SIZE = 9;
 const SEARCH_DEBOUNCE_TIME = 500;
@@ -33,7 +33,7 @@ const CmsPageSearch: React.FC<{
 }> = ({ page }) => {
   const [searchTerm, setSearchTerm] = React.useState('');
   const debouncedSearchTerm = useDebounce(searchTerm, SEARCH_DEBOUNCE_TIME);
-  const cmsClient = useCMSClient();
+  const cmsClient = useCMSApolloClient();
   const {
     components: { Head },
   } = useConfig();

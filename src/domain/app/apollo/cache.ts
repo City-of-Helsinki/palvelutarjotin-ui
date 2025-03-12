@@ -1,33 +1,5 @@
-import {
-  ApolloClient,
-  InMemoryCache,
-  NormalizedCacheObject,
-  ApolloLink,
-  HttpLink,
-  ApolloProvider,
-  FieldMergeFunction,
-} from '@apollo/client';
-import { getDataFromTree } from '@apollo/client/react/ssr';
-import withApollo from 'next-with-apollo';
-
-import { IS_CLIENT } from '../../../constants';
-
-const createApolloClient = (
-  initialState: NormalizedCacheObject = {}
-): ApolloClient<NormalizedCacheObject> => {
-  const httpLink = new HttpLink({
-    uri: process.env.NEXT_PUBLIC_API_BASE_URL,
-  });
-
-  const cache = createApolloCache().restore(initialState || {});
-
-  return new ApolloClient({
-    ssrMode: !IS_CLIENT, // Disables forceFetch on the server (so queries are only run once)
-    // TODO: Add error link after adding Sentry to the project
-    link: ApolloLink.from([httpLink]),
-    cache,
-  });
-};
+import type { FieldMergeFunction } from '@apollo/client';
+import { InMemoryCache } from '@apollo/client';
 
 const excludeArgs =
   (excludedArgs: string[]) =>
@@ -47,7 +19,7 @@ const getPageStylePaginator = (merge: FieldMergeFunction) => ({
   merge,
 });
 
-export const createApolloCache = (): InMemoryCache =>
+export const createApolloCache = () =>
   new InMemoryCache({
     typePolicies: {
       Query: {
@@ -88,17 +60,3 @@ export const createApolloCache = (): InMemoryCache =>
       },
     },
   });
-
-export default withApollo(
-  ({ initialState }) => createApolloClient(initialState),
-  {
-    getDataFromTree,
-    render: ({ Page, props }) => {
-      return (
-        <ApolloProvider client={props.apollo}>
-          <Page {...props} />
-        </ApolloProvider>
-      );
-    },
-  }
-);
