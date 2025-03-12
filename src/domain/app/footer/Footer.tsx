@@ -1,20 +1,34 @@
 import { Footer, Logo, logoFi, logoSv } from 'hds-react';
+import dynamic from 'next/dynamic';
 import { useTranslation } from 'next-i18next';
 import React from 'react';
-import { Link } from 'react-helsinki-headless-cms';
 import { useMenuQuery } from 'react-helsinki-headless-cms/apollo';
 
 import styles from './footer.module.scss';
 import { resetFocusId } from '../../../common/components/resetFocus/ResetFocus';
 import { DEFAULT_FOOTER_MENU_NAME } from '../../../constants';
-import { getIsHrefExternal } from '../../../headless-cms/useRHHCConfig';
-import { getRoutedInternalHrefForLocale } from '../../../headless-cms/utils';
 import useLocale from '../../../hooks/useLocale';
+import { isFeatureEnabled } from '../../../utils/featureFlags';
+import { getIsHrefExternal } from '../../headless-cms/useRHHCConfig';
+import { getRoutedInternalHrefForLocale } from '../../headless-cms/utils';
+
+// FIXME: Dynamic import is used here to prevent a hydration issue.
+// For some reason, the Link is different in SSR compared to CSR.
+// The hydration issue would prevent SSR cache creation for Footer menu links.
+// With dynamic import (or by using other link component),
+// the hydration issue can be prevented.
+const DynamicClientLink = dynamic(
+  () => import('react-helsinki-headless-cms').then((mod) => mod.Link),
+  {
+    ssr: false,
+  }
+);
 
 const FooterSection = (): React.ReactElement => {
   const { t } = useTranslation();
   const locale = useLocale();
   const { data, loading } = useMenuQuery({
+    skip: !isFeatureEnabled('HEADLESS_CMS') || !locale,
     variables: {
       id: DEFAULT_FOOTER_MENU_NAME[locale],
       menuIdentifiersOnly: true,
@@ -51,7 +65,7 @@ const FooterSection = (): React.ReactElement => {
               <Footer.Link
                 className={styles.footerLink}
                 key={navigationItem?.id}
-                as={Link}
+                as={DynamicClientLink}
                 href={href}
                 label={navigationItem?.label || undefined}
               />

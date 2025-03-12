@@ -1,14 +1,15 @@
-/* eslint-disable @typescript-eslint/no-require-imports */
-import { NextPage, NextPageContext } from 'next';
+import { NextPage, GetStaticProps, GetStaticPropsContext } from 'next';
 import React from 'react';
 
-import withApollo from '../domain/app/apollo/configureApollo';
+import { CommonPropsService } from '../domain/app/ssr/serverSidePropsService';
 import EventsPage from '../domain/events/EventsPage';
-import getLocalizationProps from '../utils/getLocalizationProps';
 
 const Events: NextPage = () => <EventsPage />;
 
-Events.getInitialProps = async ({ locale }: NextPageContext) =>
-  getLocalizationProps(locale);
+export const getStaticProps: GetStaticProps = async (
+  context: GetStaticPropsContext
+) => {
+  return await CommonPropsService.getCommonStaticProps(context);
+};
 
-export default withApollo(Events);
+export default Events;

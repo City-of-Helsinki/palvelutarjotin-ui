@@ -11,8 +11,8 @@ import {
   fakePage,
   fakeMediaItem,
   fakePost,
-} from '../../../utils/cmsMockDataUtils';
-import { render, screen } from '../../../utils/testUtils';
+} from '../../../../utils/cmsMockDataUtils';
+import { render, screen } from '../../../../utils/testUtils';
 import { getRoutedInternalHref } from '../../utils';
 import CmsPage from '../CmsPage';
 

@@ -8,10 +8,7 @@ import {
   PageType,
 } from 'react-helsinki-headless-cms';
 
-import {
-  getCmsArticlePath,
-  getCmsPagePath,
-} from '../../domain/app/routes/utils';
+import { getCmsArticlePath, getCmsPagePath } from '../../app/routes/utils';
 
 export function getCmsCollectionList(
   collections: GeneralCollectionType[]

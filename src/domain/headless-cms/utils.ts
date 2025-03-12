@@ -8,14 +8,14 @@ import {
   MenuQuery,
 } from 'react-helsinki-headless-cms/apollo';
 
-import { createCmsApolloClient } from './cmsApolloClient';
+import { initializeCMSApolloClient } from './apollo/apolloClient';
 import AppConfig from './config';
 import {
   DEFAULT_FOOTER_MENU_NAME,
   DEFAULT_HEADER_MENU_NAME,
-} from '../constants';
-import { getCmsArticlePath, getCmsPagePath } from '../domain/app/routes/utils';
-import { Language } from '../types';
+} from '../../constants';
+import type { Language } from '../../types';
+import { getCmsArticlePath, getCmsPagePath } from '../app/routes/utils';
 
 export const getUriID = (slugs: string[], locale: Language): string => {
   if (!slugs) return '/';
@@ -129,7 +129,7 @@ export const getAllMenuPages = async (): Promise<PageInfo[]> => {
   // Slug to page info mapping to avoid duplicates. Slugs must be unique i.e.
   // slug should be able to be used to identify a page in a specific language.
   const slugToPageInfo: Record<string, PageInfo> = {};
-  const cmsClient = createCmsApolloClient();
+  const cmsClient = initializeCMSApolloClient();
 
   const menuIds = [
     ...Object.values(DEFAULT_HEADER_MENU_NAME),
