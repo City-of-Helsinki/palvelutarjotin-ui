@@ -9,7 +9,10 @@ const Events: NextPage = () => <EventsPage />;
 export const getStaticProps: GetStaticProps = async (
   context: GetStaticPropsContext
 ) => {
-  return await CommonPropsService.getCommonStaticProps(context);
+  return {
+    ...(await CommonPropsService.getCommonStaticProps(context)),
+    revalidate: 60 * 60, // Once in an hour
+  };
 };
 
 export default Events;
