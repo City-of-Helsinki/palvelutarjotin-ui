@@ -1,7 +1,8 @@
 import type { GetServerSidePropsContext, GetStaticPropsContext } from 'next';
 
 import { CommonApolloQueriesService } from './commonApolloQueriesService';
-import { SUPPORTED_LANGUAGES } from '../../../constants';
+import { isSupportedLanguage } from './types';
+import { DEFAULT_LANGUAGE } from '../../../constants';
 import getLocalizationProps from '../../../utils/getLocalizationProps';
 import {
   addCmsApolloState,
@@ -30,11 +31,15 @@ export class CommonPropsService {
       | GetStaticPropsContext['locale']
       | GetServerSidePropsContext['locale'];
   }): Promise<void> {
-    const language: SUPPORTED_LANGUAGES =
-      (locale as SUPPORTED_LANGUAGES) ?? SUPPORTED_LANGUAGES.FI;
+    // NOTE: When NextJS goes throught the getStaticProps, the locale can be e.g. any of the following:
+    // default, fi, en, sv, cimode...
+    // The default-locale will be rewritten and the cimode might not have a menu.
+    const language = isSupportedLanguage(locale) ? locale : DEFAULT_LANGUAGE;
+
     const apolloQueryService = new CommonApolloQueriesService({
       cmsApolloClient,
     });
+
     await apolloQueryService.queryCmsHeaderMenu({ language });
     await apolloQueryService.queryCmsFooterMenu({ language });
   }
