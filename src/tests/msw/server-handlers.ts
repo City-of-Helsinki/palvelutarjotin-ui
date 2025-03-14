@@ -35,6 +35,7 @@ const handlers: Parameters<typeof setupServer> = [
           title: 'moi',
           content: 'm0i',
           level: 'info',
+          linkUrl: '#',
         } as Notification,
       })
     );

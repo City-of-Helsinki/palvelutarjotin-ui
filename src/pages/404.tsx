@@ -9,6 +9,8 @@ const Error404: NextPage = () => <NotFoundPage />;
 export async function getStaticProps({
   locale,
 }: GetStaticPropsContext): Promise<GetStaticPropsResult<unknown>> {
+  // eslint-disable-next-line no-console
+  console.debug('Executing getStaticProps of the 404 page', '/pages/404.tsx');
   return {
     props: {
       ...(await serverSideTranslations(locale ?? 'fi', [

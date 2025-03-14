@@ -11,7 +11,6 @@ import {
   Notification as NotificationNode,
   useNotificationQuery,
 } from '../../../generated/graphql-cms';
-import { useCMSClient } from '../../../headless-cms/cmsApolloContext';
 import useLocale from '../../../hooks/useLocale';
 import hash from '../../../utils/hash';
 
@@ -41,11 +40,9 @@ const HeaderNotification: React.FC = () => {
       isVisible: true,
       closedNotificationHash: null,
     });
-
   const { isVisible, closedNotificationHash } = notificationState ?? {};
 
   const { data } = useNotificationQuery({
-    client: useCMSClient(),
     variables: {
       language: locale ?? 'fi',
     },

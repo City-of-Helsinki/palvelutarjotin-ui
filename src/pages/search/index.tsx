@@ -1,13 +1,23 @@
-import { NextPage, NextPageContext } from 'next';
+import { GetStaticProps, GetStaticPropsContext, NextPage } from 'next';
 import * as React from 'react';
 
-import withApollo from '../../domain/app/apollo/configureApollo';
+import { CommonPropsService } from '../../domain/app/ssr/serverSidePropsService';
 import EventsSearchPage from '../../domain/events/EventsSearchPage';
-import getLocalizationProps from '../../utils/getLocalizationProps';
 
 const SearchPage: NextPage = () => <EventsSearchPage />;
 
-SearchPage.getInitialProps = async ({ locale }: NextPageContext) =>
-  getLocalizationProps(locale);
+export const getStaticProps: GetStaticProps = async (
+  context: GetStaticPropsContext
+) => {
+  // eslint-disable-next-line no-console
+  console.debug(
+    'Executing getStaticProps of the search page',
+    '/pages/search/index.tsx'
+  );
+  return {
+    ...(await CommonPropsService.getCommonStaticProps(context)),
+    revalidate: 60 * 60, // Once in an hour
+  };
+};
 
-export default withApollo(SearchPage);
+export default SearchPage;

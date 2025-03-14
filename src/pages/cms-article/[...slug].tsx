@@ -1,26 +1,29 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
-import { NormalizedCacheObject } from '@apollo/client';
 import { BreadcrumbListItem } from 'hds-react';
 import { GetStaticPropsContext, GetStaticPropsResult, NextPage } from 'next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import {
   getCollections,
   CollectionType,
   GeneralCollectionType,
 } from 'react-helsinki-headless-cms';
 
-import { ALL_I18N_NAMESPACES } from '../../constants';
+import { SUPPORTED_LANGUAGES } from '../../constants';
+import { CommonApolloQueriesService } from '../../domain/app/ssr/commonApolloQueriesService';
+import {
+  addCmsApolloState,
+  initializeCMSApolloClient,
+} from '../../domain/headless-cms/apollo/apolloClient';
+import CmsArticle from '../../domain/headless-cms/components/CmsArticle';
+import { getUriID } from '../../domain/headless-cms/utils';
 import {
   PostFieldsFragment,
   ArticleQuery,
   ArticleDocument,
   ArticleQueryVariables,
 } from '../../generated/graphql-cms';
-import { createCmsApolloClient } from '../../headless-cms/cmsApolloClient';
-import CmsArticle from '../../headless-cms/components/CmsArticle';
-import { getUriID } from '../../headless-cms/utils';
-import { Language } from '../../types';
+import { CustomPageProps, Language } from '../../types';
+import getLocalizationProps from '../../utils/getLocalizationProps';
 
 const NextCmsArticle: NextPage<{
   article: PostFieldsFragment;
@@ -33,12 +36,11 @@ export async function getStaticPaths() {
 }
 
 type ResultProps =
-  | {
-      initialApolloState: NormalizedCacheObject;
+  | ({
       article: PostFieldsFragment;
       breadcrumbs: BreadcrumbListItem[];
       collections?: CollectionType[];
-    }
+    } & CustomPageProps)
   | {
       error?: {
         statusCode: number;
@@ -48,6 +50,12 @@ type ResultProps =
 export async function getStaticProps(
   context: GetStaticPropsContext
 ): Promise<GetStaticPropsResult<ResultProps>> {
+  // eslint-disable-next-line no-console
+  console.debug(
+    'Executing getStaticProps of an CMS article',
+    '/pages/cms-article/[...slug].tsx',
+    { params: context.params }
+  );
   try {
     const {
       currentArticle: article,
@@ -63,17 +71,17 @@ export async function getStaticProps(
     }
 
     return {
-      props: {
-        initialApolloState: cmsClient.cache.extract(),
-        ...(await serverSideTranslations(
-          context.locale as string,
-          ALL_I18N_NAMESPACES
-        )),
-        article,
-        breadcrumbs,
-        collections: getCollections(article.modules ?? []),
-      },
-      revalidate: 60,
+      ...addCmsApolloState(cmsClient, {
+        props: {
+          ...getLocalizationProps(context.locale),
+          initialCMSApolloState: null,
+          initialApolloState: null,
+          article,
+          breadcrumbs,
+          collections: getCollections(article.modules ?? []),
+        },
+      }),
+      revalidate: 60 * 60, // Once in an hour
     };
   } catch (e) {
     // eslint-disable-next-line no-console
@@ -94,7 +102,18 @@ export async function getStaticProps(
 }
 
 const getProps = async (context: GetStaticPropsContext) => {
-  const cmsClient = createCmsApolloClient();
+  const cmsClient = initializeCMSApolloClient();
+
+  // Fetch menu data to cache for the components so they can be rendered in the server
+  const commonApolloQueriesService = new CommonApolloQueriesService({
+    cmsApolloClient: cmsClient,
+  });
+  await commonApolloQueriesService.queryCmsHeaderMenu({
+    language: (context.locale as SUPPORTED_LANGUAGES) ?? SUPPORTED_LANGUAGES.FI,
+  });
+  await commonApolloQueriesService.queryCmsFooterMenu({
+    language: (context.locale as SUPPORTED_LANGUAGES) ?? SUPPORTED_LANGUAGES.FI,
+  });
 
   const { data: articleData } = await cmsClient.query<
     ArticleQuery,

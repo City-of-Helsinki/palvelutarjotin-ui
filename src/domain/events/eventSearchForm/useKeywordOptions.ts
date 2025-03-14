@@ -23,13 +23,15 @@ export const useKeywordOptions = (): KeywordOptions => {
 
   const { data: additionalCriteriaData } = useKeywordSetQuery({
     variables: { setType: KeywordSetType.AdditionalCriteria },
+    ssr: false, // Can be updated externally
   });
   const { data: categoriesData } = useKeywordSetQuery({
     variables: { setType: KeywordSetType.Category },
-    ssr: false,
+    ssr: false, // Can be updated externally
   });
   const { data: targetGroupsData } = useKeywordSetQuery({
     variables: { setType: KeywordSetType.TargetGroup },
+    ssr: false, // Can be updated externally
   });
 
   const keywordSetToOptions = (keywordSet?: KeywordSet | null) =>

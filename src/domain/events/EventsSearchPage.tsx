@@ -109,7 +109,12 @@ const EventsSearchPage: React.FC = () => {
   );
 };
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+/**
+ * Fetch a list of event search results.
+ * NOTE: This query should not be executed on with SSR,
+ * because the result list will be updated regularly.
+ * The query hook should be executed with `ssr: false`.
+ */
 export const useEventsSearch = () => {
   const router = useRouter();
   const [isLoadingMore, setIsLoadingMore] = React.useState(false);
@@ -156,7 +161,7 @@ export const useEventsSearch = () => {
     fetchMore,
     loading,
   } = useEventsQuery({
-    ssr: false,
+    ssr: false, // Updated regularly
     variables: { ...variables, sort },
   });
   const eventsCount = eventsData?.events?.meta.count;

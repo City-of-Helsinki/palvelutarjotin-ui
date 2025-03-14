@@ -8,7 +8,7 @@ import { NextRouter, Router } from 'next/router';
 import React from 'react';
 
 import TestProviders from './TestProviders';
-import { createApolloCache } from '../domain/app/apollo/configureApollo';
+import { createApolloCache } from '../domain/app/apollo/cache';
 import { store as reduxStore } from '../domain/app/store';
 
 export const arrowUpKeyPressHelper = (): boolean =>

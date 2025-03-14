@@ -13,12 +13,12 @@ import { useMenuQuery } from 'react-helsinki-headless-cms/apollo';
 import HeaderNotification from './HeaderNotification';
 import { DEFAULT_HEADER_MENU_NAME } from '../../../constants';
 import { PageIdType, usePageQuery } from '../../../generated/graphql-cms';
-import { useCMSClient } from '../../../headless-cms/cmsApolloContext';
-import { HARDCODED_LANGUAGES } from '../../../headless-cms/constants';
-import { stripLocaleFromUri } from '../../../headless-cms/utils';
 import useLocale from '../../../hooks/useLocale';
 import { isFeatureEnabled } from '../../../utils/featureFlags';
 import stringifyUrlObject from '../../../utils/stringifyUrlObject';
+import { useCMSApolloClient } from '../../headless-cms/apollo/apolloClient';
+import { HARDCODED_LANGUAGES } from '../../headless-cms/constants';
+import { stripLocaleFromUri } from '../../headless-cms/utils';
 import { PATHNAMES, ROUTES } from '../routes/constants';
 import { getCmsPagePath } from '../routes/utils';
 
@@ -119,7 +119,7 @@ const Header: React.FC = () => {
 
 const useCmsLanguageOptions = ({ skip = false }: { skip?: boolean } = {}) => {
   const router = useRouter();
-  const cmsClient = useCMSClient();
+  const cmsClient = useCMSApolloClient();
 
   const { data: pageData } = usePageQuery({
     client: cmsClient,

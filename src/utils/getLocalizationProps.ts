@@ -1,14 +1,8 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
 
-import { ALL_I18N_NAMESPACES, SUPPORTED_LANGUAGES } from '../constants';
+import type { SSRConfig } from 'next-i18next';
 
-type NextI18NextProps = {
-  _nextI18Next: {
-    initialI18nStore: { [k: string]: Record<string, string> };
-    initialLocale: string;
-    userConfig: null;
-  };
-};
+import { ALL_I18N_NAMESPACES, SUPPORTED_LANGUAGES } from '../constants';
 
 /*
  * This function is used to provide next-i18next HOC with translations
@@ -26,7 +20,7 @@ type NextI18NextProps = {
  */
 const getLocalizationProps = (
   locale: string | undefined
-): NextI18NextProps | void => {
+): Pick<SSRConfig, '_nextI18Next'> | undefined => {
   if (!locale) return;
 
   return {
@@ -45,6 +39,7 @@ const getLocalizationProps = (
         {}
       ),
       initialLocale: locale,
+      ns: [],
       userConfig: null,
     },
   };

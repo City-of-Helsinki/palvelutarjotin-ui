@@ -1,26 +1,24 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-
-import { NormalizedCacheObject } from '@apollo/client';
 import { BreadcrumbListItem } from 'hds-react';
 import { GetStaticPropsContext, GetStaticPropsResult, NextPage } from 'next';
 import dynamic from 'next/dynamic';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import {
   getCollections,
   CollectionType,
   GeneralCollectionType,
 } from 'react-helsinki-headless-cms';
-import {
-  MenuDocument,
-  MenuQuery,
-  MenuQueryVariables,
-} from 'react-helsinki-headless-cms/apollo';
 
+import { SUPPORTED_LANGUAGES } from '../../constants';
+import { CommonApolloQueriesService } from '../../domain/app/ssr/commonApolloQueriesService';
 import {
-  ALL_I18N_NAMESPACES,
-  DEFAULT_HEADER_MENU_NAME,
-  SUPPORTED_LANGUAGES,
-} from '../../constants';
+  addCmsApolloState,
+  initializeCMSApolloClient,
+} from '../../domain/headless-cms/apollo/apolloClient';
+import {
+  getAllMenuPages,
+  getSlugFromUri,
+  getUriID,
+  slugsToUriSegments,
+} from '../../domain/headless-cms/utils';
 import {
   PageDocument,
   PageQuery,
@@ -29,18 +27,15 @@ import {
   PageFieldsFragment,
   Page,
 } from '../../generated/graphql-cms';
-import { createCmsApolloClient } from '../../headless-cms/cmsApolloClient';
-import {
-  getAllMenuPages,
-  getSlugFromUri,
-  getUriID,
-  slugsToUriSegments,
-} from '../../headless-cms/utils';
-import { Language } from '../../types';
+import { CustomPageProps, Language } from '../../types';
 import { isFeatureEnabled } from '../../utils/featureFlags';
+import getLocalizationProps from '../../utils/getLocalizationProps';
 
+// TODO: The Dynamic CMS Page should be statically rendered.
+// A revalidation should be called from the CMS when an update is done.
+// Also a nightly/daily cleaner should clear the stored pages.
 const DynamicCmsPageWithNoSSR = dynamic(
-  () => import('../../headless-cms/components/CmsPage'),
+  () => import('../../domain/headless-cms/components/CmsPage'),
   { ssr: false, loading: () => <div style={{ height: '100vh' }} /> }
 );
 
@@ -85,12 +80,11 @@ export async function getStaticPaths() {
 }
 
 type ResultProps =
-  | {
-      initialApolloState: NormalizedCacheObject;
+  | ({
       page: PageFieldsFragment;
       breadcrumbs: BreadcrumbListItem[];
       collections?: CollectionType[];
-    }
+    } & CustomPageProps)
   | {
       error?: {
         statusCode: number;
@@ -100,6 +94,12 @@ type ResultProps =
 export async function getStaticProps(
   context: GetStaticPropsContext
 ): Promise<GetStaticPropsResult<ResultProps>> {
+  // eslint-disable-next-line no-console
+  console.debug(
+    'Executing getStaticProps of an CMS page',
+    '/pages/cms-page/[...slug].tsx',
+    { params: context.params }
+  );
   try {
     const {
       currentPage: page,
@@ -115,17 +115,17 @@ export async function getStaticProps(
     }
 
     return {
-      props: {
-        initialApolloState: cmsClient.cache.extract(),
-        ...(await serverSideTranslations(
-          context.locale as string,
-          ALL_I18N_NAMESPACES
-        )),
-        page,
-        breadcrumbs,
-        collections: getCollections(page.modules ?? []),
-      },
-      revalidate: 60,
+      ...addCmsApolloState(cmsClient, {
+        props: {
+          ...getLocalizationProps(context.locale),
+          initialCMSApolloState: null,
+          initialApolloState: null,
+          page,
+          breadcrumbs,
+          collections: getCollections(page.modules ?? []),
+        },
+      }),
+      revalidate: 60 * 60, // Once in an hour
     };
   } catch (e) {
     // eslint-disable-next-line no-console
@@ -146,8 +146,7 @@ export async function getStaticProps(
 }
 
 const getProps = async (context: GetStaticPropsContext) => {
-  const cmsClient = createCmsApolloClient();
-  //const locale = useLocale();
+  const cmsClient = initializeCMSApolloClient();
 
   // These breadcrumb uris are used to fetch all the parent pages of the current page
   // so that all the childrens of parent page can be figured out and sub page navigations can be formed
@@ -157,14 +156,14 @@ const getProps = async (context: GetStaticPropsContext) => {
   );
 
   // Fetch menu data to cache for the components so they can be rendered in the server
-  await cmsClient.query<MenuQuery, MenuQueryVariables>({
-    query: MenuDocument,
-    variables: {
-      id: DEFAULT_HEADER_MENU_NAME[
-        (context.locale as SUPPORTED_LANGUAGES) ?? SUPPORTED_LANGUAGES.FI
-      ],
-      menuIdentifiersOnly: true,
-    },
+  const commonApolloQueriesService = new CommonApolloQueriesService({
+    cmsApolloClient: cmsClient,
+  });
+  await commonApolloQueriesService.queryCmsHeaderMenu({
+    language: (context.locale as SUPPORTED_LANGUAGES) ?? SUPPORTED_LANGUAGES.FI,
+  });
+  await commonApolloQueriesService.queryCmsFooterMenu({
+    language: (context.locale as SUPPORTED_LANGUAGES) ?? SUPPORTED_LANGUAGES.FI,
   });
 
   const { data: pageData } = await cmsClient.query<
