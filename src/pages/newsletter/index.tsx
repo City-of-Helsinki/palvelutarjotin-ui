@@ -16,6 +16,11 @@ const SubscribeNewsLetter: NextPage = () =>
 export const getStaticProps: GetStaticProps = async (
   context: GetStaticPropsContext
 ) => {
+  // eslint-disable-next-line no-console
+  console.debug(
+    'Executing getStaticProps of the newsletter page',
+    '/pages/newsletter/index.tsx'
+  );
   return {
     ...(await CommonPropsService.getCommonStaticProps(context)),
     revalidate: 60 * 60, // Once in an hour

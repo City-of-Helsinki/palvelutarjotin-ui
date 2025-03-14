@@ -94,6 +94,12 @@ type ResultProps =
 export async function getStaticProps(
   context: GetStaticPropsContext
 ): Promise<GetStaticPropsResult<ResultProps>> {
+  // eslint-disable-next-line no-console
+  console.debug(
+    'Executing getStaticProps of an CMS page',
+    '/pages/cms-page/[...slug].tsx',
+    { params: context.params }
+  );
   try {
     const {
       currentPage: page,
