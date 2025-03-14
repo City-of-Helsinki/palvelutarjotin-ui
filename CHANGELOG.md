@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://www.conventionalcommits.org/) for commit guidelines.
 
+## [2.13.0](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/palvelutarjotin-ui-v2.12.3...palvelutarjotin-ui-v2.13.0) (2025-03-14)
+
+
+### Features
+
+* **dependabot:** Configure dependabot using .github/dependabot.yml ([8877eb3](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/8877eb37239e5144e22b3ff22bd0137a015087bd))
+* **license:** Add LICENSE file using MIT license ([7a83c4c](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/7a83c4cf0876c747814fafe4cf4ab33e050e5975))
+
+
+### Bug Fixes
+
+* Cms internal url rewriting ([7ed1f88](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/7ed1f88defdce4975fde39df9f2a79d3258878f2))
+* Rehydration issue in event cards keywords and enrolment statuses ([9e5df14](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/9e5df14f10603e45b6a89c5543f7b6ab698b6cd3))
+* Rewrite internal cms urls (for breadcrumbs) ([133d581](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/133d581dfbf308943a52b626fbd0493c04d23860))
+
 ## [2.12.3](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/palvelutarjotin-ui-v2.12.2...palvelutarjotin-ui-v2.12.3) (2025-01-31)
 
 
