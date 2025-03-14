@@ -123,7 +123,7 @@ export async function getStaticProps(
           collections: getCollections(page.modules ?? []),
         },
       }),
-      revalidate: 60,
+      revalidate: 60 * 60, // Once in an hour
     };
   } catch (e) {
     // eslint-disable-next-line no-console
