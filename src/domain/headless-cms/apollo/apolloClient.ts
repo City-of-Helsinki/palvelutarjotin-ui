@@ -4,6 +4,8 @@ import {
   HttpLink,
   NormalizedCacheObject,
 } from '@apollo/client';
+import { onError } from '@apollo/client/link/error';
+import * as Sentry from '@sentry/browser';
 import fetch from 'cross-fetch';
 import merge from 'lodash/merge';
 import { useRef } from 'react';
@@ -35,6 +37,37 @@ function createCmsApolloClient(): ApolloClient<NormalizedCacheObject> {
     });
   });
 
+  const errorLink = onError(
+    ({ graphQLErrors, networkError, operation, response }) => {
+      if (graphQLErrors) {
+        graphQLErrors.forEach((error) => {
+          const { message, locations, path } = error;
+          const errorMessage = `[GraphQL error]: ${JSON.stringify({
+            OperationName: operation.operationName,
+            Message: message,
+            Location: locations,
+            Path: path,
+            // Response: response,
+          })}`;
+          // eslint-disable-next-line no-console
+          console.error(errorMessage);
+          Sentry.captureMessage(errorMessage);
+        });
+      }
+
+      if (networkError) {
+        // eslint-disable-next-line no-console
+        console.error(
+          `[GraphQL networkError]: ${JSON.stringify({
+            Operation: operation.operationName,
+            NetworkError: networkError,
+          })}`
+        );
+        Sentry.captureMessage('Graphql Network error');
+      }
+    }
+  );
+
   const httpLink = new HttpLink({
     uri: AppConfig.cmsGraphqlEndpoint,
     fetch,
@@ -43,7 +76,7 @@ function createCmsApolloClient(): ApolloClient<NormalizedCacheObject> {
   return new ApolloClient({
     ssrMode: !IS_CLIENT,
     connectToDevTools: true,
-    link: ApolloLink.from([transformInternalURLs, httpLink]),
+    link: ApolloLink.from([errorLink, transformInternalURLs, httpLink]),
     cache: createCMSApolloCache(),
   });
 }

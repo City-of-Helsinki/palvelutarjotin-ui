@@ -5,6 +5,7 @@ import {
   from,
 } from '@apollo/client';
 import { onError } from '@apollo/client/link/error';
+import * as Sentry from '@sentry/browser';
 import merge from 'deepmerge';
 import isEqual from 'lodash/isEqual';
 import { useRef } from 'react';
@@ -24,20 +25,36 @@ let apolloClient: ApolloClient<NormalizedCacheObject>;
  * @returns A new Apollo Client instance.
  */
 function createApolloClient(): ApolloClient<NormalizedCacheObject> {
-  const errorLink = onError(({ graphQLErrors, networkError }) => {
-    if (graphQLErrors) {
-      graphQLErrors.forEach(({ message, locations, path }) => {
+  const errorLink = onError(
+    ({ graphQLErrors, networkError, operation, response }) => {
+      if (graphQLErrors) {
+        graphQLErrors.forEach((error) => {
+          const { message, locations, path } = error;
+          const errorMessage = `[GraphQL error]: ${JSON.stringify({
+            OperationName: operation.operationName,
+            Message: message,
+            Location: locations,
+            Path: path,
+            // Response: response,
+          })}`;
+          // eslint-disable-next-line no-console
+          console.error(errorMessage);
+          Sentry.captureMessage(errorMessage);
+        });
+      }
+
+      if (networkError) {
         // eslint-disable-next-line no-console
-        console.log(
-          `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
+        console.error(
+          `[GraphQL networkError]: ${JSON.stringify({
+            Operation: operation.operationName,
+            NetworkError: networkError,
+          })}`
         );
-      });
+        Sentry.captureMessage('Graphql Network error');
+      }
     }
-    if (networkError) {
-      // eslint-disable-next-line no-console
-      console.log(`[Network error]: ${networkError}`);
-    }
-  });
+  );
   const httpLink = new HttpLink({
     uri: process.env.NEXT_PUBLIC_API_BASE_URL,
   });
