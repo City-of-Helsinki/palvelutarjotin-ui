@@ -6,13 +6,9 @@ import {
   CollectionType,
   GeneralCollectionType,
 } from 'react-helsinki-headless-cms';
-import {
-  MenuDocument,
-  MenuQuery,
-  MenuQueryVariables,
-} from 'react-helsinki-headless-cms/apollo';
 
-import { DEFAULT_HEADER_MENU_NAME, SUPPORTED_LANGUAGES } from '../../constants';
+import { SUPPORTED_LANGUAGES } from '../../constants';
+import { CommonApolloQueriesService } from '../../domain/app/ssr/commonApolloQueriesService';
 import {
   addCmsApolloState,
   initializeCMSApolloClient,
@@ -154,14 +150,14 @@ const getProps = async (context: GetStaticPropsContext) => {
   );
 
   // Fetch menu data to cache for the components so they can be rendered in the server
-  await cmsClient.query<MenuQuery, MenuQueryVariables>({
-    query: MenuDocument,
-    variables: {
-      id: DEFAULT_HEADER_MENU_NAME[
-        (context.locale as SUPPORTED_LANGUAGES) ?? SUPPORTED_LANGUAGES.FI
-      ],
-      menuIdentifiersOnly: true,
-    },
+  const commonApolloQueriesService = new CommonApolloQueriesService({
+    cmsApolloClient: cmsClient,
+  });
+  await commonApolloQueriesService.queryCmsHeaderMenu({
+    language: (context.locale as SUPPORTED_LANGUAGES) ?? SUPPORTED_LANGUAGES.FI,
+  });
+  await commonApolloQueriesService.queryCmsFooterMenu({
+    language: (context.locale as SUPPORTED_LANGUAGES) ?? SUPPORTED_LANGUAGES.FI,
   });
 
   const { data: pageData } = await cmsClient.query<
