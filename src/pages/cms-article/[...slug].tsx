@@ -8,6 +8,8 @@ import {
   GeneralCollectionType,
 } from 'react-helsinki-headless-cms';
 
+import { SUPPORTED_LANGUAGES } from '../../constants';
+import { CommonApolloQueriesService } from '../../domain/app/ssr/commonApolloQueriesService';
 import {
   addCmsApolloState,
   initializeCMSApolloClient,
@@ -95,6 +97,17 @@ export async function getStaticProps(
 
 const getProps = async (context: GetStaticPropsContext) => {
   const cmsClient = initializeCMSApolloClient();
+
+  // Fetch menu data to cache for the components so they can be rendered in the server
+  const commonApolloQueriesService = new CommonApolloQueriesService({
+    cmsApolloClient: cmsClient,
+  });
+  await commonApolloQueriesService.queryCmsHeaderMenu({
+    language: (context.locale as SUPPORTED_LANGUAGES) ?? SUPPORTED_LANGUAGES.FI,
+  });
+  await commonApolloQueriesService.queryCmsFooterMenu({
+    language: (context.locale as SUPPORTED_LANGUAGES) ?? SUPPORTED_LANGUAGES.FI,
+  });
 
   const { data: articleData } = await cmsClient.query<
     ArticleQuery,
