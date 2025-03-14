@@ -13,6 +13,12 @@ export async function getStaticPaths() {
 export const getStaticProps: GetStaticProps = async (
   context: GetStaticPropsContext
 ) => {
+  // eslint-disable-next-line no-console
+  console.debug(
+    'Executing getStaticProps of an event page',
+    '/pages/event/[eventId]/index.tsx',
+    { params: context.params }
+  );
   return {
     ...(await CommonPropsService.getCommonStaticProps(context)),
     revalidate: 60 * 60, // Once in an hour

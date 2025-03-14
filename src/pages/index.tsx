@@ -9,6 +9,11 @@ const Events: NextPage = () => <EventsPage />;
 export const getStaticProps: GetStaticProps = async (
   context: GetStaticPropsContext
 ) => {
+  // eslint-disable-next-line no-console
+  console.debug(
+    'Executing getStaticProps of the front page',
+    '/pages/index.tsx'
+  );
   return {
     ...(await CommonPropsService.getCommonStaticProps(context)),
     revalidate: 60 * 60, // Once in an hour
