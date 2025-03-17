@@ -1,3 +1,5 @@
+import { randomUUID } from 'crypto';
+
 import React from 'react';
 import {
   ArticleType,
@@ -15,7 +17,7 @@ export function getCmsCollectionList(
 ): React.ReactElement<typeof Collection>[] {
   return collections.map((collection) => (
     <Collection
-      key={`collection-${Math.random()}`}
+      key={`collection-${randomUUID()}`}
       title={collection.title}
       collectionContainerProps={{
         withDots: collection.items.length < 4 ? false : true,
