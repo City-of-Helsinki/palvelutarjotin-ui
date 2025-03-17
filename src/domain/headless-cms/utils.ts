@@ -110,17 +110,14 @@ const nodeToPageInfo = (node: ValidPage): PageInfo => {
   };
 };
 
-/** Get all PageInfo objects from a Page and its translations recursively. */
+/** Get all PageInfo objects from a Page recursively. */
 const getPageInfosFromNode = (node: unknown): PageInfo[] => {
   const result: PageInfo[] = [];
+
   if (isValidPage(node)) {
     result.push(nodeToPageInfo(node));
-    if ('translations' in node && Array.isArray(node.translations)) {
-      for (const translatedNode of node.translations) {
-        result.concat(getPageInfosFromNode(translatedNode));
-      }
-    }
   }
+
   return result;
 };
 
