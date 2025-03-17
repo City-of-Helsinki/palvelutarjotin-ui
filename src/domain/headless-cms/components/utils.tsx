@@ -1,5 +1,3 @@
-import { randomUUID } from 'crypto';
-
 import React from 'react';
 import {
   ArticleType,
@@ -9,6 +7,7 @@ import {
   getCollectionCards,
   PageType,
 } from 'react-helsinki-headless-cms';
+import { v4 as uuidv4 } from 'uuid';
 
 import { getCmsArticlePath, getCmsPagePath } from '../../app/routes/utils';
 
@@ -17,7 +16,7 @@ export function getCmsCollectionList(
 ): React.ReactElement<typeof Collection>[] {
   return collections.map((collection) => (
     <Collection
-      key={`collection-${randomUUID()}`}
+      key={`collection-${uuidv4()}`}
       title={collection.title}
       collectionContainerProps={{
         withDots: collection.items.length < 4 ? false : true,
