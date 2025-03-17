@@ -6,8 +6,7 @@ import {
 } from '@apollo/client';
 import { onError } from '@apollo/client/link/error';
 import * as Sentry from '@sentry/browser';
-import merge from 'deepmerge';
-import isEqual from 'lodash/isEqual';
+import merge from 'lodash/merge';
 import { useRef } from 'react';
 
 import { createApolloCache } from './cache';
@@ -84,19 +83,9 @@ export function initializeApolloClient(
     // Get existing cache, loaded during client side data fetching
     const existingCache = _apolloClient.extract();
 
-    // Merge the initialState from getStaticProps/getServerSideProps
-    // in the existing cache
-    const data = merge(existingCache, initialState, {
-      // combine arrays using object equality (like in sets)
-      arrayMerge: (destinationArray, sourceArray) => [
-        ...sourceArray,
-        ...destinationArray.filter((d) =>
-          sourceArray.every((s) => !isEqual(d, s))
-        ),
-      ],
-    });
-    // Restore the cache with the merged data
-    _apolloClient.cache.restore(data);
+    // Restore the cache using the data passed from
+    // getStaticProps/getServerSideProps combined with the existing cached data
+    _apolloClient.cache.restore(merge(existingCache, initialState));
   }
 
   // For SSG and SSR always create a new Apollo Client
