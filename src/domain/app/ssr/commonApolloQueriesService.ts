@@ -12,15 +12,13 @@ import {
   PostsQueryVariables,
 } from 'react-helsinki-headless-cms/apollo';
 
-import { PageUriInfo } from './types';
 import {
-  DEFAULT_HEADER_MENU_NAME,
-  DEFAULT_FOOTER_MENU_NAME,
-  SUPPORTED_LANGUAGES,
-} from '../../../constants';
-
-export const ARTICLES_AMOUNT_LIMIT = 100;
-export const PAGES_AMOUNT_LIMIT = 100;
+  ARTICLES_AMOUNT_LIMIT as ALL_ARTICLES_AMOUNT_LIMIT,
+  DEFAULT_MENU_NAME,
+  PAGES_AMOUNT_LIMIT as ALL_PAGES_AMOUNT_LIMIT,
+} from './constants';
+import { MenuType, PageUriInfo } from './types';
+import { SUPPORTED_LANGUAGES } from '../../../constants';
 
 /**
  * Service class for executing common Apollo queries related to CMS data.
@@ -49,23 +47,27 @@ export class CommonApolloQueriesService {
   }
 
   /**
-   * Queries and caches the CMS header menu data for one or all supported languages.
+   * Queries and caches the CMS menu data for one or all supported languages.
    *
    * @param {Object} params - The parameters for the query.
    * @param {SUPPORTED_LANGUAGES} [params.language] - Optional language for the menu.
    * If omitted, queries for all languages.
+   * @param {MenuType} params.menuType - The type of menu to query.
    * @returns {Promise<void>} - A promise that resolves when all queries are complete.
    */
-  async queryCmsHeaderMenu({
+  async queryCmsMenu({
     language,
+    menuType,
   }: {
     language?: SUPPORTED_LANGUAGES;
+    menuType: MenuType;
   }): Promise<void> {
     const languages: SUPPORTED_LANGUAGES[] = language
       ? [language]
       : Object.values(SUPPORTED_LANGUAGES);
+
     for (const lang of languages) {
-      const id = DEFAULT_HEADER_MENU_NAME[lang] ?? SUPPORTED_LANGUAGES.FI;
+      const id = DEFAULT_MENU_NAME[menuType][lang];
       if (id) {
         try {
           await this.cmsApolloClient.query<MenuQuery, MenuQueryVariables>({
@@ -77,53 +79,14 @@ export class CommonApolloQueriesService {
           });
         } catch (error) {
           // eslint-disable-next-line no-console
-          console.error(`Error fetching header menu for ${lang}:`, error);
+          console.error(`Error fetching ${menuType} menu for ${lang}:`, error);
           // Or throw the error, or handle it in another way.
         }
       } else {
         // eslint-disable-next-line no-console
-        console.warn('Not fetching a header menu for language', lang);
-      }
-    }
-  }
-
-  /**
-   * Queries and caches the CMS footer menu data for one or all supported languages.
-   *
-   * @param {Object} params - The parameters for the query.
-   * @param {SUPPORTED_LANGUAGES} [params.language] - Optional language for the menu.
-   * If omitted, queries for all languages.
-   * @returns {Promise<void>} - A promise that resolves when all queries are complete.
-   */
-  async queryCmsFooterMenu({
-    language,
-  }: {
-    language?: SUPPORTED_LANGUAGES;
-  }): Promise<void> {
-    const languages: SUPPORTED_LANGUAGES[] = language
-      ? [language]
-      : Object.values(SUPPORTED_LANGUAGES);
-
-    for (const lang of languages) {
-      const id = DEFAULT_FOOTER_MENU_NAME[lang];
-      // FIXME: For some reason this causes a hydration issue (easily reproducible in dev mode)
-      if (id) {
-        try {
-          await this.cmsApolloClient.query<MenuQuery, MenuQueryVariables>({
-            query: MenuDocument,
-            variables: {
-              id,
-              menuIdentifiersOnly: true,
-            },
-          });
-        } catch (error) {
-          // eslint-disable-next-line no-console
-          console.error(`Error fetching footer menu for ${lang}:`, error);
-          // Or throw the error, or handle it in another way.
-        }
-      } else {
-        // eslint-disable-next-line no-console
-        console.warn('Not fetching a footer menu for language', lang);
+        console.warn(
+          `Not fetching ${menuType} menu for ${lang} because its menu name was empty`
+        );
       }
     }
   }
@@ -142,7 +105,7 @@ export class CommonApolloQueriesService {
       >({
         query: PagesDocument,
         variables: {
-          first: PAGES_AMOUNT_LIMIT,
+          first: ALL_PAGES_AMOUNT_LIMIT,
         },
       });
       pagesData.pages?.edges?.forEach((edge) =>
@@ -170,7 +133,7 @@ export class CommonApolloQueriesService {
       >({
         query: PostsDocument,
         variables: {
-          first: ARTICLES_AMOUNT_LIMIT,
+          first: ALL_ARTICLES_AMOUNT_LIMIT,
         },
       });
       articlesData.posts?.edges?.forEach((edge) =>
