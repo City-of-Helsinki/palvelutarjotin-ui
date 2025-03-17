@@ -157,7 +157,7 @@ export function initializeCMSApolloClient(
  * **Further Reading:**
  *
  * - For a detailed example and best practices, refer to the official Next.js Apollo example:
- * [https://github.com/apollographql/next-apollo-example](https://github.com/apollographql/next-apollo-example)
+ * https://github.com/apollographql/next-apollo-example
  */
 export function addCmsApolloState<Props extends CustomPageProps>(
   client: ApolloClient<NormalizedCacheObject>,

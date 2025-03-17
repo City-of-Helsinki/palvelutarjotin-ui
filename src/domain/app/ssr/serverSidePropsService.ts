@@ -40,8 +40,8 @@ export class CommonPropsService {
       cmsApolloClient,
     });
 
-    await apolloQueryService.queryCmsHeaderMenu({ language });
-    await apolloQueryService.queryCmsFooterMenu({ language });
+    await apolloQueryService.queryCmsMenu({ language, menuType: 'header' });
+    await apolloQueryService.queryCmsMenu({ language, menuType: 'footer' });
   }
 
   /**

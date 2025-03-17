@@ -7,3 +7,5 @@ export function isSupportedLanguage(
 ): value is SUPPORTED_LANGUAGES {
   return Object.values<string>(SUPPORTED_LANGUAGES).includes(value as string);
 }
+
+export type MenuType = 'header' | 'footer';

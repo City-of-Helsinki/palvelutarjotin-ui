@@ -108,11 +108,13 @@ const getProps = async (context: GetStaticPropsContext) => {
   const commonApolloQueriesService = new CommonApolloQueriesService({
     cmsApolloClient: cmsClient,
   });
-  await commonApolloQueriesService.queryCmsHeaderMenu({
+  await commonApolloQueriesService.queryCmsMenu({
     language: (context.locale as SUPPORTED_LANGUAGES) ?? SUPPORTED_LANGUAGES.FI,
+    menuType: 'header',
   });
-  await commonApolloQueriesService.queryCmsFooterMenu({
+  await commonApolloQueriesService.queryCmsMenu({
     language: (context.locale as SUPPORTED_LANGUAGES) ?? SUPPORTED_LANGUAGES.FI,
+    menuType: 'footer',
   });
 
   const { data: articleData } = await cmsClient.query<
