@@ -28,7 +28,7 @@ yarn-error.log*
 .env.development.local
 .env.production.local
 
-# testcafe screenshots
+# browser test screenshots
 /screenshot
 
 # ItelliJ

@@ -5,10 +5,9 @@
     "plugin:prettier/recommended",
     "plugin:import/errors",
     "plugin:import/warnings",
-    "plugin:import/typescript",
-    "plugin:testcafe/recommended"
+    "plugin:import/typescript"
   ],
-  "plugins": ["testcafe", "no-only-tests"],
+  "plugins": ["no-only-tests"],
   "overrides": [
     {
       "files": ["*.{ts,tsx}"],

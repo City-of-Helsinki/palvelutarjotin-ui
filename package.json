@@ -17,22 +17,10 @@
     "test:changed": "jest -o",
     "test:coverage": "jest --watchAll=false --coverage",
     "test:staged": "cross-env SASS_PATH=./src/assets/styles jest --findRelatedTests --passWithNoTests",
-    "ci": "jest --verbose --coverage --runInBand",
-    "browser-test": "testcafe \"chrome --window-size='1920,1080'\" testcafe/e2e/ --live --dev",
-    "browser-test:ci": "testcafe \"chrome:headless --disable-gpu --window-size='1920,1080'\" --screenshots takeOnFails=true,path=report,fullPage=true --video report testcafe/e2e/",
-    "browser-test:ci:chromium": "testcafe \"chromium:headless --disable-gpu --window-size='1920,1080'\" --screenshots takeOnFails=true,path=report,fullPage=true --video report testcafe/e2e/"
+    "ci": "jest --verbose --coverage --runInBand"
   },
   "eslintConfig": {
     "extends": "react-app"
-  },
-  "//": [
-    "@testing-library/dom:",
-    "Multiple versions of @testing-library/dom cause issues with user-event",
-    "See https://github.com/testing-library/user-event/discussions/906",
-    "That's why @testing-library/dom has been added to resolutions."
-  ],
-  "resolutions": {
-    "@testing-library/dom": "^9.0.0"
   },
   "dependencies": {
     "@apollo/client": "^3.10.1",
@@ -90,7 +78,6 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^14.0.0",
     "@testing-library/react-hooks": "^8.0.1",
-    "@testing-library/testcafe": "^5.0.0",
     "@testing-library/user-event": "^14.4.3",
     "@types/classnames": "^2.3.1",
     "@types/dompurify": "^3.0.2",
@@ -120,7 +107,6 @@
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-react-hooks": "^4.6.0",
-    "eslint-plugin-testcafe": "^0.2.1",
     "husky": "^8.0.3",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^29.5.0",
@@ -131,7 +117,6 @@
     "jest_workaround": "^0.76.0",
     "lint-staged": "^13.2.2",
     "msw": "^1.2.1",
-    "next-page-tester": "^0.33.0",
     "next-server": "^9.0.5",
     "prettier": "^2.8.8",
     "react-test-renderer": "^18.2.0",
@@ -140,7 +125,6 @@
     "stylelint-config-standard-scss": "^9.0.0",
     "stylelint-no-unused-selectors": "^1.0.40",
     "stylelint-scss": "^5.0.0",
-    "testcafe": "^2.6.1",
     "ts-jest": "^29.1.0",
     "typescript": "^5.0.4",
     "waait": "^1.0.5"
