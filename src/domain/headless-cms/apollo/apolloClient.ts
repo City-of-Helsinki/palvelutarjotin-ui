@@ -11,12 +11,12 @@ import merge from 'lodash/merge';
 import { useRef } from 'react';
 
 import { createCMSApolloCache } from './cache';
-import { IS_CLIENT } from '../../../constants';
 import type { CustomPageProps } from '../../../types';
+import isClient from '../../../utils/isClient';
 import AppConfig from '../config';
 import { rewriteInternalURLs } from '../utils';
 
-let cmsApolloClient: ApolloClient<NormalizedCacheObject>;
+let cmsApolloClient: ApolloClient<NormalizedCacheObject> | undefined;
 
 /**
  * Creates a new Apollo Client instance specifically for CMS data.
@@ -74,7 +74,7 @@ function createCmsApolloClient(): ApolloClient<NormalizedCacheObject> {
   });
 
   return new ApolloClient({
-    ssrMode: !IS_CLIENT,
+    ssrMode: !isClient(),
     connectToDevTools: true,
     link: ApolloLink.from([errorLink, transformInternalURLs, httpLink]),
     cache: createCMSApolloCache(),
@@ -106,7 +106,7 @@ export function initializeCMSApolloClient(
   }
 
   // For SSG and SSR always create a new Apollo Client
-  if (!IS_CLIENT) {
+  if (!isClient()) {
     return _apolloClient;
   }
 
@@ -192,4 +192,12 @@ export function useCMSApolloClient(
     storeRef.current = initializeCMSApolloClient(initialCMSApolloState);
   }
   return storeRef.current;
+}
+
+/**
+ * Reset the global variable for Apollo Client.
+ * NOTE: Helps in unit tests when running multipel tests simultaneously.
+ */
+export function resetApolloClient() {
+  cmsApolloClient = undefined;
 }

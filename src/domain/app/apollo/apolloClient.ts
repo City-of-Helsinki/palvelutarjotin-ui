@@ -6,14 +6,15 @@ import {
 } from '@apollo/client';
 import { onError } from '@apollo/client/link/error';
 import * as Sentry from '@sentry/browser';
+import fetch from 'cross-fetch';
 import merge from 'lodash/merge';
 import { useRef } from 'react';
 
 import { createApolloCache } from './cache';
-import { IS_CLIENT } from '../../../constants';
 import type { CustomPageProps } from '../../../types';
+import isClient from '../../../utils/isClient';
 
-let apolloClient: ApolloClient<NormalizedCacheObject>;
+let apolloClient: ApolloClient<NormalizedCacheObject> | undefined;
 
 /**
  * Creates a new Apollo Client instance.
@@ -56,9 +57,10 @@ function createApolloClient(): ApolloClient<NormalizedCacheObject> {
   );
   const httpLink = new HttpLink({
     uri: process.env.NEXT_PUBLIC_API_BASE_URL,
+    fetch,
   });
   return new ApolloClient({
-    ssrMode: !IS_CLIENT,
+    ssrMode: !isClient(),
     link: from([errorLink, httpLink]),
     cache: createApolloCache(),
   });
@@ -89,7 +91,7 @@ export function initializeApolloClient(
   }
 
   // For SSG and SSR always create a new Apollo Client
-  if (!IS_CLIENT) {
+  if (!isClient()) {
     return _apolloClient;
   }
 
@@ -175,4 +177,12 @@ export function useApolloClient(
     storeRef.current = initializeApolloClient(initialApolloState);
   }
   return storeRef.current;
+}
+
+/**
+ * Reset the global variable for Apollo Client.
+ * NOTE: Helps in unit tests when running multipel tests simultaneously.
+ */
+export function resetApolloClient() {
+  apolloClient = undefined;
 }
