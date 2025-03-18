@@ -10,7 +10,7 @@ import useLocale from '../../../hooks/useLocale';
 import getLocalisedString from '../../../utils/getLocalisedString';
 import isClient from '../../../utils/isClient';
 
-const { getPlaceDetailsFromCache } = isClient
+const { getPlaceDetailsFromCache } = isClient()
   ? // eslint-disable-next-line @typescript-eslint/no-require-imports
     require('../utils')
   : { getPlaceDetailsFromCache: null };

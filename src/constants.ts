@@ -1,5 +1,3 @@
-export const IS_CLIENT = typeof window !== 'undefined';
-
 export enum FORM_NAMES {
   ENROLMENT_FORM = 'enrolment-form',
 }

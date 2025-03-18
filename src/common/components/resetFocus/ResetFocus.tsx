@@ -1,5 +1,7 @@
 import React from 'react';
 
+import isClient from '../../../utils/isClient';
+
 export const resetFocusId = 'reset-focus' as const;
 
 /**
@@ -11,8 +13,7 @@ const ResetFocus = (): React.ReactElement => {
   const node = React.useRef<HTMLDivElement>(null);
 
   React.useEffect(() => {
-    const isClient = typeof window !== 'undefined';
-    if (isClient) {
+    if (isClient()) {
       node.current?.focus();
     }
   }, [pathname]);
