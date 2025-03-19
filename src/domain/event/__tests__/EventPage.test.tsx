@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import userEvent from '@testing-library/user-event';
 import { advanceTo } from 'jest-date-mock';
 import capitalize from 'lodash/capitalize';
@@ -672,7 +671,7 @@ it('filters occurrence list correctly when sate filters are selected', async () 
 const mockEventQuery = (refetchMock: jest.Mock) => {
   jest
     .spyOn(graphqlFuncs, 'useEventQuery')
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
     .mockReturnValue({
       refetch: refetchMock,
       data: {},

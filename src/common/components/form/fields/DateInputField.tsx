@@ -1,11 +1,10 @@
 import classNames from 'classnames';
-import format from 'date-fns/format';
-import isValid from 'date-fns/isValid';
 import { FieldProps } from 'formik';
 import { DateInput, DateInputProps } from 'hds-react';
 import { useTranslation } from 'next-i18next';
 import React from 'react';
 
+import { format, isValid } from '../../../../utils/date-fns/exports';
 import { invalidFieldClass } from '../constants';
 import { getErrorText } from '../utils';
 

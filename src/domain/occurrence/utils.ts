@@ -1,6 +1,3 @@
-import isPast from 'date-fns/isPast';
-import isSameDay from 'date-fns/isSameDay';
-import subDays from 'date-fns/subDays';
 import isNumber from 'lodash/isNumber';
 
 import {
@@ -8,15 +5,17 @@ import {
   OccurrenceFieldsFragment,
   OccurrencesOccurrenceSeatTypeChoices,
 } from '../../generated/graphql';
+import { isPast, isSameDay, subDays } from '../../utils/date-fns/exports';
 import { assertUnreachable } from '../../utils/typescript.utils';
 
 export const hasOccurrenceSpace = (
   occurrence: OccurrenceFieldsFragment
 ): boolean => {
   switch (occurrence.seatType) {
-    case OccurrencesOccurrenceSeatTypeChoices.ChildrenCount:
+    case OccurrencesOccurrenceSeatTypeChoices.ChildrenCount: {
       const minGroupSize = occurrence?.minGroupSize || 0;
       return minGroupSize <= getAmountOfSeatsLeft(occurrence);
+    }
     case OccurrencesOccurrenceSeatTypeChoices.EnrolmentCount:
       return occurrence.remainingSeats > 0;
     default:

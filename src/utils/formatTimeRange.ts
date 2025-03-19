@@ -1,5 +1,5 @@
+import type { Language } from '../types';
 import { formatIntoTime } from './time/format';
-import { Language } from '../types';
 
 /**
  * Format and localize time range
@@ -7,6 +7,8 @@ import { Language } from '../types';
 export default function formatTimeRange(
   start: Date,
   end: Date | null | undefined,
+  // FIXME: Add support for localization, now it's always in Finnish
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   locale: Language
 ): string {
   if (!end) {

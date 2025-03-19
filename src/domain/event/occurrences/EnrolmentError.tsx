@@ -1,4 +1,5 @@
 import { useTranslation } from 'next-i18next';
+import * as React from 'react';
 
 import ErrorMessage from '../../../common/components/form/ErrorMessage';
 import { translateValue } from '../../../utils/translateUtils';

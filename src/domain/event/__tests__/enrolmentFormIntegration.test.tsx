@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { MockedResponse } from '@apollo/client/testing';
 import userEvent from '@testing-library/user-event';
 import { advanceTo } from 'jest-date-mock';
@@ -163,11 +162,9 @@ advanceTo(new Date(2020, 8, 8));
 // or the other way aroung + add "await act(() => wait(500))" as the last line in the test
 
 test('user can select single occurrences and enrol to it with enrolment form', async () => {
-  // eslint-disable-next-line import/namespace
   const enrolOccurrenceMock = jest.fn();
   jest
     .spyOn(graphqlFns, 'useEnrolOccurrenceMutation')
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     .mockReturnValue([enrolOccurrenceMock, { loading: false }] as any);
 
   renderComponent({
@@ -201,7 +198,6 @@ test('user can select single occurrences and enrol to it with enrolment form', a
 
     await waitFor(() =>
       expect(
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         JSON.parse(localStorage.getItem(FORM_NAMES.ENROLMENT_FORM)!)
       ).toMatchSnapshot()
     );
@@ -246,11 +242,9 @@ test('user can select single occurrences and enrol to it with enrolment form', a
 }, 150000);
 
 test('user can select multiple occurrences and enrol to them with enrolment form', async () => {
-  // eslint-disable-next-line import/namespace
   const enrolOccurrenceMock = jest.fn();
   jest
     .spyOn(graphqlFns, 'useEnrolOccurrenceMutation')
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     .mockReturnValue([enrolOccurrenceMock, { loading: false }] as any);
 
   renderComponent({
@@ -298,7 +292,6 @@ test('user can select multiple occurrences and enrol to them with enrolment form
     await sleep(500);
     await waitFor(() =>
       expect(
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         JSON.parse(localStorage.getItem(FORM_NAMES.ENROLMENT_FORM)!)
       ).toMatchSnapshot()
     );
@@ -403,14 +396,17 @@ async function fillForm({
   const gradeButton = enrolmentForm.getByRole('button', {
     name: /luokka-aste/i,
   });
-  await user.click(within(gradeButton?.parentElement!).getByText(/valitse/i));
+  if (!gradeButton?.parentElement) {
+    throw new Error('Grade button parent element not found');
+  }
+  await user.click(within(gradeButton.parentElement).getByText(/valitse/i));
   await user.click(
-    await within(gradeButton?.parentElement!).findByRole('option', {
+    await within(gradeButton.parentElement).findByRole('option', {
       name: /2\. luokka/i,
     })
   );
   await user.click(
-    await within(gradeButton?.parentElement!).findByRole('option', {
+    await within(gradeButton.parentElement).findByRole('option', {
       name: /4\. luokka/i,
     })
   );

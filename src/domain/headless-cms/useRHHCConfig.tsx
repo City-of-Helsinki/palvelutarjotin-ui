@@ -69,13 +69,11 @@ export const useRHHCConfig = ({
       },
       components: {
         ...rhhcDefaultConfig.components,
-        Head: (props: any) => <Head {...props} />,
-        Link: ({ href, ...props }: any) => (
-          <Link href={href || ''} {...props} />
-        ),
-        EventCardContent: (props: any) => <div>TODO: EventCardContent</div>,
-        ArticleCardContent: (props: any) => <div>TODO: ArticleCardContent</div>,
-        VenueCardContent: (props: any) => <div>TODO: VenueCardContent</div>,
+        Head: (props) => <Head {...props} />,
+        Link: ({ href, ...props }) => <Link href={href || ''} {...props} />,
+        EventCardContent: () => <div>TODO: EventCardContent</div>,
+        ArticleCardContent: () => <div>TODO: ArticleCardContent</div>,
+        VenueCardContent: () => <div>TODO: VenueCardContent</div>,
       },
       meta: {
         ...rhhcDefaultConfig.meta,

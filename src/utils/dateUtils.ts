@@ -1,12 +1,15 @@
-import formatDateStr from 'date-fns/format';
-import isAfter from 'date-fns/isAfter';
-import isBefore from 'date-fns/isBefore';
-import isSameDay from 'date-fns/isSameDay';
-import isValid from 'date-fns/isValid';
-import { enGB as en, fi } from 'date-fns/locale';
-import parse from 'date-fns/parse';
 import get from 'lodash/get';
 
+import {
+  isAfter,
+  isBefore,
+  isSameDay,
+  isValid,
+  enGB as en,
+  fi,
+  parse,
+  format as formatDateStr,
+} from './date-fns/exports';
 import sv from './date-fns/locale/sv';
 import { DATE_FORMAT } from './time/format';
 

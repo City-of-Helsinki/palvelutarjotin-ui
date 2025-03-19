@@ -1,7 +1,6 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-
 import { BreadcrumbListItem } from 'hds-react';
 import { GetStaticPropsContext, GetStaticPropsResult, NextPage } from 'next';
+import * as React from 'react';
 import {
   getCollections,
   CollectionType,

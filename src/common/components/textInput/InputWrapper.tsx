@@ -20,7 +20,6 @@ type InputWrapperProps = {
   tooltipLabel?: string;
   tooltipText?: string;
   tooltipOpenButtonLabelText?: string;
-  tooltipCloseButtonLabelText?: string;
   required?: boolean;
 };
 
@@ -45,7 +44,6 @@ const InputWrapper: FC<InputWrapperProps> = React.forwardRef<
       tooltipLabel,
       tooltipText,
       tooltipOpenButtonLabelText,
-      tooltipCloseButtonLabelText,
       required,
     },
     ref

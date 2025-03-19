@@ -39,6 +39,8 @@ function createCmsApolloClient(): ApolloClient<NormalizedCacheObject> {
   });
 
   const errorLink = onError(
+    // TODO: Log more informative errors by using `response` object
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     ({ graphQLErrors, networkError, operation, response }) => {
       if (graphQLErrors) {
         graphQLErrors.forEach((error) => {
