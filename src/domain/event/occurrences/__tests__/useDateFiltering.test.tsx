@@ -1,6 +1,6 @@
 import { act, renderHook } from '@testing-library/react-hooks';
-import format from 'date-fns/format';
 
+import { format } from '../../../../utils/date-fns/exports';
 import { fakeOccurrence } from '../../../../utils/mockDataUtils';
 import { useDateFiltering } from '../useDateFiltering';
 

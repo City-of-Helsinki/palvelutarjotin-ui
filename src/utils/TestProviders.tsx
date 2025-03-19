@@ -80,7 +80,6 @@ function RHHCConfigProviderWithMockedApolloClient({ children }: Props) {
   );
 }
 
-// eslint-disable-next-line @typescript-eslint/ban-types
 function getRHHCConfig(apolloClient: ApolloClient<object>) {
   return {
     ...rhhcDefaultConfig,

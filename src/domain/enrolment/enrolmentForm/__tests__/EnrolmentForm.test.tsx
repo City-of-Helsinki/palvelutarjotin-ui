@@ -168,7 +168,6 @@ test('renders form and user can fill it and submit and form is saved to local st
     await sleep(1000);
 
     expect(
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       JSON.parse(localStorage.getItem(FORM_NAMES.ENROLMENT_FORM)!)
     ).toMatchSnapshot();
   }
@@ -230,12 +229,16 @@ describe('max group size validation of the Children and Adults -fields', () => {
       },
     });
     await screen.findByLabelText(/lapsia/i);
-    childrenCount
-      ? await userEvent.type(screen.getByLabelText(/lapsia/i), childrenCount)
-      : await userEvent.click(screen.getByLabelText(/lapsia/i));
-    adultsCount
-      ? await userEvent.type(screen.getByLabelText(/aikuisia/i), adultsCount)
-      : await userEvent.click(screen.getByLabelText(/aikuisia/i));
+    if (childrenCount) {
+      await userEvent.type(screen.getByLabelText(/lapsia/i), childrenCount);
+    } else {
+      await userEvent.click(screen.getByLabelText(/lapsia/i));
+    }
+    if (adultsCount) {
+      await userEvent.type(screen.getByLabelText(/aikuisia/i), adultsCount);
+    } else {
+      await userEvent.click(screen.getByLabelText(/aikuisia/i));
+    }
     await userEvent.tab();
   };
 

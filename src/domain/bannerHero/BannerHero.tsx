@@ -20,7 +20,7 @@ const BannerHero: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
       <div className={styles.bannerHeroContainer}>
         <div
           className={styles.bannerHeroImage}
-          test-id="banner-hero-image"
+          data-testid="banner-hero-image"
           style={{
             backgroundImage: `url(${BANNER_IMAGE})`,
           }}

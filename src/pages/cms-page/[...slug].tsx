@@ -1,6 +1,7 @@
 import { BreadcrumbListItem } from 'hds-react';
 import { GetStaticPropsContext, GetStaticPropsResult, NextPage } from 'next';
 import dynamic from 'next/dynamic';
+import * as React from 'react';
 import {
   getCollections,
   CollectionType,

@@ -1,6 +1,3 @@
-import isFuture from 'date-fns/isFuture';
-import isPast from 'date-fns/isPast';
-import isSameDay from 'date-fns/isSameDay';
 import { Notification, NotificationType } from 'hds-react';
 import { useTranslation } from 'next-i18next';
 import * as React from 'react';
@@ -12,6 +9,7 @@ import {
   useNotificationQuery,
 } from '../../../generated/graphql-cms';
 import useLocale from '../../../hooks/useLocale';
+import { isFuture, isPast, isSameDay } from '../../../utils/date-fns/exports';
 import hash from '../../../utils/hash';
 import { useCMSApolloClient } from '../../headless-cms/apollo/apolloClient';
 

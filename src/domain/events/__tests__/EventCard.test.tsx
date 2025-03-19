@@ -90,7 +90,7 @@ describe('EventCard', () => {
           },
         },
         ...emptyKeywordSetRequestMocks,
-        getPlaceRequestMock(event.location?.id!),
+        getPlaceRequestMock(event.location?.id ?? ''),
       ];
 
       render(<EventCard event={event} link={'#'} />, { mocks: apolloMocks });
@@ -141,7 +141,7 @@ describe('EventCard', () => {
         {
           mocks: [
             ...emptyKeywordSetRequestMocks,
-            getPlaceRequestMock(event.location?.id!),
+            getPlaceRequestMock(event.location?.id ?? ''),
           ],
         }
       );
@@ -217,7 +217,7 @@ describe('EventCard', () => {
           },
         },
         ...emptyKeywordSetRequestMocks,
-        getPlaceRequestMock(event.location?.id!),
+        getPlaceRequestMock(event.location?.id ?? ''),
       ];
 
       const { container } = render(<EventCard event={event} link={'#'} />, {
@@ -265,7 +265,7 @@ describe('EventCard', () => {
       render(<EventCard event={event} link={'#'} />, {
         mocks: [
           ...emptyKeywordSetRequestMocks,
-          getPlaceRequestMock(event.location?.id!),
+          getPlaceRequestMock(event.location?.id ?? ''),
         ],
       });
       await waitFor(() => {

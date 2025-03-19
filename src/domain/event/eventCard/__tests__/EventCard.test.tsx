@@ -1,3 +1,5 @@
+import * as React from 'react';
+
 import * as graphql from '../../../../generated/graphql';
 import { emptyKeywordSetRequestMocks } from '../../../../tests/apollo-mocks/keywordSetMocks';
 import {
@@ -7,7 +9,6 @@ import {
 } from '../../../../utils/mockDataUtils';
 import { render, screen } from '../../../../utils/testUtils';
 import EventCard from '../EventCard';
-
 const internalEventWithSpace = fakeEvent({
   pEvent: fakePEvent({
     enrolmentStart: '2020-07-13T06:00:00+00:00',
@@ -80,7 +81,7 @@ describe('EventCard', () => {
       render(<EventCard event={internalEventFull} link="#" />, {
         mocks: [
           ...emptyKeywordSetRequestMocks,
-          getPlaceRequestMock(internalEventFull.location?.id!),
+          getPlaceRequestMock(internalEventFull.location?.id ?? ''),
         ],
       });
       expect(screen.getByText(/täynnä/i)).toBeInTheDocument();
@@ -90,7 +91,7 @@ describe('EventCard', () => {
       render(<EventCard event={internalEventWithSpace} link="#" />, {
         mocks: [
           ...emptyKeywordSetRequestMocks,
-          getPlaceRequestMock(internalEventWithSpace.location?.id!),
+          getPlaceRequestMock(internalEventWithSpace.location?.id ?? ''),
         ],
       });
       expect(screen.getByText(/paikkoja jäljellä/i)).toBeInTheDocument();
@@ -100,7 +101,7 @@ describe('EventCard', () => {
       render(<EventCard event={externalEvent} link="#" />, {
         mocks: [
           ...emptyKeywordSetRequestMocks,
-          getPlaceRequestMock(externalEvent.location?.id!),
+          getPlaceRequestMock(externalEvent.location?.id ?? ''),
         ],
       });
       expect(
@@ -112,7 +113,7 @@ describe('EventCard', () => {
       render(<EventCard event={eventWithoutEnrolmentSystem} link="#" />, {
         mocks: [
           ...emptyKeywordSetRequestMocks,
-          getPlaceRequestMock(eventWithoutEnrolmentSystem.location?.id!),
+          getPlaceRequestMock(eventWithoutEnrolmentSystem.location?.id ?? ''),
         ],
       });
       expect(screen.queryByText(/täynnä/i)).not.toBeInTheDocument();

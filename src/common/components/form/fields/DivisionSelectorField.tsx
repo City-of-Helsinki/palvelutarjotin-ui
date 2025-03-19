@@ -20,14 +20,14 @@ type Props = SelectProps<Option> &
 
 const DivisionSelectorField: React.FC<Props> = ({
   field: { name, onBlur, onChange, value, ...field },
-  helper,
-  multiselect,
-  options,
-  placeholder,
   setFieldValue,
   checkboxName = 'divisionCheckbox',
-  ...rest
+  ...allRest
 }) => {
+  // Remove unused props
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { helper, multiselect, options, placeholder, ...usedRest } = allRest;
+
   const handleChange = (val: Option | Option[]) => {
     const value = !Array.isArray(val) ? [val] : val;
     if (setFieldValue) {
@@ -52,7 +52,7 @@ const DivisionSelectorField: React.FC<Props> = ({
   };
   return (
     <DivisionSelector
-      {...rest}
+      {...usedRest}
       {...field}
       name={name}
       checkboxName={checkboxName}

@@ -1,7 +1,10 @@
-import formatDateStr from 'date-fns/format';
-import { enGB as en, fi, sv } from 'date-fns/locale';
-
 import { Language } from '../../types';
+import {
+  format as formatDateStr,
+  enGB as en,
+  fi,
+  sv,
+} from '../../utils/date-fns/exports';
 
 const locales = { en, fi, sv };
 

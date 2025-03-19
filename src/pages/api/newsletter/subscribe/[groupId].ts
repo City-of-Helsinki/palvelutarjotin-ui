@@ -38,7 +38,8 @@ const NewsletterEndpoint = async (
   */
 
   switch (method) {
-    case 'POST': // To subscribe
+    case 'POST': {
+      // To subscribe
       if (!groupId) {
         throw new Error('GroupId cannot be undefined');
       }
@@ -47,6 +48,7 @@ const NewsletterEndpoint = async (
       );
       if (subscriberMail) res.json({ email: subscriberMail.data });
       break;
+    }
     // case 'GET': // to get subscription details
     //   const email = Array.isArray(query.email) ? query.email[0] : query.email;
     //   const subscriber = await getDetails(groupId, email).catch((err) =>

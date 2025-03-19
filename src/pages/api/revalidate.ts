@@ -59,7 +59,7 @@ export default async function handler(
       });
     }
     return res.status(200).json({ revalidatetrigger: true });
-  } catch (err) {
+  } catch {
     // If there was an error, Next.js will continue
     // to show the last successfully generated page
     return res.status(500).send('Error revalidating');
