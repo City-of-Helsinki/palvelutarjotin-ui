@@ -20,14 +20,14 @@ type Props = SelectProps<Option> &
 
 const PlaceSelectorField: React.FC<Props> = ({
   field: { name, onBlur, onChange, value, ...field },
-  helper,
-  multiselect,
-  options,
-  placeholder,
   setFieldValue,
   checkboxName = 'placesCheckbox',
-  ...rest
+  ...allRest
 }) => {
+  // Remove unused props
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { helper, multiselect, options, placeholder, ...usedRest } = allRest;
+
   const handleChange = (val: Option | Option[]) => {
     const value = Array.isArray(val) ? val.map((item) => item) : val;
     if (setFieldValue) {
@@ -53,7 +53,7 @@ const PlaceSelectorField: React.FC<Props> = ({
 
   return (
     <PlaceSelector
-      {...rest}
+      {...usedRest}
       {...field}
       name={name}
       checkboxName={checkboxName}

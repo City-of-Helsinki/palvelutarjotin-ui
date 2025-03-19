@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import * as matomo from '@jonkoops/matomo-tracker-react';
 import * as nextRouter from 'next/router';
 import * as React from 'react';
@@ -46,7 +45,7 @@ test('trackPageView gets called when pathname changes', async () => {
   // for some reson react log error:
   // Warning: React has detected a change in the order of Hooks called by PageWrapper.
   // but don't know what could be causing this... so lets silence it
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
+
   jest.spyOn(console, 'error').mockImplementation(() => {});
 
   rerender(<Matomo>Test</Matomo>);

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { faker } from '@faker-js/faker';
-import addTime from 'date-fns/add';
 
+import { add as addTime } from './date-fns/exports';
 import {
   EnrolmentNode,
   EnrolmentNodeConnection,
@@ -494,6 +494,7 @@ export const fakeOrganisationProposal = (
   description: 'Organisation description',
   phoneNumber: '',
   applicant: fakePerson(),
+  ...overrides,
 });
 
 export const fakeOrganisationProposalEdge = (

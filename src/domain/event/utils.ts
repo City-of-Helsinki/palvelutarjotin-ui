@@ -1,8 +1,3 @@
-import isBefore from 'date-fns/isBefore';
-import isToday from 'date-fns/isToday';
-import isTomorrow from 'date-fns/isTomorrow';
-import parseISO from 'date-fns/parseISO';
-import startOfDay from 'date-fns/startOfDay';
 import { TFunction } from 'next-i18next';
 
 import {
@@ -19,6 +14,13 @@ import {
   PEventFieldsFragment,
 } from '../../generated/graphql';
 import { Language } from '../../types';
+import {
+  isBefore,
+  isToday,
+  isTomorrow,
+  parseISO,
+  startOfDay,
+} from '../../utils/date-fns/exports';
 import getLocalisedString from '../../utils/getLocalisedString';
 import { formatIntoTime, formatLocalizedDate } from '../../utils/time/format';
 import { isEnrolmentStarted } from '../occurrence/utils';
@@ -61,7 +63,6 @@ export const isEventFree = (
   event: EventFieldsFragment | EventsFieldsFragment
 ): boolean => Boolean(event.offers.find((item) => item.isFree)?.isFree);
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const getEventFields = (
   event: EventFieldsFragment | undefined | null,
   locale: Language
@@ -130,7 +131,6 @@ export const getFirstOrLastDateOfOccurrences = (
   return startOfDay(date);
 };
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const orderOccurrencesByDate = (
   a: OccurrenceFieldsFragment,
   b: OccurrenceFieldsFragment

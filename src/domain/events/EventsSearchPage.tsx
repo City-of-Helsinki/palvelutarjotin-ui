@@ -210,7 +210,7 @@ export const useEventsSearch = () => {
           },
         });
         setIsLoadingMore(false);
-      } catch (e) {
+      } catch {
         setIsLoadingMore(false);
       }
     }

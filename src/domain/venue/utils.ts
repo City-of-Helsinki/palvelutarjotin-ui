@@ -9,7 +9,6 @@ export const getVenueDescription = (
     (t) => t.languageCode === selectedLanguage.toUpperCase()
   )?.description || '';
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const getVenueFields = (
   venue: VenueFieldsFragment | undefined | null
 ) => {

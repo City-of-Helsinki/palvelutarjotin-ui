@@ -1,4 +1,5 @@
 import { useTranslation } from 'next-i18next';
+import * as React from 'react';
 
 import Keyword, { KeywordProps } from './Keyword';
 

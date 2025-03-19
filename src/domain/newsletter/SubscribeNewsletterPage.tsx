@@ -26,7 +26,6 @@ const PrivacyStatementLink = ({
   children?: React.ReactNode;
 } & React.HTMLProps<HTMLAnchorElement>) => (
   <NextLink legacyBehavior href={url} passHref>
-    {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
     <a {...rest}>
       {children}
       <IconLinkExternal className={styles.privacyStatementIcon} />
@@ -61,7 +60,7 @@ const SubscribeNewsletterPage: React.FC = () => {
         actions.resetForm();
         setNotificationType('success');
       })
-      .catch((e) => {
+      .catch(() => {
         setNotificationType('error');
       });
   };
