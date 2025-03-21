@@ -127,7 +127,7 @@
     "waait": "^1.0.5"
   },
   "lint-staged": {
-    "src/**/*.{tsx,ts}": [
+    "src/**/*.{js,jsx,ts,tsx,cjs,mjs}": [
       "eslint --fix",
       "prettier --write",
       "yarn test:staged"
