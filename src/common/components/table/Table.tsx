@@ -50,7 +50,7 @@ export default function Table<D extends Record<string, unknown>>({
                       }}
                       key={`table-header-col-${index}`}
                     >
-                      {column.render('Header')}
+                      <>{column.render('Header')}</>
                     </th>
                   );
                 }
@@ -110,7 +110,7 @@ export default function Table<D extends Record<string, unknown>>({
                         }}
                         key={`table-body-col-${index}`}
                       >
-                        {cell.render('Cell')}
+                        <>{cell.render('Cell')}</>
                       </td>
                     );
                   })}
