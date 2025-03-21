@@ -28,15 +28,16 @@ const handlers: Parameters<typeof setupServer> = [
     );
   }),
   graphql.query('Notification', (req, res, ctx) => {
+    const notification: Notification = {
+      __typename: 'Notification',
+      title: 'MSW mock for notification',
+      content: 'Content of MSW notification mock',
+      level: 'info',
+      linkUrl: '#',
+    };
     return res(
       ctx.data({
-        notification: {
-          __typename: 'Notification',
-          title: 'moi',
-          content: 'm0i',
-          level: 'info',
-          linkUrl: '#',
-        } as Notification,
+        notification,
       })
     );
   }),
