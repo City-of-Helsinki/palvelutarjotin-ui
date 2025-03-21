@@ -1,7 +1,6 @@
-import { MockedResponse } from '@apollo/client/testing';
 import React from 'react';
 
-import { NotificationDocument } from '../../../../generated/graphql-cms';
+import * as GraphQLCms from '../../../../generated/graphql-cms';
 import { emptyMenuQueryMocks } from '../../../../tests/apollo-mocks/menuMocks';
 import { fakeNotification } from '../../../../utils/cmsMockDataUtils';
 import {
@@ -13,54 +12,53 @@ import {
 } from '../../../../utils/testUtils';
 import PageLayout from '../PageLayout';
 
+jest.mock('../../../../generated/graphql-cms', () => ({
+  esModule: true,
+  ...jest.requireActual<Record<string, unknown>>(
+    '../../../../generated/graphql-cms'
+  ),
+  useNotificationQuery: jest.fn(),
+}));
+
 const notificationContent = 'Notification content';
 const notificationTitle = 'Notification title';
 
-const createMocks = (
-  notificationTitle: string,
-  notificationContent: string
-): MockedResponse[] => [
-  ...emptyMenuQueryMocks,
-  {
-    request: {
-      query: NotificationDocument,
-      variables: {
-        language: 'fi',
-      },
-    },
-    result: {
-      data: {
-        notification: fakeNotification({
-          title: notificationTitle,
-          content: notificationContent,
-        }),
-      },
-    },
-  },
-];
-
-const mocksWithNonEmptyNotification = createMocks(
-  notificationTitle,
-  `<p>${notificationContent}</p>`
-);
-const mocksWithEmptyNotification = createMocks('', '');
-
 it('PageLayout matches snapshot', () => {
+  const notificationMock = {
+    notification: fakeNotification({
+      title: '',
+      content: '',
+    }),
+  };
+  jest.spyOn(GraphQLCms, 'useNotificationQuery').mockReturnValue({
+    data: { ...notificationMock },
+    loading: false,
+  } as any);
   const { container } = render(
     <PageLayout>
       <div>Page layout children</div>
     </PageLayout>,
-    { mocks: mocksWithNonEmptyNotification }
+    { mocks: [...emptyMenuQueryMocks] }
   );
   expect(container.firstChild).toMatchSnapshot();
 });
 
 it('renders notification and it can be closed', async () => {
+  const notificationMock = {
+    notification: fakeNotification({
+      title: notificationTitle,
+      content: `<p>${notificationContent}</p>`,
+    }),
+  };
+  jest.spyOn(GraphQLCms, 'useNotificationQuery').mockReturnValue({
+    data: { ...notificationMock },
+    loading: false,
+  } as any);
   render(
     <PageLayout>
       <div>Page layout children</div>
     </PageLayout>,
-    { mocks: mocksWithNonEmptyNotification }
+    { mocks: [...emptyMenuQueryMocks] }
   );
 
   const notification = await screen.findByRole('region', {
@@ -85,11 +83,21 @@ it('renders notification and it can be closed', async () => {
 });
 
 it("doesn't render notification when there are none", async () => {
+  const notificationMock = {
+    notification: fakeNotification({
+      title: '',
+      content: '',
+    }),
+  };
+  jest.spyOn(GraphQLCms, 'useNotificationQuery').mockReturnValue({
+    data: { ...notificationMock },
+    loading: false,
+  } as any);
   render(
     <PageLayout>
       <div>Page layout children</div>
     </PageLayout>,
-    { mocks: mocksWithEmptyNotification }
+    { mocks: [...emptyMenuQueryMocks] }
   );
 
   await waitFor(() => {
