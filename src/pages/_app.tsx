@@ -44,11 +44,13 @@ const PageLayoutComponent = (
   props: CustomPageProps & { children: React.ReactNode }
 ) => {
   const router = useRouter();
-
+  const cmsApolloClient = useCMSApolloClient();
   return [getCmsPagePath(''), getCmsArticlePath('')].some((path) =>
     router.route.startsWith(path)
   ) ? (
-    <CmsPageLayout {...props} />
+    <ApolloProvider client={cmsApolloClient}>
+      <CmsPageLayout {...props} />
+    </ApolloProvider>
   ) : (
     <PageLayout {...props} />
   );
