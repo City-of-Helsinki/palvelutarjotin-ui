@@ -13,6 +13,7 @@ import {
 } from '../../../generated/graphql-cms';
 import useLocale from '../../../hooks/useLocale';
 import hash from '../../../utils/hash';
+import { useCMSApolloClient } from '../../headless-cms/apollo/apolloClient';
 
 export const NOTIFICATION_STORAGE_KEY = 'header-notification';
 
@@ -41,8 +42,10 @@ const HeaderNotification: React.FC = () => {
       closedNotificationHash: null,
     });
   const { isVisible, closedNotificationHash } = notificationState ?? {};
+  const cmsApolloClient = useCMSApolloClient();
 
   const { data } = useNotificationQuery({
+    client: cmsApolloClient,
     variables: {
       language: locale ?? 'fi',
     },

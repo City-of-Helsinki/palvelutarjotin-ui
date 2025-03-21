@@ -1,10 +1,8 @@
 import { advanceTo } from 'jest-date-mock';
 import * as React from 'react';
 
-import {
-  Notification,
-  NotificationDocument,
-} from '../../../../generated/graphql-cms';
+import * as GraphQLCms from '../../../../generated/graphql-cms';
+import { server } from '../../../../tests/msw/server';
 import { fakeNotification } from '../../../../utils/cmsMockDataUtils';
 import {
   render,
@@ -19,29 +17,35 @@ import HeaderNotification, {
 const notificationTitle = 'Notification title';
 const notificationContent = 'Notification content';
 
-const renderComponent = (notification: Partial<Notification> = {}) => {
-  return render(<HeaderNotification />, {
-    mocks: [
-      {
-        request: {
-          query: NotificationDocument,
-          variables: {
-            language: 'fi',
-          },
-        },
-        result: {
-          data: {
-            notification: fakeNotification({
-              title: notificationTitle,
-              content: `<p>${notificationContent}</p>`,
-              ...notification,
-            }),
-          },
-        },
-      },
-    ],
-  });
+jest.mock('../../../../generated/graphql-cms', () => ({
+  esModule: true,
+  ...jest.requireActual<Record<string, unknown>>(
+    '../../../../generated/graphql-cms'
+  ),
+  useNotificationQuery: jest.fn(),
+}));
+
+const renderComponent = (
+  notification: Partial<GraphQLCms.Notification> = {}
+) => {
+  const notificationMock = {
+    notification: fakeNotification({
+      title: notificationTitle,
+      content: `<p>${notificationContent}</p>`,
+      ...notification,
+    }),
+  };
+  jest.spyOn(GraphQLCms, 'useNotificationQuery').mockReturnValue({
+    data: { ...notificationMock },
+    loading: false,
+  } as any);
+
+  return render(<HeaderNotification />);
 };
+
+beforeAll(() => {
+  server.close();
+});
 
 beforeEach(() => {
   advanceTo(new Date(2020, 7, 10));
