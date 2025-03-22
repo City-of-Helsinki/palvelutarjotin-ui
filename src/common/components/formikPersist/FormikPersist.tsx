@@ -87,8 +87,8 @@ const FormikPersist = ({
 };
 
 const objectStructureMatches = (
-  a: Record<string, any>,
-  b: Record<string, any>
+  a: Record<string, any>, // eslint-disable-line @typescript-eslint/no-explicit-any
+  b: Record<string, any> // eslint-disable-line @typescript-eslint/no-explicit-any
 ): boolean => {
   const arrayA = keyify(a);
   const arrayB = keyify(b);

@@ -48,22 +48,28 @@ const ListOption: React.FC<ListOptionProps> = ({
     setFocusedIndex(index);
   };
 
+  const wrappedComponent = (
+    // FIXME: Add keyboard listener and enable linting
+    // eslint-disable-next-line jsx-a11y/click-events-have-key-events
+    <li
+      ref={component}
+      key={option.value}
+      className={classNames(styles.listItem, {
+        [styles.isFocused]: isFocused,
+        [styles.isSelected]: isSelected,
+      })}
+      onClick={handleOptionClick}
+      onMouseEnter={handleMouseEnter}
+      role="option"
+      aria-selected={isSelected}
+    >
+      {option.label} <IconCheck />
+    </li>
+  );
+
   return (
     <ScrollIntoViewWithFocus isFocused={isFocused}>
-      <li
-        ref={component}
-        key={option.value}
-        className={classNames(styles.listItem, {
-          [styles.isFocused]: isFocused,
-          [styles.isSelected]: isSelected,
-        })}
-        onClick={handleOptionClick}
-        onMouseEnter={handleMouseEnter}
-        role="option"
-        aria-selected={isSelected}
-      >
-        {option.label} <IconCheck />
-      </li>
+      {wrappedComponent}
     </ScrollIntoViewWithFocus>
   );
 };
@@ -336,6 +342,8 @@ const AutoSuggest: React.FC<AutoSuggestProps> = ({
 
   const singleValue: React.ReactElement | null =
     !inputValue && !Array.isArray(value) && value?.label ? (
+      // FIXME: Make element accessible (e.g. using keyboard) and enable linting
+      // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
       <div
         className={styles.singleValue}
         onClick={() => {

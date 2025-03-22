@@ -40,6 +40,8 @@ const FormErrorNotification: React.FC<{
   };
 
   return visible ? (
+    // FIXME: Make component accessible and re-enable linting
+    // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
     <div
       className={styles.errorNotificationContainer}
       role="alert"

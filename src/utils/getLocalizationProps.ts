@@ -31,7 +31,9 @@ const getLocalizationProps = (
           [locale]: ALL_I18N_NAMESPACES.reduce(
             (prev, namespace) => ({
               ...prev,
-              [namespace]: require(`../../public/locales/${locale}/${namespace}.json`),
+              [namespace]: require(
+                `../../public/locales/${locale}/${namespace}.json`
+              ),
             }),
             {}
           ),

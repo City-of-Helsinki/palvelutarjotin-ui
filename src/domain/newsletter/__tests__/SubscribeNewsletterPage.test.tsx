@@ -28,7 +28,11 @@ describe('SubscribeNewsletterPage', () => {
     server.use(...serverSuccessfulAddSubscriptionHandlers);
   });
 
-  const fillupForm = async (values = defaultFillValues) => {
+  const fillupForm = async ({
+    firstName,
+    lastName,
+    email,
+  } = defaultFillValues) => {
     await userEvent.type(
       screen.getByRole('textbox', {
         name: /etunimi \*/i,
@@ -79,10 +83,11 @@ describe('SubscribeNewsletterPage', () => {
     );
   });
 
-  it('handles errenous submits properly', async () => {
+  it('handles erroneous submits properly', async () => {
     const serverUnsuccessfulAddSubscriptionHandlers = Object.values(
       NewsletterGroupId
     ).map((groupId) =>
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       rest.post(`/api/newsletter/subscribe/${groupId}`, (req, res, ctx) => {
         return res.networkError('error');
       })
@@ -91,7 +96,7 @@ describe('SubscribeNewsletterPage', () => {
 
     render(<SubscribeNewsletterPage />);
 
-    await fillupForm({ ...defaultFillValues, email: 'not-an-email' });
+    await fillupForm();
 
     expect(
       screen.queryByRole('heading', {

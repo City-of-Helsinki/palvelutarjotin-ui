@@ -1,7 +1,7 @@
-import isSameDay from 'date-fns/isSameDay';
 import React from 'react';
 
 import { OccurrenceFieldsFragment } from '../../../generated/graphql';
+import { isSameDay } from '../../../utils/date-fns/exports';
 import { isSameDayOrAfter, isSameDayOrBefore } from '../../../utils/dateUtils';
 import { DateFilterProps } from '../dateFilter/DateFilter';
 import { getFirstOrLastDateOfOccurrences } from '../utils';
@@ -43,11 +43,15 @@ export const useDateFiltering = ({
   });
 
   const setStartFilterDate = (date?: Date | null) => {
-    date && setStartDate(date);
+    if (date) {
+      setStartDate(date);
+    }
   };
 
   const setEndFilterDate = (date?: Date | null) => {
-    date && setEndDate(date);
+    if (date) {
+      setEndDate(date);
+    }
   };
 
   const setInitialDateFilters = () => {

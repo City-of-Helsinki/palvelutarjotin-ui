@@ -289,6 +289,7 @@ const OccurrenceEnrolmentTable: React.FC<{
           isExpanded: boolean;
         };
       }) => {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { title, ...expandProps } = row.getToggleRowExpandedProps();
         return (
           <OccurrenceExpandButton
@@ -314,7 +315,8 @@ const OccurrenceEnrolmentTable: React.FC<{
 
   return (
     <Table
-      // @ts-ignore
+      // FIXME: Fix the Cell types in Table component
+      // @ts-expect-error Cell types are incompatible
       columns={columns}
       data={filteredOccurrences}
       renderExpandedArea={(occurrence: OccurrenceFieldsFragment) => (

@@ -106,12 +106,8 @@ const CmsPageSearch: React.FC<{
           className={styles.searchPageContent}
           customContent={customContent}
           items={subPages as PageType[]}
-          onSearch={(freeSearch, tags) => {
-            setSearchTerm(freeSearch);
-          }}
-          onLoadMore={() => {
-            fetchMorePages();
-          }}
+          onSearch={(freeSearch) => setSearchTerm(freeSearch)}
+          onLoadMore={() => fetchMorePages()}
           largeFirstItem={false}
           createLargeCard={(item) => (
             <LargeCard

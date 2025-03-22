@@ -38,7 +38,11 @@ const getData = (
   lastName,
 });
 
-const fillupForm = async (values = defaultFillValues) => {
+const fillupForm = async ({
+  firstName,
+  lastName,
+  email,
+} = defaultFillValues) => {
   await userEvent.type(
     screen.getByRole('textbox', {
       name: /etunimi \*/i,

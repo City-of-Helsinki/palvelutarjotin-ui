@@ -1,5 +1,4 @@
-import { sv } from 'date-fns/locale';
-
+import { sv } from '../../exports';
 import buildLocalizeFn from '../buildLocalizeFn';
 
 const dayValues = {

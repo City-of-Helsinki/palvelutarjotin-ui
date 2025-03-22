@@ -1,3 +1,5 @@
+import * as React from 'react';
+
 const Center: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
   return (
     <div

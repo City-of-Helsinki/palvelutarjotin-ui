@@ -112,18 +112,6 @@ Run tests and generate coverage report
 
 Debug tests
 
-### `yarn browser-test`
-
-Running browser tests against test environment
-
-Browser tests are written in TypeScript with [TestCafe](https://devexpress.github.io/testcafe/) framework.
-
-### `yarn browser-test:local`
-
-Running browser tests against local environment
-
-Browser tests are written in TypeScript with [TestCafe](https://devexpress.github.io/testcafe/) framework.
-
 ### `yarn test:coverage`
 
 Run tests and generate coverage report
@@ -167,10 +155,6 @@ with commit title starting with:
 
 And then merge the release-please pull request that should've been created
 by the release-please action having been run in GitHub.
-
-## Browser tests
-
-Browser tests are written in TypeScript with [TestCafe](https://devexpress.github.io/testcafe/) framework.
 
 ## Debugging
 

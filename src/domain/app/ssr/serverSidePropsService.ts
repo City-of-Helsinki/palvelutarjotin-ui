@@ -71,6 +71,7 @@ export class CommonPropsService {
   static async getCommonStaticProps({
     locale,
   }: GetStaticPropsContext | GetServerSidePropsContext): Promise<{
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     props: any;
   }> {
     const cmsApolloClient = initializeCMSApolloClient();

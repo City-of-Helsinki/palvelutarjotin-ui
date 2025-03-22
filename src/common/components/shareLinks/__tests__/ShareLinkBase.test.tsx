@@ -11,7 +11,6 @@ const testWindowName = 'Window name';
 const jestOpen = window.open;
 
 beforeAll(() => {
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
   window.open = jest.fn();
 });
 

@@ -26,7 +26,6 @@ const KeywordLink: React.FC<NavigationKeywordProps> = ({
 }) => {
   return (
     <NextLink legacyBehavior href={href}>
-      {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
       <a className={styles.keyword} {...rest}>
         {label}
       </a>

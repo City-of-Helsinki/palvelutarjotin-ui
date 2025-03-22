@@ -59,7 +59,7 @@ const QueueFormSection: React.FC<{
         },
       });
       onQueue?.();
-    } catch (e) {
+    } catch {
       toast(t('enrolment:queue.error'), {
         type: toast.TYPE.ERROR,
         autoClose: TOAST_AUTO_CLOSE_DURATION_MS,

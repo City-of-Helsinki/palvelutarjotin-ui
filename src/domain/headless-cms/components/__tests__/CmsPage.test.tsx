@@ -1,6 +1,4 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-
+import * as React from 'react';
 import {
   LanguageCodeEnum,
   ConfigProvider as RHHCConfigProvider,
@@ -19,12 +17,12 @@ import CmsPage from '../CmsPage';
 function verifyCmsSidebarContentCard({
   title,
   url,
-  image,
+  imageSrc,
   imageAlt,
 }: {
   title: string;
   url: string;
-  image?: string | null;
+  imageSrc?: string | null;
   imageAlt?: string | null;
 }) {
   // Has title with correct link
@@ -40,8 +38,7 @@ function verifyCmsSidebarContentCard({
       name: imageAlt,
     }) as HTMLImageElement;
     expect(imageElement).toBeInTheDocument();
-    // Next image components gets an encoded src value
-    expect(imageElement.src).toEqual(expect.any(String));
+    expect(imageElement.src).toStrictEqual(imageSrc);
   }
 }
 
@@ -173,7 +170,7 @@ test('renders with sidebar layout when sidebar has content', async () => {
   verifyCmsSidebarContentCard({
     title: sidebarLayoutPage.title!,
     url: `${window.origin}/cms-page${sidebarLayoutPage.uri}`,
-    image: sidebarLayoutPage.featuredImage?.node?.mediaItemUrl,
+    imageSrc: sidebarLayoutPage.featuredImage?.node?.mediaItemUrl,
     imageAlt: sidebarLayoutPage.featuredImage?.node?.altText,
   });
 

@@ -18,7 +18,7 @@ export class MutableReference<Ref = unknown> {
 
 type InitApolloClientConfig<
   TCacheShape,
-  Client extends ApolloClient<TCacheShape>
+  Client extends ApolloClient<TCacheShape>,
 > = {
   initialState: TCacheShape;
   mutableCachedClient: MutableReference<Client>;
@@ -28,7 +28,7 @@ type InitApolloClientConfig<
 // https://www.apollographql.com/blog/building-a-next-js-app-with-apollo-client-slash-graphql/
 export function initializeApolloClient<
   TCacheShape = NormalizedCacheObject,
-  Client extends ApolloClient<TCacheShape> = ApolloClient<TCacheShape>
+  Client extends ApolloClient<TCacheShape> = ApolloClient<TCacheShape>,
 >({
   initialState,
   mutableCachedClient,

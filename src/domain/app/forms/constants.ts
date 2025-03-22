@@ -14,7 +14,7 @@ export enum VALIDATION_MESSAGE_KEYS {
   DATE_MAX = 'form:validation.date.max',
   TIME = 'form:validation.string.time',
   TIME_MIN = 'form:validation.time.min',
-  TIME_MAX = 'form:validation.time.min',
+  TIME_MAX = 'form:validation.time.max',
   TIME_REQUIRED = 'form:validation.time.required',
   STUDYGROUP_MIN_CHILDREN_WITH_ADULTS = 'form:validation.studygroup.childrenandadultmin',
   STUDYGROUP_MAX_WITH_CHILDREN = 'form:validation.studygroup.adultmaxwithchildren',

@@ -29,7 +29,6 @@ const mocks = [
 const originalCreateEvent = ICS.createEvent;
 
 beforeAll(() => {
-  // eslint-disable-next-line  @typescript-eslint/no-explicit-any
   (ICS as any).createEvent = jest.fn();
 });
 
@@ -38,7 +37,6 @@ beforeEach(() => {
 });
 
 afterAll(() => {
-  // eslint-disable-next-line  @typescript-eslint/no-explicit-any
   (ICS as any).createEvent = originalCreateEvent;
 });
 

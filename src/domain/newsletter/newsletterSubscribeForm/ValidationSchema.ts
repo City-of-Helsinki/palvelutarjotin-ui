@@ -2,7 +2,6 @@ import * as Yup from 'yup';
 
 import { VALIDATION_MESSAGE_KEYS } from '../../app/forms/constants';
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export default function getValidationSchema() {
   return Yup.object().shape({
     groups: Yup.array()

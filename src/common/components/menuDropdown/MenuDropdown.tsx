@@ -36,6 +36,8 @@ const MenuItemComponent: React.FC<{
   }, [isFocused]);
 
   return (
+    // FIXME: Add keyboard listener and enable linting
+    // eslint-disable-next-line jsx-a11y/click-events-have-key-events
     <li
       ref={selfRef}
       key={item.value}
@@ -117,7 +119,7 @@ const MenuDropdown: React.FC<MenuDropdownProps> = ({
           }
           break;
         case 'Enter':
-        case 'Space':
+        case 'Space': {
           const item = items[focusedIndex];
           if (isMenuOpen && item) {
             handleMenuItemClick(item);
@@ -125,6 +127,7 @@ const MenuDropdown: React.FC<MenuDropdownProps> = ({
             event.preventDefault();
           }
           break;
+        }
         case 'Tab':
           setIsMenuOpen(false);
       }

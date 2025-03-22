@@ -29,14 +29,17 @@ const DropdownField: React.FC<Props> = ({
   field: { name, onBlur, onChange, value, ...field },
   form: { errors, touched },
   helper,
-  multiselect,
   options,
   placeholder,
   setFieldValue,
-  ...rest
+  ...allRest
 }) => {
   const { t } = useTranslation();
   const errorText = getErrorText(errors, touched, name, t);
+
+  // Remove unused props
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { multiselect, ...usedRest } = allRest;
 
   const handleChange = (val: Option | Option[]) => {
     const value = Array.isArray(val)
@@ -70,7 +73,7 @@ const DropdownField: React.FC<Props> = ({
 
   return (
     <Select
-      {...rest}
+      {...usedRest}
       {...field}
       helper={errorText || helper}
       invalid={Boolean(errorText)}
