@@ -1,7 +1,10 @@
 overwrite: true
 generates:
   src/generated/graphql.tsx:
-    documents: ['./src/!(headless-cms|unified-search)/**/{mutation,query}.ts']
+    documents:
+      - './src/**/{mutation,query}.ts'
+      - '!./src/unified-search/query.ts'
+      - '!./src/domain/headless-cms/query.ts'
     schema: ${NEXT_PUBLIC_API_BASE_URL}
     plugins:
       - 'typescript'
@@ -11,7 +14,7 @@ generates:
       withHooks: true
       withComponent: false
   src/generated/graphql-unified-search.tsx:
-    documents: ['./src/unified-search/**/query.ts']
+    documents: ['./src/unified-search/query.ts']
     schema: ${NEXT_PUBLIC_UNIFIED_SEARCH_BASE_URL}
     plugins:
       - 'typescript'
@@ -21,7 +24,7 @@ generates:
       withHooks: true
       withComponent: false
   src/generated/graphql-cms.tsx:
-    documents: ['./src/headless-cms/query.ts']
+    documents: ['./src/domain/headless-cms/query.ts']
     schema: ${NEXT_PUBLIC_CMS_BASE_URL}
     plugins:
       - 'typescript'
