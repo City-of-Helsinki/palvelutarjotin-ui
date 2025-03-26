@@ -1,4 +1,4 @@
-import { rest } from 'msw';
+import { http, HttpResponse } from 'msw';
 import * as React from 'react';
 
 import { server } from '../../../tests/msw/server';
@@ -18,8 +18,8 @@ const defaultFillValues = {
 const serverSuccessfulAddSubscriptionHandlers = Object.values(
   NewsletterGroupId
 ).map((groupId) =>
-  rest.post(`/api/newsletter/subscribe/${groupId}`, (req, res, ctx) => {
-    return res(ctx.json({ email }));
+  http.post(`/api/newsletter/subscribe/${groupId}`, () => {
+    return HttpResponse.json({ email });
   })
 );
 
@@ -87,9 +87,8 @@ describe('SubscribeNewsletterPage', () => {
     const serverUnsuccessfulAddSubscriptionHandlers = Object.values(
       NewsletterGroupId
     ).map((groupId) =>
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      rest.post(`/api/newsletter/subscribe/${groupId}`, (req, res, ctx) => {
-        return res.networkError('error');
+      http.post(`/api/newsletter/subscribe/${groupId}`, () => {
+        return HttpResponse.error();
       })
     );
     server.use(...serverUnsuccessfulAddSubscriptionHandlers);

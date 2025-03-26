@@ -1,5 +1,5 @@
-import { dequal } from 'dequal';
-import { graphql } from 'msw';
+import isEqual from 'lodash/isEqual';
+import { graphql, HttpResponse } from 'msw';
 import {
   MenuQuery,
   MenuQueryVariables,
@@ -213,11 +213,13 @@ describe('uriToBreadcrumbs', () => {
 describe('getAllMenuPages', () => {
   it('fetches all unique pages in all languages', async () => {
     server.use(
-      graphql.query<MenuQuery, MenuQueryVariables>('menu', (req, res, ctx) => {
-        const data = menuQueryMocks.find(({ variables }) => {
-          return dequal(variables, req.variables);
+      graphql.query<MenuQuery, MenuQueryVariables>('menu', ({ variables }) => {
+        const data = menuQueryMocks.find(({ variables: mockVariables }) => {
+          return isEqual(mockVariables, variables);
         });
-        return data ? res(ctx.data(data.response)) : res(ctx.data({}));
+        return HttpResponse.json({
+          data: data?.response ?? {},
+        });
       })
     );
 
