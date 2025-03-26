@@ -1,7 +1,7 @@
+import { isSameDay } from 'date-fns';
 import React from 'react';
 
 import { OccurrenceFieldsFragment } from '../../../generated/graphql';
-import { isSameDay } from '../../../utils/date-fns/exports';
 import { isSameDayOrAfter, isSameDayOrBefore } from '../../../utils/dateUtils';
 import { DateFilterProps } from '../dateFilter/DateFilter';
 import { getFirstOrLastDateOfOccurrences } from '../utils';
