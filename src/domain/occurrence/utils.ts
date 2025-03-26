@@ -1,3 +1,4 @@
+import { isPast, isSameDay, subDays } from 'date-fns';
 import isNumber from 'lodash/isNumber';
 
 import {
@@ -5,7 +6,6 @@ import {
   OccurrenceFieldsFragment,
   OccurrencesOccurrenceSeatTypeChoices,
 } from '../../generated/graphql';
-import { isPast, isSameDay, subDays } from '../../utils/date-fns/exports';
 import { assertUnreachable } from '../../utils/typescript.utils';
 
 export const hasOccurrenceSpace = (

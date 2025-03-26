@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { faker } from '@faker-js/faker';
+import { add as addTime } from 'date-fns';
 
-import { add as addTime } from './date-fns/exports';
 import {
   EnrolmentNode,
   EnrolmentNodeConnection,

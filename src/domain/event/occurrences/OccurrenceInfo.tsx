@@ -1,4 +1,5 @@
 import { useApolloClient } from '@apollo/client';
+import { isSameDay } from 'date-fns';
 import { Button, IconLocation, IconClock, IconEuroSign } from 'hds-react';
 import { capitalize } from 'lodash';
 import NextLink from 'next/link';
@@ -14,7 +15,6 @@ import {
   EventDocument,
 } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
-import { isSameDay } from '../../../utils/date-fns/exports';
 import formatTimeRange from '../../../utils/formatTimeRange';
 import {
   formatIntoDate,
