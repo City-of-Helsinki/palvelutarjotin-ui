@@ -1,7 +1,8 @@
 const path = require('path');
-const packageJson = require('./package.json');
 
 const { i18n } = require('./next-i18next.config');
+const packageJson = require('./package.json');
+
 const trueEnv = ['true', '1', 'yes'];
 
 const NEXTJS_IGNORE_ESLINT = trueEnv.includes(
@@ -22,6 +23,29 @@ const NEXTJS_SENTRY_DEBUG = trueEnv.includes(
 const NEXTJS_SENTRY_TRACING = trueEnv.includes(
   process.env?.NEXTJS_SENTRY_TRACING ?? 'false'
 );
+
+const cspHeader = `
+    default-src 'self';
+    script-src 'self' ${
+      process.env.NODE_ENV === 'development' ? "'unsafe-eval'" : '' // Allow eval in development, for react-refresh
+    } https://m.youtube.com https://www.youtube.com https://webanalytics.digiaiiris.com *.google.com *.gstatic.com;
+    style-src 'self' 'unsafe-inline';
+    img-src 'self' data: *.hel.fi *.hel.ninja *.ytimg.com *.youtube.com *.vimeo.com *.vimeocdn.com 
+      *.blob.core.windows.net *.hkih.hion.dev;
+    font-src 'self' *.hel.fi *.hel.ninja;
+    connect-src 'self' localhost:* 127.0.0.1:* *.hel.fi *.hel.ninja *.hkih.hion.dev *.digiaiiris.com;
+    object-src 'none';
+    media-src 'self' *.hel.fi *.hel.ninja *.hkih.hion.dev;
+    manifest-src 'self';
+    base-uri 'self';
+    form-action 'self';
+    frame-src 'self' *.hel.fi *.hel.ninja *.youtube.com www.youtube-nocookie.com *.vimeo.com *.google.com;
+    frame-ancestors 'none';
+    worker-src    'self';
+    block-all-mixed-content;
+    upgrade-insecure-requests;
+`;
+
 module.exports = {
   reactStrictMode: true,
   staticPageGenerationTimeout: 1000 * 60 * 2, // 2 minutes
@@ -64,6 +88,7 @@ module.exports = {
     scrollRestoration: true,
 
     // disable in-memory caching
+    // eslint-disable-next-line max-len
     // @link https://nextjs.org/docs/pages/building-your-application/data-fetching/incremental-static-regeneration#self-hosting-isr
     isrMemoryCacheSize: 0,
   },
@@ -144,5 +169,23 @@ module.exports = {
       ],
     });
     return config;
+  },
+  // Provide CSP headers to all routes for enhanced security.
+  // Using middleware could be more flexible and allow the use of per request nonce, but
+  // it's hard to get to work with ISR, because it would require all the scripts and styles
+  // to be reloaded per request to get a new nonce. Using this config is simpler, easier to understand and maintain.
+  // @link https://nextjs.org/docs/14/pages/building-your-application/configuring/content-security-policy#without-nonces
+  async headers() {
+    return [
+      {
+        source: '/(.*)',
+        headers: [
+          {
+            key: 'Content-Security-Policy',
+            value: cspHeader.replace(/\n/g, ''),
+          },
+        ],
+      },
+    ];
   },
 };
