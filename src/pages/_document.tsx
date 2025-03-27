@@ -49,18 +49,23 @@ class MyDocument extends NextJsDocument<Props> {
       (hds as any).hdsStyles
     );
 
-    return { ...initialProps, hdsCriticalRules };
+    const nonce = ctx.res?.getHeader('x-nonce');
+
+    return { ...initialProps, hdsCriticalRules, nonce };
   }
   render(): React.ReactElement {
+    const { nonce } = this.props as unknown as { nonce?: string };
     return (
-      <Html lang={documentLang(this.props)}>
-        <Head>
+      <Html lang={documentLang(this.props)} nonce={nonce}>
+        <Head nonce={nonce}>
           <style
             data-used-styles
             dangerouslySetInnerHTML={{ __html: this.props.hdsCriticalRules }}
+            nonce={nonce}
           />
           <script
             src={`https://www.google.com/recaptcha/api.js?render=${process.env.NEXT_PUBLIC_CAPTCHA_KEY}`}
+            nonce={nonce}
           />
         </Head>
         <body>
