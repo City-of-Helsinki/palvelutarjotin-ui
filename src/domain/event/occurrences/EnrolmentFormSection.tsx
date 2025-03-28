@@ -84,7 +84,7 @@ const EnrolmentFormSection: React.FC<{
           ? t('enrolment:errors.createFailedBecauseNotEnoughCapacity')
           : t('enrolment:errors.createFailed'),
         {
-          type: toast.TYPE.ERROR,
+          type: 'error',
           autoClose: TOAST_AUTO_CLOSE_DURATION_MS,
         }
       );
