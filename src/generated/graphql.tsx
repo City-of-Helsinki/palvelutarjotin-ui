@@ -10,7 +10,7 @@ export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' |
 const defaultOptions = {} as const;
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
-  ID: { input: string | number; output: string; }
+  ID: { input: string; output: string; }
   String: { input: string; output: string; }
   Boolean: { input: boolean; output: boolean; }
   Int: { input: number; output: number; }
@@ -2779,7 +2779,7 @@ export const EventDocument = gql`
  *   },
  * });
  */
-export function useEventQuery(baseOptions: Apollo.QueryHookOptions<EventQuery, EventQueryVariables>) {
+export function useEventQuery(baseOptions: Apollo.QueryHookOptions<EventQuery, EventQueryVariables> & ({ variables: EventQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<EventQuery, EventQueryVariables>(EventDocument, options);
       }
@@ -2787,8 +2787,13 @@ export function useEventLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Even
           const options = {...defaultOptions, ...baseOptions}
           return Apollo.useLazyQuery<EventQuery, EventQueryVariables>(EventDocument, options);
         }
+export function useEventSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<EventQuery, EventQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<EventQuery, EventQueryVariables>(EventDocument, options);
+        }
 export type EventQueryHookResult = ReturnType<typeof useEventQuery>;
 export type EventLazyQueryHookResult = ReturnType<typeof useEventLazyQuery>;
+export type EventSuspenseQueryHookResult = ReturnType<typeof useEventSuspenseQuery>;
 export type EventQueryResult = Apollo.QueryResult<EventQuery, EventQueryVariables>;
 export const EnrolEventQueueDocument = gql`
     mutation EnrolEventQueue($input: EnrolEventQueueMutationInput!) {
@@ -2911,8 +2916,13 @@ export function useEventsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Eve
           const options = {...defaultOptions, ...baseOptions}
           return Apollo.useLazyQuery<EventsQuery, EventsQueryVariables>(EventsDocument, options);
         }
+export function useEventsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<EventsQuery, EventsQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<EventsQuery, EventsQueryVariables>(EventsDocument, options);
+        }
 export type EventsQueryHookResult = ReturnType<typeof useEventsQuery>;
 export type EventsLazyQueryHookResult = ReturnType<typeof useEventsLazyQuery>;
+export type EventsSuspenseQueryHookResult = ReturnType<typeof useEventsSuspenseQuery>;
 export type EventsQueryResult = Apollo.QueryResult<EventsQuery, EventsQueryVariables>;
 export const UpcomingEventsDocument = gql`
     query UpcomingEvents($page: Int, $pageSize: Int, $include: [String]) {
@@ -2955,8 +2965,13 @@ export function useUpcomingEventsLazyQuery(baseOptions?: Apollo.LazyQueryHookOpt
           const options = {...defaultOptions, ...baseOptions}
           return Apollo.useLazyQuery<UpcomingEventsQuery, UpcomingEventsQueryVariables>(UpcomingEventsDocument, options);
         }
+export function useUpcomingEventsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<UpcomingEventsQuery, UpcomingEventsQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<UpcomingEventsQuery, UpcomingEventsQueryVariables>(UpcomingEventsDocument, options);
+        }
 export type UpcomingEventsQueryHookResult = ReturnType<typeof useUpcomingEventsQuery>;
 export type UpcomingEventsLazyQueryHookResult = ReturnType<typeof useUpcomingEventsLazyQuery>;
+export type UpcomingEventsSuspenseQueryHookResult = ReturnType<typeof useUpcomingEventsSuspenseQuery>;
 export type UpcomingEventsQueryResult = Apollo.QueryResult<UpcomingEventsQuery, UpcomingEventsQueryVariables>;
 export const ImageDocument = gql`
     query Image($id: ID!) {
@@ -2982,7 +2997,7 @@ export const ImageDocument = gql`
  *   },
  * });
  */
-export function useImageQuery(baseOptions: Apollo.QueryHookOptions<ImageQuery, ImageQueryVariables>) {
+export function useImageQuery(baseOptions: Apollo.QueryHookOptions<ImageQuery, ImageQueryVariables> & ({ variables: ImageQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<ImageQuery, ImageQueryVariables>(ImageDocument, options);
       }
@@ -2990,8 +3005,13 @@ export function useImageLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Imag
           const options = {...defaultOptions, ...baseOptions}
           return Apollo.useLazyQuery<ImageQuery, ImageQueryVariables>(ImageDocument, options);
         }
+export function useImageSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<ImageQuery, ImageQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<ImageQuery, ImageQueryVariables>(ImageDocument, options);
+        }
 export type ImageQueryHookResult = ReturnType<typeof useImageQuery>;
 export type ImageLazyQueryHookResult = ReturnType<typeof useImageLazyQuery>;
+export type ImageSuspenseQueryHookResult = ReturnType<typeof useImageSuspenseQuery>;
 export type ImageQueryResult = Apollo.QueryResult<ImageQuery, ImageQueryVariables>;
 export const KeywordDocument = gql`
     query Keyword($id: ID!) {
@@ -3017,7 +3037,7 @@ export const KeywordDocument = gql`
  *   },
  * });
  */
-export function useKeywordQuery(baseOptions: Apollo.QueryHookOptions<KeywordQuery, KeywordQueryVariables>) {
+export function useKeywordQuery(baseOptions: Apollo.QueryHookOptions<KeywordQuery, KeywordQueryVariables> & ({ variables: KeywordQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<KeywordQuery, KeywordQueryVariables>(KeywordDocument, options);
       }
@@ -3025,8 +3045,13 @@ export function useKeywordLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Ke
           const options = {...defaultOptions, ...baseOptions}
           return Apollo.useLazyQuery<KeywordQuery, KeywordQueryVariables>(KeywordDocument, options);
         }
+export function useKeywordSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<KeywordQuery, KeywordQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<KeywordQuery, KeywordQueryVariables>(KeywordDocument, options);
+        }
 export type KeywordQueryHookResult = ReturnType<typeof useKeywordQuery>;
 export type KeywordLazyQueryHookResult = ReturnType<typeof useKeywordLazyQuery>;
+export type KeywordSuspenseQueryHookResult = ReturnType<typeof useKeywordSuspenseQuery>;
 export type KeywordQueryResult = Apollo.QueryResult<KeywordQuery, KeywordQueryVariables>;
 export const KeywordsDocument = gql`
     query Keywords($dataSource: String, $page: Int, $pageSize: Int, $showAllKeywords: Boolean, $sort: String, $text: String) {
@@ -3079,8 +3104,13 @@ export function useKeywordsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<K
           const options = {...defaultOptions, ...baseOptions}
           return Apollo.useLazyQuery<KeywordsQuery, KeywordsQueryVariables>(KeywordsDocument, options);
         }
+export function useKeywordsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<KeywordsQuery, KeywordsQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<KeywordsQuery, KeywordsQueryVariables>(KeywordsDocument, options);
+        }
 export type KeywordsQueryHookResult = ReturnType<typeof useKeywordsQuery>;
 export type KeywordsLazyQueryHookResult = ReturnType<typeof useKeywordsLazyQuery>;
+export type KeywordsSuspenseQueryHookResult = ReturnType<typeof useKeywordsSuspenseQuery>;
 export type KeywordsQueryResult = Apollo.QueryResult<KeywordsQuery, KeywordsQueryVariables>;
 export const KeywordSetDocument = gql`
     query KeywordSet($setType: KeywordSetType!) {
@@ -3113,7 +3143,7 @@ ${LocalisedFieldsFragmentDoc}`;
  *   },
  * });
  */
-export function useKeywordSetQuery(baseOptions: Apollo.QueryHookOptions<KeywordSetQuery, KeywordSetQueryVariables>) {
+export function useKeywordSetQuery(baseOptions: Apollo.QueryHookOptions<KeywordSetQuery, KeywordSetQueryVariables> & ({ variables: KeywordSetQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<KeywordSetQuery, KeywordSetQueryVariables>(KeywordSetDocument, options);
       }
@@ -3121,8 +3151,13 @@ export function useKeywordSetLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions
           const options = {...defaultOptions, ...baseOptions}
           return Apollo.useLazyQuery<KeywordSetQuery, KeywordSetQueryVariables>(KeywordSetDocument, options);
         }
+export function useKeywordSetSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<KeywordSetQuery, KeywordSetQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<KeywordSetQuery, KeywordSetQueryVariables>(KeywordSetDocument, options);
+        }
 export type KeywordSetQueryHookResult = ReturnType<typeof useKeywordSetQuery>;
 export type KeywordSetLazyQueryHookResult = ReturnType<typeof useKeywordSetLazyQuery>;
+export type KeywordSetSuspenseQueryHookResult = ReturnType<typeof useKeywordSetSuspenseQuery>;
 export type KeywordSetQueryResult = Apollo.QueryResult<KeywordSetQuery, KeywordSetQueryVariables>;
 export const PopularKeywordsDocument = gql`
     query PopularKeywords($amount: Int, $showAllKeywords: Boolean) {
@@ -3164,8 +3199,13 @@ export function usePopularKeywordsLazyQuery(baseOptions?: Apollo.LazyQueryHookOp
           const options = {...defaultOptions, ...baseOptions}
           return Apollo.useLazyQuery<PopularKeywordsQuery, PopularKeywordsQueryVariables>(PopularKeywordsDocument, options);
         }
+export function usePopularKeywordsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<PopularKeywordsQuery, PopularKeywordsQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<PopularKeywordsQuery, PopularKeywordsQueryVariables>(PopularKeywordsDocument, options);
+        }
 export type PopularKeywordsQueryHookResult = ReturnType<typeof usePopularKeywordsQuery>;
 export type PopularKeywordsLazyQueryHookResult = ReturnType<typeof usePopularKeywordsLazyQuery>;
+export type PopularKeywordsSuspenseQueryHookResult = ReturnType<typeof usePopularKeywordsSuspenseQuery>;
 export type PopularKeywordsQueryResult = Apollo.QueryResult<PopularKeywordsQuery, PopularKeywordsQueryVariables>;
 export const OccurrenceDocument = gql`
     query Occurrence($id: ID!) {
@@ -3191,7 +3231,7 @@ export const OccurrenceDocument = gql`
  *   },
  * });
  */
-export function useOccurrenceQuery(baseOptions: Apollo.QueryHookOptions<OccurrenceQuery, OccurrenceQueryVariables>) {
+export function useOccurrenceQuery(baseOptions: Apollo.QueryHookOptions<OccurrenceQuery, OccurrenceQueryVariables> & ({ variables: OccurrenceQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<OccurrenceQuery, OccurrenceQueryVariables>(OccurrenceDocument, options);
       }
@@ -3199,8 +3239,13 @@ export function useOccurrenceLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions
           const options = {...defaultOptions, ...baseOptions}
           return Apollo.useLazyQuery<OccurrenceQuery, OccurrenceQueryVariables>(OccurrenceDocument, options);
         }
+export function useOccurrenceSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<OccurrenceQuery, OccurrenceQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<OccurrenceQuery, OccurrenceQueryVariables>(OccurrenceDocument, options);
+        }
 export type OccurrenceQueryHookResult = ReturnType<typeof useOccurrenceQuery>;
 export type OccurrenceLazyQueryHookResult = ReturnType<typeof useOccurrenceLazyQuery>;
+export type OccurrenceSuspenseQueryHookResult = ReturnType<typeof useOccurrenceSuspenseQuery>;
 export type OccurrenceQueryResult = Apollo.QueryResult<OccurrenceQuery, OccurrenceQueryVariables>;
 export const OccurrencesDocument = gql`
     query Occurrences($after: String, $before: String, $first: Int, $last: Int, $cancelled: Boolean, $pEvent: ID, $orderBy: [String], $upcoming: Boolean, $enrollable: Boolean) {
@@ -3263,8 +3308,13 @@ export function useOccurrencesLazyQuery(baseOptions?: Apollo.LazyQueryHookOption
           const options = {...defaultOptions, ...baseOptions}
           return Apollo.useLazyQuery<OccurrencesQuery, OccurrencesQueryVariables>(OccurrencesDocument, options);
         }
+export function useOccurrencesSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<OccurrencesQuery, OccurrencesQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<OccurrencesQuery, OccurrencesQueryVariables>(OccurrencesDocument, options);
+        }
 export type OccurrencesQueryHookResult = ReturnType<typeof useOccurrencesQuery>;
 export type OccurrencesLazyQueryHookResult = ReturnType<typeof useOccurrencesLazyQuery>;
+export type OccurrencesSuspenseQueryHookResult = ReturnType<typeof useOccurrencesSuspenseQuery>;
 export type OccurrencesQueryResult = Apollo.QueryResult<OccurrencesQuery, OccurrencesQueryVariables>;
 export const PlaceDocument = gql`
     query Place($id: ID!) {
@@ -3290,7 +3340,7 @@ export const PlaceDocument = gql`
  *   },
  * });
  */
-export function usePlaceQuery(baseOptions: Apollo.QueryHookOptions<PlaceQuery, PlaceQueryVariables>) {
+export function usePlaceQuery(baseOptions: Apollo.QueryHookOptions<PlaceQuery, PlaceQueryVariables> & ({ variables: PlaceQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<PlaceQuery, PlaceQueryVariables>(PlaceDocument, options);
       }
@@ -3298,8 +3348,13 @@ export function usePlaceLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Plac
           const options = {...defaultOptions, ...baseOptions}
           return Apollo.useLazyQuery<PlaceQuery, PlaceQueryVariables>(PlaceDocument, options);
         }
+export function usePlaceSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<PlaceQuery, PlaceQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<PlaceQuery, PlaceQueryVariables>(PlaceDocument, options);
+        }
 export type PlaceQueryHookResult = ReturnType<typeof usePlaceQuery>;
 export type PlaceLazyQueryHookResult = ReturnType<typeof usePlaceLazyQuery>;
+export type PlaceSuspenseQueryHookResult = ReturnType<typeof usePlaceSuspenseQuery>;
 export type PlaceQueryResult = Apollo.QueryResult<PlaceQuery, PlaceQueryVariables>;
 export const PlacesDocument = gql`
     query Places($dataSource: String, $divisions: [String], $page: Int, $pageSize: Int, $showAllPlaces: Boolean, $sort: String, $text: String) {
@@ -3354,8 +3409,13 @@ export function usePlacesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Pla
           const options = {...defaultOptions, ...baseOptions}
           return Apollo.useLazyQuery<PlacesQuery, PlacesQueryVariables>(PlacesDocument, options);
         }
+export function usePlacesSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<PlacesQuery, PlacesQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<PlacesQuery, PlacesQueryVariables>(PlacesDocument, options);
+        }
 export type PlacesQueryHookResult = ReturnType<typeof usePlacesQuery>;
 export type PlacesLazyQueryHookResult = ReturnType<typeof usePlacesLazyQuery>;
+export type PlacesSuspenseQueryHookResult = ReturnType<typeof usePlacesSuspenseQuery>;
 export type PlacesQueryResult = Apollo.QueryResult<PlacesQuery, PlacesQueryVariables>;
 export const SchoolsAndKindergartensListDocument = gql`
     query SchoolsAndKindergartensList($search: String) {
@@ -3399,8 +3459,13 @@ export function useSchoolsAndKindergartensListLazyQuery(baseOptions?: Apollo.Laz
           const options = {...defaultOptions, ...baseOptions}
           return Apollo.useLazyQuery<SchoolsAndKindergartensListQuery, SchoolsAndKindergartensListQueryVariables>(SchoolsAndKindergartensListDocument, options);
         }
+export function useSchoolsAndKindergartensListSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<SchoolsAndKindergartensListQuery, SchoolsAndKindergartensListQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<SchoolsAndKindergartensListQuery, SchoolsAndKindergartensListQueryVariables>(SchoolsAndKindergartensListDocument, options);
+        }
 export type SchoolsAndKindergartensListQueryHookResult = ReturnType<typeof useSchoolsAndKindergartensListQuery>;
 export type SchoolsAndKindergartensListLazyQueryHookResult = ReturnType<typeof useSchoolsAndKindergartensListLazyQuery>;
+export type SchoolsAndKindergartensListSuspenseQueryHookResult = ReturnType<typeof useSchoolsAndKindergartensListSuspenseQuery>;
 export type SchoolsAndKindergartensListQueryResult = Apollo.QueryResult<SchoolsAndKindergartensListQuery, SchoolsAndKindergartensListQueryVariables>;
 export const StudyLevelsDocument = gql`
     query StudyLevels {
@@ -3437,8 +3502,13 @@ export function useStudyLevelsLazyQuery(baseOptions?: Apollo.LazyQueryHookOption
           const options = {...defaultOptions, ...baseOptions}
           return Apollo.useLazyQuery<StudyLevelsQuery, StudyLevelsQueryVariables>(StudyLevelsDocument, options);
         }
+export function useStudyLevelsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<StudyLevelsQuery, StudyLevelsQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<StudyLevelsQuery, StudyLevelsQueryVariables>(StudyLevelsDocument, options);
+        }
 export type StudyLevelsQueryHookResult = ReturnType<typeof useStudyLevelsQuery>;
 export type StudyLevelsLazyQueryHookResult = ReturnType<typeof useStudyLevelsLazyQuery>;
+export type StudyLevelsSuspenseQueryHookResult = ReturnType<typeof useStudyLevelsSuspenseQuery>;
 export type StudyLevelsQueryResult = Apollo.QueryResult<StudyLevelsQuery, StudyLevelsQueryVariables>;
 export const StudyLevelDocument = gql`
     query StudyLevel($id: ID!) {
@@ -3464,7 +3534,7 @@ export const StudyLevelDocument = gql`
  *   },
  * });
  */
-export function useStudyLevelQuery(baseOptions: Apollo.QueryHookOptions<StudyLevelQuery, StudyLevelQueryVariables>) {
+export function useStudyLevelQuery(baseOptions: Apollo.QueryHookOptions<StudyLevelQuery, StudyLevelQueryVariables> & ({ variables: StudyLevelQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<StudyLevelQuery, StudyLevelQueryVariables>(StudyLevelDocument, options);
       }
@@ -3472,8 +3542,13 @@ export function useStudyLevelLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions
           const options = {...defaultOptions, ...baseOptions}
           return Apollo.useLazyQuery<StudyLevelQuery, StudyLevelQueryVariables>(StudyLevelDocument, options);
         }
+export function useStudyLevelSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<StudyLevelQuery, StudyLevelQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<StudyLevelQuery, StudyLevelQueryVariables>(StudyLevelDocument, options);
+        }
 export type StudyLevelQueryHookResult = ReturnType<typeof useStudyLevelQuery>;
 export type StudyLevelLazyQueryHookResult = ReturnType<typeof useStudyLevelLazyQuery>;
+export type StudyLevelSuspenseQueryHookResult = ReturnType<typeof useStudyLevelSuspenseQuery>;
 export type StudyLevelQueryResult = Apollo.QueryResult<StudyLevelQuery, StudyLevelQueryVariables>;
 export const VenueDocument = gql`
     query Venue($id: ID!) {
@@ -3499,7 +3574,7 @@ export const VenueDocument = gql`
  *   },
  * });
  */
-export function useVenueQuery(baseOptions: Apollo.QueryHookOptions<VenueQuery, VenueQueryVariables>) {
+export function useVenueQuery(baseOptions: Apollo.QueryHookOptions<VenueQuery, VenueQueryVariables> & ({ variables: VenueQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<VenueQuery, VenueQueryVariables>(VenueDocument, options);
       }
@@ -3507,6 +3582,11 @@ export function useVenueLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Venu
           const options = {...defaultOptions, ...baseOptions}
           return Apollo.useLazyQuery<VenueQuery, VenueQueryVariables>(VenueDocument, options);
         }
+export function useVenueSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<VenueQuery, VenueQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<VenueQuery, VenueQueryVariables>(VenueDocument, options);
+        }
 export type VenueQueryHookResult = ReturnType<typeof useVenueQuery>;
 export type VenueLazyQueryHookResult = ReturnType<typeof useVenueLazyQuery>;
+export type VenueSuspenseQueryHookResult = ReturnType<typeof useVenueSuspenseQuery>;
 export type VenueQueryResult = Apollo.QueryResult<VenueQuery, VenueQueryVariables>;

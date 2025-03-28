@@ -1,4 +1,4 @@
-import { graphql } from 'msw';
+import { graphql, HttpResponse } from 'msw';
 import { setupServer } from 'msw/node';
 
 import { Notification } from '../../generated/graphql-cms';
@@ -20,14 +20,14 @@ const divisionNames = [
 ];
 
 const handlers: Parameters<typeof setupServer> = [
-  graphql.query('AdministrativeDivisions', (req, res, ctx) => {
-    return res(
-      ctx.data({
+  graphql.query('AdministrativeDivisions', () => {
+    return HttpResponse.json({
+      data: {
         administrativeDivisions: fakeDivisions(divisionNames),
-      })
-    );
+      },
+    });
   }),
-  graphql.query('Notification', (req, res, ctx) => {
+  graphql.query('Notification', () => {
     const notification: Notification = {
       __typename: 'Notification',
       title: 'MSW mock for notification',
@@ -35,11 +35,11 @@ const handlers: Parameters<typeof setupServer> = [
       level: 'info',
       linkUrl: '#',
     };
-    return res(
-      ctx.data({
+    return HttpResponse.json({
+      data: {
         notification,
-      })
-    );
+      },
+    });
   }),
 ];
 

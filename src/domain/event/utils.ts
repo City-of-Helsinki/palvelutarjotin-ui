@@ -1,3 +1,4 @@
+import { isBefore, isToday, isTomorrow, parseISO, startOfDay } from 'date-fns';
 import { TFunction } from 'next-i18next';
 
 import {
@@ -14,13 +15,6 @@ import {
   PEventFieldsFragment,
 } from '../../generated/graphql';
 import { Language } from '../../types';
-import {
-  isBefore,
-  isToday,
-  isTomorrow,
-  parseISO,
-  startOfDay,
-} from '../../utils/date-fns/exports';
 import getLocalisedString from '../../utils/getLocalisedString';
 import { formatIntoTime, formatLocalizedDate } from '../../utils/time/format';
 import { isEnrolmentStarted } from '../occurrence/utils';

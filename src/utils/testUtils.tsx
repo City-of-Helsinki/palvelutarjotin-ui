@@ -2,7 +2,7 @@ import { ParsedUrlQuery } from 'querystring';
 
 import { InMemoryCache } from '@apollo/client';
 import { MockedResponse } from '@apollo/client/testing';
-import { AnyAction, Store } from '@reduxjs/toolkit';
+import { UnknownAction, Store } from '@reduxjs/toolkit';
 import { render, RenderResult, fireEvent } from '@testing-library/react';
 import { NextRouter, Router } from 'next/router';
 import React from 'react';
@@ -52,7 +52,7 @@ const customRender: CustomRender = (
 export type CustomRenderOptions = {
   mocks?: MockedResponse[];
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  store?: Store<any, AnyAction>;
+  store?: Store<any, UnknownAction>;
   path?: string;
   query?: ParsedUrlQuery;
   router?: Partial<NextRouter>;

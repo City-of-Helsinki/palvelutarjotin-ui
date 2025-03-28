@@ -1,3 +1,5 @@
+import { isValid as isValidDate } from 'date-fns';
+
 import { KEYWORD_QUERY_PARAMS } from './constants';
 import { EventSearchFormValues } from './eventSearchForm/EventSearchForm';
 import { EVENT_LANGUAGES } from '../../constants';
@@ -6,7 +8,6 @@ import {
   EventsFieldsFragment,
   EventsQuery,
 } from '../../generated/graphql';
-import { isValid as isValidDate } from '../../utils/date-fns/exports';
 import deleteEmptyPropertiesFromObject from '../../utils/deleteEmptyPropertiesFromObject';
 import { queryParameterToArray } from '../../utils/queryParameterToArray';
 

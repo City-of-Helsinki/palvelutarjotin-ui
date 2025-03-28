@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+import { format, isValid } from 'date-fns';
 import { Button, DateInput, IconPen } from 'hds-react';
 import { useTranslation } from 'next-i18next';
 import React from 'react';
@@ -6,7 +7,6 @@ import React from 'react';
 import styles from './dateFilter.module.scss';
 import { DATE_FORMAT } from '../../../common/components/form/fields/DateInputField';
 import useLocale from '../../../hooks/useLocale';
-import { format, isValid } from '../../../utils/date-fns/exports';
 
 export interface DateFilterProps {
   dateFiltersChanged: boolean;

@@ -113,9 +113,12 @@ const createPageMock = (
 ];
 
 const occurrenceEnrolDifferentTimes: Partial<graphqlFns.OccurrenceNode>[] = [
-  { id: occurrenceId1, startTime: new Date(2020, 8, 25, 12, 30) },
-  { id: occurrenceId2, startTime: new Date(2020, 8, 26, 13, 20) },
-  { id: 'sdfgdfhbf345345yreg', startTime: new Date(2020, 8, 26, 14, 20) },
+  { id: occurrenceId1, startTime: new Date(2020, 8, 25, 12, 30).toISOString() },
+  { id: occurrenceId2, startTime: new Date(2020, 8, 26, 13, 20).toISOString() },
+  {
+    id: 'sdfgdfhbf345345yreg',
+    startTime: new Date(2020, 8, 26, 14, 20).toISOString(),
+  },
 ];
 
 const pageMockWithSelectedPlace: MockedResponse[] = [
@@ -139,7 +142,10 @@ const pageMockEnrolHandpick: MockedResponse[] = createPageMock(
     enrolmentStart: new Date(2020, 8, 7).toISOString(),
     enrolmentEndDays: 3,
     occurrences: fakeOccurrences(1, [
-      { id: occurrenceId1, startTime: new Date(2020, 8, 25, 12, 30) },
+      {
+        id: occurrenceId1,
+        startTime: new Date(2020, 8, 25, 12, 30).toISOString(),
+      },
     ]),
     neededOccurrences: 1,
     autoAcceptance: false,
