@@ -1,4 +1,4 @@
-import { act, renderHook } from '@testing-library/react-hooks';
+import { act, renderHook } from '@testing-library/react';
 import { format } from 'date-fns';
 
 import { fakeOccurrence } from '../../../../utils/mockDataUtils';
