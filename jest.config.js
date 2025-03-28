@@ -28,6 +28,12 @@ module.exports = {
     // and otherwise fails with "SyntaxError: Unexpected token 'export'".
     uuid: require.resolve('uuid'),
   },
+  modulePathIgnorePatterns: [
+    // Ignore Next.js build output directory, so jest-haste-map does not
+    // find haste module naming collisions between package.json files
+    // when running tests.
+    '\\.next/',
+  ],
   setupFilesAfterEnv: ['<rootDir>/src/setupTests.ts'],
   testPathIgnorePatterns: [
     '<rootDir>/.next/',
