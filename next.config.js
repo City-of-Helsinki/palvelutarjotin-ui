@@ -86,12 +86,10 @@ module.exports = {
     // @link {https://github.com/vercel/next.js/discussions/26420|Discussion}
     externalDir: true,
     scrollRestoration: true,
-
-    // disable in-memory caching
-    // eslint-disable-next-line max-len
-    // @link https://nextjs.org/docs/pages/building-your-application/data-fetching/incremental-static-regeneration#self-hosting-isr
-    isrMemoryCacheSize: 0,
   },
+  // disable in-memory caching
+  // @link https://nextjs.org/docs/14/pages/building-your-application/deploying#configuring-caching
+  cacheMaxMemorySize: 0,
   typescript: {
     /** Do not run TypeScript during production builds (`next build`). */
     ignoreBuildErrors: NEXTJS_IGNORE_TYPECHECK,
