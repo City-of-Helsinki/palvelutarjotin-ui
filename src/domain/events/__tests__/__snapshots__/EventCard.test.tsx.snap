@@ -3,6 +3,7 @@
 exports[`EventCard List of occurrences renders multiday occurrence time correctly 1`] = `
 <div>
   <a
+    aria-label="Siirry tapahtumaan: Nimi"
     class="eventCard"
     href="/#"
   >
