@@ -21,6 +21,7 @@ import {
   OccurrenceFieldsFragment,
 } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
+import type { I18nNamespace } from '../../../types';
 import formatTimeRange from '../../../utils/formatTimeRange';
 import {
   DATE_FORMAT,
@@ -67,7 +68,7 @@ const OccurrencesTable: React.FC<Props> = ({
   const [occurrencesVisible, setOccurrencesVisible] = React.useState(
     OCCURRENCE_LIST_PAGE_SIZE
   );
-  const { t } = useTranslation();
+  const { t } = useTranslation<I18nNamespace>();
 
   // This hook filters occurrences only by date, rest of the filtering (if added more)
   // could be in this hook but hook name should be changed
@@ -164,7 +165,7 @@ const OccurrenceEnrolmentTable: React.FC<{
   selectedOccurrences,
   filteredOccurrences,
 }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation<I18nNamespace>();
   const enrolmentType = getEnrolmentType(event.pEvent);
   const hasInternalEnrolment = enrolmentType === EnrolmentType.Internal;
   const locale = useLocale();
@@ -337,7 +338,7 @@ const OccurrenceExpandButton: React.FC<
     occurrence: OccurrenceFieldsFragment;
   }
 > = ({ isExpanded, event, occurrence, ...props }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation<I18nNamespace>();
 
   // Show error message if enrolment is not available
   const error = getEnrolmentError(occurrence, event);
@@ -365,7 +366,7 @@ const OccurrenceExpandButton: React.FC<
 };
 
 const OccurrencesTableContainer: React.FC<Props> = (props) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation<I18nNamespace>();
 
   if (!props.occurrences.length) {
     return (

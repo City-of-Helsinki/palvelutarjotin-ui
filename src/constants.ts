@@ -24,17 +24,17 @@ export enum EVENT_LANGUAGES {
 export const DEFAULT_LANGUAGE = SUPPORTED_LANGUAGES.FI;
 
 export const ALL_I18N_NAMESPACES = [
+  'cms',
   'common',
-  'footer',
-  'header',
   'enrolment',
   'event',
   'events',
+  'footer',
   'form',
-  'occurrence',
-  'cms',
+  'header',
   'newsletter',
-];
+  'occurrence',
+] as const;
 
 export const PRIVACY_POLICY_LINKS = {
   fi: 'https://hkih.production.geniem.io/uploads/sites/5/2022/11/739f5edc-rekisteriseloste-kultus.fi_.pdf',

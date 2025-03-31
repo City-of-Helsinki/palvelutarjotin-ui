@@ -1,6 +1,7 @@
 import { useTranslation } from 'next-i18next';
 
 import { StudyLevelsQuery, useStudyLevelsQuery } from '../../generated/graphql';
+import type { I18nNamespace } from '../../types';
 import { translateValue } from '../../utils/translateUtils';
 
 interface StudyLevelsState {
@@ -18,7 +19,7 @@ interface StudyLevelOption {
  * Fetch study levels from API and make options of them.
  */
 export default function useStudyLevels(): StudyLevelsState {
-  const { t } = useTranslation();
+  const { t } = useTranslation<I18nNamespace>();
   const { data: studyLevelsData, loading } = useStudyLevelsQuery();
 
   const studyLevelOptions =

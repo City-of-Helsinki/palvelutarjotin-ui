@@ -13,6 +13,7 @@ import {
   OccurrencesOccurrenceSeatTypeChoices,
 } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
+import type { I18nNamespace } from '../../../types';
 import { saveDataForRecommendedEventsQuery } from '../../../utils/recommendedEventsUtils';
 import { assertUnreachable } from '../../../utils/typescript.utils';
 import { ROUTES } from '../../app/routes/constants';
@@ -35,7 +36,7 @@ const EnrolmentFormSection: React.FC<{
   onCloseForm: () => void;
   onEnrol?: () => void;
 }> = ({ event, occurrences, onCloseForm, onEnrol }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation<I18nNamespace>();
   const locale = useLocale();
   const router = useRouter();
   const [enrolOccurrence, { loading: enrolmentLoading }] =

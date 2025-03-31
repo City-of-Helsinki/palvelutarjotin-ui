@@ -4,10 +4,11 @@ import React from 'react';
 
 import styles from './bannerHero.module.scss';
 import { BANNER_IMAGE } from './constants';
+import type { I18nNamespace } from '../../types';
 import Container from '../app/layout/Container';
 
 const BannerHero: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation<I18nNamespace>();
   return (
     <>
       <div className={styles.bannerHeroUpperText}>

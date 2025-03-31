@@ -24,7 +24,7 @@ import { useRHHCConfig } from '../domain/headless-cms/useRHHCConfig';
 import MatomoTracker from '../domain/matomo/Matomo';
 import FocusToTop from '../FocusToTop';
 import useLocale from '../hooks/useLocale';
-import type { AppProps, CustomPageProps } from '../types';
+import type { AppProps, CustomPageProps, I18nNamespace } from '../types';
 import '../styles/globals.scss';
 
 if (process.env.NODE_ENV === 'production') {
@@ -57,7 +57,7 @@ const PageLayoutComponent = (
 const MyApp = ({ Component, pageProps }: AppProps<CustomPageProps>) => {
   const router = useRouter();
   const locale = useLocale();
-  const { t } = useTranslation();
+  const { t } = useTranslation<I18nNamespace>();
   const apolloClient = useApolloClient({
     initialApolloState: pageProps.initialApolloState,
   });

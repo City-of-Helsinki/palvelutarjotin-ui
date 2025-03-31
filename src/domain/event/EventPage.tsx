@@ -23,6 +23,7 @@ import {
   useEventQuery,
 } from '../../generated/graphql';
 import useLocale from '../../hooks/useLocale';
+import type { I18nNamespace } from '../../types';
 import { extractLatestReturnPath } from '../../utils/extractLatestReturnPath';
 import { translateValue } from '../../utils/translateUtils';
 import Container from '../app/layout/Container';
@@ -32,7 +33,7 @@ import NotFoundPage from '../notFoundPage/NotFoundPage';
 import { isEnrolmentStarted } from '../occurrence/utils';
 
 const EventPage = (): ReactElement => {
-  const { t } = useTranslation();
+  const { t } = useTranslation<I18nNamespace>();
   const locale = useLocale();
   const {
     query: { eventId, ...query },
@@ -221,7 +222,7 @@ const EventHero: React.FC<{
   imageAltText?: string | null;
   photographerName?: string | null;
 }> = ({ imageAltText, imageUrl, photographerName }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation<I18nNamespace>();
   const { asPath } = useRouter();
   const [, search] = asPath.split('?');
   const { returnPath, remainingQueryString } = extractLatestReturnPath(search);
@@ -264,7 +265,7 @@ const EnrolmentFormContainer: React.FC<{
   occurrences,
   handleOnEnrol,
 }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation<I18nNamespace>();
   const enrolmentFormRef = React.useRef<HTMLDivElement>(null);
 
   React.useEffect(() => {
@@ -319,7 +320,7 @@ const QueueFormContainer: React.FC<{
   event: EventFieldsFragment;
   handleOnQueue: () => void;
 }> = ({ showQueueForm, setShowQueueForm, event, handleOnQueue }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation<I18nNamespace>();
   const queueFormRef = React.useRef<HTMLDivElement>(null);
 
   React.useEffect(() => {

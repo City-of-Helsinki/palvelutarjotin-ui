@@ -4,6 +4,7 @@ import { Select, SelectProps } from 'hds-react';
 import { useTranslation } from 'next-i18next';
 import React from 'react';
 
+import type { I18nNamespace } from '../../../../types';
 import { invalidFieldClass } from '../constants';
 import styles from '../multiDropdownField.module.scss';
 import { getErrorText } from '../utils';
@@ -38,7 +39,7 @@ const MultiDropdownField: React.FC<Props> = ({
   hideLabel,
   ...rest
 }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation<I18nNamespace>();
   const errorText = getErrorText(errors, touched, name, t);
 
   const handleChange = (val: Option | Option[]) => {

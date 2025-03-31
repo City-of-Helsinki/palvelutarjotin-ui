@@ -4,6 +4,7 @@ import * as React from 'react';
 import styles from './eventBasicInfo.module.scss';
 import { EventFieldsFragment } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
+import type { I18nNamespace } from '../../../types';
 import keywordArrayToText from '../../../utils/keywordArrayToText';
 import { getEventFields, getRealKeywords } from '../utils';
 
@@ -14,7 +15,7 @@ const EventCategorisation: React.FC<{
 }> = ({ event }) => {
   const locale = useLocale();
   const realKeywords = getRealKeywords({ event });
-  const { t } = useTranslation();
+  const { t } = useTranslation<I18nNamespace>();
   const { categories, activities, audience, languages } = getEventFields(
     event,
     locale

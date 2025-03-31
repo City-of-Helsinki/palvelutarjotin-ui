@@ -13,6 +13,7 @@ import { PopularKeywords } from './PopularKeywords';
 import { useUpcomingEvents } from './useUpcomingEvents';
 import { getSearchQueryObject } from './utils';
 import LoadingSpinner from '../../common/components/loadingSpinner/LoadingSpinner';
+import type { I18nNamespace } from '../../types';
 import Container from '../app/layout/Container';
 import PageWrapper from '../app/layout/PageWrapper';
 import { ROUTES } from '../app/routes/constants';
@@ -24,7 +25,7 @@ const panelStates = {
 };
 
 const EventsPageMeta: React.FC = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation<I18nNamespace>();
   const title = 'Kultus';
   const description = t('events:pageMeta.description');
 
@@ -46,7 +47,7 @@ const EventsPageMeta: React.FC = () => {
 };
 
 const EventsPage = (): ReactElement => {
-  const { t } = useTranslation();
+  const { t } = useTranslation<I18nNamespace>();
   const router = useRouter();
   const [searchPanelState, setSearchPanelState] = React.useState<PanelState>(
     panelStates.closed

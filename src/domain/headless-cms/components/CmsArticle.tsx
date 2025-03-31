@@ -11,7 +11,7 @@ import { getCmsCollectionList } from './utils';
 import PageMeta from '../../../common/components/meta/PageMeta';
 import { SUPPORTED_LANGUAGES } from '../../../constants';
 import { ArticleQuery, Post } from '../../../generated/graphql-cms';
-import { Language } from '../../../types';
+import type { I18nNamespace, Language } from '../../../types';
 import { getCmsArticlePath } from '../../app/routes/utils';
 import { stripLocaleFromUri } from '../utils';
 
@@ -20,7 +20,7 @@ const CmsArticle: React.FC<{
   breadcrumbs: BreadcrumbListItem[];
   collections?: GeneralCollectionType[];
 }> = ({ article, breadcrumbs, collections = [] }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation<I18nNamespace>();
 
   if (!article) return null;
 

@@ -4,11 +4,12 @@ import React from 'react';
 
 import ShareLinkBase from './ShareLinkBase';
 import { ShareLinkProps } from './types';
+import type { I18nNamespace } from '../../../types';
 
 const fbShareUrl = 'https://www.facebook.com/sharer/sharer.php';
 
 const FacebookShareLink: React.FC<ShareLinkProps> = ({ sharedLink }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation<I18nNamespace>();
 
   const queryParameters = { u: sharedLink };
   const linkLabel = t('common:shareLink.shareOnFacebook');

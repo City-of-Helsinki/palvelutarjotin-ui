@@ -2,6 +2,7 @@ import { useTranslation } from 'next-i18next';
 import * as React from 'react';
 
 import ErrorMessage from '../../../common/components/form/ErrorMessage';
+import type { I18nNamespace } from '../../../types';
 import { translateValue } from '../../../utils/translateUtils';
 import { ENROLMENT_ERRORS } from '../../enrolment/constants';
 
@@ -10,7 +11,7 @@ interface Props {
 }
 
 const EnrolmentError = ({ error }: Props): JSX.Element => {
-  const { t } = useTranslation();
+  const { t } = useTranslation<I18nNamespace>();
 
   return (
     <ErrorMessage>

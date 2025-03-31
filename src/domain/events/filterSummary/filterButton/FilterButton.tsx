@@ -4,6 +4,7 @@ import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import styles from './filterButton.module.scss';
+import type { I18nNamespace } from '../../../../types';
 
 export type FilterType = 'organisation' | 'categories';
 
@@ -20,7 +21,7 @@ const FilterButton: React.FC<FilterButtonProps> = ({
   type,
   value,
 }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation<I18nNamespace>();
   return (
     <div className={classNames(styles.filter, styles[type])}>
       <button

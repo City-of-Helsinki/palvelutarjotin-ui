@@ -11,6 +11,7 @@ import {
 import AppConfig from './config';
 import { getRoutedInternalHrefForLocale } from './utils';
 import useLocale from '../../hooks/useLocale';
+import type { I18nNamespace } from '../../types';
 import getLanguageCode from '../../utils/getCurrentLanguageCode';
 
 const CMS_API_DOMAIN = AppConfig.cmsOrigin;
@@ -30,7 +31,7 @@ export const useRHHCConfig = ({
   eventsApolloClient?: ApolloClient<NormalizedCacheObject>;
 }) => {
   const locale = useLocale();
-  const { t } = useTranslation();
+  const { t } = useTranslation<I18nNamespace>();
   return React.useMemo(
     (): Config => ({
       ...rhhcDefaultConfig,

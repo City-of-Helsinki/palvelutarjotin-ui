@@ -4,6 +4,7 @@ import { PlaceInfoLinkProps } from './PlaceInfo';
 import { PlaceMapLinkEntryProps } from './PlaceMapLink';
 import { usePlaceQuery } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
+import type { I18nNamespace } from '../../../types';
 import {
   generateHslLink,
   generateServiceMapLink,
@@ -12,7 +13,7 @@ import {
 
 function usePlaceMapLinks(props: PlaceInfoLinkProps): PlaceMapLinkEntryProps[] {
   const { id, language } = props;
-  const { t } = useTranslation();
+  const { t } = useTranslation<I18nNamespace>();
   const locale = useLocale();
   const { data } = usePlaceQuery({ variables: { id }, skip: !id });
 

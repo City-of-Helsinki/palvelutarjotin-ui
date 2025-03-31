@@ -3,6 +3,7 @@ import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import styles from './enrolmentButton.module.scss';
+import type { I18nNamespace } from '../../../types';
 
 interface EnrolmentButtonProps {
   neededOccurrences?: number;
@@ -15,7 +16,7 @@ const EnrolmentButton: React.FC<EnrolmentButtonProps> = ({
   enrolOccurrences,
   neededOccurrences,
 }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation<I18nNamespace>();
 
   return (
     <div className={styles.enrolmentButtonWrapper}>

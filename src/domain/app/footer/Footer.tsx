@@ -8,6 +8,7 @@ import styles from './footer.module.scss';
 import { resetFocusId } from '../../../common/components/resetFocus/ResetFocus';
 import { DEFAULT_FOOTER_MENU_NAME } from '../../../constants';
 import useLocale from '../../../hooks/useLocale';
+import type { I18nNamespace } from '../../../types';
 import { isFeatureEnabled } from '../../../utils/featureFlags';
 import { getIsHrefExternal } from '../../headless-cms/useRHHCConfig';
 import { getRoutedInternalHrefForLocale } from '../../headless-cms/utils';
@@ -25,7 +26,7 @@ const DynamicClientLink = dynamic(
 );
 
 const FooterSection = (): React.ReactElement => {
-  const { t } = useTranslation();
+  const { t } = useTranslation<I18nNamespace>();
   const locale = useLocale();
   const { data, loading } = useMenuQuery({
     skip: !isFeatureEnabled('HEADLESS_CMS') || !locale,

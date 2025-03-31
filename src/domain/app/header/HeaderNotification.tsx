@@ -10,6 +10,7 @@ import {
   useNotificationQuery,
 } from '../../../generated/graphql-cms';
 import useLocale from '../../../hooks/useLocale';
+import type { I18nNamespace } from '../../../types';
 import hash from '../../../utils/hash';
 import { useCMSApolloClient } from '../../headless-cms/apollo/apolloClient';
 
@@ -32,7 +33,7 @@ const notificationTypeMap: Record<CmsNotificationTypes, NotificationType> = {
 };
 
 const HeaderNotification: React.FC = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation<I18nNamespace>();
   const locale = useLocale();
   const [notificationState, setNotificationState] =
     useLocalStorage<NotificationState>(NOTIFICATION_STORAGE_KEY, {

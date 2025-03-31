@@ -7,6 +7,7 @@ import React from 'react';
 import styles from './dateFilter.module.scss';
 import { DATE_FORMAT } from '../../../common/components/form/fields/DateInputField';
 import useLocale from '../../../hooks/useLocale';
+import type { I18nNamespace } from '../../../types';
 
 export interface DateFilterProps {
   dateFiltersChanged: boolean;
@@ -29,7 +30,7 @@ const DateFilter: React.FC<DateFilterProps> = ({
   startDate,
   endDate,
 }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation<I18nNamespace>();
   const locale = useLocale();
   const startDateFilterId = 'date-start-filter';
   const endDateFilterId = 'date-end-filter';

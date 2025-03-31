@@ -15,6 +15,7 @@ import {
   EventDocument,
 } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
+import type { I18nNamespace } from '../../../types';
 import formatTimeRange from '../../../utils/formatTimeRange';
 import {
   formatIntoDate,
@@ -39,7 +40,7 @@ const OccurrenceInfo: React.FC<{
   const enrolmentFormRef = React.useRef<HTMLDivElement>(null);
   const enrolButtonRef = React.useRef<HTMLButtonElement>(null);
   const { placeId, startTime, endTime } = occurrence;
-  const { t } = useTranslation();
+  const { t } = useTranslation<I18nNamespace>();
   const locale = useLocale();
   const enrolmentType = getEnrolmentType(event.pEvent);
   const hasInternalEnrolment = enrolmentType === EnrolmentType.Internal;

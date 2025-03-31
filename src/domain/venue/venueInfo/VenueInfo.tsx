@@ -10,7 +10,7 @@ import IconGarderobe from '../../../icons/IconGarderobe';
 import IconPlayIndoor from '../../../icons/IconPlayIndoor';
 import IconPlayOutdoor from '../../../icons/IconPlayOutdoor';
 import IconToilet from '../../../icons/IconToilet';
-import { Language } from '../../../types';
+import type { I18nNamespace, Language } from '../../../types';
 import { getVenueDescription, getVenueFields } from '../utils';
 
 interface Props {
@@ -19,7 +19,7 @@ interface Props {
 }
 
 const VenueInfo: React.FC<Props> = ({ language, placeId }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation<I18nNamespace>();
   const { data: venueData } = useVenueQuery({ variables: { id: placeId } });
   const venueDescription = getVenueDescription(venueData, language);
   const {
