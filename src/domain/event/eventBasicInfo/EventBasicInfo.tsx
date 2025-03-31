@@ -15,12 +15,13 @@ import TextWithHTMLOrLineBreaks from '../../../common/components/textWithHTMLOrL
 import { EventFieldsFragment } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
 import IconTicket from '../../../icons/IconTicket';
+import type { I18nNamespace } from '../../../types';
 import addUrlSlashes from '../../../utils/addUrlSlashes';
 import { ROUTES } from '../../app/routes/constants';
 import { getEventFields } from '../utils';
 
 const QueueingAllowed: React.FC = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation<I18nNamespace>();
   return (
     <div>
       <IconLockOpen />
@@ -30,7 +31,7 @@ const QueueingAllowed: React.FC = () => {
 };
 
 const QueueingNotAllowed: React.FC = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation<I18nNamespace>();
   return (
     <div>
       <IconLock />
@@ -45,7 +46,7 @@ interface EventBasicInfoProps {
 
 const EventBasicInfo: React.FC<EventBasicInfoProps> = ({ event }) => {
   const locale = useLocale();
-  const { t } = useTranslation();
+  const { t } = useTranslation<I18nNamespace>();
 
   const {
     description,
@@ -126,7 +127,7 @@ const OrganisationInfo: React.FC<{
   contactPerson,
   contactPhoneNumber,
 }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation<I18nNamespace>();
   const organisationSearchUrl = `${ROUTES.EVENTS_SEARCH}/?organisation=${organisationId}`;
   return (
     <div>

@@ -6,6 +6,7 @@ import React from 'react';
 import styles from './eventsPage.module.scss';
 import { usePopularKeywordsQuery } from '../../generated/graphql';
 import useLocale from '../../hooks/useLocale';
+import type { I18nNamespace } from '../../types';
 import localizedString from '../../utils/getLocalisedString';
 import Container from '../app/layout/Container';
 import { ROUTES } from '../app/routes/constants';
@@ -18,7 +19,7 @@ import { ROUTES } from '../app/routes/constants';
  */
 export const PopularKeywords: React.FC = () => {
   const locale = useLocale();
-  const { t } = useTranslation();
+  const { t } = useTranslation<I18nNamespace>();
   const { data } = usePopularKeywordsQuery({
     variables: {
       amount: 10,

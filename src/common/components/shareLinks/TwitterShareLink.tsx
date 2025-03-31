@@ -4,11 +4,12 @@ import React from 'react';
 
 import ShareLinkBase from './ShareLinkBase';
 import { ShareLinkProps } from './types';
+import type { I18nNamespace } from '../../../types';
 
 const twitterShareUrl = 'https://twitter.com/share';
 
 const TwitterShareLink: React.FC<ShareLinkProps> = ({ sharedLink }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation<I18nNamespace>();
   const queryParameters = { url: sharedLink };
   const linkLabel = t('common:shareLink.shareOnTwitter');
 

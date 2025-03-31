@@ -25,6 +25,7 @@ import FormikPersist from '../../../common/components/formikPersist/FormikPersis
 import { FORM_NAMES, PRIVACY_POLICY_LINKS } from '../../../constants';
 import { Language } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
+import type { I18nNamespace } from '../../../types';
 import keyify from '../../../utils/keyify';
 import { translateValue } from '../../../utils/translateUtils';
 import useStudyLevels from '../../studyLevel/useStudyLevels';
@@ -50,7 +51,7 @@ const EnrolmentForm: React.FC<Props> = ({
   maxGroupSize,
   actionType = 'enrolment',
 }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation<I18nNamespace>();
   const locale = useLocale();
 
   const { options: studyLevelOptions } = useStudyLevels();
@@ -404,7 +405,7 @@ const SmsNotificationField: React.FC<{
   name: string;
   label: string;
 }> = ({ name, label }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation<I18nNamespace>();
 
   const { values, setFieldValue } = useFormikContext();
 

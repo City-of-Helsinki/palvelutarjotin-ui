@@ -4,6 +4,7 @@ import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import styles from './errorPage.module.scss';
+import type { I18nNamespace } from '../../types';
 import Container from '../app/layout/Container';
 import { ROUTES } from '../app/routes/constants';
 
@@ -11,7 +12,7 @@ const ErrorPage: React.FC<{
   title?: string;
   description?: React.ReactNode;
 }> = ({ title, description }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation<I18nNamespace>();
   const router = useRouter();
 
   const goToFrontPage = () => {

@@ -2,6 +2,7 @@ import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import styles from './dropdownMenu.module.scss';
+import type { I18nNamespace } from '../../../types';
 
 interface Props {
   isOpen: boolean;
@@ -10,7 +11,7 @@ interface Props {
 }
 
 const DropdownMenu: React.FC<Props> = ({ children, isOpen, onClear }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation<I18nNamespace>();
   if (!isOpen) return null;
 
   return (

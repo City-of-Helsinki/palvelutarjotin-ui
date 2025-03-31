@@ -15,6 +15,7 @@ import TextInputField from '../../../common/components/form/fields/TextInputFiel
 import { Option as DropdownOption } from '../../../common/components/multiSelectDropdown/MultiSelectDropdown';
 import { EVENT_LANGUAGES } from '../../../constants';
 import useLocale from '../../../hooks/useLocale';
+import type { I18nNamespace } from '../../../types';
 import {
   BOOKABLE_TO_SCHOOL_LOCATION_ID,
   KEYWORD_QUERY_PARAMS,
@@ -76,7 +77,7 @@ const EventSearchForm = ({
   filterActive,
 }: Props): React.ReactElement => {
   const locale = useLocale();
-  const { t } = useTranslation();
+  const { t } = useTranslation<I18nNamespace>();
   const languageOptions = React.useMemo(
     () =>
       Object.values(EVENT_LANGUAGES).map((language) => ({

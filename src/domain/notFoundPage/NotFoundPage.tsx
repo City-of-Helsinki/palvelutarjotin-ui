@@ -2,6 +2,7 @@ import NextLink from 'next/link';
 import { useTranslation, Trans } from 'next-i18next';
 import React, { ReactElement } from 'react';
 
+import type { I18nNamespace } from '../../types';
 import ErrorPage from '../errorPage/ErrorPage';
 
 interface RootLinkProps {
@@ -16,7 +17,7 @@ const RootLink = ({ children }: RootLinkProps) => (
 );
 
 const NotFoundPage = (): ReactElement => {
-  const { t } = useTranslation();
+  const { t } = useTranslation<I18nNamespace>();
 
   return (
     <ErrorPage

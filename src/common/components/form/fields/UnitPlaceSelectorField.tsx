@@ -4,6 +4,7 @@ import { useTranslation } from 'next-i18next';
 import * as React from 'react';
 
 import UnitPlaceSelector from '../../../../domain/place/unitSelector/UnitPlaceSelector';
+import type { I18nNamespace } from '../../../../types';
 import { invalidFieldClass } from '../constants';
 import { getErrorText } from '../utils';
 
@@ -17,7 +18,7 @@ interface Props extends FieldProps {
 }
 
 const UnitPlaceSelectorField: React.FC<Props> = (props) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation<I18nNamespace>();
   const {
     className,
     field: { name, onBlur, onChange, ...field },

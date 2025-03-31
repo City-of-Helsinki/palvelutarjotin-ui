@@ -4,6 +4,7 @@ import { Checkbox, CheckboxProps } from 'hds-react';
 import { useTranslation } from 'next-i18next';
 import React from 'react';
 
+import type { I18nNamespace } from '../../../../types';
 import { invalidFieldClass } from '../constants';
 import { getErrorText } from '../utils';
 
@@ -17,7 +18,7 @@ const CheckboxField: React.FC<Props> = (props) => {
     ...rest
   } = props;
 
-  const { t } = useTranslation();
+  const { t } = useTranslation<I18nNamespace>();
   const errorText = getErrorText(errors, touched, name, t);
 
   return (

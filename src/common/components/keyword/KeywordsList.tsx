@@ -16,7 +16,7 @@ import {
 } from '../../../domain/events/eventSearchForm/useKeywordOptions';
 import { KeywordFieldsFragment } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
-import { Language } from '../../../types';
+import type { I18nNamespace, Language } from '../../../types';
 import getLocalisedString from '../../../utils/getLocalisedString';
 
 type KeywordsListProps = {
@@ -33,7 +33,7 @@ const KeywordsList: React.FC<KeywordsListProps> = ({
   identifier,
 }) => {
   const locale = useLocale();
-  const { t } = useTranslation();
+  const { t } = useTranslation<I18nNamespace>();
   const keywordOptions = useKeywordOptions();
   const keywordsPropArr = getKeywordsProps(keywords, keywordOptions, locale);
 

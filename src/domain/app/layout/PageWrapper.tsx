@@ -6,7 +6,7 @@ import PageMeta, {
   getLanguageAwarePath,
 } from '../../../common/components/meta/PageMeta';
 import { SUPPORTED_LANGUAGES } from '../../../constants';
-import { Language } from '../../../types';
+import type { I18nNamespace, Language } from '../../../types';
 
 interface Props {
   title?: string;
@@ -14,7 +14,7 @@ interface Props {
 }
 
 const PageWrapper: React.FC<Props> = ({ children, title = 'appName' }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation<I18nNamespace>();
   const { asPath } = useRouter();
 
   const translatedTitle =

@@ -5,6 +5,7 @@ import React from 'react';
 import Table from '../../../common/components/table/Table';
 import { OccurrenceFieldsFragment } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
+import type { I18nNamespace } from '../../../types';
 import formatTimeRange from '../../../utils/formatTimeRange';
 import { DATE_FORMAT, formatLocalizedDate } from '../../../utils/time/format';
 import { getAmountOfSeatsLeft } from '../../occurrence/utils';
@@ -16,7 +17,7 @@ interface Props {
 }
 
 const OccurrenceTable: React.FC<Props> = ({ eventLocationId, occurrences }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation<I18nNamespace>();
   const locale = useLocale();
   const columns = [
     {

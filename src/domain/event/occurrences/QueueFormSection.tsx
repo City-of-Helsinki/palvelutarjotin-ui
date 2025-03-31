@@ -10,6 +10,7 @@ import {
   useEnrolEventQueueMutation,
 } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
+import type { I18nNamespace } from '../../../types';
 import { ROUTES } from '../../app/routes/constants';
 import { ENROLMENT_URL_PARAMS } from '../../enrolment/constants';
 import {
@@ -25,7 +26,7 @@ const QueueFormSection: React.FC<{
   onCloseForm: () => void;
   onQueue?: () => void;
 }> = ({ event, onCloseForm, onQueue }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation<I18nNamespace>();
   const locale = useLocale();
   const router = useRouter();
 

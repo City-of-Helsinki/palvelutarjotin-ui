@@ -5,6 +5,7 @@ import { DateInput, DateInputProps } from 'hds-react';
 import { useTranslation } from 'next-i18next';
 import React from 'react';
 
+import type { I18nNamespace } from '../../../../types';
 import { invalidFieldClass } from '../constants';
 import { getErrorText } from '../utils';
 
@@ -14,7 +15,7 @@ export const DATE_FORMAT = 'd.M.yyyy';
 type Props = FieldProps & Omit<DateInputProps, 'form'>;
 
 const InputField: React.FC<Props> = (props) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation<I18nNamespace>();
   const {
     className,
     field: { name, onChange, onBlur, ...field },

@@ -11,6 +11,7 @@ import {
   usePlaceQuery,
 } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
+import type { I18nNamespace } from '../../../types';
 import getDateArray from '../../../utils/getDateArray';
 import getDomain from '../../../utils/getDomain';
 import getLocalisedString from '../../../utils/getLocalisedString';
@@ -26,7 +27,7 @@ const CalendarButton: React.FC<CalendarButtonProps> = ({
   event,
   occurrence,
 }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation<I18nNamespace>();
   const locale = useLocale();
   const placeId = occurrence.placeId || event.location?.id || '';
 

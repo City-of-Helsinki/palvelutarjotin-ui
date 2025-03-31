@@ -14,6 +14,7 @@ import {
   EventFieldsFragment,
   OccurrenceFieldsFragment,
 } from '../../../generated/graphql';
+import type { I18nNamespace } from '../../../types';
 import isEmail from '../../../utils/isEmail';
 import { formatIntoDate, formatIntoTime } from '../../../utils/time/format';
 import { isEnrolmentStarted } from '../../occurrence/utils';
@@ -33,7 +34,7 @@ const OccurrenceEnrolmentButton: React.FC<Props> = ({
   toggleForm,
   enrolButtonRef,
 }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation<I18nNamespace>();
 
   const externalEnrolmentUrl = event.pEvent.externalEnrolmentUrl;
   const enrolmentStart = event.pEvent.enrolmentStart;

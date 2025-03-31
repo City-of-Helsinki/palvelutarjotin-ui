@@ -10,6 +10,7 @@ import MultiDropdownField from '../../../common/components/form/fields/MultiDrop
 import TextInputField from '../../../common/components/form/fields/TextInputField';
 import FocusToFirstError from '../../../common/components/form/FocusToFirstError';
 import FormGroup from '../../../common/components/form/FormGroup';
+import type { I18nNamespace } from '../../../types';
 import { translateValue } from '../../../utils/translateUtils';
 
 export const defaultInitialValues: NewsletterSubscribeFormFields = {
@@ -31,7 +32,7 @@ const NewsletterSubscribeForm: React.FC<Props> = ({
   initialValues = defaultInitialValues,
   onSubmit,
 }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation<I18nNamespace>();
 
   const validationSchema = getValidationSchema();
 

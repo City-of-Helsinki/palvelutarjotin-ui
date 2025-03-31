@@ -10,6 +10,7 @@ import {
 import CmsPageSearch from './CmsPageSearch/CmsPageSearch';
 import { getCmsCollectionList } from './utils';
 import { Page } from '../../../generated/graphql-cms';
+import type { I18nNamespace } from '../../../types';
 
 export const SEARCH_PANEL_TRESHOLD = 2;
 
@@ -19,7 +20,7 @@ const CmsPage: React.FC<{
   collections?: GeneralCollectionType[];
   hideHero?: boolean;
 }> = ({ page, breadcrumbs, collections = [], hideHero = true }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation<I18nNamespace>();
 
   if (!page) return null;
 

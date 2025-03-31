@@ -11,7 +11,7 @@ import {
 import styles from './autoSuggest.module.scss';
 import useKeyboardNavigation from '../../../hooks/useDropdownKeyboardNavigation';
 import useLocale from '../../../hooks/useLocale';
-import { Language } from '../../../types';
+import type { I18nNamespace, Language } from '../../../types';
 import ScrollIntoViewWithFocus from '../scrollIntoViewWithFocus/ScrollIntoViewWithFocus';
 import InputWrapper from '../textInput/InputWrapper';
 import inputStyles from '../textInput/inputWrapper.module.scss';
@@ -115,7 +115,7 @@ const AutoSuggest: React.FC<AutoSuggestProps> = ({
   value,
   required,
 }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation<I18nNamespace>();
   const locale = useLocale();
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const [isFocused, setIsFocused] = React.useState(false);

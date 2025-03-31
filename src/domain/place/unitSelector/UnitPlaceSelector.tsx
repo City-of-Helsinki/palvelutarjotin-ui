@@ -13,7 +13,7 @@ import {
 } from '../../../generated/graphql';
 import useDebounce from '../../../hooks/useDebounce';
 import useLocale from '../../../hooks/useLocale';
-import { Language } from '../../../types';
+import type { I18nNamespace, Language } from '../../../types';
 import getLocalisedString from '../../../utils/getLocalisedString';
 import PlaceText from '../placeText/PlaceText';
 
@@ -45,7 +45,7 @@ const UnitPlaceSelector: React.FC<Props> = ({
   disabled,
 }) => {
   const locale = useLocale();
-  const { t } = useTranslation();
+  const { t } = useTranslation<I18nNamespace>();
   const [inputValue, setInputValue] = React.useState('');
   const searchValue = useDebounce(inputValue, 500);
   const apolloClient = useApolloClient();

@@ -6,6 +6,7 @@ import React, { ReactElement } from 'react';
 import styles from './eventList.module.scss';
 import LoadingSpinner from '../../../common/components/loadingSpinner/LoadingSpinner';
 import { EventsFieldsFragment } from '../../../generated/graphql';
+import type { I18nNamespace } from '../../../types';
 import { addParamsToQueryString } from '../../../utils/queryString';
 import { translateValue } from '../../../utils/translateUtils';
 import { ROUTES } from '../../app/routes/constants';
@@ -42,7 +43,7 @@ const EventList = ({
     returnPath: pathname,
   });
 
-  const { t } = useTranslation();
+  const { t } = useTranslation<I18nNamespace>();
   const sortOptions = React.useMemo(() => {
     return Object.keys(EVENT_SORT_OPTIONS).map((key) => {
       return {

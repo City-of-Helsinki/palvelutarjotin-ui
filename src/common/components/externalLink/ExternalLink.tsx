@@ -2,6 +2,7 @@ import { IconLinkExternal } from 'hds-react';
 import { useTranslation } from 'next-i18next';
 import * as React from 'react';
 
+import type { I18nNamespace } from '../../../types';
 import SrOnly from '../SrOnly/SrOnly';
 
 type Props = React.AnchorHTMLAttributes<HTMLAnchorElement> & {
@@ -14,7 +15,7 @@ const ExternalLink: React.FC<Props> = ({
   iconPosition = 'right',
   ...props
 }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation<I18nNamespace>();
   return (
     <a {...props} href={props.href} target="_blank" rel="noreferrer">
       {iconPosition === 'left' && (

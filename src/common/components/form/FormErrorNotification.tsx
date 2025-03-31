@@ -5,12 +5,13 @@ import * as React from 'react';
 
 import styles from './errorMessage.module.scss';
 import { doFocus as focusToFirstError } from './FocusToFirstError';
+import type { I18nNamespace } from '../../../types';
 
 const FormErrorNotification: React.FC<{
   errors: string[];
   visible: boolean;
 }> = ({ errors, visible }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation<I18nNamespace>();
   const { submitCount, isSubmitting } = useFormikContext();
   const containerRef = React.useRef<HTMLDivElement>(null);
   const tabUsed = React.useRef<boolean>(false);

@@ -6,7 +6,7 @@ import PlaceMapLink from './PlaceMapLink';
 import usePlaceMapLinks from './usePlaceMapLinks';
 import { usePlaceQuery } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
-import { Language } from '../../../types';
+import type { I18nNamespace, Language } from '../../../types';
 import VenueInfo from '../../venue/venueInfo/VenueInfo';
 import { getPlaceFields } from '../utils';
 
@@ -32,7 +32,7 @@ const PlaceInfo: React.FC<PlaceInfoProps> = ({
   showVenueInfo,
   showPlaceInfoLinks,
 }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation<I18nNamespace>();
   const locale = useLocale();
   const { data } = usePlaceQuery({ variables: { id }, skip: !id });
 

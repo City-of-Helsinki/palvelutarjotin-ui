@@ -15,6 +15,7 @@ import {
 } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
 import IconClock from '../../../icons/IconClock';
+import type { I18nNamespace } from '../../../types';
 import getLocalisedString from '../../../utils/getLocalisedString';
 import PlaceText from '../../place/placeText/PlaceText';
 import { getEventPlaceholderImage } from '../utils';
@@ -88,7 +89,7 @@ const EventPlaceInfo: React.FC<{
 const EventTime: React.FC<{
   event: EventsFieldsFragment;
 }> = ({ event }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation<I18nNamespace>();
   const [showOccurrences, setShowOccurrences] = React.useState(false);
 
   const toggleShowOccurrences = (
@@ -160,7 +161,7 @@ const EventTime: React.FC<{
 const OccurrenceTime: React.FC<{
   occurrence: { startTime: string; endTime: string };
 }> = ({ occurrence }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation<I18nNamespace>();
   const locale = useLocale();
   return (
     <li className={styles.textWithIcon}>

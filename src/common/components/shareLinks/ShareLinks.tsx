@@ -7,6 +7,7 @@ import FacebookShareLink from './FacebookShareLink';
 import LinkedInShareLink from './LinkedInShareLink';
 import styles from './shareLinks.module.scss';
 import TwitterShareLink from './TwitterShareLink';
+import type { I18nNamespace } from '../../../types';
 import isClient from '../../../utils/isClient';
 import CopyButton from '../copyButton/CopyButton';
 
@@ -15,7 +16,7 @@ export interface ShareLinksProps {
 }
 
 const ShareLinks: React.FC<ShareLinksProps> = ({ title }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation<I18nNamespace>();
   // We are using the client only accessible href. By doing this, we do not need
   // to pass the original request from the server. This same pattern was used in
   // MyHelsinki. Limitation is that sharing buttons will be re-rendered on client

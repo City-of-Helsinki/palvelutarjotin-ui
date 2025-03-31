@@ -2,13 +2,14 @@ import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import { OccurrenceFieldsFragment } from '../../../generated/graphql';
+import type { I18nNamespace } from '../../../types';
 
 interface Props {
   occurrence: OccurrenceFieldsFragment;
 }
 
 const OccurrenceGroupInfo: React.FC<Props> = ({ occurrence }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation<I18nNamespace>();
 
   const amountOfSeats = occurrence?.amountOfSeats;
   const maxGroupSize = occurrence?.maxGroupSize;

@@ -5,6 +5,7 @@ import { useTranslation } from 'next-i18next';
 import React, { useCallback } from 'react';
 
 import useLocale from '../../hooks/useLocale';
+import type { I18nNamespace } from '../../types';
 import { MAIN_CONTENT_ID } from '../app/layout/PageLayout';
 
 type Props = {
@@ -14,7 +15,7 @@ type Props = {
 
 const CookieConsent: React.FC<Props> = ({ appName, allowLanguageSwitch }) => {
   const locale = useLocale();
-  const { t, i18n } = useTranslation();
+  const { t, i18n } = useTranslation<I18nNamespace>();
   const [language, setLanguage] =
     React.useState<ContentSource['currentLanguage']>(locale);
   const [showCookieConsentModal, setShowCookieConsentModal] =

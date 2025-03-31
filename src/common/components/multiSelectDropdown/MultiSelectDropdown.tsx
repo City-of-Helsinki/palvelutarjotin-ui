@@ -6,6 +6,7 @@ import React, { ReactNode } from 'react';
 import DropdownMenu from './DropdownMenu';
 import styles from './multiSelectDropdown.module.scss';
 import useKeyboardNavigation from '../../../hooks/useDropdownKeyboardNavigation';
+import type { I18nNamespace } from '../../../types';
 import ScrollIntoViewWithFocus from '../scrollIntoViewWithFocus/ScrollIntoViewWithFocus';
 import SearchLabel from '../search/searchLabel/SearchLabel';
 
@@ -55,7 +56,7 @@ const MultiSelectDropdown: React.FC<MultiselectDropdownProps> = ({
   className,
   helpText,
 }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation<I18nNamespace>();
   const inputPlaceholderText =
     inputPlaceholder || t('common:multiSelectDropdown.inputPlaceholder');
   const [internalInput, setInternalInput] = React.useState('');

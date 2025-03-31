@@ -4,6 +4,7 @@ import { Select, SelectProps } from 'hds-react';
 import { useTranslation } from 'next-i18next';
 import React from 'react';
 
+import type { I18nNamespace } from '../../../../types';
 import { invalidFieldClass } from '../constants';
 import { getErrorText } from '../utils';
 
@@ -34,7 +35,7 @@ const DropdownField: React.FC<Props> = ({
   setFieldValue,
   ...allRest
 }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation<I18nNamespace>();
   const errorText = getErrorText(errors, touched, name, t);
 
   // Remove unused props

@@ -20,6 +20,7 @@ import {
 } from './utils';
 import LoadingSpinner from '../../common/components/loadingSpinner/LoadingSpinner';
 import { useEventsQuery } from '../../generated/graphql';
+import type { I18nNamespace } from '../../types';
 import getPageNumberFromUrl from '../../utils/getPageNumberFromUrl';
 import Container from '../app/layout/Container';
 import PageWrapper from '../app/layout/PageWrapper';
@@ -39,7 +40,7 @@ const getPanelStateFromQuery = (query: ParsedUrlQuery) => {
 };
 
 const EventsSearchPage: React.FC = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation<I18nNamespace>();
   const router = useRouter();
   const [searchPanelState, setSearchPanelState] = React.useState<PanelState>(
     () => getPanelStateFromQuery(router.query)
