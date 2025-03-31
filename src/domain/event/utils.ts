@@ -15,6 +15,7 @@ import {
   PEventFieldsFragment,
 } from '../../generated/graphql';
 import { Language } from '../../types';
+import { extractLatestReturnPath } from '../../utils/extractLatestReturnPath';
 import getLocalisedString from '../../utils/getLocalisedString';
 import { formatIntoTime, formatLocalizedDate } from '../../utils/time/format';
 import { isEnrolmentStarted } from '../occurrence/utils';
@@ -187,4 +188,23 @@ export const shouldEventSupportQueueEnrolments = (
     hasEnrolmentStarted &&
     hasOccurrences
   );
+};
+
+// Helper function to extract return path and query string
+const extractReturnPathAndQuery = (search: string | undefined) => {
+  if (!search) {
+    return { returnPath: '/', remainingQueryString: undefined };
+  }
+  const { returnPath, remainingQueryString } = extractLatestReturnPath(search);
+  return { returnPath, remainingQueryString };
+};
+
+// Helper function to create the href object for NextLink
+export const createBackButtonHref = (search: string | undefined) => {
+  const { returnPath, remainingQueryString } =
+    extractReturnPathAndQuery(search);
+  return {
+    pathname: returnPath,
+    search: remainingQueryString,
+  };
 };
