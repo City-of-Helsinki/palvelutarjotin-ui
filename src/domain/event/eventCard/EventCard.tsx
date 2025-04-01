@@ -16,6 +16,7 @@ import useLocale from '../../../hooks/useLocale';
 import IconClock from '../../../icons/IconClock';
 import type { I18nNamespace } from '../../../types';
 import getLocalisedString from '../../../utils/getLocalisedString';
+import { SCROLL_RESTORATION_ELEMENT_ID_PREFIX } from '../../events/constants';
 import PlaceText from '../../place/placeText/PlaceText';
 import { getEventPlaceholderImage } from '../utils';
 
@@ -36,7 +37,7 @@ const EventCard: React.FC<Props> = ({ event, link }) => {
   const keywords = [...event.keywords, ...event.audience];
   const enrolmentStatus = getEventEnrolmentStatus(event);
   const { t } = useTranslation();
-  const elementId = `event-card:${id}`;
+  const elementId = `${SCROLL_RESTORATION_ELEMENT_ID_PREFIX}${id}`;
   return (
     <NextLink
       href={link}

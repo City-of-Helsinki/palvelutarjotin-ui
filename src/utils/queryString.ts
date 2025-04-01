@@ -35,7 +35,9 @@ export const addParamsToQueryString = (
   queryString: string,
   queryParams: QueryParams
 ): string => {
-  const searchParams = new URLSearchParams(queryString);
+  const [query, hash] = queryString?.split('#') ?? [queryString, undefined];
+
+  const searchParams = new URLSearchParams(query);
   Object.entries(queryParams).forEach(([key, values]) => {
     const param = key as QueryParam;
     if (Array.isArray(values)) {
@@ -46,5 +48,5 @@ export const addParamsToQueryString = (
       searchParams.append(param, getParamValue({ param, value: values }));
     }
   });
-  return '?' + searchParams.toString();
+  return '?' + searchParams.toString() + (hash ? `#${hash}` : '');
 };
