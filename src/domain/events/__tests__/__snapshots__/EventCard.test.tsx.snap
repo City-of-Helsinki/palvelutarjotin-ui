@@ -9,6 +9,7 @@ exports[`EventCard List of occurrences renders multiday occurrence time correctl
   >
     <div
       class="imageWrapper"
+      id="event-card:palvelutarjotin:a0775a20-468a-437b-91ee-f7a9cabea321"
       style="background-image: url(https://api.hel.fi/linkedevents-test/media/images/test.png);"
     />
     <div

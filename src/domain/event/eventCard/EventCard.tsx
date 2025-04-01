@@ -36,10 +36,9 @@ const EventCard: React.FC<Props> = ({ event, link }) => {
   const keywords = [...event.keywords, ...event.audience];
   const enrolmentStatus = getEventEnrolmentStatus(event);
   const { t } = useTranslation();
-
+  const elementId = `event-card:${id}`;
   return (
     <NextLink
-      key={`event-card-${id}`}
       href={link}
       scroll
       aria-label={t('event:eventCard.ariaLabelOpenEvent', {
@@ -48,6 +47,7 @@ const EventCard: React.FC<Props> = ({ event, link }) => {
       className={styles.eventCard}
     >
       <div
+        id={elementId}
         className={styles.imageWrapper}
         style={{
           backgroundImage: `url(${
