@@ -963,7 +963,10 @@ describe('back button', () => {
     const backLink = screen.getByRole('link', {
       name: /takaisin/i,
     });
-    expect(backLink).toHaveAttribute('href', '/search?text=rock');
+    expect(backLink).toHaveAttribute(
+      'href',
+      `/search?text=rock#event-card:${eventData.id}`
+    );
   });
 
   it('back button renders href correctly returnPath to front page', async () => {
@@ -977,7 +980,7 @@ describe('back button', () => {
     const backLink = screen.getByRole('link', {
       name: /takaisin/i,
     });
-    expect(backLink).toHaveAttribute('href', '/');
+    expect(backLink).toHaveAttribute('href', `/#event-card:${eventData.id}`);
   });
 });
 
