@@ -77,6 +77,31 @@ const EventsSearchPage: React.FC = () => {
     setSearchPanelState(getPanelStateFromQuery(router.query));
   }, [router.query]);
 
+  React.useEffect(() => {
+    const [, hash] = router.asPath.split('#');
+    if (router && hash) {
+      // eslint-disable-next-line no-console
+      console.info(
+        'URL contains hash which will now be removed with a shallow router.replace'
+      );
+      router
+        .replace(
+          {
+            hash: undefined,
+          },
+          undefined,
+          { shallow: true }
+        )
+        .catch((e) => {
+          // workaround for https://github.com/vercel/next.js/issues/37362
+          if (!e.cancelled) {
+            throw e;
+          }
+        });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <PageWrapper title={t('events:eventsSearchPage.title')}>
       <div className={styles.searchFormContainer}>
