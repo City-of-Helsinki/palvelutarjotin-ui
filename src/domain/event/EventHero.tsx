@@ -1,7 +1,7 @@
 import { useTranslation } from 'next-i18next';
 import React from 'react';
 
-import { BackButton } from './BackButton';
+import BackFromEventDetailsButton from './BackFromEventDetailsButton';
 import EventImage from './eventImage/EventImage';
 import styles from './eventPage.module.scss';
 import Container from '../app/layout/Container';
@@ -16,7 +16,7 @@ export const EventHero: React.FC<{
   return (
     <div className={styles.eventHero}>
       <Container className={styles.backButtonContainer}>
-        <BackButton />
+        <BackFromEventDetailsButton />
       </Container>
       <EventImage
         imageUrl={imageUrl}
