@@ -6,8 +6,10 @@ import React from 'react';
 
 import { createBackButtonHref } from './utils';
 
-// Dedicated Back Button Component
-export const BackButton: React.FC = () => {
+/**
+ * Back to event search from the event details page.
+ */
+export default function BackFromEventDetailsButton() {
   const { t } = useTranslation();
   const { asPath } = useRouter();
   const [, search] = asPath.split('?');
@@ -18,4 +20,4 @@ export const BackButton: React.FC = () => {
       <IconArrowLeft size="m" />
     </NextLink>
   );
-};
+}
