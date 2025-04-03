@@ -170,6 +170,8 @@ describe('EventCard', () => {
         },
       ]);
       const event = fakeEvent({
+        id: 'palvelutarjotin:a0775a20-468a-437b-91ee-f7a9cabea321',
+        internalId: 'palvelutarjotin:a0775a20-468a-437b-91ee-f7a9cabea321',
         name: fakeLocalizedObject('Nimi'),
         shortDescription: fakeLocalizedObject('Kuvaus'),
         keywords: [

@@ -10,6 +10,7 @@ import EventSearchForm, {
 } from './eventSearchForm/EventSearchForm';
 import styles from './eventsPage.module.scss';
 import { PopularKeywords } from './PopularKeywords';
+import useHashlessReturnPathScrollFix from './useHashlessReturnPathScrollFix';
 import { useUpcomingEvents } from './useUpcomingEvents';
 import { getSearchQueryObject } from './utils';
 import LoadingSpinner from '../../common/components/loadingSpinner/LoadingSpinner';
@@ -64,6 +65,8 @@ const EventsPage = (): ReactElement => {
       include: ['keywords', 'location', 'audience', 'in_language'],
     },
   });
+
+  useHashlessReturnPathScrollFix();
 
   const search = (values: EventSearchFormValues) => {
     values = { ...values, organisation: values.organisationId };

@@ -37,10 +37,9 @@ const EventList = ({
   showCount = true,
 }: Props): ReactElement => {
   const { asPath } = useRouter();
-
   const [pathname, search] = asPath.split('?');
   const queryString = addParamsToQueryString(search, {
-    returnPath: pathname,
+    returnPath: pathname.split('#')[0],
   });
 
   const { t } = useTranslation<I18nNamespace>();

@@ -15,3 +15,4 @@ export const EVENT_TOP_CATEGORIES = ['yso:p26626'];
 
 export const VIRTUAL_EVENT_LOCATION_ID = 'helsinki:internet';
 export const BOOKABLE_TO_SCHOOL_LOCATION_ID = 'helsinki:bookable';
+export const SCROLL_RESTORATION_ELEMENT_ID_PREFIX = 'event-card:';

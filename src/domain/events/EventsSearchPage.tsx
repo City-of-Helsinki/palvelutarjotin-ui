@@ -12,6 +12,7 @@ import EventSearchForm, {
   PanelState,
 } from './eventSearchForm/EventSearchForm';
 import styles from './eventsSearchPage.module.scss';
+import useHashlessReturnPathScrollFix from './useHashlessReturnPathScrollFix';
 import {
   getEventFilterVariables,
   getInitialValues,
@@ -76,6 +77,8 @@ const EventsSearchPage: React.FC = () => {
   React.useEffect(() => {
     setSearchPanelState(getPanelStateFromQuery(router.query));
   }, [router.query]);
+
+  useHashlessReturnPathScrollFix();
 
   return (
     <PageWrapper title={t('events:eventsSearchPage.title')}>

@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import { Button, IconLocation } from 'hds-react';
 import times from 'lodash/times';
 import NextLink from 'next/link';
@@ -17,6 +16,7 @@ import useLocale from '../../../hooks/useLocale';
 import IconClock from '../../../icons/IconClock';
 import type { I18nNamespace } from '../../../types';
 import getLocalisedString from '../../../utils/getLocalisedString';
+import { SCROLL_RESTORATION_ELEMENT_ID_PREFIX } from '../../events/constants';
 import PlaceText from '../../place/placeText/PlaceText';
 import { getEventPlaceholderImage } from '../utils';
 
@@ -36,41 +36,42 @@ const EventCard: React.FC<Props> = ({ event, link }) => {
   const image = event.images[0]?.url;
   const keywords = [...event.keywords, ...event.audience];
   const enrolmentStatus = getEventEnrolmentStatus(event);
-
+  const { t } = useTranslation();
+  const elementId = `${SCROLL_RESTORATION_ELEMENT_ID_PREFIX}${id}`;
   return (
-    <NextLink legacyBehavior href={link}>
-      <a
-        className={styles.eventCard}
-        // TODO: should we use this? maybe not, the screen reader might not read everything
-        // aria-label={t('event:eventCard.ariaLabelOpenEvent', {
-        //   eventName: name,
-        // })}
-      >
-        <div
-          className={styles.imageWrapper}
-          style={{
-            backgroundImage: `url(${
-              image || getEventPlaceholderImage(id || '')
-            })`,
-          }}
-        ></div>
-        <div className={styles.contentWrapper}>
-          <div className={styles.titleWrapper}>
-            <div className={styles.title}>{name}</div>
-            <div className={styles.description}>{shortDescription}</div>
-          </div>
-          <div className={styles.occurrenceInfoWrapper}>
-            <EventTime event={event} />
-            <EventPlaceInfo event={event} />
-          </div>
-          <KeywordsList
-            keywords={keywords}
-            itemType="button"
-            enrolmentStatus={enrolmentStatus}
-            identifier={event.id}
-          />
+    <NextLink
+      href={link}
+      scroll
+      aria-label={t('event:eventCard.ariaLabelOpenEvent', {
+        eventName: name,
+      })}
+      className={styles.eventCard}
+    >
+      <div
+        id={elementId}
+        className={styles.imageWrapper}
+        style={{
+          backgroundImage: `url(${
+            image || getEventPlaceholderImage(id || '')
+          })`,
+        }}
+      ></div>
+      <div className={styles.contentWrapper}>
+        <div className={styles.titleWrapper}>
+          <div className={styles.title}>{name}</div>
+          <div className={styles.description}>{shortDescription}</div>
         </div>
-      </a>
+        <div className={styles.occurrenceInfoWrapper}>
+          <EventTime event={event} />
+          <EventPlaceInfo event={event} />
+        </div>
+        <KeywordsList
+          keywords={keywords}
+          itemType="button"
+          enrolmentStatus={enrolmentStatus}
+          identifier={event.id}
+        />
+      </div>
     </NextLink>
   );
 };

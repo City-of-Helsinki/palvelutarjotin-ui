@@ -1,30 +1,22 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
-import classNames from 'classnames';
-import { Notification, IconArrowLeft, Button, IconAngleUp } from 'hds-react';
-import NextLink from 'next/link';
+import { Notification } from 'hds-react';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 import React, { ReactElement } from 'react';
 
 import EnrolmentButton from './enrolmentButton/EnrolmentButton';
+import { EnrolmentFormContainer } from './EnrolmentFormContainer';
 import EventBasicInfo from './eventBasicInfo/EventBasicInfo';
-import EventImage from './eventImage/EventImage';
+import { EventHero } from './EventHero';
 import styles from './eventPage.module.scss';
 import EventPageMeta from './eventPageMeta/EventPageMeta';
-import EnrolmentFormSection from './occurrences/EnrolmentFormSection';
 import Occurrences from './occurrences/OccurrencesTable';
-import QueueFormSection from './occurrences/QueueFormSection';
+import { QueueFormContainer } from './QueryFormContainer';
 import { getEventFields, shouldEventSupportQueueEnrolments } from './utils';
 import LoadingSpinner from '../../common/components/loadingSpinner/LoadingSpinner';
 import ShareLinks from '../../common/components/shareLinks/ShareLinks';
-import {
-  EventFieldsFragment,
-  OccurrenceFieldsFragment,
-  useEventQuery,
-} from '../../generated/graphql';
+import { useEventQuery } from '../../generated/graphql';
 import useLocale from '../../hooks/useLocale';
 import type { I18nNamespace } from '../../types';
-import { extractLatestReturnPath } from '../../utils/extractLatestReturnPath';
 import { translateValue } from '../../utils/translateUtils';
 import Container from '../app/layout/Container';
 import PageWrapper from '../app/layout/PageWrapper';
@@ -214,155 +206,6 @@ const EventPage = (): ReactElement => {
         )}
       </LoadingSpinner>
     </PageWrapper>
-  );
-};
-
-const EventHero: React.FC<{
-  imageUrl?: string;
-  imageAltText?: string | null;
-  photographerName?: string | null;
-}> = ({ imageAltText, imageUrl, photographerName }) => {
-  const { t } = useTranslation<I18nNamespace>();
-  const { asPath } = useRouter();
-  const [, search] = asPath.split('?');
-  const { returnPath, remainingQueryString } = extractLatestReturnPath(search);
-
-  return (
-    <div className={styles.eventHero}>
-      <Container className={styles.backButtonContainer}>
-        <NextLink
-          legacyBehavior
-          href={{ pathname: returnPath, search: remainingQueryString }}
-        >
-          <a aria-label={t('common:buttonBack')}>
-            <IconArrowLeft size="m" />
-          </a>
-        </NextLink>
-      </Container>
-      <EventImage
-        imageUrl={imageUrl}
-        imageAltText={imageAltText || t('event:eventImageAltText')}
-        photographerName={photographerName}
-      />
-    </div>
-  );
-};
-
-const EnrolmentFormContainer: React.FC<{
-  neededOccurrences?: number;
-  showEnrolmentForm: boolean;
-  selectedOccurrences: string[];
-  setShowEnrolmentForm: (a: boolean) => void;
-  event: EventFieldsFragment;
-  occurrences?: OccurrenceFieldsFragment[];
-  handleOnEnrol: () => void;
-}> = ({
-  neededOccurrences,
-  showEnrolmentForm,
-  selectedOccurrences,
-  setShowEnrolmentForm,
-  event,
-  occurrences,
-  handleOnEnrol,
-}) => {
-  const { t } = useTranslation<I18nNamespace>();
-  const enrolmentFormRef = React.useRef<HTMLDivElement>(null);
-
-  React.useEffect(() => {
-    enrolmentFormRef.current?.scrollIntoView?.({ behavior: 'smooth' });
-  }, [showEnrolmentForm]);
-
-  return (
-    <div className={styles.enrolmentFormContainer}>
-      {showEnrolmentForm &&
-        selectedOccurrences.length !== neededOccurrences && (
-          <Notification
-            style={{ marginTop: 'var(--spacing-xl)' }}
-            label={t('enrolment:enrolmentForm.labelChooseRequiredOccurrences', {
-              amount: neededOccurrences,
-            })}
-            type="alert"
-          >
-            {t('enrolment:enrolmentForm.descriptionChooseRequiredOccurrences')}
-          </Notification>
-        )}
-      <div
-        className={classNames(styles.enrolmentFormSection, {
-          [styles.hideEnrolmentForm]:
-            selectedOccurrences.length !== neededOccurrences,
-        })}
-        ref={enrolmentFormRef}
-      >
-        <Button
-          className={styles.cancelEnrolmentButton}
-          variant="supplementary"
-          iconRight={<IconAngleUp />}
-          onClick={() => setShowEnrolmentForm(false)}
-        >
-          {t('enrolment:enrolmentForm.buttonCancelAndCloseForm')}
-        </Button>
-        <EnrolmentFormSection
-          event={event}
-          occurrences={
-            occurrences?.filter((o) => selectedOccurrences.includes(o.id)) ?? []
-          }
-          onCloseForm={() => setShowEnrolmentForm(false)}
-          onEnrol={handleOnEnrol}
-        />
-      </div>
-    </div>
-  );
-};
-
-const QueueFormContainer: React.FC<{
-  showQueueForm: boolean;
-  setShowQueueForm: (a: boolean) => void;
-  event: EventFieldsFragment;
-  handleOnQueue: () => void;
-}> = ({ showQueueForm, setShowQueueForm, event, handleOnQueue }) => {
-  const { t } = useTranslation<I18nNamespace>();
-  const queueFormRef = React.useRef<HTMLDivElement>(null);
-
-  React.useEffect(() => {
-    queueFormRef.current?.scrollIntoView?.({ behavior: 'smooth' });
-  }, [showQueueForm]);
-
-  return (
-    <>
-      <h2 className={styles.enrolmentHeader}>{t('enrolment:queue.title')}</h2>
-      {showQueueForm ? (
-        <div className={styles.enrolmentFormContainer}>
-          <div className={styles.enrolmentFormSection} ref={queueFormRef}>
-            <div className={styles.closeQueueFormButtonWrapper}>
-              <div className={styles.enrolmentText}>
-                {t('enrolment:queue.enrolText')}
-              </div>
-              <Button
-                variant="supplementary"
-                iconRight={<IconAngleUp />}
-                onClick={() => setShowQueueForm(false)}
-              >
-                {t('enrolment:enrolmentForm.buttonCancelAndCloseForm')}
-              </Button>
-            </div>
-            <QueueFormSection
-              event={event}
-              onCloseForm={() => setShowQueueForm(false)}
-              onQueue={handleOnQueue}
-            />
-          </div>
-        </div>
-      ) : (
-        <div className={styles.queueInfoContainer}>
-          <div className={styles.enrolmentText}>
-            {t('enrolment:queue.enrolText')}
-          </div>
-          <Button onClick={() => setShowQueueForm(true)}>
-            {t('enrolment:queue.enrol')}
-          </Button>
-        </div>
-      )}
-    </>
   );
 };
 
