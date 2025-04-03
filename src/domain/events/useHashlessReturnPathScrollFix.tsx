@@ -33,6 +33,8 @@ function useHashlessReturnPathScrollFix() {
       router
         .replace(
           {
+            pathname: router.pathname,
+            query: router.query,
             hash: undefined,
           },
           undefined,
