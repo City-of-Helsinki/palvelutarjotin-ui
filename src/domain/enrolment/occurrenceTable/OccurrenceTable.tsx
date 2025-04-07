@@ -3,11 +3,12 @@ import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import Table from '../../../common/components/table/Table';
+import { DATE_FORMAT } from '../../../constants';
 import { OccurrenceFieldsFragment } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
 import type { I18nNamespace } from '../../../types';
 import formatTimeRange from '../../../utils/formatTimeRange';
-import { DATE_FORMAT, formatLocalizedDate } from '../../../utils/time/format';
+import { formatLocalizedDate } from '../../../utils/time/format';
 import { getAmountOfSeatsLeft } from '../../occurrence/utils';
 import PlaceText from '../../place/placeText/PlaceText';
 

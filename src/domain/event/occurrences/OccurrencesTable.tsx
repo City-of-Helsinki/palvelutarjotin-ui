@@ -16,6 +16,7 @@ import { useDateFiltering } from './useDateFiltering';
 import { getEnrolmentError, getOrderedLanguages } from './utils';
 import SrOnly from '../../../common/components/SrOnly/SrOnly';
 import Table from '../../../common/components/table/Table';
+import { DATE_FORMAT } from '../../../constants';
 import {
   EventFieldsFragment,
   OccurrenceFieldsFragment,
@@ -24,7 +25,6 @@ import useLocale from '../../../hooks/useLocale';
 import type { I18nNamespace } from '../../../types';
 import formatTimeRange from '../../../utils/formatTimeRange';
 import {
-  DATE_FORMAT,
   formatDateRange,
   formatIntoDate,
   formatIntoTime,

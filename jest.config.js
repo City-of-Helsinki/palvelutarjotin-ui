@@ -1,3 +1,6 @@
+// Fix the timezone to avoid issues with date/time tests
+process.env.TZ = 'Europe/Helsinki';
+
 module.exports = {
   testEnvironment: 'jest-fixed-jsdom',
   transform: {
