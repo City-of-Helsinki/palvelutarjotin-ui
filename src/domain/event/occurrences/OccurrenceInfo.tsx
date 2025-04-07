@@ -9,6 +9,7 @@ import React from 'react';
 import EnrolmentFormSection from './EnrolmentFormSection';
 import OccurrenceEnrolmentButton from './OccurrenceEnrolmentButton';
 import styles from './occurrences.module.scss';
+import { DATE_FORMAT } from '../../../constants';
 import {
   OccurrenceFieldsFragment,
   EventFieldsFragment,
@@ -21,7 +22,6 @@ import {
   formatIntoDate,
   formatIntoTime,
   formatLocalizedDate,
-  DATE_FORMAT,
 } from '../../../utils/time/format';
 import OccurrenceGroupInfo from '../../occurrence/occurrenceGroupInfo/OccurrenceGroupInfo';
 import OccurrenceGroupLanguageInfo from '../../occurrence/occurrenceGroupInfo/OccurrenceGroupLanguageInfo';

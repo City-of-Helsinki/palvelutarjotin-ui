@@ -73,3 +73,10 @@ export const DEFAULT_HEADER_MENU_NAME: Record<SUPPORTED_LANGUAGES, string> = {
 };
 
 export const TOAST_AUTO_CLOSE_DURATION_MS = 10_000;
+
+// Check recommended formats: https://hds.hel.fi/guidelines/data-formats
+
+export const DATE_FORMAT = 'd.M.yyyy';
+export const TIME_FORMAT = 'HH:mm';
+export const DATETIME_FORMAT = `${DATE_FORMAT} ${TIME_FORMAT}`;
+export const TIMEZONE = 'Europe/Helsinki';
