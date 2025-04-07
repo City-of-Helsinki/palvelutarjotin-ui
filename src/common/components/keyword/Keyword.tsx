@@ -81,14 +81,14 @@ const Keyword: React.FC<KeywordProps> = ({
       );
     }
     return (
-      <button
+      <label
         className={classNames(styles.keyword, {
           [styles[`keyword-${color}`]]: true,
         })}
         {...rest}
       >
         {label}
-      </button>
+      </label>
     );
   }
 
