@@ -22,6 +22,15 @@
     "buttonMultipleOccurrences": {
       "closed": "+ andra evenemangstider",
       "opened": "dölja andra tider"
+    },
+    "occurrenceTimes": {
+      "ariaLabel": "evenemangstider"
+    },
+    "placeInfo": {
+      "ariaLabel": "evenemangsplats"
+    },
+    "keywordsList": {
+      "ariaLabel": "evenemang sökordslista"
     }
   },
   "organisation": {

@@ -22,6 +22,15 @@
     "buttonMultipleOccurrences": {
       "closed": "+ muita tapahtuma-aikoja",
       "opened": "piilota muut ajat"
+    },
+    "occurrenceTimes": {
+      "ariaLabel": "tapahtuma-ajat"
+    },
+    "placeInfo": {
+      "ariaLabel": "tapahtumapaikka"
+    },
+    "keywordsList": {
+      "ariaLabel": "tapahtuman avainsanat"
     }
   },
   "organisation": {
