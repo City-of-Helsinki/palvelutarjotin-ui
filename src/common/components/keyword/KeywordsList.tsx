@@ -33,12 +33,16 @@ const KeywordsList: React.FC<KeywordsListProps> = ({
   itemType = 'static',
 }) => {
   const locale = useLocale();
-  const { t } = useTranslation<I18nNamespace>();
+  const { t } = useTranslation<I18nNamespace>('event');
   const keywordOptions = useKeywordOptions();
   const keywordsPropArr = getKeywordsProps(keywords, keywordOptions, locale);
 
   return (
-    <ul className={styles.keywordsList} key={`keywordlist-${identifier}`}>
+    <ul
+      className={styles.keywordsList}
+      key={`keywordlist-${identifier}`}
+      aria-label={t('eventCard.keywordsList.ariaLabel')}
+    >
       {enrolmentStatus && (
         <li key={`enrolmentStatusKeyword-${identifier}`}>
           <EnrolmentStatusKeyword enrolmentStatus={enrolmentStatus} />

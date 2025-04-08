@@ -78,8 +78,12 @@ const EventCard: React.FC<Props> = ({ event, link }) => {
 const EventPlaceInfo: React.FC<{
   event: EventsFieldsFragment;
 }> = ({ event }) => {
+  const { t } = useTranslation<I18nNamespace>('event');
   return (
-    <div className={styles.textWithIcon}>
+    <div
+      className={styles.textWithIcon}
+      aria-label={t('eventCard.placeInfo.ariaLabel')}
+    >
       <IconLocation />
       <PlaceText placeId={event.location?.id || ''} />
     </div>
@@ -134,15 +138,18 @@ const EventTime: React.FC<{
         );
 
   return (
-    <div className={styles.eventTimes}>
-      <ul className={styles.occurrenceTimes}>
+    <div
+      className={styles.eventTimes}
+      aria-label={t('event:eventCard.occurrenceTimes.ariaLabel')}
+    >
+      <div className={styles.occurrenceTimes}>
         {nextOccurrence ? (
           <OccurrenceTime occurrence={nextOccurrence} />
         ) : (
           t('event:eventCard.noUpcomingOccurrences')
         )}
         {showOccurrences && occurrenceTimes}
-      </ul>
+      </div>
       {hasMultipleFutureOccurrences && (
         <Button
           variant="secondary"
@@ -164,10 +171,13 @@ const OccurrenceTime: React.FC<{
   const { t } = useTranslation<I18nNamespace>();
   const locale = useLocale();
   return (
-    <li className={styles.textWithIcon}>
+    <div
+      className={styles.textWithIcon}
+      aria-label={getOccurrenceDateStr(occurrence, locale, t) ?? ''}
+    >
       <IconClock />
       {getOccurrenceDateStr(occurrence, locale, t)}
-    </li>
+    </div>
   );
 };
 

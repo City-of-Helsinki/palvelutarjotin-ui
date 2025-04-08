@@ -22,6 +22,15 @@
     "buttonMultipleOccurrences": {
       "closed": "+ other event times",
       "opened": "hide other times"
+    },
+    "occurrenceTimes": {
+      "ariaLabel": "event times"
+    },
+    "placeInfo": {
+      "ariaLabel": "place of event"
+    },
+    "keywordsList": {
+      "ariaLabel": "event keywords"
     }
   },
   "organisation": {
