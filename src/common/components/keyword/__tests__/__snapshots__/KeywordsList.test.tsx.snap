@@ -1,144 +1,115 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders list of keywords as links with correct hrefs 1`] = `
+exports[`renders list of keywords as static texts 1`] = `
 <div>
   <ul
+    aria-label="tapahtuman avainsanat"
     class="keywordsList"
   >
     <li>
-      <a
-        aria-label="Hae tapahtumia avainsanalla Vaikuttaminen ja osallisuus"
-        class="keyword"
-        href="/search?categories=kultus%3A1"
+      <label
+        class="keyword keyword-grey"
       >
         Vaikuttaminen ja osallisuus
-      </a>
+      </label>
     </li>
     <li>
-      <a
-        aria-label="Hae tapahtumia avainsanalla Teatteri, tanssi ja sirkus"
-        class="keyword"
-        href="/search?categories=kultus%3A2"
+      <label
+        class="keyword keyword-grey"
       >
         Teatteri, tanssi ja sirkus
-      </a>
+      </label>
     </li>
     <li>
-      <a
-        aria-label="Hae tapahtumia avainsanalla Musiikki"
-        class="keyword"
-        href="/search?categories=kultus%3A3"
+      <label
+        class="keyword keyword-grey"
       >
         Musiikki
-      </a>
+      </label>
     </li>
     <li>
-      <a
-        aria-label="Hae tapahtumia avainsanalla Sanataide ja kirjallisuus"
-        class="keyword"
-        href="/search?categories=kultus%3A4"
+      <label
+        class="keyword keyword-grey"
       >
         Sanataide ja kirjallisuus
-      </a>
+      </label>
     </li>
     <li>
-      <a
-        aria-label="Hae tapahtumia avainsanalla Tiede"
-        class="keyword"
-        href="/search?categories=kultus%3A5"
+      <label
+        class="keyword keyword-grey"
       >
         Tiede
-      </a>
+      </label>
     </li>
     <li>
-      <a
-        aria-label="Hae tapahtumia avainsanalla Valmistava opetus"
-        class="keyword"
-        href="/search?targetGroups=kultus%3A11"
+      <label
+        class="keyword keyword-grey"
       >
         Valmistava opetus
-      </a>
+      </label>
     </li>
     <li>
-      <a
-        aria-label="Hae tapahtumia avainsanalla 1.–2. luokat"
-        class="keyword"
-        href="/search?targetGroups=kultus%3A12"
+      <label
+        class="keyword keyword-grey"
       >
         1.–2. luokat
-      </a>
+      </label>
     </li>
     <li>
-      <a
-        aria-label="Hae tapahtumia avainsanalla 3.–6. luokat"
-        class="keyword"
-        href="/search?targetGroups=kultus%3A13"
+      <label
+        class="keyword keyword-grey"
       >
         3.–6. luokat
-      </a>
+      </label>
     </li>
     <li>
-      <a
-        aria-label="Hae tapahtumia avainsanalla 7.–9. luokat"
-        class="keyword"
-        href="/search?targetGroups=kultus%3A14"
+      <label
+        class="keyword keyword-grey"
       >
         7.–9. luokat
-      </a>
+      </label>
     </li>
     <li>
-      <a
-        aria-label="Hae tapahtumia avainsanalla lukio ja ammatillinen opetus"
-        class="keyword"
-        href="/search?targetGroups=kultus%3A15"
+      <label
+        class="keyword keyword-grey"
       >
         Lukio ja ammatillinen opetus
-      </a>
+      </label>
     </li>
     <li>
-      <a
-        aria-label="Hae tapahtumia avainsanalla Työpaja"
-        class="keyword"
-        href="/search?additionalCriteria=kultus%3A6"
+      <label
+        class="keyword keyword-grey"
       >
         Työpaja
-      </a>
+      </label>
     </li>
     <li>
-      <a
-        aria-label="Hae tapahtumia avainsanalla Luento"
-        class="keyword"
-        href="/search?additionalCriteria=kultus%3A7"
+      <label
+        class="keyword keyword-grey"
       >
         Luento
-      </a>
+      </label>
     </li>
     <li>
-      <a
-        aria-label="Hae tapahtumia avainsanalla Luontokoulu"
-        class="keyword"
-        href="/search?additionalCriteria=kultus%3A8"
+      <label
+        class="keyword keyword-grey"
       >
         Luontokoulu
-      </a>
+      </label>
     </li>
     <li>
-      <a
-        aria-label="Hae tapahtumia avainsanalla Kirjastovierailu"
-        class="keyword"
-        href="/search?additionalCriteria=kultus%3A9"
+      <label
+        class="keyword keyword-grey"
       >
         Kirjastovierailu
-      </a>
+      </label>
     </li>
     <li>
-      <a
-        aria-label="Hae tapahtumia avainsanalla Konsertti"
-        class="keyword"
-        href="/search?additionalCriteria=kultus%3A10"
+      <label
+        class="keyword keyword-grey"
       >
         Konsertti
-      </a>
+      </label>
     </li>
   </ul>
 </div>
