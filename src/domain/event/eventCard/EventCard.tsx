@@ -39,14 +39,7 @@ const EventCard: React.FC<Props> = ({ event, link }) => {
   const { t } = useTranslation();
   const elementId = `${SCROLL_RESTORATION_ELEMENT_ID_PREFIX}${id}`;
   return (
-    <NextLink
-      href={link}
-      scroll
-      aria-label={t('event:eventCard.ariaLabelOpenEvent', {
-        eventName: name,
-      })}
-      className={styles.eventCard}
-    >
+    <div className={styles.eventCard}>
       <div
         id={elementId}
         className={styles.imageWrapper}
@@ -58,20 +51,33 @@ const EventCard: React.FC<Props> = ({ event, link }) => {
       ></div>
       <div className={styles.contentWrapper}>
         <div className={styles.titleWrapper}>
-          <div className={styles.title}>{name}</div>
+          <div className={styles.title}>
+            <NextLink
+              href={link}
+              scroll
+              className={styles.primaryAction}
+              aria-label={t('event:eventCard.ariaLabelOpenEvent', {
+                eventName: name,
+              })}
+            >
+              {name}
+            </NextLink>
+          </div>
           <div className={styles.description}>{shortDescription}</div>
         </div>
         <div className={styles.occurrenceInfoWrapper}>
           <EventTime event={event} />
           <EventPlaceInfo event={event} />
         </div>
-        <KeywordsList
-          keywords={keywords}
-          enrolmentStatus={enrolmentStatus}
-          identifier={event.id}
-        />
+        <div className={styles.keywordsList}>
+          <KeywordsList
+            keywords={keywords}
+            enrolmentStatus={enrolmentStatus}
+            identifier={event.id}
+          />
+        </div>
       </div>
-    </NextLink>
+    </div>
   );
 };
 
@@ -84,7 +90,7 @@ const EventPlaceInfo: React.FC<{
       className={styles.textWithIcon}
       aria-label={t('eventCard.placeInfo.ariaLabel')}
     >
-      <IconLocation />
+      <IconLocation aria-hidden="true" />
       <PlaceText placeId={event.location?.id || ''} />
     </div>
   );
@@ -130,10 +136,9 @@ const EventTime: React.FC<{
         ?.slice(1) // First one is already rendered
         .map((edge) =>
           edge?.node ? (
-            <OccurrenceTime
-              key={`occurrence-${edge?.node?.id}`}
-              occurrence={edge?.node}
-            />
+            <li key={`occurrence-${edge?.node?.id}`}>
+              <OccurrenceTime occurrence={edge?.node} />
+            </li>
           ) : null
         );
 
@@ -142,17 +147,23 @@ const EventTime: React.FC<{
       className={styles.eventTimes}
       aria-label={t('event:eventCard.occurrenceTimes.ariaLabel')}
     >
-      <div className={styles.occurrenceTimes}>
+      <ul
+        className={styles.occurrenceTimes}
+        aria-labelledby={`${event.id}-toggle-occurrences-btn`}
+      >
         {nextOccurrence ? (
-          <OccurrenceTime occurrence={nextOccurrence} />
+          <li>
+            <OccurrenceTime occurrence={nextOccurrence} />
+          </li>
         ) : (
           t('event:eventCard.noUpcomingOccurrences')
         )}
         {showOccurrences && occurrenceTimes}
-      </div>
+      </ul>
       {hasMultipleFutureOccurrences && (
         <Button
           variant="secondary"
+          id={`${event.id}-toggle-occurrences-btn`}
           className={styles.multipleOccurrenceButton}
           onClick={(e) => toggleShowOccurrences(e)}
         >
@@ -171,11 +182,8 @@ const OccurrenceTime: React.FC<{
   const { t } = useTranslation<I18nNamespace>();
   const locale = useLocale();
   return (
-    <div
-      className={styles.textWithIcon}
-      aria-label={getOccurrenceDateStr(occurrence, locale, t) ?? ''}
-    >
-      <IconClock />
+    <div className={styles.textWithIcon}>
+      <IconClock aria-hidden="true" />
       {getOccurrenceDateStr(occurrence, locale, t)}
     </div>
   );
