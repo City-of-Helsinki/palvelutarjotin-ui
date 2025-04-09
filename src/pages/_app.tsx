@@ -6,7 +6,6 @@ import { useRouter } from 'next/router';
 import { appWithTranslation, UserConfig, useTranslation } from 'next-i18next';
 import React from 'react';
 import { ConfigProvider as RHHCConfigProvider } from 'react-helsinki-headless-cms';
-import { Provider } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
 
 import nextI18nextConfig from '../../next-i18next.config';
@@ -18,7 +17,6 @@ import ErrorBoundary from '../domain/app/ErrorBoundary';
 import CmsPageLayout from '../domain/app/layout/CmsPageLayout';
 import PageLayout from '../domain/app/layout/PageLayout';
 import { getCmsArticlePath, getCmsPagePath } from '../domain/app/routes/utils';
-import { store } from '../domain/app/store';
 import { useCMSApolloClient } from '../domain/headless-cms/apollo/apolloClient';
 import { useRHHCConfig } from '../domain/headless-cms/useRHHCConfig';
 import MatomoTracker from '../domain/matomo/Matomo';
@@ -80,28 +78,24 @@ const MyApp = ({ Component, pageProps }: AppProps<CustomPageProps>) => {
     <ErrorBoundary>
       <RHHCConfigProvider config={rhhcConfig}>
         <ApolloProvider client={apolloClient}>
-          <Provider store={store}>
-            <MatomoTracker>
-              <FocusToTop />
-              {router.isFallback ? (
-                <Center>
-                  <LoadingSpinner isLoading={router.isFallback} />
-                </Center>
-              ) : pageProps.error ? (
-                <NextError
-                  statusCode={pageProps.error.networkError?.statusCode ?? 400}
-                />
-              ) : (
-                <PageLayoutComponent {...pageProps}>
-                  <Component {...pageProps} />
-                  <DynamicCookieConsentWithNoSSR
-                    appName={t('common:appName')}
-                  />
-                </PageLayoutComponent>
-              )}
-              <ToastContainer position="top-right" />
-            </MatomoTracker>
-          </Provider>
+          <MatomoTracker>
+            <FocusToTop />
+            {router.isFallback ? (
+              <Center>
+                <LoadingSpinner isLoading={router.isFallback} />
+              </Center>
+            ) : pageProps.error ? (
+              <NextError
+                statusCode={pageProps.error.networkError?.statusCode ?? 400}
+              />
+            ) : (
+              <PageLayoutComponent {...pageProps}>
+                <Component {...pageProps} />
+                <DynamicCookieConsentWithNoSSR appName={t('common:appName')} />
+              </PageLayoutComponent>
+            )}
+            <ToastContainer position="top-right" />
+          </MatomoTracker>
         </ApolloProvider>
       </RHHCConfigProvider>
     </ErrorBoundary>

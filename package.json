@@ -34,24 +34,18 @@
       "hds-react/cookie": [
         "To fix https://github.com/City-of-Helsinki/palvelutarjotin-ui/security/dependabot/101",
         "NOTE: This can be removed if hds-react starts to depend on >=v1 cookie"
-      ],
-      "redux": [
-        "To make @reduxjs/toolkit and redux related packages use single version of redux",
-        "See https://redux.js.org/usage/migrations/migrating-rtk-2#overriding-dependencies"
       ]
     }
   },
   "resolutions": {
     "@types/cookie": "^0.6.0",
     "hds-react/@babel/runtime": "^7.27.0",
-    "hds-react/cookie": "^0.7.2",
-    "redux": "^5.0.0"
+    "hds-react/cookie": "^0.7.2"
   },
   "dependencies": {
     "@apollo/client": "^3.13.5",
     "@date-fns/tz": "^1.2.0",
     "@jonkoops/matomo-tracker-react": "^0.7.0",
-    "@reduxjs/toolkit": "^2.6.1",
     "@sentry/browser": "^9.10.1",
     "@types/file-saver": "^2.0.7",
     "axios": "^1.8.4",
@@ -79,7 +73,6 @@
     "react-dom": "^18.3.1",
     "react-helsinki-headless-cms": "1.0.1",
     "react-i18next": "^15.4.1",
-    "react-redux": "^9.2.0",
     "react-table": "^7.8.0",
     "react-toastify": "^11.0.5",
     "react-use": "^17.6.0",
@@ -114,7 +107,6 @@
     "@types/node": "^20.17.29",
     "@types/react": "^18.3.20",
     "@types/react-dom": "^18.3.5",
-    "@types/react-redux": "^7.1.34",
     "@types/react-table": "^7.7.20",
     "@types/yup": "^0.32.0",
     "@typescript-eslint/eslint-plugin": "^8.29.0",

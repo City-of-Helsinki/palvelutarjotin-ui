@@ -8,10 +8,8 @@ import {
   defaultConfig as rhhcDefaultConfig,
   Config as RHHCConfig,
 } from 'react-helsinki-headless-cms';
-import { Provider } from 'react-redux';
 
 import { CustomRenderOptions } from './testUtils';
-import { store as reduxStore } from '../domain/app/store';
 
 const mockRouter: NextRouter = {
   basePath: '',
@@ -42,32 +40,22 @@ type Props = {
 } & CustomRenderOptions;
 
 function TestProviders(props: Props): JSX.Element {
-  const {
-    mocks,
-    children,
-    router,
-    cache,
-    store = reduxStore,
-    path = '/',
-    query = {},
-  } = props;
+  const { mocks, children, router, cache, path = '/', query = {} } = props;
   return (
-    <Provider store={store}>
-      <MockedProvider mocks={mocks} cache={cache}>
-        <RHHCConfigProviderWithMockedApolloClient {...props}>
-          <RouterContext.Provider
-            value={{
-              ...mockRouter,
-              ...router,
-              ...(path ? { pathname: path, asPath: path, basePath: path } : {}),
-              ...(query ? { query } : {}),
-            }}
-          >
-            {children as React.ReactElement}
-          </RouterContext.Provider>
-        </RHHCConfigProviderWithMockedApolloClient>
-      </MockedProvider>
-    </Provider>
+    <MockedProvider mocks={mocks} cache={cache}>
+      <RHHCConfigProviderWithMockedApolloClient {...props}>
+        <RouterContext.Provider
+          value={{
+            ...mockRouter,
+            ...router,
+            ...(path ? { pathname: path, asPath: path, basePath: path } : {}),
+            ...(query ? { query } : {}),
+          }}
+        >
+          {children as React.ReactElement}
+        </RouterContext.Provider>
+      </RHHCConfigProviderWithMockedApolloClient>
+    </MockedProvider>
   );
 }
 
