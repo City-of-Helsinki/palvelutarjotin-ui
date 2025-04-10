@@ -103,7 +103,7 @@ const mocks: MockedResponse[] = [
   },
 ];
 
-it('renders list of keywords as links with correct hrefs', async () => {
+it('renders list of keywords as static texts', async () => {
   const { container } = render(
     <KeywordsList
       identifier="test-identifier"
@@ -120,26 +120,13 @@ it('renders list of keywords as links with correct hrefs', async () => {
 
   await act(() => new Promise((res) => setTimeout(res, 1000)));
 
-  const categoryLink = screen.getByRole('link', {
-    name: /vaikuttaminen ja osallisuus/i,
-  });
-  expect(categoryLink).toHaveAttribute('href', '/search?categories=kultus%3A1');
+  const categoryKeyword = screen.getByText(/vaikuttaminen ja osallisuus/i);
+  expect(categoryKeyword).toBeInTheDocument();
 
-  const targetGroupKeyword = screen.getByRole('link', {
-    name: /valmistava opetus/i,
-  });
-  expect(targetGroupKeyword).toHaveAttribute(
-    'href',
-    '/search?targetGroups=kultus%3A11'
-  );
+  const targetGroupKeyword = screen.getByText(/valmistava opetus/i);
+  expect(targetGroupKeyword).toBeInTheDocument();
 
-  const additionalCriteriaKeyword = screen.getByRole('link', {
-    name: /työpaja/i,
-  });
-  expect(additionalCriteriaKeyword).toHaveAttribute(
-    'href',
-    '/search?additionalCriteria=kultus%3A6'
-  );
-
+  const additionalCriteriaKeyword = screen.getByText(/työpaja/i);
+  expect(additionalCriteriaKeyword).toBeInTheDocument();
   expect(container).toMatchSnapshot();
 });

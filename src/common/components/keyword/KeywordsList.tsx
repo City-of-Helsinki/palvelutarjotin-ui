@@ -6,7 +6,7 @@ import * as React from 'react';
 import EnrolmentStatusKeyword, {
   EnrolmentStatusKeywordPropsType,
 } from './EnrolmentStatusKeyword';
-import Keyword from './Keyword';
+import Keyword, { KeywordProps } from './Keyword';
 import styles from './keyword.module.scss';
 import { ROUTES } from '../../../domain/app/routes/constants';
 import { KEYWORD_QUERY_PARAMS } from '../../../domain/events/constants';
@@ -21,24 +21,28 @@ import getLocalisedString from '../../../utils/getLocalisedString';
 
 type KeywordsListProps = {
   keywords: KeywordFieldsFragment[];
-  itemType?: 'button' | 'link';
   enrolmentStatus?: EnrolmentStatusKeywordPropsType['enrolmentStatus'];
   identifier: string;
+  itemType?: KeywordProps['itemType'];
 };
 
 const KeywordsList: React.FC<KeywordsListProps> = ({
   keywords,
-  itemType = 'link',
   enrolmentStatus,
   identifier,
+  itemType = 'static',
 }) => {
   const locale = useLocale();
-  const { t } = useTranslation<I18nNamespace>();
+  const { t } = useTranslation<I18nNamespace>('event');
   const keywordOptions = useKeywordOptions();
   const keywordsPropArr = getKeywordsProps(keywords, keywordOptions, locale);
 
   return (
-    <ul className={styles.keywordsList} key={`keywordlist-${identifier}`}>
+    <ul
+      className={styles.keywordsList}
+      key={`keywordlist-${identifier}`}
+      aria-label={t('eventCard.keywordsList.ariaLabel')}
+    >
       {enrolmentStatus && (
         <li key={`enrolmentStatusKeyword-${identifier}`}>
           <EnrolmentStatusKeyword enrolmentStatus={enrolmentStatus} />
@@ -47,12 +51,13 @@ const KeywordsList: React.FC<KeywordsListProps> = ({
       {keywordsPropArr.map((k, i) => (
         <li key={`keyword-${identifier}${i}-${k.id}`}>
           <Keyword
-            href={{ pathname: ROUTES.EVENTS_SEARCH, query: k.query }}
             keyword={k.label}
-            aria-label={t('event:keywords.labelKeywordLink', {
-              keyword: k.label,
-            })}
             itemType={itemType}
+            href={
+              itemType === 'static'
+                ? null
+                : { pathname: ROUTES.EVENTS_SEARCH, query: k.query }
+            }
           />
         </li>
       ))}

@@ -27,9 +27,6 @@ const EnrolmentStatusKeyword: React.FC<EnrolmentStatusKeywordPropsType> = ({
   return (
     <Keyword
       keyword={t(`event:keywords.enrolmentStatus.${enrolmentStatus}`)}
-      aria-label={t('event:keywords.labelKeywordLink', {
-        keyword: t(`event:keywords.enrolmentStatus.${enrolmentStatus}`),
-      })}
       color={color}
       itemType="static"
       href={null}
