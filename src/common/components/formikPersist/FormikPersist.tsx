@@ -90,10 +90,9 @@ const objectStructureMatches = (
   a: Record<string, any>, // eslint-disable-line @typescript-eslint/no-explicit-any
   b: Record<string, any> // eslint-disable-line @typescript-eslint/no-explicit-any
 ): boolean => {
-  const arrayA = keyify(a);
-  const arrayB = keyify(b);
-
-  return isEqual(arrayA.sort(), arrayB.sort());
+  const normalizeKeys = (obj: typeof a | typeof b) =>
+    keyify(obj).sort((s1, s2) => s1.localeCompare(s2));
+  return isEqual(normalizeKeys(a), normalizeKeys(b));
 };
 
 export default FormikPersist;
