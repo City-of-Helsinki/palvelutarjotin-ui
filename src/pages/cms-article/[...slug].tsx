@@ -72,7 +72,7 @@ export async function getStaticProps(
     return {
       ...addCmsApolloState(cmsClient, {
         props: {
-          ...getLocalizationProps(context.locale),
+          ...(await getLocalizationProps(context.locale)),
           initialCMSApolloState: null,
           initialApolloState: null,
           article,
