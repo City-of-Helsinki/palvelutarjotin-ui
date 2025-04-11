@@ -1,8 +1,8 @@
-/* eslint-disable @typescript-eslint/no-require-imports */
-
 import type { SSRConfig } from 'next-i18next';
 
 import { ALL_I18N_NAMESPACES, SUPPORTED_LANGUAGES } from '../constants';
+
+type TranslationValue = string | { [key: string]: TranslationValue };
 
 /*
  * This function is used to provide next-i18next HOC with translations
@@ -18,28 +18,29 @@ import { ALL_I18N_NAMESPACES, SUPPORTED_LANGUAGES } from '../constants';
  * We include all namespaces every time to make sure that all of them are loaded to memory.
  * appWithTranslation HOC won't load new namespaces to memory after it has initialized i18n object.
  */
-const getLocalizationProps = (
+const getLocalizationProps = async (
   locale: string | undefined
-): Pick<SSRConfig, '_nextI18Next'> | undefined => {
+): Promise<Pick<SSRConfig, '_nextI18Next'> | undefined> => {
   if (!locale) return;
+
+  const initialI18nStore: Record<string, Record<string, TranslationValue>> = {};
+
+  // Load all translations for all languages in parallel
+  await Promise.all(
+    Object.values(SUPPORTED_LANGUAGES).flatMap((language) => {
+      initialI18nStore[language] = {};
+      return ALL_I18N_NAMESPACES.map(async (namespace) => {
+        const translationModule = await import(
+          `../../public/locales/${language}/${namespace}.json`
+        );
+        initialI18nStore[language][namespace] = translationModule.default;
+      });
+    })
+  );
 
   return {
     _nextI18Next: {
-      initialI18nStore: Object.values(SUPPORTED_LANGUAGES).reduce(
-        (prev, locale) => ({
-          ...prev,
-          [locale]: ALL_I18N_NAMESPACES.reduce(
-            (prev, namespace) => ({
-              ...prev,
-              [namespace]: require(
-                `../../public/locales/${locale}/${namespace}.json`
-              ),
-            }),
-            {}
-          ),
-        }),
-        {}
-      ),
+      initialI18nStore,
       initialLocale: locale,
       ns: [],
       userConfig: null,

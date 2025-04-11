@@ -80,7 +80,7 @@ export class CommonPropsService {
 
       return addCmsApolloState(cmsApolloClient, {
         props: {
-          ...getLocalizationProps(locale),
+          ...(await getLocalizationProps(locale)),
           initialApolloState: null,
           initialCMSApolloState: null,
         },
@@ -90,7 +90,7 @@ export class CommonPropsService {
       console.error('Error fetching menu data:', error);
       return {
         props: {
-          ...getLocalizationProps(locale),
+          ...(await getLocalizationProps(locale)),
         },
       };
     }
