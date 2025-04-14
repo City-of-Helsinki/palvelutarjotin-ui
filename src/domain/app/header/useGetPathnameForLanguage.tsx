@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { useCallback, useMemo } from 'react';
+import { useCallback } from 'react';
 import {
   Language as RHHCLanguage,
   LanguageCodeEnum,
@@ -14,36 +14,30 @@ export function useGetPathnameForLanguage() {
   const isCmsPage = pathname === PATHNAMES.CMS_PAGE;
   const languageOptions = useCmsLanguageOptions({ skip: !isCmsPage });
 
-  const currentParsedUrlQuery = useMemo(() => {
-    const searchParams = window
-      ? Object.fromEntries(new URLSearchParams(window.location.search))
-      : {};
-    return {
-      ...query,
-      ...searchParams,
-    };
-  }, [query]);
-
-  const getOriginHref = useCallback(
+  // Generates the target URL for the current non-CMS page in the specified language
+  const getHrefForNonCmsPage = useCallback(
     (language: LanguageCodeEnum): string => {
       return getLocalizedCmsItemUrl(
         pathname,
-        currentParsedUrlQuery,
+        query,
         language
       ).toLocaleLowerCase();
     },
-    [pathname, currentParsedUrlQuery]
+    [pathname, query]
   );
 
-  // on language switch item click
+  // Callback function to get the appropriate pathname when switching languages
   const getPathnameForLanguage = useCallback(
     (language: RHHCLanguage): string => {
       const languageCode = language.code ?? LanguageCodeEnum.Fi;
+
+      // If it's a CMS page, get the specific CMS href for that language
+      // Otherwise, generate the localized URL for the current non-CMS page
       return isCmsPage
         ? getCmsHref(languageCode.toLowerCase(), languageOptions)
-        : getOriginHref(languageCode);
+        : getHrefForNonCmsPage(languageCode);
     },
-    [isCmsPage, languageOptions, getOriginHref]
+    [isCmsPage, languageOptions, getHrefForNonCmsPage]
   );
 
   return getPathnameForLanguage;
