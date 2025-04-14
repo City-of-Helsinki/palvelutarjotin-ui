@@ -7,8 +7,26 @@ import DropdownMenu from './DropdownMenu';
 import styles from './multiSelectDropdown.module.scss';
 import useKeyboardNavigation from '../../../hooks/useDropdownKeyboardNavigation';
 import type { I18nNamespace } from '../../../types';
+import { skipFalsyType } from '../../../utils/typescript.utils';
 import ScrollIntoViewWithFocus from '../scrollIntoViewWithFocus/ScrollIntoViewWithFocus';
 import SearchLabel from '../search/searchLabel/SearchLabel';
+
+/**
+ * Get the sorting key for a React element or string.
+ * @param x The React element or string to get the sorting key for.
+ * @returns Props of the React element as a string, or the input itself if it is a string.
+ *
+ * This function is used to create some consistent sorting for React elements.
+ * Sorting by text content would be better, but sorting by props at least ensures some consistency.
+ */
+const getSortingKey = (x: React.ReactElement | string) =>
+  typeof x === 'string' ? x : JSON.stringify(x.props);
+
+/** Compare two React elements or strings for sorting. */
+const reactElementOrStringCompare = (
+  a: React.ReactElement | string,
+  b: React.ReactElement | string
+) => getSortingKey(a).localeCompare(getSortingKey(b));
 
 const SELECT_ALL = 'SELECT_ALL';
 
@@ -26,7 +44,7 @@ export interface MultiselectDropdownProps {
   onChange: (values: string[]) => void;
   options: Option[];
   fixedOptions?: Option[];
-  renderOptionText?: (optionValue: string) => React.ReactChild;
+  renderOptionText?: (optionValue: string) => React.ReactElement;
   selectAllText?: string;
   setInputValue?: (newVal: string) => void;
   showSearch?: boolean;
@@ -251,7 +269,9 @@ const MultiSelectDropdown: React.FC<MultiselectDropdownProps> = ({
           return result ? result.text : null;
         }
       })
-      .sort();
+      .filter(skipFalsyType)
+      .sort(reactElementOrStringCompare);
+
     if (valueLabels.length > 1) {
       return (
         <>
