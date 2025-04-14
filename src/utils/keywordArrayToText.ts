@@ -10,7 +10,7 @@ const keywordArrayToText = (
     items
       ?.map((item) => getLocalizedString(item.name || {}, locale))
       .filter(Boolean)
-      .sort()
+      .sort((a, b) => a.localeCompare(b))
       .join(', ') || '-'
   );
 };
