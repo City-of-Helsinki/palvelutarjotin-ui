@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
 import {
   Language as RHHCLanguage,
   LanguageCodeEnum,
@@ -10,35 +10,41 @@ import { getCmsHref, getLocalizedCmsItemUrl } from '../../headless-cms/utils';
 import { PATHNAMES } from '../routes/constants';
 
 export function useGetPathnameForLanguage() {
-  const router = useRouter();
-  const isCmsPage = router.pathname === PATHNAMES.CMS_PAGE;
+  const { pathname, query } = useRouter();
+  const isCmsPage = pathname === PATHNAMES.CMS_PAGE;
   const languageOptions = useCmsLanguageOptions({ skip: !isCmsPage });
 
-  const getCurrentParsedUrlQuery = useCallback(
-    () => ({
-      ...router.query,
-      ...(window
-        ? Object.fromEntries(new URLSearchParams(window.location.search))
-        : {}),
-    }),
-    [router.query]
+  const currentParsedUrlQuery = useMemo(() => {
+    const searchParams = window
+      ? Object.fromEntries(new URLSearchParams(window.location.search))
+      : {};
+    return {
+      ...query,
+      ...searchParams,
+    };
+  }, [query]);
+
+  const getOriginHref = useCallback(
+    (language: LanguageCodeEnum): string => {
+      return getLocalizedCmsItemUrl(
+        pathname,
+        currentParsedUrlQuery,
+        language
+      ).toLocaleLowerCase();
+    },
+    [pathname, currentParsedUrlQuery]
   );
 
-  const getOriginHref = (language: LanguageCodeEnum): string => {
-    return getLocalizedCmsItemUrl(
-      router.pathname,
-      getCurrentParsedUrlQuery(),
-      language
-    ).toLocaleLowerCase();
-  };
-
   // on language switch item click
-  const getPathnameForLanguage = (language: RHHCLanguage): string => {
-    const languageCode = language.code ?? LanguageCodeEnum.Fi;
-    return isCmsPage
-      ? getCmsHref(languageCode.toLowerCase(), languageOptions)
-      : getOriginHref(languageCode);
-  };
+  const getPathnameForLanguage = useCallback(
+    (language: RHHCLanguage): string => {
+      const languageCode = language.code ?? LanguageCodeEnum.Fi;
+      return isCmsPage
+        ? getCmsHref(languageCode.toLowerCase(), languageOptions)
+        : getOriginHref(languageCode);
+    },
+    [isCmsPage, languageOptions, getOriginHref]
+  );
 
   return getPathnameForLanguage;
 }
