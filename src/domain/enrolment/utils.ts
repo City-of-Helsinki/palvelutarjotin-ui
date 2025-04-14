@@ -79,7 +79,7 @@ export const getCAPTCHAToken = (): Promise<string> => {
           .catch(reject);
       });
     } else {
-      reject('CAPTCHA_KEY missing!');
+      reject(new Error('CAPTCHA_KEY missing!'));
     }
   });
 };
