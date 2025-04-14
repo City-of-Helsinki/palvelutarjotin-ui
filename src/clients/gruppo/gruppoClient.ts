@@ -20,7 +20,13 @@ axiosClient.interceptors.request.use(
     }
     return config;
   },
-  (error) => Promise.reject(error)
+  (error) => {
+    if (error instanceof Error) {
+      return Promise.reject(error);
+    } else {
+      return Promise.reject(new Error(JSON.stringify(error)));
+    }
+  }
 );
 
 export enum SUBSCRIBERS_ROUTES {
