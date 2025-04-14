@@ -1,6 +1,9 @@
+import { ParsedUrlQuery } from 'querystring';
+
 import {
   ModuleItemTypeEnum,
   LanguageCodeEnum,
+  MenuItem,
 } from 'react-helsinki-headless-cms';
 import {
   MenuDocument,
@@ -15,6 +18,7 @@ import {
   DEFAULT_HEADER_MENU_NAME,
 } from '../../constants';
 import type { Language } from '../../types';
+import stringifyUrlObject from '../../utils/stringifyUrlObject';
 import { getCmsArticlePath, getCmsPagePath } from '../app/routes/utils';
 
 export const getUriID = (slugs: string[], locale: Language): string => {
@@ -231,4 +235,46 @@ export const getRoutedInternalHrefForLocale = (
     ? getCmsPagePath(linkWithoutLocale)
     : linkWithoutLocale;
   return removeTrailingSlash(`${localePath}${resolvedLink}`).replace(/^$/, '/'); // "" -> "/"
+};
+
+export const getIsItemActive = (
+  menuItem: MenuItem,
+  localePath: string
+): boolean => {
+  const target = `${localePath}${getCmsPagePath(
+    stripLocaleFromUri(menuItem.path ?? '')
+  )}`.replace(/\/$/, '');
+  return (
+    typeof window !== 'undefined' && window.location.pathname.includes(target)
+  );
+};
+
+export const getCmsHref = (
+  lang: string,
+  languageOptions: {
+    uri: string | null | undefined;
+    locale: string | undefined;
+  }[]
+) => {
+  const nav = languageOptions?.find((languageOption) => {
+    return languageOption.locale?.toLowerCase() === lang;
+  });
+
+  // if no translated url found, redirect to root
+  if (!nav) {
+    return `/${lang}`;
+  }
+  return `/${lang}${getCmsPagePath(stripLocaleFromUri(nav?.uri ?? ''))}`;
+};
+
+export const getLocalizedCmsItemUrl = (
+  pathname: string,
+  query: ParsedUrlQuery,
+  locale: LanguageCodeEnum
+): string => {
+  const path = `/${locale.toLowerCase()}`;
+  return `${path}${stringifyUrlObject({
+    query: query,
+    pathname,
+  })}`;
 };
