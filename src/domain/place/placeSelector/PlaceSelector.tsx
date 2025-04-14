@@ -8,12 +8,6 @@ import { usePlacesQuery } from '../../../generated/graphql';
 import useDebounce from '../../../hooks/useDebounce';
 import useLocale from '../../../hooks/useLocale';
 import getLocalisedString from '../../../utils/getLocalisedString';
-import isClient from '../../../utils/isClient';
-
-const { getPlaceDetailsFromCache } = isClient()
-  ? // eslint-disable-next-line @typescript-eslint/no-require-imports
-    require('../utils')
-  : { getPlaceDetailsFromCache: null };
 
 type Props = Omit<MultiselectDropdownProps, 'options'>;
 
@@ -48,18 +42,7 @@ const PlaceSelector: React.FC<Props> = ({
     );
   }, [locale, placesData?.places?.data]);
 
-  const renderOptionText = (id: string) => {
-    try {
-      const place = getPlaceDetailsFromCache(id);
-
-      return getLocalisedString(
-        (place && place.placeDetails.name) || {},
-        locale
-      );
-    } catch {
-      return <PlaceText placeId={id} />;
-    }
-  };
+  const renderOptionText = (id: string) => <PlaceText placeId={id} />;
 
   return (
     <MultiSelectDropdown
