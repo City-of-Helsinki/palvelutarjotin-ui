@@ -7,7 +7,11 @@ const requestType = {
   isStaticFile: (req: NextRequest) => req.nextUrl.pathname.startsWith('/_next'),
   isPagesFolderApi: (req: NextRequest) =>
     req.nextUrl.pathname.includes('/api/'),
-  isPublicFile: (req: NextRequest) => /\.(.*)$/.test(req.nextUrl.pathname),
+  // FIXME: This seems broken, as it will match any pathname with a dot in it
+  // Originally probably from https://github.com/vercel/next.js/discussions/18419 or
+  // https://nextjs.org/docs/pages/building-your-application/routing/internationalization
+  // as `PUBLIC_FILE = /\.(.*)$/` and `PUBLIC_FILE.test(pathname)`
+  isPublicFile: (req: NextRequest) => req.nextUrl.pathname.includes('.'),
 };
 
 /**
