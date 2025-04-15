@@ -15,7 +15,9 @@ axiosClient.interceptors.request.use(
     if (apiKey && config?.headers) {
       config.auth = {
         username: apiKey,
-        password: 'x',
+        // https://www.campaignmonitor.com/api/v3-2/getting-started/#authenticating-with-an-api-key
+        // "You can leave the password field blank or enter a dummy value like ‘x’."
+        password: '',
       };
     }
     return config;
