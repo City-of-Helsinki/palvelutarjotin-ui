@@ -1,10 +1,6 @@
 import { useRouter } from 'next/router';
 import React from 'react';
-import {
-  MenuItem,
-  Navigation,
-  LanguageCodeEnum,
-} from 'react-helsinki-headless-cms';
+import { MenuItem, Navigation } from 'react-helsinki-headless-cms';
 
 import HeaderNotification from './HeaderNotification';
 import { useCmsMenuItems } from './useCmsMenuItems';
@@ -20,10 +16,6 @@ const Header: React.FC = () => {
   const { menu } = useCmsMenuItems();
   const getPathnameForLanguage = useGetPathnameForLanguage();
 
-  const localePath =
-    locale !== LanguageCodeEnum.Fi.toLowerCase()
-      ? `/${locale.toLowerCase()}`
-      : '';
   const goToPage =
     (pathname: string) =>
     (event?: React.MouseEvent<HTMLAnchorElement> | Event) => {
@@ -38,7 +30,7 @@ const Header: React.FC = () => {
         menu={menu}
         onTitleClick={goToPage(ROUTES.HOME)}
         getIsItemActive={(menuItem: MenuItem) =>
-          getIsItemActive(menuItem, localePath)
+          getIsItemActive(menuItem, locale)
         }
         getPathnameForLanguage={getPathnameForLanguage}
       />
