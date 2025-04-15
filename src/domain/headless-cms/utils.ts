@@ -381,11 +381,11 @@ export const getLocalizedCmsItemUrl = (
   query: ParsedUrlQuery,
   language: LanguageCodeEnum
 ): string => {
-  const path = `/${language}`;
+  const path = `/${language.toLowerCase()}`;
   return `${path}${stringifyUrlObject({
     query: query,
     pathname,
-  })}`.toLowerCase();
+  })}`;
 };
 
 /**
@@ -404,14 +404,15 @@ export const getCmsHref = (
     locale: string | undefined;
   }[]
 ) => {
+  const locale = language.toLowerCase();
   const nav = languageOptions?.find((languageOption) => {
-    return languageOption.locale?.toLowerCase() === language.toLowerCase();
+    return languageOption.locale?.toLowerCase() === locale;
   });
   // if no translated url found, redirect to root
   if (!nav) {
-    return `/${language}`.toLowerCase();
+    return `/${locale}`;
   }
-  return `/${language}${getCmsPagePath(stripLocaleFromUri(nav?.uri ?? ''))}`.toLowerCase();
+  return `/${locale}${getCmsPagePath(stripLocaleFromUri(nav?.uri ?? ''))}`;
 };
 
 /**
@@ -428,5 +429,5 @@ export const getHrefForNonCmsPage = (
   query: ParsedUrlQuery,
   language: LanguageCodeEnum
 ): string => {
-  return getLocalizedCmsItemUrl(pathname, query, language).toLowerCase();
+  return getLocalizedCmsItemUrl(pathname, query, language);
 };

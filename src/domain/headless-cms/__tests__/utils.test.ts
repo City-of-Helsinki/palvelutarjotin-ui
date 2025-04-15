@@ -582,7 +582,7 @@ describe('getLocalizedCmsItemUrl', () => {
       pathname: '/UPPER/CASE',
       query: {},
       language: LanguageCodeEnum.En,
-      expected: '/en/upper/case', // Expect lowercase output
+      expected: '/en/UPPER/CASE', // Expect same case level
       description: 'EN: Uppercase path input',
     },
   ])(
@@ -632,7 +632,7 @@ describe('getCmsHref', () => {
     {
       language: LanguageCodeEnum.Fi,
       options: [{ uri: '/fi/UPPER', locale: 'FI' }], // Uppercase locale
-      expected: '/fi/cms-page/upper', // Expect lowercase output and locale match
+      expected: '/fi/cms-page/UPPER', // Expect same case level in pathname except in locale
       description: 'FI: Uppercase locale in options',
     },
     {
@@ -679,8 +679,27 @@ describe('getHrefForNonCmsPage', () => {
       pathname: '/UPPER/PAGE',
       query: {},
       language: LanguageCodeEnum.Sv,
-      expected: '/sv/upper/page', // Expect lowercase
+      expected: '/sv/UPPER/PAGE', // Expect same case level
       description: 'SV: Uppercase path',
+    },
+    {
+      pathname: '/search',
+      query: {
+        text: 'satutuokio',
+        date: '2025-04-13T21:00:00.000Z',
+        endDate: '2027-04-05T21:00:00.000Z',
+        inLanguage: ['en', 'fi', 'sv'],
+        places: 'tprek:8324',
+        targetGroups: 'kultus:51',
+        categories: 'kultus:18',
+        additionalCriteria: 'kultus:4',
+      },
+      language: LanguageCodeEnum.Fi,
+      expected:
+        // expect locale added and parameters in alphabetical order
+        // eslint-disable-next-line max-len
+        '/fi/search?additionalCriteria=kultus%3A4&categories=kultus%3A18&date=2025-04-13T21%3A00%3A00.000Z&endDate=2027-04-05T21%3A00%3A00.000Z&inLanguage=en&inLanguage=fi&inLanguage=sv&places=tprek%3A8324&targetGroups=kultus%3A51&text=satutuokio',
+      description: 'Search page with filters',
     },
   ])(
     'getHrefForNonCmsPage returns $expected for $description',
