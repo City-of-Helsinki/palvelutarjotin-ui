@@ -239,8 +239,13 @@ export const getRoutedInternalHrefForLocale = (
 
 export const getIsItemActive = (
   menuItem: MenuItem,
-  localePath: string
+  locale: string
 ): boolean => {
+  const localePath =
+    locale !== LanguageCodeEnum.Fi.toLowerCase()
+      ? `/${locale.toLowerCase()}`
+      : '';
+
   const target = `${localePath}${getCmsPagePath(
     stripLocaleFromUri(menuItem.path ?? '')
   )}`.replace(/\/$/, '');
@@ -249,32 +254,40 @@ export const getIsItemActive = (
   );
 };
 
+export const getLocalizedCmsItemUrl = (
+  pathname: string,
+  query: ParsedUrlQuery,
+  language: LanguageCodeEnum
+): string => {
+  const path = `/${language}`;
+  return `${path}${stringifyUrlObject({
+    query: query,
+    pathname,
+  })}`.toLowerCase();
+};
+
 export const getCmsHref = (
-  lang: string,
+  language: LanguageCodeEnum,
   languageOptions: {
     uri: string | null | undefined;
     locale: string | undefined;
   }[]
 ) => {
   const nav = languageOptions?.find((languageOption) => {
-    return languageOption.locale?.toLowerCase() === lang;
+    return languageOption.locale?.toLowerCase() === language.toLowerCase();
   });
-
   // if no translated url found, redirect to root
   if (!nav) {
-    return `/${lang}`;
+    return `/${language}`.toLowerCase();
   }
-  return `/${lang}${getCmsPagePath(stripLocaleFromUri(nav?.uri ?? ''))}`;
+  return `/${language}${getCmsPagePath(stripLocaleFromUri(nav?.uri ?? ''))}`.toLowerCase();
 };
 
-export const getLocalizedCmsItemUrl = (
+// Generates the target URL for the current non-CMS page in the specified language
+export const getHrefForNonCmsPage = (
   pathname: string,
   query: ParsedUrlQuery,
-  locale: LanguageCodeEnum
+  language: LanguageCodeEnum
 ): string => {
-  const path = `/${locale.toLowerCase()}`;
-  return `${path}${stringifyUrlObject({
-    query: query,
-    pathname,
-  })}`;
+  return getLocalizedCmsItemUrl(pathname, query, language).toLowerCase();
 };
