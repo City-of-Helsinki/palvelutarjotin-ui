@@ -1,5 +1,8 @@
+import { ParsedUrlQuery } from 'querystring';
+
 import isEqual from 'lodash/isEqual';
 import { graphql, HttpResponse } from 'msw';
+import { LanguageCodeEnum, MenuItem } from 'react-helsinki-headless-cms';
 import {
   MenuQuery,
   MenuQueryVariables,
@@ -23,7 +26,28 @@ import {
   isInternalHrefCmsPage,
   getRoutedInternalHrefForLocale,
   rewriteInternalURLs,
+  getIsItemActive,
+  getLocalizedCmsItemUrl,
+  getCmsHref,
+  getHrefForNonCmsPage,
 } from '../utils';
+
+// Mock window.location for getIsItemActive tests
+const originalLocation = window.location;
+const mockLocation = (pathname: string) => {
+  Object.defineProperty(window, 'location', {
+    writable: true,
+    value: { ...originalLocation, pathname },
+  });
+};
+
+afterEach(() => {
+  // Restore original window.location after each test
+  Object.defineProperty(window, 'location', {
+    writable: true,
+    value: originalLocation,
+  });
+});
 
 describe('getUriID', () => {
   test.each<{ slugs: string[]; locale: Language; expected: string }>([
@@ -389,4 +413,280 @@ describe('rewriteInternalURLs', () => {
       .mockReturnValue('https://kultus.content.api.hel.fi');
     expect(rewriteInternalURLs(source)).toStrictEqual(source);
   });
+});
+
+describe('getIsItemActive', () => {
+  const menuItem: MenuItem = {
+    id: '1',
+    order: 1,
+    target: null,
+    label: 'Test Item',
+    path: '/test-page/', // Example path from CMS
+    parentId: null,
+    connectedNode: null,
+  };
+
+  test.each<{
+    locale: string;
+    currentPath: string;
+    itemPath: string | null | undefined;
+    expected: boolean;
+    description: string;
+  }>([
+    // Finnish (no locale prefix)
+    {
+      locale: 'fi',
+      currentPath: '/cms-page/test-page',
+      itemPath: '/test-page/',
+      expected: true,
+      description: 'FI: Exact match',
+    },
+    {
+      locale: 'fi',
+      currentPath: '/cms-page/test-page/sub-page',
+      itemPath: '/test-page/',
+      expected: true,
+      description: 'FI: Current path is sub-path',
+    },
+    {
+      locale: 'fi',
+      currentPath: '/cms-page/another-page',
+      itemPath: '/test-page/',
+      expected: false,
+      description: 'FI: Different page',
+    },
+    {
+      locale: 'fi',
+      currentPath: '/cms-page/test-page',
+      itemPath: '/fi/test-page/',
+      expected: true,
+      description: 'FI: Item path has locale prefix (should be stripped)',
+    },
+    // English
+    {
+      locale: 'en',
+      currentPath: '/en/cms-page/test-page',
+      itemPath: '/test-page/',
+      expected: true,
+      description: 'EN: Exact match',
+    },
+    {
+      locale: 'en',
+      currentPath: '/en/cms-page/test-page/sub-page',
+      itemPath: '/test-page/',
+      expected: true,
+      description: 'EN: Current path is sub-path',
+    },
+    {
+      locale: 'en',
+      currentPath: '/en/cms-page/another-page',
+      itemPath: '/test-page/',
+      expected: false,
+      description: 'EN: Different page',
+    },
+    {
+      locale: 'en',
+      currentPath: '/en/cms-page/test-page',
+      itemPath: '/en/test-page/',
+      expected: true,
+      description: 'EN: Item path has locale prefix (should be stripped)',
+    },
+    // Swedish
+    {
+      locale: 'sv',
+      currentPath: '/sv/cms-page/test-page',
+      itemPath: '/test-page/',
+      expected: true,
+      description: 'SV: Exact match',
+    },
+    // Edge cases
+    {
+      locale: 'fi',
+      currentPath: '/cms-page/test-page',
+      itemPath: null,
+      expected: false,
+      description: 'Null item path',
+    },
+    {
+      locale: 'fi',
+      currentPath: '/cms-page/test-page',
+      itemPath: undefined,
+      expected: false,
+      description: 'Undefined item path',
+    },
+    {
+      locale: 'fi',
+      currentPath: '/cms-page/root',
+      itemPath: '/',
+      expected: true,
+      description: 'Root path item',
+    },
+  ])(
+    'getIsItemActive returns $expected for $description',
+    ({ locale, currentPath, itemPath, expected }) => {
+      mockLocation(currentPath);
+      // Use the mock getCmsPagePath or ensure the real one is available
+      const item = { ...menuItem, path: itemPath };
+
+      // Assertion on the function's behavior
+      expect(getIsItemActive(item, locale)).toBe(expected);
+    }
+  );
+
+  it('should handle window being undefined (SSR)', () => {
+    const originalWindow = global.window;
+    // @ts-expect-error: Simulate SSR environment where window is undefined
+    delete global.window;
+    expect(getIsItemActive(menuItem, 'fi')).toBe(false);
+    global.window = originalWindow; // Restore window
+  });
+});
+
+describe('getLocalizedCmsItemUrl', () => {
+  test.each<{
+    pathname: string;
+    query: ParsedUrlQuery;
+    language: LanguageCodeEnum;
+    expected: string;
+    description: string;
+  }>([
+    {
+      pathname: '/path/to/page',
+      query: {},
+      language: LanguageCodeEnum.Fi,
+      expected: '/fi/path/to/page',
+      description: 'FI: No query',
+    },
+    {
+      pathname: '/path/to/page',
+      query: { key: 'value' },
+      language: LanguageCodeEnum.En,
+      expected: '/en/path/to/page?key=value',
+      description: 'EN: With query',
+    },
+    {
+      pathname: '/another/page',
+      query: { a: '1', b: '2' },
+      language: LanguageCodeEnum.Sv,
+      expected: '/sv/another/page?a=1&b=2',
+      description: 'SV: Multiple query params',
+    },
+    {
+      pathname: '/',
+      query: {},
+      language: LanguageCodeEnum.Fi,
+      expected: '/fi/',
+      description: 'FI: Root path',
+    },
+    {
+      pathname: '/UPPER/CASE',
+      query: {},
+      language: LanguageCodeEnum.En,
+      expected: '/en/upper/case', // Expect lowercase output
+      description: 'EN: Uppercase path input',
+    },
+  ])(
+    'getLocalizedCmsItemUrl returns $expected for $description',
+    ({ pathname, query, language, expected }) => {
+      // Inject the mock or use the real stringifyUrlObject
+      const result = getLocalizedCmsItemUrl(pathname, query, language);
+      expect(result).toBe(expected);
+    }
+  );
+});
+
+describe('getCmsHref', () => {
+  const languageOptions = [
+    { uri: '/fi/sivu', locale: 'fi' },
+    { uri: '/en/page', locale: 'en' },
+    { uri: '/sv/sida', locale: 'sv' },
+    { uri: '/fi/toinen-sivu', locale: 'fi' }, // Duplicate locale to test find
+    { uri: null, locale: 'fr' }, // Null URI
+    { uri: '/es/pagina', locale: undefined }, // Undefined locale
+  ];
+
+  test.each<{
+    language: LanguageCodeEnum;
+    options: typeof languageOptions;
+    expected: string;
+    description: string;
+  }>([
+    {
+      language: LanguageCodeEnum.Fi,
+      options: languageOptions,
+      expected: '/fi/cms-page/sivu', // Assumes getCmsPagePath adds /cms-page/
+      description: 'FI: Found',
+    },
+    {
+      language: LanguageCodeEnum.En,
+      options: languageOptions,
+      expected: '/en/cms-page/page',
+      description: 'EN: Found',
+    },
+    {
+      language: LanguageCodeEnum.Sv,
+      options: languageOptions,
+      expected: '/sv/cms-page/sida',
+      description: 'SV: Found',
+    },
+    {
+      language: LanguageCodeEnum.Fi,
+      options: [{ uri: '/fi/UPPER', locale: 'FI' }], // Uppercase locale
+      expected: '/fi/cms-page/upper', // Expect lowercase output and locale match
+      description: 'FI: Uppercase locale in options',
+    },
+    {
+      language: LanguageCodeEnum.Fi,
+      options: [], // Empty options array
+      expected: '/fi',
+      description: 'FI: Empty options',
+    },
+  ])(
+    'getCmsHref returns $expected for $description',
+    ({ language, options, expected }) => {
+      // Ensure mocks are used if real functions aren't available
+      expect(getCmsHref(language, options)).toBe(expected);
+    }
+  );
+});
+
+describe('getHrefForNonCmsPage', () => {
+  // This function directly uses getLocalizedCmsItemUrl, so tests are similar
+  // We mainly test that it passes arguments correctly
+
+  test.each<{
+    pathname: string;
+    query: ParsedUrlQuery;
+    language: LanguageCodeEnum;
+    expected: string;
+    description: string;
+  }>([
+    {
+      pathname: '/search',
+      query: { q: 'test' },
+      language: LanguageCodeEnum.Fi,
+      expected: '/fi/search?q=test',
+      description: 'FI: Search page',
+    },
+    {
+      pathname: '/newsletter',
+      query: {},
+      language: LanguageCodeEnum.En,
+      expected: '/en/newsletter',
+      description: 'EN: Newsletter page',
+    },
+    {
+      pathname: '/UPPER/PAGE',
+      query: {},
+      language: LanguageCodeEnum.Sv,
+      expected: '/sv/upper/page', // Expect lowercase
+      description: 'SV: Uppercase path',
+    },
+  ])(
+    'getHrefForNonCmsPage returns $expected for $description',
+    ({ pathname, query, language, expected }) => {
+      // Inject the mock or use the real stringifyUrlObject via getLocalizedCmsItemUrl
+      expect(getHrefForNonCmsPage(pathname, query, language)).toBe(expected);
+    }
+  );
 });

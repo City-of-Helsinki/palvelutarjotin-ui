@@ -347,6 +347,10 @@ export const getIsItemActive = (
   menuItem: MenuItem,
   locale: string
 ): boolean => {
+  if (!menuItem.path) {
+    return false;
+  }
+
   const localePath =
     locale !== LanguageCodeEnum.Fi.toLowerCase()
       ? `/${locale.toLowerCase()}`
