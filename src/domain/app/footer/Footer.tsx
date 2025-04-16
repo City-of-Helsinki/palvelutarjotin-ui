@@ -55,6 +55,7 @@ const FooterSection = (): React.ReactElement => {
           />
         }
         onBackToTopClick={handleBackToTop}
+        className={styles.footerBase}
       >
         {!loading &&
           data?.menu?.menuItems?.nodes?.map((navigationItem) => {

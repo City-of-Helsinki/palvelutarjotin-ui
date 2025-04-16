@@ -11,3 +11,7 @@
     width: 100% !important;
   }
 }
+
+.footerBase div[class^='FooterBase-module_links'] {
+  flex-wrap: wrap;
+}
