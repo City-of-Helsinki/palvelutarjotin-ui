@@ -92,6 +92,7 @@ const CmsPageSearch: React.FC<{
     url: getCmsPagePath(item?.uri ?? ''),
     imageUrl:
       item?.featuredImage?.node?.medium_large || getEventPlaceholderImage(''),
+    direction: 'fixed-vertical',
   });
 
   const customContent = (
