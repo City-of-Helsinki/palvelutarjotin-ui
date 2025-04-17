@@ -533,12 +533,13 @@ describe('getIsItemActive', () => {
     }
   );
 
-  it('should handle window being undefined (SSR)', () => {
-    const originalWindow = global.window;
-    // @ts-expect-error: Simulate SSR environment where window is undefined
-    delete global.window;
+  it('should return false when window is undefined (SSR environment)', () => {
+    const windowSpy = jest.spyOn(global as any, 'window', 'get');
+    windowSpy.mockReturnValue(undefined);
+
     expect(getIsItemActive(menuItem, 'fi')).toBe(false);
-    global.window = originalWindow; // Restore window
+
+    windowSpy.mockRestore(); // Clean up the mock
   });
 });
 
