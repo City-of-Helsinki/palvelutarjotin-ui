@@ -33,6 +33,9 @@ Teachers' UI for Kultus (formerly Palvelutarjotin).
     - [`yarn test:changed`](#yarn-testchanged)
     - [`yarn test:coverage`](#yarn-testcoverage)
     - [`yarn test:debug`](#yarn-testdebug)
+    - [`yarn test:browser`](#yarn-testbrowser)
+    - [`yarn test:browser:ci`](#yarn-testbrowserci)
+    - [`yarn codegen:browser`](#yarn-codegenbrowser)
 - [Headless CMS](#headless-cms)
   - [Headless CMS React Components -lib](#headless-cms-react-components--lib)
 - [Releases, changelogs and deployments](#releases-changelogs-and-deployments)
@@ -412,6 +415,14 @@ Run tests and generate coverage report
 #### `yarn test:debug`
 Debug tests
 
+#### `yarn test:browser`
+Run browser tests in local development.
+
+#### `yarn test:browser:ci`
+Run browser tests in CI/CD pipeline.
+
+#### `yarn codegen:browser`
+Generate code for browser tests using [Playwright's test generator](https://playwright.dev/docs/codegen).
 
 ## Headless CMS
 

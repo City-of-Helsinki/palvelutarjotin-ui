@@ -17,7 +17,10 @@
     "test:changed": "jest -o",
     "test:coverage": "jest --watchAll=false --coverage",
     "test:staged": "cross-env SASS_PATH=./src/assets/styles jest --findRelatedTests --passWithNoTests",
-    "ci": "jest --verbose --coverage --runInBand"
+    "ci": "jest --verbose --coverage --runInBand",
+    "codegen:browser": "playwright codegen",
+    "test:browser": "playwright test",
+    "test:browser:ci": "yarn test:browser"
   },
   "//": {
     "Why are packages in resolutions?": {
@@ -91,6 +94,7 @@
     "@graphql-codegen/typescript-operations": "^4.6.0",
     "@graphql-codegen/typescript-react-apollo": "^4.3.2",
     "@next/eslint-plugin-next": "^15.2.4",
+    "@playwright/test": "^1.52.0",
     "@stylistic/eslint-plugin": "^4.2.0",
     "@swc/core": "^1.11.15",
     "@swc/jest": "^0.2.37",
@@ -132,6 +136,7 @@
     "jest_workaround": "^0.79.19",
     "lint-staged": "^15.5.0",
     "msw": "^2.7.3",
+    "playwright": "^1.52.0",
     "prettier": "^3.5.3",
     "stylelint": "^16.17.0",
     "stylelint-config-recommended-scss": "^14.1.0",
