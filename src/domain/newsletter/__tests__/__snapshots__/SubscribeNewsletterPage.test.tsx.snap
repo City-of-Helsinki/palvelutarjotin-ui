@@ -15,7 +15,7 @@ exports[`SubscribeNewsletterPage renders correctly 1`] = `
           </h2>
           <div>
             <p>
-              Tilaamalla Kultus-uutiskirjeen hyväksyn, että lähettämäni tiedot tallennetaan Kulttuuri- ja vapaa-aika toimialan Gruppo-tilaajarekisteriin. Uutiskirjeen tilauksen voi perua milloin tahansa. Linkin tietosuojaselosteeseen löydät tämän sivun alalaidasta.
+              Tilaamalla Kultus-uutiskirjeen hyväksyn, että lähettämäni tiedot tallennetaan Kulttuuri- ja vapaa-aika toimialan Gruppo-tilaajarekisteriin. Uutiskirjeen tilauksen voit lopettaa milloin tahansa uutiskirjeen lopussa olevasta linkistä. Linkin tietosuojaselosteeseen löydät tämän sivun alalaidasta.
             </p>
             <p>
               Gruppo-tilin hallintaan ja uutiskirjetilaukseen liittyen voit olla yhteydessä Kultuksen ylläpitäjään: 

@@ -16,6 +16,6 @@
   },
   "subscribeNewsletterPage": {
     "pageTitle": "Beställ vårt nyhetsbrev!",
-    "leadText": "<Paragraph>Genom att prenumerera på nyhetsbrevet Kultus godkänner jag att mina uppgifter sparas i Gruppo-registret, som upprätthålls av Kultur och Fritid. Nyhetsbrevet kan avbeställas när som helst. Länken till integritetspolicyn finns längst ned på denna sida.</Paragraph><Paragraph>Berörande administrationen av Gruppo-kontot och nyhetsbrevet kan du vara i kontakt med admin för Kultus: <MailToAdminLink aria-label=\"Admin email: {{adminMail}}\">{{adminMail}}</MailToAdminLink>.</Paragraph>"
+    "leadText": "<Paragraph>Genom att prenumerera på nyhetsbrevet Kultus godkänner jag att mina uppgifter sparas i Gruppo-registret, som upprätthålls av Kultur och Fritid. Du kan när som helst avsluta prenumerationen genom att klicka på länken i slutet av nyhetsbrevet. Länken till integritetspolicyn finns längst ned på denna sida.</Paragraph><Paragraph>Berörande administrationen av Gruppo-kontot och nyhetsbrevet kan du vara i kontakt med admin för Kultus: <MailToAdminLink aria-label=\"Admin email: {{adminMail}}\">{{adminMail}}</MailToAdminLink>.</Paragraph>"
   }
 }
