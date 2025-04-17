@@ -22,9 +22,8 @@ import UnitPlaceSelectorField from '../../../common/components/form/fields/UnitP
 import FormErrorNotification from '../../../common/components/form/FormErrorNotification';
 import FormGroup from '../../../common/components/form/FormGroup';
 import FormikPersist from '../../../common/components/formikPersist/FormikPersist';
-import { FORM_NAMES, PRIVACY_POLICY_LINKS } from '../../../constants';
+import { FORM_NAMES } from '../../../constants';
 import { Language } from '../../../generated/graphql';
-import useLocale from '../../../hooks/useLocale';
 import type { I18nNamespace } from '../../../types';
 import keyify from '../../../utils/keyify';
 import { translateValue } from '../../../utils/translateUtils';
@@ -52,7 +51,6 @@ const EnrolmentForm: React.FC<Props> = ({
   actionType = 'enrolment',
 }) => {
   const { t } = useTranslation<I18nNamespace>();
-  const locale = useLocale();
 
   const { options: studyLevelOptions } = useStudyLevels();
 
@@ -339,17 +337,7 @@ const EnrolmentForm: React.FC<Props> = ({
               </FormGroup>
             </div>
             <FormGroup>
-              <p>
-                {t('enrolment:enrolmentForm.infoText1')}{' '}
-                <a
-                  href={PRIVACY_POLICY_LINKS[locale]}
-                  target="_blank"
-                  rel="noreferrer"
-                  className={styles.privacyPolicyLink}
-                >
-                  {t('common:privacyPolicy')}
-                </a>
-              </p>
+              <p>{t('enrolment:enrolmentForm.infoText1')}</p>
             </FormGroup>
             <FormGroup>
               <div className={styles.checkboxWrapper}>

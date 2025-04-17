@@ -36,12 +36,6 @@ export const ALL_I18N_NAMESPACES = [
   'occurrence',
 ] as const;
 
-export const PRIVACY_POLICY_LINKS = {
-  fi: 'https://hkih.production.geniem.io/uploads/sites/5/2022/11/739f5edc-rekisteriseloste-kultus.fi_.pdf',
-  en: 'https://hkih.production.geniem.io/uploads/sites/5/2022/11/bf2f8d34-rekisteriseloste-kultus.fi_en.pdf',
-  sv: 'https://hkih.production.geniem.io/uploads/sites/5/2022/11/0d425f44-rekisteriseloste-kultus.fi_sv.pdf',
-};
-
 export const ADMIN_EMAIL = {
   fi: 'kultus@hel.fi',
   en: 'kultus@hel.fi',
