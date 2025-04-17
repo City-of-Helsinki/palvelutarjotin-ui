@@ -41,6 +41,7 @@ module.exports = {
   testPathIgnorePatterns: [
     '<rootDir>/.next/',
     '<rootDir>/node_modules/',
+    '<rootDir>/src/playwright/',
     '/__mocks__/',
   ],
   coveragePathIgnorePatterns: [
