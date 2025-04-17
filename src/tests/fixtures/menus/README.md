@@ -1,3 +1,5 @@
+<!-- DOCTOC SKIP -->
+
 # Menu fixtures for testing
 
 Menus were read from production headless CMS with `menuIdentifiersOnly: false`,
