@@ -1,8 +1,43 @@
-# palvelutarjotin-ui
+# Palvelutarjotin-ui
 
 Teachers' user interface for Palvelutarjotin
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**
+
+- [Environments](#environments)
+- [Requirements](#requirements)
+- [Steps to set up locally:](#steps-to-set-up-locally)
+- [Credentials](#credentials)
+  - [Google reCAPTCHA](#google-recaptcha)
+- [Available Scripts](#available-scripts)
+  - [`yarn dev`](#yarn-dev)
+  - [`yarn build`](#yarn-build)
+  - [`yarn start`](#yarn-start)
+  - [`yarn codegen`](#yarn-codegen)
+    - [in .env file](#in-env-file)
+  - [`yarn lint`](#yarn-lint)
+  - [`yarn format:code`](#yarn-formatcode)
+  - [`yarn test`](#yarn-test)
+  - [`yarn test:changed`](#yarn-testchanged)
+  - [`yarn test:coverage`](#yarn-testcoverage)
+  - [`yarn test:debug`](#yarn-testdebug)
+  - [`yarn test:coverage`](#yarn-testcoverage-1)
+  - [`yarn storybook` DELETED](#yarn-storybook-deleted)
+  - [`yarn build-storybook` DELETED](#yarn-build-storybook-deleted)
+  - [`yarn deploy-storybook` DELETED](#yarn-deploy-storybook-deleted)
+- [Versioning](#versioning)
+- [Debugging](#debugging)
+  - [Debugging project in VS Code](#debugging-project-in-vs-code)
+  - [Debugging Tests in VS Code](#debugging-tests-in-vs-code)
+  - [Debugging Tests in Chrome](#debugging-tests-in-chrome)
+- [Learn More](#learn-more)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 
 ## Environments
 
