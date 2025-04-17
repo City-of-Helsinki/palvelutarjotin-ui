@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { FormikHelpers } from 'formik';
-import { IconLinkExternal, Notification } from 'hds-react';
-import NextLink from 'next/link';
+import { Notification } from 'hds-react';
 import { Trans, useTranslation } from 'next-i18next';
 import * as React from 'react';
 
@@ -11,28 +10,12 @@ import NewsletterSubscribeForm, {
 } from './newsletterSubscribeForm/NewsletterSubscribeForm';
 import styles from './subscribeNewsletterPage.module.scss';
 import { convertSubscribeFormData } from '../../clients/gruppo/lib/subscribers';
-import { ADMIN_EMAIL, PRIVACY_POLICY_LINKS } from '../../constants';
+import { ADMIN_EMAIL } from '../../constants';
 import useLocale from '../../hooks/useLocale';
 import type { I18nNamespace } from '../../types';
 import Container from '../app/layout/Container';
 import PageWrapper from '../app/layout/PageWrapper';
 import { ROUTES } from '../app/routes/constants';
-
-const PrivacyStatementLink = ({
-  url,
-  children,
-  ...rest
-}: {
-  url: string;
-  children?: React.ReactNode;
-} & React.HTMLProps<HTMLAnchorElement>) => (
-  <NextLink legacyBehavior href={url} passHref>
-    <a {...rest}>
-      {children}
-      <IconLinkExternal className={styles.privacyStatementIcon} />
-    </a>
-  </NextLink>
-);
 
 const SubscribeNewsletterPage: React.FC = () => {
   const { t } = useTranslation<I18nNamespace>();
@@ -105,13 +88,6 @@ const SubscribeNewsletterPage: React.FC = () => {
                 adminMail: ADMIN_EMAIL[locale],
               }}
               components={{
-                PrivacyStatementLink: (
-                  <PrivacyStatementLink
-                    url={PRIVACY_POLICY_LINKS[locale]}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  />
-                ),
                 // eslint-disable-next-line jsx-a11y/anchor-has-content
                 MailToAdminLink: <a href={`mailto:${ADMIN_EMAIL[locale]}`} />,
                 Paragraph: <p />,
