@@ -16,6 +16,6 @@
   },
   "subscribeNewsletterPage": {
     "pageTitle": "Subscribe to our newsletters!",
-    "leadText": "<Paragraph>By subscribing to the Kultus newsletter, I agree that the information I send will be stored in the Gruppo subscriber register. You can unsubscribe from the newsletter at any time. You can find the link to the privacy policy at the bottom of this page.</Paragraph><Paragraph>Regarding the administration of the Gruppo account and the newsletter, you can be in contact with the admin of Kultus: <MailToAdminLink aria-label=\"Administrator email: {{adminMail}}\">{{adminMail}}</MailToAdminLink>.</Paragraph>"
+    "leadText": "<Paragraph>By subscribing to the Kultus newsletter, I agree that the information I send will be stored in the Gruppo subscriber register. You can unsubscribe at any time by clicking the link at the end of the newsletter. You can find the link to the privacy policy at the bottom of this page.</Paragraph><Paragraph>Regarding the administration of the Gruppo account and the newsletter, you can be in contact with the admin of Kultus: <MailToAdminLink aria-label=\"Administrator email: {{adminMail}}\">{{adminMail}}</MailToAdminLink>.</Paragraph>"
   }
 }
