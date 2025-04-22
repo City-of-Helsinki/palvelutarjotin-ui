@@ -22,8 +22,8 @@ test('readiness response', async () => {
   const res_json = json.mock.calls[0][0];
 
   expect(res_json.status).toEqual('ok');
-  expect(res_json.release);
-  expect(res_json.packageVersion);
-  expect(res_json.commitHash);
-  expect(res_json.buildTime);
+  expect(res_json.release).toBeDefined();
+  expect(res_json.packageVersion).toBeDefined();
+  expect(res_json.commitHash).toBeDefined();
+  expect(res_json.buildTime).toBeDefined();
 });
