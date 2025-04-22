@@ -11,7 +11,7 @@ test('should apply aria label', () => {
   const sharedLink = 'https://helsinki.fi/some/';
   const { getByLabelText } = getWrapper({ sharedLink });
 
-  expect(getByLabelText('Jaa LinkedInissä'));
+  expect(getByLabelText('Jaa LinkedInissä')).toBeInTheDocument();
 });
 
 test('<LinkedInShareLink /> matches snapshot', () => {
