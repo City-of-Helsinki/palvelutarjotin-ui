@@ -1,8 +1,61 @@
-<!-- DOCTOC SKIP -->
-
 # Changelog
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://www.conventionalcommits.org/) for commit guidelines.
+
+## [2.13.0](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/palvelutarjotin-ui-v2.12.3...palvelutarjotin-ui-v2.13.0) (2025-04-23)
+
+
+### Features
+
+* Add useHashlessReturnPathScrollFix to front page ([96fbb98](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/96fbb98a34c2eb9a69b0844a8808a3b74d585117))
+* **csp:** Add CSP header configuration ([1b955ea](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/1b955ea937432ce837b88d6782de5ee8619a3362))
+* **dependabot:** Configure dependabot using .github/dependabot.yml ([8877eb3](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/8877eb37239e5144e22b3ff22bd0137a015087bd))
+* **license:** Add LICENSE file using MIT license ([7a83c4c](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/7a83c4cf0876c747814fafe4cf4ab33e050e5975))
+* Nextjs on demand revalidation API ([0b18fd6](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/0b18fd6bbf2ecc5eed057d85c69abf0677b43fc3))
+* Revalidate static pages once in an hour ([87054ed](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/87054edbe99f7c0022dcba7d373ade89a2377742))
+* Serve apollo cache from server to client ([570cee5](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/570cee57ecab00fabbcbacf7af6d111c4fd67e8d))
+* Upgrade all linting to latest (incl. eslint v9) & typescript ([8e06319](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/8e06319f917f4c8f949d576a9627293d6aabb709))
+
+
+### Bug Fixes
+
+* "yarn upgrade" after upgrading version numbers in package.json ([cb59988](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/cb599881bd17541f774b0634af6d0b8ba9c1e443))
+* Add an errorLink to apollo clients for improved error reporting ([65d49b4](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/65d49b472b9224c752fa85f633f90a239e20654d))
+* All dates and times should always be fixed to Helsinki's timezone ([588ee9c](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/588ee9ca5ac11a48aeb2172fcbc4d2852cccbaea))
+* Aria-labels inside event card ([ad8f419](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/ad8f419a9b8aae208c13c6c4f1f3d04cf2082288))
+* Back arrow -button scroll restoration ([03c0846](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/03c084646f2296a41e3a4c52798136c61987ddb8))
+* Cms internal url rewriting ([7ed1f88](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/7ed1f88defdce4975fde39df9f2a79d3258878f2))
+* **codegen:** Fix GraphQL type generation i.e. "yarn codegen" ([bea9beb](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/bea9beb7bd7f9c3e77a088f142bbff6616da6f61))
+* **dependabot:** Remove kuva-frontend from reviewers as inexistent ([f272eee](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/f272eee0a285770032fbc3563e34c25c231c91fa))
+* Enforce some consistent sorting for selected place dropdown items ([f2333e2](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/f2333e2c4d55b162a10148541f52336b3fc8a99f))
+* Event card link accessibility issues ([b5184c1](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/b5184c1a65951629ab4c007b6ea81a6235b439c5))
+* Flex-wrap footer links when they do not fit in single row ([479fc9c](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/479fc9c6e623fb68242e49edf591b597643de2dc))
+* Force direction of cards to vertical in cms page search component ([b572978](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/b572978a38970e1c751544c2a5507c4c2afc8efd))
+* Improve useGetPathnameForLanguage ([e223d0c](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/e223d0c470ccbd18008aa96e5bee7259f7810b0b))
+* **lint-staged:** Use same file extensions in lint-staged as in eslint ([ed77f4b](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/ed77f4b441e50aff7e888b6f18cd56fac19ffd95))
+* Menu queries with unsupported locales ([cca98eb](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/cca98eb886be30b29b7db9f5b1609f8751acaf2d))
+* Rehydration issue in event cards keywords and enrolment statuses ([9e5df14](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/9e5df14f10603e45b6a89c5543f7b6ab698b6cd3))
+* Remove dependabot reviewers, set comment for PT-1887 ([cc8bded](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/cc8bded4699e4814b0746ea50d3b77fb84869691))
+* Remove privacy statement link from newsletter page ([44881ef](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/44881efa8e600b02575e6330edee798517a46c0e))
+* Remove translations adding from getPageInfosFromNode utility ([e39f2b8](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/e39f2b8cd857c19e6f593db14a175775e58aa387))
+* Rename test utils file ([455ab17](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/455ab178db46ffbb3d6a0b32ec2cc5a2427b6b67))
+* Replace math.random security hotspot randomUUId from crypto ([0b7ca92](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/0b7ca922f39f128a8d9e9b0a2e6b49907e1e7f1c))
+* Replace privacy statement link in enrolment form with instructions ([a7b790e](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/a7b790e23b677f0f663239566dd411b464a01144))
+* ReturnPath should contain the search  parameters ([9f94220](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/9f94220b05f75ffa40020e072537d769079c3f32))
+* Rewrite internal cms urls (for breadcrumbs) ([133d581](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/133d581dfbf308943a52b626fbd0493c04d23860))
+* Search page filters not persisted properly on language change ([b14f889](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/b14f889e29c836f826aa378a28a5534a150d7943))
+* **security:** Remove old next-server as unnecessary ([54b389e](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/54b389e688cfaf21a3a2611dc24e81676200e9e1))
+* **security:** Remove old stylelint-no-unused-selectors as unused ([4a01cbb](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/4a01cbb2b1920a6706af55e1d6a1696762610991))
+* **security:** Resolve cookie & @babel/runtime to newer versions ([cd0c13d](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/cd0c13d98e87ea468c277acfdb6088bb4b333b53))
+* **security:** Update cross-fetch & @graphql-codegen/* to latest ([a44e104](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/a44e104b7a9a4bd5e6fdf39d7f8c897e4bda83ea))
+* **security:** Update msw to latest, add jest-fixed-jsdom, remove dequal ([69ef406](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/69ef40609caad3671e28e9e356b4e85dcd1f131c))
+* Sorting in objectStructureMatches ([aae1589](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/aae1589821d3e017888a018d85856d33c3876678))
+* Update all packages to latest minor version ([6e49881](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/6e498810036ec2515e61195a27334d558cdebed6))
+* Update unsubscribe newsletter text ([aff3503](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/aff3503437a76bad6d7ac03362ac61f5e82aaed4))
+* Upgrade [@faker](https://github.com/faker)*, @testing-library/(jest-dom|react) to latest ([e97e266](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/e97e266c6c4141b44d00b19c2e318e546eed2083))
+* Use a compare function when sorting strings in keywordArrayToText ([b3d5bc0](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/b3d5bc00d3281b3b6ff33ed20c6296a0fbc32afa))
+* Use cms apollo client for cms notification query ([2c88fb1](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/2c88fb1f9c14252d267aea7526281889c0215a4d))
+* Use Error_ instead of Error for variable name ([cf8471c](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/cf8471c197968b9c148494e8ab6b31ec4dcc4f9e))
 
 ## [2.12.3](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/palvelutarjotin-ui-v2.12.2...palvelutarjotin-ui-v2.12.3) (2025-01-31)
 
