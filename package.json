@@ -1,6 +1,6 @@
 {
   "name": "palvelutarjotin-ui",
-  "version": "2.12.3",
+  "version": "2.13.0",
   "private": true,
   "scripts": {
     "clean": "rimraf --no-glob ./.next ./out ./coverage ./tsconfig.tsbuildinfo",
@@ -111,7 +111,6 @@
     "@types/yup": "^0.32.0",
     "@typescript-eslint/eslint-plugin": "^8.29.0",
     "@typescript-eslint/parser": "^8.29.0",
-    "doctoc": "^2.2.1",
     "dotenv": "^16.4.7",
     "eslint": "^9.23.0",
     "eslint-import-resolver-typescript": "^4.3.1",
