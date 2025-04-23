@@ -48,6 +48,6 @@ module.exports = {
     '<rootDir>/src/domain/app/apollo/configureApollo.tsx',
     '<rootDir>/src/utils/testUtils.tsx',
   ],
-  collectCoverageFrom: ['src/**/*.{js,jsx,tsx}'],
+  collectCoverageFrom: ['src/**/*.{js,jsx,ts,tsx}'],
   testTimeout: 20000,
 };
