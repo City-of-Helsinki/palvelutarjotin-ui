@@ -23,17 +23,17 @@ Teachers' UI for Kultus (formerly Palvelutarjotin).
   - [Husky Git Hooks](#husky-git-hooks)
     - [Pre-commit Hook](#pre-commit-hook)
     - [Commit-msg Hook](#commit-msg-hook)
-- [Available Scripts](#available-scripts)
-  - [`yarn dev`](#yarn-dev)
-  - [`yarn build`](#yarn-build)
-  - [`yarn start`](#yarn-start)
-  - [`yarn codegen`](#yarn-codegen)
-  - [`yarn lint`](#yarn-lint)
-  - [`yarn format:code`](#yarn-formatcode)
-  - [`yarn test`](#yarn-test)
-  - [`yarn test:changed`](#yarn-testchanged)
-  - [`yarn test:coverage`](#yarn-testcoverage)
-  - [`yarn test:debug`](#yarn-testdebug)
+  - [Available Scripts](#available-scripts)
+    - [`yarn dev`](#yarn-dev)
+    - [`yarn build`](#yarn-build)
+    - [`yarn start`](#yarn-start)
+    - [`yarn codegen`](#yarn-codegen)
+    - [`yarn lint`](#yarn-lint)
+    - [`yarn format:code`](#yarn-formatcode)
+    - [`yarn test`](#yarn-test)
+    - [`yarn test:changed`](#yarn-testchanged)
+    - [`yarn test:coverage`](#yarn-testcoverage)
+    - [`yarn test:debug`](#yarn-testdebug)
 - [Headless CMS](#headless-cms)
   - [Headless CMS React Components -lib](#headless-cms-react-components--lib)
 - [Releases, changelogs and deployments](#releases-changelogs-and-deployments)
@@ -189,9 +189,6 @@ This project is built using the following key frameworks and libraries:
 
 ## Development
 
-
-
-
 ### Getting started
 
 1. Clone this repository
@@ -201,7 +198,6 @@ This project is built using the following key frameworks and libraries:
    - [Running using local Node.js](#running-using-local-nodejs) **or**
    - [Running using Docker & Docker compose](#running-using-docker)
 
-
 #### Requirements
 
 Compatibility defined by [Dockerfile](./Dockerfile):
@@ -209,7 +205,6 @@ Compatibility defined by [Dockerfile](./Dockerfile):
 - Docker
 - Node.js 20.x
 - Yarn
-
 
 #### About Kultus data models (and relations to LinkedEvents)
 
@@ -253,7 +248,7 @@ The public [test (and development environments)](#environments) can be used to r
 
 Using the following instructions you should be able to:
 
-- Run this UI using local Node.js
+- Run this UI using local Node.js. A local Node version can be set for example using [NVM](https://github.com/nvm-sh/nvm).
 - Run the Kultus API backend locally in Docker or use the public test environment's backend
 - Use the public test environment of Helsinki Profile's Keycloak for authentication
 
@@ -327,11 +322,11 @@ npx --no-install commitlint --edit "$1"
 
 - `npx --no-install commitlint --edit "$1"`: This command uses [Commitlint](https://commitlint.js.org/#/) to lint commit messages based on the project's commit message conventions. This repo follows the [Conventional Commits](#conventional-commits).
 
-## Available Scripts
+### Available Scripts
 
 In the project directory, you can run:
 
-### `yarn dev`
+#### `yarn dev`
 
 Runs the app in the development mode.<br/>
 Open http://localhost:3000/ to view it in the browser.
@@ -339,7 +334,7 @@ Open http://localhost:3000/ to view it in the browser.
 The page will reload if you make edits.<br/>
 You will also see any lint errors in the console.
 
-### `yarn build`
+#### `yarn build`
 
 Builds the app for production to the `build` directory.
 It correctly bundles React in production mode and optimizes the build for the best performance.
@@ -347,11 +342,11 @@ It correctly bundles React in production mode and optimizes the build for the be
 The build is minified and the filenames include the hashes.
 Your app is ready to be deployed!
 
-### `yarn start`
+#### `yarn start`
 Runs the built app in the production mode.<br/>
 Open http://localhost:3000/ to view it in the browser.
 
-### `yarn codegen`
+#### `yarn codegen`
 Codegen settings in codegen.yml
 
 Generate static types for GraphQL queries by using the schema from the backend server.
@@ -361,22 +356,22 @@ in .env file
 - Headless CMS API URL to NEXT_PUBLIC_CMS_BASE_URL
 - Unified search API URL to NEXT_PUBLIC_UNIFIED_SEARCH_BASE_URL
 
-### `yarn lint`
+#### `yarn lint`
 Run linter to all the files in app
 
-### `yarn format:code`
+#### `yarn format:code`
 Fix all the linter errors
 
-### `yarn test`
+#### `yarn test`
 Launches the test runner in the interactive watch mode.
 
-### `yarn test:changed`
+#### `yarn test:changed`
 Run relevant test based on changes sinces last commit, used in husky git commit hook
 
-### `yarn test:coverage`
+#### `yarn test:coverage`
 Run tests and generate coverage report
 
-### `yarn test:debug`
+#### `yarn test:debug`
 Debug tests
 
 
