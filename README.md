@@ -17,7 +17,6 @@ Teachers' UI for Kultus (formerly Palvelutarjotin).
     - [Environment configuration](#environment-configuration)
       - [Running using local Node.js](#running-using-local-nodejs)
       - [Running using Docker](#running-using-docker)
-      - [Running the Kultus backend locally](#running-the-kultus-backend-locally)
   - [Credentials](#credentials)
     - [Google reCAPTCHA](#google-recaptcha)
   - [Husky Git Hooks](#husky-git-hooks)
@@ -223,7 +222,7 @@ There are multiple types of events:
 
 - **Multiple occurrences might be needed**. When an event is created (in Kultus Provider's UI), the admin can choose whether an enrolment needs multiple occurrences to be chosen. In such events, the registrant must commit to attending the event on multiple event dates. These enrolments are always handled in Kultus internally and are automatically approved.
 
-- **Enrolments queue** might also be enabled, which means that when an occurrence is fully booked, the study groups can enrol to queue. IF any enrolment cancellations are made or the enrolments are reorganizing by the admins, enrolments in queue can be promoted to the group of actual registrations.
+- **Enrolments queue** might also be enabled, which means that when an occurrence is fully booked, the study groups can enrol to queue. IF any enrolment cancellations are made or the enrolments are reorganized by the admins, enrolments in queue can be promoted to the group of actual registrations.
 
 #### Environment configuration
 
@@ -237,22 +236,36 @@ The public [test (and development environments)](#environments) can be used to r
         - a local Kultus API (running with a local Python or in a Docker container)
         - a local LinkedEvents (running with a local Python or in a Docker container, but a dockerized environment is highly recommended).
 
-2. **The OIDC clients needs to be configured** so that
-    - the UI client and the API are using the same the authorization server, meaning that the API can validate and verify the JWT issuer.
-    - the UI's and the API's OIDC client names are set so that the authorization server the JWT's authorized party and audience matches the client names.
-
-3. **Configure LinkedEvents**: The UI client needs to be configured to use the same LinkedEvents as the API is using or otherwise the links to the events will not work properly, since part of the event data would be missing (see [About Kultus data models (and relations to LinkedEvents](#about-kultus-data-models-and-relations-to-linkedevents)).
+2. **Configure LinkedEvents**: The UI client needs to be configured to use the same LinkedEvents as the API is using or otherwise the links to the events will not work properly, since part of the event data would be missing (see [About Kultus data models (and relations to LinkedEvents](#about-kultus-data-models-and-relations-to-linkedevents)).
 
 
 ##### Running using local Node.js
 
 Using the following instructions you should be able to:
 
-- Run this UI using local Node.js. A local Node version can be set for example using [NVM](https://github.com/nvm-sh/nvm).
+- Run this UI using local Node.js. 
 - Run the Kultus API backend locally in Docker or use the public test environment's backend
-- Use the public test environment of Helsinki Profile's Keycloak for authentication
 
-TODO: steps - set environment variables, launch node server...
+1. Set up a local Node version can be set for example using [NVM](https://github.com/nvm-sh/nvm).
+2. Copy [.env.example](./.env.example) file to ./.env file).
+    ```shell
+    cp .env.example .env
+    ```
+3. Configure API endpoints
+    
+    **Kultus API**
+    ```shell
+    NEXT_PUBLIC_API_BASE_URL=https://kultus.api.test.hel.ninja/graphql
+    # for local development, use the following line instead
+    # NEXT_PUBLIC_API_BASE_URL=http://localhost:8081/graphql
+    ```
+4. Optional. If you set up a local API, remember to set up also a local LinkedEvents. You can find the instructions for that from Kultus API documentation https://github.com/City-of-Helsinki/palvelutarjotin. To find out why's that important, see [the data model instructions](#about-kultus-data-models-and-relations-to-linkedevents).
+
+    > NOTE: if you have any problems to connect, double check the network port where the API is running. Running Docker services and their port forwardings can be checked with `docker ps -a`. 
+    >
+    > If you connect to a Docker container from your local computer, you can usually use https://localhost:8081/ to reach the API. 
+
+5. Run the Node application in development mode with `yarn dev`.
 
 ##### Running using Docker
 
@@ -261,19 +274,44 @@ Using the following instructions you should be able to:
 - Run this UI using Docker & Docker compose
 - Run the Kultus backend locally in Docker or use the public test environment's backend
 
-TODO: steps - set environment variables, launch docker services...
+1. Copy [.env.example](./.env.example) file to ./.env file).
+    ```shell
+    cp .env.example .env
+    ```
+2. Configure API endpoints
+    
+    **Kultus API** 
+    ```shell
+    NEXT_PUBLIC_API_BASE_URL=https://kultus.api.test.hel.ninja/graphql
+    ```
+    to use the API from the public test environment.
+    > NOTE: If you connect to a Docker container from your local computer, you can usually use https://localhost:8081/ to reach the API, but if you connect from a Docker container to another, you should be using the container names like http://kultus-backend:8081/ to reach the API or use http://host.docker.internal:8081/ to connect via your local machine ports.
 
-##### Running the Kultus backend locally
 
-If you want to run the Kultus backend locally:
+3. To build and start a docker container, you can use
+    **a development build:**
+    > NOTE: [compose.yml](./compose.yml) maps some local directories as a volume in order to get a hot reload for the code to work.
+    ```shell
+    DOCKER_TARGET=development docker compose up --build
+    ```
 
-- Clone the [Kultus API -repo](https://github.com/City-of-Helsinki/palvelutarjotin)
-- Follow its README to run it locally in Docker
-- After this the Kultus API should be running at http://localhost:8081/graphql (i.e. the value of `NEXT_PUBLIC_API_BASE_URL`)
-- Since the Kultus API is runing locally, also the LinkedEvents must be ran locally, or otherwise the date related to events is not in sync with LinkedEvents and only partial event data is available, leading to missing events.
+    or 
 
-TODO: steps - set environment variables, launch backend service...
-
+    if you want to run **a production build**, you most likely first need to unmap the composer volumes from [compose.yml](./compose.yml), by removing or fully commenting out the following section:
+    ```yaml
+    volumes:
+      # Share local directory to enable development with hot reloading
+      # NOTE: the volume mapping will break the production-stage build!
+      - .:/app
+      # Prevent sharing the following directories between host and container
+      # to avoid ownership and/or platform issues:
+      - /app/node_modules
+      - /app/.next
+    ```
+    and then running
+    ```shell
+    DOCKER_TARGET=production docker compose up --build
+    ```
 
 ### Credentials
 
