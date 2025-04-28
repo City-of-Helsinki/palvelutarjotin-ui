@@ -11,11 +11,13 @@ Teachers' UI for Kultus (formerly Palvelutarjotin).
   - [Environments](#environments)
   - [Frameworks and Libraries](#frameworks-and-libraries)
 - [Development](#development)
-  - [Requirements](#requirements)
   - [Getting started](#getting-started)
-    - [Running using local Node.js](#running-using-local-nodejs)
-    - [Running using Docker](#running-using-docker)
-    - [Running the Kultus backend locally](#running-the-kultus-backend-locally)
+    - [Requirements](#requirements)
+    - [About Kultus data models (and relations to LinkedEvents)](#about-kultus-data-models-and-relations-to-linkedevents)
+    - [Environment configuration](#environment-configuration)
+      - [Running using local Node.js](#running-using-local-nodejs)
+      - [Running using Docker](#running-using-docker)
+      - [Running the Kultus backend locally](#running-the-kultus-backend-locally)
   - [Credentials](#credentials)
     - [Google reCAPTCHA](#google-recaptcha)
   - [Husky Git Hooks](#husky-git-hooks)
@@ -187,12 +189,8 @@ This project is built using the following key frameworks and libraries:
 
 ## Development
 
-### Requirements
 
-Compatibility defined by [Dockerfile](./Dockerfile):
 
-- Node.js 20.x
-- Yarn
 
 ### Getting started
 
@@ -204,17 +202,64 @@ Compatibility defined by [Dockerfile](./Dockerfile):
    - [Running using Docker & Docker compose](#running-using-docker)
 
 
-#### Running using local Node.js
+#### Requirements
+
+Compatibility defined by [Dockerfile](./Dockerfile):
+
+- Docker
+- Node.js 20.x
+- Yarn
+
+
+#### About Kultus data models (and relations to LinkedEvents)
+
+> IMPORTANT: The event data is partially stored in LinkedEvents and partially in Kultus API. Because of that, Kultus API and LinkedEvents API databases needs to be in sync so they can successfully share and fullfill each other's event data. This means that if you run a local Kultus API, you will also need a local LinkedEvents, or otherwise one of the APIs have event data that cannot be fully fullfilled, which leads to missing events.
+
+**Kultus API extends the LinkedEvents event data by providing (one or more) occurrence times for a single event.** When users are enrolling, they are actually enrolling to the event occurrences, not the event itself. The event is like an container to multiple occurrences.
+
+There are multiple types of events:
+
+- **Enrolments can be managed differently**:
+  1. Events that are public and does not need any enrolling.
+  2. Events that have internal enrolments when the enrolment is done from the Kultus (from Teacher's UI) itself.
+  3. Events that have external enrolments. Then Kultus does not know the enrolment status and cannot do any management to them.
+
+- **Enrolments can be automatically or manually approved.** IF the enrolments are approved automatically, the approval is given immediately after the enrolment is sent and the event still had enough space left for the study group that enrolled. If the enrolments are approved manually, the enrolments are managed by the event admins or providers through the Provider's UI.
+
+- **Multiple occurrences might be needed**. When an event is created (in Kultus Provider's UI), the admin can choose whether an enrolment needs multiple occurrences to be chosen. In such events, the registrant must commit to attending the event on multiple event dates. These enrolments are always handled in Kultus internally and are automatically approved.
+
+- **Enrolments queue** might also be enabled, which means that when an occurrence is fully booked, the study groups can enrol to queue. IF any enrolment cancellations are made or the enrolments are reorganizing by the admins, enrolments in queue can be promoted to the group of actual registrations.
+
+#### Environment configuration
+
+> Please read the [About Kultus data models (and relations to LinkedEvents)](#about-kultus-data-models-and-relations-to-linkedevents) before choosing and configuring the environment to understand how fragmented the data is and how does it affect in Kultus when another environmetn is chosen.
+
+The public [test (and development environments)](#environments) can be used to run this app, but sometimes it might be, that all the new features of the API are yet to be published to the public environment. Then you may need also a local Kultus API running in your own local machine.
+
+1. Select the used API:
+    1. **When running with a public API**, you will need only the UI running locally (in a Docker container or with a local Node).
+    2. **When running a fully local environment**, you will need
+        - a local Kultus API (running with a local Python or in a Docker container)
+        - a local LinkedEvents (running with a local Python or in a Docker container, but a dockerized environment is highly recommended).
+
+2. **The OIDC clients needs to be configured** so that
+    - the UI client and the API are using the same the authorization server, meaning that the API can validate and verify the JWT issuer.
+    - the UI's and the API's OIDC client names are set so that the authorization server the JWT's authorized party and audience matches the client names.
+
+3. **Configure LinkedEvents**: The UI client needs to be configured to use the same LinkedEvents as the API is using or otherwise the links to the events will not work properly, since part of the event data would be missing (see [About Kultus data models (and relations to LinkedEvents](#about-kultus-data-models-and-relations-to-linkedevents)).
+
+
+##### Running using local Node.js
 
 Using the following instructions you should be able to:
 
 - Run this UI using local Node.js
 - Run the Kultus API backend locally in Docker or use the public test environment's backend
-- Use the public test environments of Helsinki Profile and Keycloak for authentication
+- Use the public test environment of Helsinki Profile's Keycloak for authentication
 
 TODO: steps - set environment variables, launch node server...
 
-#### Running using Docker
+##### Running using Docker
 
 Using the following instructions you should be able to:
 
@@ -223,7 +268,7 @@ Using the following instructions you should be able to:
 
 TODO: steps - set environment variables, launch docker services...
 
-#### Running the Kultus backend locally
+##### Running the Kultus backend locally
 
 If you want to run the Kultus backend locally:
 
