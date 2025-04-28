@@ -1,8 +1,18 @@
 # Playwright Tests
 
-## Overview
-
 This directory contains [Playwright](https://playwright.dev/) tests for the Palvelutarjotin UI project.
+
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**
+
+- [Project Structure](#project-structure)
+- [Setup](#setup)
+- [Running Tests](#running-tests)
+- [Page Object Model](#page-object-model)
+- [Test Fixtures](#test-fixtures)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 ## Project Structure
 
@@ -26,22 +36,22 @@ src/playwright/
 
 See [Playwright's Running and debugging tests](https://playwright.dev/docs/running-tests) documentation.
 
-Build the production build of the UI and start the server
-(Pages load faster than in development build):
-```bash
-yarn build
-yarn start
-```
-Or if the development server is fast enough in your environment, then you can
-use it with Playwright tests instead of the production build:
-```bash
-yarn dev
-```
+Using the **production build** of the UI for testing is **recommended**,
+because the development server can be so slow as to make the tests fail.
+
+But, if it happens that in your environment the development server is fast enough,
+you can use it by setting:
+- `PLAYWRIGHT_WEB_SERVER=dev` in `.env.test.local`
+
+Otherwise the Playwright tests will use the production build.
+
+If you chose to use the production build, build it with `yarn build` before running the tests.
 
 Then run the Playwright tests:
 ```bash
 yarn playwright test
 ```
+which will spin up the web server and run all tests.
 
 Other useful commands:
 

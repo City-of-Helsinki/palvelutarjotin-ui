@@ -16,6 +16,8 @@ if (!process.env.CI) {
   dotenv.config({ path: envFilePath });
 }
 
+const useDevServer = process.env.PLAYWRIGHT_WEB_SERVER == 'dev';
+
 // See https://playwright.dev/docs/test-configuration.
 export default defineConfig({
   testDir: './src/playwright/tests',
@@ -47,4 +49,11 @@ export default defineConfig({
       use: { ...devices['Desktop Chrome'] },
     },
   ],
+
+  webServer: {
+    command: useDevServer ? 'yarn dev' : 'yarn start',
+    url: 'http://localhost:3000',
+    reuseExistingServer: !process.env.CI,
+    timeout: 60_000,
+  },
 });
