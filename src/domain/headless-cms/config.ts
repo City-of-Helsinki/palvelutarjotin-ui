@@ -5,6 +5,15 @@ class AppConfig {
       'NEXT_PUBLIC_APP_ORIGIN'
     );
   }
+
+  /**
+   * The hostname of the application.
+   * @example "localhost" or "kultus.hel.fi", so no protocol, port or pathname.
+   */
+  static get hostname() {
+    return new URL(AppConfig.origin).hostname;
+  }
+
   static get cmsGraphqlEndpoint() {
     return getEnvOrError(
       process.env.NEXT_PUBLIC_CMS_BASE_URL,
