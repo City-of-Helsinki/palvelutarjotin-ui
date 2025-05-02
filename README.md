@@ -265,7 +265,7 @@ Using the following instructions you should be able to:
     >
     > If you connect to a Docker container from your local computer, you can usually use https://localhost:8081/ to reach the API. 
 
-5. Run the Node application in development mode with `yarn dev`.
+5. Install the dependencies (with `yarn install`) and run the Node application in development mode with `yarn dev`.
 
 ##### Running using Docker
 
