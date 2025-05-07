@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://www.conventionalcommits.org/) for commit guidelines.
 
+## [2.14.0](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/palvelutarjotin-ui-v2.13.0...palvelutarjotin-ui-v2.14.0) (2025-05-07)
+
+
+### Features
+
+* Add AppConfig.hostname and tests for it ([f14ce1f](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/f14ce1fdc4b872b2bc22593cb3bf0332cda809a5))
+* Add basic playwright tests & run them in Github actions ([8ce26cd](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/8ce26cdf9e407e62d2210b86db5cafb7bcc9aa3d))
+
 ## [2.13.0](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/palvelutarjotin-ui-v2.12.3...palvelutarjotin-ui-v2.13.0) (2025-04-23)
 
 
