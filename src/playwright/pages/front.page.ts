@@ -13,6 +13,7 @@ export class FrontPage extends SearchCapablePage {
   static async create(page: Page, path: AllowedFrontPagePaths) {
     const frontPage = new FrontPage(page);
     await frontPage.page.goto(path);
+    await frontPage.isReady();
     return frontPage;
   }
 
