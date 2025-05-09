@@ -3,6 +3,7 @@ import isEqual from 'lodash/isEqual';
 
 import { expect } from '../testWithFixtures';
 import type { FooterLink, HeaderButton, Timeout } from '../types';
+import { mockGraphQL } from '../utils';
 
 export class BasePage {
   protected readonly page: Page;
@@ -74,7 +75,18 @@ export class BasePage {
     );
   }
 
-  protected async hasTitle(text: string, timeout?: Timeout) {
+  async hasTitle(text: string, timeout?: Timeout) {
     await expect(this.h1).toContainText(text, timeout);
+  }
+
+  protected async hasVisibleHeading(name: string | RegExp, timeout?: Timeout) {
+    await expect(this.page.getByRole('heading', { name })).toBeVisible(timeout);
+  }
+
+  protected async mockGraphQL(
+    operationName: string,
+    responseData: Record<string, unknown>
+  ) {
+    return await mockGraphQL(this.page, operationName, responseData);
   }
 }
