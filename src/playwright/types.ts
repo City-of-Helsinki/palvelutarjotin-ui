@@ -1,3 +1,11 @@
+import type { Locator } from '@playwright/test';
+
+import type { Language } from '../types';
+
+export type GetByRoleOptions = Omit<
+  NonNullable<Parameters<Locator['getByRole']>[1]>,
+  'name'
+>;
 export type Timeout = { timeout?: number };
 export type LanguageButton = 'Suomi' | 'Svenska' | 'English';
 export type HeaderButton = LanguageButton;
@@ -14,3 +22,5 @@ export type SearchOption = TargetGroupOption;
 export type SearchEvents = 'Hae tapahtumia' | 'Sök evenemang' | 'Search events';
 export type SearchButton = SearchEvents | TargetGroupButton;
 export type SearchTextBox = SearchEvents;
+
+export type Translation = Record<Language, string>;
