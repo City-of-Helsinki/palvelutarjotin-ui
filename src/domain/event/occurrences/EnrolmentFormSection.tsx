@@ -1,5 +1,5 @@
 import { isApolloError } from '@apollo/client';
-import { omit } from 'lodash';
+import omit from 'lodash/omit';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 import React from 'react';
@@ -66,6 +66,7 @@ const EnrolmentFormSection: React.FC<{
           ...omit(router.query, [
             ENROLMENT_URL_PARAMS.EVENT_ID,
             ENROLMENT_URL_PARAMS.OCCURRENCES,
+            ENROLMENT_URL_PARAMS.QUEUE_CREATED, // Cannot queue and enrol at the same time
           ]),
           [ENROLMENT_URL_PARAMS.NOTIFICATION_TYPE]:
             data.data?.enrolOccurrence?.enrolments?.[0]?.notificationType,
