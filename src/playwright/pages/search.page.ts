@@ -4,14 +4,21 @@ import type { Language } from '../../types';
 import { LANGUAGES } from '../constants';
 import { expect } from '../testWithFixtures';
 import { SearchCapablePage } from './searchCapable.page';
-import { MOCK_EVENTS_QUERY_RESPONSE } from '../mocks';
-import { TRANS } from '../translations';
+import { Translation } from '../types';
 
-const EVENT_COUNT_REGEX = {
-  fi: /Tapahtumat \d+ kpl/,
-  sv: /Evenemang \d+ st/,
-  en: /Events \d+ pc/,
-} as const satisfies Record<Language, RegExp>;
+// Translations for the search page
+const TRANS = {
+  eventCountRegex: {
+    fi: /Tapahtumat \d+ kpl/,
+    sv: /Evenemang \d+ st/,
+    en: /Events \d+ pc/,
+  },
+  openEventPrefix: {
+    fi: 'Siirry tapahtumaan: ',
+    sv: 'Gå till evenemang: ',
+    en: 'Go to event: ',
+  },
+} as const satisfies Record<string, Translation>;
 
 export class SearchPage extends SearchCapablePage {
   constructor(page: Page) {
@@ -31,10 +38,6 @@ export class SearchPage extends SearchCapablePage {
       .getByRole('link', { name: TRANS.openEventPrefix[lang] + name })
       .first()
       .click();
-  }
-
-  async mockSearchResults() {
-    await this.mockGraphQL('Events', MOCK_EVENTS_QUERY_RESPONSE);
   }
 
   async isReady() {
@@ -57,6 +60,6 @@ export class SearchPage extends SearchCapablePage {
   }
 
   async isEventCountHeadingVisible(lang: Language) {
-    await this.hasVisibleHeading(EVENT_COUNT_REGEX[lang]);
+    await this.hasVisibleHeading(TRANS.eventCountRegex[lang]);
   }
 }

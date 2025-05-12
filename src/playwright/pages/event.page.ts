@@ -4,14 +4,104 @@ import { Language } from '../../types';
 import { LANGUAGES } from '../constants';
 import { expect } from '../testWithFixtures';
 import { BasePage } from './base.page';
-import {
-  MOCK_ENROL_OCCURRENCE_MUTATION_RESPONSE,
-  MOCK_EVENT_QUERY_RESPONSE,
-  MOCK_SCHOOLS_AND_KINDERGARTENS_LIST_QUERY_RESPONSE,
-  MOCK_STUDY_LEVELS_QUERY_RESPONSE,
-} from '../mocks';
-import { TRANS, TranslationsOf } from '../translations';
-import { GetByRoleOptions } from '../types';
+import { Translation } from '../types';
+
+// Translations for the event page
+const TRANS = {
+  adults: {
+    fi: 'Aikuisia *',
+    sv: 'Vuxna *',
+    en: 'Adults *',
+  },
+  acceptDataSharing: {
+    fi: 'Hyväksyn tietojeni jakamisen tapahtuman järjestäjän kanssa',
+    sv: 'Jag samtycker till att dela mina uppgifter med arrangören av evenemanget',
+    en: 'I agree to share my information with the event organizer',
+  },
+  additionalInfo: {
+    fi: 'Lisätiedot',
+    sv: 'Ytterligare information',
+    en: 'Additional information',
+  },
+  autoSuggestLoading: {
+    fi: 'Ladataan',
+    sv: 'Laddning',
+    en: 'Loading',
+  },
+  autoSuggestNoResults: {
+    fi: 'Ei tuloksia',
+    sv: 'Inga resultat',
+    en: 'No results',
+  },
+  children: {
+    fi: 'Lapsia *',
+    sv: 'Barn *',
+    en: 'Children *',
+  },
+  emailAddress: {
+    fi: 'Sähköpostiosoite *',
+    sv: 'E-post *',
+    en: 'Email address *',
+  },
+  group: {
+    fi: /^Ryhmä \*/,
+    sv: /^Grupp \*/,
+    en: /^Group name \*/,
+  },
+  name: {
+    fi: /^Nimi \*/,
+    sv: /^Namn \*/,
+    en: /^Name \*/,
+  },
+  phoneNumber: {
+    fi: 'Puhelinnumero *',
+    sv: 'Telefonnummer *',
+    en: 'Phone number *',
+  },
+  preschoolStudyLevel: {
+    fi: '5-6 -vuotiaat',
+    sv: '5-6 åringar',
+    en: '5-6 aged',
+  },
+  reservationEnquiry: {
+    fi: 'Varaustiedustelu',
+    sv: 'Bokningsförfrågan',
+    en: 'Reservation enquiry',
+  },
+  reservationEnquirySent: {
+    fi: 'Varaustiedustelu lähetetty',
+    sv: 'Bokningsförfrågan skickad',
+    en: 'Reservation enquiry sent',
+  },
+  showOccurrenceDetails: {
+    fi: 'Näytä tapahtuma-ajan lisätiedot',
+    sv: 'Visa tidpunkten för evenemanget',
+    en: 'Show occurrence details',
+  },
+  studyGroupUnit: {
+    fi: 'Päiväkoti / koulu / oppilaitos',
+    sv: 'Daghem / skola / läroanstalt',
+    en: 'Kindergarten / school / college',
+  },
+  daycareKamppiStudyGroupUnit: {
+    fi: 'Päiväkoti Kamppi',
+    sv: 'Daghemmet Kamppi',
+    en: 'Daycare Kamppi',
+  },
+  studyLevel: {
+    fi: 'Luokka-aste *',
+    sv: 'Årskurs *',
+    en: 'Grade level *',
+  },
+  submitEnquiry: {
+    fi: 'Lähetä varaustiedustelu',
+    sv: 'Skicka anmälan',
+    en: 'Submit enquiry',
+  },
+} as const satisfies Record<string, Translation>;
+
+type TranslationsOf<Keys extends keyof typeof TRANS> =
+  (typeof TRANS)[Keys][Language];
 
 type EnrolmentFormButton = TranslationsOf<'studyLevel' | 'submitEnquiry'>;
 type EnrolmentFormTextBox = TranslationsOf<
@@ -82,9 +172,7 @@ export class EventPage extends BasePage {
   }
 
   async fillNotifierName(lang: Language, value: string) {
-    await this.fillEnrolmentFormTextBox(TRANS.name[lang], value, {
-      exact: true, // Needed to avoid multiple matches e.g. "Name" and "Group name"
-    });
+    await this.fillEnrolmentFormTextBox(TRANS.name[lang], value);
   }
 
   async fillNotifierEmail(lang: Language, value: string) {
@@ -100,15 +188,8 @@ export class EventPage extends BasePage {
     await checkBox.check();
   }
 
-  async fillEnrolmentFormTextBox(
-    name: EnrolmentFormTextBox,
-    value: string,
-    options?: GetByRoleOptions
-  ) {
-    const textBox = this.enrolmentForm.getByRole('textbox', {
-      name,
-      ...options,
-    });
+  async fillEnrolmentFormTextBox(name: EnrolmentFormTextBox, value: string) {
+    const textBox = this.enrolmentForm.getByRole('textbox', { name });
     await textBox.click(); // First click to focus/open the text box
     await textBox.fill(value);
   }
@@ -158,28 +239,6 @@ export class EventPage extends BasePage {
 
   async isReservationEnquirySent(lang: Language) {
     await this.hasVisibleHeading(TRANS.reservationEnquirySent[lang]);
-  }
-
-  async mockEventDetails() {
-    await this.mockGraphQL('Event', MOCK_EVENT_QUERY_RESPONSE);
-  }
-
-  async mockDaycareKamppiIntoStudyGroupUnits() {
-    await this.mockGraphQL(
-      'SchoolsAndKindergartensList',
-      MOCK_SCHOOLS_AND_KINDERGARTENS_LIST_QUERY_RESPONSE
-    );
-  }
-
-  async mockStudyLevels() {
-    await this.mockGraphQL('StudyLevels', MOCK_STUDY_LEVELS_QUERY_RESPONSE);
-  }
-
-  async mockEnrolOccurrenceMutation() {
-    await this.mockGraphQL(
-      'EnrolOccurrence',
-      MOCK_ENROL_OCCURRENCE_MUTATION_RESPONSE
-    );
   }
 
   /**

@@ -1,9 +1,14 @@
+// This file is for intercepting network requests in Playwright tests.
 import type { Page, Route } from '@playwright/test';
 
 /**
  * Mock GraphQL requests for a specific operation.
  * - Can be used to mock responses for GraphQL queries or mutations.
  * - Multiple operations can be mocked one at a time.
+ *
+ * @param page - The Playwright page object.
+ * @param operationName - The name of the GraphQL operation to mock.
+ * @param responseData - The mock response data to return for the operation.
  */
 export async function mockGraphQL(
   page: Page,
