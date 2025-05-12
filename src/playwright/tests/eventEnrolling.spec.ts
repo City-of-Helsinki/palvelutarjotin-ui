@@ -3,23 +3,17 @@ import { test } from '../testWithFixtures';
 
 LANGUAGES.forEach((lang) => {
   test(`event can be opened from search results and enrolled to using language ${lang}`, async ({
+    mocksForSearchPage, // eslint-disable-line @typescript-eslint/no-unused-vars
+    mocksForEventPage, // eslint-disable-line @typescript-eslint/no-unused-vars
     searchPage,
     eventPage,
   }) => {
-    // Load the search page with mocked search results
-    await searchPage.mockSearchResults();
     await searchPage.gotoSearchPage(lang); // To load the search results
 
-    // Set up mock data needed on the event page before opening it
-    await eventPage.mockEventDetails();
-    await eventPage.mockDaycareKamppiIntoStudyGroupUnits();
-    await eventPage.mockStudyLevels(); // To make study level selection predictable
-    await eventPage.mockEnrolOccurrenceMutation(); // To be able to enrol without real data changes
-
-    // Open the mocked event from the search results
+    // Open the event from the search results
     await searchPage.openEvent(lang, 'Testitapahtuman nimi');
 
-    // Check that the event page loaded with the mocked event details
+    // Check that the event page loaded with the event's details
     await eventPage.isReady();
     await eventPage.hasTitle('Testitapahtuman nimi');
 

@@ -2,8 +2,16 @@ import type { Locator, Page } from '@playwright/test';
 import isEqual from 'lodash/isEqual';
 
 import { expect } from '../testWithFixtures';
-import type { FooterLink, HeaderButton, Timeout } from '../types';
-import { mockGraphQL } from '../utils';
+import type { Timeout } from '../types';
+
+type LanguageButton = 'Suomi' | 'Svenska' | 'English';
+type HeaderButton = LanguageButton;
+
+type AccessibilityStatement =
+  | 'Saavutettavuusseloste'
+  | 'Tillgänglighetsutlåtande'
+  | 'Accessibility Statement';
+type FooterLink = AccessibilityStatement;
 
 export class BasePage {
   protected readonly page: Page;
@@ -81,12 +89,5 @@ export class BasePage {
 
   protected async hasVisibleHeading(name: string | RegExp, timeout?: Timeout) {
     await expect(this.page.getByRole('heading', { name })).toBeVisible(timeout);
-  }
-
-  protected async mockGraphQL(
-    operationName: string,
-    responseData: Record<string, unknown>
-  ) {
-    return await mockGraphQL(this.page, operationName, responseData);
   }
 }

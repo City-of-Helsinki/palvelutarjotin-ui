@@ -1,4 +1,3 @@
-import { TRANS } from './translations';
 import {
   EnrolmentStatus,
   EnrolOccurrenceMutation,
@@ -471,9 +470,9 @@ export const MOCK_ENROL_OCCURRENCE_MUTATION_RESPONSE: EnrolOccurrenceMutation =
 export const MOCK_DAYCARE_KAMPPI_SERVICE_UNIT_NODE: ServiceUnitNode = {
   id: 'tprek:114',
   name: {
-    fi: TRANS.daycareKamppiStudyGroupUnit['fi'],
-    sv: TRANS.daycareKamppiStudyGroupUnit['sv'],
-    en: TRANS.daycareKamppiStudyGroupUnit['en'],
+    fi: 'Päiväkoti Kamppi',
+    sv: 'Daghemmet Kamppi',
+    en: 'Daycare Kamppi',
     __typename: 'LocalisedObject',
   },
   __typename: 'ServiceUnitNode',
