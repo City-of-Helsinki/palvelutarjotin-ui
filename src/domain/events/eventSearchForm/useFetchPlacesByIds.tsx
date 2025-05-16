@@ -80,6 +80,8 @@ function useFetchPlacesByIds(ids?: string[]) {
   useEffect(() => {
     if (ids?.length) {
       fetchPlaces(ids);
+    } else {
+      setPlaces([]);
     }
 
     // Cleanup function to abort any pending requests when the component unmounts or the 'ids' change.
@@ -88,7 +90,7 @@ function useFetchPlacesByIds(ids?: string[]) {
       abortControllersRef.current = [];
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []); //  This useEffect should only run when the component mounts and unmounts.
+  }, [ids]);
 
   return { places, loading, error };
 }
