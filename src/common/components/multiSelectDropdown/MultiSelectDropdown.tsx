@@ -53,6 +53,7 @@ export interface MultiselectDropdownProps {
   value: string[];
   className?: string;
   helpText?: string;
+  filterByInput?: boolean;
 }
 
 const MultiSelectDropdown: React.FC<MultiselectDropdownProps> = ({
@@ -73,6 +74,7 @@ const MultiSelectDropdown: React.FC<MultiselectDropdownProps> = ({
   value,
   className,
   helpText,
+  filterByInput = true,
 }) => {
   const { t } = useTranslation<I18nNamespace>();
   const inputPlaceholderText =
@@ -85,17 +87,32 @@ const MultiSelectDropdown: React.FC<MultiselectDropdownProps> = ({
   const toggleButton = React.useRef<HTMLButtonElement | null>(null);
   const inputRef = React.useRef<HTMLInputElement | null>(null);
 
-  const filteredOptions = React.useMemo(() => {
-    return [
-      showSelectAll && {
-        text: selectAllText || t('common:multiSelectDropdown.selectAll'),
-        value: SELECT_ALL,
-      },
-      ...options.filter((option) =>
-        option.text.toLowerCase().includes(input.toLowerCase())
-      ),
-    ].filter((e) => e) as Option[];
-  }, [input, options, selectAllText, showSelectAll, t]);
+  const filteredOptions = React.useMemo<Option[]>((): Option[] => {
+    const selectAllOption: Option | undefined = showSelectAll
+      ? {
+          text: selectAllText || t('common:multiSelectDropdown.selectAll'),
+          value: SELECT_ALL,
+        }
+      : undefined;
+
+    const result: Option[] = [];
+
+    if (selectAllOption) {
+      result.push(selectAllOption);
+    }
+
+    if (filterByInput) {
+      result.push(
+        ...options.filter((option) =>
+          option.text.toLowerCase().includes(input.toLowerCase())
+        )
+      );
+    } else {
+      result.push(...options);
+    }
+
+    return result;
+  }, [filterByInput, input, options, selectAllText, showSelectAll, t]);
 
   const handleInputValueChange = React.useCallback(
     (val: string) => {

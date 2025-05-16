@@ -6,7 +6,7 @@ import {
   PlaceQuery,
   PlaceDocument,
   PlaceFieldsFragment,
-} from '../../../../generated/graphql'; // Adjust the import path as needed
+} from '../../../../generated/graphql';
 import useFetchPlacesByIds from '../useFetchPlacesByIds';
 
 interface MockPlaceInput {
@@ -61,6 +61,7 @@ describe('useFetchPlacesByIds Hook', () => {
             {children}
           </MockedProvider>
         ),
+        initialProps: { ids: successfulMockIds },
       }
     );
 
@@ -74,7 +75,11 @@ describe('useFetchPlacesByIds Hook', () => {
   });
 
   it('should handle an empty array of ids', async () => {
-    const { result } = renderHook(() => useFetchPlacesByIds([]), { wrapper });
+    const ids: string[] = []; // use obj as parameter to prevent forever loop
+    const { result } = renderHook(() => useFetchPlacesByIds(ids), {
+      wrapper,
+      initialProps: { ids: [] },
+    });
 
     await waitFor(() => expect(result.current.loading).toBe(false));
     expect(result.current.error).toBeNull();
@@ -84,6 +89,7 @@ describe('useFetchPlacesByIds Hook', () => {
   it('should handle undefined ids', async () => {
     const { result } = renderHook(() => useFetchPlacesByIds(undefined), {
       wrapper,
+      initialProps: { ids: undefined },
     });
 
     await waitFor(() => expect(result.current.loading).toBe(false));
@@ -92,7 +98,8 @@ describe('useFetchPlacesByIds Hook', () => {
   });
 
   it('should handle a network error for one of the requests', async () => {
-    const { result } = renderHook(() => useFetchPlacesByIds(['1', '2', '3']), {
+    const ids = ['1', '2', '3']; // use obj as parameter to prevent forever loop
+    const { result } = renderHook(() => useFetchPlacesByIds(ids), {
       wrapper: ({ children }) => (
         <MockedProvider
           mocks={[
@@ -137,8 +144,8 @@ describe('useFetchPlacesByIds Hook', () => {
       },
       ...generateSuccessfulMocks(['2']),
     ];
-
-    const { result } = renderHook(() => useFetchPlacesByIds(['1', '2']), {
+    const ids = ['1', '2']; // use obj as parameter to prevent forever loop
+    const { result } = renderHook(() => useFetchPlacesByIds(ids), {
       wrapper: ({ children }) => (
         <MockedProvider mocks={graphQLErrorMock}>{children}</MockedProvider>
       ),
@@ -150,7 +157,8 @@ describe('useFetchPlacesByIds Hook', () => {
   });
 
   it('should handle a successful fetch with a null place', async () => {
-    const { result } = renderHook(() => useFetchPlacesByIds(['1', '2']), {
+    const ids = ['1', '2']; // use obj as parameter to prevent forever loop
+    const { result } = renderHook(() => useFetchPlacesByIds(ids), {
       wrapper: ({ children }) => (
         <MockedProvider
           mocks={[
