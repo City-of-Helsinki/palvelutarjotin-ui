@@ -67,6 +67,7 @@
   "photographerText": "Foto: {{photographer}}",
   "eventImageAltText": "Händelsebild",
   "contactPerson": "Kontaktperson",
+  "contactInfo": "Kontaktinformation",
   "occurrencesTitle": "Evenemang ({{count}} st.)",
   "categorisation": {
     "labelAudience": "Målgrupp",

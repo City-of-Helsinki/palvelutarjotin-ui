@@ -67,6 +67,7 @@
   "photographerText": "Photo: {{photographer}}",
   "eventImageAltText": "Event image",
   "contactPerson": "Contact person",
+  "contactInfo": "Contact information",
   "occurrencesTitle": "Occurrences ({{count}} pcs)",
   "categorisation": {
     "labelCategories": "Categories",

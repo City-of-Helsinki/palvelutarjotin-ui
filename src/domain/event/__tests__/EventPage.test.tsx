@@ -314,7 +314,7 @@ it('renders page and event information correctly', async () => {
     data.contactPersonPhoneNumber,
     data.contactPersonName,
     data.contactPersonEmail,
-    eventMessages.contactPerson,
+    eventMessages.contactInfo,
   ];
 
   const queryByRole = [

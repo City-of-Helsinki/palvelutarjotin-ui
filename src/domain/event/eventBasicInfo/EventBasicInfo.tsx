@@ -143,10 +143,10 @@ const OrganisationInfo: React.FC<{
           {t('event:organisation.showAllOrganisationEvents')}
         </NextLink>
       </p>
-      {contactPerson && (
+      {(contactPerson || contactEmail || contactPhoneNumber) && (
         <div className={styles.contactInfo}>
-          <p>{t('event:contactPerson')}</p>
-          <p>{contactPerson}</p>
+          <p>{t('event:contactInfo')}</p>
+          {contactPerson && <p>{contactPerson}</p>}
           {contactEmail && <p>{contactEmail}</p>}
           {contactPhoneNumber && <p>{contactPhoneNumber}</p>}
         </div>
