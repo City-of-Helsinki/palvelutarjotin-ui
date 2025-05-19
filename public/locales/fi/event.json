@@ -67,6 +67,7 @@
   "photographerText": "Kuva: {{photographer}}",
   "eventImageAltText": "Tapahtuman kuva",
   "contactPerson": "Yhteyshenkilö",
+  "contactInfo": "Yhteystiedot",
   "occurrencesTitle": "Tapahtumat ({{count}} kpl)",
   "categorisation": {
     "labelCategories": "Kategoriat",
