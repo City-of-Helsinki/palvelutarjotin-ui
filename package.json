@@ -10,7 +10,7 @@
     "build-fast": "cross-env NEXTJS_IGNORE_TYPECHECK=1 NEXTJS_IGNORE_ESLINT=1 NEXTJS_DISABLE_SENTRY=1 NEXTJS_SENTRY_UPLOAD_DRY_RUN=1 next build",
     "start": "next start",
     "lint": "eslint src",
-    "codegen": "cross-env DOTENV_CONFIG_PATH=\"./.env.local\" graphql-codegen -r dotenv/config --config codegen.yml",
+    "codegen": "cross-env DOTENV_CONFIG_PATH=\"./.env\" graphql-codegen -r dotenv/config --config codegen.yml",
     "format:code": "eslint src --fix",
     "typecheck": "tsc --project ./tsconfig.json --noEmit",
     "test": "cross-env SASS_PATH=./src/assets/styles jest --watch",
