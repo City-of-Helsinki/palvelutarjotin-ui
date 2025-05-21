@@ -71,6 +71,8 @@ test('renders with sidebar layout when sidebar has content', async () => {
       node: fakeMediaItem({
         id: '1',
         mediaItemUrl: 'https://hkih.production.geniem.io/i/1245',
+        // @ts-expect-error for unknown reason, medium is not in the type
+        medium: 'https://hkih.production.geniem.io/i/1245',
         altText: 'Kirjoja eri väreissä',
       }),
     },

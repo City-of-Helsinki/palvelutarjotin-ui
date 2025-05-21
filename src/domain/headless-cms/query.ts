@@ -87,6 +87,7 @@ export const PAGE_QUERY = gql`
           altText
           mediaItemUrl
           photographerName
+          large: sourceUrl(size: LARGE)
           medium_large: sourceUrl(size: MEDIUM_LARGE)
           medium: sourceUrl(size: MEDIUM)
           thumbnail: sourceUrl(size: THUMBNAIL)
@@ -111,6 +112,7 @@ export const PAGE_QUERY = gql`
           altText
           mediaItemUrl
           photographerName
+          large: sourceUrl(size: LARGE)
           medium_large: sourceUrl(size: MEDIUM_LARGE)
           medium: sourceUrl(size: MEDIUM)
           thumbnail: sourceUrl(size: THUMBNAIL)
@@ -145,6 +147,7 @@ export const PAGE_QUERY = gql`
         title
         uri
         photographerName
+        large: sourceUrl(size: LARGE)
         medium_large: sourceUrl(size: MEDIUM_LARGE)
         medium: sourceUrl(size: MEDIUM)
         thumbnail: sourceUrl(size: THUMBNAIL)
@@ -295,6 +298,7 @@ export const POST_QUERY = gql`
         title
         uri
         photographerName
+        large: sourceUrl(size: LARGE)
         medium_large: sourceUrl(size: MEDIUM_LARGE)
         medium: sourceUrl(size: MEDIUM)
         thumbnail: sourceUrl(size: THUMBNAIL)
@@ -356,6 +360,7 @@ export const POSTS_QUERY = gql`
               altText
               mediaItemUrl
               photographerName
+              large: sourceUrl(size: LARGE)
               medium_large: sourceUrl(size: MEDIUM_LARGE)
               medium: sourceUrl(size: MEDIUM)
               thumbnail: sourceUrl(size: THUMBNAIL)
