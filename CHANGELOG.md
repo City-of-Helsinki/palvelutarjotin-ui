@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://www.conventionalcommits.org/) for commit guidelines.
 
+## [2.14.1](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/palvelutarjotin-ui-v2.14.0...palvelutarjotin-ui-v2.14.1) (2025-09-12)
+
+
+### Dependencies
+
+* Axios to 1.12.00 ([20592a2](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/20592a259a50ac6fff13c3c3e619f649074b5a4b))
+* Bump form-data from 4.0.2 to 4.0.4 ([c1ccbfc](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/c1ccbfc68b0f141382573a05476eddc346415d26))
+* Bump next from 14.2.26 to 14.2.32 ([#421](https://github.com/City-of-Helsinki/palvelutarjotin-ui/issues/421)) ([eac5c71](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/eac5c719d4babb58dbf870d4ec94f2edd84e6b9f))
+* Jsdom to 26.1.0 ([5ec7acb](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/5ec7acb36cf6c110ca7e69828b61507b9095dfbc))
+
+
+### Documentation
+
+* Add gruppo to architecture README ([2cd4df6](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/2cd4df654ab5679c053611e336e168f7acc89b72))
+
 ## [2.14.0](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/palvelutarjotin-ui-v2.13.0...palvelutarjotin-ui-v2.14.0) (2025-05-21)
 
 
