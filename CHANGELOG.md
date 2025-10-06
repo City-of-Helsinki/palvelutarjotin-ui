@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://www.conventionalcommits.org/) for commit guidelines.
 
+## [2.14.2](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/palvelutarjotin-ui-v2.14.1...palvelutarjotin-ui-v2.14.2) (2025-10-06)
+
+
+### Bug Fixes
+
+* Stricter yarn config + removed unnecessary package ([683ab83](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/683ab834435bca4939274adc46d65742692eb774))
+
 ## [2.14.1](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/palvelutarjotin-ui-v2.14.0...palvelutarjotin-ui-v2.14.1) (2025-09-12)
 
 
