@@ -1,4 +1,3 @@
-import * as matomo from '@socialgouv/matomo-next';
 import type { ContentSource } from 'hds-react';
 import { CookieModal } from 'hds-react';
 import { useTranslation } from 'next-i18next';
@@ -37,10 +36,11 @@ const CookieConsent: React.FC<Props> = ({ appName, allowLanguageSwitch }) => {
     setShowCookieConsentModal(false);
 
     if (consents.matomo) {
-      matomo.push(['setConsentGiven']);
-      matomo.push(['setCookieConsentGiven']);
+      window._paq.push(['setConsentGiven']);
+      window._paq.push(['setCookieConsentGiven']);
     } else {
-      matomo.push(['forgetCookieConsentGiven']);
+      // window._paq.push(['forgetCookieConsentGiven']);
+
       setShowCookieConsentModal(true);
     }
   };
@@ -48,10 +48,10 @@ const CookieConsent: React.FC<Props> = ({ appName, allowLanguageSwitch }) => {
   const onConsentsParsed: ContentSource['onConsentsParsed'] = (consents) => {
     if (consents.matomo === undefined) {
       // tell matomo to wait for consent:
-      matomo.push(['requireCookieConsent']);
-      matomo.push(['requireConsent']);
+      window._paq.push(['requireCookieConsent']);
+      window._paq.push(['requireConsent']);
     } else if (consents.matomo === false) {
-      matomo.push(['forgetConsentGiven']);
+      window._paq.push(['forgetConsentGiven']);
     }
   };
 
