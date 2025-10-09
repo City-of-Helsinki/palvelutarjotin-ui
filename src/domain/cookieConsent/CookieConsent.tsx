@@ -123,23 +123,6 @@ const CookieConsent: React.FC<Props> = ({ appName, allowLanguageSwitch }) => {
               },
             ],
           },
-          // {
-          //   title: t('common:consent.groups.matomo.title'),
-          //   text: t('common:consent.groups.matomo.text'),
-          //   expandAriaLabel: t('common:consent.groups.matomo.expandAriaLabel'),
-          //   checkboxAriaDescription: t(
-          //     'common:consent.groups.matomo.checkboxAriaDescription'
-          //   ),
-          //   cookies: [
-          //     {
-          //       id: 'matomo',
-          //       name: '_pk*',
-          //       hostName: 'digia.fi',
-          //       description: t('common:consent.cookies.matomo'),
-          //       expiration: t('common:consent.expiration.days', { days: 393 }),
-          //     },
-          //   ],
-          // },
         ],
       },
       language: {
