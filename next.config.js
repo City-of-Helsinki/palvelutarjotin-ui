@@ -47,7 +47,7 @@ const cspHeader = `
 `;
 
 module.exports = {
-  reactStrictMode: true,
+  reactStrictMode: false,
   staticPageGenerationTimeout: 1000 * 60 * 2, // 2 minutes
   i18n,
   sassOptions: {

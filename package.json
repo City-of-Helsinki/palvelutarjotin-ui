@@ -48,8 +48,8 @@
   "dependencies": {
     "@apollo/client": "^3.13.5",
     "@date-fns/tz": "^1.2.0",
-    "@jonkoops/matomo-tracker-react": "^0.7.0",
     "@sentry/browser": "^9.10.1",
+    "@socialgouv/matomo-next": "^1.9.2",
     "@types/file-saver": "^2.0.7",
     "axios": "^1.12.0",
     "classnames": "^2.5.1",

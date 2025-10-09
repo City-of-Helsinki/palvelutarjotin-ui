@@ -1,5 +1,6 @@
 import { ApolloProvider } from '@apollo/client';
 import * as Sentry from '@sentry/browser';
+import * as Matomo from '@socialgouv/matomo-next';
 import dynamic from 'next/dynamic';
 import NextError from 'next/error';
 import { useRouter } from 'next/router';
@@ -19,7 +20,6 @@ import PageLayout from '../domain/app/layout/PageLayout';
 import { getCmsArticlePath, getCmsPagePath } from '../domain/app/routes/utils';
 import { useCMSApolloClient } from '../domain/headless-cms/apollo/apolloClient';
 import { useRHHCConfig } from '../domain/headless-cms/useRHHCConfig';
-import MatomoTracker from '../domain/matomo/Matomo';
 import FocusToTop from '../FocusToTop';
 import useLocale from '../hooks/useLocale';
 import type { AppProps, CustomPageProps, I18nNamespace } from '../types';
@@ -74,28 +74,41 @@ const MyApp = ({ Component, pageProps }: AppProps<CustomPageProps>) => {
     }
   }, [locale]);
 
+  React.useEffect(() => {
+    if (
+      process.env.NEXT_PUBLIC_MATOMO_ENABLED === 'true' &&
+      process.env.NEXT_PUBLIC_MATOMO_URL_BASE &&
+      process.env.NEXT_PUBLIC_MATOMO_SITE_ID
+    ) {
+      Matomo.init({
+        jsTrackerFile: process.env.NEXT_PUBLIC_MATOMO_SRC_URL,
+        phpTrackerFile: process.env.NEXT_PUBLIC_MATOMO_TRACKER_URL,
+        url: process.env.NEXT_PUBLIC_MATOMO_URL_BASE,
+        siteId: process.env.NEXT_PUBLIC_MATOMO_SITE_ID,
+      });
+    }
+  }, []);
+
   return (
     <ErrorBoundary>
       <RHHCConfigProvider config={rhhcConfig}>
         <ApolloProvider client={apolloClient}>
-          <MatomoTracker>
-            <FocusToTop />
-            {router.isFallback ? (
-              <Center>
-                <LoadingSpinner isLoading={router.isFallback} />
-              </Center>
-            ) : pageProps.error ? (
-              <NextError
-                statusCode={pageProps.error.networkError?.statusCode ?? 400}
-              />
-            ) : (
-              <PageLayoutComponent {...pageProps}>
-                <Component {...pageProps} />
-                <DynamicCookieConsentWithNoSSR appName={t('common:appName')} />
-              </PageLayoutComponent>
-            )}
-            <ToastContainer position="top-right" />
-          </MatomoTracker>
+          <FocusToTop />
+          {router.isFallback ? (
+            <Center>
+              <LoadingSpinner isLoading={router.isFallback} />
+            </Center>
+          ) : pageProps.error ? (
+            <NextError
+              statusCode={pageProps.error.networkError?.statusCode ?? 400}
+            />
+          ) : (
+            <PageLayoutComponent {...pageProps}>
+              <Component {...pageProps} />
+              <DynamicCookieConsentWithNoSSR appName={t('common:appName')} />
+            </PageLayoutComponent>
+          )}
+          <ToastContainer position="top-right" />
         </ApolloProvider>
       </RHHCConfigProvider>
     </ErrorBoundary>
