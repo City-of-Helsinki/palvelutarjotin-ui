@@ -1,6 +1,5 @@
-import { useMatomo } from '@jonkoops/matomo-tracker-react';
 import type { ContentSource } from 'hds-react';
-import { CookieModal, useCookies } from 'hds-react';
+import { CookieModal } from 'hds-react';
 import { useTranslation } from 'next-i18next';
 import React, { useCallback } from 'react';
 
@@ -21,9 +20,6 @@ const CookieConsent: React.FC<Props> = ({ appName, allowLanguageSwitch }) => {
   const [showCookieConsentModal, setShowCookieConsentModal] =
     React.useState(true);
 
-  const { getAllConsents } = useCookies();
-  const { pushInstruction } = useMatomo();
-
   const onLanguageChange = useCallback(
     (newLang: string) => {
       if (allowLanguageSwitch) {
@@ -34,18 +30,30 @@ const CookieConsent: React.FC<Props> = ({ appName, allowLanguageSwitch }) => {
     [i18n, setLanguage, allowLanguageSwitch]
   );
 
-  const handleMatomoUpdate = useCallback(() => {
-    const getConsentStatus = (cookieId: string) => {
-      const consents = getAllConsents();
-      return consents[cookieId];
-    };
-    if (getConsentStatus('matomo')) {
-      pushInstruction('setCookieConsentGiven');
+  const onAllConsentsGiven: ContentSource['onAllConsentsGiven'] = (
+    consents
+  ) => {
+    setShowCookieConsentModal(false);
+
+    if (consents.matomo) {
+      window._paq.push(['setConsentGiven']);
+      window._paq.push(['setCookieConsentGiven']);
     } else {
-      pushInstruction('forgetCookieConsentGiven');
+      // window._paq.push(['forgetCookieConsentGiven']);
+
       setShowCookieConsentModal(true);
     }
-  }, [getAllConsents, pushInstruction]);
+  };
+
+  const onConsentsParsed: ContentSource['onConsentsParsed'] = (consents) => {
+    if (consents.matomo === undefined) {
+      // tell matomo to wait for consent:
+      window._paq.push(['requireCookieConsent']);
+      window._paq.push(['requireConsent']);
+    } else if (consents.matomo === false) {
+      window._paq.push(['forgetConsentGiven']);
+    }
+  };
 
   const contentSource: ContentSource = React.useMemo(
     () => ({
@@ -63,10 +71,8 @@ const CookieConsent: React.FC<Props> = ({ appName, allowLanguageSwitch }) => {
           hideSettings: t('common:consent.texts.ui.hideSettings'),
         },
       },
-      onAllConsentsGiven: () => {
-        setShowCookieConsentModal(false);
-        handleMatomoUpdate();
-      },
+      onAllConsentsGiven,
+      onConsentsParsed,
       currentLanguage: language as string as ContentSource['currentLanguage'],
       requiredCookies: {
         title: t('common:consent.required.title'),
@@ -106,12 +112,7 @@ const CookieConsent: React.FC<Props> = ({ appName, allowLanguageSwitch }) => {
         title: t('common:consent.optional.title'),
         groups: [
           {
-            title: t('common:consent.groups.matomo.title'),
-            text: t('common:consent.groups.matomo.text'),
-            expandAriaLabel: t('common:consent.groups.matomo.expandAriaLabel'),
-            checkboxAriaDescription: t(
-              'common:consent.groups.matomo.checkboxAriaDescription'
-            ),
+            commonGroup: 'statistics',
             cookies: [
               {
                 id: 'matomo',
@@ -130,7 +131,7 @@ const CookieConsent: React.FC<Props> = ({ appName, allowLanguageSwitch }) => {
       },
       focusTargetSelector: MAIN_CONTENT_ID,
     }),
-    [t, language, appName, onLanguageChange, handleMatomoUpdate]
+    [t, language, appName, onLanguageChange]
   );
 
   if (!showCookieConsentModal) return null;
