@@ -76,7 +76,6 @@ const MyApp = ({ Component, pageProps }: AppProps<CustomPageProps>) => {
 
   React.useEffect(() => {
     if (
-      process.env.NEXT_PUBLIC_MATOMO_ENABLED === 'true' &&
       process.env.NEXT_PUBLIC_MATOMO_URL_BASE &&
       process.env.NEXT_PUBLIC_MATOMO_SITE_ID
     ) {
