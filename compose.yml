@@ -5,7 +5,7 @@ services:
       context: .
       target: ${DOCKER_TARGET:-development}
       args:
-        - SKIP_BUILD_STATIC_GENERATION
+        - NEXT_PUBLIC_SKIP_BUILD_STATIC_GENERATION
         - NEXT_PUBLIC_APP_ORIGIN
         - NEXT_PUBLIC_API_BASE_URL
         - NEXT_PUBLIC_UNIFIED_SEARCH_BASE_URL

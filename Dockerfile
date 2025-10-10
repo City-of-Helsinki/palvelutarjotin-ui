@@ -67,7 +67,7 @@ FROM deps AS staticbuilder
 # ===================================
 # Set environmental variables (when building image on GitLab CI) 
 # specified in gitlab-ci.yml file  
-ARG SKIP_BUILD_STATIC_GENERATION
+ARG NEXT_PUBLIC_SKIP_BUILD_STATIC_GENERATION
 ARG NEXT_PUBLIC_APP_ORIGIN
 ARG NEXT_PUBLIC_API_BASE_URL
 ARG NEXT_PUBLIC_UNIFIED_SEARCH_BASE_URL

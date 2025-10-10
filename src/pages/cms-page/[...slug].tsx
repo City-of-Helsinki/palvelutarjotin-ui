@@ -48,7 +48,7 @@ const NextCmsPage: NextPage<{
 
 export async function getStaticPaths() {
   if (isFeatureEnabled('HEADLESS_CMS')) {
-    if (process.env.SKIP_BUILD_STATIC_GENERATION === 'true') {
+    if (process.env.NEXT_PUBLIC_SKIP_BUILD_STATIC_GENERATION === 'true') {
       // eslint-disable-next-line no-console
       console.info('Skipping static generation for cms pages.');
       return {
