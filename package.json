@@ -136,7 +136,7 @@
     "jest_workaround": "^0.79.19",
     "lint-staged": "^15.5.0",
     "msw": "^2.7.3",
-    "playwright": "^1.52.0",
+    "playwright": "^1.55.1",
     "prettier": "^3.5.3",
     "stylelint": "^16.17.0",
     "stylelint-config-recommended-scss": "^14.1.0",
