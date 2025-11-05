@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://www.conventionalcommits.org/) for commit guidelines.
 
+## [2.14.3](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/palvelutarjotin-ui-v2.14.2...palvelutarjotin-ui-v2.14.3) (2025-11-05)
+
+
+### Dependencies
+
+* Bump playwright from 1.52.0 to 1.55.1 ([fe9de7a](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/fe9de7a417f62563eeafcc1f9ecf63fe978fb63f))
+* Remove extra dependency playwright ([44e9684](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/44e9684721b36cb274649027fd67ea3e751de06b))
+
 ## [2.14.2](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/palvelutarjotin-ui-v2.14.1...palvelutarjotin-ui-v2.14.2) (2025-10-06)
 
 
