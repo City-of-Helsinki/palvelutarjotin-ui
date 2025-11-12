@@ -1,5 +1,4 @@
 import { ApolloProvider } from '@apollo/client';
-import * as Sentry from '@sentry/browser';
 import dynamic from 'next/dynamic';
 import NextError from 'next/error';
 import { useRouter } from 'next/router';
@@ -25,12 +24,6 @@ import useLocale from '../hooks/useLocale';
 import type { AppProps, CustomPageProps, I18nNamespace } from '../types';
 import '../styles/globals.scss';
 
-if (process.env.NODE_ENV === 'production') {
-  Sentry.init({
-    dsn: process.env.NEXT_PUBLIC_SENTRY_DSN,
-    environment: process.env.NEXT_PUBLIC_ENVIRONMENT,
-  });
-}
 // No cookie consent should be rendered on server side, because it's a personal choice
 // and the answer is stored in browser's local storage.
 const DynamicCookieConsentWithNoSSR = dynamic(

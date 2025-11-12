@@ -49,3 +49,7 @@ screenshots
 /playwright-report/
 /blob-report/
 /playwright/.cache/
+
+# Sentry Config File
+.sentryclirc
+.env.sentry-build-plugin

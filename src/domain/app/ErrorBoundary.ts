@@ -1,4 +1,4 @@
-import * as Sentry from '@sentry/browser';
+import * as Sentry from '@sentry/nextjs';
 import React, { ErrorInfo } from 'react';
 
 class ErrorBoundary extends React.Component<{ children?: React.ReactNode }> {

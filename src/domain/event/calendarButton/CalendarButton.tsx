@@ -1,4 +1,4 @@
-import * as Sentry from '@sentry/browser';
+import * as Sentry from '@sentry/nextjs';
 import { saveAs } from 'file-saver';
 import { Button, IconCalendar } from 'hds-react';
 import { createEvent, EventAttributes } from 'ics';

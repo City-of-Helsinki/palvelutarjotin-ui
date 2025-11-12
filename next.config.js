@@ -1,5 +1,7 @@
 const path = require('path');
 
+const { withSentryConfig } = require('@sentry/nextjs');
+
 const { i18n } = require('./next-i18next.config');
 const packageJson = require('./package.json');
 
@@ -26,9 +28,8 @@ const NEXTJS_SENTRY_TRACING = trueEnv.includes(
 
 const cspHeader = `
     default-src 'self';
-    script-src 'self' ${
-      process.env.NODE_ENV === 'development' ? "'unsafe-eval'" : '' // Allow eval in development, for react-refresh
-    } https://m.youtube.com https://www.youtube.com https://webanalytics.digiaiiris.com *.google.com *.gstatic.com;
+    script-src 'self' ${process.env.NODE_ENV === 'development' ? "'unsafe-eval'" : '' // Allow eval in development, for react-refresh
+  } https://m.youtube.com https://www.youtube.com https://webanalytics.digiaiiris.com *.google.com *.gstatic.com;
     style-src 'self' 'unsafe-inline';
     img-src 'self' data: *.hel.fi *.hel.ninja *.ytimg.com *.youtube.com *.vimeo.com *.vimeocdn.com 
       *.blob.core.windows.net *.hkih.hion.dev;
@@ -187,3 +188,30 @@ module.exports = {
     ];
   },
 };
+
+// Injected content via Sentry wizard below
+
+module.exports = withSentryConfig(module.exports, {
+  // For all available options, see:
+  // https://www.npmjs.com/package/@sentry/webpack-plugin#options
+  project: process.env.SENTRY_PROJECT,
+
+  // Only print logs for uploading source maps in CI
+  silent: !process.env.CI,
+
+  // For all available options, see:
+  // https://docs.sentry.io/platforms/javascript/guides/nextjs/manual-setup/
+
+  // Upload a larger set of source maps for prettier stack traces (increases build time)
+  widenClientFileUpload: true,
+
+  // Routes browser requests to Sentry through a Next.js rewrite to circumvent ad-blockers (increases server load)
+  tunnelRoute: '/monitoring',
+
+  // Automatically tree-shake Sentry logger statements to reduce bundle size
+  disableLogger: true,
+
+  reactComponentAnnotation: {
+    enabled: true,
+  },
+});
