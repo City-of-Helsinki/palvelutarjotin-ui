@@ -30,6 +30,8 @@ module.exports = {
     // hds-react/node_modules/uuid/dist/esm-browser/index.js
     // and otherwise fails with "SyntaxError: Unexpected token 'export'".
     uuid: require.resolve('uuid'),
+    // Mock Sentry - this will automatically use the manual mock
+    '^@sentry/nextjs$': '<rootDir>/src/__mocks__/sentry.js',
   },
   modulePathIgnorePatterns: [
     // Ignore Next.js build output directory, so jest-haste-map does not

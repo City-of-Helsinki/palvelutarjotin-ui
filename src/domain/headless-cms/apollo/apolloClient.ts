@@ -5,7 +5,7 @@ import {
   NormalizedCacheObject,
 } from '@apollo/client';
 import { onError } from '@apollo/client/link/error';
-import * as Sentry from '@sentry/browser';
+import * as Sentry from '@sentry/nextjs';
 import fetch from 'cross-fetch';
 import merge from 'deepmerge';
 import isEqual from 'lodash/isEqual';
