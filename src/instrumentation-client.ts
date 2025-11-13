@@ -9,10 +9,6 @@ if (process.env.NEXT_PUBLIC_SENTRY_DSN) {
       Sentry.browserTracingIntegration(),
       Sentry.replayIntegration(),
     ],
-    ignoreErrors: [
-      'ResizeObserver loop completed with undelivered notifications',
-      'ResizeObserver loop limit exceeded',
-    ],
     tracesSampleRate: parseFloat(
       process.env.NEXT_PUBLIC_SENTRY_TRACES_SAMPLE_RATE || '0'
     ),
