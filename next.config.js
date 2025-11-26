@@ -26,6 +26,10 @@ const NEXTJS_SENTRY_TRACING = trueEnv.includes(
   process.env?.NEXTJS_SENTRY_TRACING ?? 'false'
 );
 
+const NEXT_PUBLIC_CSP_REPORT_URI =
+  process.env?.NEXT_PUBLIC_CSP_REPORT_URI ?? '';
+
+const reportingEndpointsHeader = `csp-endpoint="${NEXT_PUBLIC_CSP_REPORT_URI}"`;
 const cspHeader = `
     default-src 'self';
     script-src 'self' ${process.env.NODE_ENV === 'development' ? "'unsafe-eval'" : '' // Allow eval in development, for react-refresh
@@ -43,6 +47,8 @@ const cspHeader = `
     frame-src 'self' *.hel.fi *.hel.ninja *.youtube.com www.youtube-nocookie.com *.vimeo.com *.google.com;
     frame-ancestors 'none';
     worker-src    'self';
+    report-uri ${NEXT_PUBLIC_CSP_REPORT_URI};
+    report-to csp-endpoint
     block-all-mixed-content;
     upgrade-insecure-requests;
 `;
@@ -179,6 +185,10 @@ module.exports = {
           { key: 'X-XSS-Protection', value: '0' },
           { key: 'Cross-Origin-Opener-Policy', value: 'same-origin' },
           { key: 'Cross-Origin-Embedder-Policy', value: 'same-origin' },
+          {
+            key: 'Reporting-Endpoints',
+            value: reportingEndpointsHeader.replace(/\n/g, ''),
+          },
           {
             key: 'Content-Security-Policy',
             value: cspHeader.replace(/\n/g, ''),

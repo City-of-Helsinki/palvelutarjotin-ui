@@ -36,7 +36,9 @@ export async function middleware(req: NextRequest) {
     requestType.isPagesFolderApi(req) ||
     requestType.isPublicFile(req)
   ) {
-    return;
+    return NextResponse.next();
   }
-  return prefixDefaultLocale(req);
+
+  const response = await prefixDefaultLocale(req);
+  return response || NextResponse.next();
 }
