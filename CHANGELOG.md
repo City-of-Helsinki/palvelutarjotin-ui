@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://www.conventionalcommits.org/) for commit guidelines.
 
+## [2.15.0](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/palvelutarjotin-ui-v2.14.2...palvelutarjotin-ui-v2.15.0) (2025-11-27)
+
+
+### Features
+
+* Enable cloud sentry Ref: PT-1957 ([c9c501a](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/c9c501ab3cc022b80c1bf587fcfe850f693ac2f6))
+* Fix csp and add report-uri header Ref: PT-1957 ([8026bda](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/8026bda8791ca9c131572c44a6d189ed9a835322))
+
+
+### Bug Fixes
+
+* Reporting-endpoints remove quotations Ref: PT-1957 ([870d397](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/870d397982e18bb7360ee00933fe5aad461022a3))
+* Root index should apply configured headers ([#425](https://github.com/City-of-Helsinki/palvelutarjotin-ui/issues/425)) ([f821a87](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/f821a879cc99ea2109d3ac5c3e4f4e2ce70fcb3b))
+* Use correct sentry release variable Ref: PT-1957 ([3181279](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/318127994e5b411df356575ac64d384652738810))
+
+
+### Dependencies
+
+* Bump playwright from 1.52.0 to 1.55.1 ([fe9de7a](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/fe9de7a417f62563eeafcc1f9ecf63fe978fb63f))
+* Remove extra dependency playwright ([44e9684](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/44e9684721b36cb274649027fd67ea3e751de06b))
+
 ## [2.14.2](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/palvelutarjotin-ui-v2.14.1...palvelutarjotin-ui-v2.14.2) (2025-10-06)
 
 
