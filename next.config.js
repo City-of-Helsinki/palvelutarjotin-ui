@@ -29,7 +29,7 @@ const NEXTJS_SENTRY_TRACING = trueEnv.includes(
 const NEXT_PUBLIC_CSP_REPORT_URI =
   process.env?.NEXT_PUBLIC_CSP_REPORT_URI ?? '';
 
-const reportingEndpointsHeader = `csp-endpoint="${NEXT_PUBLIC_CSP_REPORT_URI}"`;
+const reportingEndpointsHeader = `csp-endpoint=${NEXT_PUBLIC_CSP_REPORT_URI}`;
 const cspHeader = `
     default-src 'self';
     script-src 'self' ${process.env.NODE_ENV === 'development' ? "'unsafe-eval'" : '' // Allow eval in development, for react-refresh
