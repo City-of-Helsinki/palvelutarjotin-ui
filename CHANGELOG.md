@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://www.conventionalcommits.org/) for commit guidelines.
 
+## [2.15.1](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/palvelutarjotin-ui-v2.15.0...palvelutarjotin-ui-v2.15.1) (2025-12-09)
+
+
+### Dependencies
+
+* Bump @sentry/nextjs from 10.25.0 to 10.27.0 ([5989a55](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/5989a551188bf5dc3dc05d5896998d638cb26989))
+
 ## [2.15.0](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/palvelutarjotin-ui-v2.14.2...palvelutarjotin-ui-v2.15.0) (2025-11-27)
 
 
