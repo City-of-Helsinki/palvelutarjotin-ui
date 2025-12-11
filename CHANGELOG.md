@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://www.conventionalcommits.org/) for commit guidelines.
 
+## [2.15.2](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/palvelutarjotin-ui-v2.15.1...palvelutarjotin-ui-v2.15.2) (2025-12-11)
+
+
+### Bug Fixes
+
+* Remove deprecated meta headers Ref: PT-1957 ([6ff3db3](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/6ff3db37a9770e878ad304f8f3e41b2db9ee49dd))
+
 ## [2.15.1](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/palvelutarjotin-ui-v2.15.0...palvelutarjotin-ui-v2.15.1) (2025-12-09)
 
 
