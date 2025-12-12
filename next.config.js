@@ -75,7 +75,6 @@ module.exports = {
     APP_VERSION: packageJson.version,
     BUILD_TIME: new Date().toISOString(),
   },
-  swcMinify: true,
   // Standalone build
   // @link https://nextjs.org/docs/advanced-features/output-file-tracing#automatically-copying-traced-files-experimental
   output: 'standalone',
@@ -84,15 +83,10 @@ module.exports = {
         contextDirectory: path.resolve(__dirname, '../..'),
         logDetail: true,
       }, */
-    // Prefer loading of ES Modules over CommonJS
-    // @link {https://nextjs.org/blog/next-11-1#es-modules-support|Blog 11.1.0}
-    // @link {https://github.com/vercel/next.js/discussions/27876|Discussion}
-    esmExternals: true,
     // Experimental monorepo support
     // @link {https://github.com/vercel/next.js/pull/22867|Original PR}
     // @link {https://github.com/vercel/next.js/discussions/26420|Discussion}
     externalDir: true,
-    scrollRestoration: true,
   },
   // disable in-memory caching
   // @link https://nextjs.org/docs/14/pages/building-your-application/deploying#configuring-caching

@@ -15,6 +15,9 @@
 # production
 /build
 
+# TypeScript incremental build cache
+*.tsbuildinfo
+
 # misc
 .DS_Store
 
