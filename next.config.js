@@ -56,6 +56,7 @@ const cspHeader = `
 module.exports = {
   reactStrictMode: true,
   staticPageGenerationTimeout: 1000 * 60 * 2, // 2 minutes
+  productionBrowserSourceMaps: true,
   i18n,
   sassOptions: {
     includePaths: [path.join(__dirname, 'src/assets/styles')],
@@ -202,9 +203,6 @@ module.exports = withSentryConfig(module.exports, {
   // For all available options, see:
   // https://docs.sentry.io/platforms/javascript/guides/nextjs/manual-setup/
 
-  // Upload a larger set of source maps for prettier stack traces (increases build time)
-  widenClientFileUpload: true,
-
   // Routes browser requests to Sentry through a Next.js rewrite to circumvent ad-blockers (increases server load)
   tunnelRoute: '/monitoring',
 
@@ -213,5 +211,10 @@ module.exports = withSentryConfig(module.exports, {
 
   reactComponentAnnotation: {
     enabled: true,
+  },
+
+  // Disable sourcemap uploading to Sentry
+  sourcemaps: {
+    disable: true,
   },
 });
