@@ -57,7 +57,7 @@ WORKDIR /app
 # copy in our source code last, as it changes the most
 COPY --chown=default:root . .
 
-RUN yarn install --immutable --inline-builds
+RUN yarn install --frozen-lockfile --ignore-scripts
 
 # Bake package.json start command into the image
 CMD ["yarn", "dev"]
@@ -115,7 +115,7 @@ COPY --chown=default:root . .
 COPY --from=deps --chown=default:root /workspace-install ./
 
 
-RUN yarn install --immutable --inline-builds
+RUN yarn install --frozen-lockfile --ignore-scripts
 
 # Build application
 RUN yarn build
