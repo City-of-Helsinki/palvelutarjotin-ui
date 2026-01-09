@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://www.conventionalcommits.org/) for commit guidelines.
 
+## [2.16.0](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/palvelutarjotin-ui-v2.15.2...palvelutarjotin-ui-v2.16.0) (2026-01-09)
+
+
+### Features
+
+* Generate sourcemaps ([4d21c2a](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/4d21c2a10a3cb7dc4f79ce5ecdcce3735ab67111))
+* Yarn install hardening RATY-280 ([#441](https://github.com/City-of-Helsinki/palvelutarjotin-ui/issues/441)) ([8782f42](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/8782f429e190b30df7c00e980698933b474df69a))
+
+
+### Dependencies
+
+* Bump next from 15.5.7 to 15.5.9 ([573482f](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/573482f78439c73b870a1996323fec3cfc0de01d))
+
 ## [2.15.2](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/palvelutarjotin-ui-v2.15.1...palvelutarjotin-ui-v2.15.2) (2025-12-11)
 
 
