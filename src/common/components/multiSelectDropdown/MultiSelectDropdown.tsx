@@ -1,5 +1,11 @@
 import classNames from 'classnames';
-import { IconAngleDown, IconAngleUp, IconSearch, Checkbox } from 'hds-react';
+import {
+  IconAngleDown,
+  IconAngleUp,
+  IconSearch,
+  Checkbox,
+  IconSize,
+} from 'hds-react';
 import { useTranslation } from 'next-i18next';
 import React, { ReactNode } from 'react';
 
@@ -375,7 +381,7 @@ const MultiSelectDropdown: React.FC<MultiselectDropdownProps> = ({
       <DropdownMenu isOpen={isMenuOpen} onClear={handleClear}>
         {showSearch && (
           <div className={styles.inputWrapper}>
-            <IconSearch size="s" />
+            <IconSearch size={IconSize.Small} />
             <SearchLabel htmlFor={name} srOnly={true}>
               {inputPlaceholderText}
             </SearchLabel>

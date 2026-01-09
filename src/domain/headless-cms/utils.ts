@@ -4,12 +4,12 @@ import {
   ModuleItemTypeEnum,
   LanguageCodeEnum,
   MenuItem,
-} from 'react-helsinki-headless-cms';
+} from '@city-of-helsinki/react-helsinki-headless-cms';
 import {
   MenuDocument,
   MenuQueryVariables,
   MenuQuery,
-} from 'react-helsinki-headless-cms/apollo';
+} from '@city-of-helsinki/react-helsinki-headless-cms/apollo';
 
 import { initializeCMSApolloClient } from './apollo/apolloClient';
 import AppConfig from './config';
@@ -345,7 +345,8 @@ export const getRoutedInternalHrefForLocale = (
  */
 export const getIsItemActive = (
   menuItem: MenuItem,
-  locale: string
+  locale: string,
+  currentPathname?: string // Optional for testing
 ): boolean => {
   if (!menuItem.path) {
     return false;
@@ -359,9 +360,12 @@ export const getIsItemActive = (
   const target = `${localePath}${getCmsPagePath(
     stripLocaleFromUri(menuItem.path ?? '')
   )}`.replace(/\/$/, '');
-  return (
-    typeof window !== 'undefined' && window.location.pathname.includes(target)
-  );
+
+  // Use provided pathname for testing, otherwise use window.location.pathname
+  const pathname =
+    currentPathname ??
+    (typeof window !== 'undefined' ? window.location.pathname : '');
+  return pathname.includes(target);
 };
 
 /**

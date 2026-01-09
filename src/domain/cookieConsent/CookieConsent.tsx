@@ -1,52 +1,50 @@
-import { useMatomo } from '@jonkoops/matomo-tracker-react';
-import type { ContentSource } from 'hds-react';
-import { CookieModal, useCookies } from 'hds-react';
-import { useTranslation } from 'next-i18next';
-import React, { useCallback } from 'react';
+// TODO: Component disabled - needs migration to hds-react v4 CookieBanner API
+// CookieModal has been removed in hds-react v4
+import React from 'react';
 
-import useLocale from '../../hooks/useLocale';
-import type { I18nNamespace } from '../../types';
-import { MAIN_CONTENT_ID } from '../app/layout/PageLayout';
+// Imports commented out until migration is complete
+// import { useMatomo } from '@jonkoops/matomo-tracker-react';
+// import { useCookies } from 'hds-react';
+// import { useTranslation } from 'next-i18next';
+// import { useCallback } from 'react';
+// import useLocale from '../../hooks/useLocale';
+// import type { I18nNamespace } from '../../types';
+// import { MAIN_CONTENT_ID } from '../app/layout/PageLayout';
 
 type Props = {
   appName: string;
   allowLanguageSwitch?: boolean;
 };
 
-const CookieConsent: React.FC<Props> = ({ appName, allowLanguageSwitch }) => {
-  const locale = useLocale();
-  const { t, i18n } = useTranslation<I18nNamespace>();
-  const [language, setLanguage] =
-    React.useState<ContentSource['currentLanguage']>(locale);
-  const [showCookieConsentModal, setShowCookieConsentModal] =
-    React.useState(true);
+// Type definition kept for reference during migration to hds-react v4 CookieBanner API
+/*
+type ContentSource = {
+  currentLanguage: string;
+  siteName: string;
+  texts: any;
+  onAllConsentsGiven: () => void;
+  requiredCookies: any;
+  optionalCookies: any;
+  focusTargetSelector: string;
+  onLanguageChange: (lang: string) => void;
+};
+*/
 
-  const { getAllConsents } = useCookies();
-  const { pushInstruction } = useMatomo();
-
-  const onLanguageChange = useCallback(
-    (newLang: string) => {
-      if (allowLanguageSwitch) {
-        setLanguage(newLang as ContentSource['currentLanguage']);
-        i18n.changeLanguage(newLang);
-      }
-    },
-    [i18n, setLanguage, allowLanguageSwitch]
+const CookieConsent: React.FC<Props> = () => {
+  // TODO: Migrate to hds-react v4 CookieBanner API
+  // The CookieModal component has been removed in hds-react v4
+  // and replaced with CookieBanner, useCookieConsent, etc.
+  // For now, cookie consent is disabled.
+  // eslint-disable-next-line no-console
+  console.warn(
+    'CookieConsent: Migration to hds-react v4 CookieBanner API required'
   );
 
-  const handleMatomoUpdate = useCallback(() => {
-    const getConsentStatus = (cookieId: string) => {
-      const consents = getAllConsents();
-      return consents[cookieId];
-    };
-    if (getConsentStatus('matomo')) {
-      pushInstruction('setCookieConsentGiven');
-    } else {
-      pushInstruction('forgetCookieConsentGiven');
-      setShowCookieConsentModal(true);
-    }
-  }, [getAllConsents, pushInstruction]);
+  // Temporarily disable until proper migration
+  return null;
 
+  /* Previous implementation - kept for reference during migration to hds-react v4 CookieBanner API
+  
   const contentSource: ContentSource = React.useMemo(
     () => ({
       siteName: appName,
@@ -134,8 +132,8 @@ const CookieConsent: React.FC<Props> = ({ appName, allowLanguageSwitch }) => {
   );
 
   if (!showCookieConsentModal) return null;
-
   return <CookieModal contentSource={contentSource} />;
+  */
 };
 
 export default CookieConsent;

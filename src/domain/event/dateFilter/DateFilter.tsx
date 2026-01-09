@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { format, isValid } from 'date-fns';
-import { Button, DateInput, IconPen } from 'hds-react';
+import { Button, ButtonVariant, DateInput, IconPen } from 'hds-react';
 import { useTranslation } from 'next-i18next';
 import React from 'react';
 
@@ -51,9 +51,9 @@ const DateFilter: React.FC<DateFilterProps> = ({
       {dateFiltersChanged && (
         <Button
           className={styles.resetDateFiltersButton}
-          variant="supplementary"
+          variant={ButtonVariant.Supplementary}
           onClick={setInitialDateFilters}
-          iconLeft={<IconPen />}
+          iconStart={<IconPen />}
         >
           {t('event:filters.deleteDateFilter')}
         </Button>

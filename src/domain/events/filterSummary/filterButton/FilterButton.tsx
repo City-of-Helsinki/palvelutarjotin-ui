@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { IconCross } from 'hds-react';
+import { IconCross, IconSize } from 'hds-react';
 import { useTranslation } from 'next-i18next';
 import React from 'react';
 
@@ -30,7 +30,7 @@ const FilterButton: React.FC<FilterButtonProps> = ({
         onClick={() => onRemove(value, type)}
         aria-label={t('events:search.labelRemoveFilter', { filter: text })}
       >
-        <IconCross size="s" aria-hidden />
+        <IconCross size={IconSize.Small} aria-hidden />
       </button>
       {text}
     </div>

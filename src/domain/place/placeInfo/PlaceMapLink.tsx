@@ -1,4 +1,4 @@
-import { Button, IconMap } from 'hds-react';
+import { Button, ButtonVariant, IconMap } from 'hds-react';
 import React from 'react';
 
 import styles from './placeInfo.module.scss';
@@ -21,33 +21,34 @@ const PlaceMapLink: React.FC<PlaceMapLinkProps> = ({
   url,
   variant = 'button',
 }) => {
-  const { Component, labelPrefix, props } = {
-    a: {
-      Component: 'a',
-      labelPrefix: <IconMap className={styles.linkIcon} />,
-      props: {
-        href: url,
-        rel: 'noopener noreferrer',
-        target: '_blank',
-        className: styles.linkEntry,
-      },
-    },
-    button: {
-      Component: Button,
-      props: {
-        onClick: () => window.open(url),
-        iconLeft: <IconMap className={styles.linkIcon} />,
-        variant: 'supplementary' as const,
-      },
-    },
-  }[variant];
+  if (variant === 'a') {
+    return (
+      <>
+        <a
+          id={id}
+          href={url}
+          rel="noopener noreferrer"
+          target="_blank"
+          className={styles.linkEntry}
+        >
+          <IconMap className={styles.linkIcon} />
+          {label}
+        </a>
+        {description && <p className={styles.linkDescription}>{description}</p>}
+      </>
+    );
+  }
 
   return (
     <>
-      <Component id={id} {...props}>
-        {labelPrefix}
+      <Button
+        id={id}
+        onClick={() => window.open(url)}
+        iconStart={<IconMap className={styles.linkIcon} />}
+        variant={ButtonVariant.Supplementary}
+      >
         {label}
-      </Component>
+      </Button>
       {description && <p className={styles.linkDescription}>{description}</p>}
     </>
   );

@@ -2,6 +2,8 @@ import {
   Notification,
   IconAngleUp,
   Button,
+  ButtonSize,
+  ButtonVariant,
   IconArrowDown,
   Checkbox,
 } from 'hds-react';
@@ -137,8 +139,8 @@ const OccurrencesTable: React.FC<Props> = ({
         <div className={styles.loadMoreButtonWrapper}>
           <Button
             onClick={showMoreOccurrences}
-            variant="supplementary"
-            iconLeft={<IconArrowDown />}
+            variant={ButtonVariant.Supplementary}
+            iconStart={<IconArrowDown />}
           >
             {t('event:occurrenceList.loadMoreOccurrences')}
           </Button>
@@ -350,10 +352,9 @@ const OccurrenceExpandButton: React.FC<
     <Button
       {...props}
       style={{ width: '100%' }}
-      size="small"
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      variant={isExpanded ? 'supplementary' : ('primary' as any)}
-      iconRight={isExpanded ? <IconAngleUp /> : null}
+      size={ButtonSize.Small}
+      variant={isExpanded ? ButtonVariant.Supplementary : ButtonVariant.Primary}
+      iconEnd={isExpanded ? <IconAngleUp /> : null}
       aria-expanded={isExpanded ? true : false}
       className={styles.enrolmentExpandButton}
       aria-label={t('occurrence:ariaLabelShowDetails')}

@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { IconAngleUp, Button } from 'hds-react';
+import { IconAngleUp, Button, ButtonSize, ButtonVariant } from 'hds-react';
 import { useTranslation } from 'next-i18next';
 import React from 'react';
 
@@ -86,10 +86,13 @@ const OccurrenceEnrolmentButton: React.FC<Props> = ({
           [styles.enrolButton]: autoAcceptance,
         })}
         style={{ width: enrolButtonColumnWidth }}
-        size="small"
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        variant={showEnrolmentForm ? ('supplementary' as any) : 'primary'}
-        iconRight={showEnrolmentForm ? <IconAngleUp /> : null}
+        size={ButtonSize.Small}
+        variant={
+          showEnrolmentForm
+            ? ButtonVariant.Supplementary
+            : ButtonVariant.Primary
+        }
+        iconEnd={showEnrolmentForm ? <IconAngleUp /> : null}
         onClick={() => toggleForm()}
         aria-expanded={showEnrolmentForm}
         ref={enrolButtonRef}

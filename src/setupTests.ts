@@ -8,6 +8,11 @@ import { toHaveNoViolations } from 'jest-axe';
 import './tests/initI18n';
 import 'jest-localstorage-mock';
 
+// Mock html-react-parser for tests
+jest.mock('html-react-parser', () => {
+  return jest.fn((html: string) => html);
+});
+
 import { server } from './tests/msw/server';
 
 // To avoid error: ReferenceError: TextEncoder is not defined
@@ -15,6 +20,13 @@ import { server } from './tests/msw/server';
 global.TextEncoder = TextEncoder;
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 global.TextDecoder = TextDecoder as any;
+
+// Mock ResizeObserver for hds-react v4 components
+global.ResizeObserver = class ResizeObserver {
+  observe() {}
+  unobserve() {}
+  disconnect() {}
+};
 
 dotenv.config({ path: '.env' });
 

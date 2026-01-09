@@ -1,6 +1,12 @@
 import classNames from 'classnames';
 import { Formik, Field, useFormikContext, Form } from 'formik';
-import { Button, Checkbox, Notification, IconAngleUp } from 'hds-react';
+import {
+  Button,
+  ButtonVariant,
+  Checkbox,
+  Notification,
+  IconAngleUp,
+} from 'hds-react';
 import isEmpty from 'lodash/isEmpty';
 import { useTranslation } from 'next-i18next';
 import React, { useEffect } from 'react';
@@ -368,16 +374,16 @@ const EnrolmentForm: React.FC<Props> = ({
                   isQueueEnrolment && styles.queueButton
                 )}
               >
-                {actionType === 'enrolment' &&
-                  (enquiry
+                {isQueueEnrolment
+                  ? t('enrolment:queue.submit')
+                  : enquiry
                     ? t('enrolment:enrolmentForm.buttonSubmitEnquiry')
-                    : t('enrolment:enrolmentForm.buttonSubmit'))}
-                {isQueueEnrolment && t('enrolment:queue.submit')}
+                    : t('enrolment:enrolmentForm.buttonSubmit')}
               </Button>
               <Button
                 onClick={onCloseForm}
-                variant="supplementary"
-                iconRight={<IconAngleUp />}
+                variant={ButtonVariant.Supplementary}
+                iconEnd={<IconAngleUp />}
               >
                 {t('enrolment:enrolmentForm.buttonCancelAndCloseForm')}
               </Button>

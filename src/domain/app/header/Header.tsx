@@ -1,6 +1,9 @@
+import {
+  MenuItem,
+  Navigation,
+} from '@city-of-helsinki/react-helsinki-headless-cms';
 import { useRouter } from 'next/router';
 import React from 'react';
-import { MenuItem, Navigation } from 'react-helsinki-headless-cms';
 
 import HeaderNotification from './HeaderNotification';
 import { useCmsMenuItems } from './useCmsMenuItems';

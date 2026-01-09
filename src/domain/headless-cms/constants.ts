@@ -1,4 +1,7 @@
-import { Language, LanguageCodeEnum } from 'react-helsinki-headless-cms';
+import {
+  Language,
+  LanguageCodeEnum,
+} from '@city-of-helsinki/react-helsinki-headless-cms';
 
 /**
  * This is just a mock of list of Languages.

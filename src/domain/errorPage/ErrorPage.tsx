@@ -1,4 +1,4 @@
-import { Button, IconInfoCircle } from 'hds-react';
+import { Button, IconInfoCircle, IconSize } from 'hds-react';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 import React from 'react';
@@ -22,7 +22,7 @@ const ErrorPage: React.FC<{
   return (
     <Container className={styles.container}>
       <div className={styles.content}>
-        <IconInfoCircle size="l" />
+        <IconInfoCircle size={IconSize.Large} />
         <h1>{title || t('common:errorPage.title')}</h1>
         <p className={styles.description}>
           {description || t('common:errorPage.description')}
