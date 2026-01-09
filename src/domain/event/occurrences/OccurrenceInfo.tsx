@@ -1,6 +1,12 @@
 import { useApolloClient } from '@apollo/client';
 import { isSameDay } from 'date-fns';
-import { Button, IconLocation, IconClock, IconEuroSign } from 'hds-react';
+import {
+  Button,
+  ButtonVariant,
+  IconLocation,
+  IconClock,
+  IconEuroSign,
+} from 'hds-react';
 import { capitalize } from 'lodash';
 import NextLink from 'next/link';
 import { useTranslation } from 'next-i18next';
@@ -172,7 +178,10 @@ const OccurrenceInfo: React.FC<{
         href={`/?places=${placeId || eventLocationId}`}
         passHref
       >
-        <Button iconLeft={<IconLocation />} variant="supplementary">
+        <Button
+          iconStart={<IconLocation />}
+          variant={ButtonVariant.Supplementary}
+        >
           {t('event:occurrenceList.showAllLocationEvents')}
         </Button>
       </NextLink>

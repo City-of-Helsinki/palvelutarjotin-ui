@@ -1,12 +1,15 @@
 import { ParsedUrlQuery } from 'querystring';
 
-import isEqual from 'lodash/isEqual';
-import { graphql, HttpResponse } from 'msw';
-import { LanguageCodeEnum, MenuItem } from 'react-helsinki-headless-cms';
+import {
+  LanguageCodeEnum,
+  MenuItem,
+} from '@city-of-helsinki/react-helsinki-headless-cms';
 import {
   MenuQuery,
   MenuQueryVariables,
-} from 'react-helsinki-headless-cms/apollo';
+} from '@city-of-helsinki/react-helsinki-headless-cms/apollo';
+import isEqual from 'lodash/isEqual';
+import { graphql, HttpResponse } from 'msw';
 
 import {
   allMockedMenuPages,
@@ -32,22 +35,8 @@ import {
   getHrefForNonCmsPage,
 } from '../utils';
 
-// Mock window.location for getIsItemActive tests
-const originalLocation = window.location;
-const mockLocation = (pathname: string) => {
-  Object.defineProperty(window, 'location', {
-    writable: true,
-    value: { ...originalLocation, pathname },
-  });
-};
-
-afterEach(() => {
-  // Restore original window.location after each test
-  Object.defineProperty(window, 'location', {
-    writable: true,
-    value: originalLocation,
-  });
-});
+// Use the global mock from setupTests.ts
+// hds-react v4 makes window.location non-configurable
 
 describe('getUriID', () => {
   test.each<{ slugs: string[]; locale: Language; expected: string }>([
@@ -524,22 +513,23 @@ describe('getIsItemActive', () => {
   ])(
     'getIsItemActive returns $expected for $description',
     ({ locale, currentPath, itemPath, expected }) => {
-      mockLocation(currentPath);
       // Use the mock getCmsPagePath or ensure the real one is available
       const item = { ...menuItem, path: itemPath };
 
-      // Assertion on the function's behavior
-      expect(getIsItemActive(item, locale)).toBe(expected);
+      // Pass currentPath as parameter instead of mocking window.location
+      expect(getIsItemActive(item, locale, currentPath)).toBe(expected);
     }
   );
 
   it('should return false when window is undefined (SSR environment)', () => {
-    const windowSpy = jest.spyOn(global as any, 'window', 'get');
-    windowSpy.mockReturnValue(undefined);
+    // Temporarily remove window to simulate SSR
+    const originalWindow = global.window;
+    delete (global as any).window;
 
     expect(getIsItemActive(menuItem, 'fi')).toBe(false);
 
-    windowSpy.mockRestore(); // Clean up the mock
+    // Restore window
+    (global as any).window = originalWindow;
   });
 });
 

@@ -1,10 +1,10 @@
 import { ApolloProvider } from '@apollo/client';
+import { ConfigProvider as RHHCConfigProvider } from '@city-of-helsinki/react-helsinki-headless-cms';
 import dynamic from 'next/dynamic';
 import NextError from 'next/error';
 import { useRouter } from 'next/router';
 import { appWithTranslation, UserConfig, useTranslation } from 'next-i18next';
 import React from 'react';
-import { ConfigProvider as RHHCConfigProvider } from 'react-helsinki-headless-cms';
 import { ToastContainer } from 'react-toastify';
 
 import nextI18nextConfig from '../../next-i18next.config';

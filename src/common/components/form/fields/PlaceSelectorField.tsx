@@ -9,7 +9,7 @@ type Option = {
   value: string;
 };
 
-type Props = SelectProps<Option> &
+type Props = Omit<SelectProps, 'value' | 'onChange' | 'onBlur' | 'options'> &
   FieldProps & {
     options: Option[];
     title: string;
@@ -19,14 +19,12 @@ type Props = SelectProps<Option> &
   };
 
 const PlaceSelectorField: React.FC<Props> = ({
-  field: { name, onBlur, onChange, value, ...field },
+  field: { name, onBlur, onChange, value },
   setFieldValue,
   checkboxName = 'placesCheckbox',
-  ...allRest
+  ...usedRest
 }) => {
-  // Remove unused props
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { helper, multiselect, options, placeholder, ...usedRest } = allRest;
+  // No need to destructure deprecated props as PlaceSelector uses MultiSelectDropdown
 
   const handleChange = (val: Option | Option[]) => {
     const value = Array.isArray(val) ? val.map((item) => item) : val;
@@ -54,7 +52,6 @@ const PlaceSelectorField: React.FC<Props> = ({
   return (
     <PlaceSelector
       {...usedRest}
-      {...field}
       name={name}
       checkboxName={checkboxName}
       // eslint-disable-next-line @typescript-eslint/no-explicit-any

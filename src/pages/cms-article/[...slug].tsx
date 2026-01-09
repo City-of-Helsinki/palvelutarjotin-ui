@@ -1,11 +1,11 @@
-import { BreadcrumbListItem } from 'hds-react';
-import { GetStaticPropsContext, GetStaticPropsResult, NextPage } from 'next';
-import * as React from 'react';
 import {
   getCollections,
   CollectionType,
   GeneralCollectionType,
-} from 'react-helsinki-headless-cms';
+} from '@city-of-helsinki/react-helsinki-headless-cms';
+import { BreadcrumbListItem } from 'hds-react';
+import { GetStaticPropsContext, GetStaticPropsResult, NextPage } from 'next';
+import * as React from 'react';
 
 import { SUPPORTED_LANGUAGES } from '../../constants';
 import { CommonApolloQueriesService } from '../../domain/app/ssr/commonApolloQueriesService';

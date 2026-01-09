@@ -1,4 +1,4 @@
-import { Button, IconAngleUp } from 'hds-react';
+import { Button, ButtonVariant, IconAngleUp } from 'hds-react';
 import { useTranslation } from 'next-i18next';
 import React from 'react';
 
@@ -30,8 +30,8 @@ export const QueueFormContainer: React.FC<{
                 {t('enrolment:queue.enrolText')}
               </div>
               <Button
-                variant="supplementary"
-                iconRight={<IconAngleUp />}
+                variant={ButtonVariant.Supplementary}
+                iconEnd={<IconAngleUp />}
                 onClick={() => setShowQueueForm(false)}
               >
                 {t('enrolment:enrolmentForm.buttonCancelAndCloseForm')}

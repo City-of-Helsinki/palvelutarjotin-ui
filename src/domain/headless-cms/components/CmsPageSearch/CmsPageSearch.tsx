@@ -1,5 +1,4 @@
 import { NetworkStatus } from '@apollo/client';
-import React from 'react';
 import {
   Card,
   CardProps,
@@ -11,7 +10,8 @@ import {
   PageMainContent,
   PageType,
   HtmlToReact,
-} from 'react-helsinki-headless-cms';
+} from '@city-of-helsinki/react-helsinki-headless-cms';
+import React from 'react';
 
 import styles from './cmsPageSearch.module.scss';
 import {

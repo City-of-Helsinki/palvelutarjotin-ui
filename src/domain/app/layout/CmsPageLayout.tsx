@@ -1,5 +1,5 @@
+import { Page } from '@city-of-helsinki/react-helsinki-headless-cms';
 import React from 'react';
-import { Page } from 'react-helsinki-headless-cms';
 
 import styles from './pageLayout.module.scss';
 import Footer from '../footer/Footer';
