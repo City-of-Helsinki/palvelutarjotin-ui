@@ -3,9 +3,7 @@ import {
   MatomoProvider,
   useMatomo,
 } from '@jonkoops/matomo-tracker-react';
-// TODO: useCookies has been removed in hds-react v4
-// Need to migrate to useCookieConsent API
-// import { useCookies } from 'hds-react';
+import { useCookieConsentContext } from 'hds-react';
 import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
 
@@ -39,28 +37,25 @@ function Matomo({ children }: { children: React.ReactNode }): JSX.Element {
 function TrackPageViews(): null {
   const { trackPageView, pushInstruction } = useMatomo();
   const { asPath } = useRouter();
-  // TODO: getAllConsents removed in hds-react v4
-  // const { getAllConsents } = useCookies();
+  const { consents } = useCookieConsentContext();
 
-  // Track page changes when pathnname changes
+  // Track page changes when pathname changes
   useEffect(() => {
-    // TODO: Re-implement consent checking with hds-react v4 useCookieConsent API
-    // For now, assume consent is given (Matomo will use default behavior)
-    // const getConsentStatus = (cookieId: string) => {
-    //   const consents = getAllConsents();
-    //   return consents[cookieId];
-    // };
-    //
-    // if (getConsentStatus('matomo')) {
-    //   pushInstruction('setCookieConsentGiven');
-    // } else {
-    //   pushInstruction('forgetCookieConsentGiven');
-    // }
+    // Check if statistics (Matomo) consent is given
+    const statisticsConsent = consents.find(
+      (consent) => consent.group === 'statistics'
+    );
+
+    if (statisticsConsent?.consented) {
+      pushInstruction('setCookieConsentGiven');
+    } else {
+      pushInstruction('forgetCookieConsentGiven');
+    }
 
     trackPageView({
       href: window.location.href,
     });
-  }, [asPath, pushInstruction, trackPageView]);
+  }, [asPath, pushInstruction, trackPageView, consents]);
 
   return null;
 }
