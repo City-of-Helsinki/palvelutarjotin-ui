@@ -67,7 +67,7 @@
     "formik": "^2.4.6",
     "graphql": "^16.10.0",
     "graphql-tag": "^2.12.6",
-    "hds-react": "^4.8.1",
+    "hds-react": "^4.9.0",
     "i18next": "^24.2.3",
     "i18next-intervalplural-postprocessor": "^3.0.0",
     "ics": "^3.8.1",
