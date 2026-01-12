@@ -3,7 +3,7 @@
   "version": "2.15.2",
   "private": true,
   "engines": {
-    "node": ">=20.19"
+    "node": ">=22.13.1"
   },
   "scripts": {
     "clean": "rimraf --no-glob ./.next ./out ./coverage ./tsconfig.tsbuildinfo",
