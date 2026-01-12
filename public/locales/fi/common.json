@@ -99,6 +99,30 @@
         "hideSettings": "Piilota asetukset"
       }
     },
+    "translations": {
+      "bannerAriaLabel": "Evästeasetukset",
+      "heading": "{{siteName}} käyttää evästeitä",
+      "showDetails": "Näytä tiedot",
+      "formHeading": "Tietoa sivustolla käytettävistä evästeistä",
+      "formText": "Sivustolla käytettävät evästeet on luokiteltu käyttötarkoituksen mukaan. Alla voit lukea eri luokista ja hyväksyä tai hylätä evästeiden käytön.",
+      "showCookieSettings": "Näytä evästeasetukset",
+      "tableHeadingsName": "Nimi",
+      "tableHeadingsHostName": "Evästeen asettaja",
+      "tableHeadingsDescription": "Käyttötarkoitus",
+      "tableHeadingsExpiration": "Voimassaoloaika",
+      "tableHeadingsType": "Tyyppi",
+      "approveAllConsents": "Hyväksy kaikki evästeet",
+      "approveRequiredAndSelectedConsents": "Hyväksy valitut evästeet",
+      "settingsSaved": "Asetukset tallennettu!",
+      "highlightedGroup": "Tämän toiminnon käyttö edellyttää seuraavan evästeryhmän hyväksymistä",
+      "highlightedGroupAria": "Vaadittu evästeryhmä korostettuna",
+      "acceptedAt": "Hyväksytty",
+      "storageType1": "Eväste",
+      "storageType2": "localStorage",
+      "storageType3": "sessionStorage",
+      "storageType4": "IndexedDB",
+      "storageType5": "Cache"
+    },
     "required": {
       "title": "Välttämättömät evästeet",
       "text": "Välttämättömien evästeiden käyttöä ei voi kieltää. Ne mahdollistavat sivuston toiminnan ja vaikuttavat käytettävyyteen."
@@ -119,6 +143,7 @@
       }
     },
     "cookies": {
+      "cookieConsent": "Eväste evästeasetusten tallentamiseen",
       "matomo": "Matomo-tilastointijärjestelmän eväste",
       "linkedevents": "Eväste tapahtumien hakemisen valtuuttamiseen",
       "i18next": "Eväste sivuston kielivalinnan muistamiseen",

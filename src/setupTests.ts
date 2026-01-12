@@ -8,9 +8,45 @@ import { toHaveNoViolations } from 'jest-axe';
 import './tests/initI18n';
 import 'jest-localstorage-mock';
 
+// Suppress jsdom CSS parsing errors from cookie consent and other HDS components
+const originalConsoleError = console.error;
+console.error = (...args: unknown[]) => {
+  const msg = args[0]?.toString() || '';
+  if (msg.includes('Error: Could not parse CSS stylesheet')) {
+    return;
+  }
+  originalConsoleError(...args);
+};
+
 // Mock html-react-parser for tests
 jest.mock('html-react-parser', () => {
   return jest.fn((html: string) => html);
+});
+
+// Mock cookie consent context to avoid CSS parsing errors in jsdom
+jest.mock('hds-react', () => {
+  const actual = jest.requireActual('hds-react');
+  return {
+    ...actual,
+    CookieConsentContextProvider: ({
+      children,
+    }: {
+      children: React.ReactNode;
+    }) => children,
+    useCookieConsentContext: () => ({
+      isReady: true,
+      consents: [],
+      instance: null,
+      openBanner: jest.fn(),
+      removeBanner: jest.fn(),
+      openBannerIfNeeded: jest.fn(),
+      renderPage: jest.fn(),
+      removePage: jest.fn(),
+      settingsPageId: 'test-settings',
+      language: 'fi',
+      theme: 'bus',
+    }),
+  };
 });
 
 import { server } from './tests/msw/server';
