@@ -36,7 +36,8 @@ test.describe(() => {
     frontPageFi,
     searchPage,
   }) => {
-    await frontPageFi.clickSearchButton('Kohderyhmät');
+    await frontPageFi.clickSearchButton('Tarkennettu haku');
+    await frontPageFi.clickTargetGroupField('Kohderyhmät');
     await frontPageFi.clickSearchOption('0-2 vuotiaat');
     await frontPageFi.fillSearchTextBox('Hae tapahtumia', 'Testiteksti');
     await frontPageFi.clickSearchButton('Hae tapahtumia');
@@ -51,7 +52,8 @@ test.describe(() => {
     frontPageSv,
     searchPage,
   }) => {
-    await frontPageSv.clickSearchButton('Målgrupp');
+    await frontPageSv.clickSearchButton('Detaljerad sökning');
+    await frontPageSv.clickTargetGroupField('Målgrupp');
     await frontPageSv.clickSearchOption('0-2 år');
     await frontPageSv.fillSearchTextBox('Sök evenemang', 'Testtext');
     await frontPageSv.clickSearchButton('Sök evenemang');
@@ -66,7 +68,8 @@ test.describe(() => {
     frontPageEn,
     searchPage,
   }) => {
-    await frontPageEn.clickSearchButton('Target groups');
+    await frontPageEn.clickSearchButton('Advanced search');
+    await frontPageEn.clickTargetGroupField('Target groups');
     await frontPageEn.clickSearchOption('0-2 years');
     await frontPageEn.fillSearchTextBox('Search events', 'Test text');
     await frontPageEn.clickSearchButton('Search events');

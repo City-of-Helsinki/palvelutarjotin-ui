@@ -7,8 +7,10 @@ type ZeroToTwoYears = '0-2 vuotiaat' | '0-2 år' | '0-2 years';
 type TargetGroupOption = ZeroToTwoYears;
 type SearchOption = TargetGroupOption;
 type SearchEvents = 'Hae tapahtumia' | 'Sök evenemang' | 'Search events';
-type SearchButton = SearchEvents | TargetGroupButton;
-type SearchTextBox = SearchEvents;
+type AdvancedSearch = 'Tarkennettu haku' | 'Redigera sökning' | 'Edit search';
+type SearchButton = SearchEvents | AdvancedSearch;
+type SearchTextBox = SearchEvents | TargetGroupButton;
+type TargetGroupField = TargetGroupButton;
 
 export class SearchCapablePage extends BasePage {
   constructor(page: Page) {
@@ -31,6 +33,14 @@ export class SearchCapablePage extends BasePage {
   }
 
   async clickSearchButton(name: SearchButton) {
-    await this.mainContent.getByRole('button', { name }).first().click();
+    const targetButton = this.mainContent.getByRole('button', { name }).first();
+    await targetButton.click();
+  }
+
+  async clickTargetGroupField(name: TargetGroupField) {
+    // Target groups is a combobox/textbox, not a button
+    const field = this.mainContent.getByRole('combobox', { name }).first();
+    await field.isVisible({ timeout: 5000 }).catch(() => false);
+    await field.click();
   }
 }
