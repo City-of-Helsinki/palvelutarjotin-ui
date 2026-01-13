@@ -9,7 +9,9 @@ import './tests/initI18n';
 import 'jest-localstorage-mock';
 
 // Suppress jsdom CSS parsing errors from cookie consent and other HDS components
+// eslint-disable-next-line no-console
 const originalConsoleError = console.error;
+// eslint-disable-next-line no-console
 console.error = (...args: unknown[]) => {
   const msg = args[0]?.toString() || '';
   if (msg.includes('Error: Could not parse CSS stylesheet')) {
