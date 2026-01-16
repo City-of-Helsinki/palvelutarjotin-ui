@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { FieldProps } from 'formik';
-import { Select, SelectProps } from 'hds-react';
+import { Select } from 'hds-react';
 import { useTranslation } from 'next-i18next';
 import React from 'react';
 
@@ -13,39 +13,40 @@ type Option = {
   value: string;
 };
 
-type Props = SelectProps<Option> &
-  FieldProps & {
-    options: Option[];
-    defaultValue: Option;
-    setFieldValue?: (
-      field: string,
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      value: any,
-      shouldValidate?: boolean | undefined
-    ) => Promise<void>;
-  };
+type Props = FieldProps & {
+  options: Option[];
+  className?: string;
+  placeholder?: string;
+  disabled?: boolean;
+  required?: boolean;
+  label?: string;
+  helperText?: string;
+  setFieldValue?: (
+    field: string,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    value: any,
+    shouldValidate?: boolean | undefined
+  ) => Promise<void>;
+};
 
 const DropdownField: React.FC<Props> = ({
   className,
-  field: { name, onBlur, onChange, value, ...field },
+  field: { name, onBlur, onChange, value },
   form: { errors, touched },
-  helper,
   options,
   placeholder,
   setFieldValue,
-  ...allRest
+  disabled,
+  required,
+  label,
+  helperText,
 }) => {
   const { t } = useTranslation<I18nNamespace>();
   const errorText = getErrorText(errors, touched, name, t);
 
-  // Remove unused props
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { multiselect, ...usedRest } = allRest;
-
-  const handleChange = (val: Option | Option[]) => {
-    const value = Array.isArray(val)
-      ? val.map((item) => item.value)
-      : val.value;
+  const handleChange = (selectedOptions: Option[]) => {
+    // hds-react v4 Select onChange receives an array of selected options
+    const value = selectedOptions.length > 0 ? selectedOptions[0].value : '';
     if (setFieldValue) {
       (async () => await setFieldValue(name, value))();
     } else {
@@ -67,24 +68,24 @@ const DropdownField: React.FC<Props> = ({
     });
   };
 
-  const selectedValue = options.find((option) => option.value === value) || {
-    label: '',
-    value: '',
-  };
+  const valueAsString = typeof value === 'string' ? value : value?.value || '';
 
   return (
     <Select
-      {...usedRest}
-      {...field}
-      helper={errorText || helper}
       invalid={Boolean(errorText)}
-      optionLabelField={'label'}
+      disabled={disabled}
+      required={required}
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      onChange={handleChange as (selectedItems: any) => void}
+      onChange={handleChange as any}
       options={options}
       id={name}
-      placeholder={placeholder || t('common:dropdown.placeholder')}
-      value={selectedValue}
+      value={valueAsString}
+      texts={{
+        label: label || '',
+        placeholder: placeholder || t('common:dropdown.placeholder'),
+        error: errorText,
+        ...(helperText && !errorText ? { assistive: helperText } : {}),
+      }}
       className={classNames(className, { [invalidFieldClass]: errorText })}
     />
   );

@@ -399,20 +399,18 @@ async function fillForm({
   await fillField(/ryhmä/i, '4a');
 
   // select grade from dropdown
-  const gradeButton = enrolmentForm.getByRole('button', {
+  // In hds-react v4, Select uses role="combobox" and options are in the document
+  const gradeButton = await enrolmentForm.findByRole('combobox', {
     name: /luokka-aste/i,
   });
-  if (!gradeButton?.parentElement) {
-    throw new Error('Grade button parent element not found');
-  }
-  await user.click(within(gradeButton.parentElement).getByText(/valitse/i));
+  await user.click(gradeButton);
   await user.click(
-    await within(gradeButton.parentElement).findByRole('option', {
+    await screen.findByRole('option', {
       name: /2\. luokka/i,
     })
   );
   await user.click(
-    await within(gradeButton.parentElement).findByRole('option', {
+    await screen.findByRole('option', {
       name: /4\. luokka/i,
     })
   );
@@ -427,7 +425,7 @@ async function fillForm({
 
   await user.click(await getField(/sähköpostilla/i, 'checkbox'));
   await user.click(enrolmentForm.getByText(/tekstiviestillä/i));
-  await user.click(await getField(/Ilmoitusten kieli/, 'button'));
+  await user.click(await getField(/Ilmoitusten kieli/, 'combobox'));
 
   await user.click(
     await enrolmentForm.findByRole(

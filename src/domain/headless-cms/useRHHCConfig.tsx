@@ -1,12 +1,13 @@
 import { ApolloClient, NormalizedCacheObject } from '@apollo/client';
+import {
+  Config,
+  defaultConfig as rhhcDefaultConfig,
+} from '@city-of-helsinki/react-helsinki-headless-cms';
+import { ButtonVariant, ButtonPresetTheme } from 'hds-react';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useTranslation } from 'next-i18next';
 import React from 'react';
-import {
-  Config,
-  defaultConfig as rhhcDefaultConfig,
-} from 'react-helsinki-headless-cms';
 
 import AppConfig from './config';
 import { getRoutedInternalHrefForLocale } from './utils';
@@ -65,8 +66,8 @@ export const useRHHCConfig = ({
         previous: t('common:button.previous'),
       },
       customCopy: {
-        loadMoreButtonVariant: 'primary',
-        loadMoreButtonTheme: 'coat',
+        loadMoreButtonVariant: ButtonVariant.Primary,
+        loadMoreButtonTheme: ButtonPresetTheme.Coat,
       },
       components: {
         ...rhhcDefaultConfig.components,

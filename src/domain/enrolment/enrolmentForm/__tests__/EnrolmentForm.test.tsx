@@ -102,9 +102,9 @@ test('renders form and user can fill it and submit and form is saved to local st
   await userEvent.type(screen.getByRole('textbox', { name: /ryhmä/i }), '4a');
 
   // select grade from dropdown
-
+  // In hds-react v4, Select uses role="combobox" not role="button"
   await userEvent.click(
-    screen.getByRole('button', { name: /luokka-aste \*/i })
+    await screen.findByRole('combobox', { name: /luokka-aste/i })
   );
 
   await userEvent.click(screen.getByRole('option', { name: /4\. luokka/i }));
@@ -113,9 +113,7 @@ test('renders form and user can fill it and submit and form is saved to local st
 
   // // close dropdown
 
-  await userEvent.click(
-    screen.getAllByRole('button', { name: /luokka-aste/i })[1]
-  );
+  await userEvent.click(screen.getByRole('combobox', { name: /luokka-aste/i }));
 
   await userEvent.type(screen.getByLabelText(/lapsia/i), '10');
   await userEvent.type(screen.getByLabelText(/aikuisia/i), '2');
@@ -129,7 +127,7 @@ test('renders form and user can fill it and submit and form is saved to local st
   await userEvent.click(screen.getByText(/tekstiviestillä/i));
 
   await userEvent.click(
-    screen.getByRole('button', { name: /Ilmoitusten kieli/ })
+    screen.getByRole('combobox', { name: /Ilmoitusten kieli/ })
   );
   await userEvent.click(screen.getByRole('option', { name: /suomi/i }));
 
@@ -502,7 +500,10 @@ if (isFeatureEnabled('FORMIK_PERSIST')) {
       });
       expect(studyGroupNameInput).toHaveValue(testValues.studyGroup.groupName);
       // grade level should be selected
-      screen.getByText(/1\. luokka/i);
+      // In hds-react v4, the Select uses role="combobox" and displays the selected value
+      expect(
+        screen.getByRole('combobox', { name: /luokka-aste/i })
+      ).toHaveTextContent('1. luokka');
       const childrenCountInput = screen.getByRole('spinbutton', {
         name: /lapsia \*/i,
       });

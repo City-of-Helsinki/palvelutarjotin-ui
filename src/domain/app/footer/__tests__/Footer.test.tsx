@@ -1,9 +1,9 @@
-import React from 'react';
 import {
   LanguageCodeEnum,
   LanguagesDocument,
   MenuDocument,
-} from 'react-helsinki-headless-cms/apollo';
+} from '@city-of-helsinki/react-helsinki-headless-cms/apollo';
+import React from 'react';
 
 import { render, screen, waitFor } from '../../../../utils/testUtils';
 import Footer from '../Footer';

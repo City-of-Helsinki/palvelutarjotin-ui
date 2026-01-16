@@ -1,7 +1,6 @@
 import { MockedResponse } from '@apollo/client/testing';
+import { MenuDocument } from '@city-of-helsinki/react-helsinki-headless-cms/apollo';
 import React from 'react';
-// import { MenuDocument } from 'react-helsinki-headless-cms/apollo';
-import { MenuDocument } from 'react-helsinki-headless-cms/apollo';
 
 // import { fakePage } from '../../../../utils/cmsMockDataUtils';
 import { DEFAULT_HEADER_MENU_NAME } from '../../../../constants';

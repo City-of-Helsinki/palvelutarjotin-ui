@@ -3,7 +3,7 @@ import {
   MatomoProvider,
   useMatomo,
 } from '@jonkoops/matomo-tracker-react';
-import { useCookies } from 'hds-react';
+import { useCookieConsentContext } from 'hds-react';
 import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
 
@@ -37,16 +37,16 @@ function Matomo({ children }: { children: React.ReactNode }): JSX.Element {
 function TrackPageViews(): null {
   const { trackPageView, pushInstruction } = useMatomo();
   const { asPath } = useRouter();
-  const { getAllConsents } = useCookies();
+  const { consents } = useCookieConsentContext();
 
-  // Track page changes when pathnname changes
+  // Track page changes when pathname changes
   useEffect(() => {
-    const getConsentStatus = (cookieId: string) => {
-      const consents = getAllConsents();
-      return consents[cookieId];
-    };
+    // Check if statistics (Matomo) consent is given
+    const statisticsConsent = consents.find(
+      (consent) => consent.group === 'statistics'
+    );
 
-    if (getConsentStatus('matomo')) {
+    if (statisticsConsent?.consented) {
       pushInstruction('setCookieConsentGiven');
     } else {
       pushInstruction('forgetCookieConsentGiven');
@@ -55,7 +55,7 @@ function TrackPageViews(): null {
     trackPageView({
       href: window.location.href,
     });
-  }, [asPath, getAllConsents, pushInstruction, trackPageView]);
+  }, [asPath, pushInstruction, trackPageView, consents]);
 
   return null;
 }

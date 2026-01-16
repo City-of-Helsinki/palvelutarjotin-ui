@@ -35,11 +35,13 @@ exports[`SubscribeNewsletterPage renders correctly 1`] = `
               class="formGroup"
             >
               <div
-                class="Select-module_root__Ka5uO Select-module_multiselect__fxewG"
+                class="Select-module_root__-GjU5"
+                id="groups"
+                tabindex="-1"
               >
                 <label
                   class="FieldLabel-module_label__1zrXK "
-                  for="groups-toggle-button"
+                  for="groups-main-button"
                   id="groups-label"
                 >
                   Tilaan uutiskirjeen
@@ -50,188 +52,219 @@ exports[`SubscribeNewsletterPage renders correctly 1`] = `
                   </span>
                 </label>
                 <div
-                  class="Select-module_wrapper__1WQXs"
+                  class="Select-module_selectAndListContainer__vSJEv"
                 >
                   <div
-                    class="SelectedItems-module_selectedItems__2m24K SelectedItems-module_itemsHidden__2ewH3 SelectedItems-module_truncateFirstChild__192oz"
+                    class="Select-module_selectedOptionsContainer__16tlC"
+                  >
+                    <button
+                      aria-controls="groups-list"
+                      aria-disabled="false"
+                      aria-expanded="false"
+                      aria-haspopup="listbox"
+                      aria-label="Tilaan uutiskirjeen. 3 valittua vaihtoehtoa: "Alakouluille" ja "Varhaiskasvatukselle" ja 1 muuta vaihtoehtoa. Pakollinen."
+                      class="Select-module_dropdownButton__2-_Ec Select-module_selectedOptions__VmvqD Select-module_spaceForOneDigit__3puHv"
+                      id="groups-main-button"
+                      role="combobox"
+                      type="button"
+                    >
+                      <div
+                        aria-hidden="true"
+                        class="Select-module_labels__2FlKK"
+                      >
+                        <span
+                          class="Select-module_dropdownButtonOption__3Tfsz"
+                        >
+                          Alakouluille
+                        </span>
+                        <span
+                          class="Select-module_dropdownButtonOption__3Tfsz"
+                        >
+                          Varhaiskasvatukselle
+                        </span>
+                        <span
+                          class="Select-module_dropdownButtonOption__3Tfsz"
+                        >
+                          Yläkouluille ja toisen asteen oppilaitoksille
+                        </span>
+                      </div>
+                      <span
+                        aria-hidden="true"
+                        class="Select-module_count__ODB_U"
+                      >
+                        <span
+                          class="count"
+                        >
+                          +1
+                        </span>
+                      </span>
+                      <div
+                        class="Select-module_arrowAndSpaceForClearButton__3Fufw Select-module_icon__3AwlD"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          aria-label="angle-down"
+                          class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_small__gTGkU icon_hds-icon--size-s__2Lkik Select-module_angleIcon__3A9li"
+                          role="img"
+                          viewBox="0 0 24 24"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            clip-rule="evenodd"
+                            d="M12 13.5L17 8.5L18.5 10L12 16.5L5.5 10L7 8.5L12 13.5Z"
+                            fill="currentColor"
+                            fill-rule="evenodd"
+                          />
+                        </svg>
+                      </div>
+                    </button>
+                  </div>
+                  <div
+                    aria-hidden="true"
+                    class="Select-module_listAndInputContainer__2gZ6q"
+                    id="groups-sl-container"
                   >
                     <div
-                      class="Tag-module_tag__3bo5S tag_hds-tag__3MKf3 SelectedItems-module_tag__13n3H"
-                      id="hds-tag-7"
+                      class="Select-module_listContainer__2PfQA"
+                      style="max-height: 286px;"
+                    >
+                      <ul
+                        aria-multiselectable="true"
+                        class="Select-module_list__2iKlZ"
+                        id="groups-list"
+                        role="listbox"
+                        tabindex="-1"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="Select-module_tagListContainer__1vSdM"
+                >
+                  <div
+                    class="Select-module_tagList__3uMST"
+                    id="groups-tag-list"
+                    style="max-height: 0px;"
+                  >
+                    <div
+                      aria-hidden="false"
+                      aria-label="Poista valinta "Alakouluille"."
+                      class="Tag-module_tag__3bo5S tag_hds-tag__3MKf3 Select-module_tag__1I-nr Tag-module_action__4ky2K tag_hds-tag--action__Az-Fm Tag-module_multiline__24sap tag_hds-tag--multiline__yHIcb"
                       role="button"
                       tabindex="0"
                     >
-                      <span
-                        aria-labelledby="groups-label hds-tag-7-label"
-                        class="Tag-module_label__zCgFr undefined SelectedItems-module_tagLabel__3qEgh"
-                        id="hds-tag-7-label"
-                      >
-                        <span>
-                          Alakouluille
-                        </span>
+                      <span>
+                        Alakouluille
                       </span>
-                      <button
-                        class="Tag-module_deleteButton__1diMR tag_hds-tag__delete-button__33Tgz"
-                        id="hds-tag-7-delete-button"
-                        tabindex="-1"
-                        type="button"
+                      <svg
+                        aria-hidden="true"
+                        aria-label="cross"
+                        class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_small__gTGkU icon_hds-icon--size-s__2Lkik Tag-module_icon__or2kN tag_hds-tag__icon__2_xWY"
+                        role="img"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
                       >
-                        <svg
-                          aria-hidden="true"
-                          aria-label="cross"
-                          class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
-                          role="img"
-                          viewBox="0 0 24 24"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            clip-rule="evenodd"
-                            d="M18 7.5L13.5 12L18 16.5L16.5 18L12 13.5L7.5 18L6 16.5L10.5 12L6 7.5L7.5 6L12 10.5L16.5 6L18 7.5Z"
-                            fill="currentColor"
-                            fill-rule="evenodd"
-                          />
-                        </svg>
-                      </button>
+                        <path
+                          clip-rule="evenodd"
+                          d="M18 7.5L13.5 12L18 16.5L16.5 18L12 13.5L7.5 18L6 16.5L10.5 12L6 7.5L7.5 6L12 10.5L16.5 6L18 7.5Z"
+                          fill="currentColor"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
                     </div>
                     <div
-                      class="Tag-module_tag__3bo5S tag_hds-tag__3MKf3 SelectedItems-module_tag__13n3H SelectedItems-module_hidden__2hyRx"
-                      id="hds-tag-8"
+                      aria-hidden="false"
+                      aria-label="Poista valinta "Varhaiskasvatukselle"."
+                      class="Tag-module_tag__3bo5S tag_hds-tag__3MKf3 Select-module_tag__1I-nr Tag-module_action__4ky2K tag_hds-tag--action__Az-Fm Tag-module_multiline__24sap tag_hds-tag--multiline__yHIcb"
                       role="button"
-                      tabindex="-1"
+                      tabindex="0"
                     >
-                      <span
-                        aria-labelledby="groups-label hds-tag-8-label"
-                        class="Tag-module_label__zCgFr undefined SelectedItems-module_tagLabel__3qEgh"
-                        id="hds-tag-8-label"
-                      >
-                        <span>
-                          Varhaiskasvatukselle
-                        </span>
+                      <span>
+                        Varhaiskasvatukselle
                       </span>
-                      <button
-                        class="Tag-module_deleteButton__1diMR tag_hds-tag__delete-button__33Tgz"
-                        id="hds-tag-8-delete-button"
-                        tabindex="-1"
-                        type="button"
+                      <svg
+                        aria-hidden="true"
+                        aria-label="cross"
+                        class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_small__gTGkU icon_hds-icon--size-s__2Lkik Tag-module_icon__or2kN tag_hds-tag__icon__2_xWY"
+                        role="img"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
                       >
-                        <svg
-                          aria-hidden="true"
-                          aria-label="cross"
-                          class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
-                          role="img"
-                          viewBox="0 0 24 24"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            clip-rule="evenodd"
-                            d="M18 7.5L13.5 12L18 16.5L16.5 18L12 13.5L7.5 18L6 16.5L10.5 12L6 7.5L7.5 6L12 10.5L16.5 6L18 7.5Z"
-                            fill="currentColor"
-                            fill-rule="evenodd"
-                          />
-                        </svg>
-                      </button>
+                        <path
+                          clip-rule="evenodd"
+                          d="M18 7.5L13.5 12L18 16.5L16.5 18L12 13.5L7.5 18L6 16.5L10.5 12L6 7.5L7.5 6L12 10.5L16.5 6L18 7.5Z"
+                          fill="currentColor"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
                     </div>
                     <div
-                      class="Tag-module_tag__3bo5S tag_hds-tag__3MKf3 SelectedItems-module_tag__13n3H SelectedItems-module_hidden__2hyRx"
-                      id="hds-tag-9"
+                      aria-hidden="false"
+                      aria-label="Poista valinta "Yläkouluille ja toisen asteen oppilaitoksille"."
+                      class="Tag-module_tag__3bo5S tag_hds-tag__3MKf3 Select-module_tag__1I-nr Tag-module_action__4ky2K tag_hds-tag--action__Az-Fm Tag-module_multiline__24sap tag_hds-tag--multiline__yHIcb"
                       role="button"
-                      tabindex="-1"
+                      tabindex="0"
                     >
-                      <span
-                        aria-labelledby="groups-label hds-tag-9-label"
-                        class="Tag-module_label__zCgFr undefined SelectedItems-module_tagLabel__3qEgh"
-                        id="hds-tag-9-label"
-                      >
-                        <span>
-                          Yläkouluille ja toisen asteen oppilaitoksille
-                        </span>
+                      <span>
+                        Yläkouluille ja toisen asteen oppilaitoksille
                       </span>
-                      <button
-                        class="Tag-module_deleteButton__1diMR tag_hds-tag__delete-button__33Tgz"
-                        id="hds-tag-9-delete-button"
-                        tabindex="-1"
-                        type="button"
+                      <svg
+                        aria-hidden="true"
+                        aria-label="cross"
+                        class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_small__gTGkU icon_hds-icon--size-s__2Lkik Tag-module_icon__or2kN tag_hds-tag__icon__2_xWY"
+                        role="img"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
                       >
-                        <svg
-                          aria-hidden="true"
-                          aria-label="cross"
-                          class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
-                          role="img"
-                          viewBox="0 0 24 24"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            clip-rule="evenodd"
-                            d="M18 7.5L13.5 12L18 16.5L16.5 18L12 13.5L7.5 18L6 16.5L10.5 12L6 7.5L7.5 6L12 10.5L16.5 6L18 7.5Z"
-                            fill="currentColor"
-                            fill-rule="evenodd"
-                          />
-                        </svg>
-                      </button>
+                        <path
+                          clip-rule="evenodd"
+                          d="M18 7.5L13.5 12L18 16.5L16.5 18L12 13.5L7.5 18L6 16.5L10.5 12L6 7.5L7.5 6L12 10.5L16.5 6L18 7.5Z"
+                          fill="currentColor"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
                     </div>
-                    <span
-                      class="SelectedItems-module_hiddenItemsCount__3MAEc"
-                    >
-                      +
-                      2
-                    </span>
                   </div>
-                  <button
-                    class="SelectedItems-module_clearButton__35tnp"
-                    type="button"
+                  <div
+                    class="Select-module_tagListButtons__3vZyi"
                   >
-                    <svg
-                      aria-hidden="true"
-                      aria-label="cross-circle"
-                      class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
-                      role="img"
-                      viewBox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg"
+                    <button
+                      aria-label="Näytä kaikki 3 valittua vaihtoehtoa."
+                      class="Button-module_button__1msFE Button-module_secondary__1nABp Select-module_showAllButton__2TTlK"
+                      id="groups-show-all-button"
+                      type="button"
                     >
-                      <path
-                        clip-rule="evenodd"
-                        d="M12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2ZM12 4C7.58172 4 4 7.58172 4 12C4 16.4183 7.58172 20 12 20C16.4183 20 20 16.4183 20 12C20 7.58172 16.4183 4 12 4ZM15 7.5L16.5 9L13.5 12L16.5 15L15 16.5L12 13.5L9 16.5L7.5 15L10.5 12L7.5 9L9 7.5L12 10.5L15 7.5Z"
-                        fill="currentColor"
-                        fill-rule="evenodd"
-                      />
-                    </svg>
-                  </button>
-                  <button
-                    aria-expanded="false"
-                    aria-haspopup="listbox"
-                    aria-labelledby="groups-label groups-toggle-button"
-                    aria-owns="groups-menu"
-                    class="Select-module_button__1aIsm"
-                    id="groups-toggle-button"
-                    type="button"
-                  >
-                    <svg
-                      aria-hidden="true"
-                      aria-label="angle-down"
-                      class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik Select-module_angleIcon__2-9AD"
-                      role="img"
-                      viewBox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        clip-rule="evenodd"
-                        d="M12 13.5L17 8.5L18.5 10L12 16.5L5.5 10L7 8.5L12 13.5Z"
-                        fill="currentColor"
-                        fill-rule="evenodd"
-                      />
-                    </svg>
-                  </button>
-                  <ul
-                    aria-labelledby="groups-label"
-                    aria-multiselectable="true"
-                    aria-required="true"
-                    class="Select-module_menu__1H2aU"
-                    id="groups-menu"
-                    role="listbox"
-                    style="max-height: 260px;"
-                    tabindex="-1"
-                  />
+                      <span>
+                        Näytä kaikki (3)
+                      </span>
+                      <div
+                        aria-hidden="true"
+                        class="Button-module_icon__O-h7R"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          aria-label="angle-down"
+                          class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_small__gTGkU icon_hds-icon--size-s__2Lkik Select-module_arrowIcon__12Sjk"
+                          role="img"
+                          viewBox="0 0 24 24"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            clip-rule="evenodd"
+                            d="M12 13.5L17 8.5L18.5 10L12 16.5L5.5 10L7 8.5L12 13.5Z"
+                            fill="currentColor"
+                            fill-rule="evenodd"
+                          />
+                        </svg>
+                      </div>
+                    </button>
+                  </div>
                 </div>
+                <div
+                  aria-live="polite"
+                  class="Select-module_screenReaderNotifications__2wzzH"
+                  data-testid="hds-select-screen-reader-notifications"
+                />
               </div>
             </div>
             <div
@@ -332,12 +365,10 @@ exports[`SubscribeNewsletterPage renders correctly 1`] = `
               class="submitButtonWrapper"
             >
               <button
-                class="Button-module_button__1msFE button_hds-button__2A0je Button-module_primary__2LfKB button_hds-button--primary__2NVvO"
+                class="Button-module_button__1msFE Button-module_primary__2LfKB"
                 type="submit"
               >
-                <span
-                  class="Button-module_label__a4np1 button_hds-button__label__2EQa-"
-                >
+                <span>
                   Tilaa uutiskirje
                 </span>
               </button>

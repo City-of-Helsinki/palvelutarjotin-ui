@@ -1,4 +1,4 @@
-import { Button, IconLocation } from 'hds-react';
+import { Button, ButtonVariant, IconLocation } from 'hds-react';
 import times from 'lodash/times';
 import NextLink from 'next/link';
 import { useTranslation } from 'next-i18next';
@@ -162,7 +162,7 @@ const EventTime: React.FC<{
       </ul>
       {hasMultipleFutureOccurrences && (
         <Button
-          variant="secondary"
+          variant={ButtonVariant.Secondary}
           id={`${event.id}-toggle-occurrences-btn`}
           className={styles.multipleOccurrenceButton}
           onClick={(e) => toggleShowOccurrences(e)}

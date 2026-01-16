@@ -49,7 +49,7 @@ it('allows icon to be placed on the left or right of link label', () => {
       <svg
         aria-hidden="true"
         aria-label="link-external"
-        class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
+        class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_small__gTGkU icon_hds-icon--size-s__2Lkik"
         role="img"
         style="vertical-align: middle; margin-left: 0.5rem;"
         viewBox="0 0 24 24"
@@ -87,7 +87,7 @@ it('allows icon to be placed on the left or right of link label', () => {
       <svg
         aria-hidden="true"
         aria-label="link-external"
-        class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
+        class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_small__gTGkU icon_hds-icon--size-s__2Lkik"
         role="img"
         style="vertical-align: middle; margin-right: 0.5rem;"
         viewBox="0 0 24 24"

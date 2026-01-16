@@ -77,7 +77,7 @@ describe('NewsLetterSubscribeForm', () => {
     );
 
     await userEvent.click(
-      screen.getByRole('button', { name: /tilaan uutiskirjeen \*/i })
+      screen.getByRole('combobox', { name: /tilaan uutiskirjeen/i })
     );
 
     await userEvent.click(
@@ -99,10 +99,11 @@ describe('NewsLetterSubscribeForm', () => {
     );
 
     await userEvent.tab();
-    expect(screen.getByText(/alakouluille/i)).toBeInTheDocument();
-    expect(screen.getByText(/varhaiskasvatukselle/i)).toBeInTheDocument();
+    // Check that selected options are displayed (use getAllByText since they appear in both dropdown and selected list)
+    expect(screen.getAllByText(/alakouluille/i)[0]).toBeInTheDocument();
+    expect(screen.getAllByText(/varhaiskasvatukselle/i)[0]).toBeInTheDocument();
     expect(
-      screen.getByText(/yläkouluille ja toisen asteen oppilaitoksille/i)
+      screen.getAllByText(/yläkouluille ja toisen asteen oppilaitoksille/i)[0]
     ).toBeInTheDocument();
 
     await fillupForm();
