@@ -24,14 +24,17 @@ export const useKeywordOptions = (): KeywordOptions => {
   const { data: additionalCriteriaData } = useKeywordSetQuery({
     variables: { setType: KeywordSetType.AdditionalCriteria },
     ssr: false, // Can be updated externally
+    fetchPolicy: 'cache-first', // Use cached data when available to reduce network requests
   });
   const { data: categoriesData } = useKeywordSetQuery({
     variables: { setType: KeywordSetType.Category },
     ssr: false, // Can be updated externally
+    fetchPolicy: 'cache-first', // Use cached data when available to reduce network requests
   });
   const { data: targetGroupsData } = useKeywordSetQuery({
     variables: { setType: KeywordSetType.TargetGroup },
     ssr: false, // Can be updated externally
+    fetchPolicy: 'cache-first', // Use cached data when available to reduce network requests
   });
 
   const keywordSetToOptions = (keywordSet?: KeywordSet | null) =>

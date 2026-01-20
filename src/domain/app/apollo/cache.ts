@@ -30,6 +30,11 @@ export const createApolloCache = () =>
               id: args?.id,
             });
           },
+          keywordSet: {
+            // Cache keywordSet queries by setType argument to avoid redundant requests
+            // This ensures each setType (AdditionalCriteria, Category, TargetGroup) is cached separately
+            keyArgs: ['setType'],
+          },
           place(_, { args, toReference }) {
             return toReference({
               __typename: 'Place',
