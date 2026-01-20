@@ -1,9 +1,9 @@
 import {
   ApolloClient,
-  HttpLink,
   NormalizedCacheObject,
   from,
 } from '@apollo/client';
+import { BatchHttpLink } from '@apollo/client/link/batch-http';
 import { onError } from '@apollo/client/link/error';
 import * as Sentry from '@sentry/nextjs';
 import fetch from 'cross-fetch';
@@ -58,13 +58,15 @@ function createApolloClient(): ApolloClient<NormalizedCacheObject> {
       }
     }
   );
-  const httpLink = new HttpLink({
+  const batchHttpLink = new BatchHttpLink({
     uri: process.env.NEXT_PUBLIC_API_BASE_URL,
     fetch,
+    batchMax: 5, // Maximum number of queries to batch together
+    batchInterval: 10, // Wait 10ms to collect queries before sending
   });
   return new ApolloClient({
     ssrMode: !isClient(),
-    link: from([errorLink, httpLink]),
+    link: from([errorLink, batchHttpLink]),
     cache: createApolloCache(),
   });
 }
