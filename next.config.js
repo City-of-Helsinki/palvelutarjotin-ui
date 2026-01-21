@@ -38,7 +38,7 @@ const cspHeader = `
     img-src 'self' data: *.hel.fi *.hel.ninja *.ytimg.com *.youtube.com *.vimeo.com *.vimeocdn.com 
       *.blob.core.windows.net *.hkih.hion.dev;
     font-src 'self' *.hel.fi *.hel.ninja;
-    connect-src 'self' localhost:* 127.0.0.1:* *.hel.fi *.hel.ninja *.hkih.hion.dev *.digiaiiris.com;
+    connect-src 'self' localhost:* 127.0.0.1:* *.hel.fi *.hel.ninja *.hkih.hion.dev *.digiaiiris.com *.google.com *.gstatic.com;
     object-src 'none';
     media-src 'self' *.hel.fi *.hel.ninja *.hkih.hion.dev;
     manifest-src 'self';
