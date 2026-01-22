@@ -1,4 +1,4 @@
-import { isFuture, isPast, isSameDay } from 'date-fns';
+import { isFuture, isPast, isSameDay, isValid as isValidDate } from 'date-fns';
 import { Notification, NotificationType } from 'hds-react';
 import { useTranslation } from 'next-i18next';
 import * as React from 'react';
@@ -119,11 +119,26 @@ const getNotificationHash = (notification: NotificationNode) => {
   return hash(combinedString);
 };
 
+const isValidDateString = (dateString: string | null | undefined): boolean => {
+  if (
+    !dateString ||
+    typeof dateString !== 'string' ||
+    dateString.trim() === ''
+  ) {
+    return false;
+  }
+  return isValidDate(new Date(dateString));
+};
+
 const isNotificationActive = (notification?: NotificationNode | null) => {
   const { startDate, endDate, title, content } = notification ?? {};
   const isNotificationContentMissing = !content && !title;
 
   if (!notification || isNotificationContentMissing) return false;
+
+  // Validate dates once at the beginning
+  const isStartDateValid = isValidDateString(startDate);
+  const isEndDateValid = isValidDateString(endDate);
 
   const isSameDayOrFuture = (date: Date) =>
     isSameDay(new Date(), date) || isFuture(date);
@@ -131,16 +146,19 @@ const isNotificationActive = (notification?: NotificationNode | null) => {
   return [
     // both start and end dates are defined
     () =>
-      startDate &&
-      endDate &&
-      isPast(new Date(startDate)) &&
-      isSameDayOrFuture(new Date(endDate)),
+      isStartDateValid &&
+      isEndDateValid &&
+      isPast(new Date(startDate!)) &&
+      isSameDayOrFuture(new Date(endDate!)),
     // only end date defined
-    () => !startDate && endDate && isSameDayOrFuture(new Date(endDate)),
+    () =>
+      !isStartDateValid &&
+      isEndDateValid &&
+      isSameDayOrFuture(new Date(endDate!)),
     // only start date defined
-    () => startDate && !endDate && isPast(new Date(startDate)),
+    () => isStartDateValid && !isEndDateValid && isPast(new Date(startDate!)),
     // neither start or end date are defined
-    () => !startDate && !endDate,
+    () => !isStartDateValid && !isEndDateValid,
   ].some((f) => !!f());
 };
 
