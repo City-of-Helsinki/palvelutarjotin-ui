@@ -12,6 +12,8 @@ const requestType = {
   // https://nextjs.org/docs/pages/building-your-application/routing/internationalization
   // as `PUBLIC_FILE = /\.(.*)$/` and `PUBLIC_FILE.test(pathname)`
   isPublicFile: (req: NextRequest) => req.nextUrl.pathname.includes('.'),
+  // Sentry tunnel route - must not be processed by locale middleware
+  isSentryTunnel: (req: NextRequest) => req.nextUrl.pathname === '/monitoring',
 };
 
 /**
@@ -34,7 +36,8 @@ export async function middleware(req: NextRequest) {
   if (
     requestType.isStaticFile(req) ||
     requestType.isPagesFolderApi(req) ||
-    requestType.isPublicFile(req)
+    requestType.isPublicFile(req) ||
+    requestType.isSentryTunnel(req)
   ) {
     return NextResponse.next();
   }
