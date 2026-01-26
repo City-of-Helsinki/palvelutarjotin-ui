@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://www.conventionalcommits.org/) for commit guidelines.
 
+## [2.17.0](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/palvelutarjotin-ui-v2.16.0...palvelutarjotin-ui-v2.17.0) (2026-01-26)
+
+
+### Features
+
+* Update CSP connect-src to include Google domains ([096b8df](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/096b8dfd793152ec0757a43531e0eb2e21eeae4b))
+
+
+### Bug Fixes
+
+* Exclude Sentry tunnel from locale middleware ([1ef3df6](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/1ef3df62e7125eb1d0d2fd7e21938078e08a2d80))
+* HeaderNotification invalid time Ref: PT-1994 ([fb2a14e](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/fb2a14e6f27b81f541d2539eb8911af55b8507fa))
+* Optimize keywordSet queries with cache-first policy ([cabc308](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/cabc3086d53fdc74539ce95e5081b6ecccb2b973))
+
 ## [2.16.0](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/palvelutarjotin-ui-v2.15.2...palvelutarjotin-ui-v2.16.0) (2026-01-09)
 
 
