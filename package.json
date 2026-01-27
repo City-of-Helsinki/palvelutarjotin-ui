@@ -72,7 +72,7 @@
     "i18next-intervalplural-postprocessor": "^3.0.0",
     "ics": "^3.8.1",
     "jsdom": "^26.1.0",
-    "lodash": "^4.17.21",
+    "lodash": "^4.17.23",
     "next": "^15.5.9",
     "next-i18next": "^15.4.2",
     "react": "^18.3.1",
