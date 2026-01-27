@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://www.conventionalcommits.org/) for commit guidelines.
 
+## [2.17.1](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/palvelutarjotin-ui-v2.17.0...palvelutarjotin-ui-v2.17.1) (2026-01-27)
+
+
+### Dependencies
+
+* Bump lodash from 4.17.21 to 4.17.23 ([#446](https://github.com/City-of-Helsinki/palvelutarjotin-ui/issues/446)) ([a821a3e](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/a821a3ecc7f6cc2132837da03e91fed4ca646bae))
+* Bump lodash-es from 4.17.21 to 4.17.23 ([#445](https://github.com/City-of-Helsinki/palvelutarjotin-ui/issues/445)) ([5bd7b30](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/5bd7b303803cbf64c3d482481444050b51d43990))
+
 ## [2.17.0](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/palvelutarjotin-ui-v2.16.0...palvelutarjotin-ui-v2.17.0) (2026-01-26)
 
 
