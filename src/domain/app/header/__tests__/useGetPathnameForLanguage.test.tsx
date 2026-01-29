@@ -1,8 +1,8 @@
 // src/domain/app/header/useGetPathnameForLanguage.test.tsx
 
+import { LanguageCodeEnum } from '@city-of-helsinki/react-helsinki-headless-cms';
 import { renderHook } from '@testing-library/react';
 import { useRouter } from 'next/router';
-import { LanguageCodeEnum } from 'react-helsinki-headless-cms';
 
 import { getCmsHref, getHrefForNonCmsPage } from '../../../headless-cms/utils';
 import { PATHNAMES } from '../../routes/constants';

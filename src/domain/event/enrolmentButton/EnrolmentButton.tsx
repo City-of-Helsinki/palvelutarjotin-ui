@@ -1,4 +1,4 @@
-import { Button } from 'hds-react';
+import { Button, ButtonVariant } from 'hds-react';
 import { useTranslation } from 'next-i18next';
 import React from 'react';
 
@@ -21,7 +21,7 @@ const EnrolmentButton: React.FC<EnrolmentButtonProps> = ({
   return (
     <div className={styles.enrolmentButtonWrapper}>
       <Button
-        variant="primary"
+        variant={ButtonVariant.Primary}
         disabled={!requiredEnrolmentsSelected}
         style={{
           color: !requiredEnrolmentsSelected ? 'black' : undefined,

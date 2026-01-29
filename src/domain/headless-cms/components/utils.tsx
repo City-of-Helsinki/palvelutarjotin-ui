@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   ArticleType,
   Card,
@@ -6,7 +5,8 @@ import {
   GeneralCollectionType,
   getCollectionCards,
   PageType,
-} from 'react-helsinki-headless-cms';
+} from '@city-of-helsinki/react-helsinki-headless-cms';
+import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
 import { getCmsArticlePath, getCmsPagePath } from '../../app/routes/utils';

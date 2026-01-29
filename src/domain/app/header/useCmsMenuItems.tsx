@@ -1,4 +1,4 @@
-import { useMenuQuery } from 'react-helsinki-headless-cms/apollo';
+import { useMenuQuery } from '@city-of-helsinki/react-helsinki-headless-cms/apollo';
 
 import { DEFAULT_HEADER_MENU_NAME } from '../../../constants';
 import useLocale from '../../../hooks/useLocale';

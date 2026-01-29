@@ -59,8 +59,7 @@ exports[`Footer matches snapshot 1`] = `
           class="FooterBase-module_logoWrapper__3BI7d"
         >
           <a
-            class="Link-module_link__TeBQo link_hds-link__5Oxo- Link-module_linkM__30gsY link_hds-link--medium__xEU_F FooterLink-module_item__3Ig3B"
-            tabindex="0"
+            class="Link-module_link__TeBQo link_hds-link__5Oxo- Link-module_link-medium__3gvla link_hds-link--medium__xEU_F FooterLink-module_item__3Ig3B"
           >
             <img
               alt="appName"
@@ -100,6 +99,7 @@ exports[`Footer matches snapshot 1`] = `
               |
             </span>
             <a
+              aria-label="Saavutettavuusseloste"
               class="LinkBase-module_link__djxNm LinkBase_hds-link__4Kjdj LinkBase-module_linkM__Hz4Zc LinkBase_hds-link--medium__bHZ5t LinkBase-module_disableVisitedStyles__S6UjE LinkBase_hds-link--disable-visited-styles__cQcea Link-module_link__ysKHd FooterLink-module_item__3Ig3B FooterLink-module_base__bzKoj footerLink"
               href="/cms-page/saavutettavuusseloste"
             >
@@ -118,6 +118,7 @@ exports[`Footer matches snapshot 1`] = `
               |
             </span>
             <a
+              aria-label="Käyttöehdot"
               class="LinkBase-module_link__djxNm LinkBase_hds-link__4Kjdj LinkBase-module_linkM__Hz4Zc LinkBase_hds-link--medium__bHZ5t LinkBase-module_disableVisitedStyles__S6UjE LinkBase_hds-link--disable-visited-styles__cQcea Link-module_link__ysKHd FooterLink-module_item__3Ig3B FooterLink-module_base__bzKoj footerLink"
               href="/cms-page/kayttoehdot"
             >
@@ -136,6 +137,7 @@ exports[`Footer matches snapshot 1`] = `
               |
             </span>
             <a
+              aria-label="Anna palautetta"
               class="LinkBase-module_link__djxNm LinkBase_hds-link__4Kjdj LinkBase-module_linkM__Hz4Zc LinkBase_hds-link--medium__bHZ5t LinkBase-module_disableVisitedStyles__S6UjE LinkBase_hds-link--disable-visited-styles__cQcea Link-module_link__ysKHd FooterLink-module_item__3Ig3B FooterLink-module_base__bzKoj footerLink"
               href="/cms-page/palaute"
             >
@@ -154,6 +156,7 @@ exports[`Footer matches snapshot 1`] = `
               |
             </span>
             <a
+              aria-label="Palveluntarjoajille. Avautuu uudessa välilehdessä. Avautuu uudella sivustolla."
               class="LinkBase-module_link__djxNm LinkBase_hds-link__4Kjdj LinkBase-module_linkM__Hz4Zc LinkBase_hds-link--medium__bHZ5t LinkBase-module_disableVisitedStyles__S6UjE LinkBase_hds-link--disable-visited-styles__cQcea Link-module_link__ysKHd FooterLink-module_item__3Ig3B FooterLink-module_base__bzKoj footerLink"
               href="https://kultus-admin.hel.fi"
               rel="noopener noreferrer"
@@ -172,7 +175,7 @@ exports[`Footer matches snapshot 1`] = `
                 <svg
                   aria-hidden="true"
                   aria-label="link-external"
-                  class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik LinkBase-module_icon__-LloU LinkBase_icon__neXZz LinkBase-module_verticalAlignSmallOrMediumIcon__0SjrX LinkBase_vertical-align-small-or-medium-icon__wxjmq"
+                  class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_small__gTGkU icon_hds-icon--size-s__2Lkik LinkBase-module_icon__-LloU LinkBase_icon__neXZz LinkBase-module_verticalAlignSmallOrMediumIcon__0SjrX LinkBase_vertical-align-small-or-medium-icon__wxjmq"
                   role="img"
                   viewBox="0 0 24 24"
                   xmlns="http://www.w3.org/2000/svg"
@@ -195,7 +198,7 @@ exports[`Footer matches snapshot 1`] = `
             <svg
               aria-hidden="true"
               aria-label="arrow-up"
-              class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
+              class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_small__gTGkU icon_hds-icon--size-s__2Lkik"
               role="img"
               viewBox="0 0 24 24"
               xmlns="http://www.w3.org/2000/svg"
