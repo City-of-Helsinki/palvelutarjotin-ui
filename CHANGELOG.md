@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://www.conventionalcommits.org/) for commit guidelines.
 
+## [2.17.2](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/palvelutarjotin-ui-v2.17.1...palvelutarjotin-ui-v2.17.2) (2026-02-04)
+
+
+### Dependencies
+
+* Update nextjs deps minor version ([0422799](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/04227992d3e4237d87c80a05a5115a45c3875e2d))
+
 ## [2.17.1](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/palvelutarjotin-ui-v2.17.0...palvelutarjotin-ui-v2.17.1) (2026-01-27)
 
 
