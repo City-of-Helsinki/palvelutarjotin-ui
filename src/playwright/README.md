@@ -37,16 +37,25 @@ src/playwright/
 
 See [Playwright's Running and debugging tests](https://playwright.dev/docs/running-tests) documentation.
 
-Using the **production build** of the UI for testing is **recommended**,
-because the development server can be so slow as to make the tests fail.
+### Development vs Production Server
 
-But, if it happens that in your environment the development server is fast enough,
-you can use it by setting:
-- `PLAYWRIGHT_WEB_SERVER=development` in `.env.playwright.local`
+**Production build is recommended** for faster test execution:
+- Development server compiles pages on-demand, causing slow tests (1-2 minutes per test)
+- Production build serves pre-built pages, making tests much faster (20-30 seconds per test)
 
-Otherwise the Playwright tests will use the production build.
+**To use production build:**
+1. Build the application: `yarn build`
+2. Comment out or remove `PLAYWRIGHT_WEB_SERVER=development` from `.env.playwright.local`
+3. Run tests: `yarn test:browser`
 
-If you chose to use the production build, build it with `yarn build` before running the tests.
+**To use development server** (if you need hot-reload during test development):
+1. Set `PLAYWRIGHT_WEB_SERVER=development` in `.env.playwright.local`
+2. Run tests: `yarn test:browser`
+3. Note: Tests will be slower due to on-demand compilation
+
+The timeout configuration automatically adjusts based on the server type:
+- Development: 2 minute test timeout, 3 minute server startup
+- Production: 30 second test timeout, 2 minute server startup
 
 Then run the Playwright tests:
 ```bash

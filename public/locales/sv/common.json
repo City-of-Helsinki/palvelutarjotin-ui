@@ -98,6 +98,41 @@
         "hideSettings": "Stäng kakinställningarna"
       }
     },
+    "translations": {
+      "bannerAriaLabel": "Kakinställningar",
+      "heading": "{{siteName}} använder kakor",
+      "showDetails": "Visa detaljer",
+      "formHeading": "Om kakor som används på webbplatsen",
+      "formText": "Kakorna som används på webbplatsen har klassificerats enligt användningsändamål. Nedan kan du läsa om de olika kategorierna och godkänna eller avvisa användningen av kakor.",
+      "showCookieSettings": "Visa kakinställningar",
+      "tableHeadingsName": "Namn",
+      "tableHeadingsHostName": "Kakans avsändare",
+      "tableHeadingsDescription": "Användningsändamål",
+      "tableHeadingsExpiration": "Giltighetstid",
+      "tableHeadingsType": "Typ",
+      "approveAllConsents": "Godkänn alla kakor",
+      "approveRequiredAndSelectedConsents": "Godkänn valda kakor",
+      "settingsSaved": "Inställningar sparade!",
+      "highlightedGroup": "Användningen av denna funktion kräver godkännande av följande kakgrupp",
+      "highlightedGroupAria": "Nödvändig kakgrupp markerad",
+      "acceptedAt": "Godkänd",
+      "storageType1": "Kaka",
+      "storageType2": "localStorage",
+      "storageType3": "sessionStorage",
+      "storageType4": "IndexedDB",
+      "storageType5": "Cache"
+    },
+    "texts": {
+      "sections": {
+        "main": {
+          "text": "Denna webbplats använder obligatoriska kakor för att säkerställa de grundläggande funktionerna och prestandan. Dessutom använder vi inriktningskakor för en bättre användarupplevelse, analytik och individualiserat innehåll."
+        }
+      },
+      "ui": {
+        "approveOnlyRequiredConsents": "Acceptera endast nödvändiga kakor",
+        "hideSettings": "Stäng kakinställningarna"
+      }
+    },
     "required": {
       "title": "Nödvändiga kakor",
       "text": "Du kan inte förbjuda användningen av nödvändiga kakor."
@@ -118,6 +153,7 @@
       }
     },
     "cookies": {
+      "cookieConsent": "Cookie för att lagra inställningar för cookie-samtycke",
       "matomo": "Kaka för statistiksystemet Matomo",
       "linkedevents": "Kaka för att söka evenemang",
       "i18next": "Kaka som sparar användarens språkval på webbplatsen",

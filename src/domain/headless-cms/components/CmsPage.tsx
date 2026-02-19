@@ -1,11 +1,11 @@
-import { BreadcrumbListItem } from 'hds-react';
-import { useTranslation } from 'next-i18next';
-import React from 'react';
 import {
   PageContent as RHHCPageContent,
   PageContentProps,
   GeneralCollectionType,
-} from 'react-helsinki-headless-cms';
+} from '@city-of-helsinki/react-helsinki-headless-cms';
+import { BreadcrumbListItem } from 'hds-react';
+import { useTranslation } from 'next-i18next';
+import React from 'react';
 
 import CmsPageSearch from './CmsPageSearch/CmsPageSearch';
 import { getCmsCollectionList } from './utils';

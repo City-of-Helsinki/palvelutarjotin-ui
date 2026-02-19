@@ -1,5 +1,8 @@
 import { ApolloClient, NormalizedCacheObject } from '@apollo/client';
-import { ArticleType, PageType } from 'react-helsinki-headless-cms';
+import {
+  ArticleType,
+  PageType,
+} from '@city-of-helsinki/react-helsinki-headless-cms';
 import {
   MenuDocument,
   MenuQuery,
@@ -10,7 +13,7 @@ import {
   PostsDocument,
   PostsQuery,
   PostsQueryVariables,
-} from 'react-helsinki-headless-cms/apollo';
+} from '@city-of-helsinki/react-helsinki-headless-cms/apollo';
 
 import {
   ARTICLES_AMOUNT_LIMIT as ALL_ARTICLES_AMOUNT_LIMIT,

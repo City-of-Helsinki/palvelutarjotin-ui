@@ -188,9 +188,10 @@ test('renders search form and events list with correct information', async () =>
     screen.queryByRole('button', { name: 'Hae tapahtumia' })
   ).toBeInTheDocument();
 
-  expect(screen.getByRole('button', { name: /järjestys/i })).toHaveTextContent(
-    'Ajankohtaista'
-  );
+  const sortButton = screen
+    .getAllByRole('combobox')
+    .find((combobox) => combobox.textContent?.includes('Ajankohtaista'));
+  expect(sortButton).toHaveTextContent('Ajankohtaista');
 
   expect(
     screen.queryByRole('heading', { name: 'Tapahtumat 4 kpl' })

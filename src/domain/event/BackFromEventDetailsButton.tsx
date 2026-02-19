@@ -1,4 +1,4 @@
-import { IconArrowLeft } from 'hds-react';
+import { IconArrowLeft, IconSize } from 'hds-react';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
@@ -29,7 +29,7 @@ export default function BackFromEventDetailsButton() {
   const scroll = false;
   return (
     <NextLink href={href} aria-label={t('common:buttonBack')} scroll={scroll}>
-      <IconArrowLeft size="m" />
+      <IconArrowLeft size={IconSize.Medium} />
     </NextLink>
   );
 }

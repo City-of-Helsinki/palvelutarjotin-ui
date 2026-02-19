@@ -1,4 +1,4 @@
-import { Button, Select, IconArrowDown } from 'hds-react';
+import { Button, ButtonVariant, Select, IconArrowDown } from 'hds-react';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 import React, { ReactElement } from 'react';
@@ -51,9 +51,14 @@ const EventList = ({
       };
     });
   }, [t]);
-  // eslint-disable-next-line  @typescript-eslint/no-explicit-any
-  const handleSort = (option: { [key: string]: any }) => {
-    setSort?.(option.value);
+
+  const handleSort = (
+    selectedOptions: Array<{ label: string; value: string }>
+  ) => {
+    // hds-react v4 Select onChange receives an array of selected options
+    if (selectedOptions.length > 0) {
+      setSort?.(selectedOptions[0].value as EVENT_SORT_OPTIONS);
+    }
   };
 
   return (
@@ -71,15 +76,12 @@ const EventList = ({
           <div className={styles.sortSelectorWrapper}>
             <Select
               className={styles.orderDropdown}
-              label={t('events:eventList.labelSort')}
+              texts={{
+                label: t('events:eventList.labelSort'),
+              }}
               onChange={handleSort}
               options={sortOptions}
-              value={
-                sortOptions.find((option) => option.value === sort) || {
-                  label: '',
-                  value: '',
-                }
-              }
+              value={sort}
             />
           </div>
         )}
@@ -98,8 +100,8 @@ const EventList = ({
           <div className={styles.loadMoreButtonWrapper}>
             <Button
               onClick={fetchMore}
-              variant="supplementary"
-              iconLeft={<IconArrowDown />}
+              variant={ButtonVariant.Supplementary}
+              iconStart={<IconArrowDown />}
             >
               {t('events:eventList.buttonLoadMore')}
             </Button>

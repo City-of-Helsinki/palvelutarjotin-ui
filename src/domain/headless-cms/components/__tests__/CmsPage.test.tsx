@@ -1,9 +1,9 @@
-import * as React from 'react';
 import {
   LanguageCodeEnum,
   ConfigProvider as RHHCConfigProvider,
   defaultConfig as rhhcDefaultConfig,
-} from 'react-helsinki-headless-cms';
+} from '@city-of-helsinki/react-helsinki-headless-cms';
+import * as React from 'react';
 
 import {
   fakePage,

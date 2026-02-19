@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { Field, Formik } from 'formik';
-import { Button, IconSearch } from 'hds-react';
+import { Button, ButtonVariant, IconSearch } from 'hds-react';
 import { useTranslation } from 'next-i18next';
 import React from 'react';
 
@@ -270,9 +270,9 @@ const EventSearchForm = ({
                 <div className={styles.buttonRow}>
                   <div className={styles.submitButtonPart}>
                     <Button
-                      variant="success"
+                      variant={ButtonVariant.Success}
                       fullWidth={true}
-                      iconLeft={<IconSearch />}
+                      iconStart={<IconSearch />}
                       type="submit"
                     >
                       {t('events:search.buttonSearch')}

@@ -4,20 +4,20 @@ exports[`matches snapshot 1`] = `
 <div>
   <section
     aria-label="Notification"
-    class="Notification-module_notification__2hN3H notification_hds-notification__2DQPN Notification-module_alert__1Erry notification_hds-notification--alert__1MV7H"
+    class="Notification-module_notification__3eUBu notification_hds-notification__2DQPN Notification-module_alert__1bsQa notification_hds-notification--alert__1MV7H"
   >
     <div
-      class="Notification-module_content__ZZKvE notification_hds-notification__content__5ylSS"
+      class="Notification-module_content__2E8Z_ notification_hds-notification__content__5ylSS"
     >
       <div
         aria-level="2"
-        class="Notification-module_label__1bhNu notification_hds-notification__label__2t1lR"
+        class="Notification-module_label__2OUcx notification_hds-notification__label__2t1lR"
         role="heading"
       >
         <svg
           aria-hidden="true"
           aria-label="alert-circle-fill"
-          class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik Notification-module_icon__1ans7 notification_hds-icon__29HQM"
+          class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_small__gTGkU icon_hds-icon--size-s__2Lkik Notification-module_icon__3xieh notification_hds-icon__29HQM"
           role="img"
           viewBox="0 0 24 24"
           xmlns="http://www.w3.org/2000/svg"
@@ -32,7 +32,7 @@ exports[`matches snapshot 1`] = `
         Notification title
       </div>
       <div
-        class="Notification-module_body__9BSAD notification_hds-notification__body__3cobH"
+        class="Notification-module_body__2lrYE notification_hds-notification__body__3cobH"
       >
         <a
           href="https://kultus.hel.fi"
@@ -44,7 +44,7 @@ exports[`matches snapshot 1`] = `
           <svg
             aria-hidden="true"
             aria-label="link-external"
-            class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
+            class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_small__gTGkU icon_hds-icon--size-s__2Lkik"
             role="img"
             style="vertical-align: middle; margin-left: 0.5rem;"
             viewBox="0 0 24 24"
@@ -67,14 +67,14 @@ exports[`matches snapshot 1`] = `
     </div>
     <button
       aria-label="Sulje huomiotiedote"
-      class="Notification-module_close__JWYav notification_hds-notification__close-button__1yGIj Notification-module_alert__1Erry notification_hds-notification--alert__1MV7H"
+      class="Notification-module_close__nX5bK notification_hds-notification__close-button__1yGIj Notification-module_alert__1bsQa notification_hds-notification--alert__1MV7H"
       title="Sulje huomiotiedote"
       type="button"
     >
       <svg
         aria-hidden="true"
         aria-label="cross"
-        class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
+        class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_small__gTGkU icon_hds-icon--size-s__2Lkik"
         role="img"
         viewBox="0 0 24 24"
         xmlns="http://www.w3.org/2000/svg"

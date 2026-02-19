@@ -96,8 +96,8 @@ exports[`renders form and user can fill it and submit and form is saved to local
       },
       "preferredTimes": "",
       "studyLevels": [
-        "GRADE_4",
         "GRADE_2",
+        "GRADE_4",
       ],
       "unitId": null,
       "unitName": "Testikoulu",
@@ -132,8 +132,8 @@ exports[`renders form and user can fill it and submit and form is saved to local
       },
       "preferredTimes": "",
       "studyLevels": [
-        "GRADE_4",
         "GRADE_2",
+        "GRADE_4",
       ],
       "unitId": null,
       "unitName": "Testikoulu",

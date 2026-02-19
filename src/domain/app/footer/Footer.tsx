@@ -1,8 +1,8 @@
-import { Footer, Logo, logoFi, logoSv } from 'hds-react';
+import { useMenuQuery } from '@city-of-helsinki/react-helsinki-headless-cms/apollo';
+import { Footer, Logo, LogoSize, logoFi, logoSv } from 'hds-react';
 import dynamic from 'next/dynamic';
 import { useTranslation } from 'next-i18next';
 import React from 'react';
-import { useMenuQuery } from 'react-helsinki-headless-cms/apollo';
 
 import styles from './footer.module.scss';
 import { resetFocusId } from '../../../common/components/resetFocus/ResetFocus';
@@ -19,7 +19,10 @@ import { getRoutedInternalHrefForLocale } from '../../headless-cms/utils';
 // With dynamic import (or by using other link component),
 // the hydration issue can be prevented.
 const DynamicClientLink = dynamic(
-  () => import('react-helsinki-headless-cms').then((mod) => mod.Link),
+  () =>
+    import('@city-of-helsinki/react-helsinki-headless-cms').then(
+      (mod) => mod.Link
+    ),
   {
     ssr: false,
   }
@@ -50,7 +53,7 @@ const FooterSection = (): React.ReactElement => {
         logo={
           <Logo
             src={locale === 'sv' ? logoSv : logoFi}
-            size="medium"
+            size={LogoSize.Medium}
             alt={t('appName')}
           />
         }

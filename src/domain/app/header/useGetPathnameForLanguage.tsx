@@ -1,9 +1,9 @@
-import { useRouter } from 'next/router';
-import { useCallback } from 'react';
 import {
   Language as RHHCLanguage,
   LanguageCodeEnum,
-} from 'react-helsinki-headless-cms';
+} from '@city-of-helsinki/react-helsinki-headless-cms';
+import { useRouter } from 'next/router';
+import { useCallback } from 'react';
 
 import { useCmsLanguageOptions } from './useCmsLanguageOptions';
 import { getCmsHref, getHrefForNonCmsPage } from '../../headless-cms/utils';
