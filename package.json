@@ -3,7 +3,7 @@
   "version": "2.17.3",
   "private": true,
   "engines": {
-    "node": ">=20.19"
+    "node": ">=22.13.1"
   },
   "scripts": {
     "clean": "rimraf --no-glob ./.next ./out ./coverage ./tsconfig.tsbuildinfo",
@@ -67,7 +67,7 @@
     "formik": "^2.4.6",
     "graphql": "^16.10.0",
     "graphql-tag": "^2.12.6",
-    "hds-react": "^3.12.0",
+    "hds-react": "^4.9.0",
     "i18next": "^24.2.3",
     "i18next-intervalplural-postprocessor": "^3.0.0",
     "ics": "^3.8.1",
@@ -78,7 +78,7 @@
     "react": "^18.3.1",
     "react-content-loader": "^7.0.2",
     "react-dom": "^18.3.1",
-    "react-helsinki-headless-cms": "1.0.2",
+    "@city-of-helsinki/react-helsinki-headless-cms": "3.0.0",
     "react-i18next": "^15.7.4",
     "react-table": "^7.8.0",
     "react-toastify": "^11.0.5",

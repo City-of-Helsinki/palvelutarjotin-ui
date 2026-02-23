@@ -1,6 +1,6 @@
 import * as Sentry from '@sentry/nextjs';
 import { saveAs } from 'file-saver';
-import { Button, IconCalendar } from 'hds-react';
+import { Button, ButtonVariant, IconCalendar } from 'hds-react';
 import { createEvent, EventAttributes } from 'ics';
 import { useTranslation } from 'next-i18next';
 import React from 'react';
@@ -78,8 +78,8 @@ const CalendarButton: React.FC<CalendarButtonProps> = ({
   return !loading ? (
     <Button
       onClick={downloadIcsFile}
-      iconLeft={<IconCalendar />}
-      variant="supplementary"
+      iconStart={<IconCalendar />}
+      variant={ButtonVariant.Supplementary}
     >
       {t('event:occurrenceList.downloadToCalendar')}
     </Button>

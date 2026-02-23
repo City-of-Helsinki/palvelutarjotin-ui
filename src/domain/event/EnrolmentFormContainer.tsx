@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { Notification, Button, IconAngleUp } from 'hds-react';
+import { Notification, Button, ButtonVariant, IconAngleUp } from 'hds-react';
 import { useTranslation } from 'next-i18next';
 import React from 'react';
 
@@ -57,8 +57,8 @@ export const EnrolmentFormContainer: React.FC<{
       >
         <Button
           className={styles.cancelEnrolmentButton}
-          variant="supplementary"
-          iconRight={<IconAngleUp />}
+          variant={ButtonVariant.Supplementary}
+          iconEnd={<IconAngleUp />}
           onClick={() => setShowEnrolmentForm(false)}
         >
           {t('enrolment:enrolmentForm.buttonCancelAndCloseForm')}

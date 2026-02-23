@@ -103,7 +103,7 @@ const TRANS = {
 type TranslationsOf<Keys extends keyof typeof TRANS> =
   (typeof TRANS)[Keys][Language];
 
-type EnrolmentFormButton = TranslationsOf<'studyLevel' | 'submitEnquiry'>;
+type EnrolmentFormButton = TranslationsOf<'submitEnquiry'>;
 type EnrolmentFormTextBox = TranslationsOf<
   | 'additionalInfo'
   | 'emailAddress'
@@ -143,6 +143,13 @@ export class EventPage extends BasePage {
     await this.enrolmentForm.getByRole('button', { name }).click();
   }
 
+  async clickEnrolmentFormCombobox() {
+    // Study level field is a combobox - just get the first one (should be the study level)
+    // The aria-label changes dynamically, so we can't match by exact name
+    const combobox = this.enrolmentForm.getByRole('combobox').first();
+    await combobox.click();
+  }
+
   async clickOccurrencesSectionButton(name: OccurrencesSectionButton) {
     await this.occurrencesSection.getByRole('button', { name }).click();
   }
@@ -155,16 +162,15 @@ export class EventPage extends BasePage {
     await this.clickOccurrencesSectionButton(TRANS.reservationEnquiry[lang]);
   }
 
-  async openStudyLevelDropdown(lang: Language) {
-    await this.clickEnrolmentFormButton(TRANS.studyLevel[lang]);
+  async openStudyLevelDropdown() {
+    await this.clickEnrolmentFormCombobox();
   }
 
   async clickStudyLevelOption(lang: Language, name: StudyLevelOption) {
-    await this.page
-      .getByRole('listbox', { name: TRANS.studyLevel[lang] })
-      .getByRole('option', { name })
-      .getByLabel('check')
-      .click();
+    // The listbox doesn't have a reliable name attribute, just get the visible listbox
+    const listbox = this.enrolmentForm.getByRole('listbox').first();
+
+    await listbox.getByRole('option', { name }).click();
   }
 
   async clickPreschoolStudyLevelOption(lang: Language) {
@@ -201,7 +207,7 @@ export class EventPage extends BasePage {
   }
 
   async selectPreschoolForStudyLevel(lang: Language) {
-    await this.openStudyLevelDropdown(lang);
+    await this.openStudyLevelDropdown();
     await this.clickPreschoolStudyLevelOption(lang);
   }
 

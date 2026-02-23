@@ -1,5 +1,5 @@
 # =======================================
-FROM registry.access.redhat.com/ubi9/nodejs-20 AS deps
+FROM registry.access.redhat.com/ubi9/nodejs-22 AS deps
 # =======================================
 
 

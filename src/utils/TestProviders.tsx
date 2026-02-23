@@ -1,13 +1,13 @@
 import { ApolloClient, useApolloClient } from '@apollo/client';
 import { MockedProvider } from '@apollo/client/testing';
-import { RouterContext } from 'next/dist/shared/lib/router-context.shared-runtime';
-import { NextRouter } from 'next/router';
-import React from 'react';
 import {
   ConfigProvider as RHHCConfigProvider,
   defaultConfig as rhhcDefaultConfig,
   Config as RHHCConfig,
-} from 'react-helsinki-headless-cms';
+} from '@city-of-helsinki/react-helsinki-headless-cms';
+import { RouterContext } from 'next/dist/shared/lib/router-context.shared-runtime';
+import { NextRouter } from 'next/router';
+import React from 'react';
 
 import { CustomRenderOptions } from './testUtils';
 

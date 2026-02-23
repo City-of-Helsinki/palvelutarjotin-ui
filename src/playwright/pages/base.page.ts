@@ -48,7 +48,21 @@ export class BasePage {
   }
 
   async clickFooterLink(name: FooterLink) {
-    await this.footer.getByRole('link', { name }).first().click();
+    const link = this.footer.getByRole('link', { name }).first();
+
+    // Click and wait for navigation
+    const currentUrl = this.page.url();
+    await link.click();
+
+    // Wait for URL to actually change with a more generous timeout
+    await this.page.waitForFunction(
+      (oldUrl) => window.location.href !== oldUrl,
+      currentUrl,
+      { timeout: 30000 }
+    );
+
+    // Wait for page to be fully loaded
+    await this.page.waitForLoadState('networkidle', { timeout: 30000 });
   }
 
   async clickHeaderButton(name: HeaderButton) {
