@@ -9,6 +9,7 @@ This directory contains [Playwright](https://playwright.dev/) tests for the Palv
 - [Project Structure](#project-structure)
 - [Setup](#setup)
 - [Running Tests](#running-tests)
+  - [Development vs Production Server](#development-vs-production-server)
 - [Page Object Model](#page-object-model)
 - [Test Fixtures](#test-fixtures)
 
