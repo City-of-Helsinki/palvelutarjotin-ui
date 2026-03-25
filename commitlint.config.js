@@ -1,6 +1,9 @@
 module.exports = {
   extends: ['@commitlint/config-conventional'],
-  ignores: [(message) => message.includes('Signed-off-by: dependabot[bot]')],
+  ignores: [
+    (message) => message.includes('Signed-off-by: dependabot[bot]'),
+    (message) => message.includes('Co-authored-by: github-actions[bot]'),
+  ],
   rules: {
     'header-max-length': [2, 'always', 72],
     'body-max-line-length': [2, 'always', 72],
