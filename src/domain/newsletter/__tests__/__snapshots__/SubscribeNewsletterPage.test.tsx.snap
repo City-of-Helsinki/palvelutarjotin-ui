@@ -35,7 +35,7 @@ exports[`SubscribeNewsletterPage renders correctly 1`] = `
               class="formGroup"
             >
               <div
-                class="Select-module_root__-GjU5"
+                class="noMaxWidth Select-module_root__1IzVY"
                 id="groups"
                 tabindex="-1"
               >
@@ -52,10 +52,10 @@ exports[`SubscribeNewsletterPage renders correctly 1`] = `
                   </span>
                 </label>
                 <div
-                  class="Select-module_selectAndListContainer__vSJEv"
+                  class="Select-module_selectAndListContainer__XCTWg"
                 >
                   <div
-                    class="Select-module_selectedOptionsContainer__16tlC"
+                    class="Select-module_selectedOptionsContainer__3_VYW"
                   >
                     <button
                       aria-controls="groups-list"
@@ -63,34 +63,34 @@ exports[`SubscribeNewsletterPage renders correctly 1`] = `
                       aria-expanded="false"
                       aria-haspopup="listbox"
                       aria-label="Tilaan uutiskirjeen. 3 valittua vaihtoehtoa: "Alakouluille" ja "Varhaiskasvatukselle" ja 1 muuta vaihtoehtoa. Pakollinen."
-                      class="Select-module_dropdownButton__2-_Ec Select-module_selectedOptions__VmvqD Select-module_spaceForOneDigit__3puHv"
+                      class="Select-module_dropdownButton__3pG16 Select-module_selectedOptions__1gGmE Select-module_spaceForOneDigit__1YjAJ"
                       id="groups-main-button"
                       role="combobox"
                       type="button"
                     >
                       <div
                         aria-hidden="true"
-                        class="Select-module_labels__2FlKK"
+                        class="Select-module_labels__1-ToQ"
                       >
                         <span
-                          class="Select-module_dropdownButtonOption__3Tfsz"
+                          class="Select-module_dropdownButtonOption__AIXFP"
                         >
                           Alakouluille
                         </span>
                         <span
-                          class="Select-module_dropdownButtonOption__3Tfsz"
+                          class="Select-module_dropdownButtonOption__AIXFP"
                         >
                           Varhaiskasvatukselle
                         </span>
                         <span
-                          class="Select-module_dropdownButtonOption__3Tfsz"
+                          class="Select-module_dropdownButtonOption__AIXFP"
                         >
                           Yläkouluille ja toisen asteen oppilaitoksille
                         </span>
                       </div>
                       <span
                         aria-hidden="true"
-                        class="Select-module_count__ODB_U"
+                        class="Select-module_count__3dhjK"
                       >
                         <span
                           class="count"
@@ -99,12 +99,12 @@ exports[`SubscribeNewsletterPage renders correctly 1`] = `
                         </span>
                       </span>
                       <div
-                        class="Select-module_arrowAndSpaceForClearButton__3Fufw Select-module_icon__3AwlD"
+                        class="Select-module_arrowAndSpaceForClearButton__1bvw6 Select-module_icon__aA32Y"
                       >
                         <svg
                           aria-hidden="true"
                           aria-label="angle-down"
-                          class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_small__gTGkU icon_hds-icon--size-s__2Lkik Select-module_angleIcon__3A9li"
+                          class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_small__gTGkU icon_hds-icon--size-s__2Lkik Select-module_angleIcon__-ydZX"
                           role="img"
                           viewBox="0 0 24 24"
                           xmlns="http://www.w3.org/2000/svg"
@@ -119,37 +119,26 @@ exports[`SubscribeNewsletterPage renders correctly 1`] = `
                       </div>
                     </button>
                   </div>
-                  <div
-                    aria-hidden="true"
-                    class="Select-module_listAndInputContainer__2gZ6q"
-                    id="groups-sl-container"
-                  >
+                  <div>
                     <div
-                      class="Select-module_listContainer__2PfQA"
-                      style="max-height: 286px;"
-                    >
-                      <ul
-                        aria-multiselectable="true"
-                        class="Select-module_list__2iKlZ"
-                        id="groups-list"
-                        role="listbox"
-                        tabindex="-1"
-                      />
-                    </div>
+                      aria-hidden="true"
+                      class="Select-module_listAndInputContainer__1f5ng"
+                      id="groups-sl-container"
+                    />
                   </div>
                 </div>
                 <div
-                  class="Select-module_tagListContainer__1vSdM"
+                  class="Select-module_tagListContainer__1VZ74"
                 >
                   <div
-                    class="Select-module_tagList__3uMST"
+                    class="Select-module_tagList__1hDmA"
                     id="groups-tag-list"
                     style="max-height: 0px;"
                   >
                     <div
                       aria-hidden="false"
                       aria-label="Poista valinta "Alakouluille"."
-                      class="Tag-module_tag__3bo5S tag_hds-tag__3MKf3 Select-module_tag__1I-nr Tag-module_action__4ky2K tag_hds-tag--action__Az-Fm Tag-module_multiline__24sap tag_hds-tag--multiline__yHIcb"
+                      class="Tag-module_tag__3bo5S tag_hds-tag__3MKf3 Select-module_tag__1c0I5 Tag-module_action__4ky2K tag_hds-tag--action__Az-Fm Tag-module_multiline__24sap tag_hds-tag--multiline__yHIcb"
                       role="button"
                       tabindex="0"
                     >
@@ -175,7 +164,7 @@ exports[`SubscribeNewsletterPage renders correctly 1`] = `
                     <div
                       aria-hidden="false"
                       aria-label="Poista valinta "Varhaiskasvatukselle"."
-                      class="Tag-module_tag__3bo5S tag_hds-tag__3MKf3 Select-module_tag__1I-nr Tag-module_action__4ky2K tag_hds-tag--action__Az-Fm Tag-module_multiline__24sap tag_hds-tag--multiline__yHIcb"
+                      class="Tag-module_tag__3bo5S tag_hds-tag__3MKf3 Select-module_tag__1c0I5 Tag-module_action__4ky2K tag_hds-tag--action__Az-Fm Tag-module_multiline__24sap tag_hds-tag--multiline__yHIcb"
                       role="button"
                       tabindex="0"
                     >
@@ -201,7 +190,7 @@ exports[`SubscribeNewsletterPage renders correctly 1`] = `
                     <div
                       aria-hidden="false"
                       aria-label="Poista valinta "Yläkouluille ja toisen asteen oppilaitoksille"."
-                      class="Tag-module_tag__3bo5S tag_hds-tag__3MKf3 Select-module_tag__1I-nr Tag-module_action__4ky2K tag_hds-tag--action__Az-Fm Tag-module_multiline__24sap tag_hds-tag--multiline__yHIcb"
+                      class="Tag-module_tag__3bo5S tag_hds-tag__3MKf3 Select-module_tag__1c0I5 Tag-module_action__4ky2K tag_hds-tag--action__Az-Fm Tag-module_multiline__24sap tag_hds-tag--multiline__yHIcb"
                       role="button"
                       tabindex="0"
                     >
@@ -226,11 +215,11 @@ exports[`SubscribeNewsletterPage renders correctly 1`] = `
                     </div>
                   </div>
                   <div
-                    class="Select-module_tagListButtons__3vZyi"
+                    class="Select-module_tagListButtons__K_uiQ"
                   >
                     <button
                       aria-label="Näytä kaikki 3 valittua vaihtoehtoa."
-                      class="Button-module_button__1msFE Button-module_secondary__1nABp Select-module_showAllButton__2TTlK"
+                      class="Button-module_button__1msFE Button-module_secondary__1nABp Select-module_showAllButton__3kGCP"
                       id="groups-show-all-button"
                       type="button"
                     >
@@ -244,7 +233,7 @@ exports[`SubscribeNewsletterPage renders correctly 1`] = `
                         <svg
                           aria-hidden="true"
                           aria-label="angle-down"
-                          class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_small__gTGkU icon_hds-icon--size-s__2Lkik Select-module_arrowIcon__12Sjk"
+                          class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_small__gTGkU icon_hds-icon--size-s__2Lkik Select-module_arrowIcon__2hxlv"
                           role="img"
                           viewBox="0 0 24 24"
                           xmlns="http://www.w3.org/2000/svg"
@@ -262,7 +251,7 @@ exports[`SubscribeNewsletterPage renders correctly 1`] = `
                 </div>
                 <div
                   aria-live="polite"
-                  class="Select-module_screenReaderNotifications__2wzzH"
+                  class="Select-module_screenReaderNotifications__3d9ci"
                   data-testid="hds-select-screen-reader-notifications"
                 />
               </div>

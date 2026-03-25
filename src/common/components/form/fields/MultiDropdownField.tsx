@@ -93,7 +93,7 @@ const MultiDropdownField: React.FC<Props> = ({
         error: errorText,
         ...(helperText && !errorText ? { assistive: helperText } : {}),
       }}
-      className={classNames(className, {
+      className={classNames(className, styles.noMaxWidth, {
         [invalidFieldClass]: errorText,
         [styles.hideLabel]: hideLabel,
       })}
