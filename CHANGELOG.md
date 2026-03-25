@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://www.conventionalcommits.org/) for commit guidelines.
 
+## [2.17.4](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/palvelutarjotin-ui-v2.17.3...palvelutarjotin-ui-v2.17.4) (2026-03-20)
+
+
+### Dependencies
+
+* Bump dompurify from 3.2.4 to 3.3.2 ([2516f92](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/2516f9252a548f8664a3dc0be7a88f2489faffad))
+* Bump flatted from 3.3.3 to 3.4.2 ([ab885a7](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/ab885a76718d3010bf33f1608c1824cbd82fdf33))
+* Bump next from 15.5.11 to 15.5.14 ([e235954](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/e235954ad430b1c80e1a8ce13b5a7e161a649cec))
+* Bump rollup from 4.53.2 to 4.59.0 ([381423e](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/381423e1c8c9122cd197478088fb0de3b6151275))
+* Bump underscore from 1.13.7 to 1.13.8 ([609a92e](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/609a92e2b806b3e5d6016806081384250faee4e4))
+
 ## [2.17.3](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/palvelutarjotin-ui-v2.17.2...palvelutarjotin-ui-v2.17.3) (2026-02-10)
 
 
