@@ -1,7 +1,11 @@
 @import 'mixins';
 
 .hideLabel {
-  label {
+  > label {
     @include hidden-from-screen;
   }
+}
+
+.noMaxWidth {
+  max-width: unset !important;
 }

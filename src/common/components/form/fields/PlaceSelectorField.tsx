@@ -1,5 +1,5 @@
 import { FieldProps, FormikHelpers } from 'formik';
-import { SelectProps } from 'hds-react';
+import { Select } from 'hds-react';
 import React from 'react';
 
 import PlaceSelector from '../../../../domain/place/placeSelector/PlaceSelector';
@@ -9,7 +9,10 @@ type Option = {
   value: string;
 };
 
-type Props = Omit<SelectProps, 'value' | 'onChange' | 'onBlur' | 'options'> &
+type Props = Omit<
+  React.ComponentProps<typeof Select>,
+  'value' | 'onChange' | 'onBlur' | 'options'
+> &
   FieldProps & {
     options: Option[];
     title: string;
