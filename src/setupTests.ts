@@ -66,7 +66,7 @@ global.ResizeObserver = class ResizeObserver {
   disconnect() {}
 };
 
-dotenv.config({ path: '.env' });
+dotenv.config({ path: '.env', quiet: true });
 
 // Load error messages for Apollo client so it's easier to debug errors
 loadDevMessages();
