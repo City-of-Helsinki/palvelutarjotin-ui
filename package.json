@@ -88,7 +88,7 @@
     "react-use": "^17.6.0",
     "use-deep-compare-effect": "^1.8.1",
     "uuid": "^13.0.0",
-    "yup": "^1.6.1"
+    "yup": "^1.7.1"
   },
   "devDependencies": {
     "@commitlint/cli": "^20.5.0",
