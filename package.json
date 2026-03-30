@@ -59,7 +59,7 @@
   "dependencies": {
     "@apollo/client": "^3.14.1",
     "@city-of-helsinki/react-helsinki-headless-cms": "3.0.1",
-    "@date-fns/tz": "^1.2.0",
+    "@date-fns/tz": "^1.4.1",
     "@jonkoops/matomo-tracker-react": "^0.7.0",
     "@sentry/nextjs": "^10.37.0",
     "axios": "^1.13.5",
