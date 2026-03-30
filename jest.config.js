@@ -3,6 +3,7 @@ process.env.TZ = 'Europe/Helsinki';
 
 module.exports = {
   testEnvironment: 'jest-fixed-jsdom',
+  coverageProvider: 'v8',
   transform: {
     '^.+\\.[tj]sx?$': [
       '@swc/jest',
