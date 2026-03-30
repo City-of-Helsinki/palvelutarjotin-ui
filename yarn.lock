@@ -7971,11 +7971,6 @@ jest@^29.7.0:
     import-local "^3.0.2"
     jest-cli "^29.7.0"
 
-jest_workaround@^0.79.19:
-  version "0.79.19"
-  resolved "https://registry.yarnpkg.com/jest_workaround/-/jest_workaround-0.79.19.tgz#f5bc569163c33c4533e1c4053c533a8811152a91"
-  integrity sha512-g/MtKSwyb4Ohnd5GHeJaduTgznkyst81x+eUBGOSGK7f8doWuRMPpt6XM/13sM2jLB2QNzT/7Djj7o2PhsozIA==
-
 jiti@^1.17.1:
   version "1.21.7"
   resolved "https://registry.yarnpkg.com/jiti/-/jiti-1.21.7.tgz#9dd81043424a3d28458b193d965f0d18a2300ba9"
