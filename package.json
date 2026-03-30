@@ -87,7 +87,7 @@
     "react-toastify": "^11.0.5",
     "react-use": "^17.6.0",
     "use-deep-compare-effect": "^1.8.1",
-    "uuid": "^11.1.0",
+    "uuid": "^13.0.0",
     "yup": "^1.6.1"
   },
   "devDependencies": {
