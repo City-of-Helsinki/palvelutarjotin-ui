@@ -71,7 +71,7 @@
     "doctoc": "^2.3.0",
     "file-saver": "^2.0.5",
     "formik": "^2.4.9",
-    "graphql": "^16.10.0",
+    "graphql": "^16.13.2",
     "graphql-tag": "^2.12.6",
     "hds-react": "^5.0.0",
     "i18next": "^24.2.3",
