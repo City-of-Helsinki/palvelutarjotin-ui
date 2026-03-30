@@ -191,11 +191,11 @@ export function useApolloClient(
     | undefined = { initialApolloState: null }
 ): ApolloClient<NormalizedCacheObject> {
   const storeRef = useRef<ApolloClient<NormalizedCacheObject>>();
-  // eslint-disable-next-line react-hooks/refs
+
   if (!storeRef.current) {
     storeRef.current = initializeApolloClient(initialApolloState);
   }
-  // eslint-disable-next-line react-hooks/refs
+
   return storeRef.current;
 }
 

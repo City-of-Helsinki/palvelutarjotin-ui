@@ -4,8 +4,9 @@ import { CookieConsentContextProvider } from 'hds-react';
 import dynamic from 'next/dynamic';
 import NextError from 'next/error';
 import { useRouter } from 'next/router';
-import { appWithTranslation, UserConfig, useTranslation } from 'next-i18next';
+import { appWithTranslation, UserConfig } from 'next-i18next/pages';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { ToastContainer } from 'react-toastify';
 
 import nextI18nextConfig from '../../next-i18next.config';

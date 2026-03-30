@@ -9,8 +9,8 @@ import {
 } from 'hds-react';
 import { capitalize } from 'lodash';
 import NextLink from 'next/link';
-import { useTranslation } from 'next-i18next';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 import EnrolmentFormSection from './EnrolmentFormSection';
 import OccurrenceEnrolmentButton from './OccurrenceEnrolmentButton';

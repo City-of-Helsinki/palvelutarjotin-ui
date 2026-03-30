@@ -6,8 +6,8 @@ import {
   Checkbox,
   IconSize,
 } from 'hds-react';
-import { useTranslation } from 'next-i18next';
 import React, { ReactNode } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import DropdownMenu from './DropdownMenu';
 import styles from './multiSelectDropdown.module.scss';
@@ -196,7 +196,6 @@ const MultiSelectDropdown: React.FC<MultiselectDropdownProps> = ({
     [onChange, value]
   );
 
-  // eslint-disable-next-line react-hooks/preserve-manual-memoization
   const ensureDropdownIsOpen = React.useCallback(() => {
     if (!isMenuOpen) {
       setIsMenuOpen(true);
@@ -213,7 +212,6 @@ const MultiSelectDropdown: React.FC<MultiselectDropdownProps> = ({
     toggleButton.current?.focus();
   };
 
-  // eslint-disable-next-line react-hooks/preserve-manual-memoization
   const toggleMenu = React.useCallback(() => {
     setIsMenuOpen(!isMenuOpen);
   }, [isMenuOpen]);

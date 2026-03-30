@@ -1,7 +1,7 @@
 import { isFuture, isPast, isSameDay, isValid as isValidDate } from 'date-fns';
 import { Notification, NotificationType } from 'hds-react';
-import { useTranslation } from 'next-i18next';
 import * as React from 'react';
+import { useTranslation } from 'react-i18next';
 import useLocalStorage from 'react-use/lib/useLocalStorage';
 
 import ExternalLink from '../../../common/components/externalLink/ExternalLink';

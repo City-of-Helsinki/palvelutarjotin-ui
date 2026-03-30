@@ -1,8 +1,8 @@
 import classNames from 'classnames';
 import { format, isValid } from 'date-fns';
 import { Button, ButtonVariant, DateInput, IconPen } from 'hds-react';
-import { useTranslation } from 'next-i18next';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 import styles from './dateFilter.module.scss';
 import { DATE_FORMAT } from '../../../common/components/form/fields/DateInputField';

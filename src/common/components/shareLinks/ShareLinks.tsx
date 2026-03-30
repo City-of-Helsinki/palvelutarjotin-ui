@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { IconLink } from 'hds-react';
-import { useTranslation } from 'next-i18next';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 import FacebookShareLink from './FacebookShareLink';
 import LinkedInShareLink from './LinkedInShareLink';

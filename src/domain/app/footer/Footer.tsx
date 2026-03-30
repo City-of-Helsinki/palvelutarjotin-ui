@@ -1,8 +1,8 @@
 import { useMenuQuery } from '@city-of-helsinki/react-helsinki-headless-cms/apollo';
 import { Footer, Logo, LogoSize, logoFi, logoSv } from 'hds-react';
 import dynamic from 'next/dynamic';
-import { useTranslation } from 'next-i18next';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 import styles from './footer.module.scss';
 import { resetFocusId } from '../../../common/components/resetFocus/ResetFocus';

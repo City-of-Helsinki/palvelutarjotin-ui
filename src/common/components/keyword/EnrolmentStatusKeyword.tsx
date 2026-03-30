@@ -1,5 +1,5 @@
-import { useTranslation } from 'next-i18next';
 import * as React from 'react';
+import { useTranslation } from 'react-i18next';
 
 import Keyword, { KeywordProps } from './Keyword';
 import type { I18nNamespace } from '../../../types';

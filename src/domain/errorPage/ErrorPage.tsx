@@ -1,7 +1,7 @@
 import { Button, IconInfoCircle, IconSize } from 'hds-react';
 import { useRouter } from 'next/router';
-import { useTranslation } from 'next-i18next';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 import styles from './errorPage.module.scss';
 import type { I18nNamespace } from '../../types';

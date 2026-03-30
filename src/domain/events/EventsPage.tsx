@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { useTranslation } from 'next-i18next';
 import React, { ReactElement } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import EventList from './eventList/EventList';
 import EventSearchForm, {

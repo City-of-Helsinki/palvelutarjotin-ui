@@ -1,6 +1,6 @@
 import NextLink from 'next/link';
-import { useTranslation, Trans } from 'next-i18next';
 import React, { ReactElement } from 'react';
+import { useTranslation, Trans } from 'react-i18next';
 
 import type { I18nNamespace } from '../../types';
 import ErrorPage from '../errorPage/ErrorPage';

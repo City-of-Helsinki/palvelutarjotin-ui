@@ -2,8 +2,8 @@ import * as Sentry from '@sentry/nextjs';
 import { saveAs } from 'file-saver';
 import { Button, ButtonVariant, IconCalendar } from 'hds-react';
 import { createEvent, EventAttributes } from 'ics';
-import { useTranslation } from 'next-i18next';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 import {
   OccurrenceFieldsFragment,

@@ -6,8 +6,8 @@ import {
 import { ButtonVariant, ButtonPresetTheme } from 'hds-react';
 import Head from 'next/head';
 import Link from 'next/link';
-import { useTranslation } from 'next-i18next';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 import AppConfig from './config';
 import { getRoutedInternalHrefForLocale } from './utils';

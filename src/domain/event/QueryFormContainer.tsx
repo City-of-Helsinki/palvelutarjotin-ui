@@ -1,6 +1,6 @@
 import { Button, ButtonVariant, IconAngleUp } from 'hds-react';
-import { useTranslation } from 'next-i18next';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 import styles from './eventPage.module.scss';
 import QueueFormSection from './occurrences/QueueFormSection';

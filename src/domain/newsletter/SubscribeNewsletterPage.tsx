@@ -1,8 +1,8 @@
 import axios from 'axios';
 import { FormikHelpers } from 'formik';
 import { Notification } from 'hds-react';
-import { Trans, useTranslation } from 'next-i18next';
 import * as React from 'react';
+import { Trans, useTranslation } from 'react-i18next';
 
 import { NewsletterSubscribeFormFields } from './newsletterSubscribeForm/constants';
 import NewsletterSubscribeForm, {

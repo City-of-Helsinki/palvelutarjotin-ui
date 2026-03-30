@@ -1,8 +1,8 @@
 import { IconArrowLeft, IconSize } from 'hds-react';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
-import { useTranslation } from 'next-i18next';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { createBackButtonHref } from './utils';
 import { SCROLL_RESTORATION_ELEMENT_ID_PREFIX } from '../events/constants';

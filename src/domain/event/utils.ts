@@ -1,5 +1,5 @@
 import { isBefore, isToday, isTomorrow, parseISO, startOfDay } from 'date-fns';
-import { TFunction } from 'next-i18next';
+import { TFunction } from 'i18next';
 
 import {
   EnrolmentType,

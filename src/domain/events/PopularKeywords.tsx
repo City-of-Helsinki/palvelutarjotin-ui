@@ -1,7 +1,7 @@
 import { Koros } from 'hds-react';
 import NextLink from 'next/link';
-import { useTranslation } from 'next-i18next';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 import styles from './eventsPage.module.scss';
 import { usePopularKeywordsQuery } from '../../generated/graphql';

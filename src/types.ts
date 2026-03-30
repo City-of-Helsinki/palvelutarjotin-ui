@@ -1,6 +1,5 @@
 import type { NormalizedCacheObject } from '@apollo/client';
 import type { AppProps as NextAppProps } from 'next/app';
-import { SSRConfig } from 'next-i18next';
 
 import { ALL_I18N_NAMESPACES } from './constants';
 
@@ -16,6 +15,17 @@ export type Language = 'en' | 'fi' | 'sv';
 export type ApolloProps = {
   initialApolloState: NormalizedCacheObject | null;
   initialCMSApolloState: NormalizedCacheObject | null;
+};
+
+type TranslationValue = string | { [key: string]: TranslationValue };
+
+export type SSRConfig = {
+  _nextI18Next?: {
+    initialI18nStore: Record<string, Record<string, TranslationValue>>;
+    initialLocale: string;
+    ns: string[];
+    userConfig: null;
+  };
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

@@ -1,6 +1,6 @@
 import { IconGroup, IconSignout } from 'hds-react';
-import { useTranslation } from 'next-i18next';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 import styles from './venueInfo.module.scss';
 import TextTitle from '../../../common/components/textTitle/TextTitle';

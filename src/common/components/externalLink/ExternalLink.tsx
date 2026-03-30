@@ -1,6 +1,6 @@
 import { IconLinkExternal } from 'hds-react';
-import { useTranslation } from 'next-i18next';
 import * as React from 'react';
+import { useTranslation } from 'react-i18next';
 
 import type { I18nNamespace } from '../../../types';
 import SrOnly from '../SrOnly/SrOnly';

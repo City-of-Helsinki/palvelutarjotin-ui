@@ -4,8 +4,8 @@ import {
   GeneralCollectionType,
 } from '@city-of-helsinki/react-helsinki-headless-cms';
 import { BreadcrumbListItem } from 'hds-react';
-import { useTranslation } from 'next-i18next';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 import CmsPageSearch from './CmsPageSearch/CmsPageSearch';
 import { getCmsCollectionList } from './utils';

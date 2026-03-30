@@ -1,8 +1,8 @@
 import classNames from 'classnames';
 import { Field, Formik } from 'formik';
 import { Button, ButtonVariant, IconSearch } from 'hds-react';
-import { useTranslation } from 'next-i18next';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 import styles from './eventSearchForm.module.scss';
 import { useKeywordOptions } from './useKeywordOptions';

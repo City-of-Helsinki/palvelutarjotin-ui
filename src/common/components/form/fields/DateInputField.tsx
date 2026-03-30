@@ -2,8 +2,8 @@ import classNames from 'classnames';
 import { format, isValid } from 'date-fns';
 import { FieldProps } from 'formik';
 import { DateInput, DateInputProps } from 'hds-react';
-import { useTranslation } from 'next-i18next';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 import type { I18nNamespace } from '../../../../types';
 import { invalidFieldClass } from '../constants';

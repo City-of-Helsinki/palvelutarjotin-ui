@@ -1,7 +1,7 @@
 import { FieldProps } from 'formik';
 import { TextArea, TextAreaProps } from 'hds-react';
-import { useTranslation } from 'next-i18next';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 import type { I18nNamespace } from '../../../../types';
 import { invalidFieldClass } from '../constants';

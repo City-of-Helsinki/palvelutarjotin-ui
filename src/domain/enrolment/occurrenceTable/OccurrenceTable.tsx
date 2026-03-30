@@ -1,6 +1,6 @@
 import { Notification } from 'hds-react';
-import { useTranslation } from 'next-i18next';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 import Table from '../../../common/components/table/Table';
 import { DATE_FORMAT } from '../../../constants';

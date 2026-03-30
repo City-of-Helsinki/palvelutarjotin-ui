@@ -1,7 +1,7 @@
 import { Button, ButtonVariant, Select, IconArrowDown } from 'hds-react';
 import { useRouter } from 'next/router';
-import { useTranslation } from 'next-i18next';
 import React, { ReactElement } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import styles from './eventList.module.scss';
 import LoadingSpinner from '../../../common/components/loadingSpinner/LoadingSpinner';

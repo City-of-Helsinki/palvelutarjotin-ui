@@ -1,8 +1,8 @@
 import { NextPage, GetStaticPropsResult, GetStaticPropsContext } from 'next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import React from 'react';
 
 import NotFoundPage from '../domain/notFoundPage/NotFoundPage';
+import getLocalizationProps from '../utils/getLocalizationProps';
 
 const Error404: NextPage = () => <NotFoundPage />;
 
@@ -13,11 +13,7 @@ export async function getStaticProps({
   console.debug('Executing getStaticProps of the 404 page', '/pages/404.tsx');
   return {
     props: {
-      ...(await serverSideTranslations(locale ?? 'fi', [
-        'common',
-        'header',
-        'footer',
-      ])),
+      ...(await getLocalizationProps(locale ?? 'fi')),
     },
   };
 }

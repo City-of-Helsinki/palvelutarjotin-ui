@@ -1,7 +1,7 @@
 import { Notification } from 'hds-react';
 import { useRouter } from 'next/router';
-import { useTranslation } from 'next-i18next';
 import React, { ReactElement } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import EnrolmentButton from './enrolmentButton/EnrolmentButton';
 import { EnrolmentFormContainer } from './EnrolmentFormContainer';

@@ -1,7 +1,7 @@
 import omit from 'lodash/omit';
 import { useRouter } from 'next/router';
-import { useTranslation } from 'next-i18next';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 
 import { TOAST_AUTO_CLOSE_DURATION_MS } from '../../../constants';

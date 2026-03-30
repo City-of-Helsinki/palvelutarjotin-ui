@@ -1,6 +1,5 @@
-import type { SSRConfig } from 'next-i18next';
-
 import { ALL_I18N_NAMESPACES, SUPPORTED_LANGUAGES } from '../constants';
+import type { SSRConfig } from '../types';
 
 type TranslationValue = string | { [key: string]: TranslationValue };
 

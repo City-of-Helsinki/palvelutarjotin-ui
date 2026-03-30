@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { IconCross, IconSize } from 'hds-react';
-import { useTranslation } from 'next-i18next';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 import styles from './filterButton.module.scss';
 import type { I18nNamespace } from '../../../../types';

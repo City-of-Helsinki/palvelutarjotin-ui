@@ -8,8 +8,8 @@ import {
   Checkbox,
 } from 'hds-react';
 import take from 'lodash/take';
-import { useTranslation } from 'next-i18next';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 import EnrolmentError from './EnrolmentError';
 import OccurrenceInfo from './OccurrenceInfo';

@@ -8,8 +8,8 @@ import {
   IconAngleUp,
 } from 'hds-react';
 import isEmpty from 'lodash/isEmpty';
-import { useTranslation } from 'next-i18next';
 import React, { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import {
   defaultEnrolmentInitialValues,

@@ -1,8 +1,8 @@
 import { Button, ButtonVariant, IconLocation } from 'hds-react';
 import times from 'lodash/times';
 import NextLink from 'next/link';
-import { useTranslation } from 'next-i18next';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 import styles from './eventCard.module.scss';
 import { getEventEnrolmentStatus, getOccurrenceDateStr } from './utils';
