@@ -163,7 +163,7 @@ test('renders with sidebar layout when sidebar has content', async () => {
     })
   ).toBeInTheDocument();
 
-  expect(mockedGetRoutedInternalHref).toBeCalled();
+  expect(mockedGetRoutedInternalHref).toHaveBeenCalled();
   expect(mockedGetRoutedInternalHref).toHaveReturnedWith(
     '/cms-page/oppimateriaalit-elokuvajuhlia-varten'
   );
