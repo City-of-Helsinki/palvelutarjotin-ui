@@ -4,7 +4,7 @@ process.env.TZ = 'Europe/Helsinki';
 module.exports = {
   testEnvironment: 'jest-fixed-jsdom',
   transform: {
-    '.*\\.(tsx?)$': [
+    '^.+\\.[tj]sx?$': [
       '@swc/jest',
       {
         jsc: {
