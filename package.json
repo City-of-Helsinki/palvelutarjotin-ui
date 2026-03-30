@@ -58,7 +58,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.14.1",
-    "@city-of-helsinki/react-helsinki-headless-cms": "3.0.0",
+    "@city-of-helsinki/react-helsinki-headless-cms": "3.0.1",
     "@date-fns/tz": "^1.2.0",
     "@jonkoops/matomo-tracker-react": "^0.7.0",
     "@sentry/nextjs": "^10.37.0",
