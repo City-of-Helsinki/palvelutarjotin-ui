@@ -46,6 +46,10 @@
       "hds-react/cookie": [
         "To fix https://github.com/City-of-Helsinki/palvelutarjotin-ui/security/dependabot/101",
         "NOTE: This can be removed if hds-react starts to depend on >=v1 cookie"
+      ],
+      "minimatch": [
+        "To fix ReDoS vulnerabilities (CVE advisories 1113465, 1113544, 1113552) in transitive minimatch via hds-react > @typescript-eslint/typescript-estree",
+        "NOTE: This can be removed if hds-react upgrades @typescript-eslint to a version that uses minimatch >=9.0.7"
       ]
     }
   },
@@ -54,7 +58,8 @@
     "@types/react": "^18.3.28",
     "@types/react-dom": "^18.3.7",
     "hds-react/@babel/runtime": "^7.27.0",
-    "hds-react/cookie": "^0.7.2"
+    "hds-react/cookie": "^0.7.2",
+    "minimatch": ">=9.0.7"
   },
   "dependencies": {
     "@apollo/client": "^3.14.1",
