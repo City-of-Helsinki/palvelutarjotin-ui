@@ -6942,10 +6942,10 @@ iconv-lite@^0.7.0:
   dependencies:
     safer-buffer ">= 2.1.2 < 3.0.0"
 
-ics@^3.8.1:
-  version "3.8.1"
-  resolved "https://registry.yarnpkg.com/ics/-/ics-3.8.1.tgz#4f89d7e05bc45378d9337d748caa1a2756eaebae"
-  integrity sha512-UqQlfkajfhrS4pUGQfGIJMYz/Jsl/ob3LqcfEhUmLbwumg+ZNkU0/6S734Vsjq3/FYNpEcZVKodLBoe+zBM69g==
+ics@^3.11.0:
+  version "3.11.0"
+  resolved "https://registry.yarnpkg.com/ics/-/ics-3.11.0.tgz#d223a35f1b68ef34d3992e10b8f739c57a9de081"
+  integrity sha512-uDB3GEOYRSZL2BgxLZkHUDwcHqjC36gGuKBrFatl7BtMNQKzO2rXkCj0zTl/QyP9lfyAEp2WZU2XBZciaLJZZw==
   dependencies:
     nanoid "^3.1.23"
     runes2 "^1.1.2"
