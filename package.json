@@ -33,6 +33,12 @@
         "NOTE: This can be removed if all dependencies start to depend on >=v1 cookie ",
         "which provides the types itself"
       ],
+      "@types/react": [
+        "To keep transitive React type packages on v18 while app runtime uses React 18"
+      ],
+      "@types/react-dom": [
+        "To keep transitive React DOM type packages on v18 while app runtime uses React 18"
+      ],
       "hds-react/@babel/runtime": [
         "To fix https://github.com/City-of-Helsinki/palvelutarjotin-ui/security/dependabot/111",
         "NOTE: This can be removed if hds-react doesn't require a fixed version of this package anymore"
@@ -45,6 +51,8 @@
   },
   "resolutions": {
     "@types/cookie": "^0.6.0",
+    "@types/react": "^18.3.28",
+    "@types/react-dom": "^18.3.7",
     "hds-react/@babel/runtime": "^7.27.0",
     "hds-react/cookie": "^0.7.2"
   },
@@ -136,7 +144,7 @@
     "stylelint-config-recommended-scss": "^17.0.0",
     "stylelint-config-standard-scss": "^17.0.0",
     "stylelint-scss": "^7.0.0",
-    "typescript": "^5.8.2",
+    "typescript": "^6.0.2",
     "waait": "^1.0.5"
   },
   "lint-staged": {
