@@ -19,12 +19,12 @@
 .headingRow {
   display: grid;
   align-items: center;
-  grid-gap: var(--spacing-s);
+  gap: var(--spacing-s);
   margin-bottom: var(--spacing-s);
 
   @include respond_above(m) {
     grid-template-columns: 1fr auto;
-    grid-gap: var(--spacing-l);
+    gap: var(--spacing-l);
   }
 }
 
@@ -32,7 +32,7 @@
   display: grid;
   grid-template-columns: auto auto;
   align-items: center;
-  grid-gap: var(--spacing-s);
+  gap: var(--spacing-s);
 
   span {
     text-align: right;
@@ -45,7 +45,7 @@
 
 .eventCardsContainer {
   display: grid;
-  grid-gap: var(--grid-gap-event-cards-wrapper);
+  gap: var(--grid-gap-event-cards-wrapper);
 }
 
 .loadMoreButtonWrapper {

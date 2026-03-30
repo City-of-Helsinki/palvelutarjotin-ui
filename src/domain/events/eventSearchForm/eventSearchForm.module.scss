@@ -19,7 +19,7 @@
 
 .filtersRow3 {
   display: grid;
-  grid-gap: var(--grid-gap-mobile);
+  gap: var(--grid-gap-mobile);
 
   @include respond_above(l) {
     grid-template-columns: 1fr 1fr 1fr;
@@ -28,7 +28,7 @@
 
 .filtersRow4 {
   display: grid;
-  grid-gap: var(--grid-gap-mobile);
+  gap: var(--grid-gap-mobile);
 
   @include respond_above(l) {
     grid-template-columns: 1fr 1fr 1fr 1fr;
@@ -81,7 +81,7 @@
 
 .contentWrapper {
   display: grid;
-  grid-gap: var(--grid-gap-mobile);
+  gap: var(--grid-gap-mobile);
 
   h2 {
     margin: 0;
@@ -103,7 +103,7 @@
 
 .buttonRow {
   display: grid;
-  grid-gap: 1rem;
+  gap: 1rem;
   color: var(--color-white);
 
   @include respond_above(l) {

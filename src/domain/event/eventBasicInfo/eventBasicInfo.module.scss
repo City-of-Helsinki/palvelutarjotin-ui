@@ -6,7 +6,7 @@
   --grid-gap: 1rem;
 
   display: grid;
-  grid-gap: var(--grid-gap);
+  gap: var(--grid-gap);
   grid-template-columns: 3fr 1fr;
 
   .descriptionPart {
@@ -32,7 +32,7 @@
 
   .categorisationRow {
     display: grid;
-    grid-gap: var(--grid-gap);
+    gap: var(--grid-gap);
 
     p {
       margin-top: 0;

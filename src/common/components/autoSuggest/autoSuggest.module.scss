@@ -3,7 +3,7 @@
 .a11yText {
   z-index: 9999;
   border: 0;
-  clip: rect(1px, 1px, 1px, 1px);
+  clip-path: inset(50%);
   height: 1;
   width: 1;
   position: absolute;

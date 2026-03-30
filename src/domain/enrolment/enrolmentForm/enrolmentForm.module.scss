@@ -9,13 +9,13 @@
 
     @include respond_above(m) {
       grid-template-columns: 1fr 1fr;
-      grid-gap: var(--spacing-layout-s);
+      gap: var(--spacing-layout-s);
     }
   }
 
   .rowWith3Columns {
     display: grid;
-    grid-gap: var(--spacing-layout-s);
+    gap: var(--spacing-layout-s);
 
     @include respond_above(m) {
       grid-template-columns: 1fr 1fr 1fr;
