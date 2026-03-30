@@ -196,6 +196,7 @@ const MultiSelectDropdown: React.FC<MultiselectDropdownProps> = ({
     [onChange, value]
   );
 
+  // eslint-disable-next-line react-hooks/preserve-manual-memoization
   const ensureDropdownIsOpen = React.useCallback(() => {
     if (!isMenuOpen) {
       setIsMenuOpen(true);
@@ -212,6 +213,7 @@ const MultiSelectDropdown: React.FC<MultiselectDropdownProps> = ({
     toggleButton.current?.focus();
   };
 
+  // eslint-disable-next-line react-hooks/preserve-manual-memoization
   const toggleMenu = React.useCallback(() => {
     setIsMenuOpen(!isMenuOpen);
   }, [isMenuOpen]);
