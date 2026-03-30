@@ -107,11 +107,13 @@ const useDropdownKeyboardNavigation = ({
   }, [handleKeyDown]);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setIsInitialNavigation(true);
   }, [initialFocusedIndex]);
 
   useEffect(() => {
     // Whenever the list changes, reset focused index
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setFocusedIndex(-1);
   }, [listLength]);
 

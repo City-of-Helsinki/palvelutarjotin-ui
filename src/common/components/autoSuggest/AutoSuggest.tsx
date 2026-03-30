@@ -201,6 +201,24 @@ const AutoSuggest: React.FC<AutoSuggestProps> = ({
     }
   };
 
+  const announceAriaLiveSelection = ({
+    event,
+    option,
+  }: {
+    event: ACCESSIBILITY_EVENT_TYPE;
+    option: AutoSuggestOption;
+  }) => {
+    setAriaLiveSelection(
+      valueEventAriaMessage({
+        event,
+        value: optionLabelToString
+          ? optionLabelToString(option, locale)
+          : option.label.toString(),
+        t,
+      })
+    );
+  };
+
   const selectOption = (option: AutoSuggestOption) => {
     ensureMenuIsClosed();
 
@@ -265,24 +283,6 @@ const AutoSuggest: React.FC<AutoSuggestProps> = ({
       document.removeEventListener('focusin', onDocumentFocusin);
     };
   });
-
-  const announceAriaLiveSelection = ({
-    event,
-    option,
-  }: {
-    event: ACCESSIBILITY_EVENT_TYPE;
-    option: AutoSuggestOption;
-  }) => {
-    setAriaLiveSelection(
-      valueEventAriaMessage({
-        event,
-        value: optionLabelToString
-          ? optionLabelToString(option, locale)
-          : option.label.toString(),
-        t,
-      })
-    );
-  };
 
   const constructAriaLiveMessage = () => {
     const focusedValueMsg = focusedValue

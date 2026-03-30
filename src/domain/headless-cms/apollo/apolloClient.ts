@@ -206,9 +206,11 @@ export function useCMSApolloClient(
     | undefined = { initialCMSApolloState: null }
 ): ApolloClient<NormalizedCacheObject> {
   const storeRef = useRef<ApolloClient<NormalizedCacheObject>>();
+  // eslint-disable-next-line react-hooks/refs
   if (!storeRef.current) {
     storeRef.current = initializeCMSApolloClient(initialCMSApolloState);
   }
+  // eslint-disable-next-line react-hooks/refs
   return storeRef.current;
 }
 

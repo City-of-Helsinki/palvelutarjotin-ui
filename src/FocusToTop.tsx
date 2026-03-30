@@ -7,6 +7,7 @@ const FocusToTop: React.FC = () => {
 
   const routerRef = React.useRef(router);
   const previousPathRef = React.useRef<string | null>();
+  // eslint-disable-next-line react-hooks/refs
   routerRef.current = router;
 
   const handleFocus = () => {
