@@ -57,7 +57,7 @@
     "hds-react/cookie": "^0.7.2"
   },
   "dependencies": {
-    "@apollo/client": "^3.13.5",
+    "@apollo/client": "^3.14.1",
     "@city-of-helsinki/react-helsinki-headless-cms": "3.0.0",
     "@date-fns/tz": "^1.2.0",
     "@jonkoops/matomo-tracker-react": "^0.7.0",

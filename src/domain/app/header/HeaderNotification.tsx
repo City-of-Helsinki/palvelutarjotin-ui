@@ -48,19 +48,20 @@ const HeaderNotification: React.FC = () => {
     variables: {
       language: locale ?? 'fi',
     },
-    onCompleted: (data) => {
-      const notification = data.notification;
-      if (notification) {
-        const notificationHash = getNotificationHash(notification).toString();
-        if (closedNotificationHash !== notificationHash) {
-          setNotificationState({
-            isVisible: true,
-            closedNotificationHash: null,
-          });
-        }
-      }
-    },
   });
+
+  React.useEffect(() => {
+    const notification = data?.notification;
+    if (notification) {
+      const notificationHash = getNotificationHash(notification).toString();
+      if (closedNotificationHash !== notificationHash) {
+        setNotificationState({
+          isVisible: true,
+          closedNotificationHash: null,
+        });
+      }
+    }
+  }, [closedNotificationHash, data?.notification, setNotificationState]);
 
   const notification = data?.notification;
   const parsedContent = contentRegex.exec(notification?.content ?? '')?.[1];

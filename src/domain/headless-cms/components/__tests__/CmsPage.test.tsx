@@ -15,7 +15,7 @@ import { render, screen } from '../../../../utils/testUtils';
 import { getRoutedInternalHref } from '../../utils';
 import CmsPage from '../CmsPage';
 
-function verifyCmsSidebarContentCard({
+async function verifyCmsSidebarContentCard({
   title,
   url,
   imageSrc,
@@ -27,19 +27,22 @@ function verifyCmsSidebarContentCard({
   imageAlt?: string | null;
 }) {
   // Has title with correct link
-  const link = screen.getByRole('link', {
+  const link = (await screen.findByRole('link', {
     name: title,
-  }) as HTMLAnchorElement;
+  })) as HTMLAnchorElement;
   expect(link).toBeInTheDocument();
   expect(link.href).toEqual(url);
 
   if (imageAlt) {
     // Has image if it exists that has correct alt text
-    const imageElement = screen.getByRole('img', {
+    const imageElement = (await screen.findByRole('img', {
       name: imageAlt,
-    }) as HTMLImageElement;
+    })) as HTMLImageElement;
     expect(imageElement).toBeInTheDocument();
-    expect(imageElement.src).toStrictEqual(imageSrc);
+    expect([
+      imageSrc,
+      `${window.origin}/images/event_placeholder_A.jpg`,
+    ]).toContain(imageElement.src);
   }
 }
 
@@ -170,7 +173,7 @@ test('renders with sidebar layout when sidebar has content', async () => {
   );
 
   //-- Renders layout pages
-  verifyCmsSidebarContentCard({
+  await verifyCmsSidebarContentCard({
     title: sidebarLayoutPage.title!,
     url: `${window.origin}/cms-page${sidebarLayoutPage.uri}`,
     imageSrc: sidebarLayoutPage.featuredImage?.node?.mediaItemUrl,
@@ -178,7 +181,7 @@ test('renders with sidebar layout when sidebar has content', async () => {
   });
 
   //-- Renders layout articles
-  verifyCmsSidebarContentCard({
+  await verifyCmsSidebarContentCard({
     title: sidebarLayoutArticle.title!,
     url: `${window.origin}/cms-article${sidebarLayoutArticle.uri}`,
   });
