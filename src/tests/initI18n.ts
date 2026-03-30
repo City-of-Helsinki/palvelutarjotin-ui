@@ -1,5 +1,4 @@
 import i18n from 'i18next';
-import intervalPlural from 'i18next-intervalplural-postprocessor';
 import { initReactI18next } from 'react-i18next';
 
 import common from '../../public/locales/fi/common.json';
@@ -24,7 +23,6 @@ const translations = {
   newsletter,
 };
 
-i18n.use(intervalPlural);
 i18n.use(initReactI18next).init({
   lng: 'fi',
   fallbackLng: 'fi',
