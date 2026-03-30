@@ -69,7 +69,6 @@ export enum AccessibilityViewpointValue {
   Unknown = 'unknown'
 }
 
-/** TODO: give real structure */
 export type Address = {
   __typename?: 'Address';
   city?: Maybe<LanguageString>;
@@ -90,34 +89,6 @@ export enum CacheControlScope {
   Public = 'PUBLIC'
 }
 
-/** Contact details for a person, legal entity, venue or project */
-export type ContactInfo = {
-  __typename?: 'ContactInfo';
-  contactUrl?: Maybe<Scalars['String']['output']>;
-  emailAddresses: Array<Scalars['String']['output']>;
-  phoneNumbers: Array<PhoneNumber>;
-  postalAddresses: Array<Address>;
-};
-
-export enum ContactMedium {
-  Asiointi = 'ASIOINTI',
-  Email = 'EMAIL',
-  MobileNotification = 'MOBILE_NOTIFICATION',
-  Sms = 'SMS',
-  SmsAndEmail = 'SMS_AND_EMAIL'
-}
-
-/**
- * Resources (media) that provide extra description of a resource,
- * facility, event or venue, such as images, videos, info pages, etc.
- */
-export type DescriptionResources = {
-  __typename?: 'DescriptionResources';
-  externalLinks: Array<Scalars['String']['output']>;
-  infoUrls: Array<Scalars['String']['output']>;
-  mediaResources: Array<MediaResource>;
-};
-
 /** Elasticsearch results */
 export type ElasticSearchResult = {
   __typename?: 'ElasticSearchResult';
@@ -125,134 +96,6 @@ export type ElasticSearchResult = {
   hits?: Maybe<Hits>;
   timed_out?: Maybe<Scalars['Boolean']['output']>;
   took?: Maybe<Scalars['Int']['output']>;
-};
-
-/** Information about enrolled participant(s) in an event occurrence */
-export type Enrolment = {
-  __typename?: 'Enrolment';
-  enroller?: Maybe<Person>;
-  event?: Maybe<EventOccurrence>;
-  extraInformation?: Maybe<Scalars['String']['output']>;
-  meta?: Maybe<NodeMeta>;
-  overseerCount?: Maybe<Scalars['Int']['output']>;
-  overseers?: Maybe<Array<Person>>;
-  participantCategory?: Maybe<KeywordString>;
-  participantCount: Scalars['Int']['output'];
-  participants?: Maybe<Array<Person>>;
-  requestedMethodOfNotification?: Maybe<ContactMedium>;
-  status?: Maybe<EnrolmentStatus>;
-};
-
-/** Rules about who can enroll to an event and how */
-export type EnrolmentPolicy = {
-  __typename?: 'EnrolmentPolicy';
-  allowedParticipantCategories: Array<KeywordString>;
-  enrolmentTime?: Maybe<TimeDescription>;
-  /** maximum number of people who can enrol together (at the same time) */
-  maximumEnrolmentCount?: Maybe<Scalars['Int']['output']>;
-  meta?: Maybe<NodeMeta>;
-  /** minimum number of people who can enrol together (at the same time) */
-  minimumEnrolmentCount?: Maybe<Scalars['Int']['output']>;
-  participantMaximumAge: Scalars['Int']['output'];
-  participantMinimumAge: Scalars['Int']['output'];
-  type: Array<EnrolmentPolicyType>;
-};
-
-export enum EnrolmentPolicyType {
-  Groups = 'GROUPS',
-  GroupsWithSupervisors = 'GROUPS_WITH_SUPERVISORS',
-  Individuals = 'INDIVIDUALS',
-  NoEnrolmentNeeded = 'NO_ENROLMENT_NEEDED'
-}
-
-export enum EnrolmentStatus {
-  Cancelled = 'CANCELLED',
-  Confirmed = 'CONFIRMED',
-  Declined = 'DECLINED',
-  Queued = 'QUEUED',
-  Requested = 'REQUESTED'
-}
-
-/**
- * Request for equipment - if someone needs equipment for a purpose such
- * as organising a volunteering event (as is the case in park cleaning
- * bees), a specification of what is being requested.
- */
-export type EquipmentRequest = {
-  __typename?: 'EquipmentRequest';
-  deliveryLocation?: Maybe<LocationDescription>;
-  estimatedAmount?: Maybe<Scalars['Int']['output']>;
-  extraInformation: Scalars['String']['output'];
-  meta?: Maybe<NodeMeta>;
-  requestedEquipment: Scalars['String']['output'];
-  requestedForEvent?: Maybe<Event>;
-  returnLocation?: Maybe<LocationDescription>;
-};
-
-/**
- * An organised event - something that happens at a specific time, has a
- * specific topic or content, and people can participate.  Examples include
- * meetups, concerts, volunteering occasions (or bees), happenings.  This
- * corresponds to Linked events/courses event, beta.kultus
- * PalvelutarjotinEventNode, Kukkuu event.
- */
-export type Event = {
-  __typename?: 'Event';
-  contactPerson?: Maybe<LegalEntity>;
-  description?: Maybe<LanguageString>;
-  descriptionResources?: Maybe<DescriptionResources>;
-  enrolmentPolicy?: Maybe<EnrolmentPolicy>;
-  eventDataSource?: Maybe<Scalars['String']['output']>;
-  eventLanguages: Array<UnifiedSearchLanguageEnum>;
-  keywords: Array<KeywordString>;
-  meta?: Maybe<NodeMeta>;
-  name?: Maybe<LanguageString>;
-  occurrences: Array<EventOccurrence>;
-  organiser?: Maybe<LegalEntity>;
-  pricing?: Maybe<Array<EventPricing>>;
-  published?: Maybe<Scalars['DateTime']['output']>;
-  publisher?: Maybe<LegalEntity>;
-  shortDescription?: Maybe<Scalars['String']['output']>;
-  subEvents: Array<Event>;
-  superEvent?: Maybe<Event>;
-  targetAudience?: Maybe<Array<KeywordString>>;
-};
-
-export type EventOccurrence = {
-  __typename?: 'EventOccurrence';
-  /** for events where equipment is requested from the City of Helsinki */
-  cityEquipmentRequests?: Maybe<Array<EquipmentRequest>>;
-  currentlyAvailableParticipantCount?: Maybe<Scalars['Int']['output']>;
-  enrolments: Array<Enrolment>;
-  /**
-   * for information - for example, to guide people who are looking for
-   * big or small events, or to give city officials a hint on how much
-   * equipment is needed
-   */
-  estimatedAttendeeCount?: Maybe<Scalars['Int']['output']>;
-  happensAt?: Maybe<TimeDescription>;
-  location?: Maybe<LocationDescription>;
-  maximumAttendeeCount?: Maybe<Scalars['Int']['output']>;
-  meta?: Maybe<NodeMeta>;
-  minimumAttendeeCount?: Maybe<Scalars['Int']['output']>;
-  /** which event this is an occurrence of */
-  ofEvent?: Maybe<Event>;
-  status?: Maybe<EventOccurrenceStatus>;
-};
-
-export enum EventOccurrenceStatus {
-  Cancelled = 'CANCELLED',
-  Postponed = 'POSTPONED',
-  Published = 'PUBLISHED',
-  Rescheduled = 'RESCHEDULED',
-  Unpublished = 'UNPUBLISHED'
-}
-
-/** TODO: improve (a lot) over Linked events' offer type */
-export type EventPricing = {
-  __typename?: 'EventPricing';
-  meta?: Maybe<NodeMeta>;
-  todo?: Maybe<Scalars['String']['output']>;
 };
 
 /** CRS object properties. */
@@ -406,29 +249,6 @@ export type Hits = {
   total?: Maybe<HitTotal>;
 };
 
-export enum IdentificationStrength {
-  /** If the person has authenticated with at least some method */
-  Authenticated = 'AUTHENTICATED',
-  /** If the person has done some identifiable action such as payment */
-  Indirect = 'INDIRECT',
-  /** If the person has proved their legal identity */
-  LegallyConnected = 'LEGALLY_CONNECTED',
-  /** If this person is just a pseudoperson for contacting */
-  Nonidentifiable = 'NONIDENTIFIABLE',
-  /** If the identity of this person is not known at all */
-  Unidentified = 'UNIDENTIFIED'
-}
-
-/**
- * TODO: merge all free tags, categories, and keywords
- * KEYWORDS ARE GIVEN FROM events-proxy (https://events-graphql-proxy.test.hel.ninja/proxy/graphql)
- */
-export type KeywordString = {
-  __typename?: 'KeywordString';
-  name: Scalars['String']['output'];
-};
-
-/** TODO: convert all String's to LanguageString's if linguistic content */
 export type LanguageString = {
   __typename?: 'LanguageString';
   en?: Maybe<Scalars['String']['output']>;
@@ -436,65 +256,7 @@ export type LanguageString = {
   sv?: Maybe<Scalars['String']['output']>;
 };
 
-export type LegalEntity = Organisation | Person;
-
-export type LinkedeventsPlace = {
-  __typename?: 'LinkedeventsPlace';
-  _at_context?: Maybe<Scalars['String']['output']>;
-  _at_id?: Maybe<Scalars['String']['output']>;
-  _at_type?: Maybe<Scalars['String']['output']>;
-  address_country?: Maybe<Scalars['String']['output']>;
-  address_locality?: Maybe<LinkedeventsPlaceLocalityString>;
-  address_region?: Maybe<Scalars['String']['output']>;
-  contact_type?: Maybe<Scalars['String']['output']>;
-  created_time?: Maybe<Scalars['String']['output']>;
-  custom_data?: Maybe<Scalars['String']['output']>;
-  data_source?: Maybe<Scalars['String']['output']>;
-  deleted?: Maybe<Scalars['Boolean']['output']>;
-  description?: Maybe<LinkedeventsPlaceLocalityString>;
-  divisions?: Maybe<Array<Maybe<LinkedeventsPlaceDivision>>>;
-  email?: Maybe<Scalars['String']['output']>;
-  has_upcoming_events?: Maybe<Scalars['Boolean']['output']>;
-  id?: Maybe<Scalars['String']['output']>;
-  image?: Maybe<Scalars['String']['output']>;
-  info_url?: Maybe<LinkedeventsPlaceLocalityString>;
-  last_modified_time?: Maybe<Scalars['String']['output']>;
-  n_events?: Maybe<Scalars['Int']['output']>;
-  name?: Maybe<LinkedeventsPlaceLocalityString>;
-  /** Raw Linkedevents Place fields */
-  origin?: Maybe<Scalars['String']['output']>;
-  parent?: Maybe<Scalars['String']['output']>;
-  position?: Maybe<LinkedeventsPlacePosition>;
-  post_office_box_num?: Maybe<Scalars['String']['output']>;
-  postal_code?: Maybe<Scalars['String']['output']>;
-  publisher?: Maybe<Scalars['String']['output']>;
-  replaced_by?: Maybe<Scalars['String']['output']>;
-  street_address?: Maybe<LinkedeventsPlaceLocalityString>;
-  telephone?: Maybe<Scalars['String']['output']>;
-};
-
-export type LinkedeventsPlaceDivision = {
-  __typename?: 'LinkedeventsPlaceDivision';
-  municipality?: Maybe<Scalars['String']['output']>;
-  name?: Maybe<LinkedeventsPlaceLocalityString>;
-  ocd_id?: Maybe<Scalars['String']['output']>;
-  type?: Maybe<Scalars['String']['output']>;
-};
-
-export type LinkedeventsPlaceLocalityString = {
-  __typename?: 'LinkedeventsPlaceLocalityString';
-  en?: Maybe<Scalars['String']['output']>;
-  fi?: Maybe<Scalars['String']['output']>;
-  sv?: Maybe<Scalars['String']['output']>;
-};
-
-export type LinkedeventsPlacePosition = {
-  __typename?: 'LinkedeventsPlacePosition';
-  coordinates?: Maybe<Array<Maybe<Scalars['Float']['output']>>>;
-  type?: Maybe<Scalars['String']['output']>;
-};
-
-/** Free-form location, not necessarily at a know venue. */
+/** Free-form location, not necessarily at a known venue. */
 export type LocationDescription = {
   __typename?: 'LocationDescription';
   address?: Maybe<Address>;
@@ -502,20 +264,12 @@ export type LocationDescription = {
   explanation?: Maybe<Scalars['String']['output']>;
   geoLocation?: Maybe<GeoJsonFeature>;
   url?: Maybe<LanguageString>;
-  venue?: Maybe<UnifiedSearchVenue>;
 };
 
 export type LocationImage = {
   __typename?: 'LocationImage';
   caption?: Maybe<LanguageString>;
   url?: Maybe<Scalars['String']['output']>;
-};
-
-/** TODO: take this from Linked events Image type. */
-export type MediaResource = {
-  __typename?: 'MediaResource';
-  meta?: Maybe<NodeMeta>;
-  todo?: Maybe<Scalars['String']['output']>;
 };
 
 export type NodeMeta = {
@@ -586,13 +340,6 @@ export type OrderByName = {
   order?: InputMaybe<SortOrder>;
 };
 
-/** TODO: merge beta.kultus organisation, etc */
-export type Organisation = {
-  __typename?: 'Organisation';
-  contactDetails?: Maybe<ContactInfo>;
-  meta?: Maybe<NodeMeta>;
-};
-
 export type PalvelukarttaUnit = {
   __typename?: 'PalvelukarttaUnit';
   accessibility_viewpoints?: Maybe<Scalars['String']['output']>;
@@ -644,23 +391,6 @@ export type PalvelukarttaUnit = {
   www_sv?: Maybe<Scalars['String']['output']>;
 };
 
-/** TODO: take from Profile */
-export type Person = {
-  __typename?: 'Person';
-  contactDetails?: Maybe<ContactInfo>;
-  identificationStrength?: Maybe<IdentificationStrength>;
-  meta?: Maybe<NodeMeta>;
-  name?: Maybe<Scalars['String']['output']>;
-  preferredLanguages?: Maybe<Array<UnifiedSearchLanguageEnum>>;
-  preferredMedium?: Maybe<ContactMedium>;
-};
-
-export type PhoneNumber = {
-  __typename?: 'PhoneNumber';
-  countryCode: Scalars['String']['output'];
-  restNumber: Scalars['String']['output'];
-};
-
 export enum ProviderType {
   Association = 'ASSOCIATION',
   ContractSchool = 'CONTRACT_SCHOOL',
@@ -678,6 +408,20 @@ export enum ProviderType {
 export type Query = {
   __typename?: 'Query';
   _service: _Service;
+  /**
+   * Get Helsinki/Finland administrative divisions i.e.
+   * neighborhoods (=kaupunginosat), sub-districts (=osa-alueet),
+   * municipalities (=kunnat) etc.
+   *
+   * Based on imported data from [django-munigeo](https://github.com/City-of-Helsinki/django-munigeo):
+   * - "geo_import finland --municipalities"
+   * - "geo_import helsinki --divisions"
+   *
+   * Used django-munigeo importers:
+   * - [geo_import](https://github.com/City-of-Helsinki/django-munigeo/blob/release-0.3.12/munigeo/management/commands/geo_import.py)
+   *   - [finland](https://github.com/City-of-Helsinki/django-munigeo/blob/release-0.3.12/munigeo/importer/finland.py)
+   *   - [helsinki](https://github.com/City-of-Helsinki/django-munigeo/blob/release-0.3.12/munigeo/importer/helsinki.py)
+   */
   administrativeDivisions?: Maybe<Array<Maybe<AdministrativeDivision>>>;
   ontologyTree?: Maybe<Array<Maybe<OntologyTree>>>;
   ontologyWords?: Maybe<Array<Maybe<OntologyWord>>>;
@@ -718,6 +462,7 @@ export type QueryUnifiedSearchArgs = {
   orderByName?: InputMaybe<OrderByName>;
   providerTypes?: InputMaybe<Array<InputMaybe<ProviderType>>>;
   serviceOwnerTypes?: InputMaybe<Array<InputMaybe<ServiceOwnerType>>>;
+  showCultureAndLeisureDivisionFirst?: InputMaybe<Scalars['Boolean']['input']>;
   targetGroups?: InputMaybe<Array<InputMaybe<TargetGroup>>>;
   text?: InputMaybe<Scalars['String']['input']>;
 };
@@ -760,9 +505,7 @@ export type SearchResultEdge = {
 export type SearchResultNode = {
   __typename?: 'SearchResultNode';
   _score?: Maybe<Scalars['Float']['output']>;
-  event?: Maybe<Event>;
   id: Scalars['ID']['output'];
-  searchCategories: Array<UnifiedSearchResultCategory>;
   venue?: Maybe<UnifiedSearchVenue>;
 };
 
@@ -839,20 +582,12 @@ export enum TargetGroup {
   Enterprises = 'ENTERPRISES',
   Immigrants = 'IMMIGRANTS',
   Individuals = 'INDIVIDUALS',
+  LongTermPatients = 'LONG_TERM_PATIENTS',
   Youth = 'YOUTH'
 }
 
-/** any kind of description answering the question "when". */
-export type TimeDescription = {
-  __typename?: 'TimeDescription';
-  ending?: Maybe<Scalars['DateTime']['output']>;
-  otherTime?: Maybe<TimeDescription>;
-  starting?: Maybe<Scalars['DateTime']['output']>;
-};
-
 export enum UnifiedSearchIndex {
   AdministrativeDivision = 'administrative_division',
-  Event = 'event',
   HelsinkiCommonAdministrativeDivision = 'helsinki_common_administrative_division',
   Location = 'location',
   OntologyTree = 'ontology_tree',
@@ -865,21 +600,6 @@ export enum UnifiedSearchLanguage {
   Swedish = 'SWEDISH'
 }
 
-/** TODO: take from Profile or external source */
-export enum UnifiedSearchLanguageEnum {
-  Fi = 'FI'
-}
-
-export enum UnifiedSearchResultCategory {
-  Article = 'ARTICLE',
-  Artwork = 'ARTWORK',
-  Enrollable = 'ENROLLABLE',
-  Event = 'EVENT',
-  PointOfInterest = 'POINT_OF_INTEREST',
-  Reservable = 'RESERVABLE',
-  Service = 'SERVICE'
-}
-
 /**
  * A place that forms a unit and can be used for some specific purpose -
  * respa unit or resource, service map unit, beta.kultus venue, linked
@@ -890,20 +610,15 @@ export type UnifiedSearchVenue = {
   accessibility?: Maybe<Accessibility>;
   /** Accessibility shortcoming for a specific accessibility profile. */
   accessibilityShortcomingFor?: Maybe<AccessibilityShortcoming>;
-  additionalInfo?: Maybe<Scalars['String']['output']>;
-  arrivalInstructions?: Maybe<Scalars['String']['output']>;
-  contactDetails?: Maybe<ContactInfo>;
   description?: Maybe<LanguageString>;
-  descriptionResources?: Maybe<DescriptionResources>;
-  facilities?: Maybe<Array<VenueFacility>>;
+  eventCount?: Maybe<Scalars['Int']['output']>;
   images?: Maybe<Array<Maybe<LocationImage>>>;
+  isCultureAndLeisureDivisionVenue?: Maybe<Scalars['Boolean']['output']>;
   location?: Maybe<LocationDescription>;
-  manager?: Maybe<LegalEntity>;
   meta?: Maybe<NodeMeta>;
   name?: Maybe<LanguageString>;
   ontologyWords?: Maybe<Array<Maybe<OntologyWord>>>;
   openingHours?: Maybe<OpeningHours>;
-  partOf?: Maybe<UnifiedSearchVenue>;
   reservation?: Maybe<Reservation>;
   serviceOwner?: Maybe<ServiceOwner>;
   targetGroups?: Maybe<Array<Maybe<TargetGroup>>>;
@@ -917,14 +632,6 @@ export type UnifiedSearchVenue = {
  */
 export type UnifiedSearchVenueAccessibilityShortcomingForArgs = {
   profile?: InputMaybe<AccessibilityProfile>;
-};
-
-/** TODO: combine beta.kultus Venue stuff with respa equipment type */
-export type VenueFacility = {
-  __typename?: 'VenueFacility';
-  categories?: Maybe<Array<KeywordString>>;
-  meta?: Maybe<NodeMeta>;
-  name: Scalars['String']['output'];
 };
 
 export type _Service = {
@@ -985,6 +692,9 @@ export function useAdministrativeDivisionsLazyQuery(baseOptions?: Apollo.LazyQue
           const options = {...defaultOptions, ...baseOptions}
           return Apollo.useLazyQuery<AdministrativeDivisionsQuery, AdministrativeDivisionsQueryVariables>(AdministrativeDivisionsDocument, options);
         }
+// @ts-ignore
+export function useAdministrativeDivisionsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<AdministrativeDivisionsQuery, AdministrativeDivisionsQueryVariables>): Apollo.UseSuspenseQueryResult<AdministrativeDivisionsQuery, AdministrativeDivisionsQueryVariables>;
+export function useAdministrativeDivisionsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<AdministrativeDivisionsQuery, AdministrativeDivisionsQueryVariables>): Apollo.UseSuspenseQueryResult<AdministrativeDivisionsQuery | undefined, AdministrativeDivisionsQueryVariables>;
 export function useAdministrativeDivisionsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<AdministrativeDivisionsQuery, AdministrativeDivisionsQueryVariables>) {
           const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
           return Apollo.useSuspenseQuery<AdministrativeDivisionsQuery, AdministrativeDivisionsQueryVariables>(AdministrativeDivisionsDocument, options);

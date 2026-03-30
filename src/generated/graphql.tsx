@@ -2140,9 +2140,15 @@ export type EnrolOccurrenceMutationVariables = Exact<{
 }>;
 
 
-export type EnrolOccurrenceMutation = { __typename?: 'Mutation', enrolOccurrence?: { __typename?: 'EnrolOccurrenceMutationPayload', enrolments?: Array<{ __typename?: 'EnrolmentNode', id: string, notificationType?: NotificationType | null, enrolmentTime: any, status?: EnrolmentStatus | null, person?: { __typename?: 'PersonNode', id: string, emailAddress: string, name: string, phoneNumber: string, language: Language } | null, studyGroup: { __typename?: 'StudyGroupNode', id: string, unitId?: string | null, unitName: string, groupSize: number, amountOfAdult: number, groupName: string, extraNeeds: string, unit?: { __typename?: 'ExternalPlace', name?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null } | { __typename?: 'Place', internalId: string, id?: string | null, name?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null } | null, studyLevels: { __typename?: 'StudyLevelNodeConnection', edges: Array<{ __typename?: 'StudyLevelNodeEdge', node?: { __typename?: 'StudyLevelNode', id: string, label?: string | null, level: number, translations: Array<{ __typename?: 'StudyLevelTranslationType', languageCode: Language, label: string }> } | null } | null> }, person?: { __typename?: 'PersonNode', id: string, emailAddress: string, name: string, phoneNumber: string, language: Language } | null } } | null> | null } | null };
+export type EnrolOccurrenceMutation = { __typename?: 'Mutation', enrolOccurrence?: { __typename?: 'EnrolOccurrenceMutationPayload', enrolments?: Array<{ __typename?: 'EnrolmentNode', id: string, notificationType?: NotificationType | null, enrolmentTime: any, status?: EnrolmentStatus | null, person?: { __typename?: 'PersonNode', id: string, emailAddress: string, name: string, phoneNumber: string, language: Language } | null, studyGroup: { __typename?: 'StudyGroupNode', id: string, unitId?: string | null, unitName: string, groupSize: number, amountOfAdult: number, groupName: string, extraNeeds: string, unit?:
+          | { __typename?: 'ExternalPlace', name?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null }
+          | { __typename?: 'Place', internalId: string, id?: string | null, name?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null }
+         | null, studyLevels: { __typename?: 'StudyLevelNodeConnection', edges: Array<{ __typename?: 'StudyLevelNodeEdge', node?: { __typename?: 'StudyLevelNode', id: string, label?: string | null, level: number, translations: Array<{ __typename?: 'StudyLevelTranslationType', languageCode: Language, label: string }> } | null } | null> }, person?: { __typename?: 'PersonNode', id: string, emailAddress: string, name: string, phoneNumber: string, language: Language } | null } } | null> | null } | null };
 
-export type EnrolmentFieldsFragment = { __typename?: 'EnrolmentNode', id: string, notificationType?: NotificationType | null, enrolmentTime: any, status?: EnrolmentStatus | null, person?: { __typename?: 'PersonNode', id: string, emailAddress: string, name: string, phoneNumber: string, language: Language } | null, studyGroup: { __typename?: 'StudyGroupNode', id: string, unitId?: string | null, unitName: string, groupSize: number, amountOfAdult: number, groupName: string, extraNeeds: string, unit?: { __typename?: 'ExternalPlace', name?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null } | { __typename?: 'Place', internalId: string, id?: string | null, name?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null } | null, studyLevels: { __typename?: 'StudyLevelNodeConnection', edges: Array<{ __typename?: 'StudyLevelNodeEdge', node?: { __typename?: 'StudyLevelNode', id: string, label?: string | null, level: number, translations: Array<{ __typename?: 'StudyLevelTranslationType', languageCode: Language, label: string }> } | null } | null> }, person?: { __typename?: 'PersonNode', id: string, emailAddress: string, name: string, phoneNumber: string, language: Language } | null } };
+export type EnrolmentFieldsFragment = { __typename?: 'EnrolmentNode', id: string, notificationType?: NotificationType | null, enrolmentTime: any, status?: EnrolmentStatus | null, person?: { __typename?: 'PersonNode', id: string, emailAddress: string, name: string, phoneNumber: string, language: Language } | null, studyGroup: { __typename?: 'StudyGroupNode', id: string, unitId?: string | null, unitName: string, groupSize: number, amountOfAdult: number, groupName: string, extraNeeds: string, unit?:
+      | { __typename?: 'ExternalPlace', name?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null }
+      | { __typename?: 'Place', internalId: string, id?: string | null, name?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null }
+     | null, studyLevels: { __typename?: 'StudyLevelNodeConnection', edges: Array<{ __typename?: 'StudyLevelNodeEdge', node?: { __typename?: 'StudyLevelNode', id: string, label?: string | null, level: number, translations: Array<{ __typename?: 'StudyLevelTranslationType', languageCode: Language, label: string }> } | null } | null> }, person?: { __typename?: 'PersonNode', id: string, emailAddress: string, name: string, phoneNumber: string, language: Language } | null } };
 
 export type PEventFieldsFragment = { __typename?: 'PalvelutarjotinEventNode', autoAcceptance: boolean, id: string, enrolmentEndDays?: number | null, enrolmentStart?: any | null, externalEnrolmentUrl?: string | null, neededOccurrences: number, contactPhoneNumber: string, contactEmail: string, isQueueingAllowed: boolean, mandatoryAdditionalInformation: boolean, nextOccurrenceDatetime?: any | null, lastOccurrenceDatetime?: any | null, organisation?: { __typename?: 'OrganisationNode', id: string, name: string } | null, contactPerson?: { __typename?: 'PersonNode', id: string, name: string } | null, occurrences?: { __typename?: 'OccurrenceNodeConnection', edges: Array<{ __typename?: 'OccurrenceNodeEdge', node?: { __typename?: 'OccurrenceNode', id: string, amountOfSeats: number, seatsTaken: number, seatType: OccurrencesOccurrenceSeatTypeChoices, remainingSeats: number, minGroupSize?: number | null, maxGroupSize?: number | null, cancelled: boolean, startTime: any, endTime: any, placeId: string, pEvent?: { __typename?: 'PalvelutarjotinEventNode', id: string } | null, languages: { __typename?: 'LanguageNodeConnection', edges: Array<{ __typename?: 'LanguageNodeEdge', node?: { __typename?: 'LanguageNode', id: string, name: string } | null } | null> } } | null } | null> } | null, nextOccurrence?: { __typename?: 'OccurrenceNodeConnection', edges: Array<{ __typename?: 'OccurrenceNodeEdge', node?: { __typename?: 'OccurrenceNode', id: string, startTime: any, endTime: any } | null } | null> } | null };
 
@@ -2166,9 +2172,15 @@ export type EnrolEventQueueMutationVariables = Exact<{
 }>;
 
 
-export type EnrolEventQueueMutation = { __typename?: 'Mutation', enrolEventQueue?: { __typename?: 'EnrolEventQueueMutationPayload', eventQueueEnrolment?: { __typename?: 'EventQueueEnrolmentNode', id: string, notificationType?: NotificationType | null, enrolmentTime: any, status?: EventQueueEnrolmentStatus | null, person?: { __typename?: 'PersonNode', id: string, emailAddress: string, name: string, phoneNumber: string, language: Language } | null, studyGroup: { __typename?: 'StudyGroupNode', id: string, unitId?: string | null, unitName: string, groupSize: number, amountOfAdult: number, groupName: string, extraNeeds: string, unit?: { __typename?: 'ExternalPlace', name?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null } | { __typename?: 'Place', internalId: string, id?: string | null, name?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null } | null, studyLevels: { __typename?: 'StudyLevelNodeConnection', edges: Array<{ __typename?: 'StudyLevelNodeEdge', node?: { __typename?: 'StudyLevelNode', id: string, label?: string | null, level: number, translations: Array<{ __typename?: 'StudyLevelTranslationType', languageCode: Language, label: string }> } | null } | null> }, person?: { __typename?: 'PersonNode', id: string, emailAddress: string, name: string, phoneNumber: string, language: Language } | null } } | null } | null };
+export type EnrolEventQueueMutation = { __typename?: 'Mutation', enrolEventQueue?: { __typename?: 'EnrolEventQueueMutationPayload', eventQueueEnrolment?: { __typename?: 'EventQueueEnrolmentNode', id: string, notificationType?: NotificationType | null, enrolmentTime: any, status?: EventQueueEnrolmentStatus | null, person?: { __typename?: 'PersonNode', id: string, emailAddress: string, name: string, phoneNumber: string, language: Language } | null, studyGroup: { __typename?: 'StudyGroupNode', id: string, unitId?: string | null, unitName: string, groupSize: number, amountOfAdult: number, groupName: string, extraNeeds: string, unit?:
+          | { __typename?: 'ExternalPlace', name?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null }
+          | { __typename?: 'Place', internalId: string, id?: string | null, name?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null }
+         | null, studyLevels: { __typename?: 'StudyLevelNodeConnection', edges: Array<{ __typename?: 'StudyLevelNodeEdge', node?: { __typename?: 'StudyLevelNode', id: string, label?: string | null, level: number, translations: Array<{ __typename?: 'StudyLevelTranslationType', languageCode: Language, label: string }> } | null } | null> }, person?: { __typename?: 'PersonNode', id: string, emailAddress: string, name: string, phoneNumber: string, language: Language } | null } } | null } | null };
 
-export type EventQueueEnrolmentFieldsFragment = { __typename?: 'EventQueueEnrolmentNode', id: string, notificationType?: NotificationType | null, enrolmentTime: any, status?: EventQueueEnrolmentStatus | null, person?: { __typename?: 'PersonNode', id: string, emailAddress: string, name: string, phoneNumber: string, language: Language } | null, studyGroup: { __typename?: 'StudyGroupNode', id: string, unitId?: string | null, unitName: string, groupSize: number, amountOfAdult: number, groupName: string, extraNeeds: string, unit?: { __typename?: 'ExternalPlace', name?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null } | { __typename?: 'Place', internalId: string, id?: string | null, name?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null } | null, studyLevels: { __typename?: 'StudyLevelNodeConnection', edges: Array<{ __typename?: 'StudyLevelNodeEdge', node?: { __typename?: 'StudyLevelNode', id: string, label?: string | null, level: number, translations: Array<{ __typename?: 'StudyLevelTranslationType', languageCode: Language, label: string }> } | null } | null> }, person?: { __typename?: 'PersonNode', id: string, emailAddress: string, name: string, phoneNumber: string, language: Language } | null } };
+export type EventQueueEnrolmentFieldsFragment = { __typename?: 'EventQueueEnrolmentNode', id: string, notificationType?: NotificationType | null, enrolmentTime: any, status?: EventQueueEnrolmentStatus | null, person?: { __typename?: 'PersonNode', id: string, emailAddress: string, name: string, phoneNumber: string, language: Language } | null, studyGroup: { __typename?: 'StudyGroupNode', id: string, unitId?: string | null, unitName: string, groupSize: number, amountOfAdult: number, groupName: string, extraNeeds: string, unit?:
+      | { __typename?: 'ExternalPlace', name?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null }
+      | { __typename?: 'Place', internalId: string, id?: string | null, name?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null }
+     | null, studyLevels: { __typename?: 'StudyLevelNodeConnection', edges: Array<{ __typename?: 'StudyLevelNodeEdge', node?: { __typename?: 'StudyLevelNode', id: string, label?: string | null, level: number, translations: Array<{ __typename?: 'StudyLevelTranslationType', languageCode: Language, label: string }> } | null } | null> }, person?: { __typename?: 'PersonNode', id: string, emailAddress: string, name: string, phoneNumber: string, language: Language } | null } };
 
 export type MetaFieldsFragment = { __typename?: 'Meta', count?: number | null, next?: string | null, previous?: string | null };
 
@@ -2317,7 +2329,10 @@ export type SchoolsAndKindergartensListQueryVariables = Exact<{
 
 export type SchoolsAndKindergartensListQuery = { __typename?: 'Query', schoolsAndKindergartensList?: { __typename?: 'ServiceUnitNameListResponse', meta: { __typename?: 'Meta', count?: number | null }, data: Array<{ __typename?: 'ServiceUnitNode', id: string, name?: { __typename?: 'LocalisedObject', fi?: string | null, sv?: string | null, en?: string | null } | null }> } | null };
 
-export type StudyGroupFieldsFragment = { __typename?: 'StudyGroupNode', id: string, unitId?: string | null, unitName: string, groupSize: number, amountOfAdult: number, groupName: string, extraNeeds: string, unit?: { __typename?: 'ExternalPlace', name?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null } | { __typename?: 'Place', internalId: string, id?: string | null, name?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null } | null, studyLevels: { __typename?: 'StudyLevelNodeConnection', edges: Array<{ __typename?: 'StudyLevelNodeEdge', node?: { __typename?: 'StudyLevelNode', id: string, label?: string | null, level: number, translations: Array<{ __typename?: 'StudyLevelTranslationType', languageCode: Language, label: string }> } | null } | null> }, person?: { __typename?: 'PersonNode', id: string, emailAddress: string, name: string, phoneNumber: string, language: Language } | null };
+export type StudyGroupFieldsFragment = { __typename?: 'StudyGroupNode', id: string, unitId?: string | null, unitName: string, groupSize: number, amountOfAdult: number, groupName: string, extraNeeds: string, unit?:
+    | { __typename?: 'ExternalPlace', name?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null }
+    | { __typename?: 'Place', internalId: string, id?: string | null, name?: { __typename?: 'LocalisedObject', en?: string | null, fi?: string | null, sv?: string | null } | null }
+   | null, studyLevels: { __typename?: 'StudyLevelNodeConnection', edges: Array<{ __typename?: 'StudyLevelNodeEdge', node?: { __typename?: 'StudyLevelNode', id: string, label?: string | null, level: number, translations: Array<{ __typename?: 'StudyLevelTranslationType', languageCode: Language, label: string }> } | null } | null> }, person?: { __typename?: 'PersonNode', id: string, emailAddress: string, name: string, phoneNumber: string, language: Language } | null };
 
 export type StudyLevelFieldsFragment = { __typename?: 'StudyLevelNode', id: string, label?: string | null, level: number, translations: Array<{ __typename?: 'StudyLevelTranslationType', languageCode: Language, label: string }> };
 
@@ -2787,6 +2802,9 @@ export function useEventLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Even
           const options = {...defaultOptions, ...baseOptions}
           return Apollo.useLazyQuery<EventQuery, EventQueryVariables>(EventDocument, options);
         }
+// @ts-ignore
+export function useEventSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<EventQuery, EventQueryVariables>): Apollo.UseSuspenseQueryResult<EventQuery, EventQueryVariables>;
+export function useEventSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<EventQuery, EventQueryVariables>): Apollo.UseSuspenseQueryResult<EventQuery | undefined, EventQueryVariables>;
 export function useEventSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<EventQuery, EventQueryVariables>) {
           const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
           return Apollo.useSuspenseQuery<EventQuery, EventQueryVariables>(EventDocument, options);
@@ -2916,6 +2934,9 @@ export function useEventsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Eve
           const options = {...defaultOptions, ...baseOptions}
           return Apollo.useLazyQuery<EventsQuery, EventsQueryVariables>(EventsDocument, options);
         }
+// @ts-ignore
+export function useEventsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<EventsQuery, EventsQueryVariables>): Apollo.UseSuspenseQueryResult<EventsQuery, EventsQueryVariables>;
+export function useEventsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<EventsQuery, EventsQueryVariables>): Apollo.UseSuspenseQueryResult<EventsQuery | undefined, EventsQueryVariables>;
 export function useEventsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<EventsQuery, EventsQueryVariables>) {
           const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
           return Apollo.useSuspenseQuery<EventsQuery, EventsQueryVariables>(EventsDocument, options);
@@ -2965,6 +2986,9 @@ export function useUpcomingEventsLazyQuery(baseOptions?: Apollo.LazyQueryHookOpt
           const options = {...defaultOptions, ...baseOptions}
           return Apollo.useLazyQuery<UpcomingEventsQuery, UpcomingEventsQueryVariables>(UpcomingEventsDocument, options);
         }
+// @ts-ignore
+export function useUpcomingEventsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<UpcomingEventsQuery, UpcomingEventsQueryVariables>): Apollo.UseSuspenseQueryResult<UpcomingEventsQuery, UpcomingEventsQueryVariables>;
+export function useUpcomingEventsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<UpcomingEventsQuery, UpcomingEventsQueryVariables>): Apollo.UseSuspenseQueryResult<UpcomingEventsQuery | undefined, UpcomingEventsQueryVariables>;
 export function useUpcomingEventsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<UpcomingEventsQuery, UpcomingEventsQueryVariables>) {
           const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
           return Apollo.useSuspenseQuery<UpcomingEventsQuery, UpcomingEventsQueryVariables>(UpcomingEventsDocument, options);
@@ -3005,6 +3029,9 @@ export function useImageLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Imag
           const options = {...defaultOptions, ...baseOptions}
           return Apollo.useLazyQuery<ImageQuery, ImageQueryVariables>(ImageDocument, options);
         }
+// @ts-ignore
+export function useImageSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<ImageQuery, ImageQueryVariables>): Apollo.UseSuspenseQueryResult<ImageQuery, ImageQueryVariables>;
+export function useImageSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<ImageQuery, ImageQueryVariables>): Apollo.UseSuspenseQueryResult<ImageQuery | undefined, ImageQueryVariables>;
 export function useImageSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<ImageQuery, ImageQueryVariables>) {
           const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
           return Apollo.useSuspenseQuery<ImageQuery, ImageQueryVariables>(ImageDocument, options);
@@ -3045,6 +3072,9 @@ export function useKeywordLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Ke
           const options = {...defaultOptions, ...baseOptions}
           return Apollo.useLazyQuery<KeywordQuery, KeywordQueryVariables>(KeywordDocument, options);
         }
+// @ts-ignore
+export function useKeywordSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<KeywordQuery, KeywordQueryVariables>): Apollo.UseSuspenseQueryResult<KeywordQuery, KeywordQueryVariables>;
+export function useKeywordSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<KeywordQuery, KeywordQueryVariables>): Apollo.UseSuspenseQueryResult<KeywordQuery | undefined, KeywordQueryVariables>;
 export function useKeywordSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<KeywordQuery, KeywordQueryVariables>) {
           const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
           return Apollo.useSuspenseQuery<KeywordQuery, KeywordQueryVariables>(KeywordDocument, options);
@@ -3104,6 +3134,9 @@ export function useKeywordsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<K
           const options = {...defaultOptions, ...baseOptions}
           return Apollo.useLazyQuery<KeywordsQuery, KeywordsQueryVariables>(KeywordsDocument, options);
         }
+// @ts-ignore
+export function useKeywordsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<KeywordsQuery, KeywordsQueryVariables>): Apollo.UseSuspenseQueryResult<KeywordsQuery, KeywordsQueryVariables>;
+export function useKeywordsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<KeywordsQuery, KeywordsQueryVariables>): Apollo.UseSuspenseQueryResult<KeywordsQuery | undefined, KeywordsQueryVariables>;
 export function useKeywordsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<KeywordsQuery, KeywordsQueryVariables>) {
           const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
           return Apollo.useSuspenseQuery<KeywordsQuery, KeywordsQueryVariables>(KeywordsDocument, options);
@@ -3151,6 +3184,9 @@ export function useKeywordSetLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions
           const options = {...defaultOptions, ...baseOptions}
           return Apollo.useLazyQuery<KeywordSetQuery, KeywordSetQueryVariables>(KeywordSetDocument, options);
         }
+// @ts-ignore
+export function useKeywordSetSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<KeywordSetQuery, KeywordSetQueryVariables>): Apollo.UseSuspenseQueryResult<KeywordSetQuery, KeywordSetQueryVariables>;
+export function useKeywordSetSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<KeywordSetQuery, KeywordSetQueryVariables>): Apollo.UseSuspenseQueryResult<KeywordSetQuery | undefined, KeywordSetQueryVariables>;
 export function useKeywordSetSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<KeywordSetQuery, KeywordSetQueryVariables>) {
           const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
           return Apollo.useSuspenseQuery<KeywordSetQuery, KeywordSetQueryVariables>(KeywordSetDocument, options);
@@ -3199,6 +3235,9 @@ export function usePopularKeywordsLazyQuery(baseOptions?: Apollo.LazyQueryHookOp
           const options = {...defaultOptions, ...baseOptions}
           return Apollo.useLazyQuery<PopularKeywordsQuery, PopularKeywordsQueryVariables>(PopularKeywordsDocument, options);
         }
+// @ts-ignore
+export function usePopularKeywordsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<PopularKeywordsQuery, PopularKeywordsQueryVariables>): Apollo.UseSuspenseQueryResult<PopularKeywordsQuery, PopularKeywordsQueryVariables>;
+export function usePopularKeywordsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<PopularKeywordsQuery, PopularKeywordsQueryVariables>): Apollo.UseSuspenseQueryResult<PopularKeywordsQuery | undefined, PopularKeywordsQueryVariables>;
 export function usePopularKeywordsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<PopularKeywordsQuery, PopularKeywordsQueryVariables>) {
           const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
           return Apollo.useSuspenseQuery<PopularKeywordsQuery, PopularKeywordsQueryVariables>(PopularKeywordsDocument, options);
@@ -3239,6 +3278,9 @@ export function useOccurrenceLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions
           const options = {...defaultOptions, ...baseOptions}
           return Apollo.useLazyQuery<OccurrenceQuery, OccurrenceQueryVariables>(OccurrenceDocument, options);
         }
+// @ts-ignore
+export function useOccurrenceSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<OccurrenceQuery, OccurrenceQueryVariables>): Apollo.UseSuspenseQueryResult<OccurrenceQuery, OccurrenceQueryVariables>;
+export function useOccurrenceSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<OccurrenceQuery, OccurrenceQueryVariables>): Apollo.UseSuspenseQueryResult<OccurrenceQuery | undefined, OccurrenceQueryVariables>;
 export function useOccurrenceSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<OccurrenceQuery, OccurrenceQueryVariables>) {
           const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
           return Apollo.useSuspenseQuery<OccurrenceQuery, OccurrenceQueryVariables>(OccurrenceDocument, options);
@@ -3308,6 +3350,9 @@ export function useOccurrencesLazyQuery(baseOptions?: Apollo.LazyQueryHookOption
           const options = {...defaultOptions, ...baseOptions}
           return Apollo.useLazyQuery<OccurrencesQuery, OccurrencesQueryVariables>(OccurrencesDocument, options);
         }
+// @ts-ignore
+export function useOccurrencesSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<OccurrencesQuery, OccurrencesQueryVariables>): Apollo.UseSuspenseQueryResult<OccurrencesQuery, OccurrencesQueryVariables>;
+export function useOccurrencesSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<OccurrencesQuery, OccurrencesQueryVariables>): Apollo.UseSuspenseQueryResult<OccurrencesQuery | undefined, OccurrencesQueryVariables>;
 export function useOccurrencesSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<OccurrencesQuery, OccurrencesQueryVariables>) {
           const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
           return Apollo.useSuspenseQuery<OccurrencesQuery, OccurrencesQueryVariables>(OccurrencesDocument, options);
@@ -3348,6 +3393,9 @@ export function usePlaceLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Plac
           const options = {...defaultOptions, ...baseOptions}
           return Apollo.useLazyQuery<PlaceQuery, PlaceQueryVariables>(PlaceDocument, options);
         }
+// @ts-ignore
+export function usePlaceSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<PlaceQuery, PlaceQueryVariables>): Apollo.UseSuspenseQueryResult<PlaceQuery, PlaceQueryVariables>;
+export function usePlaceSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<PlaceQuery, PlaceQueryVariables>): Apollo.UseSuspenseQueryResult<PlaceQuery | undefined, PlaceQueryVariables>;
 export function usePlaceSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<PlaceQuery, PlaceQueryVariables>) {
           const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
           return Apollo.useSuspenseQuery<PlaceQuery, PlaceQueryVariables>(PlaceDocument, options);
@@ -3409,6 +3457,9 @@ export function usePlacesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Pla
           const options = {...defaultOptions, ...baseOptions}
           return Apollo.useLazyQuery<PlacesQuery, PlacesQueryVariables>(PlacesDocument, options);
         }
+// @ts-ignore
+export function usePlacesSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<PlacesQuery, PlacesQueryVariables>): Apollo.UseSuspenseQueryResult<PlacesQuery, PlacesQueryVariables>;
+export function usePlacesSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<PlacesQuery, PlacesQueryVariables>): Apollo.UseSuspenseQueryResult<PlacesQuery | undefined, PlacesQueryVariables>;
 export function usePlacesSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<PlacesQuery, PlacesQueryVariables>) {
           const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
           return Apollo.useSuspenseQuery<PlacesQuery, PlacesQueryVariables>(PlacesDocument, options);
@@ -3459,6 +3510,9 @@ export function useSchoolsAndKindergartensListLazyQuery(baseOptions?: Apollo.Laz
           const options = {...defaultOptions, ...baseOptions}
           return Apollo.useLazyQuery<SchoolsAndKindergartensListQuery, SchoolsAndKindergartensListQueryVariables>(SchoolsAndKindergartensListDocument, options);
         }
+// @ts-ignore
+export function useSchoolsAndKindergartensListSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<SchoolsAndKindergartensListQuery, SchoolsAndKindergartensListQueryVariables>): Apollo.UseSuspenseQueryResult<SchoolsAndKindergartensListQuery, SchoolsAndKindergartensListQueryVariables>;
+export function useSchoolsAndKindergartensListSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<SchoolsAndKindergartensListQuery, SchoolsAndKindergartensListQueryVariables>): Apollo.UseSuspenseQueryResult<SchoolsAndKindergartensListQuery | undefined, SchoolsAndKindergartensListQueryVariables>;
 export function useSchoolsAndKindergartensListSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<SchoolsAndKindergartensListQuery, SchoolsAndKindergartensListQueryVariables>) {
           const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
           return Apollo.useSuspenseQuery<SchoolsAndKindergartensListQuery, SchoolsAndKindergartensListQueryVariables>(SchoolsAndKindergartensListDocument, options);
@@ -3502,6 +3556,9 @@ export function useStudyLevelsLazyQuery(baseOptions?: Apollo.LazyQueryHookOption
           const options = {...defaultOptions, ...baseOptions}
           return Apollo.useLazyQuery<StudyLevelsQuery, StudyLevelsQueryVariables>(StudyLevelsDocument, options);
         }
+// @ts-ignore
+export function useStudyLevelsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<StudyLevelsQuery, StudyLevelsQueryVariables>): Apollo.UseSuspenseQueryResult<StudyLevelsQuery, StudyLevelsQueryVariables>;
+export function useStudyLevelsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<StudyLevelsQuery, StudyLevelsQueryVariables>): Apollo.UseSuspenseQueryResult<StudyLevelsQuery | undefined, StudyLevelsQueryVariables>;
 export function useStudyLevelsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<StudyLevelsQuery, StudyLevelsQueryVariables>) {
           const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
           return Apollo.useSuspenseQuery<StudyLevelsQuery, StudyLevelsQueryVariables>(StudyLevelsDocument, options);
@@ -3542,6 +3599,9 @@ export function useStudyLevelLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions
           const options = {...defaultOptions, ...baseOptions}
           return Apollo.useLazyQuery<StudyLevelQuery, StudyLevelQueryVariables>(StudyLevelDocument, options);
         }
+// @ts-ignore
+export function useStudyLevelSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<StudyLevelQuery, StudyLevelQueryVariables>): Apollo.UseSuspenseQueryResult<StudyLevelQuery, StudyLevelQueryVariables>;
+export function useStudyLevelSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<StudyLevelQuery, StudyLevelQueryVariables>): Apollo.UseSuspenseQueryResult<StudyLevelQuery | undefined, StudyLevelQueryVariables>;
 export function useStudyLevelSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<StudyLevelQuery, StudyLevelQueryVariables>) {
           const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
           return Apollo.useSuspenseQuery<StudyLevelQuery, StudyLevelQueryVariables>(StudyLevelDocument, options);
@@ -3582,6 +3642,9 @@ export function useVenueLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Venu
           const options = {...defaultOptions, ...baseOptions}
           return Apollo.useLazyQuery<VenueQuery, VenueQueryVariables>(VenueDocument, options);
         }
+// @ts-ignore
+export function useVenueSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<VenueQuery, VenueQueryVariables>): Apollo.UseSuspenseQueryResult<VenueQuery, VenueQueryVariables>;
+export function useVenueSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<VenueQuery, VenueQueryVariables>): Apollo.UseSuspenseQueryResult<VenueQuery | undefined, VenueQueryVariables>;
 export function useVenueSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<VenueQuery, VenueQueryVariables>) {
           const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
           return Apollo.useSuspenseQuery<VenueQuery, VenueQueryVariables>(VenueDocument, options);

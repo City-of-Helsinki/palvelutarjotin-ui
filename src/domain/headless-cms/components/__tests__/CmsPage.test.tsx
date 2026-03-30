@@ -3,6 +3,7 @@ import {
   ConfigProvider as RHHCConfigProvider,
   defaultConfig as rhhcDefaultConfig,
 } from '@city-of-helsinki/react-helsinki-headless-cms';
+import { ButtonPresetTheme, ButtonVariant } from 'hds-react';
 import * as React from 'react';
 
 import {
@@ -110,8 +111,8 @@ test('renders with sidebar layout when sidebar has content', async () => {
           openInExternalDomainAriaLabel: 'Avautuu uudella sivustolla.',
         },
         customCopy: {
-          loadMoreButtonVariant: 'primary',
-          loadMoreButtonTheme: 'coat',
+          loadMoreButtonVariant: ButtonVariant.Primary,
+          loadMoreButtonTheme: ButtonPresetTheme.Coat,
         },
         internalHrefOrigins,
         utils: {
