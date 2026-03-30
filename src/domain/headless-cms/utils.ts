@@ -138,19 +138,19 @@ const LANGUAGE_CODE_ENUM_TO_LANGUAGE = {
 const isValidPage = (node: unknown): node is ValidPage => {
   return Boolean(
     typeof node === 'object' &&
-      node !== null &&
-      '__typename' in node &&
-      node.__typename === 'Page' &&
-      'uri' in node &&
-      'slug' in node &&
-      'language' in node &&
-      typeof node.language === 'object' &&
-      node.language !== null &&
-      'code' in node.language &&
-      typeof node.uri === 'string' &&
-      typeof node.slug === 'string' &&
-      typeof node.language.code === 'string' &&
-      Object.values<string>(LanguageCodeEnum).includes(node.language.code)
+    node !== null &&
+    '__typename' in node &&
+    node.__typename === 'Page' &&
+    'uri' in node &&
+    'slug' in node &&
+    'language' in node &&
+    typeof node.language === 'object' &&
+    node.language !== null &&
+    'code' in node.language &&
+    typeof node.uri === 'string' &&
+    typeof node.slug === 'string' &&
+    typeof node.language.code === 'string' &&
+    Object.values<string>(LanguageCodeEnum).includes(node.language.code)
   );
 };
 
