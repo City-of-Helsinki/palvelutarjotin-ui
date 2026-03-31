@@ -44,6 +44,10 @@
       "picomatch": [
         "To fix ReDoS vulnerability in transitive picomatch v2",
         "NOTE: This can be removed when all dependencies require patched versions"
+      ],
+      "minimatch": [
+        "To fix ReDoS vulnerability in transitive minimatch v3 and v9",
+        "NOTE: This can be removed when all dependencies require patched versions"
       ]
     }
   },
@@ -51,6 +55,16 @@
     "@types/cookie": "^0.6.0",
     "hds-react/@babel/runtime": "^7.27.0",
     "hds-react/cookie": "^0.7.2",
+    "**/glob/minimatch": "^3.1.4",
+    "**/eslint/minimatch": "^3.1.4",
+    "**/eslint-plugin-import/minimatch": "^3.1.4",
+    "**/eslint-plugin-jsx-a11y/minimatch": "^3.1.4",
+    "**/eslint-plugin-react/minimatch": "^3.1.4",
+    "**/test-exclude/minimatch": "^3.1.5",
+    "**/@typescript-eslint/typescript-estree/minimatch": "^9.0.7",
+    "**/@sentry/node/minimatch": "^9.0.7",
+    "**/graphql-config/minimatch": "^9.0.7",
+    "**/@sentry/bundler-plugin-core/minimatch": "^9.0.7",
     "**/anymatch/picomatch": "^2.3.2",
     "**/jest-util/picomatch": "^2.3.2",
     "**/micromatch/picomatch": "^2.3.2",
