@@ -48,6 +48,10 @@
       "minimatch": [
         "To fix ReDoS vulnerability in transitive minimatch v3 and v9",
         "NOTE: This can be removed when all dependencies require patched versions"
+      ],
+      "immutable": [
+        "To fix Prototype Pollution vulnerability in transitive immutable v3 and v5",
+        "NOTE: This can be removed when all dependencies require patched versions"
       ]
     }
   },
@@ -65,6 +69,8 @@
     "**/@sentry/node/minimatch": "^9.0.7",
     "**/graphql-config/minimatch": "^9.0.7",
     "**/@sentry/bundler-plugin-core/minimatch": "^9.0.7",
+    "**/@ardatan/relay-compiler/immutable": "^3.8.3",
+    "**/sass/immutable": "^5.1.5",
     "**/anymatch/picomatch": "^2.3.2",
     "**/jest-util/picomatch": "^2.3.2",
     "**/micromatch/picomatch": "^2.3.2",
