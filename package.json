@@ -40,13 +40,22 @@
       "hds-react/cookie": [
         "To fix https://github.com/City-of-Helsinki/palvelutarjotin-ui/security/dependabot/101",
         "NOTE: This can be removed if hds-react starts to depend on >=v1 cookie"
+      ],
+      "picomatch": [
+        "To fix ReDoS vulnerability in transitive picomatch v2",
+        "NOTE: This can be removed when all dependencies require patched versions"
       ]
     }
   },
   "resolutions": {
     "@types/cookie": "^0.6.0",
     "hds-react/@babel/runtime": "^7.27.0",
-    "hds-react/cookie": "^0.7.2"
+    "hds-react/cookie": "^0.7.2",
+    "**/anymatch/picomatch": "^2.3.2",
+    "**/jest-util/picomatch": "^2.3.2",
+    "**/micromatch/picomatch": "^2.3.2",
+    "**/readdirp/picomatch": "^2.3.2",
+    "**/unplugin/picomatch": "^2.3.2"
   },
   "dependencies": {
     "@apollo/client": "^3.13.5",
@@ -71,6 +80,7 @@
     "lodash": "^4.17.23",
     "next": "^15.5.14",
     "next-i18next": "^15.4.3",
+    "picomatch": "^2.3.2",
     "react": "^18.3.1",
     "react-content-loader": "^7.0.2",
     "react-dom": "^18.3.1",
