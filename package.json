@@ -5,6 +5,7 @@
   "engines": {
     "node": ">=22.13.1"
   },
+  "packageManager": "yarn@1.22.22",
   "scripts": {
     "clean": "rimraf --no-glob ./.next ./out ./coverage ./tsconfig.tsbuildinfo",
     "prepare": "husky",
@@ -41,6 +42,11 @@
         "To fix https://github.com/City-of-Helsinki/palvelutarjotin-ui/security/dependabot/101",
         "NOTE: This can be removed if hds-react starts to depend on >=v1 cookie"
       ],
+      "lodash": [
+        "To fix GHSA-f23m-r3pf-42rh and GHSA-r5fr-rjxr-66jc",
+        "Pinning lodash to >=4.18.1 fixes prototype pollution vulnerabilities",
+        "NOTE: This can be removed when all transitive dependencies use patched lodash versions"
+      ],
       "minimatch": [
         "To fix ReDoS vulnerability in transitive minimatch v3 and v9",
         "NOTE: This can be removed when all dependencies require patched versions"
@@ -55,6 +61,7 @@
     "@types/cookie": "^0.6.0",
     "hds-react/@babel/runtime": "^7.27.0",
     "hds-react/cookie": "^0.7.2",
+    "lodash": "^4.18.1",
     "**/@typescript-eslint/typescript-estree/minimatch": "^9.0.7",
     "**/@ardatan/relay-compiler/immutable": "^3.8.3"
   },
@@ -113,7 +120,7 @@
     "@types/file-saver": "^2.0.7",
     "@types/jest": "^29.5.14",
     "@types/jest-axe": "^3.5.9",
-    "@types/lodash": "^4.17.16",
+    "@types/lodash": "^4.17.24",
     "@types/node": "^20.17.29",
     "@types/react": "^18.3.20",
     "@types/react-dom": "^18.3.5",
