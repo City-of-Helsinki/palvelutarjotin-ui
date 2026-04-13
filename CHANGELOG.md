@@ -2,6 +2,40 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://www.conventionalcommits.org/) for commit guidelines.
 
+## [2.18.0](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/palvelutarjotin-ui-v2.17.4...palvelutarjotin-ui-v2.18.0) (2026-04-13)
+
+
+### Features
+
+* Upgrade hds-react to version 5.0.0 ([4a09265](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/4a092657c6bc4dd8b18b4464c218462a6bd8d447))
+
+
+### Bug Fixes
+
+* Update [@commitlint](https://github.com/commitlint) to v20.5.0 ([c2bdb0d](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/c2bdb0dc73417bf5fca7aa6a89b3a64f0a7ae751))
+
+
+### Dependencies
+
+* Bump axios from 1.13.5 to 1.15.0 ([eefa22b](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/eefa22b0550bb7b798445054d56c90c6204495f8))
+* Bump lodash from 4.17.23 to 4.18.1 ([31b04c6](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/31b04c68d7f3444d5ac90a06763edbf126e1dcaa))
+* Bump lodash-es from 4.17.23 to 4.18.1 ([6ccbcc7](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/6ccbcc7fc68866fca84fa701940447df4805c5b1))
+* Bump next from 15.5.14 to 15.5.15 ([814777b](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/814777bd77860b355b581d6a59af5f88bd000b17))
+* Pin lodash version to 4.8.1 ([1880ac5](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/1880ac5577d6c2b620193e3307420cc2ce2b7ba7))
+* Remove unused [@ffmpeg-installer](https://github.com/ffmpeg-installer) packages ([b90e733](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/b90e7338a4092db911f384e2c1221c7b238da465))
+* Remove unused @types/classnames and @types/yup packages ([e6b931f](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/e6b931f1cc3d17001f7e0880446b83583778e82c))
+* Remove unused dompurify package ([32059f4](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/32059f4ed23076d47ebe658f85bbc7711e2a8e97))
+* Remove unused jest_workaround package ([529f1d1](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/529f1d1ae66d8789d8400d33666ebcbbcb085309))
+* Remove unused jsdom and @types/jsdom packages ([16d0975](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/16d09756edb80e82ff1d44a0657d4bb125de7fb8))
+* Remove unused ts-jest package ([df06b76](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/df06b7678647279646fc7d96bca1a0b2cf1b0978))
+* Update immutable to fix Prototype Pollution vulnerability ([8d43a78](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/8d43a787c6cb5edb484520fbbe278336f76baa83))
+* Update js-yaml to fix prototype pollution vulnerability ([25f14d7](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/25f14d7419973e9a28e0ba7f1215efea0c064f6b))
+* Update lint-staged to version 16.4.0 ([b92cea5](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/b92cea52d345930d8de14ff47c3eb1e04b98ecfb))
+* Update minimatch to fix ReDoS vulnerability ([a25564c](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/a25564cd9b1fc476caecaa7939ffbf7e4d540cf2))
+* Update picomatch to fix ReDoS vulnerability ([ec83434](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/ec83434289cd4fa5da65ff4a8e3bde9c5c112a89))
+* Update tmp to version 0.2.4 ([9cb5527](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/9cb5527b1c55b0dc2a73d3e80ca1b62965c5fd70))
+* Upgrade eslint to v9.39.4 and clean up resolutions ([4790432](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/479043282896155d1cca5fbbe4f4923a72dcf134))
+
 ## [2.17.4](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/palvelutarjotin-ui-v2.17.3...palvelutarjotin-ui-v2.17.4) (2026-03-20)
 
 
