@@ -32,7 +32,7 @@ const prefixDefaultLocale = async (req: NextRequest) => {
   }
 };
 
-export async function middleware(req: NextRequest) {
+export async function proxy(req: NextRequest) {
   if (
     requestType.isStaticFile(req) ||
     requestType.isPagesFolderApi(req) ||
