@@ -6,7 +6,7 @@ const FocusToTop: React.FC = () => {
   const router = useRouter();
 
   const routerRef = React.useRef(router);
-  const previousPathRef = React.useRef<string | null>();
+  const previousPathRef = React.useRef<string | null>(null);
   routerRef.current = router;
 
   const handleFocus = () => {

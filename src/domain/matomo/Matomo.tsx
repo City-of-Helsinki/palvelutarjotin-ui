@@ -22,7 +22,11 @@ const matomoInstance = createMatomoInstance({
   siteId: Number(process.env.NEXT_PUBLIC_MATOMO_SITE_ID),
 });
 
-function Matomo({ children }: { children: React.ReactNode }): JSX.Element {
+function Matomo({
+  children,
+}: {
+  children: React.ReactNode;
+}): React.ReactElement {
   if (matomoInstance) {
     return (
       <MatomoProvider value={matomoInstance}>

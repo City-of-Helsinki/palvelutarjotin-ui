@@ -56,7 +56,9 @@
     "**/@ardatan/relay-compiler/immutable": "^3.8.3",
     "tmp": ">=0.2.4",
     "hds-core": "file:.yalc/hds-core",
-    "hds-design-tokens": "file:.yalc/hds-design-tokens"
+    "hds-design-tokens": "file:.yalc/hds-design-tokens",
+    "@types/react": "19.2.14",
+    "@types/react-dom": "19.2.3"
   },
   "dependencies": {
     "@apollo/client": "^3.13.5",
@@ -82,9 +84,9 @@
     "next": "^15.5.15",
     "next-i18next": "^15.4.3",
     "picomatch": "^2.3.2",
-    "react": "^18.3.1",
+    "react": "19.2.5",
     "react-content-loader": "^7.0.2",
-    "react-dom": "^18.3.1",
+    "react-dom": "19.2.5",
     "react-i18next": "^15.7.4",
     "react-table": "^7.8.0",
     "react-toastify": "^11.0.5",
@@ -115,8 +117,8 @@
     "@types/jest-axe": "^3.5.9",
     "@types/lodash": "^4.17.24",
     "@types/node": "^20.17.29",
-    "@types/react": "^18.3.20",
-    "@types/react-dom": "^18.3.5",
+    "@types/react": "19.2.14",
+    "@types/react-dom": "19.2.3",
     "@types/react-table": "^7.7.20",
     "@typescript-eslint/eslint-plugin": "^8.29.0",
     "@typescript-eslint/parser": "^8.29.0",
