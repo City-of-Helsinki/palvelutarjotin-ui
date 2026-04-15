@@ -9,6 +9,7 @@
   "scripts": {
     "clean": "rimraf --no-glob ./.next ./out ./coverage ./tsconfig.tsbuildinfo",
     "prepare": "husky",
+    "postinstall": "node scripts/fix-hds-core-cookie-consent.js",
     "dev": "next dev",
     "build": "next build",
     "build-fast": "cross-env NEXTJS_IGNORE_TYPECHECK=1 NEXTJS_IGNORE_ESLINT=1 NEXTJS_DISABLE_SENTRY=1 NEXTJS_SENTRY_UPLOAD_DRY_RUN=1 next build",
@@ -28,20 +29,6 @@
   },
   "//": {
     "Why are packages in resolutions?": {
-      "@types/cookie": [
-        "To use the last known @types/cookie version, only for <v1 cookie",
-        "",
-        "NOTE: This can be removed if all dependencies start to depend on >=v1 cookie ",
-        "which provides the types itself"
-      ],
-      "hds-react/@babel/runtime": [
-        "To fix https://github.com/City-of-Helsinki/palvelutarjotin-ui/security/dependabot/111",
-        "NOTE: This can be removed if hds-react doesn't require a fixed version of this package anymore"
-      ],
-      "hds-react/cookie": [
-        "To fix https://github.com/City-of-Helsinki/palvelutarjotin-ui/security/dependabot/101",
-        "NOTE: This can be removed if hds-react starts to depend on >=v1 cookie"
-      ],
       "lodash": [
         "To fix GHSA-f23m-r3pf-42rh and GHSA-r5fr-rjxr-66jc",
         "Pinning lodash to >=4.18.1 fixes prototype pollution vulnerabilities",
@@ -64,13 +51,12 @@
     }
   },
   "resolutions": {
-    "@types/cookie": "^0.6.0",
-    "hds-react/@babel/runtime": "^7.27.0",
-    "hds-react/cookie": "^0.7.2",
     "lodash": "^4.18.1",
     "**/@typescript-eslint/typescript-estree/minimatch": "^9.0.7",
     "**/@ardatan/relay-compiler/immutable": "^3.8.3",
-    "tmp": ">=0.2.4"
+    "tmp": ">=0.2.4",
+    "hds-core": "file:.yalc/hds-core",
+    "hds-design-tokens": "file:.yalc/hds-design-tokens"
   },
   "dependencies": {
     "@apollo/client": "^3.13.5",
@@ -89,7 +75,7 @@
     "formik": "^2.4.6",
     "graphql": "^16.10.0",
     "graphql-tag": "^2.12.6",
-    "hds-react": "^5.0.0",
+    "hds-react": "file:.yalc/hds-react",
     "i18next": "^24.2.3",
     "ics": "^3.8.1",
     "lodash": "^4.18.1",

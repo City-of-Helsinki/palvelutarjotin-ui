@@ -1,0 +1,18 @@
+{
+  "version": "v1",
+  "packages": {
+    "hds-react": {
+      "signature": "05b84e7f5341aae1619d306f0ebcb067",
+      "file": true,
+      "replaced": "git+https://github.com/City-of-Helsinki/helsinki-design-system.git#react-19-update:packages/react"
+    },
+    "hds-design-tokens": {
+      "signature": "6705ac04f9840013219e4bd63437d5c2",
+      "file": true
+    },
+    "hds-core": {
+      "signature": "51f8907c56763fc2a4591f7f5e58bd7e",
+      "file": true
+    }
+  }
+}

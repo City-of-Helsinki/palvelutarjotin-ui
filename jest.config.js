@@ -4,7 +4,7 @@ process.env.TZ = 'Europe/Helsinki';
 module.exports = {
   testEnvironment: 'jest-fixed-jsdom',
   transform: {
-    '.*\\.(tsx?)$': [
+    '^.+\\.[tj]sx?$': [
       '@swc/jest',
       {
         jsc: {
@@ -81,4 +81,5 @@ module.exports = {
   ],
   collectCoverageFrom: ['src/**/*.{js,jsx,ts,tsx}'],
   testTimeout: 20000,
+  prettierPath: null,
 };
