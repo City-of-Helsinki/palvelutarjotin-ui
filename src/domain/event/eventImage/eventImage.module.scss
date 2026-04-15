@@ -1,14 +1,14 @@
-@import 'variables';
-@import 'layout';
+@use 'layout';
 
 .imageContainer {
   --photographer-background-color: rgb(255 255 255 / 40%);
+
   position: relative;
   width: 100%;
   top: 0;
   overflow: hidden;
 
-  @include respond-above(m) {
+  @include layout.respond_above(m) {
     height: var(--hero-height, 500px);
     position: absolute;
   }
