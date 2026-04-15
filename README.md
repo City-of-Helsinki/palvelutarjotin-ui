@@ -33,6 +33,7 @@ Teachers' UI for Kultus (formerly Palvelutarjotin).
     - [`pnpm test:changed`](#pnpm-testchanged)
     - [`pnpm test:coverage`](#pnpm-testcoverage)
     - [`pnpm update-runtime-env`](#pnpm-update-runtime-env)
+    - [`pnpm fix-hds-shim`](#pnpm-fix-hds-shim)
     - [`pnpm test:debug`](#pnpm-testdebug)
     - [`pnpm test:browser`](#pnpm-testbrowser)
     - [`pnpm test:browser:ci`](#pnpm-testbrowserci)
@@ -420,6 +421,12 @@ Run tests and generate coverage report
 Generates `public/env-config.js` (and `public/test-env-config.js` when `NODE_ENV=test`) from runtime environment variables.
 
 This command is run automatically by `pnpm dev`, `pnpm start`, `pnpm test`, and `pnpm test:coverage`.
+
+#### `pnpm fix-hds-shim`
+
+Workaround for a packaging issue in `hds-core@6.x`: generates a missing `cookieConsent.js` file that `hds-react` expects but the package does not ship.
+This is run automatically by `pnpm dev` and `pnpm build`. Run it manually if you encounter a `MODULE_NOT_FOUND` error for `hds-core/lib/components/cookie-consent/cookieConsent` after installing dependencies.
+Can be removed once HDS publishes a fixed release.
 
 #### `pnpm test:debug`
 Debug tests

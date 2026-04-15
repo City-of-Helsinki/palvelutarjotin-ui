@@ -40,35 +40,35 @@ it('allows icon to be placed on the left or right of link label', () => {
   render(<ExternalLink href="https://test.test.fi">{linkText}</ExternalLink>);
 
   expect(screen.getByRole('link')).toMatchInlineSnapshot(`
-    <a
-      href="https://test.test.fi"
-      rel="noreferrer"
-      target="_blank"
-    >
-      TestLink
-      <svg
-        aria-hidden="true"
-        aria-label="link-external"
-        class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_small__gTGkU icon_hds-icon--size-s__2Lkik"
-        role="img"
-        style="vertical-align: middle; margin-left: 0.5rem;"
-        viewBox="0 0 24 24"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          clip-rule="evenodd"
-          d="M5 3V19H21V21H3V3H5ZM21 3V12H19V6.413L9.91421 15.5L8.5 14.0858L17.585 5H12V3H21Z"
-          fill="currentColor"
-          fill-rule="evenodd"
-        />
-      </svg>
-      <div
-        class="srOnly"
-      >
-        Avautuu uudessa välilehdessä
-      </div>
-    </a>
-  `);
+<a
+  href="https://test.test.fi"
+  rel="noreferrer"
+  target="_blank"
+>
+  TestLink
+  <svg
+    aria-hidden="true"
+    aria-label="link-external"
+    class="Icon-module_icon__JQmVx icon_hds-icon__O6EV0 Icon-module_small__nAApk icon_hds-icon--size-s__SloSo"
+    role="img"
+    style="vertical-align: middle; margin-left: 0.5rem;"
+    viewBox="0 0 24 24"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      clip-rule="evenodd"
+      d="M5 3V19H21V21H3V3H5ZM21 3V12H19V6.413L9.91421 15.5L8.5 14.0858L17.585 5H12V3H21Z"
+      fill="currentColor"
+      fill-rule="evenodd"
+    />
+  </svg>
+  <div
+    class="srOnly"
+  >
+    Avautuu uudessa välilehdessä
+  </div>
+</a>
+`);
 
   cleanup();
 
@@ -79,33 +79,33 @@ it('allows icon to be placed on the left or right of link label', () => {
   );
 
   expect(screen.getByRole('link')).toMatchInlineSnapshot(`
-    <a
-      href="https://test.test.fi"
-      rel="noreferrer"
-      target="_blank"
-    >
-      <svg
-        aria-hidden="true"
-        aria-label="link-external"
-        class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_small__gTGkU icon_hds-icon--size-s__2Lkik"
-        role="img"
-        style="vertical-align: middle; margin-right: 0.5rem;"
-        viewBox="0 0 24 24"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          clip-rule="evenodd"
-          d="M5 3V19H21V21H3V3H5ZM21 3V12H19V6.413L9.91421 15.5L8.5 14.0858L17.585 5H12V3H21Z"
-          fill="currentColor"
-          fill-rule="evenodd"
-        />
-      </svg>
-      TestLink
-      <div
-        class="srOnly"
-      >
-        Avautuu uudessa välilehdessä
-      </div>
-    </a>
-  `);
+<a
+  href="https://test.test.fi"
+  rel="noreferrer"
+  target="_blank"
+>
+  <svg
+    aria-hidden="true"
+    aria-label="link-external"
+    class="Icon-module_icon__JQmVx icon_hds-icon__O6EV0 Icon-module_small__nAApk icon_hds-icon--size-s__SloSo"
+    role="img"
+    style="vertical-align: middle; margin-right: 0.5rem;"
+    viewBox="0 0 24 24"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      clip-rule="evenodd"
+      d="M5 3V19H21V21H3V3H5ZM21 3V12H19V6.413L9.91421 15.5L8.5 14.0858L17.585 5H12V3H21Z"
+      fill="currentColor"
+      fill-rule="evenodd"
+    />
+  </svg>
+  TestLink
+  <div
+    class="srOnly"
+  >
+    Avautuu uudessa välilehdessä
+  </div>
+</a>
+`);
 });
