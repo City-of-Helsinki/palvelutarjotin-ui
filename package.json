@@ -12,7 +12,7 @@
     "postinstall": "node scripts/fix-hds-core-cookie-consent.js",
     "dev": "next dev",
     "build": "next build",
-    "build-fast": "cross-env NEXTJS_IGNORE_TYPECHECK=1 NEXTJS_IGNORE_ESLINT=1 NEXTJS_DISABLE_SENTRY=1 NEXTJS_SENTRY_UPLOAD_DRY_RUN=1 next build",
+    "build-fast": "cross-env NEXTJS_IGNORE_TYPECHECK=1 NEXTJS_DISABLE_SENTRY=1 NEXTJS_SENTRY_UPLOAD_DRY_RUN=1 next build",
     "start": "next start",
     "lint": "eslint src",
     "codegen": "cross-env DOTENV_CONFIG_PATH=\"./.env\" graphql-codegen -r dotenv/config --config codegen.yml",
@@ -42,6 +42,10 @@
         "To fix Prototype Pollution vulnerability in transitive immutable v3 and v5",
         "NOTE: This can be removed when all dependencies require patched versions"
       ],
+      "isomorphic-dompurify": [
+        "Pin to the last 2.x release before jsdom 27 while Turbopack resolves jsdom browser assets under /ROOT",
+        "NOTE: This can be removed once Turbopack or upstream package compatibility is fixed"
+      ],
       "tmp": [
         "tmp allows arbitrary temporary file/directory write via symbolic link in versions <0.2.4",
         "Pinning to >=0.2.4 via @graphql-codegen/cli > inquirer > external-editor > tmp",
@@ -51,6 +55,7 @@
     }
   },
   "resolutions": {
+    "isomorphic-dompurify": "2.26.0",
     "lodash": "^4.18.1",
     "**/@typescript-eslint/typescript-estree/minimatch": "^9.0.7",
     "**/@ardatan/relay-compiler/immutable": "^3.8.3",
@@ -81,7 +86,7 @@
     "i18next": "^24.2.3",
     "ics": "^3.8.1",
     "lodash": "^4.18.1",
-    "next": "^15.5.15",
+    "next": "16.2.3",
     "next-i18next": "^15.4.3",
     "picomatch": "^2.3.2",
     "react": "19.2.5",
@@ -103,7 +108,7 @@
     "@graphql-codegen/typescript": "^4.1.6",
     "@graphql-codegen/typescript-operations": "^4.6.0",
     "@graphql-codegen/typescript-react-apollo": "^4.3.2",
-    "@next/eslint-plugin-next": "^15.5.11",
+    "@next/eslint-plugin-next": "16.2.3",
     "@playwright/test": "^1.56.1",
     "@stylistic/eslint-plugin": "^4.2.0",
     "@swc/core": "^1.11.15",

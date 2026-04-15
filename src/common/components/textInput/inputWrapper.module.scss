@@ -1,27 +1,27 @@
 .root {
   --icon-width: 1.5rem;
 
-  composes: hds-text-input from 'hds-core/lib/components/text-input/text-input.css';
+  composes: hds-text-input from global;
 }
 
 .label {
-  composes: hds-text-input__label from 'hds-core/lib/components/text-input/text-input.css';
+  composes: hds-text-input__label from global;
 }
 
 .hiddenLabel {
-  composes: hiddenfromscreen from 'hds-core/lib/utils/helpers.css';
+  composes: hiddenfromscreen from global;
 }
 
 .inputWrapper {
-  composes: hds-text-input__input-wrapper from 'hds-core/lib/components/text-input/text-input.css';
+  composes: hds-text-input__input-wrapper from global;
 }
 
 .input {
-  composes: hds-text-input__input from 'hds-core/lib/components/text-input/text-input.css';
+  composes: hds-text-input__input from global;
 }
 
 .helperText {
-  composes: hds-text-input__helper-text from 'hds-core/lib/components/text-input/text-input.css';
+  composes: hds-text-input__helper-text from global;
 }
 
 .hasIcon {
@@ -33,13 +33,13 @@
 }
 
 .invalidText {
-  composes: hds-text-input__helper-text from 'hds-core/lib/components/text-input/text-input.css';
+  composes: hds-text-input__helper-text from global;
 }
 
 .invalid {
-  composes: hds-text-input--invalid from 'hds-core/lib/components/text-input/text-input.css';
+  composes: hds-text-input--invalid from global;
 }
 
 .readOnly {
-  composes: hds-text-input--read-only from 'hds-core/lib/components/text-input/text-input.css';
+  composes: hds-text-input--read-only from global;
 }

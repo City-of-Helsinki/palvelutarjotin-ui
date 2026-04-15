@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { TextEncoder, TextDecoder } from 'util';
 
 import '@testing-library/jest-dom';
@@ -55,8 +56,8 @@ import { server } from './tests/msw/server';
 
 // To avoid error: ReferenceError: TextEncoder is not defined
 // discussed here: https://github.com/jsdom/jsdom/issues/2524
-global.TextEncoder = TextEncoder;
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+global.TextEncoder = TextEncoder as any;
+
 global.TextDecoder = TextDecoder as any;
 
 // Mock ResizeObserver for hds-react v4 components
@@ -113,8 +114,12 @@ beforeEach(() => {
   localStorage.clear();
 });
 
-jest.mock('next/config', () => {
-  return () => ({});
-});
+jest.mock(
+  'next/config',
+  () => {
+    return () => ({});
+  },
+  { virtual: true }
+);
 
 jest.setTimeout(50000);
