@@ -247,6 +247,26 @@ const waitForRequestsToComplete = async () => {
   });
 };
 
+const getDatepickerDayButton = (isoDate: string) => {
+  const directButton = document.querySelector(
+    `button[data-date="${isoDate}"]`
+  ) as HTMLButtonElement | null;
+
+  if (directButton) {
+    return directButton;
+  }
+
+  const nestedButton = document.querySelector(
+    `[data-date="${isoDate}"] button`
+  ) as HTMLButtonElement | null;
+
+  if (nestedButton) {
+    return nestedButton;
+  }
+
+  throw new Error(`Datepicker day button not found for date: ${isoDate}`);
+};
+
 beforeAll(() => {
   jest.setTimeout(30000);
 });
@@ -629,7 +649,7 @@ it('renders enrolment notification and expanded area does not have an enrolment 
   expect(screen.queryAllByText(/Ilmoittautuminen alkaa/i)).toHaveLength(2);
 });
 
-it('filters occurrence list correctly when sate filters are selected', async () => {
+it('filters occurrence list correctly when date filters are selected', async () => {
   renderComponent();
   await waitForRequestsToComplete();
 
@@ -639,11 +659,7 @@ it('filters occurrence list correctly when sate filters are selected', async () 
     })
   );
 
-  await userEvent.click(
-    screen.getByRole('button', {
-      name: /heinäkuu 28/i,
-    })
-  );
+  await userEvent.click(getDatepickerDayButton('2020-07-28'));
 
   await userEvent.click(
     screen.getByRole('button', {
@@ -651,11 +667,7 @@ it('filters occurrence list correctly when sate filters are selected', async () 
     })
   );
 
-  await userEvent.click(
-    screen.getByRole('button', {
-      name: /heinäkuu 29/i,
-    })
-  );
+  await userEvent.click(getDatepickerDayButton('2020-07-29'));
 
   const tableRows = screen.getAllByRole('row');
 
