@@ -1,5 +1,4 @@
-@import 'layout';
-@import 'variables';
+@use 'layout';
 
 .eventCard {
   --background-color-event-card: var(--color-white);
@@ -24,7 +23,7 @@
   color: black;
   position: relative; //  Position context for the link’s pseudo-element.
 
-  @include respond_above(m) {
+  @include layout.respond_above(m) {
     grid-template-columns: var(--width-image) 1fr;
   }
 
@@ -79,7 +78,7 @@
     background-size: cover;
     background-repeat: no-repeat;
 
-    @include respond_above(m) {
+    @include layout.respond_above(m) {
       height: var(--height-image);
     }
   }
@@ -108,7 +107,8 @@
     display: grid;
     grid-gap: var(--spacing-m);
     margin-top: var(--spacing-m);
-    @include respond_above(m) {
+
+    @include layout.respond_above(m) {
       grid-template-columns: 1fr 1fr;
     }
   }
@@ -139,6 +139,7 @@
     height: fit-content;
     padding: var(--spacing-3-xs);
     position: relative;
+
     span {
       padding: 0;
       margin: 0;

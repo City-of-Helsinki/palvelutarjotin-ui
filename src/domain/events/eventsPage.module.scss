@@ -1,11 +1,11 @@
-@import 'layout';
+@use 'layout';
 
 .eventsSearchForm {
   background-color: var(--color-black-70);
   padding: var(--spacing-layout-xs);
   margin-bottom: var(--spacing-layout-s) !important;
 
-  @include respond_above(l) {
+  @include layout.respond_above(l) {
     padding: var(--spacing-layout-l);
   }
 }

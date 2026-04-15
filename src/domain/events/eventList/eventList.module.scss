@@ -1,4 +1,4 @@
-@import 'layout';
+@use 'layout';
 
 .eventList {
   --fontsize-heading: var(--fontsize-heading-s);
@@ -22,7 +22,7 @@
   grid-gap: var(--spacing-s);
   margin-bottom: var(--spacing-s);
 
-  @include respond_above(m) {
+  @include layout.respond_above(m) {
     grid-template-columns: 1fr auto;
     grid-gap: var(--spacing-l);
   }

@@ -1,4 +1,4 @@
-@import 'layout';
+@use 'layout';
 
 .newsletterSubscribeForm {
   margin-top: var(--spacing-layout-m);
@@ -7,7 +7,7 @@
     display: grid;
     grid-gap: var(--spacing-layout-s);
 
-    @include respond_above(m) {
+    @include layout.respond_above(m) {
       grid-template-columns: 1fr 1fr;
     }
   }

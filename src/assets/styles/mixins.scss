@@ -1,25 +1,7 @@
 @mixin placeholder($_color) {
-  /* Chrome/Opera/Safari */
-  /* stylelint-disable-next-line selector-pseudo-element-no-unknown */
-  &::input-placeholder {
-    color: $_color;
-  }
-
   /* Firefox 19+ */
   /* stylelint-disable-next-line selector-pseudo-element-no-unknown */
   &::placeholder {
-    color: $_color;
-  }
-
-  /* IE 10+ */
-  /* stylelint-disable-next-line selector-pseudo-class-no-unknown */
-  &:input-placeholder {
-    color: $_color;
-  }
-
-  /* Firefox 18- */
-  /* stylelint-disable-next-line selector-pseudo-class-no-unknown */
-  &:placeholder {
     color: $_color;
   }
 }
