@@ -39,7 +39,7 @@ type Props = {
   children: React.ReactNode;
 } & CustomRenderOptions;
 
-function TestProviders(props: Props): JSX.Element {
+function TestProviders(props: Props): React.ReactElement {
   const { mocks, children, router, cache, path = '/', query = {} } = props;
   return (
     <MockedProvider mocks={mocks} cache={cache}>

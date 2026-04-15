@@ -191,7 +191,7 @@ export function useApolloClient(
       }
     | undefined = { initialApolloState: null }
 ): ApolloClient<NormalizedCacheObject> {
-  const storeRef = useRef<ApolloClient<NormalizedCacheObject>>();
+  const storeRef = useRef<ApolloClient<NormalizedCacheObject> | null>(null);
   if (!storeRef.current) {
     storeRef.current = initializeApolloClient(initialApolloState);
   }

@@ -9,7 +9,7 @@ import * as React from 'react';
 import styles from './keyword.module.scss';
 
 export type KeywordProps = {
-  keyword: string | JSX.Element;
+  keyword: string | React.ReactNode;
   href: string | UrlObject | null;
   itemType: 'button' | 'link' | 'static';
   color?: 'grey' | 'black' | 'green' | 'red' | 'yellow';

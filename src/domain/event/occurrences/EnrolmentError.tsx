@@ -10,7 +10,7 @@ interface Props {
   error: ENROLMENT_ERRORS;
 }
 
-const EnrolmentError = ({ error }: Props): JSX.Element => {
+const EnrolmentError = ({ error }: Props): React.ReactElement => {
   const { t } = useTranslation<I18nNamespace>();
 
   return (

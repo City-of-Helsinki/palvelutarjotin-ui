@@ -39,7 +39,11 @@ const matomoInstance =
       })
     : undefined;
 
-function Matomo({ children }: { children: React.ReactNode }): JSX.Element {
+interface MatomoProps {
+  children: React.ReactNode;
+}
+
+function Matomo({ children }: Readonly<MatomoProps>): React.ReactElement {
   if (matomoInstance) {
     return (
       <MatomoProvider value={matomoInstance}>
