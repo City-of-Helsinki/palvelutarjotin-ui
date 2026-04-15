@@ -1,8 +1,8 @@
-@import 'mixins';
+@use 'mixins';
 
 .hideLabel {
   > label {
-    @include hidden-from-screen;
+    @include mixins.hidden-from-screen;
   }
 }
 

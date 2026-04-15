@@ -1,5 +1,4 @@
-@import 'variables';
-@import 'layout';
+@use 'layout';
 
 .container {
   --content-spacing: var(--spacing-l);
@@ -32,7 +31,7 @@
     width: var(--width-button);
     margin-top: var(--content-spacing);
 
-    @include respond_above(m) {
+    @include layout.respond_above(m) {
       margin-top: 4rem;
     }
   }

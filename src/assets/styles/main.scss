@@ -1,13 +1,13 @@
-@import 'fonts';
-@import 'variables';
-@import 'common';
+@use 'fonts';
+@use 'variables';
+@use 'common';
 
 body {
   --enrolmentFormBackgroundColor: #f7fafc;
 }
 
 * {
-  font-family: $font-family-base;
+  font-family: fonts.$font-family-base;
 }
 
 button {
@@ -19,14 +19,14 @@ button {
   cursor: pointer;
 
   &:focus {
-    outline: 3px solid $focusOutline;
+    outline: 3px solid variables.$focusOutline;
   }
 }
 
 p,
 span,
 li {
-  line-height: $baseLineHeight;
+  line-height: variables.$baseLineHeight;
 }
 
 #cookie-consent-language-selector-button {

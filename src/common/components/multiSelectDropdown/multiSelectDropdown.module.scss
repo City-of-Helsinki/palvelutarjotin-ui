@@ -1,5 +1,4 @@
-@import 'mixins';
-@import 'variables';
+@use 'mixins';
 
 .dropdown {
   --dropdown-border-color-default: var(--color-black-50);
@@ -70,7 +69,7 @@
       border: none;
       outline: none;
 
-      @include placeholder(var(--placeholder-color));
+      @include mixins.placeholder(var(--placeholder-color));
     }
 
     .placeholder {

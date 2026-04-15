@@ -1,5 +1,4 @@
-@import 'variables';
-@import 'layout';
+@use 'layout';
 
 .eventBasicInfo {
   --inforow-spacing: var(--spacing-m);
@@ -38,7 +37,7 @@
       margin-top: 0;
     }
 
-    @include respond_above(m) {
+    @include layout.respond_above(m) {
       grid-template-columns: 1fr 1fr;
     }
   }
