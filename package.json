@@ -34,10 +34,6 @@
         "Pinning lodash to >=4.18.1 fixes prototype pollution vulnerabilities",
         "NOTE: This can be removed when all transitive dependencies use patched lodash versions"
       ],
-      "minimatch": [
-        "To fix ReDoS vulnerability in transitive minimatch v3 and v9",
-        "NOTE: This can be removed when all dependencies require patched versions"
-      ],
       "immutable": [
         "To fix Prototype Pollution vulnerability in transitive immutable v3 and v5",
         "NOTE: This can be removed when all dependencies require patched versions"
@@ -57,7 +53,6 @@
   "resolutions": {
     "isomorphic-dompurify": "2.26.0",
     "lodash": "^4.18.1",
-    "**/@typescript-eslint/typescript-estree/minimatch": "^9.0.7",
     "**/@ardatan/relay-compiler/immutable": "^3.8.3",
     "tmp": ">=0.2.4",
     "hds-core": "file:.yalc/hds-core",
@@ -70,7 +65,7 @@
     "@city-of-helsinki/react-helsinki-headless-cms": "3.0.0",
     "@date-fns/tz": "^1.2.0",
     "@jonkoops/matomo-tracker-react": "^0.7.0",
-    "@sentry/nextjs": "^10.37.0",
+    "@sentry/nextjs": "^10.48.0",
     "axios": "^1.15.0",
     "classnames": "^2.5.1",
     "copy-to-clipboard": "^3.3.3",

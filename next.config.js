@@ -168,8 +168,10 @@ module.exports = withSentryConfig(module.exports, {
   // Automatically tree-shake Sentry logger statements to reduce bundle size
   disableLogger: true,
 
-  reactComponentAnnotation: {
-    enabled: true,
+  _experimental: {
+    turbopackReactComponentAnnotation: {
+      enabled: true,
+    },
   },
 
   // Disable sourcemap uploading to Sentry
