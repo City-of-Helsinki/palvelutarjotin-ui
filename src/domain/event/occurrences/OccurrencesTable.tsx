@@ -1,3 +1,4 @@
+import { ColumnDef } from '@tanstack/react-table';
 import {
   Notification,
   IconAngleUp,
@@ -192,40 +193,46 @@ const OccurrenceEnrolmentTable: React.FC<{
     !isEnrolmentStarted(event) ||
     (requiredOccurrencesSelected && !isSelectedOccurrence(occurrence));
 
-  const columns = [
+  const columns: ColumnDef<OccurrenceFieldsFragment>[] = [
     {
       id: 'spacing-1',
-      Header: '',
-      'aria-hidden': true,
+      header: '',
+      meta: { 'aria-hidden': true },
     },
     {
-      Header: t('enrolment:occurrenceTable.columnDate'),
-      accessor: (row: OccurrenceFieldsFragment) => (
-        <div style={{ display: 'flex', alignItems: 'center' }}>
-          {!!neededOccurrences && neededOccurrences > 1 && (
-            <Checkbox
-              id={row.id}
-              disabled={isDisabledOccurrenceCheckbox(row)}
-              onChange={() => handleOccurrenceCheckboxClick(row)}
-              checked={isSelectedOccurrence(row)}
-              aria-label={t(
-                'occurrence:occurrenceSelection.checkboxSelectOccurrence'
-              )}
-            />
-          )}
-          {isMultidayOccurrence(row)
-            ? formatDateRange(new Date(row.startTime), new Date(row.endTime))
-            : formatLocalizedDate(
-                new Date(row.startTime),
-                `${DATE_FORMAT} eeeeee`,
-                locale
-              )}
-        </div>
-      ),
+      header: t('enrolment:occurrenceTable.columnDate'),
+      cell: ({ row }) => {
+        const occurrence = row.original;
+        return (
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            {!!neededOccurrences && neededOccurrences > 1 && (
+              <Checkbox
+                id={row.id}
+                disabled={isDisabledOccurrenceCheckbox(occurrence)}
+                onChange={() => handleOccurrenceCheckboxClick(occurrence)}
+                checked={isSelectedOccurrence(occurrence)}
+                aria-label={t(
+                  'occurrence:occurrenceSelection.checkboxSelectOccurrence'
+                )}
+              />
+            )}
+            {isMultidayOccurrence(occurrence)
+              ? formatDateRange(
+                  new Date(occurrence.startTime),
+                  new Date(occurrence.endTime)
+                )
+              : formatLocalizedDate(
+                  new Date(occurrence.startTime),
+                  `${DATE_FORMAT} eeeeee`,
+                  locale
+                )}
+          </div>
+        );
+      },
       id: 'date',
     },
     {
-      accessor: (row: OccurrenceFieldsFragment) => {
+      accessorFn: (row: OccurrenceFieldsFragment) => {
         return isMultidayOccurrence(row)
           ? null
           : formatTimeRange(
@@ -237,9 +244,9 @@ const OccurrenceEnrolmentTable: React.FC<{
       id: 'time',
     },
     {
-      Header: t('enrolment:occurrenceTable.columnLanguage'),
-      accessor: (row: OccurrenceFieldsFragment) => {
-        const languages = row.languages.edges
+      header: t('enrolment:occurrenceTable.columnLanguage'),
+      cell: ({ row }) => {
+        const languages = row.original.languages.edges
           .map((lang) => lang?.node)
           .filter(skipFalsyType);
 
@@ -264,62 +271,55 @@ const OccurrenceEnrolmentTable: React.FC<{
       id: 'languages',
     },
     {
-      Header: t('enrolment:occurrenceTable.columnPlace'),
-      accessor: (row: OccurrenceFieldsFragment) => {
-        const placeId = row.placeId || eventLocationId;
+      header: t('enrolment:occurrenceTable.columnPlace'),
+      cell: ({ row }) => {
+        const placeId = row.original.placeId || eventLocationId;
         return placeId ? <PlaceText placeId={placeId} /> : '-';
       },
       id: 'place',
     },
-    hasInternalEnrolment && {
-      // Keep this column empty if enrolment is done outaside of kultus
-      Header: hasInternalEnrolment
-        ? t('enrolment:occurrenceTable.columnSeatsInfo')
-        : '',
-      accessor: (row: OccurrenceFieldsFragment) =>
-        `${getAmountOfSeatsLeft(row)} / ${row.amountOfSeats}`,
-      id: 'seatsInfo',
-    },
+    ...(hasInternalEnrolment
+      ? ([
+          {
+            // Keep this column empty if enrolment is done outside of kultus
+            header: hasInternalEnrolment
+              ? t('enrolment:occurrenceTable.columnSeatsInfo')
+              : '',
+            accessorFn: (row) =>
+              `${getAmountOfSeatsLeft(row)} / ${row.amountOfSeats}`,
+            id: 'seatsInfo',
+          },
+        ] as ColumnDef<OccurrenceFieldsFragment>[])
+      : []),
     {
-      accessor: (row: OccurrenceFieldsFragment) => row,
-      Cell: ({
-        row,
-        value,
-      }: {
-        value: OccurrenceFieldsFragment;
-        row: {
-          getToggleRowExpandedProps: () => React.ComponentProps<typeof Button>;
-          isExpanded: boolean;
-        };
-      }) => {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const { title, ...expandProps } = row.getToggleRowExpandedProps();
+      cell: ({ row }) => {
+        // const { title, ...expandProps } = row.getToggleRowExpandedProps();
         return (
           <OccurrenceExpandButton
-            {...expandProps}
-            isExpanded={row.isExpanded}
+            onClick={() => row.toggleExpanded()}
+            isExpanded={row.getIsExpanded()}
             style={{ width: '100%' }}
             event={event}
-            occurrence={value}
+            occurrence={row.original}
           />
         );
       },
       id: 'enrol',
-      style: {
-        width: enrolButtonColumnWidth,
+      meta: {
+        style: {
+          width: enrolButtonColumnWidth,
+        },
       },
     },
     {
       id: 'spacing-2',
-      Header: '',
-      'aria-hidden': true,
+      header: '',
+      meta: { 'aria-hidden': true },
     },
-  ].filter(skipFalsyType);
+  ];
 
   return (
     <Table
-      // FIXME: Fix the Cell types in Table component
-      // @ts-expect-error Cell types are incompatible
       columns={columns}
       data={filteredOccurrences}
       renderExpandedArea={(occurrence: OccurrenceFieldsFragment) => (
@@ -334,7 +334,7 @@ const OccurrenceEnrolmentTable: React.FC<{
 };
 
 const OccurrenceExpandButton: React.FC<
-  React.ComponentProps<typeof Button> & {
+  Omit<React.ComponentProps<typeof Button>, 'children'> & {
     isExpanded: boolean;
     event: EventFieldsFragment;
     occurrence: OccurrenceFieldsFragment;

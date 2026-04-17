@@ -1,13 +1,19 @@
+import {
+  ColumnDef,
+  flexRender,
+  getCoreRowModel,
+  getExpandedRowModel,
+  Row,
+  useReactTable,
+} from '@tanstack/react-table';
 import classNames from 'classnames';
 import React, { ReactElement } from 'react';
-import { Column, Row, useTable, useExpanded } from 'react-table';
 
 import styles from './table.module.scss';
-import { ExtendedHeaderGroup, ExtendedCell, ExtendedRow } from './types';
 
 type Props<D extends Record<string, unknown>> = {
-  columns: Array<Column<D>>;
-  data: Array<D>;
+  columns: ColumnDef<D>[];
+  data: D[];
   onRowClick?: (row: Row<D>) => void;
   renderExpandedArea?: (row: D) => React.ReactNode;
 };
@@ -18,50 +24,42 @@ export default function Table<D extends Record<string, unknown>>({
   onRowClick,
   renderExpandedArea,
 }: Props<D>): ReactElement {
-  const { getTableBodyProps, getTableProps, headerGroups, prepareRow, rows } =
-    useTable(
-      {
-        columns,
-        data,
-      },
-      useExpanded
-    );
+  const table = useReactTable({
+    data,
+    columns,
+    getCoreRowModel: getCoreRowModel(),
+    getExpandedRowModel: getExpandedRowModel(),
+  });
 
-  // Render the UI for your table
   return (
     <div className={styles.tableWrapper}>
-      <table {...getTableProps({ className: styles.table })}>
+      <table className={styles.table}>
         <thead>
-          {headerGroups.map((headerGroup, index) => (
-            <tr
-              {...headerGroup.getHeaderGroupProps()}
-              key={`headerGroups-row-${index}`}
-            >
-              {headerGroup.headers.map(
-                (column: ExtendedHeaderGroup<D>, index) => {
-                  const { style, className } = column;
-                  return (
-                    <th
-                      {...column.getHeaderProps()}
-                      {...{
-                        style,
-                        className,
-                        'aria-hidden': column['aria-hidden'],
-                      }}
-                      key={`table-header-col-${index}`}
-                    >
-                      <>{column.render('Header')}</>
-                    </th>
-                  );
-                }
-              )}
+          {table.getHeaderGroups().map((headerGroup) => (
+            <tr key={headerGroup.id}>
+              {headerGroup.headers.map((header) => {
+                const meta = header.column.columnDef.meta;
+                return (
+                  <th
+                    key={header.id}
+                    style={meta?.style}
+                    className={meta?.className}
+                    aria-hidden={meta?.['aria-hidden']}
+                  >
+                    {header.isPlaceholder
+                      ? null
+                      : flexRender(
+                          header.column.columnDef.header,
+                          header.getContext()
+                        )}
+                  </th>
+                );
+              })}
             </tr>
           ))}
         </thead>
-        <tbody {...getTableBodyProps()}>
-          {rows.map((row: ExtendedRow<D>, index) => {
-            prepareRow(row);
-
+        <tbody>
+          {table.getRowModel().rows.map((row) => {
             const handleClick = (event: React.MouseEvent) => {
               const element = event.target as HTMLElement;
               if (
@@ -86,38 +84,36 @@ export default function Table<D extends Record<string, unknown>>({
             };
 
             return (
-              <React.Fragment key={row.getRowProps().key}>
+              <React.Fragment key={row.id}>
                 <tr
-                  {...row.getRowProps()}
                   className={classNames({
                     [styles.clickableRow]: onRowClick,
-                    [styles.expandedRow]: row.isExpanded,
+                    [styles.expandedRow]: row.getIsExpanded(),
                   })}
                   onClick={handleClick}
                   onKeyDown={handleKeyDown}
                   tabIndex={onRowClick ? 0 : -1}
-                  key={`table-body-row-${index}`}
                 >
-                  {row.cells.map((cell: ExtendedCell<D>, index) => {
-                    const { className, style } = cell.column;
+                  {row.getVisibleCells().map((cell) => {
+                    const meta = cell.column.columnDef.meta;
                     return (
                       <td
-                        {...cell.getCellProps()}
-                        {...{
-                          className,
-                          style,
-                          'aria-hidden': cell.column['aria-hidden'],
-                        }}
-                        key={`table-body-col-${index}`}
+                        key={cell.id}
+                        className={meta?.className}
+                        style={meta?.style}
+                        aria-hidden={meta?.['aria-hidden']}
                       >
-                        <>{cell.render('Cell')}</>
+                        {flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext()
+                        )}
                       </td>
                     );
                   })}
                 </tr>
-                {row.isExpanded && (
+                {row.getIsExpanded() && (
                   <tr className={styles.expandedArea}>
-                    <td colSpan={row.cells.length}>
+                    <td colSpan={row.getVisibleCells().length}>
                       {renderExpandedArea && renderExpandedArea(row.original)}
                     </td>
                   </tr>

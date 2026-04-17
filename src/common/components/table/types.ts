@@ -1,23 +1,11 @@
-import { HeaderGroup, ColumnInstance, Cell, Row } from 'react-table';
+import { RowData } from '@tanstack/react-table';
+import React from 'react';
 
-type StyleProps = {
-  className?: string;
-  style?: React.CSSProperties;
-};
-
-type ExtendedColumnInstance<D extends Record<string, unknown>> =
-  ColumnInstance<D> & StyleProps & { ['aria-hidden']?: boolean };
-
-export type ExtendedCell<D extends Record<string, unknown>> = Cell<
-  D,
-  unknown
-> & {
-  column: ExtendedColumnInstance<D>;
-};
-
-export type ExtendedHeaderGroup<D extends Record<string, unknown>> =
-  HeaderGroup<D> & StyleProps & { ['aria-hidden']?: boolean };
-
-export type ExtendedRow<D extends Record<string, unknown>> = Row<D> & {
-  isExpanded?: boolean;
-};
+declare module '@tanstack/react-table' {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  interface ColumnMeta<TData extends RowData, TValue> {
+    'aria-hidden'?: boolean;
+    className?: string;
+    style?: React.CSSProperties;
+  }
+}
