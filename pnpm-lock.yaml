@@ -89,9 +89,6 @@ importers:
       next-i18next:
         specifier: ^15.4.3
         version: 15.4.3(i18next@24.2.3(typescript@5.8.2))(next@16.2.3(@babel/core@7.28.5)(@opentelemetry/api@1.9.1)(@playwright/test@1.60.0)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(sass@1.98.0))(react-i18next@15.7.4(i18next@24.2.3(typescript@5.8.2))(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(typescript@5.8.2))(react@19.2.5)
-      picomatch:
-        specifier: ^2.3.2
-        version: 2.3.2
       react:
         specifier: 19.2.5
         version: 19.2.5
