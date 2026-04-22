@@ -66,8 +66,6 @@ export const DEFAULT_HEADER_MENU_NAME: Record<SUPPORTED_LANGUAGES, string> = {
     'Palvelutarjotin all UIs Header (SV)',
 };
 
-export const TOAST_AUTO_CLOSE_DURATION_MS = 10_000;
-
 // Check recommended formats: https://hds.hel.fi/guidelines/data-formats
 
 export const DATE_FORMAT = 'd.M.yyyy';

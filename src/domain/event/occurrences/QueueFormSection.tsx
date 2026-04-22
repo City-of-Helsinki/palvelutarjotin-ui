@@ -2,9 +2,8 @@ import omit from 'lodash/omit';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 import React from 'react';
-import { toast } from 'react-toastify';
 
-import { TOAST_AUTO_CLOSE_DURATION_MS } from '../../../constants';
+import { useNotificationsContext } from '../../../common/components/notificationsContext/hooks/useNotificationsContext';
 import {
   EventFieldsFragment,
   useEnrolEventQueueMutation,
@@ -29,6 +28,7 @@ const QueueFormSection: React.FC<{
   const { t } = useTranslation<I18nNamespace>();
   const locale = useLocale();
   const router = useRouter();
+  const { addNotification } = useNotificationsContext();
 
   const [enrolQueue, { loading: queueLoading }] = useEnrolEventQueueMutation();
 
@@ -62,9 +62,9 @@ const QueueFormSection: React.FC<{
       });
       onQueue?.();
     } catch {
-      toast(t('enrolment:queue.error'), {
+      addNotification({
+        label: t('enrolment:queue.error'),
         type: 'error',
-        autoClose: TOAST_AUTO_CLOSE_DURATION_MS,
       });
     }
   };

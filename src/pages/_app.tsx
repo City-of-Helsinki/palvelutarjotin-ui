@@ -6,11 +6,11 @@ import NextError from 'next/error';
 import { useRouter } from 'next/router';
 import { appWithTranslation, UserConfig, useTranslation } from 'next-i18next';
 import React from 'react';
-import { ToastContainer } from 'react-toastify';
 
 import nextI18nextConfig from '../../next-i18next.config';
 import LoadingSpinner from '../common/components/loadingSpinner/LoadingSpinner';
 import '../assets/styles/main.scss';
+import { NotificationsProvider } from '../common/components/notificationsContext/NotificationsContext';
 import { useApolloClient } from '../domain/app/apollo/apolloClient';
 import Center from '../domain/app/Center';
 import ErrorBoundary from '../domain/app/ErrorBoundary';
@@ -188,32 +188,33 @@ const MyApp = ({ Component, pageProps }: AppProps<CustomPageProps>) => {
 
   return (
     <ErrorBoundary>
-      <RHHCConfigProvider config={rhhcConfig}>
-        <ApolloProvider client={apolloClient}>
-          <CookieConsentContextProvider
-            siteSettings={cookieConsentSiteSettings}
-          >
-            <MatomoTracker>
-              <FocusToTop />
-              {router.isFallback ? (
-                <Center>
-                  <LoadingSpinner isLoading={router.isFallback} />
-                </Center>
-              ) : pageProps.error ? (
-                <NextError
-                  statusCode={pageProps.error.networkError?.statusCode ?? 400}
-                />
-              ) : (
-                <PageLayoutComponent {...pageProps}>
-                  <Component {...pageProps} />
-                  <DynamicCookieConsentWithNoSSR />
-                </PageLayoutComponent>
-              )}
-              <ToastContainer position="top-right" />
-            </MatomoTracker>
-          </CookieConsentContextProvider>
-        </ApolloProvider>
-      </RHHCConfigProvider>
+      <NotificationsProvider>
+        <RHHCConfigProvider config={rhhcConfig}>
+          <ApolloProvider client={apolloClient}>
+            <CookieConsentContextProvider
+              siteSettings={cookieConsentSiteSettings}
+            >
+              <MatomoTracker>
+                <FocusToTop />
+                {router.isFallback ? (
+                  <Center>
+                    <LoadingSpinner isLoading={router.isFallback} />
+                  </Center>
+                ) : pageProps.error ? (
+                  <NextError
+                    statusCode={pageProps.error.networkError?.statusCode ?? 400}
+                  />
+                ) : (
+                  <PageLayoutComponent {...pageProps}>
+                    <Component {...pageProps} />
+                    <DynamicCookieConsentWithNoSSR />
+                  </PageLayoutComponent>
+                )}
+              </MatomoTracker>
+            </CookieConsentContextProvider>
+          </ApolloProvider>
+        </RHHCConfigProvider>
+      </NotificationsProvider>
     </ErrorBoundary>
   );
 };

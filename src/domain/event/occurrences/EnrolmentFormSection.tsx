@@ -3,9 +3,8 @@ import omit from 'lodash/omit';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 import React from 'react';
-import { toast } from 'react-toastify';
 
-import { TOAST_AUTO_CLOSE_DURATION_MS } from '../../../constants';
+import { useNotificationsContext } from '../../../common/components/notificationsContext/hooks/useNotificationsContext';
 import {
   OccurrenceFieldsFragment,
   EventFieldsFragment,
@@ -41,6 +40,7 @@ const EnrolmentFormSection: React.FC<{
   const router = useRouter();
   const [enrolOccurrence, { loading: enrolmentLoading }] =
     useEnrolOccurrenceMutation();
+  const { addNotification } = useNotificationsContext();
 
   const { isMandatoryAdditionalInformationRequired, autoAcceptance } =
     getEventFields(event, locale);
@@ -81,15 +81,12 @@ const EnrolmentFormSection: React.FC<{
         e.graphQLErrors[0]?.extensions?.code ===
           ENROLMENT_ERRORS.NOT_ENOUGH_CAPACITY_ERROR;
 
-      toast(
-        isNotEnoughCapacityError
+      addNotification({
+        label: isNotEnoughCapacityError
           ? t('enrolment:errors.createFailedBecauseNotEnoughCapacity')
           : t('enrolment:errors.createFailed'),
-        {
-          type: 'error',
-          autoClose: TOAST_AUTO_CLOSE_DURATION_MS,
-        }
-      );
+        type: 'error',
+      });
     }
   };
 
