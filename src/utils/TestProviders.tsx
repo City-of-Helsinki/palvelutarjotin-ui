@@ -10,6 +10,7 @@ import { NextRouter } from 'next/router';
 import React from 'react';
 
 import { CustomRenderOptions } from './testUtils';
+import { NotificationsProvider } from '../common/components/notificationsContext/NotificationsContext';
 
 const mockRouter: NextRouter = {
   basePath: '',
@@ -52,7 +53,9 @@ function TestProviders(props: Props): React.ReactElement {
             ...(query ? { query } : {}),
           }}
         >
-          {children as React.ReactElement}
+          <NotificationsProvider>
+            {children as React.ReactElement}
+          </NotificationsProvider>
         </RouterContext.Provider>
       </RHHCConfigProviderWithMockedApolloClient>
     </MockedProvider>
