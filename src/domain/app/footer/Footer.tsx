@@ -5,7 +5,6 @@ import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import styles from './footer.module.scss';
-import { resetFocusId } from '../../../common/components/resetFocus/ResetFocus';
 import { DEFAULT_FOOTER_MENU_NAME } from '../../../constants';
 import useLocale from '../../../hooks/useLocale';
 import type { I18nNamespace } from '../../../types';
@@ -42,7 +41,6 @@ const FooterSection = (): React.ReactElement => {
   // override Footer component default behaviour which focuses skip-link
   const handleBackToTop = () => {
     window?.scrollTo({ top: 0 });
-    document.querySelector<HTMLDivElement>(`#${resetFocusId}`)?.focus();
   };
 
   return (

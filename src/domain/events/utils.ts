@@ -3,11 +3,7 @@ import { isValid as isValidDate } from 'date-fns';
 import { KEYWORD_QUERY_PARAMS } from './constants';
 import { EventSearchFormValues } from './eventSearchForm/EventSearchForm';
 import { EVENT_LANGUAGES } from '../../constants';
-import {
-  EventsQueryVariables,
-  EventsFieldsFragment,
-  EventsQuery,
-} from '../../generated/graphql';
+import { EventsQueryVariables } from '../../generated/graphql';
 import deleteEmptyPropertiesFromObject from '../../utils/deleteEmptyPropertiesFromObject';
 import { queryParameterToArray } from '../../utils/queryParameterToArray';
 
@@ -113,10 +109,4 @@ const getInitialDate = (date?: string | string[]): Date | null => {
   }
 
   return null;
-};
-
-export const getEventsThatHaveUpcomingOccurrence = (
-  eventData?: EventsQuery
-): EventsFieldsFragment[] | undefined => {
-  return eventData?.events?.data.filter((e) => e.pEvent.nextOccurrenceDatetime);
 };
