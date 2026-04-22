@@ -1,5 +1,6 @@
 *
 !public
+!.yalc
 !src
 !next.config.js
 !next-i18next.config.js
