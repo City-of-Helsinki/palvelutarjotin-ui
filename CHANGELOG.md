@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://www.conventionalcommits.org/) for commit guidelines.
 
+## [2.18.1](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/palvelutarjotin-ui-v2.18.0...palvelutarjotin-ui-v2.18.1) (2026-05-05)
+
+
+### Dependencies
+
+* Bump dompurify from 3.3.2 to 3.4.1 ([#480](https://github.com/City-of-Helsinki/palvelutarjotin-ui/issues/480)) ([761866d](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/761866d1db446f294314a6c1f38069f6cbf33385))
+* Bump follow-redirects from 1.15.11 to 1.16.0 ([1c6c558](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/1c6c55841338e659a450caf2c34e23dedfbc4504))
+* Bump i18next-fs-backend from 2.6.0 to 2.6.5 ([7243af5](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/7243af51f138f907721ab85efebb5de02161ba85))
+
 ## [2.18.0](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/palvelutarjotin-ui-v2.17.4...palvelutarjotin-ui-v2.18.0) (2026-04-13)
 
 
