@@ -78,7 +78,7 @@
     "@date-fns/tz": "^1.2.0",
     "@jonkoops/matomo-tracker-react": "^0.7.0",
     "@sentry/nextjs": "^10.37.0",
-    "axios": "^1.15.0",
+    "axios": "^1.15.2",
     "classnames": "^2.5.1",
     "copy-to-clipboard": "^3.3.3",
     "cross-fetch": "^4.1.0",
