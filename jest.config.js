@@ -4,7 +4,7 @@ process.env.TZ = 'Europe/Helsinki';
 module.exports = {
   testEnvironment: 'jest-fixed-jsdom',
   transform: {
-    '.*\\.(tsx?)$': [
+    '.*\\.(tsx?|js)$': [
       '@swc/jest',
       {
         jsc: {
@@ -20,16 +20,11 @@ module.exports = {
   },
   transformIgnorePatterns: [
     // '/node_modules/',
-    'node_modules/(?!(@city-of-helsinki/react-helsinki-headless-cms|@city-of-helsinki/react-helsinki-headless-cms/apollo|until-async|msw))/',
+    'node_modules/(?!(@city-of-helsinki/react-helsinki-headless-cms|@city-of-helsinki/react-helsinki-headless-cms/apollo|until-async|msw|uuid))/',
     '^.+\\.module\\.(css|sass|scss)$',
   ],
   moduleNameMapper: {
     '.+\\.(css|styl|less|sass|scss)$': 'identity-obj-proxy',
-    // Force uuid package to use CommonJS version instead of ESM.
-    // Needed at least with hds-react v3.12.0 which uses export keyword in
-    // hds-react/node_modules/uuid/dist/esm-browser/index.js
-    // and otherwise fails with "SyntaxError: Unexpected token 'export'".
-    uuid: require.resolve('uuid'),
     // Mock Sentry - this will automatically use the manual mock
     '^@sentry/nextjs$': '<rootDir>/src/__mocks__/sentry.js',
   },
