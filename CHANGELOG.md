@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://www.conventionalcommits.org/) for commit guidelines.
 
+## [2.18.2](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/palvelutarjotin-ui-v2.18.1...palvelutarjotin-ui-v2.18.2) (2026-05-12)
+
+
+### Dependencies
+
+* Bump next from 15.5.15 to 15.5.18 ([2c64b2f](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/2c64b2f73b6a8446d12227f8050083748f63b906))
+
 ## [2.18.1](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/palvelutarjotin-ui-v2.18.0...palvelutarjotin-ui-v2.18.1) (2026-05-11)
 
 
