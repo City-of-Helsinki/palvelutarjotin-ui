@@ -288,16 +288,16 @@ it('renders upcoming occurrencec correctly', async () => {
 
   const tableRows = screen.queryAllByRole('row');
   expect(tableRows[1].textContent).toMatchInlineSnapshot(
-    `"15.7.2020 – 17.7.2020suomi, ruotsi, englantifi, sv, enSoukan kirjasto30 / 30Näytä lisätiedot"`
+    `"15.7.2020 – 17.7.2020suomi, ruotsi, englantifi, sv, enSoukan kirjasto30 / 30Katso lisätiedot ja ilmoittaudu"`
   );
   expect(tableRows[2].textContent).toMatchInlineSnapshot(
-    `"16.7.2020 to12:00 – 13:00suomifiSoukan kirjasto30 / 30Näytä lisätiedot"`
+    `"16.7.2020 to12:00 – 13:00suomifiSoukan kirjasto30 / 30Katso lisätiedot ja ilmoittaudu"`
   );
   expect(tableRows[3].textContent).toMatchInlineSnapshot(
-    `"19.7.2020 su12:00 – 13:00suomi, englantifi, enSoukan kirjasto30 / 30Näytä lisätiedot"`
+    `"19.7.2020 su12:00 – 13:00suomi, englantifi, enSoukan kirjasto30 / 30Katso lisätiedot ja ilmoittaudu"`
   );
   expect(tableRows[5].textContent).toMatchInlineSnapshot(
-    `"21.7.2020 ti12:00 – 13:00suomi, englantifi, enSoukan kirjasto30 / 30Näytä lisätiedot"`
+    `"21.7.2020 ti12:00 – 13:00suomi, englantifi, enSoukan kirjasto30 / 30Katso lisätiedot ja ilmoittaudu"`
   );
 });
 
@@ -424,7 +424,7 @@ it('renders occurrences table and related stuff correctly', async () => {
 
   const tableRows = screen.getAllByRole('row');
   expect(tableRows[8].textContent).toMatchInlineSnapshot(
-    `"27.7.2020 ma12:00 – 13:00suomi, englantifi, enSoukan kirjasto30 / 30Näytä lisätiedot"`
+    `"27.7.2020 ma12:00 – 13:00suomi, englantifi, enSoukan kirjasto30 / 30Katso lisätiedot ja ilmoittaudu"`
   );
 });
 
@@ -462,7 +462,7 @@ it('hides seats left column header when event has external enrolment', async () 
 
   // shows multi day occurrence correctly
   expect(tableRows[1].textContent).toMatchInlineSnapshot(
-    `"15.7.2020 – 17.7.2020suomi, ruotsi, englantifi, sv, enSoukan kirjastoNäytä lisätiedot"`
+    `"15.7.2020 – 17.7.2020suomi, ruotsi, englantifi, sv, enSoukan kirjastoKatso lisätiedot ja ilmoittaudu"`
   );
 
   await userEvent.click(

@@ -180,7 +180,7 @@ test('user can select single occurrences and enrol to it with enrolment form', a
   const rows = await screen.findAllByRole('row');
 
   expect(rows[1].textContent).toMatchInlineSnapshot(
-    `"25.9.2020 pe12:30 – 13:30suomi, englantifi, enKirjasto30 / 30Näytä lisätiedot"`
+    `"25.9.2020 pe12:30 – 13:30suomi, englantifi, enKirjasto30 / 30Katso lisätiedot ja ilmoittaudu"`
   );
 
   await userEvent.click(
@@ -265,13 +265,13 @@ test('user can select multiple occurrences and enrol to them with enrolment form
   const rows = await screen.findAllByRole('row');
 
   expect(rows[1].textContent).toMatchInlineSnapshot(
-    `"25.9.2020 pe12:30 – 13:30suomi, englantifi, enKirjasto30 / 30Näytä lisätiedot"`
+    `"25.9.2020 pe12:30 – 13:30suomi, englantifi, enKirjasto30 / 30Katso lisätiedot ja ilmoittaudu"`
   );
   expect(rows[2].textContent).toMatchInlineSnapshot(
-    `"26.9.2020 la13:20 – 14:20suomi, englantifi, enKirjasto30 / 30Näytä lisätiedot"`
+    `"26.9.2020 la13:20 – 14:20suomi, englantifi, enKirjasto30 / 30Katso lisätiedot ja ilmoittaudu"`
   );
   expect(rows[3].textContent).toMatchInlineSnapshot(
-    `"26.9.2020 la14:20 – 15:20suomi, englantifi, enKirjasto30 / 30Näytä lisätiedot"`
+    `"26.9.2020 la14:20 – 15:20suomi, englantifi, enKirjasto30 / 30Katso lisätiedot ja ilmoittaudu"`
   );
 
   await userEvent.click(
