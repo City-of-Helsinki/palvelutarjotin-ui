@@ -13,6 +13,7 @@ import DropdownMenu from './DropdownMenu';
 import styles from './multiSelectDropdown.module.scss';
 import useKeyboardNavigation from '../../../hooks/useDropdownKeyboardNavigation';
 import type { I18nNamespace } from '../../../types';
+import sanitizeDomId from '../../../utils/sanitizeDomId';
 import { skipFalsyType } from '../../../utils/typescript.utils';
 import ScrollIntoViewWithFocus from '../scrollIntoViewWithFocus/ScrollIntoViewWithFocus';
 import SearchLabel from '../search/searchLabel/SearchLabel';
@@ -336,7 +337,7 @@ const MultiSelectDropdown: React.FC<MultiselectDropdownProps> = ({
         <Checkbox
           ref={setFocus}
           checked={isChecked}
-          id={`${checkboxName}_${option.value}`}
+          id={`${checkboxName}_${sanitizeDomId(option.value)}`}
           label={option.text}
           name={checkboxName}
           onChange={handleValueChange}

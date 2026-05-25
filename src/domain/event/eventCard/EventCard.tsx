@@ -16,6 +16,7 @@ import useLocale from '../../../hooks/useLocale';
 import IconClock from '../../../icons/IconClock';
 import type { I18nNamespace } from '../../../types';
 import getLocalisedString from '../../../utils/getLocalisedString';
+import sanitizeDomId from '../../../utils/sanitizeDomId';
 import { SCROLL_RESTORATION_ELEMENT_ID_PREFIX } from '../../events/constants';
 import PlaceText from '../../place/placeText/PlaceText';
 import { getEventPlaceholderImage } from '../utils';
@@ -149,7 +150,7 @@ const EventTime: React.FC<{
     >
       <ul
         className={styles.occurrenceTimes}
-        aria-labelledby={`${event.id}-toggle-occurrences-btn`}
+        aria-labelledby={`${sanitizeDomId(event.id)}-toggle-occurrences-btn`}
       >
         {nextOccurrence ? (
           <li>
@@ -163,7 +164,7 @@ const EventTime: React.FC<{
       {hasMultipleFutureOccurrences && (
         <Button
           variant={ButtonVariant.Secondary}
-          id={`${event.id}-toggle-occurrences-btn`}
+          id={`${sanitizeDomId(event.id)}-toggle-occurrences-btn`}
           className={styles.multipleOccurrenceButton}
           onClick={(e) => toggleShowOccurrences(e)}
         >
