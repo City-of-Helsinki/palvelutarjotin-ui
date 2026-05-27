@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://www.conventionalcommits.org/) for commit guidelines.
 
+## [2.18.3](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/palvelutarjotin-ui-v2.18.2...palvelutarjotin-ui-v2.18.3) (2026-05-27)
+
+
+### Bug Fixes
+
+* Update js-cookie (CVE-2026-46625) ([fc3870e](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/fc3870e5023ac6cef8b19d44c78cd1f5f79b3823))
+
 ## [2.18.2](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/palvelutarjotin-ui-v2.18.1...palvelutarjotin-ui-v2.18.2) (2026-05-12)
 
 
