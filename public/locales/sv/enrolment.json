@@ -17,6 +17,13 @@
     "labelIsSharingDataAccepted": "Jag samtycker till att dela mina uppgifter med arrangören av evenemanget.",
     "labelLanguage": "Språk",
     "labelNotificationLanguage": "Språket för meddelanden",
+    "culturalRoute": {
+      "labelIsPartOf": "Besöket ingår i kulturstigen",
+      "labelNoOrUnknown": "Nej / jag vet inte",
+      "labelYes": "Ja",
+      "helperText": "Kulturstigarna är förslag på genomförande av Helsingfors stads kulturfostransplan från småbarnspedagogik till gymnasieutbildning. <a>Läs mer om kulturstigarna</a>",
+      "readMoreUrl": "/sv/cms-page/kulturpedagogik/kulturstigen-kultur-for-alla"
+    },
     "person": {
       "labelEmailAddress": "E-post",
       "labelName": "Namn",

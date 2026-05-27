@@ -17,6 +17,7 @@ import {
   nameToLabelPath,
 } from './constants';
 import styles from './enrolmentForm.module.scss';
+import IsPartOfCulturalRouteField from './IsPartOfCulturalRouteField';
 import getValidationSchema from './ValidationSchema';
 import ErrorMessage from '../../../common/components/form/ErrorMessage';
 import CheckboxField from '../../../common/components/form/fields/CheckboxField';
@@ -103,6 +104,7 @@ const EnrolmentForm: React.FC<Props> = ({
             <FormikPersist
               name={FORM_NAMES.ENROLMENT_FORM}
               initialValues={initialValues}
+              alwaysFreshFields={['isPartOfCulturalRoute']}
             />
             <h2>{t('enrolment:enrolmentForm.studyGroup.titleNotifier')}</h2>
             <FormErrorNotification
@@ -205,6 +207,10 @@ const EnrolmentForm: React.FC<Props> = ({
                 />
               </FormGroup>
             </div>
+
+            <FormGroup>
+              <IsPartOfCulturalRouteField formikFieldName="isPartOfCulturalRoute" />
+            </FormGroup>
 
             <div className={styles.rowWith2Columns}>
               <div>
