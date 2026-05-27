@@ -48,10 +48,20 @@ const TRANS = {
     sv: /^Grupp \*/,
     en: /^Group name \*/,
   },
+  isPartOfCulturalRoute: {
+    fi: /^Käynti sisältyy kulttuuripolkuun \*/,
+    sv: /^Besöket ingår i kulturstigen \*/,
+    en: /^The visit is part of the cultural route \*/,
+  },
   name: {
     fi: /^Nimi \*/,
     sv: /^Namn \*/,
     en: /^Name \*/,
+  },
+  noOrUnknown: {
+    fi: 'Ei / en tiedä',
+    sv: 'Nej / jag vet inte',
+    en: "No / I don't know",
   },
   phoneNumber: {
     fi: 'Puhelinnumero *',
@@ -97,6 +107,11 @@ const TRANS = {
     fi: 'Lähetä varaustiedustelu',
     sv: 'Skicka anmälan',
     en: 'Submit enquiry',
+  },
+  yes: {
+    fi: 'Kyllä',
+    sv: 'Ja',
+    en: 'Yes',
   },
 } as const satisfies Record<string, Translation>;
 
@@ -245,6 +260,23 @@ export class EventPage extends BasePage {
 
   async isReservationEnquirySent(lang: Language) {
     await this.hasVisibleHeading(TRANS.reservationEnquirySent[lang]);
+  }
+
+  /**
+   * Select a radio button answer to "Is part of cultural route?" question.
+   * @param lang Language
+   * @param value False to select "No / I don't know", true to select "Yes".
+   */
+  async selectIsPartOfCulturalRoute(lang: Language, value: boolean) {
+    const isPartOfCulturalRouteGroup = this.enrolmentForm.getByRole('group', {
+      name: TRANS.isPartOfCulturalRoute[lang],
+    });
+    const radioButtonName = value ? TRANS.yes[lang] : TRANS.noOrUnknown[lang];
+    const radioButtonLabel = isPartOfCulturalRouteGroup.getByText(
+      radioButtonName,
+      { exact: true }
+    );
+    await radioButtonLabel.click();
   }
 
   /**

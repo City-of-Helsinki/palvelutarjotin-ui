@@ -17,6 +17,13 @@
     "labelIsSharingDataAccepted": "Hyväksyn tietojeni jakamisen tapahtuman järjestäjän kanssa",
     "labelLanguage": "Kieli",
     "labelNotificationLanguage": "Ilmoitusten kieli",
+    "culturalRoute": {
+      "labelIsPartOf": "Käynti sisältyy kulttuuripolkuun",
+      "labelNoOrUnknown": "Ei / en tiedä",
+      "labelYes": "Kyllä",
+      "helperText": "Kulttuuripolut ovat Helsingin kaupungin kulttuurikasvatussuunnitelman toteutusehdotuksia varhaiskasvatuksesta toiselle asteelle. <a>Lue lisää kulttuuripoluista</a>",
+      "readMoreUrl": "/fi/cms-page/kulttuurikasvatus/kulttuuripolulla-kulttuuria-kaikille"
+    },
     "person": {
       "labelEmailAddress": "Sähköpostiosoite",
       "labelName": "Nimi",

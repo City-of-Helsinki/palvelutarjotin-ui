@@ -1,5 +1,8 @@
 import { FormikProps, useFormikContext } from 'formik';
+import cloneDeep from 'lodash/cloneDeep';
+import get from 'lodash/get';
 import isEqual from 'lodash/isEqual';
+import set from 'lodash/set';
 import * as React from 'react';
 
 import useIsMounted from '../../../hooks/useIsMounted';
@@ -26,6 +29,8 @@ export interface PersistProps {
   debounceTime?: number;
   isSessionStorage?: boolean;
   initialValues: Record<string, unknown>;
+  // Dot-notation paths of fields that are restored using initial values:
+  alwaysFreshFields?: string[];
 }
 
 const FormikPersist = ({
@@ -33,6 +38,7 @@ const FormikPersist = ({
   isSessionStorage = false,
   name,
   initialValues,
+  alwaysFreshFields = [],
 }: PersistProps): null => {
   const isMounted = useIsMounted();
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -78,7 +84,12 @@ const FormikPersist = ({
       storedFormikStateObject &&
       objectStructureMatches(initialValues, storedFormikStateObject.values)
     ) {
-      formik.setValues(storedFormikStateObject.values, true);
+      const valuesToRestore = cloneDeep(storedFormikStateObject.values);
+      // Restore fresh fields with their initial values instead of stored ones:
+      for (const path of alwaysFreshFields) {
+        set(valuesToRestore, path, get(initialValues, path));
+      }
+      formik.setValues(valuesToRestore, true);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

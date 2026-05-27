@@ -155,6 +155,7 @@ export const fakeEnrolments = (
 export const fakeEnrolment = (
   overrides?: Partial<EnrolmentNode>
 ): EnrolmentNode => ({
+  isPartOfCulturalRoute: faker.datatype.boolean(),
   enrolmentTime: '2020-08-18T06:37:40.755109+00:00',
   updatedAt: '2020-08-18T06:37:40.755109+00:00',
   id: faker.string.uuid(),

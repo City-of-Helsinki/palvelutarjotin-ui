@@ -1,3 +1,8 @@
+export const enum IsPartOfCulturalRoute {
+  NO_OR_UNKNOWN = 'NO_OR_UNKNOWN',
+  YES = 'YES',
+}
+
 export type EnrolmentFormFields = {
   hasEmailNotification: boolean;
   hasSmsNotification: boolean;
@@ -5,6 +10,7 @@ export type EnrolmentFormFields = {
   isSharingDataAccepted: boolean;
   isMandatoryAdditionalInformationRequired: boolean;
   language: string;
+  isPartOfCulturalRoute: IsPartOfCulturalRoute | '';
   person: {
     name: string;
     phoneNumber: string;
@@ -34,6 +40,7 @@ export const defaultEnrolmentInitialValues: EnrolmentFormFields = {
   isSharingDataAccepted: false,
   isMandatoryAdditionalInformationRequired: false,
   language: '',
+  isPartOfCulturalRoute: '',
   person: {
     name: '',
     phoneNumber: '',
@@ -85,4 +92,5 @@ export const nameToLabelPath: Record<string, string> = {
     'enrolment:enrolmentForm.studyGroup.person.labelPhoneNumber',
   'person.emailAddress':
     'enrolment:enrolmentForm.studyGroup.person.labelEmailAddress',
+  isPartOfCulturalRoute: 'enrolment:enrolmentForm.culturalRoute.labelIsPartOf',
 };

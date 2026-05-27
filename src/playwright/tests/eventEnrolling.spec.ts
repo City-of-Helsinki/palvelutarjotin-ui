@@ -28,6 +28,7 @@ LANGUAGES.forEach((lang) => {
     await eventPage.selectDaycareKamppiForStudyGroupUnit(lang);
     await eventPage.fillStudyGroupName(lang, 'Testiryhmä');
     await eventPage.selectPreschoolForStudyLevel(lang);
+    await eventPage.selectIsPartOfCulturalRoute(lang, true);
     await eventPage.selectNumberOfChildren(lang, '8');
     await eventPage.selectNumberOfAdults(lang, '2');
     await eventPage.fillAdditionalInfo(lang, 'Neurokirjon ryhmä');
