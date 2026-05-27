@@ -1,5 +1,6 @@
 import * as Yup from 'yup';
 
+import { IsPartOfCulturalRoute } from './constants';
 import { VALIDATION_MESSAGE_KEYS } from '../../app/forms/constants';
 
 type EnrolmentFormValidationSchemaProps = {
@@ -14,6 +15,12 @@ export default function getValidationSchema({
   isQueueEnrolment,
 }: EnrolmentFormValidationSchemaProps) {
   return Yup.object().shape({
+    isPartOfCulturalRoute: Yup.string()
+      .oneOf(
+        [IsPartOfCulturalRoute.NO_OR_UNKNOWN, IsPartOfCulturalRoute.YES],
+        VALIDATION_MESSAGE_KEYS.STRING_REQUIRED
+      )
+      .required(VALIDATION_MESSAGE_KEYS.STRING_REQUIRED),
     hasEmailNotification: Yup.bool().oneOf(
       [true],
       'enrolment:enrolmentForm.validation.hasEmailNotification'

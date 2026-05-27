@@ -23,7 +23,10 @@ import {
   within,
   sleep,
 } from '../../../../utils/testUtils';
-import { defaultEnrolmentInitialValues } from '../constants';
+import {
+  defaultEnrolmentInitialValues,
+  IsPartOfCulturalRoute,
+} from '../constants';
 import EnrolmentForm, { Props } from '../EnrolmentForm';
 
 configure({ defaultHidden: true });
@@ -112,6 +115,14 @@ test('renders form and user can fill it and submit and form is saved to local st
   await userEvent.click(screen.getByRole('option', { name: /2\. luokka/i }));
 
   // // close dropdown
+
+  // Answer "Is part of cultural route?" question
+  const culturalRouteGroup = await screen.findByRole('group', {
+    name: /käynti sisältyy kulttuuripolkuun/i,
+  });
+  await userEvent.click(
+    within(culturalRouteGroup).getByRole('radio', { name: /kyllä/i })
+  );
 
   await userEvent.click(screen.getByRole('combobox', { name: /luokka-aste/i }));
 
@@ -411,6 +422,7 @@ if (isFeatureEnabled('FORMIK_PERSIST')) {
       isSameResponsiblePerson: true,
       isSharingDataAccepted: false,
       isMandatoryAdditionalInformationRequired: false,
+      isPartOfCulturalRoute: IsPartOfCulturalRoute.NO_OR_UNKNOWN,
       language: '',
       studyGroup: {
         person: {
@@ -504,6 +516,23 @@ if (isFeatureEnabled('FORMIK_PERSIST')) {
       expect(
         screen.getByRole('combobox', { name: /luokka-aste/i })
       ).toHaveTextContent('1. luokka');
+
+      // Test that "Is part of cultural route?" question is not answered,
+      // because this field should not be restored from local storage:
+      const culturalRouteGroup = await screen.findByRole('group', {
+        name: /käynti sisältyy kulttuuripolkuun/i,
+      });
+      const isNotPartOfCulturalRoute = within(culturalRouteGroup).getByRole(
+        'radio',
+        { name: /ei \/ en tiedä/i }
+      );
+      const isPartOfCulturalRoute = within(culturalRouteGroup).getByRole(
+        'radio',
+        { name: /kyllä/i }
+      );
+      expect(isNotPartOfCulturalRoute).not.toBeChecked();
+      expect(isPartOfCulturalRoute).not.toBeChecked();
+
       const childrenCountInput = screen.getByRole('spinbutton', {
         name: /lapsia \*/i,
       });

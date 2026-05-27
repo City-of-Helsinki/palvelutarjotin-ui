@@ -17,6 +17,13 @@
     "labelIsSharingDataAccepted": "I agree to share my information with the event organizer",
     "labelLanguage": "Language",
     "labelNotificationLanguage": "Language used in notifications",
+    "culturalRoute": {
+      "labelIsPartOf": "The visit is part of the cultural route",
+      "labelNoOrUnknown": "No / I don't know",
+      "labelYes": "Yes",
+      "helperText": "Cultural routes are implementation proposals for the City of Helsinki's cultural education plan from early childhood education to upper secondary education. <a>Read more</a>",
+      "readMoreUrl": "/en/cms-page/cultural-education/cultural-routes"
+    },
     "person": {
       "labelEmailAddress": "Email address",
       "labelName": "Name",

@@ -412,6 +412,7 @@ export const MOCK_ENROL_OCCURRENCE_MUTATION_RESPONSE: EnrolOccurrenceMutation =
       enrolments: [
         {
           id: 'RW5yb2xtZW50Tm9kZTo5ODI=',
+          isPartOfCulturalRoute: true,
           notificationType: NotificationType.Email,
           enrolmentTime: '2025-05-06T10:49:07.076077+00:00',
           status: EnrolmentStatus.Pending,

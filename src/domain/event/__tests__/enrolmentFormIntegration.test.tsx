@@ -221,6 +221,7 @@ test('user can select single occurrences and enrol to it with enrolment form', a
       variables: {
         input: {
           captchaKey: 'captcha-token',
+          isPartOfCulturalRoute: false,
           notificationType: 'EMAIL_SMS',
           occurrenceIds: ['123321'],
           person: undefined,
@@ -308,6 +309,7 @@ test('user can select multiple occurrences and enrol to them with enrolment form
       variables: {
         input: {
           captchaKey: 'captcha-token',
+          isPartOfCulturalRoute: false,
           notificationType: 'EMAIL_SMS',
           occurrenceIds: ['123321', '321123'],
           person: undefined,
@@ -416,6 +418,15 @@ async function fillForm({
   );
   // close dropdown
   await user.click(gradeButton);
+
+  // Answer "Is part of cultural route?" question
+  const culturalRouteGroup = await screen.findByRole('group', {
+    name: /käynti sisältyy kulttuuripolkuun/i,
+  });
+  await userEvent.click(
+    within(culturalRouteGroup).getByRole('radio', { name: /ei \/ en tiedä/i })
+  );
+
   await user.type(await enrolmentForm.findByLabelText(/lapsia/i), '10');
   await user.type(await enrolmentForm.findByLabelText(/aikuisia/i), '2');
 

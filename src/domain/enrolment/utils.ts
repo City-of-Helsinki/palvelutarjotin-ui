@@ -1,10 +1,29 @@
-import { EnrolmentFormFields } from './enrolmentForm/constants';
+import {
+  EnrolmentFormFields,
+  IsPartOfCulturalRoute,
+} from './enrolmentForm/constants';
 import {
   EnrolEventQueueMutationInput,
   EnrolOccurrenceMutationInput,
   Language,
   NotificationType,
 } from '../../generated/graphql';
+
+/**
+ * Converts IsPartOfCulturalRoute.YES to true,
+ * IsPartOfCulturalRoute.NO_OR_UNKNOWN to false,
+ * and raises an error on everything else.
+ */
+export const validIsPartOfCulturalRouteToBoolean = (
+  isPart: unknown
+): boolean => {
+  if (isPart === IsPartOfCulturalRoute.YES) {
+    return true;
+  } else if (isPart === IsPartOfCulturalRoute.NO_OR_UNKNOWN) {
+    return false;
+  }
+  throw new Error(`Invalid isPartOfCulturalRoute value ${isPart}`);
+};
 
 const getNotificationType = (values: EnrolmentFormFields): NotificationType => {
   return values.hasEmailNotification &&
@@ -18,6 +37,9 @@ export const getEnrolmentPayloadBase = (
   values: EnrolmentFormFields
 ): Omit<EnrolOccurrenceMutationInput, 'occurrenceIds'> => {
   return {
+    isPartOfCulturalRoute: validIsPartOfCulturalRouteToBoolean(
+      values.isPartOfCulturalRoute
+    ),
     notificationType: getNotificationType(values),
     person: values.isSameResponsiblePerson
       ? undefined
