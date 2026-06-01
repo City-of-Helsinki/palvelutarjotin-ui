@@ -7,7 +7,10 @@ type ZeroToTwoYears = '0-2 vuotiaat' | '0-2 år' | '0-2 years';
 type TargetGroupOption = ZeroToTwoYears;
 type SearchOption = TargetGroupOption;
 type SearchEvents = 'Hae tapahtumia' | 'Sök evenemang' | 'Search events';
-type AdvancedSearch = 'Tarkennettu haku' | 'Redigera sökning' | 'Edit search';
+type AdvancedSearch =
+  | 'Tarkennettu haku'
+  | 'Detaljerad sökning'
+  | 'Advanced search';
 type SearchButton = SearchEvents | AdvancedSearch;
 type SearchTextBox = SearchEvents | TargetGroupButton;
 type TargetGroupField = TargetGroupButton;
