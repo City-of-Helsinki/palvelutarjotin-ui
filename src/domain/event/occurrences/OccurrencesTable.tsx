@@ -55,7 +55,7 @@ interface Props {
   hideLoadMoreButton?: boolean;
 }
 
-export const enrolButtonColumnWidth = '250px';
+export const enrolButtonColumnWidth = '265px';
 
 const OccurrencesTable: React.FC<Props> = ({
   event,
