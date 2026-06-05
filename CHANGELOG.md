@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://www.conventionalcommits.org/) for commit guidelines.
 
+## [2.19.0](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/palvelutarjotin-ui-v2.18.3...palvelutarjotin-ui-v2.19.0) (2026-06-05)
+
+
+### Features
+
+* Add "Is part of cultural route" selection to enrolment form ([99f33d4](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/99f33d45cea6f593ecd8ef429abf1cb125329e67))
+* Reword occurrence Show Details button so users know where to enrol ([23efc57](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/23efc5743c2006aad966502901fcdad507fa4987))
+
+
+### Bug Fixes
+
+* **layout:** Make enrolmentExpandButton work better in mobile view ([76c54f7](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/76c54f719d9e60092aad316317d8666237a0873b))
+* **types:** Use ButtonVariant & ButtonPresetTheme, fix playwright types ([accaca5](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/accaca5db88806cdfd5e08fa4ee2a1c961f16d5f))
+
+
+### Dependencies
+
+* Bump axios from 1.15.2 to 1.16.0 ([3027b90](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/3027b90525a9025326615741dfd0b0025ea4c494))
+* Bump ws from 8.18.1 to 8.21.0 ([43036b1](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/43036b1c5a9714da56c15e6406d155ee3c0f7cfe))
+
 ## [2.18.3](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/palvelutarjotin-ui-v2.18.2...palvelutarjotin-ui-v2.18.3) (2026-05-27)
 
 
