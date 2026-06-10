@@ -23,19 +23,19 @@ Teachers' UI for Kultus (formerly Palvelutarjotin).
     - [Pre-commit Hook](#pre-commit-hook)
     - [Commit-msg Hook](#commit-msg-hook)
   - [Available Scripts](#available-scripts)
-    - [`yarn dev`](#yarn-dev)
-    - [`yarn build`](#yarn-build)
-    - [`yarn start`](#yarn-start)
-    - [`yarn codegen`](#yarn-codegen)
-    - [`yarn lint`](#yarn-lint)
-    - [`yarn format:code`](#yarn-formatcode)
-    - [`yarn test`](#yarn-test)
-    - [`yarn test:changed`](#yarn-testchanged)
-    - [`yarn test:coverage`](#yarn-testcoverage)
-    - [`yarn test:debug`](#yarn-testdebug)
-    - [`yarn test:browser`](#yarn-testbrowser)
-    - [`yarn test:browser:ci`](#yarn-testbrowserci)
-    - [`yarn codegen:browser`](#yarn-codegenbrowser)
+    - [`pnpm dev`](#pnpm-dev)
+    - [`pnpm build`](#pnpm-build)
+    - [`pnpm start`](#pnpm-start)
+    - [`pnpm codegen`](#pnpm-codegen)
+    - [`pnpm lint`](#pnpm-lint)
+    - [`pnpm format:code`](#pnpm-formatcode)
+    - [`pnpm test`](#pnpm-test)
+    - [`pnpm test:changed`](#pnpm-testchanged)
+    - [`pnpm test:coverage`](#pnpm-testcoverage)
+    - [`pnpm test:debug`](#pnpm-testdebug)
+    - [`pnpm test:browser`](#pnpm-testbrowser)
+    - [`pnpm test:browser:ci`](#pnpm-testbrowserci)
+    - [`pnpm codegen:browser`](#pnpm-codegenbrowser)
 - [Headless CMS](#headless-cms)
   - [Headless CMS React Components -lib](#headless-cms-react-components--lib)
 - [Releases, changelogs and deployments](#releases-changelogs-and-deployments)
@@ -209,7 +209,7 @@ Compatibility defined by [Dockerfile](./Dockerfile):
 
 - Docker
 - Node.js 20.x
-- Yarn
+- pnpm
 
 #### About Kultus data models (and relations to LinkedEvents)
 
@@ -271,7 +271,7 @@ Using the following instructions you should be able to:
     >
     > If you connect to a Docker container from your local computer, you can usually use https://localhost:8081/ to reach the API. 
 
-5. Install the dependencies (with `yarn install`) and run the Node application in development mode with `yarn dev`.
+5. Install the dependencies (with `pnpm install`) and run the Node application in development mode with `pnpm dev`.
 
 ##### Running using Docker
 
@@ -345,12 +345,12 @@ This project uses [Husky](https://typicode.github.io/husky/#/) to manage Git hoo
 The pre-commit hook is configured to run the following commands:
 
 ```sh
-yarn doctoc .
-yarn lint-staged --relative
+pnpm doctoc .
+pnpm lint-staged --relative
 ```
 
-- `yarn doctoc .`: This command updates the table of contents in your markdown files.
-- `yarn lint-staged --relative`: This command runs linting on staged files to ensure they meet the project's coding standards. The lint-staged configuration can be found from [lint-staged.config.js](./lint-staged.config.js).
+- `pnpm doctoc .`: This command updates the table of contents in your markdown files.
+- `pnpm lint-staged --relative`: This command runs linting on staged files to ensure they meet the project's coding standards. The lint-staged configuration can be found from [lint-staged.config.js](./lint-staged.config.js).
   - Using `--relative` flag to reduce command line length,
     as the combined length of all the absolute paths for a large commit can get quite long
 
@@ -370,7 +370,7 @@ npx --no-install commitlint --edit "$1"
 
 In the project directory, you can run:
 
-#### `yarn dev`
+#### `pnpm dev`
 
 Runs the app in the development mode.<br/>
 Open http://localhost:3000/ to view it in the browser.
@@ -378,7 +378,7 @@ Open http://localhost:3000/ to view it in the browser.
 The page will reload if you make edits.<br/>
 You will also see any lint errors in the console.
 
-#### `yarn build`
+#### `pnpm build`
 
 Builds the app for production to the `build` directory.
 It correctly bundles React in production mode and optimizes the build for the best performance.
@@ -386,11 +386,11 @@ It correctly bundles React in production mode and optimizes the build for the be
 The build is minified and the filenames include the hashes.
 Your app is ready to be deployed!
 
-#### `yarn start`
+#### `pnpm start`
 Runs the built app in the production mode.<br/>
 Open http://localhost:3000/ to view it in the browser.
 
-#### `yarn codegen`
+#### `pnpm codegen`
 Codegen settings in codegen.yml
 
 Generate static types for GraphQL queries by using the schema from the backend server.
@@ -400,31 +400,31 @@ in .env file
 - Headless CMS API URL to NEXT_PUBLIC_CMS_BASE_URL
 - Unified search API URL to NEXT_PUBLIC_UNIFIED_SEARCH_BASE_URL
 
-#### `yarn lint`
+#### `pnpm lint`
 Run linter to all the files in app
 
-#### `yarn format:code`
+#### `pnpm format:code`
 Fix all the linter errors
 
-#### `yarn test`
+#### `pnpm test`
 Launches the test runner in the interactive watch mode.
 
-#### `yarn test:changed`
+#### `pnpm test:changed`
 Run relevant test based on changes sinces last commit, used in husky git commit hook
 
-#### `yarn test:coverage`
+#### `pnpm test:coverage`
 Run tests and generate coverage report
 
-#### `yarn test:debug`
+#### `pnpm test:debug`
 Debug tests
 
-#### `yarn test:browser`
+#### `pnpm test:browser`
 Run browser tests in local development.
 
-#### `yarn test:browser:ci`
+#### `pnpm test:browser:ci`
 Run browser tests in CI/CD pipeline.
 
-#### `yarn codegen:browser`
+#### `pnpm codegen:browser`
 Generate code for browser tests using [Playwright's test generator](https://playwright.dev/docs/codegen).
 
 ## Headless CMS

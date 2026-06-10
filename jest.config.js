@@ -34,6 +34,7 @@ module.exports = {
     // when running tests.
     '\\.next/',
   ],
+  setupFiles: ['<rootDir>/src/setupGlobals.ts'],
   setupFilesAfterEnv: ['<rootDir>/src/setupTests.ts'],
   testPathIgnorePatterns: [
     '<rootDir>/.next/',

@@ -23,6 +23,11 @@
 
 # debug
 npm-debug.log*
+
+# yarn – not used anymore
+yarn.lock
+.yarn/
+.yarnrc.yml
 yarn-debug.log*
 yarn-error.log*
 

@@ -2,18 +2,17 @@
 FROM registry.access.redhat.com/ubi9/nodejs-22 AS deps
 # =======================================
 
-
-# install yarn
 USER root
-RUN curl --silent --location https://dl.yarnpkg.com/rpm/yarn.repo | tee /etc/yum.repos.d/yarn.repo
-RUN yum -y install yarn
+
+# Install pnpm
+RUN npm install -g pnpm@11.5.0
 
 RUN yum update -y && \
     yum install -y rsync
 
 WORKDIR /workspace-install
 
-COPY --chown=default:root yarn.lock ./
+COPY --chown=default:root pnpm-lock.yaml pnpm-workspace.yaml  ./
 
 WORKDIR /docker-context
 COPY --chown=default:root . /docker-context
@@ -57,10 +56,10 @@ WORKDIR /app
 # copy in our source code last, as it changes the most
 COPY --chown=default:root . .
 
-RUN yarn install --frozen-lockfile --ignore-scripts
+RUN pnpm install --frozen-lockfile --ignore-scripts
 
 # Bake package.json start command into the image
-CMD ["yarn", "dev"]
+CMD ["pnpm", "dev"]
 
 # ===================================
 FROM deps AS staticbuilder
@@ -115,10 +114,10 @@ COPY --chown=default:root . .
 COPY --from=deps --chown=default:root /workspace-install ./
 
 
-RUN yarn install --frozen-lockfile --ignore-scripts
+RUN pnpm install --frozen-lockfile --ignore-scripts
 
 # Build application
-RUN yarn build
+RUN pnpm build
 
 # ==========================================
 FROM staticbuilder AS production
@@ -148,7 +147,8 @@ COPY --from=staticbuilder --chown=default:root /app/next.config.js \
     /app/sentry.edge.config.ts \
     /app/sentry.server.config.ts \
     /app/package.json \
-    /app/yarn.lock \
+    /app/pnpm-lock.yaml \
+    /app/pnpm-workspace.yaml \
     /app/
 COPY --from=staticbuilder --chown=default:root /app/.next/standalone .
 COPY --from=staticbuilder --chown=default:root /app/.next/static ./.next/static

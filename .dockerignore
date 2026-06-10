@@ -5,6 +5,7 @@
 !next-i18next.config.js
 !package.json
 !tsconfig.json
-!yarn.lock
+!pnpm-lock.yaml
+!pnpm-workspace.yaml
 !sentry.edge.config.ts
 !sentry.server.config.ts
