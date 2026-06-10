@@ -71,7 +71,7 @@
     "@graphql-codegen/typescript-operations": "^4.6.0",
     "@graphql-codegen/typescript-react-apollo": "^4.3.2",
     "@next/eslint-plugin-next": "^15.5.11",
-    "@playwright/test": "^1.56.1",
+    "@playwright/test": "^1.60.0",
     "@stylistic/eslint-plugin": "^4.2.0",
     "@swc/core": "^1.11.15",
     "@swc/jest": "^0.2.37",
