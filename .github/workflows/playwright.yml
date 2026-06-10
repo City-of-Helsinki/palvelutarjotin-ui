@@ -29,14 +29,16 @@ jobs:
     - uses: actions/setup-node@v4
       with:
         node-version: 22
+    - name: Enable pnpm
+      run: corepack enable
     - name: Install dependencies
-      run: npm install -g yarn && yarn
+      run: pnpm install --frozen-lockfile
     - name: Build production application
-      run: yarn build
+      run: pnpm build
     - name: Install Playwright Browsers
-      run: yarn playwright install --with-deps
+      run: pnpm playwright install --with-deps
     - name: Run Playwright tests
-      run: yarn test:browser:ci
+      run: pnpm test:browser:ci
     - uses: actions/upload-artifact@v4
       if: ${{ !cancelled() }}
       with:

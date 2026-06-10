@@ -1,0 +1,26 @@
+# Don't allow dependencies to be used before they have been released for at least 1 week
+minimumReleaseAge: 10080
+
+# Don't warn about ignored build scripts
+ignoredBuiltDependencies: []
+
+# Hoist all dependencies to the root of node_modules, for better compatibility with packages that expect flat node_modules
+shamefullyHoist: true
+
+overrides:
+  '@typescript-eslint/typescript-estree>minimatch': '>=9.0.7'
+  'cookie'  : '>=0.7.0'
+  'immutable': '>=3.8.3'
+  'js-cookie': '>=3.0.6'
+  'lodash': '>=4.18.1'
+  'postcss': '>=8.5.10'
+  'tmp': '>=0.2.6'
+  'uuid': '>=11.1.1'
+
+allowBuilds:
+  '@parcel/watcher': true
+  '@sentry/cli': true
+  '@swc/core': true
+  core-js: false
+  msw: false
+  sharp: true

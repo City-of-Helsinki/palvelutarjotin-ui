@@ -67,7 +67,7 @@ export default defineConfig({
   ],
 
   webServer: {
-    command: useDevServer ? 'yarn dev' : 'yarn start',
+    command: useDevServer ? 'pnpm dev' : 'pnpm start',
     url: process.env.NEXT_PUBLIC_APP_ORIGIN,
     reuseExistingServer: !process.env.CI,
     // Increase timeout for development server startup

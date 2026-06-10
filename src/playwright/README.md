@@ -30,7 +30,7 @@ src/playwright/
 
 ## Setup
 
-- Run `yarn playwright install` to install the [browsers](https://playwright.dev/docs/browsers)
+- Run `pnpm playwright install` to install the [browsers](https://playwright.dev/docs/browsers)
 - Copy `.env.playwright.local.example` to `.env.playwright.local` in project root
   - This is needed to set `NEXT_PUBLIC_APP_ORIGIN` (i.e. where the UI is) for the Playwright tests
 
@@ -45,13 +45,13 @@ See [Playwright's Running and debugging tests](https://playwright.dev/docs/runni
 - Production build serves pre-built pages, making tests much faster (20-30 seconds per test)
 
 **To use production build:**
-1. Build the application: `yarn build`
+1. Build the application: `pnpm build`
 2. Comment out or remove `PLAYWRIGHT_WEB_SERVER=development` from `.env.playwright.local`
-3. Run tests: `yarn test:browser`
+3. Run tests: `pnpm test:browser`
 
 **To use development server** (if you need hot-reload during test development):
 1. Set `PLAYWRIGHT_WEB_SERVER=development` in `.env.playwright.local`
-2. Run tests: `yarn test:browser`
+2. Run tests: `pnpm test:browser`
 3. Note: Tests will be slower due to on-demand compilation
 
 The timeout configuration automatically adjusts based on the server type:
@@ -60,18 +60,18 @@ The timeout configuration automatically adjusts based on the server type:
 
 Then run the Playwright tests:
 ```bash
-yarn test:browser
+pnpm test:browser
 ```
 which will spin up the web server and run all tests.
 
 Other useful commands (from [Running and debugging tests](https://playwright.dev/docs/running-tests)):
 
-- Start interactive UI mode: `yarn test:browser --ui`
-- Run tests only on Desktop Chrome: `yarn test:browser --project=chromium`
-- Run tests in a specific file: `yarn test:browser filename`
-- Run tests in debug mode: `yarn test:browser --debug`
-- Run last failed tests: `yarn test:browser --last-failed`
-- Autogenerate tests with [codegen](https://playwright.dev/docs/codegen): `yarn codegen:browser`
+- Start interactive UI mode: `pnpm test:browser --ui`
+- Run tests only on Desktop Chrome: `pnpm test:browser --project=chromium`
+- Run tests in a specific file: `pnpm test:browser filename`
+- Run tests in debug mode: `pnpm test:browser --debug`
+- Run last failed tests: `pnpm test:browser --last-failed`
+- Autogenerate tests with [codegen](https://playwright.dev/docs/codegen): `pnpm codegen:browser`
 
 ## Page Object Model
 
