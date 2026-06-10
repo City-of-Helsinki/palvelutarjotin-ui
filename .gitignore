@@ -43,6 +43,10 @@ yarn-error.log*
 .env.test
 .env.test.local
 
+# generated runtime env files
+public/env-config.js
+public/test-env-config.js
+
 # browser test screenshots
 /screenshot
 

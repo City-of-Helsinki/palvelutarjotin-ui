@@ -1,7 +1,9 @@
+import getEnvValue from '../../utils/getEnvValue';
+
 class AppConfig {
   static get origin() {
     return getEnvOrError(
-      process.env.NEXT_PUBLIC_APP_ORIGIN,
+      getEnvValue('NEXT_PUBLIC_APP_ORIGIN'),
       'NEXT_PUBLIC_APP_ORIGIN'
     );
   }
@@ -16,7 +18,7 @@ class AppConfig {
 
   static get cmsGraphqlEndpoint() {
     return getEnvOrError(
-      process.env.NEXT_PUBLIC_CMS_BASE_URL,
+      getEnvValue('NEXT_PUBLIC_CMS_BASE_URL'),
       'NEXT_PUBLIC_CMS_BASE_URL'
     );
   }

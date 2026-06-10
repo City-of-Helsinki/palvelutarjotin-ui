@@ -10,22 +10,23 @@
   "scripts": {
     "clean": "rimraf --no-glob ./.next ./out ./coverage ./tsconfig.tsbuildinfo",
     "prepare": "husky",
-    "dev": "next dev",
+    "dev": "pnpm update-runtime-env && next dev",
     "build": "next build",
     "build-fast": "cross-env NEXTJS_IGNORE_TYPECHECK=1 NEXTJS_IGNORE_ESLINT=1 NEXTJS_DISABLE_SENTRY=1 NEXTJS_SENTRY_UPLOAD_DRY_RUN=1 next build",
-    "start": "next start",
+    "start": "pnpm update-runtime-env && next start",
     "lint": "eslint src",
     "codegen": "cross-env DOTENV_CONFIG_PATH=\"./.env\" graphql-codegen -r dotenv/config --config codegen.yml",
     "format:code": "eslint src --fix",
     "typecheck": "tsc --project ./tsconfig.json --noEmit",
-    "test": "cross-env SASS_PATH=./src/assets/styles jest --watch",
+    "test": "cross-env NODE_ENV=test SASS_PATH=./src/assets/styles pnpm update-runtime-env && jest --watch",
     "test:changed": "jest -o",
-    "test:coverage": "jest --watchAll=false --coverage",
+    "test:coverage": "cross-env NODE_ENV=test pnpm update-runtime-env && jest --watchAll=false --coverage",
     "test:staged": "cross-env SASS_PATH=./src/assets/styles jest --findRelatedTests --passWithNoTests",
     "ci": "jest --verbose --coverage --runInBand",
     "codegen:browser": "playwright codegen",
     "test:browser": "playwright test",
-    "test:browser:ci": "pnpm test:browser"
+    "test:browser:ci": "pnpm test:browser",
+    "update-runtime-env": "node scripts/update-runtime-env.js . ./public"
   },
   "dependencies": {
     "@apollo/client": "^3.13.5",
