@@ -13,6 +13,7 @@ import { useRef } from 'react';
 
 import { createApolloCache } from './cache';
 import type { CustomPageProps } from '../../../types';
+import getEnvValue from '../../../utils/getEnvValue';
 import isClient from '../../../utils/isClient';
 
 let apolloClient: ApolloClient<NormalizedCacheObject> | undefined;
@@ -59,7 +60,7 @@ function createApolloClient(): ApolloClient<NormalizedCacheObject> {
     }
   );
   const httpLink = new HttpLink({
-    uri: process.env.NEXT_PUBLIC_API_BASE_URL,
+    uri: getEnvValue('NEXT_PUBLIC_API_BASE_URL'),
     fetch,
   });
   return new ApolloClient({

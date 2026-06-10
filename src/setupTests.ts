@@ -18,6 +18,21 @@ console.error = (...args: unknown[]) => {
   originalConsoleError(...args);
 };
 
+// eslint-disable-next-line no-console
+const originalConsoleWarn = console.warn;
+// eslint-disable-next-line no-console
+console.warn = (...args: unknown[]) => {
+  const msg = args[0]?.toString() || '';
+  if (
+    msg.includes(
+      'Warning: window._env_ is undefined. The env-config.js script may not have loaded successfully.'
+    )
+  ) {
+    return;
+  }
+  originalConsoleWarn(...args);
+};
+
 // Mock html-react-parser for tests
 jest.mock('html-react-parser', () => {
   return jest.fn((html: string) => html);

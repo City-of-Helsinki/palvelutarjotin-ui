@@ -153,15 +153,19 @@ COPY --from=staticbuilder --chown=default:root /app/next.config.js \
 COPY --from=staticbuilder --chown=default:root /app/.next/standalone .
 COPY --from=staticbuilder --chown=default:root /app/.next/static ./.next/static
 COPY --from=staticbuilder --chown=default:root /app/public ./public
+COPY --from=staticbuilder --chown=default:root /app/scripts ./scripts
 
 # OpenShift write access to Next cache folder
 USER root
-RUN chgrp -R 0 /app/.next/server/pages && chmod g+w -R /app/.next/server/pages
+RUN chgrp -R 0 /app/.next/server/pages && chmod g+w -R /app/.next/server/pages && \
+    chmod -R g=u /app/public /app/scripts && \
+    chmod +x /app/scripts/*.sh && \
+    rm -f /app/public/env-config.js && \
+    ln -s /tmp/env-config.js /app/public/env-config.js
 USER default
 
 # Expose port
 EXPOSE $PORT
 # Start nextjs server
-CMD ["node", "/app/server.js"]
-
-
+ENTRYPOINT ["sh", "/app/scripts/docker-entrypoint.sh"]
+CMD ["sh", "-c", "node /app/server.js"]

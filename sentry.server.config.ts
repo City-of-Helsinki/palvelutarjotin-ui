@@ -1,12 +1,14 @@
 import * as Sentry from '@sentry/nextjs';
 
-if (process.env.NEXT_PUBLIC_SENTRY_DSN) {
+import getEnvValue from './src/utils/getEnvValue';
+
+if (getEnvValue('NEXT_PUBLIC_SENTRY_DSN')) {
   Sentry.init({
-    dsn: process.env.NEXT_PUBLIC_SENTRY_DSN,
-    environment: process.env.NEXT_PUBLIC_SENTRY_ENVIRONMENT,
-    release: process.env.NEXT_PUBLIC_SENTRY_RELEASE,
+    dsn: getEnvValue('NEXT_PUBLIC_SENTRY_DSN'),
+    environment: getEnvValue('NEXT_PUBLIC_SENTRY_ENVIRONMENT'),
+    release: getEnvValue('NEXT_PUBLIC_SENTRY_RELEASE'),
     tracesSampleRate: parseFloat(
-      process.env.NEXT_PUBLIC_SENTRY_TRACES_SAMPLE_RATE || '0'
+      getEnvValue('NEXT_PUBLIC_SENTRY_TRACES_SAMPLE_RATE') || '0'
     ),
   });
 }

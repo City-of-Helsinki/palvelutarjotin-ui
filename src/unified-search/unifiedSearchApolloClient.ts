@@ -11,6 +11,7 @@ import {
   initializeApolloClient,
   MutableReference,
 } from '../common/apollo/utils';
+import getEnvValue from '../utils/getEnvValue';
 
 const unifiedSearchApolloClient = new MutableReference<
   ApolloClient<NormalizedCacheObject>
@@ -20,7 +21,7 @@ export const createUnifiedSearchApolloClient =
   (): ApolloClient<NormalizedCacheObject> => {
     return new ApolloClient({
       link: new HttpLink({
-        uri: process.env.NEXT_PUBLIC_UNIFIED_SEARCH_BASE_URL,
+        uri: getEnvValue('NEXT_PUBLIC_UNIFIED_SEARCH_BASE_URL'),
         fetch,
       }),
       cache: new InMemoryCache(),

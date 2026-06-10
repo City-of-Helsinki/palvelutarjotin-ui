@@ -7,19 +7,21 @@ import { useCookieConsentContext } from 'hds-react';
 import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
 
+import getEnvValue from '../../utils/getEnvValue';
+
 const getMatomoUrlPath = (path: string) =>
-  `${process.env.NEXT_PUBLIC_MATOMO_URL_BASE}${path}`;
+  `${getEnvValue('NEXT_PUBLIC_MATOMO_URL_BASE')}${path}`;
 
 const matomoInstance = createMatomoInstance({
-  disabled: process.env.NEXT_PUBLIC_MATOMO_ENABLED !== 'true',
-  urlBase: process.env.NEXT_PUBLIC_MATOMO_URL_BASE as string,
+  disabled: getEnvValue('NEXT_PUBLIC_MATOMO_ENABLED') !== 'true',
+  urlBase: getEnvValue('NEXT_PUBLIC_MATOMO_URL_BASE') as string,
   srcUrl:
-    process.env.NEXT_PUBLIC_MATOMO_SRC_URL &&
-    getMatomoUrlPath(process.env.NEXT_PUBLIC_MATOMO_SRC_URL),
+    getEnvValue('NEXT_PUBLIC_MATOMO_SRC_URL') &&
+    getMatomoUrlPath(getEnvValue('NEXT_PUBLIC_MATOMO_SRC_URL') as string),
   trackerUrl:
-    process.env.NEXT_PUBLIC_MATOMO_TRACKER_URL &&
-    getMatomoUrlPath(process.env.NEXT_PUBLIC_MATOMO_TRACKER_URL),
-  siteId: Number(process.env.NEXT_PUBLIC_MATOMO_SITE_ID),
+    getEnvValue('NEXT_PUBLIC_MATOMO_TRACKER_URL') &&
+    getMatomoUrlPath(getEnvValue('NEXT_PUBLIC_MATOMO_TRACKER_URL') as string),
+  siteId: Number(getEnvValue('NEXT_PUBLIC_MATOMO_SITE_ID')),
 });
 
 function Matomo({ children }: { children: React.ReactNode }): JSX.Element {

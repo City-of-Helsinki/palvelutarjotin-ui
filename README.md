@@ -32,6 +32,7 @@ Teachers' UI for Kultus (formerly Palvelutarjotin).
     - [`pnpm test`](#pnpm-test)
     - [`pnpm test:changed`](#pnpm-testchanged)
     - [`pnpm test:coverage`](#pnpm-testcoverage)
+    - [`pnpm update-runtime-env`](#pnpm-update-runtime-env)
     - [`pnpm test:debug`](#pnpm-testdebug)
     - [`pnpm test:browser`](#pnpm-testbrowser)
     - [`pnpm test:browser:ci`](#pnpm-testbrowserci)
@@ -414,6 +415,11 @@ Run relevant test based on changes sinces last commit, used in husky git commit 
 
 #### `pnpm test:coverage`
 Run tests and generate coverage report
+
+#### `pnpm update-runtime-env`
+Generates `public/env-config.js` (and `public/test-env-config.js` when `NODE_ENV=test`) from runtime environment variables.
+
+This command is run automatically by `pnpm dev`, `pnpm start`, `pnpm test`, and `pnpm test:coverage`.
 
 #### `pnpm test:debug`
 Debug tests
