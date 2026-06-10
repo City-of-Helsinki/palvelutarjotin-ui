@@ -32,3 +32,61 @@ test.skip('trackPageView gets called when pathname changes', async () => {
   // Test implementation removed due to window.location mocking limitations
   // See comment at top of file
 });
+
+type EnvValues = Record<string, string | undefined>;
+
+function loadMatomoModule(envValues: EnvValues): {
+  createInstanceMock: jest.Mock;
+  warnSpy: jest.SpyInstance;
+} {
+  const createInstanceMock = jest.fn(() => ({}));
+  const warnSpy = jest
+    .spyOn(console, 'warn')
+    .mockImplementation(() => undefined);
+
+  jest.doMock('@jonkoops/matomo-tracker-react', () => ({
+    createInstance: createInstanceMock,
+  }));
+
+  jest.doMock('../../../utils/getEnvValue', () => ({
+    __esModule: true,
+    default: (key: string) => envValues[key],
+  }));
+
+  jest.isolateModules(() => {
+    jest.requireActual('../Matomo');
+  });
+
+  return { createInstanceMock, warnSpy };
+}
+
+afterEach(() => {
+  jest.restoreAllMocks();
+  jest.resetModules();
+});
+
+test('logs warning and skips tracker creation when Matomo is enabled without urlBase', () => {
+  const { createInstanceMock, warnSpy } = loadMatomoModule({
+    NEXT_PUBLIC_MATOMO_ENABLED: 'true',
+    NEXT_PUBLIC_MATOMO_URL_BASE: undefined,
+  });
+
+  expect(createInstanceMock).not.toHaveBeenCalled();
+  expect(warnSpy).toHaveBeenCalledTimes(1);
+  expect(warnSpy).toHaveBeenCalledWith(
+    'Warning: Matomo is enabled but NEXT_PUBLIC_MATOMO_URL_BASE is missing. Matomo tracking is disabled.'
+  );
+});
+
+test('does not log warning and creates tracker when Matomo is configured', () => {
+  const { createInstanceMock, warnSpy } = loadMatomoModule({
+    NEXT_PUBLIC_MATOMO_ENABLED: 'true',
+    NEXT_PUBLIC_MATOMO_URL_BASE: 'https://matomo.example.com',
+    NEXT_PUBLIC_MATOMO_SRC_URL: '/matomo.js',
+    NEXT_PUBLIC_MATOMO_TRACKER_URL: '/matomo.php',
+    NEXT_PUBLIC_MATOMO_SITE_ID: '5',
+  });
+
+  expect(warnSpy).not.toHaveBeenCalled();
+  expect(createInstanceMock).toHaveBeenCalledTimes(1);
+});
