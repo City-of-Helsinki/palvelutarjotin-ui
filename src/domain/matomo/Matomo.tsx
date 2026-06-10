@@ -12,17 +12,32 @@ import getEnvValue from '../../utils/getEnvValue';
 const getMatomoUrlPath = (path: string) =>
   `${getEnvValue('NEXT_PUBLIC_MATOMO_URL_BASE')}${path}`;
 
-const matomoInstance = createMatomoInstance({
-  disabled: getEnvValue('NEXT_PUBLIC_MATOMO_ENABLED') !== 'true',
-  urlBase: getEnvValue('NEXT_PUBLIC_MATOMO_URL_BASE') as string,
-  srcUrl:
-    getEnvValue('NEXT_PUBLIC_MATOMO_SRC_URL') &&
-    getMatomoUrlPath(getEnvValue('NEXT_PUBLIC_MATOMO_SRC_URL') as string),
-  trackerUrl:
-    getEnvValue('NEXT_PUBLIC_MATOMO_TRACKER_URL') &&
-    getMatomoUrlPath(getEnvValue('NEXT_PUBLIC_MATOMO_TRACKER_URL') as string),
-  siteId: Number(getEnvValue('NEXT_PUBLIC_MATOMO_SITE_ID')),
-});
+const isMatomoEnabled = getEnvValue('NEXT_PUBLIC_MATOMO_ENABLED') === 'true';
+const matomoUrlBase = getEnvValue('NEXT_PUBLIC_MATOMO_URL_BASE');
+
+if (isMatomoEnabled && !matomoUrlBase) {
+  // eslint-disable-next-line no-console
+  console.warn(
+    'Warning: Matomo is enabled but NEXT_PUBLIC_MATOMO_URL_BASE is missing. Matomo tracking is disabled.'
+  );
+}
+
+const matomoInstance =
+  isMatomoEnabled && matomoUrlBase
+    ? createMatomoInstance({
+        disabled: false,
+        urlBase: matomoUrlBase,
+        srcUrl:
+          getEnvValue('NEXT_PUBLIC_MATOMO_SRC_URL') &&
+          getMatomoUrlPath(getEnvValue('NEXT_PUBLIC_MATOMO_SRC_URL') as string),
+        trackerUrl:
+          getEnvValue('NEXT_PUBLIC_MATOMO_TRACKER_URL') &&
+          getMatomoUrlPath(
+            getEnvValue('NEXT_PUBLIC_MATOMO_TRACKER_URL') as string
+          ),
+        siteId: Number(getEnvValue('NEXT_PUBLIC_MATOMO_SITE_ID')),
+      })
+    : undefined;
 
 function Matomo({ children }: { children: React.ReactNode }): JSX.Element {
   if (matomoInstance) {
