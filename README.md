@@ -208,7 +208,7 @@ This project is built using the following key frameworks and libraries:
 Compatibility defined by [Dockerfile](./Dockerfile):
 
 - Docker
-- Node.js 20.x
+- Node.js 24.x
 - pnpm
 
 #### About Kultus data models (and relations to LinkedEvents)

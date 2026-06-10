@@ -5,7 +5,7 @@ import {
   TransformStream,
   WritableStream,
 } from 'node:stream/web';
-import { TextDecoder, TextEncoder } from 'util';
+import { TextDecoder, TextEncoder } from 'node:util';
 
 // To avoid error: ReferenceError: TextEncoder is not defined
 // discussed here: https://github.com/jsdom/jsdom/issues/2524

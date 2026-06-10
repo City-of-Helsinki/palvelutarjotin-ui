@@ -105,8 +105,4 @@ beforeEach(() => {
   localStorage.clear();
 });
 
-jest.mock('next/config', () => {
-  return () => ({});
-});
-
 jest.setTimeout(50000);
