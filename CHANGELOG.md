@@ -2,6 +2,33 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://www.conventionalcommits.org/) for commit guidelines.
 
+## [2.20.0](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/palvelutarjotin-ui-v2.19.0...palvelutarjotin-ui-v2.20.0) (2026-06-12)
+
+
+### Features
+
+* Add runtime env injection and wire app to use it ([dc52e96](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/dc52e964827c903cca1be98536fae3053fdfccdd))
+* Migrate project tooling from Yarn to pnpm ([8e2ac48](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/8e2ac48cb60b956df63a17d801778374e901f7d8))
+* Migrate shared table to TanStack v8 ([221cbcb](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/221cbcbd8333ad970da665021f0f8fa9d71e87b8))
+* Replace react-toastify with HDS notifications ([069a2b5](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/069a2b5eec6554706ddd7c753595f8af65d406fc))
+* Upgrade Node.js from 22 to 24 ([20e7ee9](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/20e7ee9501a572d6d5f4fa9084fe44051b68a803))
+* Upgrade to Next.js 16 and align app config for Turbopack ([0de9009](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/0de9009d43fb18f030a4874d308c25f6be2aefa0))
+
+
+### Bug Fixes
+
+* **matomo:** Avoid crash when urlBase is missing ([017d80d](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/017d80d8158ad9954149ea14852291d844ad38d6))
+* Rename .invalidText class to .errorText ([3f6b374](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/3f6b374a4a7e0716ebaebba6e0b4e93927a9c562))
+
+
+### Dependencies
+
+* Update React and related type definitions to version 19 ([00044dc](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/00044dcefb4cc90cea00271f83d66b8e5053a936))
+* Update Sentry to v10.48.0 and configure Turbopack ([467d8e6](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/467d8e6d018d615dee52e0e717b508aeba8d951d))
+* Update testing-library packages to latest versions ([e9c29d6](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/e9c29d6bf52da37532bb20f1f7d8b15888ac2d8c))
+* Upgrade Playwright to 1.60.0 for Node 24 install fix ([f9841f1](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/f9841f1b4997175454b85d85b684581b93807d75))
+* Upgrade HDS to v6.0.2 ([58cc737](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/58cc7378798a95543d9767e090748facd62a44fa))
+
 ## [2.19.0](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/palvelutarjotin-ui-v2.18.3...palvelutarjotin-ui-v2.19.0) (2026-06-05)
 
 
