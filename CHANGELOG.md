@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://www.conventionalcommits.org/) for commit guidelines.
 
+## [2.21.0](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/palvelutarjotin-ui-v2.20.0...palvelutarjotin-ui-v2.21.0) (2026-06-12)
+
+
+### Features
+
+* Add HelsinkiGroteskPro variable font ([acabd92](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/acabd925fa5ce28f5c2843f5fefe34ccf69e230e))
+
 ## [2.20.0](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/palvelutarjotin-ui-v2.19.0...palvelutarjotin-ui-v2.20.0) (2026-06-12)
 
 
