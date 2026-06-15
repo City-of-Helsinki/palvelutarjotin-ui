@@ -41,7 +41,6 @@ exports[`EventCard List of occurrences renders multiday occurrence time correctl
           class="eventTimes"
         >
           <ul
-            aria-labelledby="palvelutarjotin-a0775a20-468a-437b-91ee-f7a9cabea321-toggle-occurrences-btn"
             class="occurrenceTimes"
           >
             <li>
@@ -49,7 +48,7 @@ exports[`EventCard List of occurrences renders multiday occurrence time correctl
                 class="textWithIcon"
               >
                 <svg
-                  class=""
+                  aria-hidden="true"
                   height="100%"
                   viewBox="0 0 24 24"
                   width="100%"
@@ -72,7 +71,7 @@ exports[`EventCard List of occurrences renders multiday occurrence time correctl
                 class="textWithIcon"
               >
                 <svg
-                  class=""
+                  aria-hidden="true"
                   height="100%"
                   viewBox="0 0 24 24"
                   width="100%"
@@ -95,7 +94,7 @@ exports[`EventCard List of occurrences renders multiday occurrence time correctl
                 class="textWithIcon"
               >
                 <svg
-                  class=""
+                  aria-hidden="true"
                   height="100%"
                   viewBox="0 0 24 24"
                   width="100%"

@@ -148,10 +148,7 @@ const EventTime: React.FC<{
       className={styles.eventTimes}
       aria-label={t('event:eventCard.occurrenceTimes.ariaLabel')}
     >
-      <ul
-        className={styles.occurrenceTimes}
-        aria-labelledby={`${sanitizeDomId(event.id)}-toggle-occurrences-btn`}
-      >
+      <ul className={styles.occurrenceTimes}>
         {nextOccurrence ? (
           <li>
             <OccurrenceTime occurrence={nextOccurrence} />
