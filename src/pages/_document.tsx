@@ -7,7 +7,6 @@ import Script from 'next/script';
 import React from 'react';
 
 import documentLang from '../utils/documentLang';
-import getEnvValue from '../utils/getEnvValue';
 
 process.on('unhandledRejection', (err) => {
   Sentry.captureException(err);
@@ -63,7 +62,7 @@ class MyDocument extends NextJsDocument<Props> {
           />
           <Script src="/env-config.js" strategy="beforeInteractive" />
           <script
-            src={`https://www.google.com/recaptcha/api.js?render=${getEnvValue('NEXT_PUBLIC_CAPTCHA_KEY')}`}
+            src={`https://www.google.com/recaptcha/api.js?render=${process.env.NEXT_PUBLIC_CAPTCHA_KEY}`}
           />
         </Head>
         <body>
