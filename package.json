@@ -34,7 +34,7 @@
     "@city-of-helsinki/react-helsinki-headless-cms": "3.0.3",
     "@date-fns/tz": "^1.2.0",
     "@jonkoops/matomo-tracker-react": "^0.7.0",
-    "@sentry/nextjs": "^10.48.0",
+    "@sentry/nextjs": "^10.63.0",
     "@tanstack/react-table": "^8.21.3",
     "axios": "^1.16.0",
     "classnames": "^2.5.1",
