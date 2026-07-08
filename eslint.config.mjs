@@ -42,28 +42,26 @@ export default [
       // migrating each site is out of scope for the ESLint-10 upgrade.
       '@eslint-react/component-hook-factories': 'off',
       '@eslint-react/dom-no-dangerously-set-innerhtml': 'off',
-      '@eslint-react/exhaustive-deps': 'off',
       '@eslint-react/naming-convention-ref-name': 'off',
       '@eslint-react/no-array-index-key': 'off',
       '@eslint-react/no-context-provider': 'off',
       '@eslint-react/purity': 'off',
       '@eslint-react/set-state-in-effect': 'off',
       '@eslint-react/use-state': 'off',
-    },
-  },
-  // Playwright fixtures use a `use()` consumer that trips @eslint-react/rules-of-hooks.
-  {
-    files: ['src/playwright/**/*.{ts,tsx}'],
-    rules: {
+      // react-hooks/* (below) is the authoritative source; @eslint-react's copies are disabled to avoid duplicate reports.
       '@eslint-react/rules-of-hooks': 'off',
+      '@eslint-react/exhaustive-deps': 'off',
     },
   },
 
-  // react-hooks config
+  // react-hooks config (v7, ESLint-10 native)
   {
     files,
     plugins: { 'react-hooks': reactHooksPlugin },
-    rules: reactHooksPlugin.configs.recommended.rules,
+    rules: {
+      'react-hooks/rules-of-hooks': 'error',
+      'react-hooks/exhaustive-deps': 'warn',
+    },
   },
 
   // @next/next config
