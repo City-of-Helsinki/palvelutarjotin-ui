@@ -4430,8 +4430,8 @@ packages:
   hyphenate-style-name@1.1.0:
     resolution: {integrity: sha512-WDC/ui2VVRrz3jOVi+XtjqkDjiVjTtFaAGiW37k6b+ohyQ5wYDOGkvCZa8+H0nx3gyvv0+BST9xuOgIyGQ00gw==}
 
-  i18next-fs-backend@2.6.5:
-    resolution: {integrity: sha512-+7HBrlaj3UFnNC9HqiXaIlNkwNINYkgQ2PS4h7qW/WGHC9/+OU9Xi0/tdvjjXATw3YCcpmNV7S3zDD9e10pTWg==}
+  i18next-fs-backend@2.6.6:
+    resolution: {integrity: sha512-mYGu6Nt8RIp3X/U8Y+Gej1wo5xmYWmGKLqBGMCC2OCAou5rW5epeHgHmVcw20mJs9Z9+DAPHIxQPNCgFyPRMeg==}
 
   i18next@24.2.3:
     resolution: {integrity: sha512-lfbf80OzkocvX7nmZtu7nSTNbrTYR52sLWxPtlXX1zAhVw8WEnFk4puUkCR4B1dNQwbSpEHHHemcZu//7EcB7A==}
@@ -11866,7 +11866,7 @@ snapshots:
 
   hyphenate-style-name@1.1.0: {}
 
-  i18next-fs-backend@2.6.5: {}
+  i18next-fs-backend@2.6.6: {}
 
   i18next@24.2.3(typescript@5.8.2):
     dependencies:
@@ -13120,7 +13120,7 @@ snapshots:
       core-js: 3.41.0
       hoist-non-react-statics: 3.3.2
       i18next: 24.2.3(typescript@5.8.2)
-      i18next-fs-backend: 2.6.5
+      i18next-fs-backend: 2.6.6
       next: 16.2.6(@babel/core@7.29.7)(@opentelemetry/api@1.9.1)(@playwright/test@1.60.0)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(sass@1.98.0)
       react: 19.2.5
       react-i18next: 15.7.4(i18next@24.2.3(typescript@5.8.2))(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(typescript@5.8.2)
