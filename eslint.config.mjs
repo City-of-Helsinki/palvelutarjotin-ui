@@ -1,13 +1,13 @@
 import js from '@eslint/js';
+import eslintReact from '@eslint-react/eslint-plugin';
 import nextPlugin from '@next/eslint-plugin-next';
 import stylisticPlugin from '@stylistic/eslint-plugin';
 import tsPlugin from '@typescript-eslint/eslint-plugin';
 import tsParser from '@typescript-eslint/parser';
-import importPlugin from 'eslint-plugin-import';
+import { importX } from 'eslint-plugin-import-x';
 import jsxA11yPlugin from 'eslint-plugin-jsx-a11y';
 import noOnlyTestsPlugin from 'eslint-plugin-no-only-tests';
 import prettierPlugin from 'eslint-plugin-prettier';
-import reactPlugin from 'eslint-plugin-react';
 import reactHooksPlugin from 'eslint-plugin-react-hooks';
 import globals from 'globals';
 
@@ -30,14 +30,32 @@ export default [
     ],
   },
 
-  // react config
+  // @eslint-react config (replaces eslint-plugin-react)
   {
     files,
-    plugins: { react: reactPlugin },
+    ...eslintReact.configs['recommended-typescript'],
+  },
+  {
+    files,
     rules: {
-      ...reactPlugin.configs.recommended.rules,
-      'react/no-unused-prop-types': ['warn'],
-      'react/prop-types': ['error', { skipUndeclared: true }],
+      // Disabled because they fire many times across the codebase and
+      // migrating each site is out of scope for the ESLint-10 upgrade.
+      '@eslint-react/component-hook-factories': 'off',
+      '@eslint-react/dom-no-dangerously-set-innerhtml': 'off',
+      '@eslint-react/exhaustive-deps': 'off',
+      '@eslint-react/naming-convention-ref-name': 'off',
+      '@eslint-react/no-array-index-key': 'off',
+      '@eslint-react/no-context-provider': 'off',
+      '@eslint-react/purity': 'off',
+      '@eslint-react/set-state-in-effect': 'off',
+      '@eslint-react/use-state': 'off',
+    },
+  },
+  // Playwright fixtures use a `use()` consumer that trips @eslint-react/rules-of-hooks.
+  {
+    files: ['src/playwright/**/*.{ts,tsx}'],
+    rules: {
+      '@eslint-react/rules-of-hooks': 'off',
     },
   },
 
@@ -67,13 +85,19 @@ export default [
     rules: jsxA11yPlugin.flatConfigs.recommended.rules,
   },
 
-  // import config
+  // import-x config (replaces eslint-plugin-import)
   {
     files,
-    plugins: { import: importPlugin },
+    ...importX.flatConfigs.recommended,
+  },
+  {
+    files,
+    ...importX.flatConfigs.typescript,
+  },
+  {
+    files,
     rules: {
-      ...importPlugin.flatConfigs.recommended.rules,
-      'import/order': [
+      'import-x/order': [
         'error',
         {
           groups: [
@@ -88,6 +112,13 @@ export default [
           },
         },
       ],
+      // Codebase widely uses `React.useX` etc. via the default import;
+      // rewriting to named imports is out of scope for this upgrade.
+      'import-x/no-named-as-default': 'off',
+      'import-x/no-named-as-default-member': 'off',
+      // testUtils.tsx intentionally re-exports a customized `render`
+      // that shadows @testing-library/react's export.
+      'import-x/export': 'off',
     },
   },
 
@@ -139,9 +170,6 @@ export default [
     },
     settings: {
       react: { version: 'detect' },
-      'import/resolver': {
-        typescript: true,
-      },
     },
     linterOptions: {
       reportUnusedDisableDirectives: true,
@@ -163,7 +191,6 @@ export default [
       ...tsPlugin.configs.recommended.rules,
       'no-undef': 'off',
       '@typescript-eslint/explicit-function-return-type': 'off',
-      '@/func-call-spacing': ['error'],
       '@typescript-eslint/member-ordering': ['warn'],
       '@typescript-eslint/no-require-imports': ['error'],
     },

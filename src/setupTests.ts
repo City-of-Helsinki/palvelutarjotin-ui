@@ -48,6 +48,7 @@ jest.mock('hds-react', () => {
     }: {
       children: React.ReactNode;
     }) => children,
+    // eslint-disable-next-line @eslint-react/no-unnecessary-use-prefix
     useCookieConsentContext: () => ({
       isReady: true,
       consents: [],

@@ -23,7 +23,7 @@ type InputWrapperProps = {
   required?: boolean;
 };
 
-// eslint-disable-next-line react/display-name
+// eslint-disable-next-line @eslint-react/no-forward-ref
 const InputWrapper: FC<InputWrapperProps> = React.forwardRef<
   HTMLDivElement,
   InputWrapperProps

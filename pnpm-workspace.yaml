@@ -17,9 +17,13 @@ ignoredBuiltDependencies: []
 # Hoist all dependencies to the root of node_modules, for better compatibility with packages that expect flat node_modules
 shamefullyHoist: true
 
+peerDependencyRules:
+  allowedVersions:
+    eslint: '10'
+
 overrides:
   '@typescript-eslint/typescript-estree>minimatch': '>=9.0.7'
-  'cookie'  : '>=0.7.0'
+  'cookie': '>=0.7.0'
   'csstype': '3.2.3'
   'immutable': '>=3.8.3'
   'isomorphic-dompurify': '2.26.0'
@@ -36,3 +40,4 @@ allowBuilds:
   core-js: false
   msw: false
   sharp: true
+  unrs-resolver: true
