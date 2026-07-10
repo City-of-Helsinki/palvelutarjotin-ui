@@ -1,6 +1,16 @@
 # Don't allow dependencies to be used before they have been released for at least 1 week
 minimumReleaseAge: 10080
 
+minimumReleaseAgeExclude:
+  - baseline-browser-mapping@2.10.42
+  - browserslist@4.28.5
+  - caniuse-lite@1.0.30001803
+  - electron-to-chromium@1.5.389
+  - enhanced-resolve@5.24.2
+  - node-releases@2.0.51
+  - terser@5.49.0
+  - webpack-sources@3.5.1
+
 # Don't warn about ignored build scripts
 ignoredBuiltDependencies: []
 
