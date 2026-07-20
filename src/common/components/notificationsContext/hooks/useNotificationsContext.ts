@@ -7,6 +7,7 @@ import {
 } from '../NotificationsContext';
 
 export const useNotificationsContext = (): NotificationsContextProps => {
+  // eslint-disable-next-line @eslint-react/no-use-context
   const context = useContext<NotificationsContextProps | undefined>(
     NotificationsContext
   );
