@@ -1,16 +1,6 @@
 # Don't allow dependencies to be used before they have been released for at least 1 week
 minimumReleaseAge: 10080
 
-minimumReleaseAgeExclude:
-  - baseline-browser-mapping@2.10.42
-  - browserslist@4.28.5
-  - caniuse-lite@1.0.30001803
-  - electron-to-chromium@1.5.389
-  - enhanced-resolve@5.24.2
-  - node-releases@2.0.51
-  - terser@5.49.0
-  - webpack-sources@3.5.1
-
 # Don't warn about ignored build scripts
 ignoredBuiltDependencies: []
 
@@ -23,13 +13,18 @@ peerDependencyRules:
 
 overrides:
   '@typescript-eslint/typescript-estree>minimatch': '>=9.0.7'
+  'brace-expansion': '>=5.0.8'
   'cookie': '>=0.7.0'
   'csstype': '3.2.3'
-  'immutable': '>=3.8.3'
+  'dompurify': '>=3.4.12'
+  'fast-uri': '>=3.1.4'
+  'immutable': '>=5.1.8'
   'isomorphic-dompurify': '2.26.0'
   'js-cookie': '>=3.0.6'
   'lodash': '>=4.18.1'
-  'postcss': '>=8.5.10'
+  'postcss': '>=8.5.18'
+  'sharp': '>=0.35.0'
+  'shell-quote': '>=1.8.5'
   'tmp': '>=0.2.6'
   'uuid': '>=11.1.1'
   'js-yaml@^3': '^4.2.0'
