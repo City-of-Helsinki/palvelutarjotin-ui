@@ -96,8 +96,10 @@ COPY --from=deps --chown=default:root /workspace-install ./
 
 RUN pnpm install --frozen-lockfile --ignore-scripts
 
-# Build application
-RUN pnpm build
+# Build application.
+# NEXT_PUBLIC_CAPTCHA_KEY is passed as a per-command env var so Next.js inlines
+# it into the build, without leaking the value into the production stage's env.
+RUN NEXT_PUBLIC_CAPTCHA_KEY=$NEXT_PUBLIC_CAPTCHA_KEY pnpm build
 
 # ==========================================
 FROM staticbuilder AS production
@@ -106,7 +108,6 @@ FROM staticbuilder AS production
 USER default
 
 ARG PORT
-ARG NEXT_PUBLIC_CAPTCHA_KEY
 ARG NEWSLETTER_BASE_URL
 ARG NEWSLETTER_APIKEY
 ENV NEWSLETTER_BASE_URL=$NEWSLETTER_BASE_URL

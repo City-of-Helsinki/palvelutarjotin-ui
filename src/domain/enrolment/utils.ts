@@ -8,7 +8,6 @@ import {
   Language,
   NotificationType,
 } from '../../generated/graphql';
-import getEnvValue from '../../utils/getEnvValue';
 
 /**
  * Converts IsPartOfCulturalRoute.YES to true,
@@ -93,7 +92,7 @@ interface ReCAPTCHA {
 
 export const getCAPTCHAToken = (): Promise<string> => {
   return new Promise((resolve, reject) => {
-    const captchaKey = getEnvValue('NEXT_PUBLIC_CAPTCHA_KEY');
+    const captchaKey = process.env.NEXT_PUBLIC_CAPTCHA_KEY;
 
     if (captchaKey) {
       grecaptcha.ready(() => {

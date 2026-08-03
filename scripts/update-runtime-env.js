@@ -6,6 +6,11 @@ const path = require('path');
 const USE_TEST_ENV = process.env.NODE_ENV === 'test';
 const PUBLIC_PREFIX = 'NEXT_PUBLIC_';
 
+// Keys excluded from the generated runtime env config. These are inlined by
+// Next.js at build time (via process.env.NEXT_PUBLIC_*) and intentionally kept
+// out of window._env_ so they aren't redistributed at runtime.
+const RUNTIME_ENV_EXCLUDES = new Set(['NEXT_PUBLIC_CAPTCHA_KEY']);
+
 const envDir = process.argv[2] || process.cwd();
 const targetDir = process.argv[3] || path.resolve(process.cwd(), 'public');
 const configFile = USE_TEST_ENV ? 'test-env-config.js' : 'env-config.js';
@@ -66,7 +71,11 @@ const loadEnvFromFiles = () => {
 const pickPublicEnv = (source) => {
   return Object.fromEntries(
     Object.entries(source).filter(([key, value]) => {
-      return key.startsWith(PUBLIC_PREFIX) && value !== undefined;
+      return (
+        key.startsWith(PUBLIC_PREFIX) &&
+        value !== undefined &&
+        !RUNTIME_ENV_EXCLUDES.has(key)
+      );
     })
   );
 };
