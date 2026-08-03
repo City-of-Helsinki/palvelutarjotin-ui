@@ -41,7 +41,6 @@ resources:
       type: git
       # Azure DevOps project/repository
       name: kultus/kultus-pipelines
-      ref: refs/heads/fix/secret-injection
 
 extends:
   # Filename in Azure DevOps Repository
