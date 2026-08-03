@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://www.conventionalcommits.org/) for commit guidelines.
 
+## [2.21.1](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/palvelutarjotin-ui-v2.21.0...palvelutarjotin-ui-v2.21.1) (2026-08-03)
+
+
+### Bug Fixes
+
+* Accessibility issues ([952f08d](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/952f08de66490731465d9b68949c2539d24aedfd))
+* Envs NEXT_PUBLIC_CAPTCHA_KEY NEWSLETTER_APIKEY injection ([#504](https://github.com/City-of-Helsinki/palvelutarjotin-ui/issues/504)) ([2838f1d](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/2838f1db7f0484454ece8edfcaef8ddefad48662))
+* Stuck Dependabot workflows ([#505](https://github.com/City-of-Helsinki/palvelutarjotin-ui/issues/505)) ([02ddb38](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/02ddb38c7585d7bdd347dd50efcecf8d89a809d1))
+* Update headless cms ([a4012e9](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/a4012e942b6b28ef5b41bf990573d1b30ce10996))
+
+
+### Dependencies
+
+* Bump next from 16.2.3 to 16.2.6 ([60bad84](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/60bad84ed63f00075439f66a67a95538d212a754))
+* Bump next from 16.2.6 to 16.2.11 ([27b21df](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/27b21dfb0ec5ba35ceb0f2bc1e3e8da640d89112))
+
 ## [2.21.0](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/palvelutarjotin-ui-v2.20.0...palvelutarjotin-ui-v2.21.0) (2026-06-12)
 
 
