@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://www.conventionalcommits.org/) for commit guidelines.
 
+## [2.21.2](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/palvelutarjotin-ui-v2.21.1...palvelutarjotin-ui-v2.21.2) (2026-08-05)
+
+
+### Bug Fixes
+
+* Prevent Sentry from capturing falsy errors from _error.js ([f6a581e](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/f6a581e21a5aa647f44fde5b41e45310a65ed129))
+
 ## [2.21.1](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/palvelutarjotin-ui-v2.21.0...palvelutarjotin-ui-v2.21.1) (2026-08-03)
 
 
