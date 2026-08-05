@@ -22,7 +22,14 @@ const Error_: NextPage<ErrorPageProps> = ({ hasGetInitialPropsRun, err }) => {
 Error_.getInitialProps = async (contextData: NextPageContext) => {
   const errorInitialProps = await Error.getInitialProps(contextData);
 
-  await Sentry.captureUnderscoreErrorException(contextData);
+  // Only capture when there is an actual error. Calling captureUnderscoreErrorException
+  // with a falsy error causes the Sentry SDK to synthesise a spurious
+  // "_error.js called with falsy error (undefined)" event (e.g. when the
+  // Sentry tunnel route /monitoring fails with a network error and Next.js
+  // routes to _error without a real exception).
+  if (contextData.err) {
+    await Sentry.captureUnderscoreErrorException(contextData);
+  }
 
   return {
     ...errorInitialProps,
