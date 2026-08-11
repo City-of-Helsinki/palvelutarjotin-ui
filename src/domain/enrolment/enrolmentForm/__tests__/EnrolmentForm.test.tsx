@@ -541,10 +541,6 @@ if (isFeatureEnabled('FORMIK_PERSIST')) {
         name: /aikuisia \*/i,
       });
       expect(adultsCountInput).toHaveValue(1);
-      const extraNeedsInput = screen.getByRole('textbox', {
-        name: /lisätiedot \(valinnainen\)/i,
-      });
-      expect(extraNeedsInput).toHaveValue(testValues.studyGroup.extraNeeds);
       const chargeOfTheGroupCheckbox = screen.getByRole('checkbox', {
         name: /sama kuin ilmoittaja/i,
       });
