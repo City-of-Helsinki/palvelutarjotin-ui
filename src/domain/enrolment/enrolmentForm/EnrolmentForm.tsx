@@ -104,7 +104,11 @@ const EnrolmentForm: React.FC<Props> = ({
             <FormikPersist
               name={FORM_NAMES.ENROLMENT_FORM}
               initialValues={initialValues}
-              alwaysFreshFields={['isPartOfCulturalRoute']}
+              alwaysFreshFields={[
+                'isPartOfCulturalRoute',
+                'isMandatoryAdditionalInformationRequired',
+                'studyGroup.extraNeeds',
+              ]}
             />
             <h2>{t('enrolment:enrolmentForm.studyGroup.titleNotifier')}</h2>
             <FormErrorNotification
