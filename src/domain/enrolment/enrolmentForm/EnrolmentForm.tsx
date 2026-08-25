@@ -8,7 +8,7 @@ import {
   IconAngleUp,
 } from 'hds-react';
 import isEmpty from 'lodash/isEmpty';
-import { useTranslation } from 'next-i18next';
+import { TFunction, useTranslation } from 'next-i18next';
 import React, { useEffect } from 'react';
 
 import {
@@ -45,6 +45,20 @@ export interface Props {
   minGroupSize?: number;
   maxGroupSize?: number;
   actionType?: 'enrolment' | 'queue';
+}
+
+function getSubmitButtonLabel(
+  t: TFunction,
+  isQueueEnrolment: boolean,
+  enquiry: boolean
+): string {
+  if (isQueueEnrolment) {
+    return t('enrolment:queue.submit');
+  }
+  if (enquiry) {
+    return t('enrolment:enrolmentForm.buttonSubmitEnquiry');
+  }
+  return t('enrolment:enrolmentForm.buttonSubmit');
 }
 
 const EnrolmentForm: React.FC<Props> = ({
@@ -380,11 +394,7 @@ const EnrolmentForm: React.FC<Props> = ({
                   isQueueEnrolment && styles.queueButton
                 )}
               >
-                {isQueueEnrolment
-                  ? t('enrolment:queue.submit')
-                  : enquiry
-                    ? t('enrolment:enrolmentForm.buttonSubmitEnquiry')
-                    : t('enrolment:enrolmentForm.buttonSubmit')}
+                {getSubmitButtonLabel(t, isQueueEnrolment, enquiry)}
               </Button>
               <Button
                 onClick={onCloseForm}
