@@ -2,6 +2,7 @@ import { NetworkStatus } from '@apollo/client';
 import {
   Card,
   CardProps,
+  CollectionItemType,
   LargeCard,
   LargeCardProps,
   SearchPageContent,
@@ -11,7 +12,7 @@ import {
   PageType,
   HtmlToReact,
 } from '@city-of-helsinki/react-helsinki-headless-cms';
-import React from 'react';
+import React, { ReactElement } from 'react';
 
 import styles from './cmsPageSearch.module.scss';
 import {
@@ -27,6 +28,31 @@ import { useCMSApolloClient } from '../../apollo/apolloClient';
 
 const BLOCK_SIZE = 9;
 const SEARCH_DEBOUNCE_TIME = 500;
+
+const getCardProps = (item?: PageType | null): CardProps | LargeCardProps => ({
+  id: item?.id,
+  ariaLabel: item?.title || '',
+  title: item?.title || '',
+  subTitle: '',
+  customContent: <HtmlToReact>{item?.lead || ''}</HtmlToReact>,
+  url: getCmsPagePath(item?.uri ?? ''),
+  imageUrl:
+    item?.featuredImage?.node?.medium_large || getEventPlaceholderImage(''),
+  direction: 'fixed-vertical',
+});
+
+const createLargeCard = (
+  item: CollectionItemType
+): ReactElement<typeof LargeCard> => (
+  <LargeCard
+    key={`large-card-${item?.id}`}
+    {...getCardProps(item as PageType)}
+  />
+);
+
+const createCard = (item: CollectionItemType): ReactElement<typeof Card> => (
+  <Card key={`card-${item?.id}`} {...getCardProps(item as PageType)} />
+);
 
 const CmsPageSearch: React.FC<{
   page: Page;
@@ -81,20 +107,6 @@ const CmsPageSearch: React.FC<{
       ?.map((edge) => edge?.node as Page)
       .filter((page) => !!page) ?? [];
 
-  const getCardProps = (
-    item?: PageType | null
-  ): CardProps | LargeCardProps => ({
-    id: item?.id,
-    ariaLabel: item?.title || '',
-    title: item?.title || '',
-    subTitle: '',
-    customContent: <HtmlToReact>{item?.lead || ''}</HtmlToReact>,
-    url: getCmsPagePath(item?.uri ?? ''),
-    imageUrl:
-      item?.featuredImage?.node?.medium_large || getEventPlaceholderImage(''),
-    direction: 'fixed-vertical',
-  });
-
   const customContent = (
     <PageMainContent title={page.title ?? ''} content={page.content ?? ''} />
   );
@@ -110,18 +122,8 @@ const CmsPageSearch: React.FC<{
           onSearch={(freeSearch) => setSearchTerm(freeSearch)}
           onLoadMore={() => fetchMorePages()}
           largeFirstItem={false}
-          createLargeCard={(item) => (
-            <LargeCard
-              key={`large-card-${item?.id}`}
-              {...getCardProps(item as PageType)}
-            />
-          )}
-          createCard={(item) => (
-            <Card
-              key={`card-${item?.id}`}
-              {...getCardProps(item as PageType)}
-            />
-          )}
+          createLargeCard={createLargeCard}
+          createCard={createCard}
           hasMore={hasMoreToLoad}
           isLoading={isLoading || isLoadingMore}
         />
