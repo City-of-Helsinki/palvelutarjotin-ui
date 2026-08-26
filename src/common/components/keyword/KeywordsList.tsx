@@ -21,7 +21,9 @@ import getLocalisedString from '../../../utils/getLocalisedString';
 
 type KeywordsListProps = {
   keywords: KeywordFieldsFragment[];
-  enrolmentStatus?: EnrolmentStatusKeywordPropsType['enrolmentStatus'];
+  enrolmentStatus?: NonNullable<
+    EnrolmentStatusKeywordPropsType['enrolmentStatus']
+  >;
   identifier: string;
   itemType?: KeywordProps['itemType'];
 };
