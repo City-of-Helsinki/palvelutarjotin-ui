@@ -290,25 +290,25 @@ export function rewriteInternalURLs(
 }
 
 /**
- * An array of known non-CMS page paths (without trailing slashes).
+ * Known non-CMS page paths (without trailing slashes).
  */
-const KNOWN_NON_CMS_PAGES = [
+const KNOWN_NON_CMS_PAGES = new Set([
   '', // root without slash
   '/search',
   '/newsletter',
-];
+]);
 
 /**
  * Determines if a given link corresponds to an internal CMS page.
  * It checks if the link, after removing the locale prefix and any trailing slash,
- * is NOT included in the `KNOWN_NON_CMS_PAGES` array.
+ * is NOT included in the `KNOWN_NON_CMS_PAGES` set.
  *
  * @param link The link string to check (can be null or undefined).
  * @returns True if the link is likely an internal CMS page, false otherwise.
  */
 export const isInternalHrefCmsPage = (link?: string | null) => {
   const linkWithoutLocale = removeTrailingSlash(stripLocaleFromUri(link ?? ''));
-  return !KNOWN_NON_CMS_PAGES.includes(linkWithoutLocale);
+  return !KNOWN_NON_CMS_PAGES.has(linkWithoutLocale);
 };
 
 /**
