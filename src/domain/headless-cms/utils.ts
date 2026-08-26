@@ -46,7 +46,7 @@ export const getUriID = (slugs: string[], locale: Language): string => {
 export const getSlugFromUri = (uri?: string | null): string[] | null => {
   const uriWithoutLang = stripLocaleFromUri(uri ?? '');
   if (uriWithoutLang) {
-    return uriWithoutLang.split('/').filter((i) => i);
+    return uriWithoutLang.split('/').filter(Boolean);
   }
   return null;
 };
@@ -90,7 +90,7 @@ export const uriToBreadcrumbs = (uri: string): string[] => {
     stripLocaleFromUri(uri)
       .split('/')
       // Filter out empty strings
-      .filter((i) => i)
+      .filter(Boolean)
   );
 };
 

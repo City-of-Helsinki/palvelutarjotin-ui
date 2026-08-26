@@ -106,7 +106,7 @@ const EnrolmentForm: React.FC<Props> = ({
         const showErrorNotification = !isEmpty(errors) && !!submitCount;
         const errorLabelKeys = keyify(errors)
           .map((path) => nameToLabelPath[path])
-          .filter((i) => i);
+          .filter(Boolean);
 
         return (
           <Form

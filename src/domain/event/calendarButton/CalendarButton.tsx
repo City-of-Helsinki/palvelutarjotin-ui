@@ -57,7 +57,7 @@ const CalendarButton: React.FC<CalendarButtonProps> = ({
           ? getDateArray(occurrence.endTime)
           : getDateArray(occurrence.startTime),
         location: [locationName, streetAddress, addressLocality]
-          .filter((e) => e)
+          .filter(Boolean)
           .join(', '),
         productId: domain,
         start: getDateArray(occurrence.startTime),
