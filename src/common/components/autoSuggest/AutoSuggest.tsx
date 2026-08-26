@@ -386,35 +386,33 @@ const AutoSuggest: React.FC<AutoSuggestProps> = ({
 
   const menu: React.ReactElement | null = isMenuOpen ? (
     <div className={styles.autoSuggestMenu}>
-      <>
-        {options.length ? (
-          <ul role="listbox">
-            {options.map((option, index) => {
-              return (
-                <ListOption
-                  key={option.value}
-                  index={index}
-                  isFocused={focusedIndex === index}
-                  isSelected={
-                    Array.isArray(value)
-                      ? value.map((item) => item.value).includes(option.value)
-                      : value?.value === option.value
-                  }
-                  onOptionClick={selectOption}
-                  option={option}
-                  setFocusedIndex={setFocusedIndex}
-                />
-              );
-            })}
-          </ul>
-        ) : (
-          <div className={styles.infoMessage}>
-            {loading
-              ? t('common:autoSuggest.loading')
-              : t('common:autoSuggest.noResults')}
-          </div>
-        )}
-      </>
+      {options.length ? (
+        <ul role="listbox">
+          {options.map((option, index) => {
+            return (
+              <ListOption
+                key={option.value}
+                index={index}
+                isFocused={focusedIndex === index}
+                isSelected={
+                  Array.isArray(value)
+                    ? value.map((item) => item.value).includes(option.value)
+                    : value?.value === option.value
+                }
+                onOptionClick={selectOption}
+                option={option}
+                setFocusedIndex={setFocusedIndex}
+              />
+            );
+          })}
+        </ul>
+      ) : (
+        <div className={styles.infoMessage}>
+          {loading
+            ? t('common:autoSuggest.loading')
+            : t('common:autoSuggest.noResults')}
+        </div>
+      )}
     </div>
   ) : null;
 

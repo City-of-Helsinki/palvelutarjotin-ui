@@ -50,40 +50,34 @@ const PageMeta: React.FC<Props> = ({
   const openGraphDescription = seo.openGraphDescription ?? description;
 
   return (
-    <>
-      <Head>
-        <title>{title}</title>
-        {description && <meta name="description" content={description} />}
-        <meta property="og:title" content={openGraphTitle} />
-        {openGraphDescription && (
-          <meta property="og:description" content={openGraphDescription} />
-        )}
-        {image && <meta property="og:image" content={image} />}
-        {openGraphType && <meta property="og:type" content={openGraphType} />}
-        {twitterTitle && <meta name="twitter:title" content={twitterTitle} />}
-        {twitterDescription && (
-          <meta name="twitter:description" content={twitterDescription} />
-        )}
-        {localePaths?.map(({ locale, path }) => (
-          <link key={locale} rel="alternate" hrefLang={locale} href={path} />
-        ))}
-        <link rel="canonical" href={canonical} />
-        <link
-          rel="icon"
-          href="/hds-favicon-kit/favicon-32x32.ico"
-          sizes="any"
-        />
-        <link
-          rel="icon"
-          href="/hds-favicon-kit/favicon.svg"
-          type="image/svg+xml"
-        />
-        <link
-          rel="apple-touch-icon"
-          href="/hds-favicon-kit/apple-touch-icon.png"
-        />
-      </Head>
-    </>
+    <Head>
+      <title>{title}</title>
+      {description && <meta name="description" content={description} />}
+      <meta property="og:title" content={openGraphTitle} />
+      {openGraphDescription && (
+        <meta property="og:description" content={openGraphDescription} />
+      )}
+      {image && <meta property="og:image" content={image} />}
+      {openGraphType && <meta property="og:type" content={openGraphType} />}
+      {twitterTitle && <meta name="twitter:title" content={twitterTitle} />}
+      {twitterDescription && (
+        <meta name="twitter:description" content={twitterDescription} />
+      )}
+      {localePaths?.map(({ locale, path }) => (
+        <link key={locale} rel="alternate" hrefLang={locale} href={path} />
+      ))}
+      <link rel="canonical" href={canonical} />
+      <link rel="icon" href="/hds-favicon-kit/favicon-32x32.ico" sizes="any" />
+      <link
+        rel="icon"
+        href="/hds-favicon-kit/favicon.svg"
+        type="image/svg+xml"
+      />
+      <link
+        rel="apple-touch-icon"
+        href="/hds-favicon-kit/apple-touch-icon.png"
+      />
+    </Head>
   );
 };
 
