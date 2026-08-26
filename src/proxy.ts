@@ -3,15 +3,18 @@ import { NextResponse } from 'next/server';
 
 const DEFAULT_LANGUAGE = 'fi';
 
+/**
+ * True when the path looks like a static public file (extension on the final segment).
+ * Prefer this over pathname.includes('.') which matches any path containing a dot.
+ */
+export const isPublicFilePath = (pathname: string): boolean =>
+  /\.[^/]+$/.test(pathname);
+
 const requestType = {
   isStaticFile: (req: NextRequest) => req.nextUrl.pathname.startsWith('/_next'),
   isPagesFolderApi: (req: NextRequest) =>
     req.nextUrl.pathname.includes('/api/'),
-  // FIXME: This seems broken, as it will match any pathname with a dot in it
-  // Originally probably from https://github.com/vercel/next.js/discussions/18419 or
-  // https://nextjs.org/docs/pages/building-your-application/routing/internationalization
-  // as `PUBLIC_FILE = /\.(.*)$/` and `PUBLIC_FILE.test(pathname)`
-  isPublicFile: (req: NextRequest) => req.nextUrl.pathname.includes('.'),
+  isPublicFile: (req: NextRequest) => isPublicFilePath(req.nextUrl.pathname),
   // Sentry tunnel route - must not be processed by locale middleware
   isSentryTunnel: (req: NextRequest) => req.nextUrl.pathname === '/monitoring',
 };
