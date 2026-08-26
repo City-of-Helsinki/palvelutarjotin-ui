@@ -11,11 +11,13 @@ export const translateValue = (
   value: string,
   t: TFunction
 ): string => {
-  return t(
-    prefix
-      ? `${prefix}${
-          prefix.endsWith('.') ? toCamelCase(value) : toPascalCase(value)
-        }`
-      : toCamelCase(value)
-  );
+  if (!prefix) {
+    return t(toCamelCase(value));
+  }
+
+  const keySuffix = prefix.endsWith('.')
+    ? toCamelCase(value)
+    : toPascalCase(value);
+
+  return t(`${prefix}${keySuffix}`);
 };
