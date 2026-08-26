@@ -33,7 +33,7 @@ export class CommonApolloQueriesService {
   /**
    * The CMS Apollo Client instance used for querying.
    */
-  private cmsApolloClient: ApolloClient<NormalizedCacheObject>;
+  private readonly cmsApolloClient: ApolloClient<NormalizedCacheObject>;
 
   /**
    * Constructs a new CommonApolloQueriesService instance.
