@@ -178,8 +178,6 @@ const OccurrencesTable: React.FC<Props> = ({
 
   // This hook filters occurrences only by date, rest of the filtering (if added more)
   // could be in this hook but hook name should be changed
-  // FIXME: if occurrences is an empty list, useDateFiltering would fail
-  // because of index out of bound error.
   const {
     startDate,
     endDate,

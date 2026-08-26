@@ -45,6 +45,16 @@ const occurrences = [
 
 const formatDate = (date: Date) => format(date, 'yyyy-MM-dd');
 
+it('handles empty occurrences without throwing', () => {
+  const { result } = renderHook(() => useDateFiltering({ occurrences: [] }));
+
+  expect(result.current.filteredOccurrences).toHaveLength(0);
+  expect(result.current.startDate).toEqual(result.current.endDate);
+  expect(result.current.isInitialStartDate).toBe(true);
+  expect(result.current.isInitialEndDate).toBe(true);
+  expect(result.current.dateFiltersChanged).toBe(false);
+});
+
 it('calculates first and last date correctly', () => {
   const { result } = renderHook(() => useDateFiltering({ occurrences }));
 
