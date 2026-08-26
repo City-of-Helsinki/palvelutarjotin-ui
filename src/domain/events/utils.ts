@@ -61,8 +61,11 @@ type KeywordOrSetSearchVariablesType = {
 
 const toArray = (
   value: string | string[] | null | undefined
-): string[] | undefined =>
-  Array.isArray(value) ? value : value ? [value] : undefined;
+): string[] | undefined => {
+  if (Array.isArray(value)) return value;
+  if (value) return [value];
+  return undefined;
+};
 
 const getKeywordsToQuery = (keywords: {
   [KEYWORD_QUERY_PARAMS.CATEGORIES]?: string | string[];
