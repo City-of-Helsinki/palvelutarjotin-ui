@@ -1,4 +1,4 @@
-import { UrlObject } from 'url';
+import type { UrlObject } from 'node:url';
 
 import { useTranslation } from 'next-i18next';
 import * as React from 'react';

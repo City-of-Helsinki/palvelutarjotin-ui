@@ -1,4 +1,4 @@
-import { UrlObject } from 'url';
+import type { UrlObject } from 'node:url';
 
 import classNames from 'classnames';
 import capitalize from 'lodash/capitalize';
