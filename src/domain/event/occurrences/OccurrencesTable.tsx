@@ -343,7 +343,7 @@ const OccurrenceExpandButton: React.FC<
       size={ButtonSize.Small}
       variant={isExpanded ? ButtonVariant.Supplementary : ButtonVariant.Primary}
       iconEnd={isExpanded ? <IconAngleUp /> : null}
-      aria-expanded={isExpanded ? true : false}
+      aria-expanded={isExpanded}
       className={styles.enrolmentExpandButton}
       aria-label={t('occurrence:ariaLabelShowDetails')}
     >

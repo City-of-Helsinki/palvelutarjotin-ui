@@ -221,7 +221,7 @@ export const getAllMenuPages = async (): Promise<PageInfo[]> => {
     );
 
     // Get pages from the menu and their translations
-    const pageInfos = nodes?.map(getPageInfosFromNode).flat() ?? [];
+    const pageInfos = nodes?.flatMap(getPageInfosFromNode) ?? [];
 
     for (const pageInfo of pageInfos) {
       slugToPageInfo[pageInfo.slug] = pageInfo;

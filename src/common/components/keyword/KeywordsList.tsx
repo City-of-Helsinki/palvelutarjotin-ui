@@ -102,7 +102,7 @@ const getKeywordsProps = (
 
     keywordTypeMappers.every(({ keywordOptionsKey, queryKey }) => {
       if (
-        keywordOptions[keywordOptionsKey].find((k) => k.value === keyword.id)
+        keywordOptions[keywordOptionsKey].some((k) => k.value === keyword.id)
       ) {
         keywordProps = {
           id: keyword.id ?? '',
@@ -116,15 +116,15 @@ const getKeywordsProps = (
       return true;
     });
 
-    return keywordProps
-      ? keywordProps
-      : {
-          id: keyword.id ?? '',
-          query: {
-            categories: keyword.id ? [keyword.id] : null,
-          },
-          label,
-        };
+    return (
+      keywordProps ?? {
+        id: keyword.id ?? '',
+        query: {
+          categories: keyword.id ? [keyword.id] : null,
+        },
+        label,
+      }
+    );
   });
 };
 

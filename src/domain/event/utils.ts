@@ -118,9 +118,7 @@ export const getFirstOrLastDateOfOccurrences = (
   if (option === 'first') {
     date = new Date(orderedOccurrences[0].startTime);
   } else {
-    date = new Date(
-      orderedOccurrences[orderedOccurrences.length - 1].startTime
-    );
+    date = new Date(orderedOccurrences.at(-1)!.startTime);
   }
 
   return startOfDay(date);
