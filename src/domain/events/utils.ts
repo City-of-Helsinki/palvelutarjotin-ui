@@ -37,16 +37,16 @@ export const getEventFilterVariables = (
   query: NodeJS.Dict<string | string[]>,
   options?: EventFilterOptions
 ): EventsQueryVariables => {
-  const search = getTextFromDict(query, 'text', undefined);
+  const search = getTextFromDict(query, 'text');
   return {
     include: ['keywords', 'location', 'audience', 'in_language'],
     text: search ?? '',
-    inLanguage: getTextFromDict(query, 'inLanguage', undefined),
+    inLanguage: getTextFromDict(query, 'inLanguage'),
     start: getDateString(query.date) || 'now',
     end: getDateString(query.endDate),
-    location: getTextFromDict(query, 'places', undefined),
-    organisationId: getTextFromDict(query, 'organisation', undefined),
-    division: getTextFromDict(query, 'divisions', undefined),
+    location: getTextFromDict(query, 'places'),
+    organisationId: getTextFromDict(query, 'organisation'),
+    division: getTextFromDict(query, 'divisions'),
     isFree: query.isFree === 'true' ? true : undefined,
     ...getKeywordsToQuery(query),
     ...options,
