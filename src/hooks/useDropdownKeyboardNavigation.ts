@@ -77,9 +77,6 @@ const useDropdownKeyboardNavigation = ({
           event.preventDefault();
           break;
         case 'Escape':
-          setFocusedIndex(-1);
-          event.preventDefault();
-          break;
         case 'Enter':
           setFocusedIndex(-1);
           event.preventDefault();
