@@ -87,12 +87,12 @@ const EventList = ({
         )}
       </div>
       <div className={styles.eventCardsContainer}>
-        {events.map((event, index) => {
+        {events.map((event) => {
           const eventUrl = `${ROUTES.EVENT_DETAILS.replace(
             ':id',
             event.id
           )}${queryString}`;
-          return <EventCard key={index} event={event} link={eventUrl} />;
+          return <EventCard key={event.id} event={event} link={eventUrl} />;
         })}
       </div>
       {shouldShowLoadMore && (
