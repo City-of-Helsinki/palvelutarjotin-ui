@@ -23,7 +23,7 @@ export default function Table<D extends Record<string, unknown>>({
   data,
   onRowClick,
   renderExpandedArea,
-}: Props<D>): ReactElement {
+}: Readonly<Props<D>>): ReactElement {
   const table = useReactTable({
     data,
     columns,
