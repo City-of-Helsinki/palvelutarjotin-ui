@@ -111,7 +111,7 @@ export const getFirstOrLastDateOfOccurrences = (
   occurrences: OccurrenceFieldsFragment[],
   option: 'first' | 'last'
 ): Date => {
-  const orderedOccurrences = occurrences.sort(orderOccurrencesByDate);
+  const orderedOccurrences = occurrences.toSorted(orderOccurrencesByDate);
 
   let date: Date;
 
