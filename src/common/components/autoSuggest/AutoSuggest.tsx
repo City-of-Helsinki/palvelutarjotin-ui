@@ -44,13 +44,18 @@ const ListOption: React.FC<ListOptionProps> = ({
     onOptionClick(option);
   };
 
+  const handleOptionKeyDown = (event: React.KeyboardEvent<HTMLLIElement>) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      handleOptionClick();
+    }
+  };
+
   const handleMouseEnter = () => {
     setFocusedIndex(index);
   };
 
   const wrappedComponent = (
-    // FIXME: Add keyboard listener and enable linting
-    // eslint-disable-next-line jsx-a11y/click-events-have-key-events
     <li
       ref={component}
       key={option.value}
@@ -59,6 +64,7 @@ const ListOption: React.FC<ListOptionProps> = ({
         [styles.isSelected]: isSelected,
       })}
       onClick={handleOptionClick}
+      onKeyDown={handleOptionKeyDown}
       onMouseEnter={handleMouseEnter}
       role="option"
       aria-selected={isSelected}
@@ -340,18 +346,15 @@ const AutoSuggest: React.FC<AutoSuggestProps> = ({
     </button>
   ) : null;
 
+  const focusInput = () => {
+    input.current?.focus();
+  };
+
   const singleValue: React.ReactElement | null =
     !inputValue && !Array.isArray(value) && value?.label ? (
-      // FIXME: Make element accessible (e.g. using keyboard) and enable linting
-      // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
-      <div
-        className={styles.singleValue}
-        onClick={() => {
-          input.current?.focus();
-        }}
-      >
+      <button type="button" className={styles.singleValue} onClick={focusInput}>
         {value?.label}
-      </div>
+      </button>
     ) : null;
 
   const multiValue: React.ReactElement | null = Array.isArray(value) ? (
