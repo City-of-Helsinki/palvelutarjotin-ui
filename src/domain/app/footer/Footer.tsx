@@ -12,11 +12,9 @@ import { isFeatureEnabled } from '../../../utils/featureFlags';
 import { getIsHrefExternal } from '../../headless-cms/useRHHCConfig';
 import { getRoutedInternalHrefForLocale } from '../../headless-cms/utils';
 
-// FIXME: Dynamic import is used here to prevent a hydration issue.
-// For some reason, the Link is different in SSR compared to CSR.
-// The hydration issue would prevent SSR cache creation for Footer menu links.
-// With dynamic import (or by using other link component),
-// the hydration issue can be prevented.
+// NOTE: Dynamic import avoids an SSR/CSR hydration mismatch with RHHC Link
+// (Link markup differed between server and client). That mismatch would prevent
+// SSR cache creation for Footer menu links. Client-only load keeps links stable.
 const DynamicClientLink = dynamic(
   () =>
     import('@city-of-helsinki/react-helsinki-headless-cms').then(
