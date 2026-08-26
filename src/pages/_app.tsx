@@ -186,6 +186,31 @@ const MyApp = ({ Component, pageProps }: AppProps<CustomPageProps>) => {
     }
   }, [locale]);
 
+  const renderMainContent = () => {
+    if (router.isFallback) {
+      return (
+        <Center>
+          <LoadingSpinner isLoading={router.isFallback} />
+        </Center>
+      );
+    }
+
+    if (pageProps.error) {
+      return (
+        <NextError
+          statusCode={pageProps.error.networkError?.statusCode ?? 400}
+        />
+      );
+    }
+
+    return (
+      <PageLayoutComponent {...pageProps}>
+        <Component {...pageProps} />
+        <DynamicCookieConsentWithNoSSR />
+      </PageLayoutComponent>
+    );
+  };
+
   return (
     <ErrorBoundary>
       <NotificationsProvider>
@@ -196,20 +221,7 @@ const MyApp = ({ Component, pageProps }: AppProps<CustomPageProps>) => {
             >
               <MatomoTracker>
                 <FocusToTop />
-                {router.isFallback ? (
-                  <Center>
-                    <LoadingSpinner isLoading={router.isFallback} />
-                  </Center>
-                ) : pageProps.error ? (
-                  <NextError
-                    statusCode={pageProps.error.networkError?.statusCode ?? 400}
-                  />
-                ) : (
-                  <PageLayoutComponent {...pageProps}>
-                    <Component {...pageProps} />
-                    <DynamicCookieConsentWithNoSSR />
-                  </PageLayoutComponent>
-                )}
+                {renderMainContent()}
               </MatomoTracker>
             </CookieConsentContextProvider>
           </ApolloProvider>
