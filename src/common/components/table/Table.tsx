@@ -114,7 +114,7 @@ export default function Table<D extends Record<string, unknown>>({
                 {row.getIsExpanded() && (
                   <tr className={styles.expandedArea}>
                     <td colSpan={row.getVisibleCells().length}>
-                      {renderExpandedArea && renderExpandedArea(row.original)}
+                      {renderExpandedArea?.(row.original)}
                     </td>
                   </tr>
                 )}

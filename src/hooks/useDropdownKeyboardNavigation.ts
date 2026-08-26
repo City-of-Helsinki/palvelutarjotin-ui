@@ -41,7 +41,7 @@ const useDropdownKeyboardNavigation = ({
 
   const isComponentFocused = useCallback(() => {
     const active = document.activeElement;
-    const current = container && container.current;
+    const current = container?.current;
 
     if (current && active instanceof Node && current.contains(active)) {
       return true;
