@@ -18,9 +18,13 @@ export const getErrorText = (
 ): string => {
   const error: any = get(errors, name);
 
-  return !!error && get(touched, name)
-    ? typeof error === 'string'
-      ? (t(error) as string)
-      : (t(error.key, error) as unknown as string)
-    : '';
+  if (!error || !get(touched, name)) {
+    return '';
+  }
+
+  if (typeof error === 'string') {
+    return t(error) as string;
+  }
+
+  return t(error.key, error) as unknown as string;
 };
