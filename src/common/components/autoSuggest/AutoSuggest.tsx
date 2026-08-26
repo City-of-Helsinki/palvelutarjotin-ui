@@ -21,6 +21,8 @@ export type AutoSuggestOption = {
   value: string;
 };
 
+export type AutoSuggestValue = AutoSuggestOption | AutoSuggestOption[] | null;
+
 interface ListOptionProps {
   index: number;
   isFocused: boolean;
@@ -90,15 +92,15 @@ export interface AutoSuggestProps {
   labelledBy?: string;
   labelText: string;
   loading?: boolean;
-  onBlur: (val: AutoSuggestOption | AutoSuggestOption[] | null) => void;
-  onChange: (val: AutoSuggestOption | AutoSuggestOption[] | null) => void;
+  onBlur: (val: AutoSuggestValue) => void;
+  onChange: (val: AutoSuggestValue) => void;
   options: AutoSuggestOption[];
   optionLabelToString?: (option: AutoSuggestOption, locale: Language) => string;
   placeholder?: string;
   readOnly?: boolean;
   required?: boolean;
   setInputValue: (value: string) => void;
-  value: AutoSuggestOption | AutoSuggestOption[] | null;
+  value: AutoSuggestValue;
 }
 
 const AutoSuggest: React.FC<AutoSuggestProps> = ({
