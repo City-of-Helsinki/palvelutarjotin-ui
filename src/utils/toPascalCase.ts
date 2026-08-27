@@ -8,7 +8,7 @@ const toPascalCase = (snakecase: string): string => {
   return (
     snakecase[0].toUpperCase() +
     snakecase
-      .substr(1)
+      .slice(1)
       .toLowerCase()
       .replace(/(_[a-z, 0-9])/g, ($1) => $1.toUpperCase().replace('_', ''))
   );

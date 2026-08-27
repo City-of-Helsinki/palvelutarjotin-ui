@@ -41,7 +41,7 @@ const useDropdownKeyboardNavigation = ({
 
   const isComponentFocused = useCallback(() => {
     const active = document.activeElement;
-    const current = container && container.current;
+    const current = container?.current;
 
     if (current && active instanceof Node && current.contains(active)) {
       return true;
@@ -77,9 +77,6 @@ const useDropdownKeyboardNavigation = ({
           event.preventDefault();
           break;
         case 'Escape':
-          setFocusedIndex(-1);
-          event.preventDefault();
-          break;
         case 'Enter':
           setFocusedIndex(-1);
           event.preventDefault();

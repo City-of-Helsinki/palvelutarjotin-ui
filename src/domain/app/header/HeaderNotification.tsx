@@ -87,14 +87,12 @@ const HeaderNotification: React.FC = () => {
     >
       {parsedContent}
       {linkUrl && (
-        <>
-          <ExternalLink
-            href={linkUrl}
-            style={{ marginTop: '1rem', display: 'block' }}
-          >
-            {linkText}
-          </ExternalLink>
-        </>
+        <ExternalLink
+          href={linkUrl}
+          style={{ marginTop: '1rem', display: 'block' }}
+        >
+          {linkText}
+        </ExternalLink>
       )}
     </Notification>
   ) : null;

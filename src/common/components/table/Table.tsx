@@ -23,7 +23,7 @@ export default function Table<D extends Record<string, unknown>>({
   data,
   onRowClick,
   renderExpandedArea,
-}: Props<D>): ReactElement {
+}: Readonly<Props<D>>): ReactElement {
   const table = useReactTable({
     data,
     columns,
@@ -114,7 +114,7 @@ export default function Table<D extends Record<string, unknown>>({
                 {row.getIsExpanded() && (
                   <tr className={styles.expandedArea}>
                     <td colSpan={row.getVisibleCells().length}>
-                      {renderExpandedArea && renderExpandedArea(row.original)}
+                      {renderExpandedArea?.(row.original)}
                     </td>
                   </tr>
                 )}

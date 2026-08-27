@@ -5,13 +5,11 @@ import { expect } from '../testWithFixtures';
 import type { Timeout } from '../types';
 
 type LanguageButton = 'Suomi' | 'Svenska' | 'English';
-type HeaderButton = LanguageButton;
 
 type AccessibilityStatement =
   | 'Saavutettavuusseloste'
   | 'Tillgänglighetsutlåtande'
   | 'Accessibility Statement';
-type FooterLink = AccessibilityStatement;
 
 export class BasePage {
   protected readonly page: Page;
@@ -47,7 +45,7 @@ export class BasePage {
     return await this.page.reload();
   }
 
-  async clickFooterLink(name: FooterLink) {
+  async clickFooterLink(name: AccessibilityStatement) {
     const link = this.footer.getByRole('link', { name }).first();
 
     // Click and wait for navigation
@@ -65,7 +63,7 @@ export class BasePage {
     await this.page.waitForLoadState('networkidle', { timeout: 30000 });
   }
 
-  async clickHeaderButton(name: HeaderButton) {
+  async clickHeaderButton(name: LanguageButton) {
     await this.header.getByRole('button', { name }).first().click();
   }
 

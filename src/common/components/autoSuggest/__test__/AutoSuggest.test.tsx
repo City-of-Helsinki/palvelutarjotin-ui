@@ -149,4 +149,36 @@ describe('<AutoSuggest />', () => {
 
     expect(onChange).toHaveBeenCalledWith(options[2]);
   });
+
+  it('calls onChange when pressing Enter on a focused option', async () => {
+    const { labelText, onChange } = renderAutoSuggest({
+      options,
+      inputValue: 'test',
+    });
+
+    await userEvent.click(screen.getByLabelText(labelText));
+
+    const selectedOption = screen.getByRole('option', {
+      name: options[1].label,
+    });
+
+    fireEvent.keyDown(selectedOption, { key: 'Enter' });
+
+    expect(onChange).toHaveBeenCalledWith(options[1]);
+  });
+
+  it('focuses the input when the single value button is clicked', async () => {
+    const { labelText } = renderAutoSuggest({
+      value: options[0],
+      inputValue: '',
+    });
+
+    const input = screen.getByLabelText(labelText);
+    const singleValue = screen.getByRole('button', { name: options[0].label });
+
+    expect(input).not.toHaveFocus();
+
+    await userEvent.click(singleValue);
+    expect(input).toHaveFocus();
+  });
 });

@@ -17,6 +17,15 @@ describe('format', () => {
 
       expect(formatIntoDate(date)).toMatchInlineSnapshot(`"24.12.2020"`);
     });
+
+    // TIME_FORMAT is HH:mm — same digits for fi/sv/en; still verifies each locale is accepted.
+    it.each(['fi', 'sv', 'en'] as const)(
+      'formats time with locale %s',
+      (locale) => {
+        const date = new Date(2020, 11, 24, 2, 12);
+        expect(formatIntoTime(date, locale)).toBe('02:12');
+      }
+    );
   });
 
   describe('formatIntoDate', () => {

@@ -1,4 +1,4 @@
-import { UrlObject } from 'url';
+import type { UrlObject } from 'node:url';
 
 import { useTranslation } from 'next-i18next';
 import * as React from 'react';
@@ -21,7 +21,9 @@ import getLocalisedString from '../../../utils/getLocalisedString';
 
 type KeywordsListProps = {
   keywords: KeywordFieldsFragment[];
-  enrolmentStatus?: EnrolmentStatusKeywordPropsType['enrolmentStatus'];
+  enrolmentStatus?: NonNullable<
+    EnrolmentStatusKeywordPropsType['enrolmentStatus']
+  >;
   identifier: string;
   itemType?: KeywordProps['itemType'];
 };
@@ -100,7 +102,7 @@ const getKeywordsProps = (
 
     keywordTypeMappers.every(({ keywordOptionsKey, queryKey }) => {
       if (
-        keywordOptions[keywordOptionsKey].find((k) => k.value === keyword.id)
+        keywordOptions[keywordOptionsKey].some((k) => k.value === keyword.id)
       ) {
         keywordProps = {
           id: keyword.id ?? '',
@@ -114,15 +116,15 @@ const getKeywordsProps = (
       return true;
     });
 
-    return keywordProps
-      ? keywordProps
-      : {
-          id: keyword.id ?? '',
-          query: {
-            categories: keyword.id ? [keyword.id] : null,
-          },
-          label,
-        };
+    return (
+      keywordProps ?? {
+        id: keyword.id ?? '',
+        query: {
+          categories: keyword.id ? [keyword.id] : null,
+        },
+        label,
+      }
+    );
   });
 };
 

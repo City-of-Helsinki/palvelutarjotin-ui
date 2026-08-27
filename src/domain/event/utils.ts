@@ -111,16 +111,14 @@ export const getFirstOrLastDateOfOccurrences = (
   occurrences: OccurrenceFieldsFragment[],
   option: 'first' | 'last'
 ): Date => {
-  const orderedOccurrences = occurrences.sort(orderOccurrencesByDate);
+  const orderedOccurrences = occurrences.toSorted(orderOccurrencesByDate);
 
   let date: Date;
 
   if (option === 'first') {
     date = new Date(orderedOccurrences[0].startTime);
   } else {
-    date = new Date(
-      orderedOccurrences[orderedOccurrences.length - 1].startTime
-    );
+    date = new Date(orderedOccurrences.at(-1)!.startTime);
   }
 
   return startOfDay(date);

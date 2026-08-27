@@ -37,39 +37,38 @@ const NewsletterEndpoint = async (
     whether to show or not to show the unsubscribe and account deletion links
   */
 
-  switch (method) {
-    case 'POST': {
-      // To subscribe
-      if (!groupId) {
-        throw new Error('GroupId cannot be undefined');
-      }
-      const subscriberMail = await addSubscriber(groupId, body).catch((err) =>
-        axiosErrorHandler(res, err)
-      );
-      if (subscriberMail) res.json({ email: subscriberMail.data });
-      break;
+  if (method === 'POST') {
+    // To subscribe
+    if (!groupId) {
+      throw new Error('GroupId cannot be undefined');
     }
-    // case 'GET': // to get subscription details
-    //   const email = Array.isArray(query.email) ? query.email[0] : query.email;
-    //   const subscriber = await getDetails(groupId, email).catch((err) =>
-    //     axiosErrorHandler(res, err)
-    //   );
-    //   if (subscriber) res.json(subscriber.data);
-    //   break;
-    // case 'DELETE': // To delete subscribtion details
-    //   const email = Array.isArray(query.email) ? query.email[0] : query.email;
-    //   const response = await deleteSubscriber(groupId, email).catch((err) =>
-    //     axiosErrorHandler(res, err)
-    //   );
-    //   if (response) {
-    //     res.json({ email });
-    //   }
-    //   break;
-    default:
-      // res.setHeader('Allow', ['GET', 'POST', 'DELETE']);
-      res.setHeader('Allow', ['POST']); // NOTE: Set the allowed methods here
-      res.status(405).end(`Method ${method} Not Allowed`);
+    const subscriberMail = await addSubscriber(groupId, body).catch((err) =>
+      axiosErrorHandler(res, err)
+    );
+    if (subscriberMail) res.json({ email: subscriberMail.data });
+    return;
   }
+
+  // case 'GET': // to get subscription details
+  //   const email = Array.isArray(query.email) ? query.email[0] : query.email;
+  //   const subscriber = await getDetails(groupId, email).catch((err) =>
+  //     axiosErrorHandler(res, err)
+  //   );
+  //   if (subscriber) res.json(subscriber.data);
+  //   return;
+  // case 'DELETE': // To delete subscribtion details
+  //   const email = Array.isArray(query.email) ? query.email[0] : query.email;
+  //   const response = await deleteSubscriber(groupId, email).catch((err) =>
+  //     axiosErrorHandler(res, err)
+  //   );
+  //   if (response) {
+  //     res.json({ email });
+  //   }
+  //   return;
+
+  // res.setHeader('Allow', ['GET', 'POST', 'DELETE']);
+  res.setHeader('Allow', ['POST']); // NOTE: Set the allowed methods here
+  res.status(405).end(`Method ${method} Not Allowed`);
 };
 
 export default NewsletterEndpoint;

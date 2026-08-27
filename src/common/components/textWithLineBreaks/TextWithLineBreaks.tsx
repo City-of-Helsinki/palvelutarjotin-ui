@@ -13,11 +13,11 @@ const TextWithLineBreaks: React.FC<Props> = ({
 }) => {
   return (
     <Tag className={className}>
-      {text.split('\n').map((item, key, parts) => {
+      {text.split('\n').map((item, index, parts) => {
         return (
-          <React.Fragment key={key}>
+          <React.Fragment key={`${item}-${index}`}>
             {item}
-            {key < parts.length - 1 && <br />}
+            {index < parts.length - 1 && <br />}
           </React.Fragment>
         );
       })}

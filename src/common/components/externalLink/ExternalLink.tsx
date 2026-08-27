@@ -35,7 +35,7 @@ const ExternalLink: React.FC<Props> = ({
 };
 
 export const getExternalUrl = (url: string): string => {
-  if (url.match(/^https?:\/\//)) {
+  if (/^https?:\/\//.exec(url)) {
     return url;
   }
   return `//${url}`;

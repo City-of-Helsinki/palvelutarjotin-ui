@@ -19,7 +19,7 @@ export function getCmsCollectionList(
       key={`collection-${uuidv4()}`}
       title={collection.title}
       collectionContainerProps={{
-        withDots: collection.items.length < 4 ? false : true,
+        withDots: collection.items.length >= 4,
       }}
       type="grid"
       cards={getCollectionCards(collection as GeneralCollectionType, []).map(

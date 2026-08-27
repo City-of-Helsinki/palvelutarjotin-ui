@@ -10,7 +10,9 @@ type Props = {
   children: React.ReactNode;
 };
 
-export default function CmsPageLayout({ children }: Props): React.ReactElement {
+export default function CmsPageLayout({
+  children,
+}: Readonly<Props>): React.ReactElement {
   return (
     <Page
       navigation={<Header />}
