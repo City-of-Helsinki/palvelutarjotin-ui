@@ -32,7 +32,7 @@ const FormErrorNotification: React.FC<{
   };
 
   return visible ? (
-    // Alert is programmatically focused after submit; Tab moves focus to the first invalid field.
+    // FIXME: Make component accessible and re-enable linting
     // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
     <div
       className={styles.errorNotificationContainer}

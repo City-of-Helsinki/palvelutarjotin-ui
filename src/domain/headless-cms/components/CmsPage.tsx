@@ -42,9 +42,7 @@ const CmsPage: React.FC<{
 
   return (
     <RHHCPageContent
-      // NOTE: hideHero defaults true because CMS page body content often
-      // duplicates the hero block. Suppress RHHC hero until content model
-      // exposes a single hero without duplication.
+      // FIXME: Start supporting the hero when the content from CMS does not duplicate it
       heroContainer={hideHero ? <div style={{ display: 'none' }} /> : <></>}
       page={page as PageContentProps['page']}
       breadcrumbs={extendedBreadCrumbs}
