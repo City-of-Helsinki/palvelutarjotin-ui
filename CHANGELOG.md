@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://www.conventionalcommits.org/) for commit guidelines.
 
+## [2.21.3](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/palvelutarjotin-ui-v2.21.2...palvelutarjotin-ui-v2.21.3) (2026-09-05)
+
+
+### Bug Fixes
+
+* Prevent stale form data from bypassing validation Refs: PT-2056 ([1f40fc5](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/1f40fc529be3f1370304e2a778ec65495a15312c))
+
 ## [2.21.2](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/palvelutarjotin-ui-v2.21.1...palvelutarjotin-ui-v2.21.2) (2026-08-05)
 
 
