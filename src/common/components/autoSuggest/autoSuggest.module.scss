@@ -25,6 +25,11 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    border: none;
+    margin: 0;
+    font-family: inherit;
+    text-align: left;
+    cursor: pointer;
   }
 
   .multiValueWrapper {

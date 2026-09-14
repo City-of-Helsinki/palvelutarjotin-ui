@@ -3,10 +3,10 @@ import { LocalisedObject } from '../generated/graphql';
 import { Language } from '../types';
 
 const localizedString = (
-  obj: LocalisedObject | undefined | null = {},
+  obj: LocalisedObject | undefined | null,
   language: Language
 ): string => {
-  if (obj === null) {
+  if (obj == null) {
     return '';
   }
 

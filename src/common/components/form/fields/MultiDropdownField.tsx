@@ -73,7 +73,7 @@ const MultiDropdownField: React.FC<Props> = ({
 
   const selectedValues = value
     .map((item: string) => options.find((option) => option.value === item))
-    .filter((i: Option | undefined) => i)
+    .filter(Boolean)
     .map((option: Option) => option.value);
 
   return (

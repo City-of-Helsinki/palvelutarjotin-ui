@@ -52,9 +52,7 @@ export function initializeApolloClient<
   }
 
   // Create the Apollo Client once in the client
-  if (!mutableCachedClient.reference) {
-    mutableCachedClient.reference = _apolloClient;
-  }
+  mutableCachedClient.reference ??= _apolloClient;
 
   return _apolloClient;
 }

@@ -33,7 +33,7 @@ export class CommonApolloQueriesService {
   /**
    * The CMS Apollo Client instance used for querying.
    */
-  private cmsApolloClient: ApolloClient<NormalizedCacheObject>;
+  private readonly cmsApolloClient: ApolloClient<NormalizedCacheObject>;
 
   /**
    * Constructs a new CommonApolloQueriesService instance.
@@ -161,7 +161,7 @@ export class CommonApolloQueriesService {
     pageInfos: PageUriInfo[],
     node: PageType | ArticleType
   ): void {
-    if (node && node.uri && node.slug && node.language?.code) {
+    if (node?.uri && node?.slug && node?.language?.code) {
       pageInfos.push({
         uri: node.uri,
         locale: node.language.code.toLowerCase(),

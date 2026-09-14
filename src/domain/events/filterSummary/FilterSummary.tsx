@@ -21,7 +21,7 @@ const FilterSummary: React.FC<Props> = ({ filters }) => {
 
   const keywordsNotInCategories = categories.filter(
     (category) =>
-      !categoryKeywords.find(
+      !categoryKeywords.some(
         (categoryKeyword) => categoryKeyword.value === category
       )
   );

@@ -10,7 +10,7 @@ import { formatDate } from './dateUtils';
 const getDateArray = (date: string): DateArray => {
   const dateArray = formatDate(new Date(date), 'yyyy-M-d-H-m')
     .split('-')
-    .map((e) => Number(e));
+    .map(Number);
   return [dateArray[0], dateArray[1], dateArray[2], dateArray[3], dateArray[4]];
 };
 

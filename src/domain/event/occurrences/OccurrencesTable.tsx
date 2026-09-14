@@ -8,7 +8,7 @@ import {
   IconArrowDown,
 } from 'hds-react';
 import take from 'lodash/take';
-import { useTranslation } from 'next-i18next';
+import { TFunction, useTranslation } from 'next-i18next';
 import React from 'react';
 
 import DateCell from './DateCell';
@@ -24,7 +24,7 @@ import {
   OccurrenceFieldsFragment,
 } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
-import type { I18nNamespace } from '../../../types';
+import type { I18nNamespace, Language } from '../../../types';
 import formatTimeRange from '../../../utils/formatTimeRange';
 import { formatIntoDate, formatIntoTime } from '../../../utils/time/format';
 import {
@@ -51,6 +51,116 @@ interface Props {
 
 export const enrolButtonColumnWidth = '265px';
 
+type OccurrenceColumnsDeps = {
+  t: TFunction;
+  locale: Language;
+  event: EventFieldsFragment;
+  eventLocationId: string;
+  neededOccurrences?: number;
+  hasInternalEnrolment: boolean;
+  isDisabledOccurrenceCheckbox: (
+    occurrence: OccurrenceFieldsFragment
+  ) => boolean;
+  handleOccurrenceCheckboxClick: (occurrence: OccurrenceFieldsFragment) => void;
+  isSelectedOccurrence: (occurrence: OccurrenceFieldsFragment) => boolean;
+};
+
+function createOccurrenceColumns({
+  t,
+  locale,
+  event,
+  eventLocationId,
+  neededOccurrences,
+  hasInternalEnrolment,
+  isDisabledOccurrenceCheckbox,
+  handleOccurrenceCheckboxClick,
+  isSelectedOccurrence,
+}: OccurrenceColumnsDeps): ColumnDef<OccurrenceFieldsFragment>[] {
+  return [
+    {
+      id: 'spacing-1',
+      header: '',
+      meta: { 'aria-hidden': true },
+    },
+    {
+      header: t('enrolment:occurrenceTable.columnDate'),
+      cell: (ctx) => (
+        <DateCell
+          {...ctx}
+          neededOccurrences={neededOccurrences}
+          isDisabledOccurrenceCheckbox={isDisabledOccurrenceCheckbox}
+          handleOccurrenceCheckboxClick={handleOccurrenceCheckboxClick}
+          isSelectedOccurrence={isSelectedOccurrence}
+          locale={locale}
+        />
+      ),
+      id: 'date',
+    },
+    {
+      accessorFn: (row: OccurrenceFieldsFragment) => {
+        return isMultidayOccurrence(row)
+          ? null
+          : formatTimeRange(
+              new Date(row.startTime),
+              new Date(row.endTime),
+              locale
+            );
+      },
+      id: 'time',
+    },
+    {
+      header: t('enrolment:occurrenceTable.columnLanguage'),
+      cell: (ctx) => <LanguageCell {...ctx} />,
+      id: 'languages',
+    },
+    {
+      header: t('enrolment:occurrenceTable.columnPlace'),
+      cell: ({ row }) => {
+        const placeId = row.original.placeId || eventLocationId;
+        return placeId ? <PlaceText placeId={placeId} /> : '-';
+      },
+      id: 'place',
+    },
+    ...(hasInternalEnrolment
+      ? ([
+          {
+            // Keep this column empty if enrolment is done outside of kultus
+            header: hasInternalEnrolment
+              ? t('enrolment:occurrenceTable.columnSeatsInfo')
+              : '',
+            accessorFn: (row) =>
+              `${getAmountOfSeatsLeft(row)} / ${row.amountOfSeats}`,
+            id: 'seatsInfo',
+          },
+        ] as ColumnDef<OccurrenceFieldsFragment>[])
+      : []),
+    {
+      cell: ({ row }) => {
+        return (
+          <OccurrenceExpandButton
+            onClick={() => row.toggleExpanded()}
+            isExpanded={row.getIsExpanded()}
+            style={{ width: '100%' }}
+            event={event}
+            occurrence={row.original}
+          />
+        );
+      },
+      id: 'enrol',
+      meta: {
+        style: {
+          width: enrolButtonColumnWidth,
+        },
+      },
+    },
+    {
+      id: 'spacing-2',
+      header: '',
+      meta: { 'aria-hidden': true },
+    },
+  ];
+}
+
 const OccurrencesTable: React.FC<Props> = ({
   event,
   eventLocationId,
@@ -68,8 +178,6 @@ const OccurrencesTable: React.FC<Props> = ({
 
   // This hook filters occurrences only by date, rest of the filtering (if added more)
   // could be in this hook but hook name should be changed
-  // FIXME: if occurrences is an empty list, useDateFiltering would fail
-  // because of index out of bound error.
   const {
     startDate,
     endDate,
@@ -186,89 +294,17 @@ const OccurrenceEnrolmentTable: React.FC<{
     !isEnrolmentStarted(event) ||
     (requiredOccurrencesSelected && !isSelectedOccurrence(occurrence));
 
-  const columns: ColumnDef<OccurrenceFieldsFragment>[] = [
-    {
-      id: 'spacing-1',
-      header: '',
-      meta: { 'aria-hidden': true },
-    },
-    {
-      header: t('enrolment:occurrenceTable.columnDate'),
-      cell: (ctx) => (
-        <DateCell
-          {...ctx}
-          neededOccurrences={neededOccurrences}
-          isDisabledOccurrenceCheckbox={isDisabledOccurrenceCheckbox}
-          handleOccurrenceCheckboxClick={handleOccurrenceCheckboxClick}
-          isSelectedOccurrence={isSelectedOccurrence}
-          locale={locale}
-        />
-      ),
-      id: 'date',
-    },
-    {
-      accessorFn: (row: OccurrenceFieldsFragment) => {
-        return isMultidayOccurrence(row)
-          ? null
-          : formatTimeRange(
-              new Date(row.startTime),
-              new Date(row.endTime),
-              locale
-            );
-      },
-      id: 'time',
-    },
-    {
-      header: t('enrolment:occurrenceTable.columnLanguage'),
-      cell: (ctx) => <LanguageCell {...ctx} />,
-      id: 'languages',
-    },
-    {
-      header: t('enrolment:occurrenceTable.columnPlace'),
-      cell: ({ row }) => {
-        const placeId = row.original.placeId || eventLocationId;
-        return placeId ? <PlaceText placeId={placeId} /> : '-';
-      },
-      id: 'place',
-    },
-    ...(hasInternalEnrolment
-      ? ([
-          {
-            // Keep this column empty if enrolment is done outside of kultus
-            header: hasInternalEnrolment
-              ? t('enrolment:occurrenceTable.columnSeatsInfo')
-              : '',
-            accessorFn: (row) =>
-              `${getAmountOfSeatsLeft(row)} / ${row.amountOfSeats}`,
-            id: 'seatsInfo',
-          },
-        ] as ColumnDef<OccurrenceFieldsFragment>[])
-      : []),
-    {
-      cell: ({ row }) => {
-        return (
-          <OccurrenceExpandButton
-            onClick={() => row.toggleExpanded()}
-            isExpanded={row.getIsExpanded()}
-            style={{ width: '100%' }}
-            event={event}
-            occurrence={row.original}
-          />
-        );
-      },
-      id: 'enrol',
-      meta: {
-        style: {
-          width: enrolButtonColumnWidth,
-        },
-      },
-    },
-    {
-      id: 'spacing-2',
-      header: '',
-      meta: { 'aria-hidden': true },
-    },
-  ];
+  const columns = createOccurrenceColumns({
+    t,
+    locale,
+    event,
+    eventLocationId,
+    neededOccurrences,
+    hasInternalEnrolment,
+    isDisabledOccurrenceCheckbox,
+    handleOccurrenceCheckboxClick,
+    isSelectedOccurrence,
+  });
 
   return (
     <Table
@@ -307,7 +343,7 @@ const OccurrenceExpandButton: React.FC<
       size={ButtonSize.Small}
       variant={isExpanded ? ButtonVariant.Supplementary : ButtonVariant.Primary}
       iconEnd={isExpanded ? <IconAngleUp /> : null}
-      aria-expanded={isExpanded ? true : false}
+      aria-expanded={isExpanded}
       className={styles.enrolmentExpandButton}
       aria-label={t('occurrence:ariaLabelShowDetails')}
     >
