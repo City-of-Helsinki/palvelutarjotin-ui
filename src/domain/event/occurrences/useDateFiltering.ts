@@ -1,4 +1,4 @@
-import { isSameDay } from 'date-fns';
+import { isSameDay, startOfDay } from 'date-fns';
 import React from 'react';
 
 import { OccurrenceFieldsFragment } from '../../../generated/graphql';
@@ -10,16 +10,25 @@ type UseDateFilteringProps = DateFilterProps & {
   filteredOccurrences: OccurrenceFieldsFragment[];
 };
 
+const getInitialDateRange = (occurrences: OccurrenceFieldsFragment[]) => {
+  if (occurrences.length === 0) {
+    const today = startOfDay(new Date());
+    return [today, today] as const;
+  }
+
+  return [
+    getFirstOrLastDateOfOccurrences(occurrences, 'first'),
+    getFirstOrLastDateOfOccurrences(occurrences, 'last'),
+  ] as const;
+};
+
 export const useDateFiltering = ({
   occurrences,
 }: {
   occurrences: OccurrenceFieldsFragment[];
 }): UseDateFilteringProps => {
   const [initialStartDate, initialEndDate] = React.useMemo(
-    () => [
-      getFirstOrLastDateOfOccurrences(occurrences, 'first'),
-      getFirstOrLastDateOfOccurrences(occurrences, 'last'),
-    ],
+    () => getInitialDateRange(occurrences),
     [occurrences]
   );
 

@@ -11,8 +11,6 @@
   --padding-container: var(--spacing-l) 0;
   --width-button: 17.625rem;
 
-  // background-color: var(--background-color-container);
-  // padding: var(--padding-container);
   padding: 0;
   background-color: transparent;
 }
@@ -119,13 +117,6 @@
         text-decoration: underline;
       }
     }
-
-    // button {
-    //   color: var(--color-white);
-    //   &:hover {
-    //     color: var(--color-black);
-    //   }
-    // }
 
     @include layout.respond_above(l) {
       text-align: right;

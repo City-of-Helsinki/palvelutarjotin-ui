@@ -42,17 +42,20 @@ type Props = {
 
 function TestProviders(props: Props): React.ReactElement {
   const { mocks, children, router, cache, path = '/', query = {} } = props;
+  const routerContextValue = React.useMemo(
+    () => ({
+      ...mockRouter,
+      ...router,
+      ...(path ? { pathname: path, asPath: path, basePath: path } : {}),
+      ...(query ? { query } : {}),
+    }),
+    [router, path, query]
+  );
+
   return (
     <MockedProvider mocks={mocks} cache={cache}>
       <RHHCConfigProviderWithMockedApolloClient {...props}>
-        <RouterContext.Provider
-          value={{
-            ...mockRouter,
-            ...router,
-            ...(path ? { pathname: path, asPath: path, basePath: path } : {}),
-            ...(query ? { query } : {}),
-          }}
-        >
+        <RouterContext.Provider value={routerContextValue}>
           <NotificationsProvider>
             {children as React.ReactElement}
           </NotificationsProvider>

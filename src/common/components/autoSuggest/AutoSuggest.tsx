@@ -21,6 +21,8 @@ export type AutoSuggestOption = {
   value: string;
 };
 
+export type AutoSuggestValue = AutoSuggestOption | AutoSuggestOption[] | null;
+
 interface ListOptionProps {
   index: number;
   isFocused: boolean;
@@ -44,13 +46,18 @@ const ListOption: React.FC<ListOptionProps> = ({
     onOptionClick(option);
   };
 
+  const handleOptionKeyDown = (event: React.KeyboardEvent<HTMLLIElement>) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      handleOptionClick();
+    }
+  };
+
   const handleMouseEnter = () => {
     setFocusedIndex(index);
   };
 
   const wrappedComponent = (
-    // FIXME: Add keyboard listener and enable linting
-    // eslint-disable-next-line jsx-a11y/click-events-have-key-events
     <li
       ref={component}
       key={option.value}
@@ -59,6 +66,7 @@ const ListOption: React.FC<ListOptionProps> = ({
         [styles.isSelected]: isSelected,
       })}
       onClick={handleOptionClick}
+      onKeyDown={handleOptionKeyDown}
       onMouseEnter={handleMouseEnter}
       role="option"
       aria-selected={isSelected}
@@ -84,15 +92,15 @@ export interface AutoSuggestProps {
   labelledBy?: string;
   labelText: string;
   loading?: boolean;
-  onBlur: (val: AutoSuggestOption | AutoSuggestOption[] | null) => void;
-  onChange: (val: AutoSuggestOption | AutoSuggestOption[] | null) => void;
+  onBlur: (val: AutoSuggestValue) => void;
+  onChange: (val: AutoSuggestValue) => void;
   options: AutoSuggestOption[];
   optionLabelToString?: (option: AutoSuggestOption, locale: Language) => string;
   placeholder?: string;
   readOnly?: boolean;
   required?: boolean;
   setInputValue: (value: string) => void;
-  value: AutoSuggestOption | AutoSuggestOption[] | null;
+  value: AutoSuggestValue;
 }
 
 const AutoSuggest: React.FC<AutoSuggestProps> = ({
@@ -340,18 +348,15 @@ const AutoSuggest: React.FC<AutoSuggestProps> = ({
     </button>
   ) : null;
 
+  const focusInput = () => {
+    input.current?.focus();
+  };
+
   const singleValue: React.ReactElement | null =
     !inputValue && !Array.isArray(value) && value?.label ? (
-      // FIXME: Make element accessible (e.g. using keyboard) and enable linting
-      // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
-      <div
-        className={styles.singleValue}
-        onClick={() => {
-          input.current?.focus();
-        }}
-      >
+      <button type="button" className={styles.singleValue} onClick={focusInput}>
         {value?.label}
-      </div>
+      </button>
     ) : null;
 
   const multiValue: React.ReactElement | null = Array.isArray(value) ? (
@@ -383,35 +388,33 @@ const AutoSuggest: React.FC<AutoSuggestProps> = ({
 
   const menu: React.ReactElement | null = isMenuOpen ? (
     <div className={styles.autoSuggestMenu}>
-      <>
-        {options.length ? (
-          <ul role="listbox">
-            {options.map((option, index) => {
-              return (
-                <ListOption
-                  key={option.value}
-                  index={index}
-                  isFocused={focusedIndex === index}
-                  isSelected={
-                    Array.isArray(value)
-                      ? value.map((item) => item.value).includes(option.value)
-                      : value?.value === option.value
-                  }
-                  onOptionClick={selectOption}
-                  option={option}
-                  setFocusedIndex={setFocusedIndex}
-                />
-              );
-            })}
-          </ul>
-        ) : (
-          <div className={styles.infoMessage}>
-            {loading
-              ? t('common:autoSuggest.loading')
-              : t('common:autoSuggest.noResults')}
-          </div>
-        )}
-      </>
+      {options.length ? (
+        <ul role="listbox">
+          {options.map((option, index) => {
+            return (
+              <ListOption
+                key={option.value}
+                index={index}
+                isFocused={focusedIndex === index}
+                isSelected={
+                  Array.isArray(value)
+                    ? value.map((item) => item.value).includes(option.value)
+                    : value?.value === option.value
+                }
+                onOptionClick={selectOption}
+                option={option}
+                setFocusedIndex={setFocusedIndex}
+              />
+            );
+          })}
+        </ul>
+      ) : (
+        <div className={styles.infoMessage}>
+          {loading
+            ? t('common:autoSuggest.loading')
+            : t('common:autoSuggest.noResults')}
+        </div>
+      )}
     </div>
   ) : null;
 

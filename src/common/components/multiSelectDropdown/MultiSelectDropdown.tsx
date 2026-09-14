@@ -176,14 +176,17 @@ const MultiSelectDropdown: React.FC<MultiselectDropdownProps> = ({
     return !!current?.contains(active);
   };
 
-  const handleDocumentClick = (event: MouseEvent) => {
-    const target = event.target;
+  const closeMenuIfOutside = (target: EventTarget | null) => {
     const current = dropdown.current;
 
-    // Close menu when clicking outside of the component
+    // Close menu when interacting outside of the component
     if (!(target instanceof Node && current?.contains(target))) {
       setIsMenuOpen(false);
     }
+  };
+
+  const handleDocumentClick = (event: MouseEvent) => {
+    closeMenuIfOutside(event.target);
   };
 
   const toggleOption = React.useCallback(
@@ -218,12 +221,7 @@ const MultiSelectDropdown: React.FC<MultiselectDropdownProps> = ({
   }, [isMenuOpen]);
 
   const handleDocumentFocusin = (event: FocusEvent) => {
-    const target = event.target;
-    const current = dropdown.current;
-
-    if (!(target instanceof Node && current?.contains(target))) {
-      setIsMenuOpen(false);
-    }
+    closeMenuIfOutside(event.target);
   };
 
   React.useEffect(() => {

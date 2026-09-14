@@ -1,4 +1,4 @@
-import { ParsedUrlQuery } from 'querystring';
+import type { ParsedUrlQuery } from 'node:querystring';
 
 import { InMemoryCache } from '@apollo/client';
 import { MockedResponse } from '@apollo/client/testing';
@@ -54,9 +54,10 @@ export type CustomRenderOptions = {
   cache?: InMemoryCache;
 };
 
-export type CustomRender = {
-  (ui: React.ReactElement, options?: CustomRenderOptions): CustomRenderResult;
-};
+export type CustomRender = (
+  ui: React.ReactElement,
+  options?: CustomRenderOptions
+) => CustomRenderResult;
 
 type CustomRenderResult = RenderResult;
 

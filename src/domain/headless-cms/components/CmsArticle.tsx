@@ -47,32 +47,33 @@ const CmsArticle: React.FC<{
   );
 };
 
+const getPathAndLocale = (pageNode: Post) => {
+  const locale = pageNode.language?.code?.toLowerCase() as Language;
+  const uriWithoutLocale = stripLocaleFromUri(pageNode.uri ?? '');
+  let cmsUri = getCmsArticlePath(uriWithoutLocale);
+
+  // locale needed in the beginning of the path
+  if (locale !== SUPPORTED_LANGUAGES.FI) {
+    cmsUri = `/${locale}${cmsUri}`;
+  }
+
+  return {
+    locale,
+    path: cmsUri,
+  };
+};
+
 const formLocalePathsFromPage = (article: ArticleQuery['post']) => {
-  if (article) {
-    const localePaths = [
-      getPathAndLocale(article as Post),
-      ...(article.translations?.map((translation) =>
-        getPathAndLocale(translation as Post)
-      ) ?? []),
-    ];
-    return localePaths;
+  if (!article) {
+    return undefined;
   }
 
-  function getPathAndLocale(pageNode: Post) {
-    const locale = pageNode.language?.code?.toLowerCase() as Language;
-    const uriWithoutLocale = stripLocaleFromUri(pageNode.uri ?? '');
-    let cmsUri = getCmsArticlePath(uriWithoutLocale);
-
-    // locale needed in the beginning of the path
-    if (locale !== SUPPORTED_LANGUAGES.FI) {
-      cmsUri = `/${locale}${cmsUri}`;
-    }
-
-    return {
-      locale,
-      path: cmsUri,
-    };
-  }
+  return [
+    getPathAndLocale(article as Post),
+    ...(article.translations?.map((translation) =>
+      getPathAndLocale(translation as Post)
+    ) ?? []),
+  ];
 };
 
 export default CmsArticle;

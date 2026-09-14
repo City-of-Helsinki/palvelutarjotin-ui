@@ -13,8 +13,9 @@ import { locales } from '../dateUtils';
 /**
  * Formats a Date object into a time string in the specified timezone.
  */
-export function formatIntoTime(date: Date): string {
+export function formatIntoTime(date: Date, locale: Language = 'fi'): string {
   return formatDateStr(date, TIME_FORMAT, {
+    locale: locales[locale],
     in: tz(TIMEZONE),
   });
 }

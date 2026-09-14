@@ -1,4 +1,4 @@
-import { ParsedUrlQuery } from 'querystring';
+import type { ParsedUrlQuery } from 'node:querystring';
 
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
@@ -171,9 +171,9 @@ export const useEventsSearch = () => {
   const eventsCount = eventsData?.events?.meta.count;
 
   const organisationName =
-    eventsData?.events?.data?.filter(
+    eventsData?.events?.data?.find(
       (event) => event.pEvent.organisation?.id === router.query?.organisation
-    )[0]?.pEvent.organisation?.name || '';
+    )?.pEvent.organisation?.name || '';
 
   const initialValues = React.useMemo(() => {
     return {

@@ -23,7 +23,7 @@ const OccurrenceGroupInfo: React.FC<Props> = ({ occurrence }) => {
       minGroupSize,
     }),
   ]
-    .filter((e) => e)
+    .filter(Boolean)
     .join(', ');
 
   return (

@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { IconAngleUp, Button, ButtonSize, ButtonVariant } from 'hds-react';
-import { useTranslation } from 'next-i18next';
+import { TFunction, useTranslation } from 'next-i18next';
 import React from 'react';
 
 import EnrolmentError from './EnrolmentError';
@@ -25,6 +25,27 @@ interface Props {
   showEnrolmentForm: boolean;
   toggleForm: () => void;
   enrolButtonRef: React.Ref<HTMLButtonElement>;
+}
+
+function getExternalEnrolmentHref(externalEnrolmentUrl: string): string {
+  if (isEmail(externalEnrolmentUrl)) {
+    return `mailto:${externalEnrolmentUrl}`;
+  }
+  return getExternalUrl(externalEnrolmentUrl);
+}
+
+function getEnrolmentButtonLabel(
+  t: TFunction,
+  showEnrolmentForm: boolean,
+  autoAcceptance: boolean | null | undefined
+): string {
+  if (showEnrolmentForm) {
+    return t('enrolment:enrolmentForm.buttonCancelAndCloseForm');
+  }
+  if (autoAcceptance) {
+    return t('event:occurrenceList.enrolOccurrenceButton');
+  }
+  return t('event:occurrenceList.reservationEnquiryButton');
 }
 
 const OccurrenceEnrolmentButton: React.FC<Props> = ({
@@ -54,12 +75,7 @@ const OccurrenceEnrolmentButton: React.FC<Props> = ({
   if (externalEnrolmentUrl) {
     return (
       <ExternalLink
-        href={
-          // users can also enter email as enrolment link
-          isEmail(externalEnrolmentUrl)
-            ? `mailto:${externalEnrolmentUrl}`
-            : getExternalUrl(externalEnrolmentUrl)
-        }
+        href={getExternalEnrolmentHref(externalEnrolmentUrl)}
         className={styles.externalEnrolmentLink}
       >
         {t('occurrence:labelExternalEnrolmentLink')}
@@ -97,15 +113,7 @@ const OccurrenceEnrolmentButton: React.FC<Props> = ({
         aria-expanded={showEnrolmentForm}
         ref={enrolButtonRef}
       >
-        {showEnrolmentForm
-          ? t('enrolment:enrolmentForm.buttonCancelAndCloseForm')
-          : t(
-              `event:occurrenceList.${
-                autoAcceptance
-                  ? 'enrolOccurrenceButton'
-                  : 'reservationEnquiryButton'
-              }`
-            )}
+        {getEnrolmentButtonLabel(t, showEnrolmentForm, autoAcceptance)}
       </Button>
     );
   }

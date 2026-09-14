@@ -8,7 +8,7 @@ const toCamelCase = (snakecase: string): string => {
   return !!snakecase && snakecase.length
     ? snakecase[0].toLowerCase() +
         snakecase
-          .substr(1)
+          .slice(1)
           .toLowerCase()
           .replace(/(_[a-z, 0-9])/g, ($1) => $1.toUpperCase().replace('_', ''))
     : '';

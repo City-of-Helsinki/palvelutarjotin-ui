@@ -4,7 +4,7 @@ type Props = { className?: string };
 
 export default function IconTicket({
   className = '',
-}: Props): ReactComponentElement<'svg', Props> {
+}: Readonly<Props>): ReactComponentElement<'svg', Props> {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
