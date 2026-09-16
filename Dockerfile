@@ -5,7 +5,7 @@ FROM registry.access.redhat.com/ubi9/nodejs-24 AS deps
 USER root
 
 # Install pnpm
-RUN npm install -g pnpm@11.5.0
+RUN npm install -g pnpm@11.9.0
 
 RUN yum update -y && \
     yum install -y rsync
