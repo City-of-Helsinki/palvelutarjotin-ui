@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://www.conventionalcommits.org/) for commit guidelines.
 
+## [2.21.4](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/palvelutarjotin-ui-v2.21.3...palvelutarjotin-ui-v2.21.4) (2026-09-16)
+
+
+### Bug Fixes
+
+* Upgrade HDS to 6.0.5 and remove cookie-consent shim ([f6b5cb3](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/f6b5cb390370baa41de0eec31e07ced914fe16f8))
+
+
+### Dependencies
+
+* Bump @faker-js/faker from 9.6.0 to 10.5.0 ([b47fe4b](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/b47fe4b120a906277301176f8c1e16ed5f86e845))
+* Bump next from 16.2.11 to 16.3.3 ([5af9267](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/5af9267e6b3f53f309b4e42be313219641690c1f))
+* Faker-js minimumReleaseAgeExclude Refs: RATY-357 ([5a28e38](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/5a28e38ce864cef516196d58c21c61fe8b73b2dd))
+
 ## [2.21.3](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/palvelutarjotin-ui-v2.21.2...palvelutarjotin-ui-v2.21.3) (2026-09-14)
 
 
