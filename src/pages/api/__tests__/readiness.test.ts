@@ -23,7 +23,7 @@ test('readiness response', async () => {
 
   expect(res_json.status).toEqual('ok');
   expect(res_json.release).toBeDefined();
-  expect(res_json.packageVersion).toBeDefined();
+  expect(res_json.version).toBeDefined();
   expect(res_json.commitHash).toBeDefined();
   expect(res_json.buildTime).toBeDefined();
 });
