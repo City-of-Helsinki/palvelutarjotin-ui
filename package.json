@@ -26,6 +26,8 @@
     "codegen:browser": "playwright codegen",
     "test:browser": "playwright test",
     "test:browser:ci": "pnpm test:browser",
+    "test:e2e:ci": "pnpm test:browser",
+    "test:e2e:install": "pnpm install",
     "update-runtime-env": "node scripts/update-runtime-env.js . ./public"
   },
   "dependencies": {
