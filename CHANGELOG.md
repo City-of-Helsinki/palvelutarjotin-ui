@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://www.conventionalcommits.org/) for commit guidelines.
 
+## [2.21.5](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/palvelutarjotin-ui-v2.21.4...palvelutarjotin-ui-v2.21.5) (2026-10-14)
+
+
+### Bug Fixes
+
+* Readiness use version field Refs: RATY-355 ([747a35e](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/747a35e37acbd031fb3903810afba3c41b3c2c06))
+
 ## [2.21.4](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/palvelutarjotin-ui-v2.21.3...palvelutarjotin-ui-v2.21.4) (2026-09-16)
 
 
