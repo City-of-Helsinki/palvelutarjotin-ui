@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://www.conventionalcommits.org/) for commit guidelines.
 
+## [2.21.6](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/palvelutarjotin-ui-v2.21.5...palvelutarjotin-ui-v2.21.6) (2026-10-15)
+
+
+### Bug Fixes
+
+* Next 16 inline CSP Refs: RATY-401 ([9b10073](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/9b10073d6bc7c3cfe505bfae42383adae5dd6c37))
+
+
+### Dependencies
+
+* Next 16.4.1 critical patch Refs: RATY-401 ([a02c2d8](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/a02c2d8cc6ffb9c299e07626a8b798fadb2f9356))
+
 ## [2.21.5](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/palvelutarjotin-ui-v2.21.4...palvelutarjotin-ui-v2.21.5) (2026-10-14)
 
 
