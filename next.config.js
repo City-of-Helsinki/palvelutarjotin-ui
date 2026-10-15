@@ -74,6 +74,10 @@ module.exports = {
     // @link {https://github.com/vercel/next.js/pull/22867|Original PR}
     // @link {https://github.com/vercel/next.js/discussions/26420|Discussion}
     externalDir: true,
+    // Next 16.4 inlines the Turbopack chunk bootstrap script by default, which
+    // the strict CSP (script-src 'self') blocks. Keep it external.
+    // @link https://github.com/vercel/next.js/issues/99799
+    turbopackSharedRuntime: false,
   },
   // disable in-memory caching
   // @link https://nextjs.org/docs/14/pages/building-your-application/deploying#configuring-caching
