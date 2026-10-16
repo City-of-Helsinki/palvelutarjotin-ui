@@ -11,6 +11,11 @@ minimumReleaseAgeExclude:
   - '@next/swc-win32-arm64-msvc@16.4.1'
   - '@next/swc-win32-x64-msvc@16.4.1'
   - next@16.4.1
+  - baseline-browser-mapping@2.11.29
+  - caniuse-lite@1.0.30001816
+  - electron-to-chromium@1.5.458
+  - node-releases@2.0.59
+  - watchpack@2.6.1
 
 # Don't warn about ignored build scripts
 ignoredBuiltDependencies: []
