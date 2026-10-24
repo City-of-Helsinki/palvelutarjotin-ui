@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://www.conventionalcommits.org/) for commit guidelines.
 
+## [2.22.0](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/palvelutarjotin-ui-v2.21.6...palvelutarjotin-ui-v2.22.0) (2026-10-24)
+
+
+### Features
+
+* Nvmrc set to lts, broaden node engine Refs: PT-2078 ([cdd71be](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/cdd71be6bbd9f0cdfab11ded521836f6a29ce407))
+
+
+### Dependencies
+
+* Axios minimumReleaseAgeExclude Refs: RATY-357 ([80ecb45](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/80ecb45da7b619a7497e2749328f6c3f951ad45c))
+* Bump axios from 1.18.1 to 1.20.0 ([d7760fa](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/d7760fa947830b17abc1d4248a871e4825bdfc46))
+
 ## [2.21.6](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/palvelutarjotin-ui-v2.21.5...palvelutarjotin-ui-v2.21.6) (2026-10-15)
 
 
