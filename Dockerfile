@@ -138,7 +138,9 @@ COPY --from=staticbuilder --chown=default:root /app/scripts ./scripts
 
 # OpenShift write access to Next cache folder
 USER root
-RUN chgrp -R 0 /app/.next/server/pages && chmod g+w -R /app/.next/server/pages && \
+RUN mkdir -p /app/.next/server/route-cache && \
+    chgrp -R 0 /app/.next/server/pages /app/.next/server/route-cache && \
+    chmod g+w -R /app/.next/server/pages /app/.next/server/route-cache && \
     chmod -R g=u /app/public /app/scripts && \
     chmod +x /app/scripts/*.sh && \
     rm -f /app/public/env-config.js && \
