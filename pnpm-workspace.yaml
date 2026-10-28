@@ -28,8 +28,11 @@ peerDependencyRules:
     eslint: '10'
 
 overrides:
+  # The React Apollo codegen plugin still uses plugin-helpers 6.x with utils 11.x.
+  '@graphql-codegen/plugin-helpers>@graphql-tools/utils': '^12.0.3'
   '@typescript-eslint/typescript-estree>minimatch': '>=9.0.7'
   'brace-expansion': '>=5.0.8'
+  'browserslist@<4.28.7': '^4.28.7'
   'cookie': '>=0.7.0'
   'csstype': '3.2.3'
   'dompurify': '>=3.4.12'
@@ -38,9 +41,9 @@ overrides:
   'isomorphic-dompurify': '2.26.0'
   'js-cookie': '>=3.0.6'
   'lodash': '>=4.18.1'
-  'postcss': '>=8.5.18'
-  'sharp': '>=0.35.0'
-  'shell-quote': '>=1.8.5'
+  'postcss': '>=8.5.23'
+  'sharp': '>=0.35.5'
+  'shell-quote': '>=1.11.0'
   'tmp': '>=0.2.6'
   'uuid': '>=11.1.1'
   'js-yaml@^3': '^4.2.0'
