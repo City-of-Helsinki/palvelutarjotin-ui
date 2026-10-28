@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://www.conventionalcommits.org/) for commit guidelines.
 
+## [2.22.0](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/palvelutarjotin-ui-v2.21.6...palvelutarjotin-ui-v2.22.0) (2026-10-28)
+
+
+### Features
+
+* Nvmrc set to lts, broaden node engine Refs: PT-2078 ([cdd71be](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/cdd71be6bbd9f0cdfab11ded521836f6a29ce407))
+
+
+### Bug Fixes
+
+* Update permissions for Next.js cache folder in Dockerfile ([f2f9319](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/f2f93199ceb38e9aca3682b2d3f03f8a3f442757))
+
+
+### Dependencies
+
+* Axios minimumReleaseAgeExclude Refs: RATY-357 ([80ecb45](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/80ecb45da7b619a7497e2749328f6c3f951ad45c))
+* Bump @sentry/nextjs from 10.63.0 to 10.75.2 ([2af29b1](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/2af29b1202acfe844816273275ed9f2039d1215d))
+* Bump axios from 1.18.1 to 1.20.0 ([d7760fa](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/d7760fa947830b17abc1d4248a871e4825bdfc46))
+* Bump brace-expansion from 5.0.8 to 5.0.12 ([369e8b5](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/369e8b5ce5c321d48d2f450e1a33cd2c7b1e409f))
+* Bump dompurify from 3.4.12 to 3.4.17 ([5617de9](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/5617de96ce5a1620ebf704917c25b3a2246aa962))
+
 ## [2.21.6](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/palvelutarjotin-ui-v2.21.5...palvelutarjotin-ui-v2.21.6) (2026-10-15)
 
 
