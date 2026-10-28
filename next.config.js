@@ -1,9 +1,15 @@
 const path = require('path');
 
+const {
+  withThirdPartyLicenses,
+} = require('@city-of-helsinki/license-notices/next');
 const { withSentryConfig } = require('@sentry/nextjs');
 
 const { i18n } = require('./next-i18next.config');
 const packageJson = require('./package.json');
+const {
+  thirdPartyLicensesConfig,
+} = require('./scripts/thirdPartyLicenses.config');
 
 const trueEnv = ['true', '1', 'yes'];
 
@@ -140,6 +146,14 @@ module.exports = {
     ];
   },
 };
+
+// Writes the third-party license notices into public/ during the build. Keep it
+// inside withSentryConfig: it reads the production source maps, which Sentry
+// may remove after uploading them.
+module.exports = withThirdPartyLicenses(
+  module.exports,
+  thirdPartyLicensesConfig
+);
 
 // Injected content via Sentry wizard below
 

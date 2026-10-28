@@ -47,6 +47,7 @@ Teachers' UI for Kultus (formerly Palvelutarjotin).
     - [Fix merge conflicts by running release-please -action manually](#fix-merge-conflicts-by-running-release-please--action-manually)
   - [Deployments](#deployments)
 - [Learn More](#learn-more)
+- [License](#license)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -536,3 +537,32 @@ To learn more about Next.js, take a look at the following resources:
 
 - [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
 - [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+
+## License
+
+The source code in this repository is licensed under the MIT License; see
+[LICENSE](./LICENSE). The licenses of the third-party code included in the
+production build are listed in `third-party-licenses.txt`, which is generated
+during the build and served from the root of the deployed application. The
+same information is emitted alongside it as `oss-licenses.json`, for license
+audit tooling.
+
+The MIT License covers source code only. The following files are **not**
+covered by it and remain with their respective rights holders:
+
+| Files                                           | Rights holder and terms                                                                                                                                             |
+| ----------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `public/hds-favicon-kit/`, `public/favicon.ico` | City of Helsinki. CC BY 4.0, except the City of Helsinki logo, which is a registered trademark. See [its own license notice](./public/hds-favicon-kit/LICENCE.txt). |
+| `public/static/images/`                         | Photographs and illustrations used in the user interface; not offered for reuse under the MIT License.                                                              |
+
+Some third-party services are loaded at runtime from their providers instead of
+being bundled, so they do not appear in either generated file:
+[Google reCAPTCHA](https://developers.google.com/recaptcha), loaded by
+[\_document.tsx](./src/pages/_document.tsx), and the Matomo tracking script,
+loaded from the analytics service configured with `NEXT_PUBLIC_MATOMO_SRC_URL`.
+Neither is redistributed by this repository or by its build output.
+
+The Helsinki Grotesk typeface used by the user interface is proprietary and
+licensed by Camelot Typefaces. No font files are stored in this repository;
+they are loaded at runtime from a City of Helsinki service. See
+[fonts.scss](./src/assets/styles/fonts.scss).

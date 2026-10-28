@@ -1,6 +1,7 @@
 *
 !public
 !src
+!LICENSE
 !scripts
 !scripts/**
 !next.config.js
