@@ -16,6 +16,7 @@ minimumReleaseAgeExclude:
   - electron-to-chromium@1.5.458
   - node-releases@2.0.59
   - watchpack@2.6.1
+  - '@city-of-helsinki/license-notices@0.2.0'
 
 # Don't warn about ignored build scripts
 ignoredBuiltDependencies: []

@@ -65,3 +65,7 @@ screenshots
 # Sentry Config File
 .sentryclirc
 .env.sentry-build-plugin
+
+# generated third-party license notices
+/public/third-party-licenses.txt
+/public/oss-licenses.json
