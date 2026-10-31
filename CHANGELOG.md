@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://www.conventionalcommits.org/) for commit guidelines.
 
+## [2.23.0](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/palvelutarjotin-ui-v2.22.1...palvelutarjotin-ui-v2.23.0) (2026-10-31)
+
+
+### Features
+
+* Third-party license notices Refs: RATY-410 ([#534](https://github.com/City-of-Helsinki/palvelutarjotin-ui/issues/534)) ([8a61bfd](https://github.com/City-of-Helsinki/palvelutarjotin-ui/commit/8a61bfd1e86b5443e86e892a63f914bcf6a1fa82))
+
 ## [2.22.1](https://github.com/City-of-Helsinki/palvelutarjotin-ui/compare/palvelutarjotin-ui-v2.22.0...palvelutarjotin-ui-v2.22.1) (2026-10-28)
 
 
