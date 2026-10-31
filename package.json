@@ -1,6 +1,6 @@
 {
   "name": "palvelutarjotin-ui",
-  "version": "2.22.1",
+  "version": "2.23.0",
   "private": true,
   "packageManager": "pnpm@11.28.5",
   "engines": {
