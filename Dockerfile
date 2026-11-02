@@ -77,6 +77,7 @@ ARG NEXT_PUBLIC_FORMIK_PERSIST
 ARG NEXT_PUBLIC_NEWSLETTER_ENABLED
 
 ARG SENTRY_PROJECT
+ARG SENTRY_SOURCEMAPS_PATH
 
 # CMS
 ARG NEXT_PUBLIC_CMS_HEADER_MENU_NAME_FI
@@ -100,6 +101,9 @@ RUN pnpm install --frozen-lockfile --ignore-scripts
 # NEXT_PUBLIC_CAPTCHA_KEY is passed as a per-command env var so Next.js inlines
 # it into the build, without leaking the value into the production stage's env.
 RUN NEXT_PUBLIC_CAPTCHA_KEY=$NEXT_PUBLIC_CAPTCHA_KEY pnpm build
+
+# Sentry CLI rewrites and injects debug IDs to source files and maps.
+RUN pnpm exec sentry-cli sourcemaps inject ${SENTRY_SOURCEMAPS_PATH:-/app/.next/static /app/.next/server}
 
 # ==========================================
 FROM staticbuilder AS production
