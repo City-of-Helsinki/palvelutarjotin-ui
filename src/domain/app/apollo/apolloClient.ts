@@ -4,14 +4,13 @@ import {
   NormalizedCacheObject,
   from,
 } from '@apollo/client';
-import { onError } from '@apollo/client/link/error';
-import * as Sentry from '@sentry/nextjs';
 import fetch from 'cross-fetch';
 import merge from 'deepmerge';
 import isEqual from 'lodash/isEqual';
 import { useRef } from 'react';
 
 import { createApolloCache } from './cache';
+import { createErrorLink } from './errorLink';
 import type { CustomPageProps } from '../../../types';
 import getEnvValue from '../../../utils/getEnvValue';
 import isClient from '../../../utils/isClient';
@@ -27,38 +26,7 @@ let apolloClient: ApolloClient<NormalizedCacheObject> | undefined;
  * @returns A new Apollo Client instance.
  */
 function createApolloClient(): ApolloClient<NormalizedCacheObject> {
-  const errorLink = onError(
-    // TODO: Log more informative errors by using `response` object
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    ({ graphQLErrors, networkError, operation, response }) => {
-      if (graphQLErrors) {
-        graphQLErrors.forEach((error) => {
-          const { message, locations, path } = error;
-          const errorMessage = `[GraphQL error]: ${JSON.stringify({
-            OperationName: operation.operationName,
-            Message: message,
-            Location: locations,
-            Path: path,
-            // Response: response,
-          })}`;
-          // eslint-disable-next-line no-console
-          console.error(errorMessage);
-          Sentry.captureMessage(errorMessage);
-        });
-      }
-
-      if (networkError) {
-        // eslint-disable-next-line no-console
-        console.error(
-          `[GraphQL networkError]: ${JSON.stringify({
-            Operation: operation.operationName,
-            NetworkError: networkError,
-          })}`
-        );
-        Sentry.captureMessage('Graphql Network error');
-      }
-    }
-  );
+  const errorLink = createErrorLink('kultus-api');
   const httpLink = new HttpLink({
     uri: getEnvValue('NEXT_PUBLIC_API_BASE_URL'),
     fetch,
