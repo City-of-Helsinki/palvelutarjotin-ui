@@ -154,6 +154,28 @@ describe('createErrorLink', () => {
     expect(Sentry.captureException).toHaveBeenCalledTimes(1);
   });
 
+  it('reports HTTP errors even while the user is offline', async () => {
+    jest.spyOn(navigator, 'onLine', 'get').mockReturnValue(false);
+
+    await run(failWith(createServerError(502)));
+
+    expect(Sentry.captureException).toHaveBeenCalledTimes(1);
+  });
+
+  it('reports HTTP errors even while the page is unloading', async () => {
+    const link = ApolloLink.from([
+      createErrorLink('kultus-api'),
+      failWith(createServerError(502)),
+    ]);
+    window.dispatchEvent(new Event('beforeunload'));
+
+    await new Promise<void>((resolve) => {
+      execute(link, { query }).subscribe({ error: () => resolve() });
+    });
+
+    expect(Sentry.captureException).toHaveBeenCalledTimes(1);
+  });
+
   it('reports GraphQL errors as messages with tags', async () => {
     await run(
       new ApolloLink(
