@@ -48,6 +48,12 @@ export function resetErrorLinkState() {
   isUnloadTrackingRegistered = false;
 }
 
+/**
+ * Returns the HTTP status code of a network error, if the API responded.
+ *
+ * @param networkError The network error from Apollo.
+ * @returns The HTTP status code, or `undefined` if there was no response.
+ */
 export function getNetworkErrorStatusCode(
   networkError: NetworkError
 ): number | undefined {
@@ -63,6 +69,9 @@ export function getNetworkErrorStatusCode(
 function isIgnorableNetworkError(networkError: NetworkError): boolean {
   // The request was cancelled on purpose (e.g. by an AbortController).
   if (networkError.name === 'AbortError') return true;
+  // The API responded with an error status, so it is a real API error,
+  // even if the page is unloading or the browser went offline meanwhile.
+  if (getNetworkErrorStatusCode(networkError) !== undefined) return false;
   if (isClient()) {
     if (isPageUnloading) return true;
     // The user is offline, there is nothing to fix on our side.
