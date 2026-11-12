@@ -22,29 +22,60 @@ export class GraphQLNetworkError extends Error {
   }
 }
 
-let isPageUnloading = false;
+/**
+ * How long after `beforeunload` the page is considered to be leaving.
+ * `beforeunload` also fires when the page does not actually leave
+ * (e.g. a cancelled navigation or a `mailto:` link), so it must not
+ * suppress the error reporting for the rest of the page's lifetime.
+ */
+export const BEFORE_UNLOAD_GRACE_PERIOD_MS = 5000;
+
+let beforeUnloadAt: number | undefined;
+let isPageHidden = false;
 let isUnloadTrackingRegistered = false;
 
 /**
- * Track whether the page is being unloaded (e.g. a hard navigation or reload).
+ * Track whether the page is being left (e.g. a hard navigation or reload).
  * The browser cancels in-flight requests then, which surfaces as a generic
  * fetch failure ("Failed to fetch", "Load failed", ...) that is not a real error.
+ *
+ * - `beforeunload` marks the start of a possible navigation, for a short time.
+ *   Requests can be cancelled before `pagehide` fires.
+ * - `pagehide` marks that the page is actually being left.
+ * - `pageshow` resets the state, e.g. when the page is restored from
+ *   the back/forward cache.
  */
 function registerUnloadTracking() {
   if (isUnloadTrackingRegistered || !isClient()) return;
   isUnloadTrackingRegistered = true;
   window.addEventListener('beforeunload', () => {
-    isPageUnloading = true;
+    beforeUnloadAt = Date.now();
   });
-  // Reset when the page is restored from the back/forward cache.
+  window.addEventListener('pagehide', () => {
+    isPageHidden = true;
+  });
   window.addEventListener('pageshow', () => {
-    isPageUnloading = false;
+    beforeUnloadAt = undefined;
+    isPageHidden = false;
   });
+}
+
+/**
+ * Whether the page is being left, so failed requests are likely
+ * cancelled by the browser.
+ */
+function isPageUnloading(): boolean {
+  if (isPageHidden) return true;
+  return (
+    beforeUnloadAt !== undefined &&
+    Date.now() - beforeUnloadAt < BEFORE_UNLOAD_GRACE_PERIOD_MS
+  );
 }
 
 /** Reset the module state. NOTE: Only meant for unit tests. */
 export function resetErrorLinkState() {
-  isPageUnloading = false;
+  beforeUnloadAt = undefined;
+  isPageHidden = false;
   isUnloadTrackingRegistered = false;
 }
 
@@ -73,7 +104,7 @@ function isIgnorableNetworkError(networkError: NetworkError): boolean {
   // even if the page is unloading or the browser went offline meanwhile.
   if (getNetworkErrorStatusCode(networkError) !== undefined) return false;
   if (isClient()) {
-    if (isPageUnloading) return true;
+    if (isPageUnloading()) return true;
     // The user is offline, there is nothing to fix on our side.
     if (typeof navigator !== 'undefined' && navigator.onLine === false) {
       return true;

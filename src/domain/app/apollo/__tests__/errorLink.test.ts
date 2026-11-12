@@ -10,6 +10,7 @@ import { GraphQLError } from 'graphql';
 
 import * as isClient from '../../../../utils/isClient';
 import {
+  BEFORE_UNLOAD_GRACE_PERIOD_MS,
   GraphQLNetworkError,
   createErrorLink,
   resetErrorLinkState,
@@ -134,24 +135,38 @@ describe('createErrorLink', () => {
     expect(Sentry.captureException).not.toHaveBeenCalled();
   });
 
-  it('does not report network errors while the page is unloading', async () => {
-    const link = ApolloLink.from([
-      createErrorLink('kultus-api'),
-      failWith(new TypeError('Failed to fetch')),
-    ]);
-    window.dispatchEvent(new Event('beforeunload'));
+  it('does not report network errors after the page is hidden', async () => {
+    const failedFetch = failWith(new TypeError('Failed to fetch'));
+    await run(failedFetch); // registers the page lifecycle listeners
+    expect(Sentry.captureException).toHaveBeenCalledTimes(1);
 
-    await new Promise<void>((resolve) => {
-      execute(link, { query }).subscribe({ error: () => resolve() });
-    });
-    expect(Sentry.captureException).not.toHaveBeenCalled();
+    window.dispatchEvent(new Event('pagehide'));
+    await run(failedFetch);
+    expect(Sentry.captureException).toHaveBeenCalledTimes(1);
 
     // Restored from the back/forward cache: errors are reported again.
     window.dispatchEvent(new Event('pageshow'));
-    await new Promise<void>((resolve) => {
-      execute(link, { query }).subscribe({ error: () => resolve() });
-    });
+    await run(failedFetch);
+    expect(Sentry.captureException).toHaveBeenCalledTimes(2);
+  });
+
+  it('does not report network errors shortly after beforeunload', async () => {
+    const now = 1_000_000;
+    const dateNowSpy = jest.spyOn(Date, 'now').mockReturnValue(now);
+    const failedFetch = failWith(new TypeError('Failed to fetch'));
+    await run(failedFetch); // registers the page lifecycle listeners
     expect(Sentry.captureException).toHaveBeenCalledTimes(1);
+
+    window.dispatchEvent(new Event('beforeunload'));
+    dateNowSpy.mockReturnValue(now + BEFORE_UNLOAD_GRACE_PERIOD_MS - 1);
+    await run(failedFetch);
+    expect(Sentry.captureException).toHaveBeenCalledTimes(1);
+
+    // The page did not leave (e.g. a cancelled navigation or a mailto link),
+    // so errors are reported again after the grace period.
+    dateNowSpy.mockReturnValue(now + BEFORE_UNLOAD_GRACE_PERIOD_MS);
+    await run(failedFetch);
+    expect(Sentry.captureException).toHaveBeenCalledTimes(2);
   });
 
   it('reports HTTP errors even while the user is offline', async () => {
@@ -168,6 +183,7 @@ describe('createErrorLink', () => {
       failWith(createServerError(502)),
     ]);
     window.dispatchEvent(new Event('beforeunload'));
+    window.dispatchEvent(new Event('pagehide'));
 
     await new Promise<void>((resolve) => {
       execute(link, { query }).subscribe({ error: () => resolve() });
