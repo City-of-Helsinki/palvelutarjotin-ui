@@ -185,6 +185,35 @@ test('renders form and user can fill it and submit and form is saved to local st
   await sleep(500);
 });
 
+test('unchecking "Paikka ei ole listalla" clears the given unit name', async () => {
+  renderComponent();
+
+  await screen.findByRole('heading', { name: /ilmoittajan tiedot/i });
+
+  const showUnitNameCheckbox = screen.getByRole('checkbox', {
+    name: /Paikka ei ole listalla/i,
+  });
+
+  await userEvent.click(showUnitNameCheckbox);
+
+  const unitNameInput = screen.getByRole('textbox', {
+    name: /päiväkoti \/ koulu \/ oppilaitos/i,
+  });
+  await userEvent.type(unitNameInput, 'Testikoulu');
+  expect(unitNameInput).toHaveValue('Testikoulu');
+
+  // Toggle back to the unit selector and then to the free text input again:
+  // the previously typed unit name should have been cleared on uncheck
+  await userEvent.click(showUnitNameCheckbox);
+  await userEvent.click(showUnitNameCheckbox);
+
+  expect(
+    screen.getByRole('textbox', {
+      name: /päiväkoti \/ koulu \/ oppilaitos/i,
+    })
+  ).toHaveValue('');
+});
+
 test('render and focuses error notification correctly', async () => {
   renderComponent({ props: { enquiry: false } });
 

@@ -6,7 +6,7 @@ import EventPage from '../../../domain/event/EventPage';
 
 const Event: NextPage = () => <EventPage />;
 
-export async function getStaticPaths() {
+export function getStaticPaths() {
   return { paths: [], fallback: true };
 }
 

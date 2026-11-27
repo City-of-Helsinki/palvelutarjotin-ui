@@ -13,6 +13,7 @@ export default function IconTicket({
       viewBox="0 0 24 24"
       version="1.1"
       className={className}
+      aria-hidden="true"
     >
       <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
         <g id="UI/ticket">

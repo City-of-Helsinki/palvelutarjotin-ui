@@ -53,10 +53,10 @@ export async function unsubscribe(
   data: SubscriberBaseFields
 ): Promise<void> {
   const url = SUBSCRIBERS_ROUTES.UNSUBSCRIBE.replace(':groupId', groupId);
-  axiosClient.post(url, JSON.stringify(data));
+  await axiosClient.post(url, JSON.stringify(data));
 }
 
-export async function deleteSubscriber(
+export function deleteSubscriber(
   groupId: string,
   email: string
 ): Promise<AxiosResponse> {

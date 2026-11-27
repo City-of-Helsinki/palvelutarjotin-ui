@@ -28,7 +28,7 @@ const requestType = {
  * https://github.com/vercel/next.js/discussions/18419
  * @param req
  */
-const prefixDefaultLocale = async (req: NextRequest) => {
+const prefixDefaultLocale = (req: NextRequest): NextResponse | undefined => {
   const { pathname, search } = req.nextUrl;
 
   // The default locale needs to be redirected so that it uses the default language in URL.
@@ -39,7 +39,7 @@ const prefixDefaultLocale = async (req: NextRequest) => {
   }
 };
 
-export async function proxy(req: NextRequest) {
+export function proxy(req: NextRequest) {
   if (
     requestType.isStaticFile(req) ||
     requestType.isPagesFolderApi(req) ||
@@ -49,6 +49,6 @@ export async function proxy(req: NextRequest) {
     return NextResponse.next();
   }
 
-  const response = await prefixDefaultLocale(req);
+  const response = prefixDefaultLocale(req);
   return response || NextResponse.next();
 }

@@ -51,7 +51,7 @@ const MultiDropdownField: React.FC<Props> = ({
     // hds-react v4 Select onChange receives an array of selected options
     const value = selectedOptions.map((item) => item.value);
     if (setFieldValue) {
-      (async () => await setFieldValue(name, value))();
+      void setFieldValue(name, value);
     } else {
       onChange({
         target: {
