@@ -12,6 +12,7 @@ export default function IconLoadingSpinner({
       height="100%"
       viewBox="0 0 70 40"
       className={className}
+      aria-hidden="true"
     >
       <g strokeWidth="1" fillRule="evenodd">
         <g transform="translate(-243.000000, -825.000000)">

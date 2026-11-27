@@ -12,6 +12,7 @@ export default function IconGarderobe({
       height="100%"
       viewBox="0 0 24 24"
       className={className}
+      aria-hidden="true"
     >
       <g strokeWidth="1" fillRule="evenodd">
         {/* eslint-disable-next-line max-len */}

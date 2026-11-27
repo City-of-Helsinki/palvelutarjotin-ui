@@ -8,6 +8,7 @@ export default function IconFood(): ReactComponentElement<'svg'> {
       viewBox="0 0 24 24"
       version="1.1"
       xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
     >
       <g id="Icons/Link/24" stroke="none" strokeWidth="1" fillRule="evenodd">
         <g

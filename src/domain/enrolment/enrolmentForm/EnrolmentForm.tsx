@@ -432,7 +432,7 @@ const SmsNotificationField: React.FC<{
 
   useEffect(() => {
     if (!(studyGroupPhoneNumber && phoneNumber)) {
-      (async () => await setFieldValue(name, false))();
+      void setFieldValue(name, false);
     }
   }, [name, setFieldValue, studyGroupPhoneNumber, phoneNumber]);
 
@@ -486,10 +486,10 @@ const UnitField: React.FC<{
   ) => {
     if (event.target.checked) {
       setShowUnitNameField(true);
-      (async () => await setFieldValue(unitId, null))();
+      void setFieldValue(unitId, null);
     } else {
       setShowUnitNameField(false);
-      (async () => await setFieldValue(unitName, ''))();
+      void setFieldValue(unitName, '');
     }
   };
 

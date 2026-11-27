@@ -32,21 +32,20 @@ const SubscribeNewsletterPage: React.FC = () => {
     values: NewsletterSubscribeFormFields,
     actions: FormikHelpers<NewsletterSubscribeFormFields>
   ) => {
-    Promise.all(
-      values.groups.map((group) =>
-        axios.post(
-          ROUTES.NEWSLETTER_SUBSCRIBE_API.replace(':group', group),
-          convertSubscribeFormData(values)
+    try {
+      await Promise.all(
+        values.groups.map((group) =>
+          axios.post(
+            ROUTES.NEWSLETTER_SUBSCRIBE_API.replace(':group', group),
+            convertSubscribeFormData(values)
+          )
         )
-      )
-    )
-      .then(() => {
-        actions.resetForm();
-        setNotificationType('success');
-      })
-      .catch(() => {
-        setNotificationType('error');
-      });
+      );
+      actions.resetForm();
+      setNotificationType('success');
+    } catch {
+      setNotificationType('error');
+    }
   };
 
   return (

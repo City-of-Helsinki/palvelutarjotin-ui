@@ -48,7 +48,7 @@ const DropdownField: React.FC<Props> = ({
     // hds-react v4 Select onChange receives an array of selected options
     const value = selectedOptions.length > 0 ? selectedOptions[0].value : '';
     if (setFieldValue) {
-      (async () => await setFieldValue(name, value))();
+      void setFieldValue(name, value);
     } else {
       onChange({
         target: {

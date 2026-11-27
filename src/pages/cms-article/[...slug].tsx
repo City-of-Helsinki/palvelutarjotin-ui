@@ -30,7 +30,7 @@ const NextCmsArticle: NextPage<{
   collections?: GeneralCollectionType[];
 }> = (props) => <CmsArticle {...props} />;
 
-export async function getStaticPaths() {
+export function getStaticPaths() {
   return { paths: [], fallback: true };
 }
 
